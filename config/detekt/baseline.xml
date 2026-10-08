@@ -13,6 +13,7 @@
     <ID>LongMethod:AddCategoriesScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun AddCategoriesScreen</ID>
     <ID>LongMethod:AddItemsScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun AddItemsScreen</ID>
     <ID>LongMethod:CheckListNavHost.kt:@Composable fun CheckListNavHost</ID>
+    <ID>LongMethod:ChecklistDetailScreen.kt:@Composable fun ChecklistDetailScreen</ID>
     <ID>LongMethod:ChecklistDetailScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable private fun DetailContent</ID>
     <ID>LongMethod:CreateChecklistScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateChecklistScreen</ID>
     <ID>LongMethod:ItemEditorScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ItemEditorScreen</ID>
@@ -56,6 +57,17 @@
     <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$assertEquals(listOf(PlannedOperation.CreateChecklist::class, PlannedOperation.AddItem::class, PlannedOperation.AddItem::class, PlannedOperation.AddItem::class), plan.operations.map { it::class })</ID>
     <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$checklists.detailNow(list)!!.sections.associate { section -&gt; section.category.canonicalKey to section.items.map { it.displayName } }</ID>
     <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$val sugar = harness.checklists.detailNow(list)!!.sections.flatMap { it.items }.first { it.displayName == "Sugar" }</ID>
+    <ID>MaxLineLength:AiCommandComposables.kt:OutlinedButton</ID>
+    <ID>MaxLineLength:AiCommandComposables.kt:quantity != null &amp;&amp; unit != null -&gt; stringResource(R.string.item_quantity_with_unit, quantity.toPlainString(), unitLabel(unit))</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:AiCommandViewModel$steps = review.steps.map { if (it.callIndex == action.callIndex) it.copy(checked = action.checked) else it }</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:AiStepKind$enum</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:UnavailableReason.OFFLINE, UnavailableReason.QUOTA, UnavailableReason.NOT_SUPPORTED -&gt; UiText(R.string.ai_unavailable_other)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$ActionPlan(emptyList(), PlanSource.MOCK, listOf(UnresolvedFragment("blah blah", UnresolvedReason.NOT_UNDERSTOOD)))</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$assertEquals(message(UiText(R.string.ai_result_done, listOf("Rice")), problem = false), vm.uiState.value.message)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$assertEquals(message(UiText(R.string.ai_result_failed, listOf("Rice, Milk")), problem = true), vm.uiState.value.message)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$message(UiText(R.string.ai_result_done, listOf("Milk")), UiText(R.string.ai_result_already, listOf("Rice")), problem = false)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$private</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$val lookup = CatalogLookup(SearchMasterItemsUseCase(catalog), ObserveCategoriesUseCase(catalog), ObserveUnitsUseCase(catalog))</ID>
     <ID>MaxLineLength:AiModule.kt:AiModule.Companion$fun</ID>
     <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Rejected(RejectionReason.NEEDS_CHECKLIST), mock.interpret(Utterance("2 kg rice", "en"), emptyContext))</ID>
     <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Rejected(RejectionReason.NEEDS_CHECKLIST), offlineOnly.interpret(Utterance("rice", "en"), emptyContext))</ID>
@@ -348,6 +360,8 @@
     <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$assertEquals("akki", scalar("SELECT aliases FROM master_item_translation WHERE canonical_key = 'rice' AND locale = 'kn'"))</ID>
     <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$sql.execSQL("UPDATE master_item SET custom_name = 'Our flour', custom_name_locale = 'en' WHERE canonical_key = 'rice_flour'")</ID>
     <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$val</ID>
+    <ID>MaxLineLength:SettingsScreen.kt:*</ID>
+    <ID>MaxLineLength:SettingsScreen.kt:private</ID>
     <ID>MaxLineLength:ShareText.kt:StoreLink$fun</ID>
     <ID>MaxLineLength:TextNormalizer.kt:TextNormalizer$for (char in text) append(if (char.isDigit() &amp;&amp; char !in '0'..'9') Character.forDigit(Character.digit(char, 10), 10) else char)</ID>
     <ID>MaxLineLength:TextNormalizer.kt:TextNormalizer$if (rest.isNotEmpty() &amp;&amp; isUnit(normalize(rest))) return listOf(Token(word.substring(0, number.length), number), Token(rest, normalize(rest)))</ID>
@@ -437,6 +451,7 @@
     <ID>TooGenericExceptionCaught:JsonTransferCodec.kt:JsonTransferCodec$e: RuntimeException</ID>
     <ID>TooGenericExceptionCaught:ProfileKeys.kt:KeysetProfileAeadProvider$e: Exception</ID>
     <ID>TooManyFunctions:CatalogRepository.kt:CatalogRepository</ID>
+    <ID>TooManyFunctions:ChecklistDetailViewModel.kt:ChecklistDetailViewModel : ViewModel</ID>
     <ID>TooManyFunctions:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter : ChecklistPdfWriter</ID>
     <ID>TooManyFunctions:ChecklistRepository.kt:ChecklistRepository</ID>
     <ID>TooManyFunctions:CommandGrammar.kt:CommandGrammar</ID>
