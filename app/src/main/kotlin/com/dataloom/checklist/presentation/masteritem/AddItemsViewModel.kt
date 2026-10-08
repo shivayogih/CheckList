@@ -188,7 +188,9 @@ class AddItemsViewModel @AssistedInject constructor(
                 val text = QuantityInput.sanitize(action.text)
                 editDraft(action.id) { it.copy(quantityText = text, error = quantityFieldError(text)) }
             }
-            is AddItemsAction.UnitChanged -> editDraft(action.id) { it.copy(unit = action.unit, error = quantityFieldError(it.quantityText)) }
+            is AddItemsAction.UnitChanged -> editDraft(action.id) {
+                it.copy(unit = action.unit, error = quantityFieldError(it.quantityText))
+            }
             AddItemsAction.AddSelected -> addSelected()
         }
     }

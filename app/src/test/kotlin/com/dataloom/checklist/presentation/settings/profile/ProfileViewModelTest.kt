@@ -224,7 +224,8 @@ class ProfileViewModelTest {
         assertFalse(vm.uiState.value.canSave)
 
         vm.onAction(ProfileAction.PhoneChanged("12"))
-        assertEquals(UiText(R.string.error_phone_invalid, listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)), vm.uiState.value.phoneError)
+        val digits = listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)
+        assertEquals(UiText(R.string.error_phone_invalid, digits), vm.uiState.value.phoneError)
 
         vm.onAction(ProfileAction.EmailChanged("asha@example.com"))
         vm.onAction(ProfileAction.PhoneChanged("98450 12345"))

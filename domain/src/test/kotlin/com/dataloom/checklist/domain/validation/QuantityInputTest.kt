@@ -14,11 +14,15 @@ class QuantityInputTest {
 
     private fun error(text: String): ValidationError? = (QuantityInput.parse(text) as? QuantityParse.Invalid)?.error
 
+    private fun randomText(random: Random, alphabet: String, maxLength: Int): String = buildString {
+        repeat(random.nextInt(0, maxLength)) { append(alphabet[random.nextInt(alphabet.length)]) }
+    }
+
     @Test
     fun `empty and blank input is no quantity`() {
         assertEquals(QuantityParse.Empty, QuantityInput.parse(""))
         assertEquals(QuantityParse.Empty, QuantityInput.parse("   "))
-        assertEquals(QuantityParse.Empty, QuantityInput.parse("​"))
+        assertEquals(QuantityParse.Empty, QuantityInput.parse("\u200B"))
     }
 
     @Test
@@ -26,7 +30,7 @@ class QuantityInputTest {
         assertEquals(12_000L, milli("12"))
         assertEquals(1_500L, milli("1.5"))
         assertEquals(1_500L, milli("1,5"))
-        assertEquals(1_500L, milli("1٫5"))
+        assertEquals(1_500L, milli("1\u066B5"))
         assertEquals(500L, milli(".5"))
         assertEquals(5_000L, milli("5."))
         assertEquals(1L, milli("0.001"))
@@ -37,18 +41,18 @@ class QuantityInputTest {
 
     @Test
     fun `digits of other scripts are read as numbers`() {
-        assertEquals(12_000L, milli("१२")) // Devanagari 12
-        assertEquals(3_000L, milli("٣")) // Arabic-Indic 3
-        assertEquals(12_500L, milli("౧౨.౫")) // Telugu 12.5
-        assertEquals(12_000L, milli("１２")) // fullwidth
-        assertEquals(1_250L, milli("೧,೨೫")) // Kannada 1,25
+        assertEquals(12_000L, milli("\u0967\u0968")) // Devanagari 12
+        assertEquals(3_000L, milli("\u0663")) // Arabic-Indic 3
+        assertEquals(12_500L, milli("\u0C67\u0C68.\u0C6B")) // Telugu 12.5
+        assertEquals(12_000L, milli("\uFF11\uFF12")) // fullwidth
+        assertEquals(1_250L, milli("\u0CE7,\u0CE8\u0CEB")) // Kannada 1,25
     }
 
     @Test
     fun `letters, signs, exponents and symbols are not numbers`() {
         val bad = listOf(
             "12a", "a12", "abc", "-3", "+3", "1e5", "1E5", "1.2.3", "1,2,3", "1.2,3", ".", ",", "-", "1 2",
-            "1_000", "½", "²", "1/2", "NaN", "Infinity", "0x10", "1%", "₹", "5kg", "−3",
+            "1_000", "\u00BD", "\u00B2", "1/2", "NaN", "Infinity", "0x10", "1%", "\u20B9", "5kg", "\u22123",
         )
         for (text in bad) {
             assertEquals("'$text'", ValidationError.QUANTITY_NOT_A_NUMBER, error(text))
@@ -84,8 +88,8 @@ class QuantityInputTest {
     @Test
     fun `Quantity parse agrees with QuantityInput`() {
         assertNull(Quantity.parse("1e5"))
-        assertNull(Quantity.parse("−3"))
-        assertEquals(12_000L, Quantity.parse("१२")?.milli)
+        assertNull(Quantity.parse("\u22123"))
+        assertEquals(12_000L, Quantity.parse("\u0967\u0968")?.milli)
         assertEquals(2_500L, Quantity.parse("2,5")?.milli)
     }
 
@@ -96,8 +100,8 @@ class QuantityInputTest {
         assertEquals("3", QuantityInput.sanitize("-3"))
         assertEquals("1.5", QuantityInput.sanitize("1,5"))
         assertEquals("1.23", QuantityInput.sanitize("1.2.3"))
-        assertEquals("12", QuantityInput.sanitize("१२"))
-        assertEquals("3", QuantityInput.sanitize("٣"))
+        assertEquals("12", QuantityInput.sanitize("\u0967\u0968"))
+        assertEquals("3", QuantityInput.sanitize("\u0663"))
         assertEquals("", QuantityInput.sanitize("abc!@# "))
         assertEquals(".", QuantityInput.sanitize("."))
         assertEquals("5.", QuantityInput.sanitize("5,"))
@@ -112,10 +116,10 @@ class QuantityInputTest {
 
     @Test
     fun `sanitized text only ever has range or zero problems`() {
-        val alphabet = "0123456789.,-+eE abc१٣٫!@#​\n１½"
+        val alphabet = "0123456789.,-+eE abc\u0967\u0663\u066B!@#\u200B\n\uFF11\u00BD"
         val random = Random(280)
         repeat(5_000) {
-            val raw = buildString { repeat(random.nextInt(0, 24)) { append(alphabet[random.nextInt(alphabet.length)]) } }
+            val raw = randomText(random, alphabet, 24)
             val clean = QuantityInput.sanitize(raw)
             assertEquals("idempotent for '$raw'", clean, QuantityInput.sanitize(clean))
             assertTrue(
@@ -137,10 +141,10 @@ class QuantityInputTest {
 
     @Test
     fun `parse never throws and every valid result is exact, positive and within range`() {
-        val alphabet = "0123456789.,-+eE aZ१٣٫!​\n½−"
+        val alphabet = "0123456789.,-+eE aZ\u0967\u0663\u066B!\u200B\n\u00BD\u2212"
         val random = Random(281)
         repeat(20_000) {
-            val raw = buildString { repeat(random.nextInt(0, 80)) { append(alphabet[random.nextInt(alphabet.length)]) } }
+            val raw = randomText(random, alphabet, 80)
             val parsed = QuantityInput.parse(raw)
             if (parsed is QuantityParse.Valid) {
                 val q = parsed.quantity
@@ -175,7 +179,7 @@ class PhoneInputTest {
     fun `letters and symbols are dropped, digits of any script become ASCII`() {
         assertEquals("98765 43210", PhoneInput.sanitize("98765 43210"))
         assertEquals("+919876543210", PhoneInput.sanitize("+91ab9876543210"))
-        assertEquals("987", PhoneInput.sanitize("९८७"))
+        assertEquals("987", PhoneInput.sanitize("\u096F\u096E\u096D"))
         assertEquals("9876", PhoneInput.sanitize("98a7#6*"))
         assertEquals("(080) 123-4567", PhoneInput.sanitize("(080) 123-4567"))
     }
@@ -196,10 +200,10 @@ class PhoneInputTest {
 
     @Test
     fun `sanitize is idempotent and its output uses only allowed characters`() {
-        val alphabet = "0123456789+-(). abc#*१"
+        val alphabet = "0123456789+-(). abc#*\u0967"
         val random = Random(283)
         repeat(3_000) {
-            val raw = buildString { repeat(random.nextInt(0, 40)) { append(alphabet[random.nextInt(alphabet.length)]) } }
+            val raw = List(random.nextInt(0, 40)) { alphabet[random.nextInt(alphabet.length)] }.joinToString("")
             val clean = PhoneInput.sanitize(raw)
             assertEquals(clean, PhoneInput.sanitize(clean))
             assertTrue(clean.all { it in '0'..'9' || it in "+-(). " })

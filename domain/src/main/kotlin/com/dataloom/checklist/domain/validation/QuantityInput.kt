@@ -4,6 +4,8 @@ import com.dataloom.checklist.domain.model.Quantity
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+private const val RADIX = 10
+
 /** Outcome of reading a typed or pasted amount. */
 sealed interface QuantityParse {
     /** Nothing typed: no quantity (a valid state, the amount is optional). */
@@ -64,10 +66,31 @@ object QuantityInput {
     fun parse(text: String): QuantityParse {
         val trimmed = InputText.normalize(text)
         if (trimmed.isEmpty()) return QuantityParse.Empty
+        val ascii = asciiNumber(trimmed) ?: return QuantityParse.Invalid(ValidationError.QUANTITY_NOT_A_NUMBER)
+        // Only digits and one separator are left, so a very long value is a huge number, not garbage.
+        if (ascii.length > MAX_TEXT) return QuantityParse.Invalid(ValidationError.QUANTITY_OUT_OF_RANGE)
+        val value = BigDecimal(ascii)
+        return when {
+            value.signum() == 0 -> QuantityParse.Invalid(ValidationError.QUANTITY_NOT_POSITIVE)
+            value > Quantity.MAX -> QuantityParse.Invalid(ValidationError.QUANTITY_OUT_OF_RANGE)
+            value.stripTrailingZeros().scale() > Quantity.SCALE ->
+                QuantityParse.Invalid(ValidationError.QUANTITY_TOO_PRECISE)
+            else -> {
+                val milli = value.setScale(Quantity.SCALE, RoundingMode.UNNECESSARY).unscaledValue().longValueExact()
+                QuantityParse.Valid(Quantity.fromMilli(milli))
+            }
+        }
+    }
+
+    /**
+     * The text with every digit as 0-9 and the separator as ".", or null when it holds anything else
+     * (letters, signs, a second separator, spaces inside) or no digit at all.
+     */
+    private fun asciiNumber(text: String): String? {
         var separatorSeen = false
         var digits = 0
-        val ascii = StringBuilder(trimmed.length)
-        for (ch in trimmed) {
+        val ascii = StringBuilder(text.length)
+        for (ch in text) {
             val digit = digitOf(ch)
             when {
                 digit >= 0 -> {
@@ -78,29 +101,18 @@ object QuantityInput {
                     ascii.append('.')
                     separatorSeen = true
                 }
-                else -> return QuantityParse.Invalid(ValidationError.QUANTITY_NOT_A_NUMBER)
+                else -> return null
             }
         }
-        if (digits == 0) return QuantityParse.Invalid(ValidationError.QUANTITY_NOT_A_NUMBER)
-        // Only digits and one separator are left, so a very long value is a huge number, not garbage.
-        if (ascii.length > MAX_TEXT) return QuantityParse.Invalid(ValidationError.QUANTITY_OUT_OF_RANGE)
-        val value = BigDecimal(ascii.toString())
-        return when {
-            value.signum() == 0 -> QuantityParse.Invalid(ValidationError.QUANTITY_NOT_POSITIVE)
-            value > Quantity.MAX -> QuantityParse.Invalid(ValidationError.QUANTITY_OUT_OF_RANGE)
-            value.stripTrailingZeros().scale() > Quantity.SCALE -> QuantityParse.Invalid(ValidationError.QUANTITY_TOO_PRECISE)
-            else -> QuantityParse.Valid(
-                Quantity.fromMilli(value.setScale(Quantity.SCALE, RoundingMode.UNNECESSARY).unscaledValue().longValueExact()),
-            )
-        }
+        return ascii.toString().takeIf { digits > 0 }
     }
 
     /** Null for empty or invalid input; for callers that only need the value. */
     fun parseOrNull(text: String): Quantity? = (parse(text) as? QuantityParse.Valid)?.quantity
 
-    private fun digitOf(ch: Char): Int = if (ch.isDigit()) Character.digit(ch, 10) else -1
+    private fun digitOf(ch: Char): Int = if (ch.isDigit()) Character.digit(ch, RADIX) else -1
 
-    private fun isSeparator(ch: Char): Boolean = ch == '.' || ch == ',' || ch == '٫'
+    private fun isSeparator(ch: Char): Boolean = ch == '.' || ch == ',' || ch == '\u066B'
 }
 
 /** Phone number typing filter (CL-280). Validation stays in [ProfileValidator]. */
@@ -108,18 +120,22 @@ object PhoneInput {
 
     private const val SEPARATORS = " -()."
 
+    /** Separators may not lead (except "(") and a space may not follow a space. */
+    private fun isAllowedSeparator(ch: Char, out: StringBuilder): Boolean =
+        ch in SEPARATORS && (out.isNotEmpty() || ch == '(') && !(ch == ' ' && out.lastOrNull() == ' ')
+
     /**
-     * Keeps digits (any script, converted to ASCII), a leading "+" and the separators people type (a number may start with "(")
+     * Keeps digits (any script, converted to ASCII), a leading "+" and the separators people type
      * inside numbers; drops letters, "#", "*" and every other symbol. Capped at [FieldLimits.PHONE_MAX].
      */
     fun sanitize(raw: String): String {
         val out = StringBuilder()
         for (ch in raw) {
-            val digit = if (ch.isDigit()) Character.digit(ch, 10) else -1
+            val digit = if (ch.isDigit()) Character.digit(ch, RADIX) else -1
             when {
                 digit >= 0 -> out.append('0' + digit)
                 ch == '+' && out.isEmpty() -> out.append('+')
-                ch in SEPARATORS && (out.isNotEmpty() || ch == '(') && !(ch == ' ' && out.last() == ' ') -> out.append(ch)
+                isAllowedSeparator(ch, out) -> out.append(ch)
             }
             if (out.length >= FieldLimits.PHONE_MAX) break
         }

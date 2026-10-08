@@ -17,17 +17,20 @@ package com.dataloom.checklist.domain.validation
  */
 object InputText {
 
+    /** Invisible format characters dropped everywhere (the control characters are tested separately). */
+    private const val DROPPED_FORMAT = "\u061C\u200E\u200F\u200B\u2060\uFEFF\u00AD"
+
+    /** Bidi embeddings, overrides and isolates: U+202A-U+202E and U+2066-U+2069. */
+    private val DROPPED_RANGES = listOf('\u202A'..'\u202E', '\u2066'..'\u2069')
+
     /** Characters dropped everywhere; see the class comment. */
-    private fun isDropped(ch: Char): Boolean = when {
-        ch == '\n' || ch == '\r' || ch == '\t' -> false
-        Character.getType(ch) == Character.CONTROL.toInt() -> true
-        ch == '؜' || ch == '‎' || ch == '‏' -> true
-        ch in '‪'..'‮' || ch in '⁦'..'⁩' -> true
-        ch == '​' || ch == '⁠' || ch == '﻿' || ch == '­' -> true
-        else -> false
+    private fun isDropped(ch: Char): Boolean {
+        val lineSpace = ch == '\n' || ch == '\r' || ch == '\t'
+        val control = !lineSpace && Character.getType(ch) == Character.CONTROL.toInt()
+        return control || ch in DROPPED_FORMAT || DROPPED_RANGES.any { ch in it }
     }
 
-    private fun isLineBreak(ch: Char): Boolean = ch == '\n' || ch == '\r' || ch == ' ' || ch == ' '
+    private fun isLineBreak(ch: Char): Boolean = ch == '\n' || ch == '\r' || ch == '\u2028' || ch == '\u2029'
 
     /**
      * Removes the characters above and normalizes whitespace, without trimming (a user who is still

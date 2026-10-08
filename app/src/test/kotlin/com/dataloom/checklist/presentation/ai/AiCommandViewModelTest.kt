@@ -1,6 +1,7 @@
 package com.dataloom.checklist.presentation.ai
 
 import app.cash.turbine.test
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.R
 import com.dataloom.checklist.ai.AiAssistant
 import com.dataloom.checklist.ai.executor.ActionPlanExecutor
@@ -391,7 +392,7 @@ class AiCommandViewModelTest {
         assertEquals("2 kg rice", vm.uiState.value.command)
 
         vm.onAction(AiCommandAction.CommandChanged("x".repeat(2_000)))
-        assertEquals(com.dataloom.checklist.domain.validation.FieldLimits.AI_COMMAND_MAX + 1, vm.uiState.value.command.length)
+        assertEquals(FieldLimits.AI_COMMAND_MAX + 1, vm.uiState.value.command.length)
 
         vm.onAction(AiCommandAction.CommandChanged("   \u200B  "))
         assertFalse("A command of only spaces cannot be sent", vm.uiState.value.canSubmit)

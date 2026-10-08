@@ -41,7 +41,8 @@ data class ProfileUiState(
 ) {
     /** Save is enabled only while every field would be accepted (CL-280). */
     val canSave: Boolean
-        get() = canEdit && !isSaving && nameError == null && emailError == null && phoneError == null && addressError == null
+        get() = canEdit && !isSaving &&
+            nameError == null && emailError == null && phoneError == null && addressError == null
 
     /** While secure storage is failing nothing can be read or saved; only "Delete profile" works. */
     val canEdit: Boolean get() = status != ProfileStatus.LOADING && status != ProfileStatus.UNAVAILABLE
@@ -101,7 +102,8 @@ class ProfileViewModel @Inject constructor(
             is ProfileAction.NameChanged -> edit { it.copy(name = ProfileTyping.name(action.name)).revalidated() }
             is ProfileAction.EmailChanged -> edit { it.copy(email = ProfileTyping.email(action.email)).revalidated() }
             is ProfileAction.PhoneChanged -> edit { it.copy(phone = ProfileTyping.phone(action.phone)).revalidated() }
-            is ProfileAction.AddressChanged -> edit { it.copy(address = ProfileTyping.address(action.address)).revalidated() }
+            is ProfileAction.AddressChanged ->
+                edit { it.copy(address = ProfileTyping.address(action.address)).revalidated() }
             ProfileAction.Save -> save()
             ProfileAction.AcknowledgeReset -> viewModelScope.launch { acknowledgeProfileReset() }
             ProfileAction.RequestClear -> state.update { it.copy(showClearConfirm = true) }
@@ -175,7 +177,12 @@ class ProfileViewModel @Inject constructor(
     /** Shows the validator's verdict for what is typed now, next to each field. */
     private fun ProfileUiState.revalidated(): ProfileUiState {
         val errors = liveProfileErrors(name, email, phone, address)
-        return copy(nameError = errors.name, emailError = errors.email, phoneError = errors.phone, addressError = errors.address)
+        return copy(
+            nameError = errors.name,
+            emailError = errors.email,
+            phoneError = errors.phone,
+            addressError = errors.address,
+        )
     }
 
     private fun ProfileUiState.fill(profile: UserProfile?) = copy(

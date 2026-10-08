@@ -186,7 +186,8 @@ class AddItemsViewModelTest {
     fun `letters and symbols cannot be typed into a row amount`() = runTest {
         val vm = viewModel()
         vm.onAction(AddItemsAction.ToggleItem(rice.id))
-        for ((typed, kept) in mapOf("two" to "", "1e5" to "15", "-2" to "2", "2,5" to "2.5", "\u0967\u0968" to "12", "7kg" to "7")) {
+        val cases = mapOf("two" to "", "1e5" to "15", "-2" to "2", "2,5" to "2.5", "\u0967\u0968" to "12", "7kg" to "7")
+        for ((typed, kept) in cases) {
             vm.onAction(AddItemsAction.QuantityChanged(rice.id, typed))
             assertEquals("typed '$typed'", kept, vm.row("Rice").quantityText)
         }

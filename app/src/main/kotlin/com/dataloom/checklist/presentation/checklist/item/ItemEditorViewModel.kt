@@ -189,7 +189,8 @@ class ItemEditorViewModel @AssistedInject constructor(
         when (action) {
             is ItemEditorAction.NameChanged -> {
                 val name = InputText.forField(action.name, FieldLimits.ITEM_NAME_MAX)
-                form.update { it.copy(name = name, nameError = liveError(name) { v -> ItemValidator.validate(v, null, null, null) }) }
+                val error = liveError(name) { v -> ItemValidator.validate(v, null, null, null) }
+                form.update { it.copy(name = name, nameError = error) }
             }
             is ItemEditorAction.QuantityChanged -> {
                 // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
@@ -200,14 +201,16 @@ class ItemEditorViewModel @AssistedInject constructor(
                 form.update { it.copy(unit = action.unit, unitError = null, quantityError = null) }
             is ItemEditorAction.NotesChanged -> {
                 val notes = InputText.forField(action.notes, FieldLimits.NOTES_MAX, multiline = true)
-                form.update { it.copy(notes = notes, notesError = liveError(notes) { v -> ItemValidator.validate("x", null, null, v) }) }
+                val error = liveError(notes) { v -> ItemValidator.validate("x", null, null, v) }
+                form.update { it.copy(notes = notes, notesError = error) }
             }
             is ItemEditorAction.SaveToSuggestionsChanged -> form.update { it.copy(saveToSuggestions = action.enabled) }
             ItemEditorAction.OpenNewUnit -> form.update { it.copy(newUnit = NewUnitDialogUi()) }
             is ItemEditorAction.NewUnitLabelChanged ->
             {
                 val label = InputText.forField(action.label, FieldLimits.UNIT_LABEL_MAX)
-                form.update { it.copy(newUnit = it.newUnit?.copy(label = label, error = liveError(label, UnitValidator::validateLabel))) }
+                val error = liveError(label, UnitValidator::validateLabel)
+                form.update { it.copy(newUnit = it.newUnit?.copy(label = label, error = error)) }
             }
             is ItemEditorAction.NewUnitDecimalChanged ->
                 form.update { it.copy(newUnit = it.newUnit?.copy(allowsDecimal = action.allowsDecimal)) }

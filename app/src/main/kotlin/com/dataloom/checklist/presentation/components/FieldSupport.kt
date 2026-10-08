@@ -24,10 +24,11 @@ fun fieldSupportingText(message: String?, length: Int, max: Int?): (@Composable 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(message.orEmpty(), modifier = Modifier.weight(1f))
             if (max != null) {
+                val colors = MaterialTheme.colorScheme
                 Text(
                     stringResource(R.string.input_counter, length, max),
                     style = MaterialTheme.typography.bodySmall,
-                    color = if (length > max) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (length > max) colors.error else colors.onSurfaceVariant,
                     modifier = Modifier.clearAndSetSemantics { },
                 )
             }

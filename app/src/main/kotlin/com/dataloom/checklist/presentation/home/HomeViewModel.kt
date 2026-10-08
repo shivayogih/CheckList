@@ -123,7 +123,10 @@ class HomeViewModel @Inject constructor(
 
     fun onAction(action: HomeAction) {
         when (action) {
-            is HomeAction.SearchChanged -> query.value = query.value.copy(search = InputText.forTyping(action.text, FieldLimits.SEARCH_MAX))
+            is HomeAction.SearchChanged -> {
+                val search = InputText.forTyping(action.text, FieldLimits.SEARCH_MAX)
+                query.value = query.value.copy(search = search)
+            }
             is HomeAction.SortChanged -> query.value = query.value.copy(sort = action.sort)
             is HomeAction.FilterChanged -> query.value = query.value.copy(filter = action.filter)
             is HomeAction.Duplicate -> launchWrite {

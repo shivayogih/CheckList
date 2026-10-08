@@ -17,7 +17,8 @@ fun liveError(text: String, validate: (String) -> ValidationResult<*>): UiText? 
 }
 
 /** True when [validate] accepts [text]. */
-fun isAccepted(text: String, validate: (String) -> ValidationResult<*>): Boolean = validate(text) is ValidationResult.Valid
+fun isAccepted(text: String, validate: (String) -> ValidationResult<*>): Boolean =
+    validate(text) is ValidationResult.Valid
 
 /** The message for an amount that cannot be saved; null for an empty or valid amount. */
 fun quantityFieldError(text: String): UiText? = when (val parsed = QuantityInput.parse(text)) {

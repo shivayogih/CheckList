@@ -137,9 +137,12 @@ class OnboardingViewModel @Inject constructor(
             OnboardingAction.SkipTutorial -> leaveTutorial()
             OnboardingAction.Back -> stepBack()
             is OnboardingAction.NameChanged -> edit { it.copy(name = ProfileTyping.name(action.value)).revalidated() }
-            is OnboardingAction.EmailChanged -> edit { it.copy(email = ProfileTyping.email(action.value)).revalidated() }
-            is OnboardingAction.PhoneChanged -> edit { it.copy(phone = ProfileTyping.phone(action.value)).revalidated() }
-            is OnboardingAction.AddressChanged -> edit { it.copy(address = ProfileTyping.address(action.value)).revalidated() }
+            is OnboardingAction.EmailChanged ->
+                edit { it.copy(email = ProfileTyping.email(action.value)).revalidated() }
+            is OnboardingAction.PhoneChanged ->
+                edit { it.copy(phone = ProfileTyping.phone(action.value)).revalidated() }
+            is OnboardingAction.AddressChanged ->
+                edit { it.copy(address = ProfileTyping.address(action.value)).revalidated() }
             OnboardingAction.ToggleMore -> state.update { it.copy(moreExpanded = !it.moreExpanded) }
             OnboardingAction.SubmitProfile -> submitProfile()
             OnboardingAction.SkipProfile -> finish()
