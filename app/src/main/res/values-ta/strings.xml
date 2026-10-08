@@ -19,4 +19,7 @@
     <string name="pdf_progress">%2$d இல் %1$d முடிந்தது</string>
     <string name="pdf_prepared_by">தயாரித்தவர்: %1$s</string>
     <string name="pdf_no_items">இந்தப் பட்டியலில் பொருட்கள் எதுவும் இல்லை.</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">%1$s மூலம் இயக்கப்படுகிறது</string>
+    <string name="pdf_exported_at">ஏற்றுமதி: %1$s</string>
 </resources>

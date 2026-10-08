@@ -19,4 +19,7 @@
     <string name="pdf_progress">%2$d లో %1$d పూర్తయ్యాయి</string>
     <string name="pdf_prepared_by">తయారు చేసినవారు: %1$s</string>
     <string name="pdf_no_items">ఈ జాబితాలో అంశాలు ఏవీ లేవు.</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">%1$s ఆధారితం</string>
+    <string name="pdf_exported_at">ఎగుమతి: %1$s</string>
 </resources>

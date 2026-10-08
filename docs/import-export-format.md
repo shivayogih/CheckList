@@ -160,6 +160,17 @@ Generated on the device with `android.graphics.pdf.PdfDocument` and `StaticLayou
 
 As built: checkboxes are drawn as shapes (not font glyphs, which not every device font has), headings stay with their first item, and every item is laid out with the locale of its name so locale-specific glyph forms (Marathi versus Hindi) are right. Shaping limits: glyphs come from the device's fonts (a device without a font for a script shows boxes); the PDF stores shaped glyphs, so copying or searching Indic text in some PDF viewers can return wrong characters; before Android 9 lines get extra padding instead of fallback-font line heights; colour emoji may be dropped. Share files are written to `cacheDir/exports` and deleted once older than an hour, whenever a new one is made (instead of "on next launch", which would need startup work in the application class).
 
+Branding (CL-167). Every page, in this drawing order:
+
+| Part | What is drawn | Where |
+|---|---|---|
+| Watermark | The app name "CheckList", bold, at about 9 % opacity (alpha 23 of 255), rotated along the page diagonal (bottom left to top right). It is sized to at most 60 % of the diagonal and never runs off the page. | Page centre, drawn first so all content sits on top of it and printed text stays readable |
+| Header band | A drawn copy of the launcher icon (white tick on a rounded square in `ic_launcher_background`), the app name in the brand colour, and the checklist title as a running head (one line, ellipsised). A thin rule underneath. | 28 pt band at the top margin |
+| Content | Title block, sections and items, paginated as before. | Between the header and footer bands, with a 14 pt gap on each side; blocks never run into either band |
+| Footer band | A thin rule, then three one-line columns: the tagline `pdf_powered_by` ("Powered by CheckList"), the export time `pdf_exported_at`, and the page number `pdf_page_number`. | 22 pt band at the bottom margin |
+
+The app name comes from `app_name`, which is `translatable="false"`, so it reads "CheckList" in every language; only the words around it ("Powered by", "Exported") are translated. The export time is the injected domain `Clock`, formatted with `DateTimeFormatter.ofLocalizedDateTime(MEDIUM, SHORT)` in the app language and the device time zone. The geometry (bands, placement, watermark size and angle) is in the pure `PdfPageLayout` object and is covered by JVM unit tests in `TransferHelpersTest`.
+
 ## Test fixtures
 
 Golden files live with the `:data` tests: valid files (every field, minimal), malformed JSON, oversized files, a future version, broken and duplicate references, hostile strings, and a round trip (export → import → export gives the same content apart from refs and timestamps).

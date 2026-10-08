@@ -19,4 +19,7 @@
     <string name="pdf_progress">%2$d में से %1$d पूरे</string>
     <string name="pdf_prepared_by">तैयार करने वाले: %1$s</string>
     <string name="pdf_no_items">इस सूची में कोई आइटम नहीं है।</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">%1$s द्वारा संचालित</string>
+    <string name="pdf_exported_at">निर्यात: %1$s</string>
 </resources>

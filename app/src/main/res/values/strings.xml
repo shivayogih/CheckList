@@ -20,4 +20,7 @@
     <string name="pdf_progress">%1$d of %2$d done</string>
     <string name="pdf_prepared_by">Prepared by %1$s</string>
     <string name="pdf_no_items">This checklist has no items.</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">Powered by %1$s</string>
+    <string name="pdf_exported_at">Exported %1$s</string>
 </resources>

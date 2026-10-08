@@ -3,21 +3,26 @@ package com.dataloom.checklist.transfer.pdf
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
+import android.text.TextUtils
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.common.Clock
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.transfer.LocalizedResources
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.OutputStream
+import java.time.ZoneId
 import java.util.Locale
 import javax.inject.Inject
 
@@ -41,7 +46,10 @@ interface ChecklistPdfWriter {
 
 /**
  * A4 PDF drawn with [PdfDocument] and [StaticLayout] (section 20.4): large type, a drawn checkbox
- * per item (ticked when done), category headings kept with their first item, a page footer.
+ * per item (ticked when done), category headings kept with their first item. Every page is branded:
+ * a header with the drawn app tick and name plus the checklist title, a footer with the "Powered by"
+ * tagline, the export time (from the injected [Clock], in the app language) and the page number, and
+ * a faint diagonal watermark drawn under the content. Geometry is in [PdfPageLayout].
  *
  * Text goes through the platform text stack (Minikin + HarfBuzz with the system font fallback
  * chain), so Kannada, Devanagari (Hindi, Marathi), Tamil, Telugu and Malayalam conjuncts and vowel
@@ -57,24 +65,37 @@ interface ChecklistPdfWriter {
  */
 class AndroidChecklistPdfWriter @Inject constructor(
     @param:ApplicationContext private val context: Context,
+    private val clock: Clock,
 ) : ChecklistPdfWriter {
 
     override fun write(detail: ChecklistDetail, options: PdfOptions, units: UnitLabels, out: OutputStream) {
         val resources = LocalizedResources.of(context)
         val appLocale = resources.configuration.locales[0] ?: Locale.getDefault()
+        // The brand name is never translated (app_name is translatable="false").
+        val brand = resources.getString(R.string.app_name)
+        val branding = Branding(
+            brand = brand,
+            brandColor = resources.getColor(R.color.ic_launcher_background, null),
+            tagline = resources.getString(R.string.pdf_powered_by, brand),
+            exportedAt = resources.getString(
+                R.string.pdf_exported_at,
+                PdfPageLayout.exportedAt(clock.nowMillis(), ZoneId.systemDefault(), appLocale),
+            ),
+        )
         val blocks = buildBlocks(detail, options, units, resources, appLocale)
-        val pages = PdfPaginator.paginate(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) }, CONTENT_HEIGHT)
+        val pages = PdfPageLayout.place(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) })
         val document = PdfDocument()
         try {
-            pages.forEachIndexed { pageIndex, blockIndexes ->
-                val page = document.startPage(PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageIndex + 1).create())
+            pages.forEachIndexed { pageIndex, placements ->
+                val page = document.startPage(
+                    PdfDocument.PageInfo.Builder(PdfPageLayout.PAGE_WIDTH, PdfPageLayout.PAGE_HEIGHT, pageIndex + 1).create(),
+                )
                 val canvas = page.canvas
-                var y = MARGIN
-                blockIndexes.forEach { index ->
-                    blocks[index].draw(canvas, MARGIN, y)
-                    y += blocks[index].height
-                }
-                drawFooter(canvas, resources.getString(R.string.pdf_page_number, pageIndex + 1, pages.size), appLocale)
+                // Watermark first so everything else sits on top of it.
+                drawWatermark(canvas, branding.brand, appLocale)
+                drawHeader(canvas, branding, detail.checklist.title, appLocale)
+                placements.forEach { blocks[it.index].draw(canvas, PdfPageLayout.CONTENT_LEFT, it.top) }
+                drawFooter(canvas, branding, resources.getString(R.string.pdf_page_number, pageIndex + 1, pages.size), appLocale)
                 document.finishPage(page)
             }
             document.writeTo(out)
@@ -82,6 +103,101 @@ class AndroidChecklistPdfWriter @Inject constructor(
             document.close()
         }
     }
+
+    /** Text and colour shared by every page's header, footer and watermark. */
+    private class Branding(val brand: String, val brandColor: Int, val tagline: String, val exportedAt: String)
+
+    private fun drawWatermark(canvas: Canvas, brand: String, locale: Locale) {
+        val paint = paint(MEASURE_SIZE, bold = true, color = INK, locale = locale).apply {
+            alpha = PdfPageLayout.WATERMARK_ALPHA
+            textAlign = Paint.Align.CENTER
+        }
+        // Measure at a normal size (tiny sizes round badly) and scale to "per point of text size".
+        val lineHeightPerPoint = paint.fontMetrics.let { it.descent - it.ascent } / MEASURE_SIZE
+        paint.textSize = PdfPageLayout.watermarkTextSize(paint.measureText(brand) / MEASURE_SIZE, lineHeightPerPoint)
+        val metrics = paint.fontMetrics
+        canvas.save()
+        canvas.rotate(PdfPageLayout.watermarkAngle, PdfPageLayout.watermarkCenterX, PdfPageLayout.watermarkCenterY)
+        // Centre the text vertically on the page centre, not on its baseline.
+        val baseline = PdfPageLayout.watermarkCenterY - (metrics.ascent + metrics.descent) / 2
+        canvas.drawText(brand, PdfPageLayout.watermarkCenterX, baseline, paint)
+        canvas.restore()
+    }
+
+    private fun drawHeader(canvas: Canvas, branding: Branding, title: String, locale: Locale) {
+        val band = PdfPageLayout.header
+        val left = PdfPageLayout.CONTENT_LEFT
+        val badgeTop = band.top + (band.height - PdfPageLayout.BADGE_SIZE) / 2
+        drawBadge(canvas, left, badgeTop, branding.brandColor)
+
+        val nameLeft = left + PdfPageLayout.BADGE_SIZE + BADGE_GAP
+        val nameWidth = paint(BRAND_SIZE, bold = true, locale = locale).measureText(branding.brand)
+        val name = singleLine(branding.brand, paint(BRAND_SIZE, bold = true, color = branding.brandColor, locale = locale), nameWidth + 1f)
+        drawCentredInBand(canvas, name, nameLeft, band)
+
+        val titleLeft = nameLeft + nameWidth + BADGE_GAP * 2
+        val titleWidth = PdfPageLayout.CONTENT_LEFT + PdfPageLayout.CONTENT_WIDTH - titleLeft
+        if (titleWidth > 0f) {
+            val running = singleLine(title, paint(SMALL_SIZE, color = MUTED, locale = locale), titleWidth, Layout.Alignment.ALIGN_OPPOSITE)
+            drawCentredInBand(canvas, running, titleLeft, band)
+        }
+        canvas.drawLine(left, band.bottom, left + PdfPageLayout.CONTENT_WIDTH, band.bottom, RULE_PAINT)
+    }
+
+    /** The launcher icon, drawn: a white tick on a rounded square in the brand colour. */
+    private fun drawBadge(canvas: Canvas, x: Float, y: Float, color: Int) {
+        val size = PdfPageLayout.BADGE_SIZE
+        val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color }
+        canvas.drawRoundRect(RectF(x, y, x + size, y + size), size * 0.22f, size * 0.22f, fill)
+        // Same points as ic_launcher_foreground (M36,55 L49,68 L73,42), scaled from its 66dp safe zone.
+        fun px(v: Float) = x + (v - 21f) / 66f * size
+        fun py(v: Float) = y + (v - 21f) / 66f * size
+        val tick = Path().apply {
+            moveTo(px(36f), py(55f))
+            lineTo(px(49f), py(68f))
+            lineTo(px(73f), py(42f))
+        }
+        val stroke = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.STROKE
+            strokeWidth = size * 0.12f
+            strokeCap = Paint.Cap.ROUND
+            strokeJoin = Paint.Join.ROUND
+            this.color = Color.WHITE
+        }
+        canvas.drawPath(tick, stroke)
+    }
+
+    private fun drawFooter(canvas: Canvas, branding: Branding, pageNumber: String, locale: Locale) {
+        val band = PdfPageLayout.footer
+        val left = PdfPageLayout.CONTENT_LEFT
+        val width = PdfPageLayout.CONTENT_WIDTH
+        canvas.drawLine(left, band.top, left + width, band.top, RULE_PAINT)
+        val column = width / 3
+        val footerPaint = { paint(FOOTER_SIZE, color = MUTED, locale = locale) }
+        drawCentredInBand(canvas, singleLine(branding.tagline, footerPaint(), column), left, band)
+        drawCentredInBand(canvas, singleLine(branding.exportedAt, footerPaint(), column, Layout.Alignment.ALIGN_CENTER), left + column, band)
+        drawCentredInBand(canvas, singleLine(pageNumber, footerPaint(), column, Layout.Alignment.ALIGN_OPPOSITE), left + 2 * column, band)
+    }
+
+    private fun drawCentredInBand(canvas: Canvas, layout: StaticLayout, x: Float, band: PdfPageLayout.Band) {
+        canvas.save()
+        canvas.translate(x, band.top + (band.height - layout.height) / 2)
+        layout.draw(canvas)
+        canvas.restore()
+    }
+
+    /** One line, cut with an ellipsis when too long, so it never grows out of its band. */
+    private fun singleLine(
+        text: CharSequence,
+        paint: TextPaint,
+        width: Float,
+        alignment: Layout.Alignment = Layout.Alignment.ALIGN_NORMAL,
+    ): StaticLayout =
+        StaticLayout.Builder.obtain(text, 0, text.length, paint, width.toInt().coerceAtLeast(1))
+            .setAlignment(alignment)
+            .setMaxLines(1)
+            .setEllipsize(TextUtils.TruncateAt.END)
+            .build()
 
     private fun buildBlocks(
         detail: ChecklistDetail,
@@ -130,14 +246,6 @@ class AndroidChecklistPdfWriter @Inject constructor(
             item.notes?.let { layout(it, paint(SMALL_SIZE, color = MUTED, locale = locale), textWidth) },
         )
         return ItemBlock(StackBlock(lines, LINE_GAP, after = ITEM_GAP), item.isCompleted)
-    }
-
-    private fun drawFooter(canvas: Canvas, text: String, locale: Locale) {
-        val footer = layout(text, paint(FOOTER_SIZE, color = MUTED, locale = locale), CONTENT_WIDTH, Layout.Alignment.ALIGN_CENTER)
-        canvas.save()
-        canvas.translate(MARGIN, PAGE_HEIGHT - MARGIN - footer.height + FOOTER_HEIGHT / 2)
-        footer.draw(canvas)
-        canvas.restore()
     }
 
     private fun paint(size: Float, bold: Boolean = false, color: Int = INK, locale: Locale): TextPaint =
@@ -232,13 +340,11 @@ class AndroidChecklistPdfWriter @Inject constructor(
     }
 
     private companion object {
-        // PDF units are points (1/72 inch). A4 is 595 x 842 points.
-        const val PAGE_WIDTH = 595
-        const val PAGE_HEIGHT = 842
-        const val MARGIN = 48f
-        const val FOOTER_HEIGHT = 24f
-        const val CONTENT_WIDTH = PAGE_WIDTH - 2 * MARGIN
-        const val CONTENT_HEIGHT = PAGE_HEIGHT - 2 * MARGIN - FOOTER_HEIGHT
+        // Page geometry (A4 in points, header and footer bands) lives in PdfPageLayout.
+        const val CONTENT_WIDTH = PdfPageLayout.CONTENT_WIDTH
+        const val BRAND_SIZE = 14f
+        const val BADGE_GAP = 6f
+        const val MEASURE_SIZE = 100f
 
         // Large type: the PDF is often printed for elders or read on a phone.
         const val TITLE_SIZE = 24f
