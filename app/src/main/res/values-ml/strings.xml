@@ -13,4 +13,10 @@
     <string name="settings_version">പതിപ്പ് %1$s</string>
     <string name="navigate_back">തിരികെ</string>
     <string name="language_title">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">പട്ടിക പങ്കിടുക</string>
+    <string name="pdf_page_number">പേജ് %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d-ൽ %1$d പൂർത്തിയായി</string>
+    <string name="pdf_prepared_by">തയ്യാറാക്കിയത്: %1$s</string>
+    <string name="pdf_no_items">ഈ പട്ടികയിൽ ഇനങ്ങളൊന്നുമില്ല.</string>
 </resources>

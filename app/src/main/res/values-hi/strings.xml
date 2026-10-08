@@ -13,4 +13,10 @@
     <string name="settings_version">संस्करण %1$s</string>
     <string name="navigate_back">वापस</string>
     <string name="language_title">भाषा चुनें</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">सूची साझा करें</string>
+    <string name="pdf_page_number">पृष्ठ %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d में से %1$d पूरे</string>
+    <string name="pdf_prepared_by">तैयार करने वाले: %1$s</string>
+    <string name="pdf_no_items">इस सूची में कोई आइटम नहीं है।</string>
 </resources>

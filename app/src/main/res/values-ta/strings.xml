@@ -13,4 +13,10 @@
     <string name="settings_version">பதிப்பு %1$s</string>
     <string name="navigate_back">பின்செல்</string>
     <string name="language_title">மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">பட்டியலைப் பகிர்</string>
+    <string name="pdf_page_number">பக்கம் %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d இல் %1$d முடிந்தது</string>
+    <string name="pdf_prepared_by">தயாரித்தவர்: %1$s</string>
+    <string name="pdf_no_items">இந்தப் பட்டியலில் பொருட்கள் எதுவும் இல்லை.</string>
 </resources>

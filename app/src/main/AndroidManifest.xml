@@ -20,6 +20,17 @@
             </intent-filter>
         </activity>
 
+        <!-- Shares exported PDFs through the Sharesheet with temporary read grants only (section 19.3). -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- Lets AppCompat persist the in-app language on Android 12 and lower.
              Android 13+ stores it in the platform LocaleManager instead. -->
         <service

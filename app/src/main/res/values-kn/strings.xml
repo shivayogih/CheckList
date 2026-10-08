@@ -13,4 +13,10 @@
     <string name="settings_version">ಆವೃತ್ತಿ %1$s</string>
     <string name="navigate_back">ಹಿಂದೆ</string>
     <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">ಪಟ್ಟಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="pdf_page_number">ಪುಟ %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
+    <string name="pdf_prepared_by">ತಯಾರಿಸಿದವರು: %1$s</string>
+    <string name="pdf_no_items">ಈ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ.</string>
 </resources>

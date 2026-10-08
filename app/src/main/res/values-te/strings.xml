@@ -13,4 +13,10 @@
     <string name="settings_version">వెర్షన్ %1$s</string>
     <string name="navigate_back">వెనుకకు</string>
     <string name="language_title">భాషను ఎంచుకోండి</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">జాబితాను షేర్ చేయండి</string>
+    <string name="pdf_page_number">పేజీ %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d లో %1$d పూర్తయ్యాయి</string>
+    <string name="pdf_prepared_by">తయారు చేసినవారు: %1$s</string>
+    <string name="pdf_no_items">ఈ జాబితాలో అంశాలు ఏవీ లేవు.</string>
 </resources>

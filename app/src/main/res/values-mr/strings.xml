@@ -13,4 +13,10 @@
     <string name="settings_version">आवृत्ती %1$s</string>
     <string name="navigate_back">मागे</string>
     <string name="language_title">भाषा निवडा</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">यादी शेअर करा</string>
+    <string name="pdf_page_number">पान %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d पैकी %1$d पूर्ण</string>
+    <string name="pdf_prepared_by">तयार करणारे: %1$s</string>
+    <string name="pdf_no_items">या यादीत कोणत्याही वस्तू नाहीत.</string>
 </resources>
