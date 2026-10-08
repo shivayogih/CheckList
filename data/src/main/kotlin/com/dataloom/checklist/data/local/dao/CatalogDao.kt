@@ -136,7 +136,8 @@ interface SearchIndexDao {
     @Query("DELETE FROM item_search_fts WHERE category_id = :categoryId")
     suspend fun deleteForCategory(categoryId: String)
 
-    @Query("SELECT * FROM item_search_fts WHERE ref_id = :masterItemId")
+    // FTS tables hide rowid from "*", so it is selected explicitly.
+    @Query("SELECT rowid, * FROM item_search_fts WHERE ref_id = :masterItemId")
     suspend fun getForItem(masterItemId: String): List<ItemSearchFtsEntity>
 
     @Query("SELECT COUNT(*) FROM item_search_fts")
