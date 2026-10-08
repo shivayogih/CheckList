@@ -2,17 +2,18 @@
 # The full PR pipeline (static analysis, AI review, reports) replaces this in Phase 8.
 name: Android build
 
+# Every branch push is built, so feature branches get feedback before a PR exists;
+# the push run's status also shows on the branch's PR.
 on:
-  pull_request:
   push:
-    branches: [develop, main, "release/**"]
+    branches: ["**"]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
