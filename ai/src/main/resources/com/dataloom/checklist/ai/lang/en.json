@@ -1,0 +1,60 @@
+{
+  "language": "en",
+  "scripts": ["LATIN"],
+  "numbers": {
+    "one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7",
+    "eight": "8", "nine": "9", "ten": "10", "eleven": "11", "twelve": "12", "fifteen": "15",
+    "twenty": "20", "twenty-five": "25", "thirty": "30", "fifty": "50", "hundred": "100",
+    "half": "0.5", "quarter": "0.25", "couple": "2"
+  },
+  "articles": ["a", "an"],
+  "units": {
+    "KG": ["kg", "kgs", "kilo", "kilos", "kilogram", "kilograms", "kilogramme", "kilogrammes", "k.g"],
+    "GRAM": ["g", "gm", "gms", "gram", "grams", "gramme", "grammes", "grm"],
+    "LITRE": ["l", "lt", "ltr", "ltrs", "litre", "litres", "liter", "liters"],
+    "MILLILITRE": ["ml", "millilitre", "millilitres", "milliliter", "milliliters"],
+    "DOZEN": ["dozen", "dozens", "doz"],
+    "PIECE": ["piece", "pieces", "pc", "pcs"],
+    "PACK": ["pack", "packs", "packet", "packets", "pkt", "pkts"],
+    "BOX": ["box", "boxes"],
+    "BOTTLE": ["bottle", "bottles", "btl"],
+    "PAIR": ["pair", "pairs"],
+    "METER": ["m", "metre", "metres", "meter", "meters", "mtr", "mtrs"],
+    "NOS": ["nos"]
+  },
+  "separators": ["and", "plus", "also"],
+  "fillers": ["of", "please", "some", "the", "to", "my", "list", "checklist", "in", "into", "more", "too", "it", "as", "us", "me", "i", "we", "x"],
+  "nameSuffixes": ["es", "s"],
+  "titleConnectors": ["called", "named", "titled", "for"],
+  "intents": {
+    "ADD": {
+      "prefixes": ["add", "please add", "buy", "get", "i need", "we need", "need", "i want", "put"],
+      "suffixes": ["to the list", "to my list", "to list", "to the checklist"]
+    },
+    "COMPLETE": {
+      "prefixes": ["mark", "tick", "tick off", "check", "check off", "cross off", "complete", "i bought", "bought", "i got", "got"],
+      "suffixes": ["done", "is done", "are done", "as done", "completed", "as completed", "is completed", "bought", "is bought", "ticked", "finished", "got it"]
+    },
+    "UNCOMPLETE": {
+      "prefixes": ["mark", "untick", "uncheck", "unmark"],
+      "suffixes": ["not done", "is not done", "as not done", "undone", "as undone", "not bought", "pending", "as pending", "still needed"]
+    },
+    "REMOVE": {
+      "prefixes": ["remove", "delete", "drop", "take off", "dont need", "don't need", "no need for"],
+      "suffixes": ["from the list", "from my list", "from list", "not needed"]
+    },
+    "UPDATE": {
+      "prefixes": ["change", "set", "update", "make"],
+      "suffixes": []
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": [
+        "create checklist", "create a checklist", "create a new checklist", "create new checklist", "new checklist",
+        "make a checklist", "make a new checklist", "start a checklist", "start a new checklist",
+        "create list", "create a list", "create a new list", "create new list", "new list",
+        "make a list", "make a new list", "start a list", "start a new list"
+      ],
+      "suffixes": []
+    }
+  }
+}
