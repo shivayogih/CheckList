@@ -38,3 +38,24 @@ Requirements: JDK 17+, Android SDK with API 37. Versions are set in [`version.pr
 ## Workflow
 
 Branches: `main` (production) ← `release/x.y.z` (staging) ← `develop` (dev) ← `feature/CL-<id>-<name>`. Commits: `CL-101 Add checklist creation flow`. Issues are tracked in [docs/project-management/issues.csv](docs/project-management/issues.csv).
+
+## Documentation
+
+| Document | What it covers |
+|---|---|
+| [Phase 0 architecture](docs/phase0-architecture.md) | The approved design and the reasoning behind every decision |
+| [Architecture](docs/architecture.md) | Modules, layers, data flow, build configuration, current status |
+| [Database](docs/database.md) | Room schema, seed catalog, search, migrations |
+| [Localization](docs/localization.md) | Seven languages, per-app language, string rules |
+| [Accessibility](docs/accessibility.md) | Targets, Compose rules, plain language, TalkBack script |
+| [Security](docs/security.md) | Data protection, secrets, signing, review checklist |
+| [AI and automation](docs/ai-automation.md) | Optional in-app AI and ADK agents in CI |
+| [Import/export format](docs/import-export-format.md) | JSON file specification and import pipeline |
+| [Testing](docs/testing.md) | Test layers, tools, rules |
+| [CI/CD](docs/ci-cd.md) | GitHub Actions and Bitrise workflows, versioning, approvals |
+| [Branching strategy](docs/branching-strategy.md) | Branches, commits, PRs, protection rules |
+| [Release process](docs/release-process.md) | From release branch to Google Play |
+| [Troubleshooting](docs/troubleshooting.md) | Known build and runtime problems |
+| [Project management](docs/project-management/README.md) | Issue, build, test and release CSVs and statuses |
+| [Architecture decision records](docs/adr/README.md) | ADR index and how to add one |
+| [Security policy](SECURITY.md) | How to report a vulnerability |
