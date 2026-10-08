@@ -1,0 +1,491 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ComplexCondition:PlanValidator.kt:PlanValidator$problems.isNotEmpty() || item == null || context == null || quantity == null</ID>
+    <ID>ComplexCondition:PlanValidator.kt:PlanValidator$problems.isNotEmpty() || item == null || context == null || unitDef == null</ID>
+    <ID>ComplexCondition:TransferDocuments.kt:TransferDocuments$ch.isLetterOrDigit() || ch == ' ' || ch == '-' || ch == '_' || isCombiningMark(ch)</ID>
+    <ID>CyclomaticComplexMethod:ChecklistDetailViewModel.kt:ChecklistDetailViewModel$fun onAction</ID>
+    <ID>CyclomaticComplexMethod:CommandGrammar.kt:CommandGrammar$private fun classify: List&lt;Element&gt;</ID>
+    <ID>CyclomaticComplexMethod:ImportValidator.kt:ImportValidator$private fun checkItems</ID>
+    <ID>CyclomaticComplexMethod:OnboardingViewModel.kt:OnboardingViewModel$fun onAction</ID>
+    <ID>CyclomaticComplexMethod:PlanValidator.kt:PlanValidator$private suspend fun addItem: Outcome</ID>
+    <ID>CyclomaticComplexMethod:UiText.kt:fun ValidationError.toUiText: UiText</ID>
+    <ID>LongMethod:AddCategoriesScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun AddCategoriesScreen</ID>
+    <ID>LongMethod:AddItemsScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun AddItemsScreen</ID>
+    <ID>LongMethod:CheckListNavHost.kt:@Composable fun CheckListNavHost</ID>
+    <ID>LongMethod:ChecklistDetailScreen.kt:@Composable fun ChecklistDetailScreen</ID>
+    <ID>LongMethod:ChecklistDetailScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable private fun DetailContent</ID>
+    <ID>LongMethod:CreateChecklistScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateChecklistScreen</ID>
+    <ID>LongMethod:ItemEditorScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ItemEditorScreen</ID>
+    <ID>LongMethod:ProfileScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileScreen</ID>
+    <ID>LongMethod:ProfileSetupContent.kt:@Composable fun ProfileSetupContent</ID>
+    <ID>LongMethod:SettingsScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen</ID>
+    <ID>LongMethod:WelcomeContent.kt:@Composable fun WelcomeContent</ID>
+    <ID>LoopWithTooManyJumpStatements:TextNormalizer.kt:TextNormalizer$for</ID>
+    <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$0.22f</ID>
+    <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$21f</ID>
+    <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$66f</ID>
+    <ID>MagicNumber:PdfPageLayout.kt:PdfPageLayout$0.95f</ID>
+    <ID>MagicNumber:TutorialIllustrations.kt:5</ID>
+    <ID>MatchingDeclarationName:ChecklistDetailScreen.kt:ChecklistDetailNavigation</ID>
+    <ID>MatchingDeclarationName:OverflowMenu.kt:MenuAction</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$addCustomItem(checklistId, sectionId, operation.name, locale, operation.quantity, operation.unit)</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$createChecklist(operation.title, operation.description, operation.categories.map { it.id })</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$if (checklistId == null) notFound() else addCategories(checklistId, listOf(operation.category.id)).done()</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$if (current == null) notFound() else updateItem(current.id, current.displayName, current.quantity, operation.unit, current.notes).done()</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$if (outcome is CustomItemOutcome.AlreadyPresent) OperationOutcome.AlreadyPresent else OperationOutcome.Done</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$observeChecklist(checklistId, locale).first()?.sections?.flatMap { it.items }?.firstOrNull { it.id == itemId }</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$updateItem(current.id, current.displayName, operation.quantity, operation.unit ?: current.unit, current.notes).done()</ID>
+    <ID>MaxLineLength:ActionPlanExecutor.kt:ExecutionReport$val succeeded: Boolean get() = results.all { it.outcome == OperationOutcome.Done || it.outcome == OperationOutcome.AlreadyPresent }</ID>
+    <ID>MaxLineLength:AddCategoriesViewModel.kt:AddCategoriesViewModel$is AddCategoriesAction.ToggleCategory -&gt; selected.update { if (action.id in it) it - action.id else it + action.id }</ID>
+    <ID>MaxLineLength:AddCategoriesViewModelTest.kt:AddCategoriesViewModelTest$assertEquals(listOf("Groceries", "Pooja Items"), repo.detail(checklistId)!!.sections.map { it.category.displayName })</ID>
+    <ID>MaxLineLength:AddCategoriesViewModelTest.kt:AddCategoriesViewModelTest$assertEquals(listOf(groceries.id, fruits.id, gifts.id), repo.detail(checklistId)!!.sections.map { it.category.id })</ID>
+    <ID>MaxLineLength:AddItemsScreen.kt:CheckRow(label = row.name, checked = row.selected, onCheckedChange = { onAction(AddItemsAction.ToggleItem(row.id)) })</ID>
+    <ID>MaxLineLength:AddItemsScreen.kt:Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))</ID>
+    <ID>MaxLineLength:AddItemsScreen.kt:stringResource(if (state.query.isBlank()) R.string.add_items_type_to_search else R.string.add_items_no_match)</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$)</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$.</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$AddItemsEffect.AlreadyOnList(outcome.alreadyPresent.map { it.displayName }, outcome.addedItemIds.size)</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$Draft</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$current.mapValues { (id, draft) -&gt; if (id in unreadable) draft.copy(error = UiText(R.string.error_quantity_invalid)) else draft }</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$is AddItemsAction.QuantityChanged -&gt; editDraft(action.id) { it.copy(quantityText = action.text, error = null) }</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$is DomainError.InvalidSelection -&gt; editDraft(error.masterItemId) { it.copy(error = error.errors.first().toUiText()) }</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$val parsed = picks.associate { draft -&gt; draft.item.id to draft.quantityText.trim().takeIf { it.isNotEmpty() }?.let { Quantity.parse(it) } }</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$val resultRows = results.filterNot { it.id in drafts }.map { MasterItemRowUi(it.id, it.displayName, selected = false) }</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel$val unreadable = picks.filter { it.quantityText.isNotBlank() &amp;&amp; parsed[it.item.id] == null }.map { it.item.id }.toSet()</ID>
+    <ID>MaxLineLength:AddItemsViewModel.kt:AddItemsViewModel.Factory$fun create: AddItemsViewModel</ID>
+    <ID>MaxLineLength:AiAssistant.kt:AiAssistant$private suspend</ID>
+    <ID>MaxLineLength:AiAssistant.kt:AiAssistant$service.generateChecklist(GenerateRequest(prompt, snapshot.context.locale, snapshot.context.allowedUnits)).toReviewed(snapshot)</ID>
+    <ID>MaxLineLength:AiAssistant.kt:AiAssistant$suspend</ID>
+    <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$assertEquals(listOf(PlannedOperation.CreateChecklist::class, PlannedOperation.AddItem::class, PlannedOperation.AddItem::class, PlannedOperation.AddItem::class), plan.operations.map { it::class })</ID>
+    <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$checklists.detailNow(list)!!.sections.associate { section -&gt; section.category.canonicalKey to section.items.map { it.displayName } }</ID>
+    <ID>MaxLineLength:AiAssistantTest.kt:AiAssistantTest$val sugar = harness.checklists.detailNow(list)!!.sections.flatMap { it.items }.first { it.displayName == "Sugar" }</ID>
+    <ID>MaxLineLength:AiCommandComposables.kt:OutlinedButton</ID>
+    <ID>MaxLineLength:AiCommandComposables.kt:quantity != null &amp;&amp; unit != null -&gt; stringResource(R.string.item_quantity_with_unit, quantity.toPlainString(), unitLabel(unit))</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:AiCommandViewModel$steps = review.steps.map { if (it.callIndex == action.callIndex) it.copy(checked = action.checked) else it }</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:AiStepKind$enum</ID>
+    <ID>MaxLineLength:AiCommandViewModel.kt:UnavailableReason.OFFLINE, UnavailableReason.QUOTA, UnavailableReason.NOT_SUPPORTED -&gt; UiText(R.string.ai_unavailable_other)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$ActionPlan(emptyList(), PlanSource.MOCK, listOf(UnresolvedFragment("blah blah", UnresolvedReason.NOT_UNDERSTOOD)))</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$assertEquals(message(UiText(R.string.ai_result_done, listOf("Rice")), problem = false), vm.uiState.value.message)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$assertEquals(message(UiText(R.string.ai_result_failed, listOf("Rice, Milk")), problem = true), vm.uiState.value.message)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$message(UiText(R.string.ai_result_done, listOf("Milk")), UiText(R.string.ai_result_already, listOf("Rice")), problem = false)</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$private</ID>
+    <ID>MaxLineLength:AiCommandViewModelTest.kt:AiCommandViewModelTest$val lookup = CatalogLookup(SearchMasterItemsUseCase(catalog), ObserveCategoriesUseCase(catalog), ObserveUnitsUseCase(catalog))</ID>
+    <ID>MaxLineLength:AiModule.kt:AiModule.Companion$fun</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Rejected(RejectionReason.NEEDS_CHECKLIST), mock.interpret(Utterance("2 kg rice", "en"), emptyContext))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Rejected(RejectionReason.NEEDS_CHECKLIST), offlineOnly.interpret(Utterance("rice", "en"), emptyContext))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Unavailable(UnavailableReason.DISABLED), service.generateChecklist(GenerateRequest("x", "en", emptyList())))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Unavailable(UnavailableReason.DISABLED), service.interpret(Utterance("rice", "en"), openContext))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Unavailable(UnavailableReason.NOT_SUPPORTED), service.generateChecklist(GenerateRequest("x", "en", emptyList())))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(AiResult.Unavailable(UnavailableReason.TIMEOUT), slow.generateChecklist(GenerateRequest("x", "en", emptyList())))</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$assertEquals(PlanSource.MOCK, (parserFirst.interpret(Utterance("rice", "en"), openContext) as AiResult.Success).value.source)</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$val generated = (mock.generateChecklist(GenerateRequest("Goa trip", "en", emptyList())) as AiResult.Success).value</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest$val service = composite(AiSettings(enabled = true, onlineEnabled = true), online = null, offline = harness.parser)</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest.FakeOnline$override suspend fun suggestItems: AiResult&lt;List&lt;ItemSuggestion&gt;&gt;</ID>
+    <ID>MaxLineLength:AiServicesTest.kt:AiServicesTest.FakeOnline$override suspend fun summarize: AiResult&lt;AiSummary&gt;</ID>
+    <ID>MaxLineLength:AiTestHarness.kt:AiTestHarness$val lookup = CatalogLookup(SearchMasterItemsUseCase(catalog), ObserveCategoriesUseCase(catalog), ObserveUnitsUseCase(catalog))</ID>
+    <ID>MaxLineLength:CatalogDao.kt:MasterItemDao$fun</ID>
+    <ID>MaxLineLength:CatalogLookup.kt:CatalogLookup$suspend</ID>
+    <ID>MaxLineLength:CatalogRepository.kt:CatalogRepository$suspend</ID>
+    <ID>MaxLineLength:CatalogRepository.kt:CatalogRepository$suspend fun createMasterItem: MasterItemId</ID>
+    <ID>MaxLineLength:CategoryUseCasesTest.kt:CategoryUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.CATEGORY_NAME_BLANK))), create(" ", "x", "en"))</ID>
+    <ID>MaxLineLength:CategoryUseCasesTest.kt:CategoryUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.CATEGORY_NAME_BLANK))), rename(wedding, "", "en"))</ID>
+    <ID>MaxLineLength:CategoryUseCasesTest.kt:CategoryUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.CATEGORY_NAME_TOO_LONG))), create("c".repeat(51), "x", "en"))</ID>
+    <ID>MaxLineLength:CategoryUseCasesTest.kt:CategoryUseCasesTest$assertEquals(DomainResult.Failure(DomainError.SeededCategoryNotDeletable), DeleteCategoryUseCase(catalog)(groceries.id))</ID>
+    <ID>MaxLineLength:CheckListNavHost.kt:if (!navController.popBackStack&lt;ChecklistDetailRoute&gt;(inclusive = false)) navController.popBackStack()</ID>
+    <ID>MaxLineLength:CheckListNavHost.kt:onAddItem = { sectionId -&gt; navController.navigate(AddItemsRoute(route.checklistId, sectionId.value)) }</ID>
+    <ID>MaxLineLength:CheckRow.kt:Text(supporting, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ChecklistContext.kt:ContextSnapshot.Companion$sectionTargets[sectionRef] = SectionTarget(section.id, section.category.id, section.category.displayName)</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:MenuAction(stringResource(R.string.action_remove)) { onAction(ChecklistDetailAction.RequestRemoveSection(section)) }</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:MenuAction(stringResource(R.string.add_categories_title), onClick = navigation.onAddCategories)</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:MenuAction(stringResource(R.string.detail_rename)) { onAction(ChecklistDetailAction.StartRename) }</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:add(accessibilityAction(moveDownLabel) { onAction(ChecklistDetailAction.MoveItemDown(item.id)) })</ID>
+    <ID>MaxLineLength:ChecklistDetailScreen.kt:if (item.canMoveUp) add(accessibilityAction(moveUpLabel) { onAction(ChecklistDetailAction.MoveItemUp(item.id)) })</ID>
+    <ID>MaxLineLength:ChecklistDetailViewModel.kt:ChecklistDetailViewModel$ChecklistDetailAction.StartRename -&gt; rename.value = RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty())</ID>
+    <ID>MaxLineLength:ChecklistDetailViewModel.kt:ChecklistDetailViewModel$items = visible.mapIndexed { i, item -&gt; item.toUi(units, canMoveUp = i &gt; 0, canMoveDown = i &lt; visible.lastIndex) }</ID>
+    <ID>MaxLineLength:ChecklistDetailViewModel.kt:ChecklistDetailViewModel$val detail = (load as? Load.Loaded)?.detail ?: return@combine ChecklistDetailUiState(isLoading = load is Load.Loading)</ID>
+    <ID>MaxLineLength:ChecklistDetailViewModelTest.kt:ChecklistDetailViewModelTest$private fun ChecklistDetailViewModel.item</ID>
+    <ID>MaxLineLength:ChecklistDetailViewModelTest.kt:ChecklistDetailViewModelTest$repo.addItems(groceriesSection, listOf(newItem("Rice", Quantity.of(5), BuiltInUnits.KG.code), newItem("Sugar"), newItem("Salt")))</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$?:</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$PdfDocument.PageInfo.Builder(PdfPageLayout.PAGE_WIDTH, PdfPageLayout.PAGE_HEIGHT, pageIndex + 1).create()</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$add(TextBlock(layout(resources.getString(R.string.pdf_no_items), paint(BODY_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH), SECTION_GAP, 0f))</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$add(TextBlock(layout(section.category.displayName, paint(HEADING_SIZE, bold = true, locale = appLocale), CONTENT_WIDTH), SECTION_GAP, RULE_GAP, rule = true, keepWithNext = true))</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$add(layout(resources.getString(R.string.pdf_prepared_by, it), paint(SMALL_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH))</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$drawCentredInBand(canvas, singleLine(branding.exportedAt, footerPaint(), column, Layout.Alignment.ALIGN_CENTER), left + column, first)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$drawCentredInBand(canvas, singleLine(branding.storeLabel, paint(STORE_URL_SIZE, color = MUTED, locale = locale), labelWidth), left, second)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$drawCentredInBand(canvas, singleLine(pageNumber, footerPaint(), column, Layout.Alignment.ALIGN_OPPOSITE), left + 2 * column, first)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$drawCentredInBand(canvas, singleLine(storeUrl, urlPaint, urlWidth, Layout.Alignment.ALIGN_OPPOSITE), left + width - urlWidth, second)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$drawFooter(canvas, branding, resources.getString(R.string.pdf_page_number, pageIndex + 1, pages.size), appLocale)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$layout(resources.getString(R.string.pdf_promo_title, branding.brand), paint(BODY_SIZE, bold = true, color = branding.brandColor, locale = appLocale), width)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$private</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$return PromoBlock(StackBlock(lines, PROMO_LINE_GAP, after = 0f), PdfQrCode.encode(storeUrl), branding.brandColor)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$val blocks = buildBlocks(detail, options, units, resources, appLocale) + lastPageBlock(branding, resources, appLocale)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$val name = singleLine(branding.brand, paint(BRAND_SIZE, bold = true, color = branding.brandColor, locale = locale), nameWidth + 1f)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$val pages = PdfPageLayout.place(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) }, branding.storeLink)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$val running = singleLine(title, paint(SMALL_SIZE, color = MUTED, locale = locale), titleWidth, Layout.Alignment.ALIGN_OPPOSITE)</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter.PromoBlock$private</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter.StackBlock$private</ID>
+    <ID>MaxLineLength:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter.StackBlock$val firstLineHeight: Float get() = layouts.firstOrNull()?.let { (it.getLineBottom(0) - it.getLineTop(0)).toFloat() } ?: 0f</ID>
+    <ID>MaxLineLength:ChecklistUseCases.kt:ArchiveChecklistUseCase$suspend operator fun invoke: DomainResult&lt;Unit&gt;</ID>
+    <ID>MaxLineLength:ChecklistUseCases.kt:ObserveChecklistDetailUseCase$operator</ID>
+    <ID>MaxLineLength:ChecklistUseCases.kt:UnarchiveChecklistUseCase$suspend operator fun invoke: DomainResult&lt;Unit&gt;</ID>
+    <ID>MaxLineLength:ChecklistUseCasesTest.kt:ChecklistUseCasesTest$DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.TITLE_BLANK, ValidationError.DESCRIPTION_TOO_LONG)))</ID>
+    <ID>MaxLineLength:ChecklistUseCasesTest.kt:ChecklistUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.TITLE_BLANK))), duplicate(id, " "))</ID>
+    <ID>MaxLineLength:ChecklistUseCasesTest.kt:ChecklistUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.TITLE_TOO_LONG))), update(id, "t".repeat(101), null))</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$lexicon.stemRepairs.mapNotNull { (from, to) -&gt; if (stem.endsWith(from)) stem.dropLast(from.length) + to else null }</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$lexicon.unit(token.norm) != null &amp;&amp; (i == 0 || i == tokens.lastIndex) &amp;&amp; token.norm.codePointCount(0, token.norm.length) &gt; SHORT_UNIT</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$private fun List&lt;String&gt;.endsWith</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$private fun List&lt;Token&gt;.trimSeparators: List&lt;Token&gt;</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$val (p, s) = if (prefix + suffix &gt; words.size) (if (prefix &gt;= suffix) prefix to 0 else 0 to suffix) else prefix to suffix</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$val ending = lexicon.andSuffixes.firstOrNull { token.norm.endsWith(it) &amp;&amp; token.norm.length &gt; it.length + 1 }</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$val prefix = lexicon.prefixes.filter { it.intent == intent &amp;&amp; words.startsWith(it.words) }.maxOfOrNull { it.words.size } ?: 0</ID>
+    <ID>MaxLineLength:CommandGrammar.kt:CommandGrammar$val suffix = lexicon.suffixes.filter { it.intent == intent &amp;&amp; words.endsWith(it.words) }.maxOfOrNull { it.words.size } ?: 0</ID>
+    <ID>MaxLineLength:CommandGrammarTest.kt:CommandGrammarTest$Triple("2 kg rice, 1 dozen eggs and milk", CommandIntent.ADD, listOf("rice|2|KG", "eggs|1|DOZEN", "milk||"))</ID>
+    <ID>MaxLineLength:CommandGrammarTest.kt:CommandGrammarTest$check("ta", "இரண்டு லிட்டர் பால் மற்றும் அரை கிலோ சர்க்கரை வேண்டும்", CommandIntent.ADD, "பால்|2|LITRE", "சர்க்கரை|0.5|KG")</ID>
+    <ID>MaxLineLength:CommandGrammarTest.kt:CommandGrammarTest$val actual = parsed.items.map { "${it.name}|${it.quantity?.toPlainString().orEmpty()}|${it.unit?.value.orEmpty()}" }</ID>
+    <ID>MaxLineLength:CompositeAIService.kt:CompositeAIService$if (local is AiResult.Success || !current.onlineAllowed()) local else onlineCall { it.interpret(utterance, context) }</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$assertEquals(ConfirmationRequirement.REVIEW, policy.requirementFor(plan(ToolCall("createChecklist", mapOf("title" to "Trip"))), auto))</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$assertEquals(ConfirmationRequirement.REVIEW, policy.requirementFor(plan(ToolCall("deleteItem", mapOf("itemRef" to "i3"))), auto))</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$assertEquals(ConfirmationRequirement.REVIEW, policy.requirementFor(plan(ToolCall("removeCategory", mapOf("sectionRef" to "s2"))), auto))</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$private suspend</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$private val addSugar = ToolCall("addChecklistItem", mapOf("name" to "sugar", "canonicalKey" to "sugar", "quantity" to "1", "unit" to "KG"))</ID>
+    <ID>MaxLineLength:ConfirmationPolicyTest.kt:ConfirmationPolicyTest$val withUnresolved = plan(addSugar, unresolved = listOf(UnresolvedFragment("saffron", UnresolvedReason.NOT_UNDERSTOOD)))</ID>
+    <ID>MaxLineLength:ContextSnapshotTest.kt:ContextSnapshotTest$harness.checklists.addItems(section.id, listOf(NewChecklistItem(custom.id, custom.canonicalKey, "Ragi", "en", null, null, null)))</ID>
+    <ID>MaxLineLength:CreateChecklistViewModel.kt:CreateChecklistViewModel$descriptionError = error.errors.firstOrNull { it.field == Field.DESCRIPTION }?.toUiText()</ID>
+    <ID>MaxLineLength:CreateChecklistViewModelTest.kt:CreateChecklistViewModelTest$assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.DESCRIPTION_MAX)), vm.uiState.value.descriptionError)</ID>
+    <ID>MaxLineLength:DatabaseConstraintsTest.kt:DatabaseConstraintsTest$"INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, created_at, updated_at) "</ID>
+    <ID>MaxLineLength:DatabaseConstraintsTest.kt:DatabaseConstraintsTest$db.sectionDao().insertAll(listOf(ChecklistCategoryEntity("sec-1", "list-1", "cat-1", displayOrder = 1000, createdAt = 0)))</ID>
+    <ID>MaxLineLength:DatabaseConstraintsTest.kt:DatabaseConstraintsTest$db.unitDao().insert(UnitDefEntity("KG", allowsDecimal = true, isCustom = false, customLabel = null, sortOrder = 10))</ID>
+    <ID>MaxLineLength:DomainResult.kt:internal fun ValidationResult.Invalid.toFailure: DomainResult.Failure</ID>
+    <ID>MaxLineLength:EncryptedProfileRepository.kt:EncryptedProfileRepository$dao.upsert(UserProfileEntity(ROW_ID, payload, keys.keyAlias, ProfileCipher.PAYLOAD_VERSION, clock.nowMillis()))</ID>
+    <ID>MaxLineLength:EncryptedProfileRepositoryTest.kt:EncryptedProfileRepositoryTest$dao.upsert(UserProfileEntity(EncryptedProfileRepository.ROW_ID, otherPhone, master.alias, ProfileCipher.PAYLOAD_VERSION, 1L))</ID>
+    <ID>MaxLineLength:EncryptedProfileRepositoryTest.kt:EncryptedProfileRepositoryTest$dao.upsert(UserProfileEntity(row.id, row.encPayload, row.keyAlias, ProfileCipher.PAYLOAD_VERSION + 1, row.updatedAt))</ID>
+    <ID>MaxLineLength:EncryptedProfileRepositoryTest.kt:EncryptedProfileRepositoryTest$val tampered = row.encPayload.copyOf().also { it[it.size - 1] = (it[it.size - 1].toInt() xor 0x01).toByte() }</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$*</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$c.copy(customName = name, displayName = name ?: c.canonicalKey!!.replaceFirstChar { it.uppercase() })</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$fun</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$it + Category(id, canonicalKey = null, customName = name, displayName = name, iconKey = iconKey, isCustom = true, isHidden = false)</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$masterItems.value.firstOrNull { it.categoryId == categoryId &amp;&amp; it.displayName.equals(name.trim(), ignoreCase = true) }</ID>
+    <ID>MaxLineLength:FakeCatalogRepository.kt:FakeCatalogRepository$override suspend</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$catalog.checklistUsage = { categoryId -&gt; state.value.count { s -&gt; s.sections.any { it.categoryId == categoryId } } }</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$editChecklist(id) { it.copy(checklist = it.checklist.copy(title = title, description = description, updatedAt = now())) }</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$override suspend</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$override suspend fun removeSection</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$private</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$state.update { it + Stored(checklist, categoryIds.distinct().map { StoredSection(newSectionId(), it, emptyList()) }) }</ID>
+    <ID>MaxLineLength:FakeChecklistRepository.kt:FakeChecklistRepository$val added = categoryIds.distinct().filterNot { it in present }.map { StoredSection(newSectionId(), it, emptyList()) }</ID>
+    <ID>MaxLineLength:HomeScreen.kt:Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))</ID>
+    <ID>MaxLineLength:HomeScreen.kt:if (result == SnackbarResult.ActionPerformed) viewModel.onAction(HomeAction.UndoArchive(effect.id))</ID>
+    <ID>MaxLineLength:HomeScreen.kt:onAction(HomeAction.Duplicate(row.id, copyTitle(row.title, { resources.getString(R.string.checklist_copy_title, it) })))</ID>
+    <ID>MaxLineLength:HomeScreen.kt:snackbarHostState.showSnackbar(resources.getString(R.string.home_unarchived_message, effect.title))</ID>
+    <ID>MaxLineLength:HomeScreen.kt:text = pluralStringResource(R.plurals.home_greeting_in_progress, greeting.inProgress, greeting.inProgress)</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlan$val completedItemCount: Int get() = checklists.sumOf { list -&gt; list.sections.sumOf { s -&gt; s.items.count { it.completed } } }</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$issues += ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), ImportProblem.INVALID_FIELDS, result.errors)</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$issues += ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), ImportProblem.UNKNOWN_UNIT)</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$private</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$return Outcome.Rejected(ImportRejection.Invalid(issues.take(TransferLimits.MAX_REPORTED_ISSUES), issues.size))</ID>
+    <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner.CategoryResolver$return byName(TransferText.humanize(key).ifBlank { key }.take(FieldLimits.CATEGORY_NAME_MAX), category.icon)</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$!TransferText.isValidRef(section.ref) -&gt; { reportSection(ImportProblem.INVALID_REF, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$!sectionRefs.add(section.ref) -&gt; { reportSection(ImportProblem.DUPLICATE_REF, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$(key == null) == (name == null) -&gt; { report(ImportProblem.CATEGORY_KEY_OR_NAME, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$BuiltInUnits.byCode(UnitCode(unit.ref)) != null -&gt; { report(ImportProblem.UNIT_REF_SHADOWS_BUILT_IN, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$issues.add(ImportIssue(TransferElement.CATEGORY, index, TransferText.reportRef(category.ref), problem, errors))</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$issues.add(ImportIssue(TransferElement.CHECKLIST, index, TransferText.reportRef(checklist.ref), problem, errors))</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$issues.add(ImportIssue(TransferElement.SECTION, sectionIndex, TransferText.reportRef(section.ref), problem, errors))</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$key != null &amp;&amp; !TransferText.isValidCanonicalKey(key) -&gt; { report(ImportProblem.INVALID_CANONICAL_KEY, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$private</ID>
+    <ID>MaxLineLength:ImportValidator.kt:ImportValidator$section.categoryRef !in categoryRefs -&gt; { reportSection(ImportProblem.MISSING_REFERENCE, emptyList()); ok = false }</ID>
+    <ID>MaxLineLength:ImportValidatorTest.kt:ImportValidatorTest$assertEquals(ImportRejection.NothingToImport, ImportValidator.validate(document(checklists = emptyList(), items = emptyList())))</ID>
+    <ID>MaxLineLength:ImportValidatorTest.kt:ImportValidatorTest$listOf(ImportProblem.UNIT_REF_SHADOWS_BUILT_IN, ImportProblem.UNSUPPORTED_UNIT_CODE, ImportProblem.INVALID_FIELDS)</ID>
+    <ID>MaxLineLength:ImportValidatorTest.kt:ImportValidatorTest$val doc = document(checklists = listOf(checklist("k1", "A", TransferSection("s1", "c1", 0), TransferSection("s2", "c1", 1))), items = emptyList())</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$fun</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$id</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$item.quantity</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$override suspend</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$state.update { it + Stored(Checklist(id, title, description, 1L, 1L, false), categoryIds.distinct().map { c -&gt; StoredSection(newSectionId(), c, emptyList()) }) }</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$state.update { list -&gt; list.map { if (it.checklist.id == checklistId) it.copy(sections = it.sections + added) else it } }</ID>
+    <ID>MaxLineLength:InMemoryChecklistRepository.kt:InMemoryChecklistRepository$val added = categoryIds.distinct().filterNot { it in present }.map { StoredSection(newSectionId(), it, emptyList()) }</ID>
+    <ID>MaxLineLength:ItemEditorScreen.kt:keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ItemEditorViewModel.kt:ItemEditorViewModel$is DomainResult.Success -&gt; form.update { it.copy(newUnit = null, unit = result.value, unitError = null) }</ID>
+    <ID>MaxLineLength:ItemEditorViewModel.kt:ItemEditorViewModel$val</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.ITEM_NAME_BLANK, ValidationError.QUANTITY_MUST_BE_WHOLE)))</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$addMaster(checklistId, sectionId, listOf(MasterItemSelection(salt), MasterItemSelection(salt, Quantity.of(2))), "en")</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$addMaster(checklistId, sectionId, listOf(MasterItemSelection(salt, Quantity.of(1), UnitCode("BOGUS"))), "en")</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.NEGATIVE_POSITION))), move(saltId, -1))</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$assertEquals(DomainResult.Failure(DomainError.InvalidSelection(eggs.id, listOf(ValidationError.QUANTITY_MUST_BE_WHOLE))), result)</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$assertTrue(addCustom(checklistId, sectionId, "Bananas", "en", quantity = Quantity.of(6)) is DomainResult.Success)</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$val</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$val outcome = (addMaster(checklistId, sectionId, listOf(MasterItemSelection(rice), MasterItemSelection(salt)), "en") as DomainResult.Success).value</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$val result = UpdateChecklistItemUseCase(repo, catalog)(id, " Basmati rice ", Quantity.parse("2.5"), BuiltInUnits.KG.code, " long grain ")</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$val result = addCustom(checklistId, sectionId, " Jaggery ", "kn", Quantity.parse("0.5"), BuiltInUnits.KG.code, " organic ")</ID>
+    <ID>MaxLineLength:ItemUseCasesTest.kt:ItemUseCasesTest$val result = addCustom(checklistId, sectionId, "", "en", quantity = Quantity.parse("2.5"), unit = BuiltInUnits.PIECE.code, saveToMasterList = true)</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec$DecodeResult.Rejected(limit?.let { ImportRejection.LimitExceeded(it.limit, it.max) } ?: ImportRejection.Malformed)</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec$if</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec$val limit = generateSequence&lt;Throwable&gt;(e) { it.cause }.filterIsInstance&lt;TransferLimitException&gt;().firstOrNull()</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec$val migrator = migrators.firstOrNull { it.fromFormatVersion == format &amp;&amp; it.fromSchemaVersion == schema } ?: return unsupported</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec$val unsupported = DecodeResult.Rejected(ImportRejection.UnsupportedVersion(formatVersion, schemaVersion, requiresNewerApp = newer))</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:JsonTransferCodec.Companion$/** Version 1 needs 5 levels (file, checklists, checklist, sections, section); the rest is headroom for the profile. */</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:metadata = MetadataDto(metadata.app, metadata.appVersion, metadata.exportedAt, metadata.locale, metadata.includesProfile)</ID>
+    <ID>MaxLineLength:JsonTransferCodec.kt:metadata = TransferMetadata(metadata.app, metadata.appVersion, metadata.exportedAt, metadata.locale, metadata.includesProfile)</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$assertEquals(ImportRejection.Malformed, rejection(envelope().replace("\"profile\":null", "\"profile\":$nested")))</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$envelope(checklists = """[{"ref":"k1","title":"A","sections":[]}]""") .replace("\"items\":[]", "\"items\":[{}]")</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$envelope(checklists = """[{"ref":"k1","title":"A","sections":[{"ref":"s1","categoryRef":"c1","order":1e99}]}]""")</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$private fun rejection: ImportRejection</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$rejection(envelope(checklists = """[{"ref":"k1","title":"T","sections":${sections.joinToString(",", "[", "]")}}]"""))</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$requireNotNull(javaClass.getResourceAsStream("/transfer/$name")) { "missing golden file $name" }.use { it.readBytes() }</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$val doc = decoded(envelope(checklists = """[{"ref":"k1","title":"$bracketsInText","sections":[]}]""").toByteArray())</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$val items = List(TransferLimits.MAX_ITEMS + 1) { """{"ref":"i$it","sectionRef":"s1","displayName":"x","displayNameLocale":"en"}""" }</ID>
+    <ID>MaxLineLength:JsonTransferCodecTest.kt:JsonTransferCodecTest$val sections = List(TransferLimits.MAX_SECTIONS_PER_CHECKLIST + 1) { """{"ref":"s$it","categoryRef":"c1","order":$it}""" }</ID>
+    <ID>MaxLineLength:KeysetProfileAeadProviderTest.kt:KeysetProfileAeadProviderTest$assertThrows(ProfileKeyException.KeyLost::class.java) { KeysetProfileAeadProvider(prefs, master).existingAead() }</ID>
+    <ID>MaxLineLength:KeysetProfileAeadProviderTest.kt:KeysetProfileAeadProviderTest$assertThrows(ProfileKeyException.Unavailable::class.java) { KeysetProfileAeadProvider(prefs, master).existingAead() }</ID>
+    <ID>MaxLineLength:KeysetProfileAeadProviderTest.kt:KeysetProfileAeadProviderTest$assertTrue(classifyKeyFailure(GeneralSecurityException("wrap", ProviderException())) is ProfileKeyException.Unavailable)</ID>
+    <ID>MaxLineLength:KeysetProfileAeadProviderTest.kt:KeysetProfileAeadProviderTest$classifyKeyFailure(GeneralSecurityException("wrap", KeyPermanentlyInvalidatedException())) is ProfileKeyException.KeyLost</ID>
+    <ID>MaxLineLength:LanguagePack.kt:LanguagePacks.Companion$val stream = checkNotNull(LanguagePacks::class.java.getResourceAsStream(path)) { "Missing language pack $path" }</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$assertTrue("${pack.language}: no words for $intent", markers != null &amp;&amp; (markers.prefixes + markers.suffixes).isNotEmpty())</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$pack.numbers.forEach { (word, value) -&gt; assertNotNull("${pack.language}: $word=$value", Quantity.parse(value)) }</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$packs.forEach { pack -&gt; pack.units.keys.forEach { assertTrue("${pack.language}: unknown unit $it", it in codes) } }</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$singles.forEach { assertEquals("${pack.language}: '$it' must be one word", 1, TextNormalizer.words(it).size) }</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$val overlap = numbers.intersect(unitWords.map { it.first }.toSet()) + numbers.intersect(pack.fillers.map(TextNormalizer::normalize).toSet())</ID>
+    <ID>MaxLineLength:LanguagePacksTest.kt:LanguagePacksTest$val singles = pack.numbers.keys + pack.units.values.flatten() + pack.separators + pack.fillers + pack.articles + pack.titleConnectors</ID>
+    <ID>MaxLineLength:Lexicon.kt:Lexicon$pack.numbers.forEach { (word, value) -&gt; numbers.putIfAbsent(TextNormalizer.normalize(word), BigDecimal(value)) }</ID>
+    <ID>MaxLineLength:Lexicon.kt:Lexicon$pack.stemRepairs.forEach { (from, to) -&gt; stemRepairs.putIfAbsent(TextNormalizer.normalize(from), TextNormalizer.normalize(to)) }</ID>
+    <ID>MaxLineLength:Lexicon.kt:Lexicon$return match.groupValues[1].toBigDecimal().divide(denominator, FRACTION_SCALE, RoundingMode.HALF_UP).stripTrailingZeros()</ID>
+    <ID>MaxLineLength:Lookups.kt:val others = (ItemValidator.validate(name, quantity, null, notes) as? ValidationResult.Invalid)?.errors.orEmpty()</ID>
+    <ID>MaxLineLength:Mappers.kt:displayName = DisplayNames.resolve(customName, canonicalKey, canonicalKey?.let { translations[it] }.orEmpty(), locale)</ID>
+    <ID>MaxLineLength:MasterItemUseCases.kt:AddMasterItemsToSectionUseCase$val</ID>
+    <ID>MaxLineLength:MockAIService.kt:MockAIService$return AiResult.Success(ActionPlan(listOf(item("rice", "2", BuiltInUnits.KG.code.value), item("milk", "1", BuiltInUnits.LITRE.code.value)), PlanSource.MOCK))</ID>
+    <ID>MaxLineLength:MockAIService.kt:MockAIService$return AiResult.Success(listOf(CategorySuggestion("groceries", "groceries"), CategorySuggestion("vegetables", "vegetables")))</ID>
+    <ID>MaxLineLength:MockAIService.kt:MockAIService$return AiResult.Success(listOf(ItemSuggestion("rice", "rice", BuiltInUnits.KG.code), ItemSuggestion("dal", "dal", BuiltInUnits.KG.code)))</ID>
+    <ID>MaxLineLength:OfflineCommandParser.kt:OfflineCommandParser$findInCatalog(name, command)?.let { master -&gt; prefer(items.filter { it.canonicalKey == master.canonicalKey })?.let { return it } }</ID>
+    <ID>MaxLineLength:OfflineCommandParser.kt:OfflineCommandParser$if (name.startsWith(query) &amp;&amp; name.codePointCount(0, name.length) - length &lt;= MAX_ENDING &amp;&amp; length &gt;= MIN_STEM) return true</ID>
+    <ID>MaxLineLength:OfflineCommandParser.kt:OfflineCommandParser$val quantity = item.quantity ?: return Either.Skip(UnresolvedFragment(item.text, UnresolvedReason.MISSING_QUANTITY))</ID>
+    <ID>MaxLineLength:OfflineCommandParser.kt:OfflineCommandParser$val unresolved = command.unparsed.mapTo(mutableListOf()) { UnresolvedFragment(it, UnresolvedReason.NOT_UNDERSTOOD) }</ID>
+    <ID>MaxLineLength:OfflineCommandParserTest.kt:OfflineCommandParserTest$"updateItemQuantity" -&gt; listOfNotNull("update", args["itemRef"], args["quantity"], args["unit"]).joinToString(" ")</ID>
+    <ID>MaxLineLength:OfflineCommandParserTest.kt:OfflineCommandParserTest$assertEquals(listOf("create Diwali shopping"), plan("create a checklist called Diwali shopping", "en", null).calls.map { it.describe() })</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.EmailChanged -&gt; edit { it.copy(email = action.value, fieldErrors = it.fieldErrors.copy(email = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.NameChanged -&gt; edit { it.copy(name = action.value, fieldErrors = it.fieldErrors.copy(name = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.PhoneChanged -&gt; edit { it.copy(phone = action.value, fieldErrors = it.fieldErrors.copy(phone = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$val saved = savedState.get&lt;String&gt;(KEY_STEP)?.let { name -&gt; OnboardingStep.entries.firstOrNull { it.name == name } }</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.ADDRESS_MAX)), vm.uiState.value.fieldErrors.address)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$private fun replayViewModel</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$val handle = SavedStateHandle(mapOf(OnboardingViewModel.KEY_STEP to "nonsense", OnboardingViewModel.KEY_PAGE to 99))</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.NextPage, OnboardingAction.NextPage, OnboardingAction.NextPage)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.PageSettled(page), OnboardingAction.SkipTutorial)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.SkipTutorial, OnboardingAction.NameChanged("Kamala"))</ID>
+    <ID>MaxLineLength:PdfQrCode.kt:PdfQrCode$val code = Encoder.encode(text, ErrorCorrectionLevel.M, mapOf(EncodeHintType.CHARACTER_SET to Charsets.UTF_8.name()))</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$AiTool.DELETE_ITEM -&gt; simpleItemOperation(args, session) { item -&gt; PlannedOperation.DeleteItem(index, item.itemId, item.name) }</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$Outcome.Ok(PlannedOperation.UpdateQuantity(index, session.checklistId(), item.itemId, item.name, quantity, unitDef?.code))</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$Outcome.Ok(PlannedOperation.UpdateUnit(index, session.checklistId(), item.itemId, item.name, unitDef.code))</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$else -&gt; placeItem(master?.categoryId?.let { id -&gt; session.categories().firstOrNull { it.id == id } }, target, session)</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$if (outcome.operation is PlannedOperation.CreateChecklist) session.createdChecklist = outcome.operation</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$private suspend</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$return Outcome.Ok(PlannedOperation.CreateChecklist(index, fields.title, fields.description, categories.filterNotNull().distinct()))</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$return if (existing != null) SectionTarget.Existing(existing.sectionId) to existing.name else SectionTarget.ForCategory(category.id) to category.displayName</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$return if (otherSection != null) SectionTarget.Existing(otherSection.sectionId) to otherSection.name else SectionTarget.ForCategory(other.id) to other.displayName</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$val</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator$val other = session.categories().firstOrNull { it.canonicalKey == CatalogLookup.OTHER_CATEGORY_KEY } ?: return null</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator.Companion$is Double -&gt; value.takeIf { it.isFinite() }?.let { Quantity.parse(BigDecimal(it.toString()).toPlainString()) }</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator.Companion$is Float -&gt; value.takeIf { it.isFinite() }?.let { Quantity.parse(BigDecimal(it.toString()).toPlainString()) }</ID>
+    <ID>MaxLineLength:PlanValidator.kt:PlanValidator.Session$suspend fun categories: List&lt;Category&gt;</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals("quantity $bad", listOf(ToolProblem.InvalidQuantity), problems(call("addChecklistItem", "name" to "rice", "quantity" to bad)))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.CategoryAlreadyInChecklist), problems(call("addCategory", "categoryKey" to "groceries")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnexpectedArgument("price")), problems(call("addChecklistItem", "name" to "rice", "price" to "40")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownCategory), problems(call("createChecklist", "title" to "Trip", "categories" to listOf("travel", "spaceships"))))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownRef("sectionRef")), creating.rejected.single { it.callIndex == 3 }.problems)</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownRef("sectionRef")), problems(call("addChecklistItem", "name" to "rice", "sectionRef" to "s9")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownRef("sectionRef")), problems(call("removeCategory", "sectionRef" to "s9")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownUnit), problems(call("addChecklistItem", "name" to "rice", "quantity" to "2", "unit" to "TONNE")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.UnknownUnit), problems(call("addChecklistItem", "name" to "rice", "quantity" to "2", "unit" to "kg")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.WrongType("categories")), problems(call("createChecklist", "title" to "Trip", "categories" to "travel")))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$assertEquals(listOf(ToolProblem.WrongType("quantity")), problems(call("addChecklistItem", "name" to "rice", "quantity" to true)))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$call("addChecklistItem", "name" to "rice", "canonicalKey" to "rice", "quantity" to 2.5, "unit" to "KG")</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val op = accepted(call("addChecklistItem", "name" to "Saffron", "canonicalKey" to "saffron")).single() as PlannedOperation.AddItem</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val op = accepted(call("updateItemQuantity", "itemRef" to "i1", "quantity" to "3")).single() as PlannedOperation.UpdateQuantity</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val plan = validate(call("addChecklistItem", "name" to "rice"), call("completeItem", "itemRef" to "i1"), snapshot = empty)</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val plan = validate(call("addChecklistItem", "name" to "rice", "canonicalKey" to "rice"), call("deleteItem", "itemRef" to "i42"))</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val toFocused = harness.validator.validate(ActionPlan(listOf(eggs), PlanSource.MOCK), focused).operations.single() as PlannedOperation.AddItem</ID>
+    <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val toOther = harness.validator.validate(ActionPlan(listOf(eggs), PlanSource.MOCK), unfocused).operations.single() as PlannedOperation.AddItem</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertEquals(UserProfile("Asha", address = "Hubballi"), ProfileCipher.decrypt(aead, ciphertext, "me", 1, "alias"))</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertThrows(GeneralSecurityException::class.java) { ProfileCipher.decrypt(aead, ciphertext, "other", 1, "alias") }</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertThrows(GeneralSecurityException::class.java) { ProfileCipher.decrypt(aead, tampered, "me", 1, "alias") }</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$val ciphertext = aead.encrypt(future.toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$val nameOnly = aead.encrypt("""{"n":"ಆಶಾ"}""".toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))</ID>
+    <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$/** Registry-backed configuration with the AEAD key types registered; the non-deprecated Tink APIs take it explicitly. */</ID>
+    <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$return TinkProtoKeysetFormat.parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig).aead()</ID>
+    <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$val wrapped = TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig)</ID>
+    <ID>MaxLineLength:ProfileScreen.kt:keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:painter = painterResource(if (state.moreExpanded) R.drawable.ic_expand_less else R.drawable.ic_expand_more)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:text = stringResource(if (state.moreExpanded) R.string.onboarding_profile_less else R.string.onboarding_profile_more)</ID>
+    <ID>MaxLineLength:ProfileValidator.kt:ProfileValidator$*</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertEquals(it, listOf(ValidationError.EMAIL_INVALID), errorsOf(ProfileValidator.validate("Asha", it, null)))</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertEquals(it, listOf(ValidationError.PHONE_INVALID), errorsOf(ProfileValidator.validate("Asha", null, it)))</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertTrue(ProfileValidator.validate(null, null, null, "ಅ".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertTrue(ProfileValidator.validate(null, null, null, "🙂".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf("12345", "1234567890123456", "+91 98765 4321O", "98765#43210", "++919876543210", "-9876543210", "9-".repeat(13) + "9")</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf("asha", "@example.com", "asha@", "asha@example", "asha@@example.com", "asha@example..com", "as ha@example.com", "asha@.com", "asha@example.com.")</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf(ValidationError.DISPLAY_NAME_TOO_LONG, ValidationError.EMAIL_INVALID, ValidationError.PHONE_INVALID, ValidationError.ADDRESS_TOO_LONG)</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$private fun errorsOf: List&lt;ValidationError&gt;</ID>
+    <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$AiResult.Success(ReadToolResult.Items(catalog.search(query, locale, category?.id).map { it.toSuggestion() }))</ID>
+    <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$catalog.categories(locale).filterNot { it.isHidden }.map { CategorySuggestion(it.canonicalKey, it.displayName) }</ID>
+    <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$private</ID>
+    <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$val category = text("categoryKey")?.let { key -&gt; catalog.categories(locale).firstOrNull { it.canonicalKey == key } }</ID>
+    <ID>MaxLineLength:ReviewedPlan.kt:PlanGate$if</ID>
+    <ID>MaxLineLength:ReviewedPlan.kt:PlanGate$if (plan.requirement == ConfirmationRequirement.NONE &amp;&amp; !plan.isEmpty) ConfirmedPlan(plan.operations, plan.plan.locale) else null</ID>
+    <ID>MaxLineLength:RoomCatalogRepository.kt:RoomCatalogRepository$if (keys.isEmpty()) emptyMap() else categoryDao.getTranslationsForKeys(keys.distinct(), DisplayNames.lookupLocales(locale)).toIndex()</ID>
+    <ID>MaxLineLength:RoomCatalogRepository.kt:RoomCatalogRepository$if (keys.isEmpty()) emptyMap() else masterItemDao.getTranslations(keys.distinct(), DisplayNames.lookupLocales(locale)).toIndex()</ID>
+    <ID>MaxLineLength:RoomCatalogRepository.kt:RoomCatalogRepository$override suspend</ID>
+    <ID>MaxLineLength:RoomCatalogRepositoryTest.kt:RoomCatalogRepositoryTest$assertEquals(listOf("Rice flour", "Basmati rice"), catalog.searchMasterItems("rice", "en").map { it.displayName })</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$ChecklistCategoryEntity(id = ids.newId(), checklistId = checklistId, categoryId = categoryId, displayOrder = order, createdAt = now)</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$checklistDao.insert(ChecklistEntity(id = id, title = title, description = description, createdAt = now, updatedAt = now))</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$if</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$override suspend</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$private suspend</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$sectionCopies.map { (section, newId) -&gt; section.section.copy(id = newId, checklistId = copyId, createdAt = now) }</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$source.checklist.copy(id = copyId, title = newTitle, createdAt = now, updatedAt = now, isArchived = false, archivedAt = null)</ID>
+    <ID>MaxLineLength:RoomChecklistRepository.kt:RoomChecklistRepository$val siblings = sectionDao.getForChecklist(section.checklistId).map { SparseOrder.Entry(it.id, it.displayOrder) }</ID>
+    <ID>MaxLineLength:RoomChecklistRepositoryTest.kt:RoomChecklistRepositoryTest$assertEquals(listOf(alpha, beta), titles(ChecklistQuery(sort = ChecklistSort.TITLE)).first().map { it.checklist.id })</ID>
+    <ID>MaxLineLength:RoomChecklistRepositoryTest.kt:RoomChecklistRepositoryTest$assertEquals(listOf(archived), titles(ChecklistQuery(filter = ChecklistFilter.ARCHIVED)).first().map { it.checklist.id })</ID>
+    <ID>MaxLineLength:RoomChecklistRepositoryTest.kt:RoomChecklistRepositoryTest$assertEquals(listOf(beta, alpha), titles(ChecklistQuery(sort = ChecklistSort.PROGRESS)).first().map { it.checklist.id })</ID>
+    <ID>MaxLineLength:RoomChecklistRepositoryTest.kt:RoomChecklistRepositoryTest$val id = repository.createChecklist("Weekly shop", "Saturday", listOf(groceries.id, vegetables.id, groceries.id))</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), phoneB.preview(BytesSource(padded, sizeBytes = null), "en"))</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$checklists.addItems(sections[1], listOf(item("अगरबत्ती", "mr", "3", bundle.value), item("കർപ്പൂരം", "ml", "1", "PACK")))</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$listOf("Diwali Shopping", "Diwali Shopping (2)", "Diwali Shopping (3)", "Goa Trip", "Goa Trip (2)", "Goa Trip (3)")</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$listOf(ChecklistRename("Diwali Shopping", "Diwali Shopping (2)"), ChecklistRename("Goa Trip", "Goa Trip (2)"))</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$private</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val bytes = requireNotNull(javaClass.getResourceAsStream("/transfer/hostile-strings.json")).use { it.readBytes() }</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val category = categories.getValue(section.categoryRef).let { listOf(it.canonicalKey, it.customName, it.icon) }</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val diwali = checklists.createChecklist("Diwali Shopping", "For the festival", listOf(category("groceries").id, pooja))</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val future = requireNotNull(javaClass.getResourceAsStream("/transfer/future-version.json")).use { it.readBytes() }</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val rejection = (small.previewOf(phoneA.exportAll()) as ImportPreviewResult.Rejected).rejection as ImportRejection.Invalid</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest$val tables = listOf("checklist", "checklist_category", "checklist_item", "category", "unit_def", "item_search_fts")</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest.BytesSource$private</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest.Device$private</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest.Device$suspend fun previewOf: ImportPreviewResult</ID>
+    <ID>MaxLineLength:RoomImportExportTest.kt:RoomImportExportTest.FailingChecklistRepository$if (++calls == failOnAddItemsCall) throw IllegalStateException("injected") else delegate.addItems(sectionId, items)</ID>
+    <ID>MaxLineLength:SectionUseCases.kt:AddCategoriesToChecklistUseCase$suspend operator</ID>
+    <ID>MaxLineLength:SectionUseCasesTest.kt:SectionUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.NEGATIVE_POSITION))), move(giftsSection.id, -1))</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$categoryNames[locale] = root.getValue("categories").jsonObject.mapValues { it.value.jsonPrimitive.content }.toMutableMap()</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$custom.value += MasterItem(id, categoryId, "custom:${id.value}", name, name, defaultUnit, isCustom = true, isHidden = false, useCount = 0)</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$displayName = itemNames[language(locale)]?.get(item.key)?.name ?: itemNames.getValue("en").getValue(item.key).name</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$fun masterItem: MasterItem</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$override suspend</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$override suspend fun getMasterItem: MasterItem?</ID>
+    <ID>MaxLineLength:SeedCatalogRepository.kt:SeedCatalogRepository$val words = phrases.flatMap { normalize(it).split(Regex("[^\\p{L}\\p{N}\\p{M}]+")) }.filter { it.isNotEmpty() }</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$"INSERT INTO item_search_fts (ref_type, ref_id, category_id, locale, text) VALUES (?, ?, ?, ?, ?)"</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$"INSERT OR REPLACE INTO master_item_translation (canonical_key, locale, name, aliases) VALUES (?, ?, ?, ?)"</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$ExistingRow(cursor.getString(0), cursor.isUserOwned(customName = 2, hidden = 3), cursor.getString(1))</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$db.query("SELECT id, category_id, canonical_key, custom_name, custom_name_locale FROM master_item")</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$private</ID>
+    <ID>MaxLineLength:SeedLoader.kt:SeedLoader$val</ID>
+    <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$assertEquals("akki", scalar("SELECT aliases FROM master_item_translation WHERE canonical_key = 'rice' AND locale = 'kn'"))</ID>
+    <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$sql.execSQL("UPDATE master_item SET custom_name = 'Our flour', custom_name_locale = 'en' WHERE canonical_key = 'rice_flour'")</ID>
+    <ID>MaxLineLength:SeedLoaderTest.kt:SeedLoaderTest$val</ID>
+    <ID>MaxLineLength:SettingsScreen.kt:*</ID>
+    <ID>MaxLineLength:SettingsScreen.kt:private</ID>
+    <ID>MaxLineLength:ShareText.kt:StoreLink$fun</ID>
+    <ID>MaxLineLength:TextNormalizer.kt:TextNormalizer$for (char in text) append(if (char.isDigit() &amp;&amp; char !in '0'..'9') Character.forDigit(Character.digit(char, 10), 10) else char)</ID>
+    <ID>MaxLineLength:TextNormalizer.kt:TextNormalizer$if (rest.isNotEmpty() &amp;&amp; isUnit(normalize(rest))) return listOf(Token(word.substring(0, number.length), number), Token(rest, normalize(rest)))</ID>
+    <ID>MaxLineLength:ToolCatalog.kt:ToolCatalog$ParamType.STRING, ParamType.UNIT, ParamType.SECTION_REF, ParamType.ITEM_REF -&gt; SchemaType.STRING</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertEquals(SchemaType.NUMBER, declarations.first { it.name == "addChecklistItem" }.parameters.first { it.name == "quantity" }.type)</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertEquals(setOf("searchMasterItems", "suggestCategories", "suggestItems", "summarizeChecklist"), byRisk.getValue(RiskClass.READ).toSet())</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertEquals(tool.params.map { it.name to it.required }, declaration.parameters.map { it.name to it.required })</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertTrue("${tool.toolName}: $problems", ToolProblem.UnknownTool !in problems &amp;&amp; ToolProblem.NotAPlanStep !in problems)</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertTrue("${tool.toolName}: shape problems $problems", problems.none { it is ToolProblem.MissingArgument || it is ToolProblem.WrongType || it is ToolProblem.UnexpectedArgument })</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$assertTrue(harness.readTools.run(ToolCall("deleteItem", mapOf("itemRef" to "i1")), snapshot.context) is AiResult.Rejected)</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$val found = harness.readTools.run(ToolCall("searchMasterItems", mapOf("query" to "akki")), snapshot.context) as AiResult.Success</ID>
+    <ID>MaxLineLength:ToolCatalogTest.kt:ToolCatalogTest$val plan = harness.validator.validate(ActionPlan(listOf(ToolCall(tool.toolName, args)), PlanSource.ONLINE_MODEL), snapshot)</ID>
+    <ID>MaxLineLength:TransferComposables.kt:Text(stringResource(R.string.import_preview_new_units, preview.newUnits.joinToString(", ")), style = style)</ID>
+    <ID>MaxLineLength:TransferComposables.kt:stringResource(R.string.import_preview_new_categories, preview.newCategories.joinToString(", "))</ID>
+    <ID>MaxLineLength:TransferDocuments.kt:TransferDocuments$append(if (ch.isLetterOrDigit() || ch == ' ' || ch == '-' || ch == '_' || isCombiningMark(ch)) ch else '_')</ID>
+    <ID>MaxLineLength:TransferDtos.kt:CategoryListSerializer$BoundedListSerializer&lt;CategoryDto&gt;(CategoryDto.serializer(), TransferLimits.MAX_CATEGORIES, TransferLimit.CATEGORIES)</ID>
+    <ID>MaxLineLength:TransferDtos.kt:ChecklistListSerializer$BoundedListSerializer&lt;ChecklistDto&gt;(ChecklistDto.serializer(), TransferLimits.MAX_CHECKLISTS, TransferLimit.CHECKLISTS)</ID>
+    <ID>MaxLineLength:TransferDtos.kt:SectionListSerializer$BoundedListSerializer&lt;SectionDto&gt;(SectionDto.serializer(), TransferLimits.MAX_SECTIONS_PER_CHECKLIST, TransferLimit.SECTIONS)</ID>
+    <ID>MaxLineLength:TransferFixtures.kt:TransferFixtures$TransferItem("i1", "s1", canonicalKey = "rice", displayName = "ಅಕ್ಕಿ", displayNameLocale = "kn", quantity = "5", unit = "KG")</ID>
+    <ID>MaxLineLength:TransferFixtures.kt:TransferFixtures$TransferItem("i2", "s1", displayName = "Oil", displayNameLocale = "en", quantity = "1.5", unit = "LITRE", completed = true, position = 1)</ID>
+    <ID>MaxLineLength:TransferFixtures.kt:TransferFixtures$TransferItem("i3", "s2", displayName = "Flowers", displayNameLocale = "en", quantity = "2", unit = "u1", notes = "Marigold")</ID>
+    <ID>MaxLineLength:TransferHelpersTest.kt:TransferHelpersTest$assertEquals(box.right - PdfPageLayout.PROMO_PADDING, PdfPageLayout.PROMO_TEXT_LEFT + PdfPageLayout.PROMO_TEXT_WIDTH, 0.001f)</ID>
+    <ID>MaxLineLength:TransferHelpersTest.kt:TransferHelpersTest$val rects = PdfQrCode.darkRects(matrix, left = 10f, top = 20f, side = (matrix.size + 2 * PdfQrCode.QUIET_ZONE).toFloat())</ID>
+    <ID>MaxLineLength:TransferMessagesTest.kt:TransferMessagesTest$ImportRejection.UnsupportedVersion(formatVersion = 0, schemaVersion = 1, requiresNewerApp = false).toUiText()</ID>
+    <ID>MaxLineLength:TransferMessagesTest.kt:TransferMessagesTest$ImportRejection.UnsupportedVersion(formatVersion = 9, schemaVersion = 9, requiresNewerApp = true).toUiText()</ID>
+    <ID>MaxLineLength:TransferText.kt:TransferText$fun isValidCanonicalKey: Boolean</ID>
+    <ID>MaxLineLength:TransferText.kt:TransferText$icon.isNotBlank() &amp;&amp; icon.length &lt;= TransferLimits.MAX_ICON &amp;&amp; icon.none { Character.getType(it) == Character.CONTROL.toInt() }</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:ApplyImportUseCase$check(sectionIds.size == sectionCategories.size) { "Import created ${sectionIds.size} of ${sectionCategories.size} sections" }</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:ExportChecklistsUseCase$?:</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:ExportChecklistsUseCase$TransferCategory(ref, customName = category.customName ?: category.displayName, icon = category.iconKey)</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:ExportChecklistsUseCase$if (itemCount &gt; TransferLimits.MAX_ITEMS) return ExportResult.TooLarge(TransferLimit.ITEMS, TransferLimits.MAX_ITEMS.toLong())</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:ExportChecklistsUseCase$unitRefs[code] = TransferUnit(ref, TransferFormat.CUSTOM_UNIT_CODE, unit.customLabel ?: code.value, unit.allowsDecimal)</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:PreviewImportUseCase$if (reported != null &amp;&amp; reported &gt; TransferLimits.MAX_FILE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)</ID>
+    <ID>MaxLineLength:TransferUseCases.kt:PreviewImportUseCase$if (total &gt; TransferLimits.MAX_FILE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(1, device.catalog.allCategories().count { it.displayName.equals("pooja items", ignoreCase = true) })</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), device.preview(EndlessSource(sizeBytes = 10), "en"))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(ImportPreviewResult.Rejected(ImportRejection.Malformed), device.preview(BytesSource(ByteArray(3)), "en"))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(ImportPreviewResult.Rejected(ImportRejection.UnsupportedVersion(1, 2, requiresNewerApp = true)), result)</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(listOf("First" to true, "Second" to false), detail.sections[0].items.map { it.displayName to it.isCompleted })</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(listOf("Goa Trip (2)", "goa trip (3)", "Packing"), summary.checklistIds.map { device.checklists.checklist(it)!!.title })</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(listOf("Pooja Items", "Festival lights", "Groceries"), sectionsOfTwo.map { it.category.displayName })</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertEquals(listOf(TransferCategory("c1", canonicalKey = "groceries"), TransferCategory("c2", customName = "Pooja Items", icon = "🪔")), doc.categories)</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$assertFalse(doc.toString().contains("cl-") || doc.toString().contains("sec-") || doc.toString().contains("item-"))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$categories = listOf(TransferCategory("c1", canonicalKey = "groceries"), TransferCategory("c2", customName = "groceries"))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$checklist("k1", "One", TransferSection("s1", "c1", 0), TransferSection("s2", "c2", 1), TransferSection("s3", "c3", 2))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$checklist("k2", "Two", TransferSection("s4", "c4", 0), TransferSection("s5", "c5", 1), TransferSection("s6", "c1", 2))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$checklists = listOf(checklist("k1", "Trip", TransferSection("s2", "c2", 5), TransferSection("s1", "c1", 1)).copy(archived = true))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$checklists.addItems(sections[1].id, listOf(NewChecklistItem(null, null, "Flowers", "en", Quantity.of(2), bundle, null)))</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$private fun FakeCatalogRepository.allUnitsLabel: String?</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest$val result = device.export(ExportRequest(listOf(kept, ChecklistId("gone"), kept), locale = "en", appVersion = "1"), sink)</ID>
+    <ID>MaxLineLength:TransferUseCasesTest.kt:TransferUseCasesTest.Device$suspend fun previewOf: ImportPreviewResult</ID>
+    <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$_effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text)))</ID>
+    <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$_effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, detail.checklist.title)))</ID>
+    <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$fun</ID>
+    <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$private suspend</ID>
+    <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$val detail = observeDetail(checklistId, locale).first() ?: return@runBusy _effects.send(TransferEffect.ChecklistMissing)</ID>
+    <ID>MaxLineLength:TutorialContent.kt:.</ID>
+    <ID>MaxLineLength:TutorialContent.kt:text = stringResource(if (page &gt;= TUTORIAL_PAGE_COUNT - 1) R.string.onboarding_get_started else R.string.onboarding_next)</ID>
+    <ID>MaxLineLength:TutorialIllustrations.kt:color = if (checked) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MaxLineLength:UnitUseCasesTest.kt:UnitUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.UNIT_LABEL_BLANK))), create(" ", allowsDecimal = true))</ID>
+    <ID>MaxLineLength:UnitUseCasesTest.kt:UnitUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.UNIT_LABEL_TOO_LONG))), create("u".repeat(21), allowsDecimal = true))</ID>
+    <ID>MaxLineLength:ValidationError.kt:Field$enum</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:CategoryAndUnitValidatorTest$assertEquals(listOf(ValidationError.CATEGORY_NAME_TOO_LONG), errorsOf(CategoryValidator.validateName("c".repeat(51))))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:ChecklistValidatorTest$assertEquals(listOf(ValidationError.DESCRIPTION_TOO_LONG), errorsOf(ChecklistValidator.validate("T", "d".repeat(501))))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:ChecklistValidatorTest$assertEquals(listOf(ValidationError.TITLE_TOO_LONG), errorsOf(ChecklistValidator.validate("a".repeat(101), null)))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:ItemValidatorTest$assertEquals(listOf(ValidationError.ITEM_NAME_TOO_LONG), errorsOf(ItemValidator.validate("n".repeat(81), null, null, null)))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:ItemValidatorTest$assertEquals(listOf(ValidationError.NOTES_TOO_LONG), errorsOf(ItemValidator.validate("Rice", null, null, "n".repeat(501))))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:ItemValidatorTest$listOf(ValidationError.ITEM_NAME_BLANK, ValidationError.NOTES_TOO_LONG, ValidationError.UNIT_WITHOUT_QUANTITY)</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:QuantityValidatorTest$assertEquals(listOf(ValidationError.QUANTITY_OUT_OF_RANGE), QuantityValidator.validate(Quantity.fromMilli(99_999_001), null))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:QuantityValidatorTest$assertEquals(listOf(ValidationError.UNIT_WITHOUT_QUANTITY), QuantityValidator.validate(null, BuiltInUnits.PIECE))</ID>
+    <ID>MaxLineLength:ValidatorsTest.kt:QuantityValidatorTest$assertEquals(unit.code.value, listOf(ValidationError.QUANTITY_MUST_BE_WHOLE), QuantityValidator.validate(Quantity.parse("2.5"), unit))</ID>
+    <ID>ReturnCount:ImportPlanner.kt:ImportPlanner.CategoryResolver$fun resolve: CategoryTarget</ID>
+    <ID>ReturnCount:ImportPlanner.kt:ImportPlanner.UnitResolver$fun resolve: Pair&lt;UnitTarget, UnitDef&gt;?</ID>
+    <ID>ReturnCount:ImportValidator.kt:ImportValidator$fun validate: ImportRejection?</ID>
+    <ID>ReturnCount:Lexicon.kt:Lexicon$fun number: BigDecimal?</ID>
+    <ID>ReturnCount:MockAIService.kt:MockAIService$override suspend fun interpret: AiResult&lt;ActionPlan&gt;</ID>
+    <ID>ReturnCount:OfflineCommandParser.kt:OfflineCommandParser$private suspend fun existingItemCall: Either?</ID>
+    <ID>ReturnCount:OfflineCommandParser.kt:OfflineCommandParser$private suspend fun findInChecklist: ItemContext?</ID>
+    <ID>ReturnCount:PlanValidator.kt:PlanValidator$private suspend fun placeItem: Pair&lt;SectionTarget, String&gt;?</ID>
+    <ID>ReturnCount:ProfileKeys.kt:KeysetProfileAeadProvider$@Synchronized override fun existingAead: Aead?</ID>
+    <ID>ReturnCount:ReadToolRunner.kt:ReadToolRunner$suspend fun run: AiResult&lt;ReadToolResult&gt;</ID>
+    <ID>ReturnCount:TransferUseCases.kt:ExportChecklistsUseCase$suspend fun unitRef: String?</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: GeneralSecurityException</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: IllegalArgumentException</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: ProfileKeyException</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: ProfileKeyException.KeyLost</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: ProfileKeyException.Unavailable</ID>
+    <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: SerializationException</ID>
+    <ID>SwallowedException:OnboardingViewModel.kt:OnboardingViewModel$e: IOException</ID>
+    <ID>SwallowedException:SeedSource.kt:AssetSeedSource$missing: FileNotFoundException</ID>
+    <ID>TooGenericExceptionCaught:JsonTransferCodec.kt:JsonTransferCodec$e: RuntimeException</ID>
+    <ID>TooGenericExceptionCaught:ProfileKeys.kt:KeysetProfileAeadProvider$e: Exception</ID>
+    <ID>TooManyFunctions:CatalogRepository.kt:CatalogRepository</ID>
+    <ID>TooManyFunctions:ChecklistDetailViewModel.kt:ChecklistDetailViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter : ChecklistPdfWriter</ID>
+    <ID>TooManyFunctions:ChecklistRepository.kt:ChecklistRepository</ID>
+    <ID>TooManyFunctions:CommandGrammar.kt:CommandGrammar</ID>
+    <ID>TooManyFunctions:PdfPageLayout.kt:PdfPageLayout</ID>
+    <ID>TooManyFunctions:PlanValidator.kt:PlanValidator</ID>
+    <ID>TooManyFunctions:RoomCatalogRepository.kt:RoomCatalogRepository : CatalogRepository</ID>
+    <ID>TooManyFunctions:RoomChecklistRepository.kt:RoomChecklistRepository : ChecklistRepository</ID>
+  </CurrentIssues>
+</SmellBaseline>

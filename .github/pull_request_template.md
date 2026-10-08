@@ -35,7 +35,7 @@ Write "Not applicable" when nothing visible changed. -->
 - [ ] Layers respected: `:domain` stays pure Kotlin, `:ai` does not depend on `:data`
 - [ ] Unit tests (and Room/UI tests where relevant) added and passing; no skipped or disabled tests
 - [ ] UI checked at 100% and 200% font scale, light and dark (or not applicable)
-- [ ] Lint passes with no new baseline entries (detekt and ktlint as well once CL-106 lands)
+- [ ] Lint and detekt pass with no new baseline entries
 - [ ] Localization: no hard-coded user-visible text; strings present in all 7 languages (en, kn, hi, ta, te, mr, ml) or a tracked follow-up issue
 - [ ] Accessibility: content descriptions, 48dp touch targets, contrast and the TalkBack path checked (or not applicable)
 - [ ] Security and privacy: no secrets; no personal data in logs, exports or AI context; new permissions justified

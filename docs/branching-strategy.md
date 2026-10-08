@@ -2,7 +2,7 @@
 
 Git flow with one branch per issue. Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 14 and 15.
 
-**Status:** branches, naming and commit format are in use since Phase 1. Protection rules, the commit-message check and the `commit-msg` hook are Planned (Phase 8).
+**Status:** branches, naming and commit format are in use since Phase 1. The CI check of commit subjects, PR titles and branch names is Implemented (`pr-checks`, Phase 8, CL-185). Protection rules (applied by the owner in GitHub settings) and the local `commit-msg` hook are Planned.
 
 ```text
 main  ◄── release/x.y.z ◄── develop ◄── feature/CL-123-short-name
@@ -15,6 +15,7 @@ main  ◄── release/x.y.z ◄── develop ◄── feature/CL-123-short-n
 | Branch | Purpose | Created from | Merges into | Merge style | Environment |
 |---|---|---|---|---|---|
 | `feature/CL-<id>-<slug>` | One issue | `develop` | `develop` via PR | Squash | PR checks only |
+| `fix/CL-<id>-<slug>` | A bug found during development (not in production) | `develop` | `develop` via PR | Squash | PR checks only |
 | `develop` (default branch) | Integration | | `release/*` (branch cut) | | DEV |
 | `release/x.y.z` | Stabilization; fixes only | `develop` | `main` and back into `develop` | Merge commit | STAGING |
 | `main` | What is in production | | | | PRODUCTION (via tag) |
@@ -25,7 +26,8 @@ Squash merges keep `develop` at one commit per issue; merge commits keep release
 ## Naming
 
 - Branch slug: lowercase, hyphenated, short: `feature/CL-121-create-checklist`.
-- Use the type prefix that fits: `feature/` covers features, tech debt, docs and CI work alike; `hotfix/` is only for production emergencies.
+- Use the type prefix that fits: `feature/` covers features, tech debt, docs and CI work alike; `fix/` is for bugs found before release; `hotfix/` is only for production emergencies.
+- Allowed patterns, checked by `pr-checks` on every PR: `feature/CL-<id>-<slug>`, `fix/CL-<id>-<slug>`, `hotfix/CL-<id>-<slug>`, `release/X.Y.Z`. Dependabot's `dependabot/...` branches are exempt.
 
 ## Commits
 
@@ -37,7 +39,7 @@ Optional body: why, not what. Wrap at 72 characters.
 
 - Subject: issue ID, space, imperative verb with a capital letter, at most 72 characters. Pattern: `^CL-\d+ [A-Z]`.
 - One logical change per commit. Several commits per PR are fine: the PR is squashed into one.
-- Enforcement (Planned, Phase 8): a `commit-msg` hook installed by a Gradle task, and the same regex in `pr-checks`. Dependabot commits do not follow this format, so the check must exempt `dependabot[bot]`.
+- Enforcement: `pr-checks` (implemented, CL-185, `tools/checks/conventions.py`) checks every commit subject in the PR and the PR title against `^CL-\d+ [A-Z]`. Merge commits and `dependabot[bot]` commits are exempt. Only the subject line is checked, so bodies and trailers (`Co-Authored-By:`, `Claude-Session:`) are free. Subjects over 72 characters get a warning, not a failure. A local `commit-msg` hook installed by a Gradle task is still Planned.
 
 ## Pull requests
 

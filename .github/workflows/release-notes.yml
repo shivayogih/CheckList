@@ -1,0 +1,53 @@
+# Release notes agent (Phase 11, CL-222): on a release tag, or on demand, builds Google Play
+# "What's new" text and a developer changelog from the CL- commits since the previous tag.
+# Output: job summary + artifact (whatsnew-en-US in the layout Bitrise's google-play-deploy step reads).
+name: Release notes
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      to:
+        description: "Last commit, branch or tag to include"
+        required: false
+        default: "HEAD"
+      from:
+        description: "Exclusive start (empty: the previous v* tag)"
+        required: false
+        default: ""
+
+permissions: {}
+
+jobs:
+  release-notes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # history and tags
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: tools/agents/requirements.txt
+      - name: Install agent dependencies
+        run: python -m pip install --disable-pip-version-check -r tools/agents/requirements.txt
+      - name: Build release notes
+        working-directory: tools/agents
+        env:
+          TO_REF: ${{ inputs.to || github.ref_name }}
+          FROM_REF: ${{ inputs.from }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -m checklist_agents release-notes --repo ../.. --to "$TO_REF" ${FROM_REF:+--from "$FROM_REF"} \
+            --out-dir "$GITHUB_WORKSPACE/build/release-notes" --out "$GITHUB_WORKSPACE/build/release-notes/RELEASE_NOTES.md" \
+            ${GEMINI_API_KEY:+--enrich}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-notes
+          path: build/release-notes/
