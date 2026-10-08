@@ -24,7 +24,7 @@ class ProfileUseCasesTest {
 
             val result = save("  Asha  ", " asha@example.com ", "")
 
-            val expected = UserProfile("Asha", "asha@example.com", null)
+            val expected = UserProfile("Asha", "asha@example.com", null, null)
             assertEquals(DomainResult.Success(expected), result)
             assertEquals(ProfileState.Available(expected), awaitItem())
         }
@@ -34,11 +34,27 @@ class ProfileUseCasesTest {
     fun `invalid input is never stored`() = runTest {
         val result = save(" ", "asha", null)
 
-        assertEquals(
-            DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.DISPLAY_NAME_BLANK, ValidationError.EMAIL_INVALID))),
-            result,
-        )
+        assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.EMAIL_INVALID))), result)
         assertEquals(0, repository.saveCalls)
+    }
+
+    @Test
+    fun `address is saved with the profile`() = runTest {
+        val result = save("", null, null, " 12, 4th Cross ")
+
+        assertEquals(DomainResult.Success(UserProfile(address = "12, 4th Cross")), result)
+        assertEquals(ProfileState.Available(UserProfile(address = "12, 4th Cross")), repository.state.value)
+    }
+
+    @Test
+    fun `a blank form stores nothing and deletes an older profile`() = runTest {
+        assertEquals(DomainResult.Success(UserProfile()), save("", " ", null, null))
+        assertEquals(0, repository.saveCalls)
+        assertEquals(ProfileState.NotSet, repository.state.value)
+
+        save("Asha", null, null)
+        assertEquals(DomainResult.Success(UserProfile()), save("", null, null))
+        assertEquals(ProfileState.NotSet, repository.state.value)
     }
 
     @Test

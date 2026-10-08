@@ -40,6 +40,7 @@ fun ValidationError.toUiText(): UiText = when (this) {
     ValidationError.DISPLAY_NAME_TOO_LONG -> tooLong(FieldLimits.DISPLAY_NAME_MAX)
     ValidationError.EMAIL_TOO_LONG -> tooLong(FieldLimits.EMAIL_MAX)
     ValidationError.EMAIL_INVALID -> UiText(R.string.error_email_invalid)
+    ValidationError.ADDRESS_TOO_LONG -> tooLong(FieldLimits.ADDRESS_MAX)
     ValidationError.PHONE_INVALID -> UiText(
         R.string.error_phone_invalid,
         listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX),

@@ -48,7 +48,8 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Compose UI | Compose test rule on Robolectric (SDK 34), `HiltTestApplication`, `HiltComponentActivity` (debug) | Journeys J1-J2 and J4: create, add items, tick, quantity/unit, delete with Undo, Kannada | `pr-checks` (unit tests) | Implemented (Phase 7, CL-171); helpers in `app/src/test/.../testing/ui/` advance Robolectric's clock while waiting; emulator runs Planned |
 | Screenshot | Roborazzi | Key screens × 7 locales × 100% and 200% font × light and dark | `pr-checks` (diff report) | Planned (Phase 4, 7) |
 | Accessibility | `assertAccessible()` semantics checks, `ThemeContrastTest` | Labels, touch target size, headings, state, clipping at 200%, contrast | `pr-checks` | Implemented (Phase 4/7, CL-144, CL-174) |
-| Static analysis | Lint (now), detekt and ktlint (CL-106) | | `pr-checks` | Lint implemented; detekt/ktlint Planned (Phase 8) |
+| Static analysis | Android Lint; detekt 2 (`ci/scripts/detekt.sh`); logging ban (`tools/checks/logging_ban.py`) | Code smells, forbidden logging | `Android build` (lint), `Quality` (detekt, logging ban) | Implemented (lint Phase 1; detekt and logging ban Phase 8, CL-182, CL-183). ktlint not adopted (see ci-cd.md) |
+| CI tooling (Python) | pytest | CI agents (`tools/agents/tests`) and checks (`tools/checks`) | `Quality` | Implemented (CL-224) |
 
 ## Rules
 

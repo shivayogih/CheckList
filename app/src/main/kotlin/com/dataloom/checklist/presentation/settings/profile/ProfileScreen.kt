@@ -118,7 +118,19 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
                 label = stringResource(R.string.profile_phone),
                 error = state.phoneError,
                 enabled = state.canEdit,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone, imeAction = ImeAction.Done),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone, imeAction = ImeAction.Next),
+            )
+            ProfileField(
+                value = state.address,
+                onValueChange = { onAction(ProfileAction.AddressChanged(it)) },
+                label = stringResource(R.string.profile_address),
+                error = state.addressError,
+                enabled = state.canEdit,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    imeAction = ImeAction.Default,
+                ),
+                singleLine = false,
             )
 
             Button(
@@ -184,13 +196,15 @@ private fun ProfileField(
     error: UiText?,
     enabled: Boolean,
     keyboardOptions: KeyboardOptions,
+    singleLine: Boolean = true,
 ) {
     val errorText = error?.asString()
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) },
-        singleLine = true,
+        singleLine = singleLine,
+        minLines = if (singleLine) 1 else 3,
         enabled = enabled,
         isError = errorText != null,
         supportingText = optionalText(errorText),

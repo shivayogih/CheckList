@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.dataloom.checklist.onboarding.StartDestination
 import com.dataloom.checklist.presentation.category.AddCategoriesScreen
 import com.dataloom.checklist.presentation.checklist.create.CreateChecklistScreen
 import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailNavigation
@@ -13,6 +14,7 @@ import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailScree
 import com.dataloom.checklist.presentation.checklist.item.ItemEditorScreen
 import com.dataloom.checklist.presentation.home.HomeScreen
 import com.dataloom.checklist.presentation.masteritem.AddItemsScreen
+import com.dataloom.checklist.presentation.onboarding.OnboardingScreen
 import com.dataloom.checklist.presentation.settings.LanguageScreen
 import com.dataloom.checklist.presentation.settings.SettingsScreen
 import com.dataloom.checklist.presentation.settings.profile.ProfileScreen
@@ -22,6 +24,13 @@ import kotlinx.serialization.Serializable
 // because navigation arguments must be serializable primitives.
 @Serializable
 data object HomeRoute
+
+/**
+ * The first-run flow (welcome, tutorial, profile setup). With [replay] it is only the tutorial,
+ * opened from Settings: it never touches the "completed" flag and never shows profile setup.
+ */
+@Serializable
+data class OnboardingRoute(val replay: Boolean = false)
 
 @Serializable
 data object SettingsRoute
@@ -54,8 +63,27 @@ data class ItemEditorRoute(
 )
 
 @Composable
-fun CheckListNavHost(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, startDestination = HomeRoute) {
+fun CheckListNavHost(
+    start: StartDestination,
+    navController: NavHostController = rememberNavController(),
+) {
+    val startRoute: Any = if (start == StartDestination.ONBOARDING) OnboardingRoute() else HomeRoute
+    NavHost(navController = navController, startDestination = startRoute) {
+        composable<OnboardingRoute> { entry ->
+            val replay = entry.toRoute<OnboardingRoute>().replay
+            OnboardingScreen(
+                onFinished = {
+                    if (replay) {
+                        navController.popBackStack()
+                    } else {
+                        // Clear the flow from the back stack, so Back from Home leaves the app.
+                        navController.navigate(HomeRoute) {
+                            popUpTo<OnboardingRoute> { inclusive = true }
+                        }
+                    }
+                },
+            )
+        }
         composable<HomeRoute> {
             HomeScreen(
                 onOpenSettings = { navController.navigate(SettingsRoute) },
@@ -68,6 +96,7 @@ fun CheckListNavHost(navController: NavHostController = rememberNavController())
                 onBack = { navController.popBackStack() },
                 onOpenLanguage = { navController.navigate(LanguageRoute) },
                 onOpenProfile = { navController.navigate(ProfileRoute) },
+                onShowTutorial = { navController.navigate(OnboardingRoute(replay = true)) },
             )
         }
         composable<ProfileRoute> {
