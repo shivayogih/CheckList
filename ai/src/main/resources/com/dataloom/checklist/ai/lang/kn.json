@@ -1,0 +1,66 @@
+{
+  "language": "kn",
+  "scripts": ["KANNADA"],
+  "numbers": {
+    "ಒಂದು": "1", "ಎರಡು": "2", "ಮೂರು": "3", "ನಾಲ್ಕು": "4", "ಐದು": "5", "ಆರು": "6", "ಏಳು": "7",
+    "ಎಂಟು": "8", "ಒಂಬತ್ತು": "9", "ಹತ್ತು": "10", "ಹನ್ನೆರಡು": "12", "ಇಪ್ಪತ್ತು": "20",
+    "ಅರ್ಧ": "0.5", "ಒಂದೂವರೆ": "1.5", "ಎರಡೂವರೆ": "2.5",
+    "ondu": "1", "eradu": "2", "mooru": "3", "muru": "3", "naalku": "4", "nalku": "4", "aidu": "5",
+    "aaru": "6", "elu": "7", "entu": "8", "ombattu": "9", "hattu": "10", "ardha": "0.5", "onduvare": "1.5"
+  },
+  "units": {
+    "KG": ["ಕೆಜಿ", "ಕೆ.ಜಿ", "ಕಿಲೋ", "ಕಿಲೊ"],
+    "GRAM": ["ಗ್ರಾಂ", "ಗ್ರಾಮ್"],
+    "LITRE": ["ಲೀಟರ್", "ಲೀಟರ"],
+    "MILLILITRE": ["ಮಿಲಿ", "ಮಿ.ಲೀ", "ಎಂಎಲ್"],
+    "DOZEN": ["ಡಜನ್"],
+    "PIECE": ["ಪೀಸ್", "ತುಂಡು", "tundu"],
+    "PACK": ["ಪ್ಯಾಕೆಟ್", "ಪ್ಯಾಕ್"],
+    "BOX": ["ಬಾಕ್ಸ್", "ಡಬ್ಬಿ", "dabbi"],
+    "BOTTLE": ["ಬಾಟಲ್", "ಬಾಟಲಿ", "batli"],
+    "PAIR": ["ಜೋಡಿ", "jodi"],
+    "METER": ["ಮೀಟರ್"]
+  },
+  "separators": ["ಮತ್ತು", "ಹಾಗೂ", "mattu", "haagu"],
+  "fillers": ["ಸ್ವಲ್ಪ", "ದಯವಿಟ್ಟು", "ಪಟ್ಟಿಗೆ", "ಇನ್ನೂ", "swalpa", "dayavittu", "pattige"],
+  "nameSuffixes": ["ಯನ್ನು", "ವನ್ನು", "ಅನ್ನು", "ನ್ನು", "ಗಳನ್ನು", "ಗಳು", "yannu", "vannu", "annu"],
+  "titleConnectors": ["ಹೆಸರಿನ", "hesarina"],
+  "intents": {
+    "ADD": {
+      "prefixes": [],
+      "suffixes": [
+        "ಸೇರಿಸು", "ಸೇರಿಸಿ", "ಪಟ್ಟಿಗೆ ಸೇರಿಸು", "ಪಟ್ಟಿಗೆ ಸೇರಿಸಿ", "ಹಾಕು", "ಹಾಕಿ", "ಬೇಕು", "ತರಬೇಕು", "ತನ್ನಿ",
+        "serisu", "serisi", "haaku", "haaki", "haki", "beku", "add maadi", "add madi"
+      ]
+    },
+    "COMPLETE": {
+      "prefixes": [],
+      "suffixes": [
+        "ಆಯಿತು", "ಆಯ್ತು", "ಆಗಿದೆ", "ತಗೊಂಡೆ", "ತೆಗೆದುಕೊಂಡೆ", "ಖರೀದಿಸಿದೆ", "ಮುಗಿಯಿತು", "ಸಿಕ್ತು", "ಟಿಕ್ ಮಾಡು", "ಟಿಕ್ ಮಾಡಿ",
+        "aaytu", "aayitu", "aagide", "tagonde", "sikthu", "tick maadi"
+      ]
+    },
+    "UNCOMPLETE": {
+      "prefixes": [],
+      "suffixes": ["ಆಗಿಲ್ಲ", "ಆಗಲಿಲ್ಲ", "ಇನ್ನೂ ಬೇಕು", "ಬಾಕಿ", "ಬಾಕಿ ಇದೆ", "aagilla", "baaki", "innu beku"]
+    },
+    "REMOVE": {
+      "prefixes": [],
+      "suffixes": [
+        "ತೆಗೆ", "ತೆಗೆಯಿರಿ", "ತೆಗೆದುಹಾಕು", "ತೆಗೆದುಹಾಕಿ", "ಬೇಡ", "ಅಳಿಸು", "ಅಳಿಸಿ", "ಪಟ್ಟಿಯಿಂದ ತೆಗೆ",
+        "tege", "tegi", "beda", "alisi"
+      ]
+    },
+    "UPDATE": {
+      "prefixes": [],
+      "suffixes": ["ಮಾಡು", "ಮಾಡಿ", "ಗೆ ಬದಲಿಸಿ", "ಬದಲಿಸಿ", "maadu", "maadi", "madi"]
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": ["ಹೊಸ ಪಟ್ಟಿ", "hosa patti", "hosa list"],
+      "suffixes": [
+        "ಪಟ್ಟಿ ಮಾಡು", "ಪಟ್ಟಿ ಮಾಡಿ", "ಹೊಸ ಪಟ್ಟಿ ಮಾಡಿ", "ಪಟ್ಟಿ ರಚಿಸಿ", "ಲಿಸ್ಟ್ ಮಾಡಿ",
+        "patti maadi", "list maadi", "patti madi", "list madi"
+      ]
+    }
+  }
+}
