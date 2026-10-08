@@ -16,7 +16,7 @@ How CheckList is put together and the rules that keep it that way. The approved 
 | Domain models and repository contracts | In progress (Phase 2, CL-110) |
 | Use cases, Room data layer, Hilt, seed catalog | Planned (Phase 2, CL-111 to CL-119) |
 | Core screens: Home, create checklist, categories, checklist detail, add items, item editor; Settings > Your profile, export and import; PDF share and save | In progress (Phase 3, CL-120 to CL-136) |
-| Optional AI layer | Offline part in progress (Phase 10, CL-200 to CL-209): contract, tool validation, confirmation gate, offline parser in 7 languages; online AI and UI Planned (CL-210, CL-211) |
+| Optional AI layer | Offline part in progress (Phase 10, CL-200 to CL-209): contract, tool validation, confirmation gate, offline parser in 7 languages; Settings switches, command field and review sheet in progress (CL-240); online AI Planned (CL-211) |
 
 ## Principles
 

@@ -20,12 +20,22 @@ import javax.inject.Singleton
 annotation class OnlineAiService
 
 /**
+ * Marks the app's [AiSettingsSource] (the Settings store). The slot needs its own key: [AiModule]
+ * itself provides the unqualified [AiSettingsSource] (falling back to [AiSettingsSource.DISABLED]),
+ * so an unqualified binding in the app would be a duplicate binding.
+ */
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AiSettingsStore
+
+/**
  * Hilt bindings of the AI layer, installed app-wide automatically because :app depends on :ai.
  * Everything else (validator, policy, executor, [com.dataloom.checklist.ai.AiAssistant]) has an
  * `@Inject` constructor built from domain use cases.
  *
  * Two optional slots let the app or a later module plug in without editing this one:
- * - [AiSettingsSource]: the Settings toggles. Unbound means AI stays off ([AiSettingsSource.DISABLED]).
+ * - `@AiSettingsStore AiSettingsSource`: the Settings toggles. Unbound means AI stays off
+ *   ([AiSettingsSource.DISABLED]). Everything in :ai injects the unqualified [AiSettingsSource] provided here.
  * - `@OnlineAiService AIService`: the online provider. Unbound means offline only.
  */
 @Module
@@ -33,6 +43,7 @@ annotation class OnlineAiService
 abstract class AiModule {
 
     @BindsOptionalOf
+    @AiSettingsStore
     abstract fun optionalSettings(): AiSettingsSource
 
     @BindsOptionalOf
@@ -47,7 +58,7 @@ abstract class AiModule {
         fun provideLanguagePacks(): LanguagePacks = LanguagePacks.bundled()
 
         @Provides
-        fun provideSettings(settings: Optional<AiSettingsSource>): AiSettingsSource = settings.orElse(AiSettingsSource.DISABLED)
+        fun provideSettings(@AiSettingsStore settings: Optional<AiSettingsSource>): AiSettingsSource = settings.orElse(AiSettingsSource.DISABLED)
 
         @Provides
         fun provideAiService(
