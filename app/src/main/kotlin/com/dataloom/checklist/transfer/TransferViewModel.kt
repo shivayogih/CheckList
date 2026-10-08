@@ -106,9 +106,17 @@ class TransferViewModel @Inject constructor(
 
     private val locale: String get() = LocalizedResources.languageTag(context)
 
-    /** Exports [checklistIds] (null: all, archived included) to a document the user created. */
-    fun exportTo(uri: Uri, checklistIds: List<ChecklistId>? = null) = runBusy {
-        val request = ExportRequest(checklistIds, locale = locale, appVersion = BuildConfig.VERSION_NAME)
+    /**
+     * Exports [checklistIds] (null: all, archived included) to a document the user created. With
+     * [includePhotos] the document is a .zip made with [TransferDocuments.createZip].
+     */
+    fun exportTo(uri: Uri, checklistIds: List<ChecklistId>? = null, includePhotos: Boolean = false) = runBusy {
+        val request = ExportRequest(
+            checklistIds,
+            locale = locale,
+            appVersion = BuildConfig.VERSION_NAME,
+            includePhotos = includePhotos,
+        )
         _effects.send(TransferEffect.Exported(exportChecklists(request, documents.exportSink(uri))))
     }
 
@@ -117,16 +125,23 @@ class TransferViewModel @Inject constructor(
      * whose subject and text say what the file is, link the store when `PLAY_STORE_URL` is set and
      * list the import steps. Emits [TransferEffect.Exported] when there was nothing to export.
      */
-    fun shareExport(checklistIds: List<ChecklistId>? = null) = runBusy {
-        val request = ExportRequest(checklistIds, locale = locale, appVersion = BuildConfig.VERSION_NAME)
-        val file = exportFiles.newFile(TransferDocuments.exportFileName())
+    fun shareExport(checklistIds: List<ChecklistId>? = null, includePhotos: Boolean = false) = runBusy {
+        val request = ExportRequest(
+            checklistIds,
+            locale = locale,
+            appVersion = BuildConfig.VERSION_NAME,
+            includePhotos = includePhotos,
+        )
+        val fileName = if (includePhotos) TransferDocuments.exportZipFileName() else TransferDocuments.exportFileName()
+        val mimeType = if (includePhotos) TransferDocuments.ZIP_MIME_TYPE else TransferDocuments.JSON_MIME_TYPE
+        val file = exportFiles.newFile(fileName)
         val result = exportChecklists(request) { file.outputStream() }
         if (result !is ExportResult.Exported) {
             file.delete()
             return@runBusy _effects.send(TransferEffect.Exported(result))
         }
         val message = ExportShareText.build(exportShareStrings(), StoreLink.of(BuildConfig.PLAY_STORE_URL))
-        _effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text)))
+        _effects.send(TransferEffect.Share(sharer.shareIntent(file, mimeType, message.subject, message.text)))
     }
 
     private fun exportShareStrings(): ExportShareStrings {
@@ -165,8 +180,11 @@ class TransferViewModel @Inject constructor(
         }
     }
 
+    /** Drops the preview and deletes the photos of a photo backup that were unpacked for it. */
     fun dismissImport() {
+        val preview = _state.value.preview
         _state.update { it.copy(preview = null) }
+        if (preview != null) viewModelScope.launch { preview.validated.discard() }
     }
 
     /** Writes the PDF to the app's share folder and emits a Sharesheet intent for it. */
