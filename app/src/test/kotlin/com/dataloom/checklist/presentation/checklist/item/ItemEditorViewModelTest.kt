@@ -8,17 +8,26 @@ import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.domain.usecase.AddCustomItemUseCase
+import com.dataloom.checklist.domain.usecase.AddItemPhotosUseCase
+import com.dataloom.checklist.domain.usecase.AttachStoredPhotosUseCase
 import com.dataloom.checklist.domain.usecase.CreateCustomUnitUseCase
 import com.dataloom.checklist.domain.usecase.ObserveChecklistDetailUseCase
 import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
+import com.dataloom.checklist.domain.usecase.RemoveItemPhotoUseCase
+import com.dataloom.checklist.domain.usecase.ReorderItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.UpdateChecklistItemUseCase
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.photos.PhotoAction
 import com.dataloom.checklist.testing.FakeCatalogRepository
 import com.dataloom.checklist.testing.FakeChecklistRepository
 import com.dataloom.checklist.testing.FakeLanguageProvider
+import com.dataloom.checklist.testing.FakePhotoRepository
+import com.dataloom.checklist.testing.FakePhotoStore
 import com.dataloom.checklist.testing.MainDispatcherRule
 import com.dataloom.checklist.testing.keepCollecting
+import com.dataloom.checklist.testing.textSource
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -37,6 +46,8 @@ class ItemEditorViewModelTest {
     private val catalog = FakeCatalogRepository()
     private val repo = FakeChecklistRepository(catalog)
     private val groceries = catalog.seedCategory("groceries", "Groceries")
+    private val photoStore = FakePhotoStore()
+    private val photoRepo = FakePhotoRepository().apply { autoRegister = true }
     // Set by the setup helper; value classes cannot be lateinit.
     private var checklistId = ChecklistId("")
     private var sectionId = SectionId("")
@@ -58,6 +69,11 @@ class ItemEditorViewModelTest {
             updateItem = UpdateChecklistItemUseCase(repo, catalog),
             createCustomUnit = CreateCustomUnitUseCase(catalog),
             languageProvider = FakeLanguageProvider("kn"),
+            photoStore = photoStore,
+            addItemPhotos = AddItemPhotosUseCase(photoRepo, photoStore),
+            attachPhotos = AttachStoredPhotosUseCase(photoRepo, photoStore),
+            removeItemPhoto = RemoveItemPhotoUseCase(photoRepo, photoStore),
+            reorderItemPhoto = ReorderItemPhotoUseCase(photoRepo),
         )
         keepCollecting(vm.uiState)
         return vm
@@ -208,5 +224,92 @@ class ItemEditorViewModelTest {
         assertEquals(UiText(R.string.error_duplicate_name), dialog.error)
         assertTrue(dialog.allowsDecimal)
         assertNull(vm.uiState.value.unit)
+    }
+
+    // ---- Photos ----
+
+    private fun ItemEditorViewModel.addPhotos(vararg texts: String) =
+        onAction(ItemEditorAction.Photos(PhotoAction.Add(texts.map(::textSource))))
+
+    @Test
+    fun `photos added to a new item wait in the store and are attached when the item is created`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+
+        vm.addPhotos("a", "b")
+        assertEquals(2, vm.uiState.value.photoForm.photos.size)
+        assertEquals(0, vm.uiState.value.photoForm.processing)
+        assertEquals(1, vm.uiState.value.photoForm.freeSlots)
+        assertTrue("No row yet", photoRepo.all().isEmpty())
+
+        vm.effect.test {
+            vm.onAction(ItemEditorAction.Save)
+            assertEquals(ItemEditorEffect.Saved, awaitItem())
+        }
+        val rows = photoRepo.all()
+        assertEquals(2, rows.size)
+        assertEquals(items().single().id, rows.first().itemId)
+        assertEquals(vm.uiState.value.photoForm.photos.map { it.key }, rows.map { it.fileName })
+    }
+
+    @Test
+    fun `only three photos fit, the rest are cut off with a message`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+
+        vm.addPhotos("a", "b", "c", "d", "e")
+
+        assertEquals(PhotoLimits.MAX_PER_ITEM, vm.uiState.value.photoForm.photos.size)
+        val message = UiText(R.string.photos_limit_reached, listOf(PhotoLimits.MAX_PER_ITEM))
+        assertEquals(message, vm.uiState.value.photoForm.message)
+        assertEquals(6, photoStore.files.size)
+    }
+
+    @Test
+    fun `a picture that cannot be read shows the friendly message and adds nothing`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+
+        vm.addPhotos("BAD pixels")
+
+        assertTrue(vm.uiState.value.photoForm.photos.isEmpty())
+        assertEquals(UiText(R.string.photos_add_failed), vm.uiState.value.photoForm.message)
+        assertEquals(0, vm.uiState.value.photoForm.processing)
+    }
+
+    @Test
+    fun `removing and moving photos in a new item updates the form and the store`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+        vm.addPhotos("a", "b", "c")
+        val (first, second, third) = vm.uiState.value.photoForm.photos.map { it.key }
+
+        vm.onAction(ItemEditorAction.Photos(PhotoAction.Move(first, +1)))
+        assertEquals(listOf(second, first, third), vm.uiState.value.photoForm.photos.map { it.key })
+        vm.onAction(ItemEditorAction.Photos(PhotoAction.Move(second, -1)))
+        assertEquals("Already first", listOf(second, first, third), vm.uiState.value.photoForm.photos.map { it.key })
+
+        vm.onAction(ItemEditorAction.Photos(PhotoAction.Remove(first)))
+        assertEquals(listOf(second, third), vm.uiState.value.photoForm.photos.map { it.key })
+        assertTrue("The file is deleted at once", first !in photoStore.files.keys)
+    }
+
+    @Test
+    fun `photos of an item that is edited are saved immediately`() = runTest {
+        seed()
+        val id = repo.addItems(sectionId, listOf(NewChecklistItem(null, null, "Rice", "en", null, null, null))).single()
+        photoRepo.addItem(id)
+        val vm = viewModel(itemId = id)
+
+        vm.addPhotos("a", "b")
+        assertEquals(2, photoRepo.photosOf(id)!!.size)
+
+        val rows = photoRepo.photosOf(id)!!
+        vm.onAction(ItemEditorAction.Photos(PhotoAction.Move(rows[0].fileName, +1)))
+        assertEquals(listOf(rows[1].fileName, rows[0].fileName), photoRepo.photosOf(id)!!.map { it.fileName })
+
+        vm.onAction(ItemEditorAction.Photos(PhotoAction.Remove(rows[1].fileName)))
+        assertEquals(listOf(rows[0].fileName), photoRepo.photosOf(id)!!.map { it.fileName })
+        assertTrue(rows[1].fileName !in photoStore.files.keys)
     }
 }

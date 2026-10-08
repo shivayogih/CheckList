@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The only folder the FileProvider exposes: files made for the Sharesheet (section 19.3). -->
+<!--
+    The only folders the FileProvider exposes, both in the cache: files made for the Sharesheet
+    (section 19.3) and the temporary picture the camera app writes for an item photo. Item photos
+    themselves (filesDir/item_photos) are never exposed.
+-->
 <paths>
     <cache-path
         name="exports"
         path="exports/" />
+    <cache-path
+        name="camera"
+        path="camera/" />
 </paths>

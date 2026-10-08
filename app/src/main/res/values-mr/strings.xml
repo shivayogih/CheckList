@@ -223,6 +223,7 @@
     <string name="photo_viewer_delete">फोटो हटवा</string>
     <string name="photo_viewer_zoom_in">झूम इन करा</string>
     <string name="photo_viewer_zoom_out">झूम आउट करा</string>
+    <string name="photos_more_badge">+%1$d</string>
     <string name="photo_delete_title">हा फोटो हटवायचा?</string>
     <string name="photo_delete_body">हे परत आणता येणार नाही.</string>
     <string name="photo_caption_label">कॅप्शन (ऐच्छिक)</string>

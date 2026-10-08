@@ -3,29 +3,42 @@ package com.dataloom.checklist.presentation.checklist.item
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.R
+import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
+import com.dataloom.checklist.domain.photo.NoPhotoStore
+import com.dataloom.checklist.domain.photo.PhotoStore
+import com.dataloom.checklist.domain.repository.NoPhotoRepository
 import com.dataloom.checklist.domain.usecase.AddCustomItemUseCase
+import com.dataloom.checklist.domain.usecase.AddItemPhotosUseCase
+import com.dataloom.checklist.domain.usecase.AttachStoredPhotosUseCase
 import com.dataloom.checklist.domain.usecase.CreateCustomUnitUseCase
 import com.dataloom.checklist.domain.usecase.CustomItemOutcome
 import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.ObserveChecklistDetailUseCase
 import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
+import com.dataloom.checklist.domain.usecase.RemoveItemPhotoUseCase
+import com.dataloom.checklist.domain.usecase.ReorderItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.UpdateChecklistItemUseCase
 import com.dataloom.checklist.domain.validation.Field
 import com.dataloom.checklist.domain.validation.ValidationError
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
+import com.dataloom.checklist.presentation.photos.ItemPhotoDraft
+import com.dataloom.checklist.presentation.photos.PhotoAction
+import com.dataloom.checklist.presentation.photos.PhotoFormState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,7 +76,11 @@ data class ItemEditorUiState(
     val units: List<UnitDef> = emptyList(),
     val newUnit: NewUnitDialogUi? = null,
     val isSaving: Boolean = false,
+    /** The photos part of the form; see [PhotoFormState]. */
+    val photoForm: PhotoFormState = PhotoFormState(),
 ) {
+    val canSave: Boolean get() = !isSaving && !isLoading && photoForm.processing == 0
+
     val selectedUnit: UnitDef? get() = units.firstOrNull { it.code == unit }
 }
 
@@ -79,6 +96,9 @@ sealed interface ItemEditorAction {
     data object ConfirmNewUnit : ItemEditorAction
     data object DismissNewUnit : ItemEditorAction
     data object Save : ItemEditorAction
+
+    /** Add, remove or move a photo; handled by [ItemPhotoDraft]. */
+    data class Photos(val action: PhotoAction) : ItemEditorAction
 }
 
 sealed interface ItemEditorEffect {
@@ -109,6 +129,12 @@ class ItemEditorViewModel @AssistedInject constructor(
     private val updateItem: UpdateChecklistItemUseCase,
     private val createCustomUnit: CreateCustomUnitUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val photoStore: PhotoStore = NoPhotoStore,
+    private val addItemPhotos: AddItemPhotosUseCase = AddItemPhotosUseCase(NoPhotoRepository, NoPhotoStore),
+    private val attachPhotos: AttachStoredPhotosUseCase = AttachStoredPhotosUseCase(NoPhotoRepository, NoPhotoStore),
+    private val removeItemPhoto: RemoveItemPhotoUseCase = RemoveItemPhotoUseCase(NoPhotoRepository, NoPhotoStore),
+    private val reorderItemPhoto: ReorderItemPhotoUseCase = ReorderItemPhotoUseCase(NoPhotoRepository),
+    @param:ApplicationScope private val applicationScope: CoroutineScope = CoroutineScope(SupervisorJob()),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -127,10 +153,22 @@ class ItemEditorViewModel @AssistedInject constructor(
     private val form = MutableStateFlow(ItemEditorUiState(isEditing = item != null, name = initialName))
     private val effects = Channel<ItemEditorEffect>(Channel.BUFFERED)
 
+    private val photoDraft = ItemPhotoDraft(
+        itemId = item,
+        store = photoStore,
+        addToItem = addItemPhotos,
+        attach = attachPhotos,
+        removeFromItem = removeItemPhoto,
+        reorderInItem = reorderItemPhoto,
+        scope = viewModelScope,
+        onGone = { effects.send(ItemEditorEffect.Gone) },
+    )
+
     val effect: Flow<ItemEditorEffect> = effects.receiveAsFlow()
 
-    val uiState: StateFlow<ItemEditorUiState> = combine(form, observeUnits()) { form, units -> form.copy(units = units) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), form.value)
+    val uiState: StateFlow<ItemEditorUiState> = combine(form, observeUnits(), photoDraft.state) { form, units, photos ->
+        form.copy(units = units, photoForm = photos)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), form.value)
 
     init {
         viewModelScope.launch { load() }
@@ -152,6 +190,7 @@ class ItemEditorViewModel @AssistedInject constructor(
             effects.send(ItemEditorEffect.Gone)
             return
         }
+        photoDraft.load(existing.photos)
         form.update {
             it.copy(
                 isLoading = false,
@@ -181,6 +220,7 @@ class ItemEditorViewModel @AssistedInject constructor(
             ItemEditorAction.DismissNewUnit -> form.update { it.copy(newUnit = null) }
             ItemEditorAction.ConfirmNewUnit -> confirmNewUnit()
             ItemEditorAction.Save -> save()
+            is ItemEditorAction.Photos -> photoDraft.handle(action.action)
         }
     }
 
@@ -200,7 +240,8 @@ class ItemEditorViewModel @AssistedInject constructor(
 
     private fun save() {
         val current = form.value
-        if (current.isSaving || current.isLoading) return
+        // A photo still being processed would be lost: the Save button waits for it.
+        if (!current.canSave) return
         val quantityText = current.quantityText.trim()
         val quantity = if (quantityText.isEmpty()) null else Quantity.parse(quantityText)
         if (quantityText.isNotEmpty() && quantity == null) {
@@ -227,6 +268,7 @@ class ItemEditorViewModel @AssistedInject constructor(
             when (result) {
                 is DomainResult.Success -> {
                     val value = result.value
+                    photoDraft.handOver(value)
                     effects.send(
                         if (value is CustomItemOutcome.AlreadyPresent) {
                             ItemEditorEffect.AlreadyOnList(value.existing.displayName)
@@ -242,6 +284,13 @@ class ItemEditorViewModel @AssistedInject constructor(
                 }
             }
         }
+    }
+
+    /** Pictures saved for an item that was never created must not stay on the phone. */
+    override fun onCleared() {
+        val abandoned = photoDraft.abandonedFiles()
+        if (abandoned.isNotEmpty()) applicationScope.launch { abandoned.forEach { photoStore.delete(it) } }
+        super.onCleared()
     }
 
     private fun showFieldErrors(errors: List<ValidationError>) {

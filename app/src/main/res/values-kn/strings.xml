@@ -223,6 +223,7 @@
     <string name="photo_viewer_delete">ಫೋಟೋ ಅಳಿಸಿ</string>
     <string name="photo_viewer_zoom_in">ಜೂಮ್ ಇನ್</string>
     <string name="photo_viewer_zoom_out">ಜೂಮ್ ಔಟ್</string>
+    <string name="photos_more_badge">+%1$d</string>
     <string name="photo_delete_title">ಈ ಫೋಟೋ ಅಳಿಸಬೇಕೆ?</string>
     <string name="photo_delete_body">ಇದನ್ನು ಹಿಂದಕ್ಕೆ ಪಡೆಯಲಾಗದು.</string>
     <string name="photo_caption_label">ಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)</string>

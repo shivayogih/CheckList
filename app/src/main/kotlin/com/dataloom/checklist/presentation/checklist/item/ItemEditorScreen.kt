@@ -54,6 +54,11 @@ import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.components.UnitButton
 import com.dataloom.checklist.presentation.components.UnitPickerDialog
 import com.dataloom.checklist.presentation.components.optionalText
+import com.dataloom.checklist.presentation.photos.PhotoAction
+import com.dataloom.checklist.presentation.photos.PhotoFormState
+import com.dataloom.checklist.presentation.photos.PhotoSourceSheet
+import com.dataloom.checklist.presentation.photos.PhotosFormSection
+import com.dataloom.checklist.presentation.photos.rememberPhotoAdder
 
 /** [onSaved] returns to the checklist, also when the form was opened from "Add item". */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,7 +111,7 @@ fun ItemEditorScreen(
             Surface(tonalElevation = 3.dp) {
                 Button(
                     onClick = { onAction(ItemEditorAction.Save) },
-                    enabled = !state.isSaving && !state.isLoading,
+                    enabled = state.canSave,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
@@ -153,6 +158,7 @@ fun ItemEditorScreen(
                 singleLine = false,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
             )
+            ItemPhotos(state.photoForm, onAction)
             if (!state.isEditing) {
                 SaveToSuggestionsRow(state.saveToSuggestions, state.sectionName) {
                     onAction(ItemEditorAction.SaveToSuggestionsChanged(it))
@@ -249,5 +255,37 @@ private fun SaveToSuggestionsRow(checked: Boolean, sectionName: String, onChange
             modifier = Modifier.weight(1f),
         )
         Switch(checked = checked, onCheckedChange = null)
+    }
+}
+
+/** The "Photos (optional)" section with the picker and camera behind its "Add photo" tile. */
+@Composable
+private fun ItemPhotos(photos: PhotoFormState, onAction: (ItemEditorAction) -> Unit) {
+    var sheetOpen by rememberSaveable { mutableStateOf(false) }
+    val adder = rememberPhotoAdder(photos.freeSlots) { sources, onFinished ->
+        onAction(ItemEditorAction.Photos(PhotoAction.Add(sources, onFinished)))
+    }
+    PhotosFormSection(
+        photos = photos.photos,
+        processing = photos.processing,
+        message = photos.message,
+        onAdd = { sheetOpen = true },
+        onRemove = { onAction(ItemEditorAction.Photos(PhotoAction.Remove(it))) },
+        onMove = { key, delta -> onAction(ItemEditorAction.Photos(PhotoAction.Move(key, delta))) },
+    )
+    if (sheetOpen) {
+        PhotoSourceSheet(
+            onTake = adder.takePhoto?.let { take ->
+                {
+                    sheetOpen = false
+                    take()
+                }
+            },
+            onPick = {
+                sheetOpen = false
+                adder.pickFromGallery()
+            },
+            onDismiss = { sheetOpen = false },
+        )
     }
 }

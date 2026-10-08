@@ -63,12 +63,28 @@ class AddItemPhotosUseCase @Inject constructor(
         itemId: ChecklistItemId,
         saved: List<StoredPhoto>,
         counts: AddPhotosOutcome,
-    ): DomainResult<AddPhotosOutcome> {
-        val rows = photos.addPhotos(itemId, saved)
-        // The item may have been deleted while the images were being saved: keep no stray files.
+    ): DomainResult<AddPhotosOutcome> = when (val attached = attach(itemId, saved)) {
+        is DomainResult.Success -> success(counts.copy(added = attached.value))
+        is DomainResult.Failure -> attached
+    }
+
+    private val attach = AttachStoredPhotosUseCase(photos, store)
+}
+
+/**
+ * Attaches photos that are already in the store (saved while an item was still being created) to
+ * the item. Files whose row could not be written, for example because the item was deleted in the
+ * meantime, are removed so no stray files are left behind. An item that is gone gives [DomainError.NotFound].
+ */
+class AttachStoredPhotosUseCase @Inject constructor(
+    private val photos: PhotoRepository,
+    private val store: PhotoStore,
+) {
+    suspend operator fun invoke(itemId: ChecklistItemId, saved: List<StoredPhoto>): DomainResult<List<ItemPhoto>> {
+        val rows = photos.addPhotos(itemId, saved.take(PhotoLimits.MAX_PER_ITEM))
         val kept = rows.mapTo(HashSet()) { it.fileName }
         saved.filter { it.fileName !in kept }.forEach { store.delete(it.fileName) }
-        return if (rows.isEmpty()) failure(DomainError.NotFound) else success(counts.copy(added = rows))
+        return if (rows.isEmpty() && saved.isNotEmpty()) failure(DomainError.NotFound) else success(rows)
     }
 }
 

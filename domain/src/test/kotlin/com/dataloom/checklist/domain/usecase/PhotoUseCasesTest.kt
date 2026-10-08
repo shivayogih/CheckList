@@ -12,6 +12,7 @@ import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.photo.PhotoFailure
 import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.domain.photo.PhotoNames
+import com.dataloom.checklist.domain.photo.SavePhotoResult
 import com.dataloom.checklist.domain.photo.StorePhotoFileCleaner
 import com.dataloom.checklist.domain.validation.ValidationError
 import kotlinx.coroutines.test.runTest
@@ -32,6 +33,25 @@ class PhotoUseCasesTest {
     }
 
     private fun outcome(result: DomainResult<AddPhotosOutcome>) = (result as DomainResult.Success).value
+
+    // ---- AttachStoredPhotos ----
+
+    @Test
+    fun `attaching saved photos adds rows in order and keeps the files`() = runTest {
+        val first = (store.save(textSource("a")) as SavePhotoResult.Saved).photo
+        val second = (store.save(textSource("b")) as SavePhotoResult.Saved).photo
+        val rows = (AttachStoredPhotosUseCase(photos, store)(item, listOf(second, first)) as DomainResult.Success).value
+        assertEquals(listOf(second.fileName, first.fileName), rows.map { it.fileName })
+        assertEquals(4, store.files.size)
+    }
+
+    @Test
+    fun `attaching to a missing item is NotFound and removes the saved files`() = runTest {
+        val saved = (store.save(textSource("a")) as SavePhotoResult.Saved).photo
+        val result = AttachStoredPhotosUseCase(photos, store)(ChecklistItemId("gone"), listOf(saved))
+        assertEquals(DomainResult.Failure(DomainError.NotFound), result)
+        assertTrue(store.files.isEmpty())
+    }
 
     // ---- AddItemPhotos ----
 
