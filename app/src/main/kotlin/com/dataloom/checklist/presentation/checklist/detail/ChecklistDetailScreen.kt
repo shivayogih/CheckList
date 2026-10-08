@@ -1,0 +1,372 @@
+package com.dataloom.checklist.presentation.checklist.detail
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.model.ChecklistItemId
+import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.quantityText
+import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.BackButton
+import com.dataloom.checklist.presentation.components.ConfirmDialog
+import com.dataloom.checklist.presentation.components.MenuAction
+import com.dataloom.checklist.presentation.components.OverflowMenu
+import com.dataloom.checklist.presentation.components.TextInputDialog
+import kotlinx.coroutines.launch
+
+/** Navigation out of the detail screen. */
+class ChecklistDetailNavigation(
+    val onBack: () -> Unit,
+    val onAddCategories: () -> Unit,
+    val onAddItem: (SectionId) -> Unit,
+    val onEditItem: (SectionId, ChecklistItemId) -> Unit,
+)
+
+@Composable
+fun ChecklistDetailScreen(
+    checklistId: String,
+    navigation: ChecklistDetailNavigation,
+    viewModel: ChecklistDetailViewModel = hiltViewModel<ChecklistDetailViewModel, ChecklistDetailViewModel.Factory>(
+        creationCallback = { factory -> factory.create(checklistId) },
+    ),
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val resources = LocalResources.current
+    val scope = rememberCoroutineScope()
+    val onAction = viewModel::onAction
+
+    // An Undo snackbar lost to a rotation or to leaving the screen cannot be answered any more.
+    LaunchedEffect(viewModel) { onAction(ChecklistDetailAction.CommitPendingDeletes) }
+
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is ChecklistDetailEffect.ItemDeleted -> {
+                    // A new deletion closes the previous Undo snackbar, which commits that deletion.
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                    scope.launch {
+                        val result = snackbarHostState.showSnackbar(
+                            message = resources.getString(R.string.detail_item_deleted, effect.name),
+                            actionLabel = resources.getString(R.string.action_undo),
+                            duration = SnackbarDuration.Long,
+                        )
+                        onAction(
+                            if (result == SnackbarResult.ActionPerformed) {
+                                ChecklistDetailAction.UndoDelete(effect.id)
+                            } else {
+                                ChecklistDetailAction.CommitDelete(effect.id)
+                            },
+                        )
+                    }
+                }
+                ChecklistDetailEffect.ChecklistGone -> navigation.onBack()
+                is ChecklistDetailEffect.Error -> scope.launch {
+                    snackbarHostState.showSnackbar(effect.message.resolve(resources))
+                }
+            }
+        }
+    }
+
+    DetailContent(state, snackbarHostState, onAction, navigation)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DetailContent(
+    state: ChecklistDetailUiState,
+    snackbarHostState: SnackbarHostState,
+    onAction: (ChecklistDetailAction) -> Unit,
+    navigation: ChecklistDetailNavigation,
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(state.title) },
+                navigationIcon = { BackButton(navigation.onBack) },
+                actions = {
+                    OverflowMenu(
+                        contentDescription = stringResource(R.string.checklist_more_options, state.title),
+                        actions = listOf(
+                            MenuAction(stringResource(R.string.detail_rename)) { onAction(ChecklistDetailAction.StartRename) },
+                            MenuAction(stringResource(R.string.add_categories_title), onClick = navigation.onAddCategories),
+                        ),
+                    )
+                },
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentPadding = PaddingValues(bottom = 24.dp),
+        ) {
+            if (!state.isLoading) {
+                item { ProgressHeader(state) }
+            }
+            state.sections.forEach { section ->
+                item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
+                if (section.items.isEmpty()) {
+                    item(key = "empty-${section.id.value}") {
+                        Text(
+                            stringResource(R.string.detail_section_empty),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        )
+                    }
+                }
+                items(section.items, key = { it.id.value }) { item ->
+                    ItemRow(
+                        item = item,
+                        onAction = onAction,
+                        onEdit = { navigation.onEditItem(section.id, item.id) },
+                    )
+                }
+                item(key = "add-${section.id.value}") {
+                    AddItemButton(section.name) { navigation.onAddItem(section.id) }
+                    HorizontalDivider()
+                }
+            }
+            if (!state.isLoading) {
+                item { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
+            }
+        }
+    }
+
+    state.pendingSectionRemoval?.let { section ->
+        ConfirmDialog(
+            title = stringResource(R.string.detail_remove_section_title, section.name),
+            message = stringResource(R.string.detail_remove_section_message),
+            confirmLabel = stringResource(R.string.action_remove),
+            onConfirm = { onAction(ChecklistDetailAction.ConfirmRemoveSection) },
+            onDismiss = { onAction(ChecklistDetailAction.DismissRemoveSection) },
+        )
+    }
+
+    state.rename?.let { dialog ->
+        TextInputDialog(
+            title = stringResource(R.string.detail_rename),
+            label = stringResource(R.string.create_title_label),
+            value = dialog.title,
+            errorText = dialog.error?.asString(),
+            confirmLabel = stringResource(R.string.action_save),
+            enabled = !dialog.isSaving,
+            onValueChange = { onAction(ChecklistDetailAction.RenameChanged(it)) },
+            onConfirm = { onAction(ChecklistDetailAction.ConfirmRename) },
+            onDismiss = { onAction(ChecklistDetailAction.DismissRename) },
+        )
+    }
+}
+
+@Composable
+private fun ProgressHeader(state: ChecklistDetailUiState) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        state.description?.let { Text(it, style = MaterialTheme.typography.bodyLarge) }
+        Text(
+            text = if (state.totalItems == 0) {
+                stringResource(R.string.progress_no_items)
+            } else {
+                stringResource(R.string.progress_done, state.completedItems, state.totalItems)
+            },
+            style = MaterialTheme.typography.titleMedium,
+        )
+        if (state.totalItems > 0) {
+            // Exposes progressBarRangeInfo to TalkBack; the text above is the readable equivalent.
+            LinearProgressIndicator(progress = { state.progress }, modifier = Modifier.fillMaxWidth())
+        }
+    }
+}
+
+@Composable
+private fun SectionHeader(section: SectionUi, onAction: (ChecklistDetailAction) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .padding(start = 16.dp, top = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(section.icon, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics { })
+        Text(
+            section.name,
+            style = MaterialTheme.typography.titleLarge,
+            // Headings let TalkBack users jump between categories.
+            modifier = Modifier
+                .weight(1f)
+                .semantics { heading() },
+        )
+        OverflowMenu(
+            contentDescription = stringResource(R.string.detail_section_options, section.name),
+            actions = listOf(
+                MenuAction(stringResource(R.string.action_move_up), section.canMoveUp) {
+                    onAction(ChecklistDetailAction.MoveSectionUp(section.id))
+                },
+                MenuAction(stringResource(R.string.action_move_down), section.canMoveDown) {
+                    onAction(ChecklistDetailAction.MoveSectionDown(section.id))
+                },
+                MenuAction(stringResource(R.string.action_remove)) { onAction(ChecklistDetailAction.RequestRemoveSection(section)) },
+            ),
+        )
+    }
+}
+
+@Composable
+private fun ItemRow(item: ItemUi, onAction: (ChecklistDetailAction) -> Unit, onEdit: () -> Unit) {
+    val state = stringResource(if (item.isCompleted) R.string.state_completed else R.string.state_not_completed)
+    val quantity = quantityText(item.quantity, item.unit)
+    val editLabel = stringResource(R.string.action_edit)
+    val moveUpLabel = stringResource(R.string.action_move_up)
+    val moveDownLabel = stringResource(R.string.action_move_down)
+    val deleteLabel = stringResource(R.string.action_delete)
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .weight(1f)
+                .heightIn(min = 56.dp)
+                // The whole row toggles, not just the box (section 10).
+                .toggleable(
+                    value = item.isCompleted,
+                    role = Role.Checkbox,
+                    onValueChange = { onAction(ChecklistDetailAction.ToggleItem(item.id, it)) },
+                )
+                .semantics(mergeDescendants = true) {
+                    stateDescription = state
+                    // TalkBack's actions menu offers what the visible "⋮" menu offers, without gestures.
+                    customActions = buildList {
+                        add(accessibilityAction(editLabel, onEdit))
+                        if (item.canMoveUp) add(accessibilityAction(moveUpLabel) { onAction(ChecklistDetailAction.MoveItemUp(item.id)) })
+                        if (item.canMoveDown) {
+                            add(accessibilityAction(moveDownLabel) { onAction(ChecklistDetailAction.MoveItemDown(item.id)) })
+                        }
+                        add(accessibilityAction(deleteLabel) { onAction(ChecklistDetailAction.DeleteItem(item)) })
+                    }
+                }
+                .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Checkbox(checked = item.isCompleted, onCheckedChange = null)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    item.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    // Not colour alone: a tick, a strikethrough and the state description.
+                    textDecoration = if (item.isCompleted) TextDecoration.LineThrough else null,
+                )
+                if (quantity != null) Text(quantity, style = MaterialTheme.typography.bodyMedium)
+                item.notes?.let {
+                    Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
+        OverflowMenu(
+            contentDescription = stringResource(R.string.item_more_options, item.name),
+            actions = listOf(
+                MenuAction(editLabel, onClick = onEdit),
+                MenuAction(moveUpLabel, item.canMoveUp) { onAction(ChecklistDetailAction.MoveItemUp(item.id)) },
+                MenuAction(moveDownLabel, item.canMoveDown) { onAction(ChecklistDetailAction.MoveItemDown(item.id)) },
+                MenuAction(deleteLabel) { onAction(ChecklistDetailAction.DeleteItem(item)) },
+            ),
+        )
+    }
+}
+
+@Composable
+private fun AddItemButton(sectionName: String, onClick: () -> Unit) {
+    TextButton(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .heightIn(min = 48.dp),
+    ) {
+        Icon(painterResource(R.drawable.ic_add), contentDescription = null)
+        // Names the category: there is one "Add item" button per section on the same screen.
+        Text(stringResource(R.string.detail_add_item_to, sectionName), modifier = Modifier.padding(start = 8.dp))
+    }
+}
+
+@Composable
+private fun AddCategoriesFooter(noSections: Boolean, onAddCategories: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        if (noSections) {
+            Text(stringResource(R.string.detail_no_sections), style = MaterialTheme.typography.bodyLarge)
+            Button(
+                onClick = onAddCategories,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 56.dp),
+            ) { Text(stringResource(R.string.add_categories_title)) }
+        } else {
+            OutlinedButton(
+                onClick = onAddCategories,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp),
+            ) { Text(stringResource(R.string.add_categories_title)) }
+        }
+    }
+}
+
+private fun accessibilityAction(label: String, action: () -> Unit) = CustomAccessibilityAction(label) {
+    action()
+    true
+}

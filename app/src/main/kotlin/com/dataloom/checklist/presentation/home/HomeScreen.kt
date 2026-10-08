@@ -1,90 +1,352 @@
 package com.dataloom.checklist.presentation.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
-import com.dataloom.checklist.presentation.theme.CheckListTheme
+import com.dataloom.checklist.domain.model.ChecklistFilter
+import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.model.ChecklistSort
+import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.ConfirmDialog
+import com.dataloom.checklist.presentation.components.MenuAction
+import com.dataloom.checklist.presentation.components.OverflowMenu
 import kotlinx.coroutines.launch
 
-/** Phase 1 shell: empty state only. Checklists, search and creation arrive in Phase 3. */
+@Composable
+fun HomeScreen(
+    onOpenSettings: () -> Unit,
+    onCreateChecklist: () -> Unit,
+    onOpenChecklist: (ChecklistId) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val resources = LocalResources.current
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            // Each effect gets its own coroutine so a waiting snackbar never blocks the next effect.
+            scope.launch {
+                when (effect) {
+                    is HomeEffect.Archived -> {
+                        val result = snackbarHostState.showSnackbar(
+                            message = resources.getString(R.string.home_archived_message, effect.title),
+                            actionLabel = resources.getString(R.string.action_undo),
+                            duration = SnackbarDuration.Long,
+                        )
+                        if (result == SnackbarResult.ActionPerformed) viewModel.onAction(HomeAction.UndoArchive(effect.id))
+                    }
+                    is HomeEffect.Duplicated -> {
+                        val result = snackbarHostState.showSnackbar(
+                            message = resources.getString(R.string.home_duplicated_message, effect.title),
+                            actionLabel = resources.getString(R.string.action_open),
+                            duration = SnackbarDuration.Long,
+                        )
+                        if (result == SnackbarResult.ActionPerformed) onOpenChecklist(effect.id)
+                    }
+                    is HomeEffect.Unarchived ->
+                        snackbarHostState.showSnackbar(resources.getString(R.string.home_unarchived_message, effect.title))
+                    is HomeEffect.Deleted ->
+                        snackbarHostState.showSnackbar(resources.getString(R.string.home_deleted_message, effect.title))
+                    is HomeEffect.Error -> snackbarHostState.showSnackbar(effect.message.resolve(resources))
+                }
+            }
+        }
+    }
+
+    HomeContent(
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onAction = viewModel::onAction,
+        onOpenSettings = onOpenSettings,
+        onCreateChecklist = onCreateChecklist,
+        onOpenChecklist = onOpenChecklist,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onOpenSettings: () -> Unit) {
-    val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
-    val comingSoon = stringResource(R.string.home_create_coming_soon)
-
+private fun HomeContent(
+    state: HomeUiState,
+    snackbarHostState: SnackbarHostState,
+    onAction: (HomeAction) -> Unit,
+    onOpenSettings: () -> Unit,
+    onCreateChecklist: () -> Unit,
+    onOpenChecklist: (ChecklistId) -> Unit,
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
                     // A labelled text button, not a bare gear icon: clearer for first-time users.
-                    TextButton(onClick = onOpenSettings) {
-                        Text(stringResource(R.string.settings_title))
-                    }
+                    TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.settings_title)) }
                 },
             )
         },
+        floatingActionButton = {
+            if (!state.isFirstUse) {
+                ExtendedFloatingActionButton(
+                    onClick = onCreateChecklist,
+                    icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
+                    text = { Text(stringResource(R.string.home_create_checklist)) },
+                )
+            }
+        },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(horizontal = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = stringResource(R.string.home_empty_title),
-                style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.semantics { heading() },
-            )
-            Text(
-                text = stringResource(R.string.home_empty_body),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-            )
-            Button(
-                onClick = { scope.launch { snackbarHostState.showSnackbar(comingSoon) } },
+        if (state.isFirstUse) {
+            FirstUse(onCreateChecklist, Modifier.padding(padding))
+        } else {
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 56.dp),
+                    .fillMaxSize()
+                    .padding(padding),
+                // Room below the last card so the floating button never covers its menu.
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Text(stringResource(R.string.home_create_checklist))
+                item { SearchField(state.search, onAction) }
+                item { FilterAndSort(state.filter, state.sort, onAction) }
+                if (!state.isLoading && state.checklists.isEmpty()) {
+                    item { EmptyResults(state) }
+                }
+                items(state.checklists, key = { it.id.value }) { row ->
+                    ChecklistCard(row, onAction, onOpen = { onOpenChecklist(row.id) })
+                }
+            }
+        }
+    }
+
+    state.pendingDelete?.let { row ->
+        ConfirmDialog(
+            title = stringResource(R.string.delete_checklist_title, row.title),
+            message = stringResource(R.string.delete_checklist_message),
+            confirmLabel = stringResource(R.string.action_delete),
+            onConfirm = { onAction(HomeAction.ConfirmDelete) },
+            onDismiss = { onAction(HomeAction.DismissDelete) },
+        )
+    }
+}
+
+@Composable
+private fun FirstUse(onCreateChecklist: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = stringResource(R.string.home_empty_title),
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.semantics { heading() },
+        )
+        Text(
+            text = stringResource(R.string.home_empty_body),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+        )
+        Button(
+            onClick = onCreateChecklist,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 56.dp),
+        ) {
+            Text(stringResource(R.string.home_create_checklist))
+        }
+    }
+}
+
+@Composable
+private fun SearchField(search: String, onAction: (HomeAction) -> Unit) {
+    OutlinedTextField(
+        value = search,
+        onValueChange = { onAction(HomeAction.SearchChanged(it)) },
+        label = { Text(stringResource(R.string.home_search_label)) },
+        singleLine = true,
+        leadingIcon = { Icon(painterResource(R.drawable.ic_search), contentDescription = null) },
+        trailingIcon = if (search.isEmpty()) {
+            null
+        } else {
+            {
+                IconButton(onClick = { onAction(HomeAction.SearchChanged("")) }) {
+                    Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))
+                }
+            }
+        },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
+
+@Composable
+private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction: (HomeAction) -> Unit) {
+    var sortMenuOpen by rememberSaveable { mutableStateOf(false) }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        FilterChip(
+            selected = filter == ChecklistFilter.ACTIVE,
+            onClick = { onAction(HomeAction.FilterChanged(ChecklistFilter.ACTIVE)) },
+            label = { Text(stringResource(R.string.home_filter_active)) },
+            modifier = Modifier.heightIn(min = 48.dp),
+        )
+        FilterChip(
+            selected = filter == ChecklistFilter.ARCHIVED,
+            onClick = { onAction(HomeAction.FilterChanged(ChecklistFilter.ARCHIVED)) },
+            label = { Text(stringResource(R.string.home_filter_archived)) },
+            modifier = Modifier.heightIn(min = 48.dp),
+        )
+        Spacer(Modifier.weight(1f))
+        Box {
+            TextButton(onClick = { sortMenuOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                Icon(painterResource(R.drawable.ic_sort), contentDescription = null)
+                Text(
+                    text = stringResource(R.string.home_sort_button, stringResource(sort.labelRes())),
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
+            DropdownMenu(expanded = sortMenuOpen, onDismissRequest = { sortMenuOpen = false }) {
+                ChecklistSort.entries.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(stringResource(option.labelRes())) },
+                        onClick = {
+                            sortMenuOpen = false
+                            onAction(HomeAction.SortChanged(option))
+                        },
+                    )
+                }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+private fun ChecklistSort.labelRes(): Int = when (this) {
+    ChecklistSort.RECENT -> R.string.sort_recent
+    ChecklistSort.TITLE -> R.string.sort_title
+    ChecklistSort.PROGRESS -> R.string.sort_progress
+}
+
 @Composable
-private fun HomeScreenPreview() {
-    CheckListTheme { HomeScreen(onOpenSettings = {}) }
+private fun EmptyResults(state: HomeUiState) {
+    val text = when {
+        state.search.isNotBlank() -> stringResource(R.string.home_no_results, state.search.trim())
+        state.filter == ChecklistFilter.ARCHIVED -> stringResource(R.string.home_no_archived)
+        else -> stringResource(R.string.home_no_active)
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodyLarge,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 32.dp),
+    )
+}
+
+@Composable
+private fun ChecklistCard(row: ChecklistRowUi, onAction: (HomeAction) -> Unit, onOpen: () -> Unit) {
+    val resources = LocalResources.current
+    val actions = listOf(
+        MenuAction(stringResource(R.string.action_duplicate)) {
+            onAction(HomeAction.Duplicate(row.id, copyTitle(row.title, { resources.getString(R.string.checklist_copy_title, it) })))
+        },
+        if (row.isArchived) {
+            MenuAction(stringResource(R.string.action_unarchive)) { onAction(HomeAction.Unarchive(row)) }
+        } else {
+            MenuAction(stringResource(R.string.action_archive)) { onAction(HomeAction.Archive(row)) }
+        },
+        MenuAction(stringResource(R.string.action_delete)) { onAction(HomeAction.RequestDelete(row)) },
+    )
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Row(verticalAlignment = Alignment.Top) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .heightIn(min = 72.dp)
+                    .clickable(onClickLabel = stringResource(R.string.action_open), onClick = onOpen)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(row.title, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = if (row.totalItems == 0) {
+                        stringResource(R.string.progress_no_items)
+                    } else {
+                        stringResource(R.string.progress_done, row.completedItems, row.totalItems)
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                if (row.totalItems > 0) {
+                    LinearProgressIndicator(progress = { row.progress }, modifier = Modifier.fillMaxWidth())
+                }
+                if (row.isArchived) {
+                    Text(
+                        stringResource(R.string.home_filter_archived),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            OverflowMenu(stringResource(R.string.checklist_more_options, row.title), actions)
+        }
+    }
 }
