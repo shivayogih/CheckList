@@ -14,3 +14,15 @@ internal val Neutral6 = Color(0xFF111411)
 internal val Neutral90 = Color(0xFFE2E3DD)
 internal val Error40 = Color(0xFFB3261E)
 internal val Error80 = Color(0xFFF2B8B5)
+
+// UI-SPEC section 2 additions (CL-250): borders, dividers, sheets and secondary text.
+internal val Outline40 = Color(0xFF72796F)
+internal val Outline70 = Color(0xFF8C9388)
+internal val OutlineVariant80 = Color(0xFFC2C9BD)
+internal val OutlineVariant30 = Color(0xFF42493F)
+internal val SurfaceContainerLight = Color(0xFFEEF0E8)
+internal val SurfaceContainerDark = Color(0xFF1D201C)
+
+// Tinted primary background of the Banner (UI-SPEC section 3); not a Material colour role.
+internal val BannerLight = Color(0xFFE3EFE4)
+internal val BannerDark = Color(0xFF1E2B1F)
