@@ -9,7 +9,9 @@ import android.graphics.fonts.FontFamily as PlatformFontFamily
 /**
  * Fonts for screenshot tests. Robolectric ships Roboto and little else: no Kannada, no Tamil and no colour
  * emoji, so those would be drawn as empty boxes in every golden. The fonts below are **test resources only**
- * (`src/test/resources/fonts`); the app itself uses the system fonts and bundles none.
+ * (`src/test/resources/screenshot-fonts`); the app itself uses the system fonts and bundles none.
+ * The folder is not called `fonts` on purpose: Robolectric native graphics finds its own system fonts through
+ * a classpath folder of that name, and a test folder with the same name hides them (Typeface fails to start).
  *
  *  - Noto Sans for Kannada, Tamil, Malayalam, Devanagari (Hindi, Marathi) and Telugu, regular and bold, each
  *    cut to its own script block with `pyftsubset` so Latin text still uses the platform font (SIL OFL 1.1,
@@ -24,8 +26,8 @@ import android.graphics.fonts.FontFamily as PlatformFontFamily
 internal object TestFonts {
 
     private fun resource(name: String): File {
-        val url = requireNotNull(TestFonts::class.java.classLoader?.getResource("fonts/$name")) {
-            "Test font fonts/$name is missing from src/test/resources"
+        val url = requireNotNull(TestFonts::class.java.classLoader?.getResource("screenshot-fonts/$name")) {
+            "Test font screenshot-fonts/$name is missing from src/test/resources"
         }
         return File(url.toURI())
     }
