@@ -100,7 +100,7 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
         var root = READER.parseToJsonElement(text).jsonObject
         var format = formatVersion
         var schema = schemaVersion
-        while (format != TransferFormat.FORMAT_VERSION || schema != TransferFormat.SCHEMA_VERSION) {
+        while (format !in 1..TransferFormat.FORMAT_VERSION || schema != TransferFormat.SCHEMA_VERSION) {
             val migrator = migrators.firstOrNull { it.fromFormatVersion == format && it.fromSchemaVersion == schema } ?: return unsupported
             root = migrator.migrate(root)
             val nextFormat = root.getValue("formatVersion").jsonPrimitive.int

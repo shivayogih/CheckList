@@ -48,7 +48,7 @@ class ItemPhotoMigrationTest {
             assertEquals(2L, db.count("checklist_category"))
             assertEquals(3L, db.count("checklist_item"))
             assertEquals(1L, db.count("unit_def"))
-            assertEquals(1L, db.count("category"))
+            assertEquals(2L, db.count("category"))
             assertEquals(0L, db.count("item_photo"))
             val indices = db.names("SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = 'item_photo'")
             assertTrue(indices.toString(), "index_item_photo_checklist_item_id_position" in indices)
