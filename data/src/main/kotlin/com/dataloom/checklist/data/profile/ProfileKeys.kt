@@ -3,6 +3,7 @@ package com.dataloom.checklist.data.profile
 import android.content.SharedPreferences
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import com.google.crypto.tink.Aead
+import com.google.crypto.tink.Configuration
 import com.google.crypto.tink.KeysetHandle
 import com.google.crypto.tink.RegistryConfiguration
 import com.google.crypto.tink.TinkProtoKeysetFormat
@@ -80,8 +81,10 @@ class KeysetProfileAeadProvider(
 
     private var cached: Aead? = null
 
-    init {
+    /** Registry-backed configuration with the AEAD key types registered; the non-deprecated Tink APIs take it explicitly. */
+    private val tinkConfig: Configuration = run {
         AeadConfig.register()
+        RegistryConfiguration.get()
     }
 
     override val keyAlias: String get() = masterKey.alias
@@ -110,19 +113,19 @@ class KeysetProfileAeadProvider(
             throw ProfileKeyException.KeyLost("stored keyset is corrupt", e)
         }
         if (!masterKey.exists()) throw ProfileKeyException.KeyLost("master key is missing")
-        return TinkProtoKeysetFormat.parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA).aead()
+        return TinkProtoKeysetFormat.parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig).aead()
     }
 
     private fun create(): Aead {
         if (!masterKey.exists()) masterKey.create()
         val keyset = KeysetHandle.generateNew(PredefinedAeadParameters.AES256_GCM)
-        val wrapped = TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA)
+        val wrapped = TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig)
         val written = prefs.edit().putString(PREF_KEYSET, Base64.getEncoder().encodeToString(wrapped)).commit()
         if (!written) throw ProfileKeyException.Unavailable("could not store the keyset")
         return keyset.aead()
     }
 
-    private fun KeysetHandle.aead(): Aead = getPrimitive(RegistryConfiguration.get(), Aead::class.java)
+    private fun KeysetHandle.aead(): Aead = getPrimitive(tinkConfig, Aead::class.java)
 
     private inline fun <T> guarded(block: () -> T): T = try {
         block()
