@@ -1,6 +1,6 @@
 # AI and automation
 
-CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: in-app AI in progress (Phase 10, CL-200 to CL-213): the offline part is implemented in `:ai` (contract, tool validation, confirmation gate, executor, offline parser in 7 languages); online AI and the review UI are Planned (CL-210, CL-211). CI agents: Planned (Phase 11, CL-220 to CL-224).** Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
+CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: in-app AI in progress (Phase 10, CL-200 to CL-213): the offline part is implemented in `:ai` (contract, tool validation, confirmation gate, executor, offline parser in 7 languages); online AI and the review UI are Planned (CL-210, CL-211). CI agents: the translation, issue-sync and release-notes agents are implemented as rule-based Google ADK workflows in GitHub Actions (Phase 11, CL-220 to CL-225); the model-based review and failure agents are Planned.** Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
 
 ## Rules
 
@@ -113,18 +113,67 @@ Callers use `AiAssistant`: `snapshot`, `interpret` or `generate`, `review`, then
 
 ## CI agents with Google ADK (Phase 11)
 
-The Android app does not use ADK: an agent loop needs a trusted place to hold a model key, and the app has neither a server nor a safe place for a key. ADK runs where a secret can live safely: **GitHub Actions**, as short command-line jobs in `ci/agents/` (Python). Each run starts, does one job and exits; nothing is hosted.
+**Status: three rule-based agents Implemented (CL-221 to CL-225); `review_agent` and `failure_agent` Planned (they need a model, so they wait for the opt-in key).**
+
+The Android app does not use ADK: an agent loop needs a trusted place to hold a model key, and the app has neither a server nor a safe place for a key. ADK lives **only in CI**: short Python jobs in GitHub Actions that start, do one job and exit. Nothing is hosted, nothing is billed. The code is in `tools/agents/` (the Phase 0 sketch said `ci/agents/`; `tools/` is where the repository's other Python tooling lives).
+
+### What is implemented
+
+| Agent | Workflow and trigger | Checks / output | Fails the job on |
+|---|---|---|---|
+| Translation consistency (`translations`) | `Quality`, every push | Compares the six `values-<tag>/strings.xml` with English: missing and extra keys, placeholder mismatches (`%1$s` vs `%1$d`, dropped `%2$d`), English left untranslated, Latin-only text where Kannada/Devanagari/Tamil/Telugu/Malayalam is expected, letters from another Indian script. Brand terms that stay Latin (`CheckList`, `Google Play`, `PDF`...) are in `tools/agents/config/translation_allowlist.json`. | Missing/extra keys, placeholder mismatch, missing locale, invalid XML |
+| Issue tracker sync (`issue-sync`) | `Quality`, every push | Validates `docs/project-management/issues.csv`: header, field count, `CL-<n>` IDs unique, Type/Priority/Status/Environment/Test/AI-review values from the [project-management README](project-management/README.md), dates, `IN_PROGRESS` rows have a branch that exists on the remote. Flags **stale** rows: still `IN_PROGRESS`/`CODE_REVIEW`/`CI_*` although the branch is merged into `develop`/`main` (git ancestry) or GitHub reports its PR as merged (catches squash merges; uses the job's read-only `GITHUB_TOKEN`). | Structural or value errors; branch problems and stale rows are warnings |
+| Release notes (`release-notes`) | `Release notes` on a `v*` tag or on demand; a preview runs in `Quality` | From the `CL-` commits since the previous `v*` tag: Google Play "What's new" text (`whatsnew-en-US`, at most 15 notes and 500 characters, internal work, URLs, e-mails and @mentions removed, fallback "Bug fixes and improvements."), plus a developer changelog grouped into New / Fixes / Internal using each issue's type and title from `issues.csv`. Same rules as Bitrise's `ci/scripts/release-notes.sh` (Phase 9), re-implemented so neither depends on the other. | Never (no `CL-` commits or unknown issue IDs are warnings) |
+
+Every report is markdown in the job summary; errors fail the job, warnings never do.
+
+### How ADK is used, and why it adds something
+
+Verified 2026-10-08 against PyPI and adk.dev: `google-adk` **2.10.0** (Python >= 3.10). 2.11.0 was published 2026-10-02; it is under two weeks old, so the previous release is pinned (Dependabot proposes updates). ADK 2.x adds **graph workflows**: a `Workflow` whose nodes can be plain Python functions or LLM `Agent`s, joined by edges; each node's return value is the next node's input, and ADK's `InMemoryRunner` runs the graph with a session and an event per node.
+
+Each agent is a `Workflow` of three deterministic function nodes:
+
+```text
+START → collect (read files / git) → analyse (rules → report dict) → render (markdown Event)
+```
+
+- **No model, no key, no network** for the checks themselves. Runs are deterministic and testable; `InMemoryRunner` needs no Google Cloud project.
+- ADK gives the three agents the same shape, runner, event trail and session; the optional model step uses the same runtime (an ADK `Agent`), so adding the planned `review_agent` later is a node, not a new framework.
+- The rules live in plain modules (`translations.py`, `issue_sync.py`, `release_notes.py`), so most tests do not need ADK; `workflows.py` wraps them. Tokens are never passed through the graph: the GitHub token is read from the environment inside the node that uses it, so it never appears in ADK events or session state.
+
+Run locally (Python 3.10+):
+
+```bash
+python -m venv .venv && .venv/bin/pip install -r tools/agents/requirements.txt
+cd tools/agents
+../../.venv/bin/python -m checklist_agents translations --repo ../..
+../../.venv/bin/python -m checklist_agents issue-sync --repo ../..
+../../.venv/bin/python -m checklist_agents release-notes --repo ../.. --out-dir /tmp/whatsnew
+../../.venv/bin/python -m pytest -q tests ../checks
+```
+
+### Optional AI summary (opt-in)
+
+The checks never need a model. If the owner wants richer reports, they can add a free-tier Gemini Developer API key as the GitHub Actions secret **`GEMINI_API_KEY`** (Settings → Secrets and variables → Actions). Then:
+
+- the agent steps add `--enrich`, and `enrich.py` runs an ADK `Agent` (model `gemini-flash-latest`, overridable with `CHECKLIST_AGENT_MODEL`) that appends an **"AI summary (advisory)"** section: priorities and fixes for translation findings, which tracker rows to update first, friendlier Play text for release notes;
+- before anything is sent, the report goes through `redact()` (Google, GitHub, AWS and Slack key patterns, private keys, JWTs, `password=`/`token=` values) and is capped at 20,000 characters. Reports contain only data that is already public in this repository (string resources, commit subjects, `issues.csv`);
+- the model never decides pass or fail, and any model error is reduced to one "AI summary skipped" line;
+- **with no secret, the flag is not passed and nothing is imported, sent or billed.** Fork PRs never receive secrets. On the free tier Google may use the content to improve its products, which is why this is opt-in.
+
+### Guarantees
+
+- Agents cannot approve, merge, push, comment or change branch protection: their jobs have `contents: read` (plus `pull-requests: read` for the merged-PR lookup).
+- Agents never commit to `issues.csv`; they report, and the developer applies changes in the PR (design section 21.2).
+
+### Still planned
 
 | Agent | Trigger | Output |
 |---|---|---|
-| `review_agent` | `ai-review` workflow on PRs | `AI_REVIEW.json` and a PR comment. Advisory only. |
-| `failure_agent` | `ci-failure` workflow when `pr-checks` fails; Bitrise failures attach a trimmed log | `CI_FAILURE_REPORT.md` |
-| `release_notes_agent` | Release preparation | Draft user-facing release notes from commits, PRs and `issues.csv` |
+| `review_agent` | `ai-review` workflow on PRs, only when `GEMINI_API_KEY` exists | `AI_REVIEW.json` and a PR comment. Advisory only. |
+| `failure_agent` | `ci-failure` workflow when a check fails; Bitrise failures attach a trimmed log | `CI_FAILURE_REPORT.md` |
 
-- The Gemini key is a GitHub Actions secret on the free tier. Fork PRs never receive it.
-- Diffs and logs pass through a redaction step (key and token patterns, plus Bitrise's own log redaction) before any agent sees them.
-- Agents cannot approve, merge, push or change branch protection.
-- Locally, the same agents can be explored with `adk web`.
+Diffs and logs will pass through the same `redact()` step (plus Bitrise's own log redaction) before any model sees them.
 
 ## Keeping the door open
 

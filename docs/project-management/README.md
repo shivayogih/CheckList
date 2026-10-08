@@ -2,7 +2,7 @@
 
 CheckList simulates a Jira-style tracker with CSV files in this folder, so issue, build, test and release history lives in Git next to the code. Design reasoning: [phase0-architecture.md](../phase0-architecture.md) section 21.
 
-**Status:** the CSV files are maintained by hand (Implemented). The `:tools:issuetracker` CLI that validates transitions and applies CI reports is Planned (Phase 8 or 9).
+**Status:** the CSV files are maintained by hand (Implemented). The issue-sync CI agent (CL-223, `tools/agents`, see [ai-automation.md](../ai-automation.md#ci-agents-with-google-adk-phase-11)) validates `issues.csv` on every push: header, IDs, the allowed values below, dates, branches of `IN_PROGRESS` rows, and merged work still marked active. The `:tools:issuetracker` CLI that validates transitions and applies CI reports is Planned.
 
 ## Files
 
@@ -32,10 +32,10 @@ CheckList simulates a Jira-style tracker with CSV files in this folder, so issue
 | Phase | Range | Phase | Range |
 |---|---|---|---|
 | 0 | CL-100 | 7 | CL-170 to CL-176 |
-| 1 | CL-101 to CL-106 (plus CL-107) | 8 | CL-180 to CL-186 |
+| 1 | CL-101 to CL-106 (plus CL-107) | 8 | CL-180 to CL-189 |
 | 2 | CL-110 to CL-119 | 9 | CL-190 to CL-197 |
 | 3 | CL-120 to CL-134 | 10 | CL-200 to CL-212 |
-| 4 | CL-140 to CL-147 | 11 | CL-220 to CL-224 |
+| 4 | CL-140 to CL-147 | 11 | CL-220 to CL-229 |
 | 5 | CL-150 to CL-154 | 12 | CL-230 to CL-232 |
 | 6 | CL-160 to CL-166 | | |
 
