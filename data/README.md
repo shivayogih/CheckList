@@ -10,4 +10,7 @@ phases. Depends on `:domain`.
   database creation and whenever the asset's `seedVersion` grows.
 - `repository`, `mapper`: `RoomChecklistRepository` and `RoomCatalogRepository`, with display-name
   resolution (section 6.2).
-- `di`: `DataModule`.
+- `importexport` (Phase 6): `JsonTransferCodec` (the versioned JSON file of
+  docs/import-export-format.md, with parse-time limits) and `RoomTransactionRunner` (the one
+  transaction an import writes in). The pipeline itself is in `:domain` (`domain/transfer`).
+- `di`: `DataModule`, `ImportExportModule`.

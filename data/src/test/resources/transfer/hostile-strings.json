@@ -1,0 +1,20 @@
+{
+  "formatVersion": 1,
+  "schemaVersion": 1,
+  "metadata": { "app": "<img src=x onerror=alert(1)>", "appVersion": "'; DROP TABLE checklist; --", "exportedAt": "not a date", "locale": "xx", "includesProfile": true },
+  "units": [ { "ref": "u1", "code": "CUSTOM", "label": "%_\\", "allowsDecimal": true } ],
+  "categories": [ { "ref": "c1", "customName": "Robert'); DROP TABLE category;--", "icon": "💣" } ],
+  "checklists": [
+    {
+      "ref": "k1", "title": "\u0000\u001bTrip\u0007 '; DELETE FROM checklist; --", "description": "Line 1\r\nLine 2\u0000",
+      "sections": [ { "ref": "s1", "categoryRef": "c1", "order": 0 } ]
+    }
+  ],
+  "items": [
+    {
+      "ref": "i1", "sectionRef": "s1", "displayName": "‮gnp.exe‬ ಕ್ಷ‍ತ್ರ 👨‍👩‍👧", "displayNameLocale": "kn",
+      "quantity": "1.25", "unit": "u1", "notes": "%' OR '1'='1"
+    }
+  ],
+  "profile": { "name": "Not imported", "nested": [[[[[[{ "a": [1, 2, { "b": null }] }]]]]]] }
+}
