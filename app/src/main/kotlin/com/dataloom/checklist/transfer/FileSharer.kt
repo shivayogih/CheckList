@@ -11,8 +11,11 @@ import javax.inject.Inject
 
 /** Builds the Android Sharesheet intent for a file the app wrote. */
 interface FileSharer {
-    /** A chooser intent for the caller to start from an activity. */
-    fun shareIntent(file: File, mimeType: String, subject: String?): Intent
+    /**
+     * A chooser intent for the caller to start from an activity. [text] (added in CL-168, default
+     * null) goes in `EXTRA_TEXT`, for example the import steps sent with a .json export.
+     */
+    fun shareIntent(file: File, mimeType: String, subject: String?, text: String? = null): Intent
 }
 
 /**
@@ -24,7 +27,7 @@ class SharesheetFileSharer @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) : FileSharer {
 
-    override fun shareIntent(file: File, mimeType: String, subject: String?): Intent {
+    override fun shareIntent(file: File, mimeType: String, subject: String?, text: String?): Intent {
         val uri = FileProvider.getUriForFile(context, context.packageName + AUTHORITY_SUFFIX, file)
         val send = Intent(Intent.ACTION_SEND).apply {
             type = mimeType
@@ -33,6 +36,7 @@ class SharesheetFileSharer @Inject constructor(
                 putExtra(Intent.EXTRA_SUBJECT, it)
                 putExtra(Intent.EXTRA_TITLE, it)
             }
+            text?.let { putExtra(Intent.EXTRA_TEXT, it) }
             // ClipData carries the grant to the chosen app on every Android version.
             clipData = ClipData.newRawUri(subject ?: file.name, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)

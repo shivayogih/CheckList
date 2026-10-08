@@ -22,4 +22,18 @@
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
     <string name="pdf_powered_by">%1$s மூலம் இயக்கப்படுகிறது</string>
     <string name="pdf_exported_at">ஏற்றுமதி: %1$s</string>
+    <!-- "Google Play" and %1$s (the app name "CheckList") are not translated. -->
+    <string name="pdf_get_app">Google Play-இல் ஆப்பைப் பெறுங்கள்</string>
+    <string name="pdf_promo_title">%1$s பெறுங்கள்</string>
+    <string name="pdf_promo_scan">Google Play-இல் ஆப்பைப் பெற ஸ்கேன் செய்யுங்கள்</string>
+    <string name="pdf_import_hint">இந்தப் பட்டியலை ஆப்பில் பயன்படுத்த, அனுப்பியவரிடம் %1$s கோப்பைக் (.json) கேட்டு இறக்குமதி செய்யுங்கள்.</string>
+    <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
+    <string name="share_export_subject">%1$s பட்டியல்கள்</string>
+    <string name="share_export_intro">இது ஒன்று அல்லது அதற்கு மேற்பட்ட பட்டியல்கள் உள்ள %1$s கோப்பு.</string>
+    <string name="share_export_get_app">Google Play-இல் %1$s பெறுங்கள்: %2$s</string>
+    <string name="share_export_steps_title">இறக்குமதி செய்ய:</string>
+    <string name="share_export_step_install">1. %1$s-ஐ நிறுவுங்கள்.</string>
+    <string name="share_export_step_open">2. ஆப்பைத் திறங்கள் → அமைப்புகள் → இறக்குமதி.</string>
+    <string name="share_export_step_choose">3. இந்தக் கோப்பைத் தேர்ந்தெடுங்கள்.</string>
+    <string name="share_export_step_confirm">4. முன்னோட்டத்தைப் பார்த்து உறுதிசெய்யுங்கள்.</string>
 </resources>

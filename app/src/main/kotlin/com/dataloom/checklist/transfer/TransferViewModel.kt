@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.BuildConfig
+import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.UnitCode
@@ -74,7 +75,8 @@ sealed interface TransferEffect {
  * Framework contracts from [TransferDocuments] to these functions and renders [state] and
  * [effects]; it never touches files or the database itself.
  *
- * - export: [exportTo] with the Uri from [TransferDocuments.createJson]
+ * - export: [exportTo] with the Uri from [TransferDocuments.createJson], or [shareExport] to send
+ *   the .json file through the Sharesheet with a message and import steps
  * - import: [previewImport] with the Uri from [TransferDocuments.openDocument], then
  *   [confirmImport] or [dismissImport]
  * - PDF: [sharePdf] (Sharesheet) or [savePdfTo] with the Uri from [TransferDocuments.createPdf]
@@ -108,6 +110,40 @@ class TransferViewModel @Inject constructor(
     fun exportTo(uri: Uri, checklistIds: List<ChecklistId>? = null) = runBusy {
         val request = ExportRequest(checklistIds, locale = locale, appVersion = BuildConfig.VERSION_NAME)
         _effects.send(TransferEffect.Exported(exportChecklists(request, documents.exportSink(uri))))
+    }
+
+    /**
+     * Exports [checklistIds] (null: all) to the app's share folder and emits a Sharesheet intent
+     * whose subject and text say what the file is, link the store when `PLAY_STORE_URL` is set and
+     * list the import steps. Emits [TransferEffect.Exported] when there was nothing to export.
+     */
+    fun shareExport(checklistIds: List<ChecklistId>? = null) = runBusy {
+        val request = ExportRequest(checklistIds, locale = locale, appVersion = BuildConfig.VERSION_NAME)
+        val file = exportFiles.newFile(TransferDocuments.exportFileName())
+        val result = exportChecklists(request) { file.outputStream() }
+        if (result !is ExportResult.Exported) {
+            file.delete()
+            return@runBusy _effects.send(TransferEffect.Exported(result))
+        }
+        val message = ExportShareText.build(exportShareStrings(), StoreLink.of(BuildConfig.PLAY_STORE_URL))
+        _effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text)))
+    }
+
+    private fun exportShareStrings(): ExportShareStrings {
+        val resources = LocalizedResources.of(context)
+        val app = resources.getString(R.string.app_name)
+        return ExportShareStrings(
+            subject = resources.getString(R.string.share_export_subject, app),
+            intro = resources.getString(R.string.share_export_intro, app),
+            getApp = { url -> resources.getString(R.string.share_export_get_app, app, url) },
+            stepsTitle = resources.getString(R.string.share_export_steps_title),
+            steps = listOf(
+                resources.getString(R.string.share_export_step_install, app),
+                resources.getString(R.string.share_export_step_open),
+                resources.getString(R.string.share_export_step_choose),
+                resources.getString(R.string.share_export_step_confirm),
+            ),
+        )
     }
 
     /** Reads and checks a picked file; nothing is written until [confirmImport]. */

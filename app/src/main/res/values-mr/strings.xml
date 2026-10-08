@@ -22,4 +22,18 @@
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
     <string name="pdf_powered_by">%1$s द्वारे समर्थित</string>
     <string name="pdf_exported_at">निर्यात: %1$s</string>
+    <!-- "Google Play" and %1$s (the app name "CheckList") are not translated. -->
+    <string name="pdf_get_app">Google Play वर ॲप मिळवा</string>
+    <string name="pdf_promo_title">%1$s मिळवा</string>
+    <string name="pdf_promo_scan">Google Play वर ॲप मिळवण्यासाठी स्कॅन करा</string>
+    <string name="pdf_import_hint">ही यादी ॲपमध्ये वापरण्यासाठी, पाठवणाऱ्याकडून %1$s फाइल (.json) मागा आणि ती इम्पोर्ट करा.</string>
+    <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
+    <string name="share_export_subject">%1$s याद्या</string>
+    <string name="share_export_intro">ही एक किंवा अधिक याद्या असलेली %1$s फाइल आहे.</string>
+    <string name="share_export_get_app">Google Play वर %1$s मिळवा: %2$s</string>
+    <string name="share_export_steps_title">इम्पोर्ट करण्यासाठी:</string>
+    <string name="share_export_step_install">1. %1$s इन्स्टॉल करा.</string>
+    <string name="share_export_step_open">2. ॲप उघडा → सेटिंग्ज → इम्पोर्ट.</string>
+    <string name="share_export_step_choose">3. ही फाइल निवडा.</string>
+    <string name="share_export_step_confirm">4. पूर्वावलोकन पाहा आणि खात्री करा.</string>
 </resources>

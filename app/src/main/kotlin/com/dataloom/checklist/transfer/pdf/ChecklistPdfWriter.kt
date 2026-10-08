@@ -14,8 +14,10 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.TextUtils
+import com.dataloom.checklist.BuildConfig
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.transfer.StoreLink
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
@@ -49,7 +51,10 @@ interface ChecklistPdfWriter {
  * per item (ticked when done), category headings kept with their first item. Every page is branded:
  * a header with the drawn app tick and name plus the checklist title, a footer with the "Powered by"
  * tagline, the export time (from the injected [Clock], in the app language) and the page number, and
- * a faint diagonal watermark drawn under the content. Geometry is in [PdfPageLayout].
+ * a faint diagonal watermark drawn under the content. An import hint follows the last item. Once
+ * `PLAY_STORE_URL` is set (see [StoreLink]) the footer also carries "Get the app on Google Play"
+ * with the URL, and the hint sits in a "Get CheckList" box with a vector QR code of that URL
+ * (CL-168). Geometry is in [PdfPageLayout].
  *
  * Text goes through the platform text stack (Minikin + HarfBuzz with the system font fallback
  * chain), so Kannada, Devanagari (Hindi, Marathi), Tamil, Telugu and Malayalam conjuncts and vowel
@@ -81,9 +86,12 @@ class AndroidChecklistPdfWriter @Inject constructor(
                 R.string.pdf_exported_at,
                 PdfPageLayout.exportedAt(clock.nowMillis(), ZoneId.systemDefault(), appLocale),
             ),
+            storeLabel = resources.getString(R.string.pdf_get_app),
+            // Null until PLAY_STORE_URL is set in app/build.gradle.kts: then no store line and no QR code.
+            storeUrl = StoreLink.of(BuildConfig.PLAY_STORE_URL),
         )
-        val blocks = buildBlocks(detail, options, units, resources, appLocale)
-        val pages = PdfPageLayout.place(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) })
+        val blocks = buildBlocks(detail, options, units, resources, appLocale) + lastPageBlock(branding, resources, appLocale)
+        val pages = PdfPageLayout.place(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) }, branding.storeLink)
         val document = PdfDocument()
         try {
             pages.forEachIndexed { pageIndex, placements ->
@@ -105,7 +113,16 @@ class AndroidChecklistPdfWriter @Inject constructor(
     }
 
     /** Text and colour shared by every page's header, footer and watermark. */
-    private class Branding(val brand: String, val brandColor: Int, val tagline: String, val exportedAt: String)
+    private class Branding(
+        val brand: String,
+        val brandColor: Int,
+        val tagline: String,
+        val exportedAt: String,
+        val storeLabel: String,
+        val storeUrl: String?,
+    ) {
+        val storeLink: Boolean get() = storeUrl != null
+    }
 
     private fun drawWatermark(canvas: Canvas, brand: String, locale: Locale) {
         val paint = paint(MEASURE_SIZE, bold = true, color = INK, locale = locale).apply {
@@ -168,15 +185,28 @@ class AndroidChecklistPdfWriter @Inject constructor(
     }
 
     private fun drawFooter(canvas: Canvas, branding: Branding, pageNumber: String, locale: Locale) {
-        val band = PdfPageLayout.footer
         val left = PdfPageLayout.CONTENT_LEFT
         val width = PdfPageLayout.CONTENT_WIDTH
-        canvas.drawLine(left, band.top, left + width, band.top, RULE_PAINT)
+        val footer = PdfPageLayout.footer(branding.storeLink)
+        canvas.drawLine(left, footer.top, left + width, footer.top, RULE_PAINT)
+
+        val first = PdfPageLayout.footerFirstRow(branding.storeLink)
         val column = width / 3
         val footerPaint = { paint(FOOTER_SIZE, color = MUTED, locale = locale) }
-        drawCentredInBand(canvas, singleLine(branding.tagline, footerPaint(), column), left, band)
-        drawCentredInBand(canvas, singleLine(branding.exportedAt, footerPaint(), column, Layout.Alignment.ALIGN_CENTER), left + column, band)
-        drawCentredInBand(canvas, singleLine(pageNumber, footerPaint(), column, Layout.Alignment.ALIGN_OPPOSITE), left + 2 * column, band)
+        drawCentredInBand(canvas, singleLine(branding.tagline, footerPaint(), column), left, first)
+        drawCentredInBand(canvas, singleLine(branding.exportedAt, footerPaint(), column, Layout.Alignment.ALIGN_CENTER), left + column, first)
+        drawCentredInBand(canvas, singleLine(pageNumber, footerPaint(), column, Layout.Alignment.ALIGN_OPPOSITE), left + 2 * column, first)
+
+        // "Get the app on Google Play" then the full store URL: the URL is never cut, the label may be.
+        val storeUrl = branding.storeUrl ?: return
+        val second = PdfPageLayout.footerSecondRow(true) ?: return
+        val urlPaint = paint(STORE_URL_SIZE, color = branding.brandColor, locale = locale)
+        val urlWidth = minOf(width, urlPaint.measureText(storeUrl) + 1f)
+        drawCentredInBand(canvas, singleLine(storeUrl, urlPaint, urlWidth, Layout.Alignment.ALIGN_OPPOSITE), left + width - urlWidth, second)
+        val labelWidth = width - urlWidth - FOOTER_COLUMN_GAP
+        if (labelWidth > 0f) {
+            drawCentredInBand(canvas, singleLine(branding.storeLabel, paint(STORE_URL_SIZE, color = MUTED, locale = locale), labelWidth), left, second)
+        }
     }
 
     private fun drawCentredInBand(canvas: Canvas, layout: StaticLayout, x: Float, band: PdfPageLayout.Band) {
@@ -218,6 +248,25 @@ class AndroidChecklistPdfWriter @Inject constructor(
         if (printedItems == 0) {
             add(TextBlock(layout(resources.getString(R.string.pdf_no_items), paint(BODY_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH), SECTION_GAP, 0f))
         }
+    }
+
+    /**
+     * The last block, so it lands on the last page. With a store link: the "Get CheckList" box, a
+     * vector QR code of the store URL beside the URL in text and the import hint. Without one: just
+     * the import hint (a PDF cannot be imported; the sender's .json file can).
+     */
+    private fun lastPageBlock(branding: Branding, resources: Resources, appLocale: Locale): Block {
+        val hint = resources.getString(R.string.pdf_import_hint, branding.brand)
+        val storeUrl = branding.storeUrl
+            ?: return TextBlock(layout(hint, paint(SMALL_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH), PdfPageLayout.PROMO_GAP, 0f)
+        val width = PdfPageLayout.PROMO_TEXT_WIDTH
+        val lines = listOf(
+            layout(resources.getString(R.string.pdf_promo_title, branding.brand), paint(BODY_SIZE, bold = true, color = branding.brandColor, locale = appLocale), width),
+            layout(resources.getString(R.string.pdf_promo_scan), paint(SMALL_SIZE, locale = appLocale), width),
+            layout(storeUrl, paint(STORE_URL_SIZE, color = branding.brandColor, locale = appLocale), width),
+            layout(hint, paint(STORE_URL_SIZE, color = MUTED, locale = appLocale), width),
+        )
+        return PromoBlock(StackBlock(lines, PROMO_LINE_GAP, after = 0f), PdfQrCode.encode(storeUrl), branding.brandColor)
     }
 
     private fun headerBlock(detail: ChecklistDetail, options: PdfOptions, resources: Resources, appLocale: Locale): Block {
@@ -339,12 +388,40 @@ class AndroidChecklistPdfWriter @Inject constructor(
         }
     }
 
+    /** Box with the QR code on the left and the text column on the right; geometry in [PdfPageLayout]. */
+    private class PromoBlock(private val text: StackBlock, private val qr: PdfQrCode.Matrix, private val color: Int) : Block {
+        override val height: Float = PdfPageLayout.promoBlockHeight(text.height)
+
+        override fun draw(canvas: Canvas, x: Float, y: Float) {
+            val box = PdfPageLayout.promoBox(y, text.height)
+            val border = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                style = Paint.Style.STROKE
+                strokeWidth = 1f
+                this.color = color
+            }
+            canvas.drawRoundRect(RectF(box.left, box.top, box.right, box.bottom), PROMO_CORNER, PROMO_CORNER, border)
+            val area = PdfPageLayout.promoQr(y)
+            // No anti-aliasing: neighbouring modules must meet without hairline gaps.
+            val module = Paint().apply { this.color = Color.BLACK }
+            // A white quiet zone over the watermark keeps the contrast scanners need.
+            canvas.drawRect(area.left, area.top, area.right, area.bottom, Paint().apply { this.color = Color.WHITE })
+            PdfQrCode.darkRects(qr, area.left, area.top, area.right - area.left).forEach {
+                canvas.drawRect(it.left, it.top, it.right, it.bottom, module)
+            }
+            text.draw(canvas, PdfPageLayout.PROMO_TEXT_LEFT, box.top + PdfPageLayout.PROMO_PADDING)
+        }
+    }
+
     private companion object {
         // Page geometry (A4 in points, header and footer bands) lives in PdfPageLayout.
         const val CONTENT_WIDTH = PdfPageLayout.CONTENT_WIDTH
         const val BRAND_SIZE = 14f
         const val BADGE_GAP = 6f
         const val MEASURE_SIZE = 100f
+        const val STORE_URL_SIZE = 9f
+        const val FOOTER_COLUMN_GAP = 8f
+        const val PROMO_LINE_GAP = 4f
+        const val PROMO_CORNER = 6f
 
         // Large type: the PDF is often printed for elders or read on a phone.
         const val TITLE_SIZE = 24f
