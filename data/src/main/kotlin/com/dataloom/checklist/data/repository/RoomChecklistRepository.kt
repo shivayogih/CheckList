@@ -6,6 +6,7 @@ import com.dataloom.checklist.data.local.entity.ChecklistCategoryEntity
 import com.dataloom.checklist.data.local.entity.ChecklistEntity
 import com.dataloom.checklist.data.local.entity.ChecklistItemEntity
 import com.dataloom.checklist.data.local.entity.ChecklistWithSections
+import com.dataloom.checklist.data.local.entity.ItemPhotoEntity
 import com.dataloom.checklist.data.mapper.DisplayNames
 import com.dataloom.checklist.data.mapper.toDomain
 import com.dataloom.checklist.data.mapper.toIndex
@@ -22,12 +23,15 @@ import com.dataloom.checklist.domain.model.ChecklistSort
 import com.dataloom.checklist.domain.model.ChecklistSummary
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 /**
  * Room implementation of [ChecklistRepository]. Multi-row writes run in one transaction, and every
@@ -37,6 +41,7 @@ class RoomChecklistRepository @Inject constructor(
     private val db: CheckListDatabase,
     private val clock: Clock,
     private val ids: IdGenerator,
+    private val photoStore: PhotoStore,
 ) : ChecklistRepository {
 
     private val checklistDao = db.checklistDao()
@@ -44,6 +49,7 @@ class RoomChecklistRepository @Inject constructor(
     private val itemDao = db.checklistItemDao()
     private val categoryDao = db.categoryDao()
     private val masterItemDao = db.masterItemDao()
+    private val photoDao = db.itemPhotoDao()
 
     override fun observeChecklists(query: ChecklistQuery): Flow<List<ChecklistSummary>> {
         val archived = when (query.filter) {
@@ -88,29 +94,49 @@ class RoomChecklistRepository @Inject constructor(
     override suspend fun duplicateChecklist(id: ChecklistId, newTitle: String): ChecklistId {
         val now = clock.nowMillis()
         val copyId = ids.newId()
-        db.withTransaction {
-            val source = requireNotNull(checklistDao.getDetail(id.value)) { "Checklist ${id.value} not found" }
-            checklistDao.insert(
-                source.checklist.copy(id = copyId, title = newTitle, createdAt = now, updatedAt = now, isArchived = false, archivedAt = null),
-            )
-            val sectionCopies = source.sections.map { it to ids.newId() }
-            sectionDao.insertAll(
-                sectionCopies.map { (section, newId) -> section.section.copy(id = newId, checklistId = copyId, createdAt = now) },
-            )
-            itemDao.insertAll(
-                sectionCopies.flatMap { (section, newSectionId) ->
-                    section.items.map { item ->
-                        item.copy(
-                            id = ids.newId(),
+        // Photo files are copied to new names as part of the duplicate; if anything fails they are removed again.
+        val copiedFiles = ArrayList<String>()
+        try {
+            db.withTransaction {
+                val source = requireNotNull(checklistDao.getDetail(id.value)) { "Checklist ${id.value} not found" }
+                checklistDao.insert(
+                    source.checklist.copy(id = copyId, title = newTitle, createdAt = now, updatedAt = now, isArchived = false, archivedAt = null),
+                )
+                val sectionCopies = source.sections.map { it to ids.newId() }
+                sectionDao.insertAll(
+                    sectionCopies.map { (section, newId) -> section.section.copy(id = newId, checklistId = copyId, createdAt = now) },
+                )
+                val itemCopies = sectionCopies.flatMap { (section, newSectionId) ->
+                    section.items.map { sourceItem -> sourceItem to ids.newId() to newSectionId }
+                }
+                itemDao.insertAll(
+                    itemCopies.map { (sourceAndId, newSectionId) ->
+                        val (sourceItem, newItemId) = sourceAndId
+                        sourceItem.item.copy(
+                            id = newItemId,
                             checklistCategoryId = newSectionId,
                             isCompleted = false,
                             completedAt = null,
                             createdAt = now,
                             updatedAt = now,
                         )
+                    },
+                )
+                val photoRows = ArrayList<ItemPhotoEntity>()
+                itemCopies.forEach { (sourceAndId, _) ->
+                    val (sourceItem, newItemId) = sourceAndId
+                    sourceItem.photos.sortedBy { it.position }.forEach { photo ->
+                        // A photo whose file is missing cannot be copied; the copy simply has one photo fewer.
+                        val newName = photoStore.copy(photo.fileName) ?: return@forEach
+                        copiedFiles += newName
+                        photoRows += photo.copy(id = ids.newId(), checklistItemId = newItemId, fileName = newName, createdAt = now)
                     }
-                },
-            )
+                }
+                if (photoRows.isNotEmpty()) photoDao.insertAll(photoRows)
+            }
+        } catch (e: Throwable) {
+            withContext(NonCancellable) { copiedFiles.forEach { photoStore.delete(it) } }
+            throw e
         }
         return ChecklistId(copyId)
     }

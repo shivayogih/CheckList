@@ -1,5 +1,6 @@
 package com.dataloom.checklist.data.repository
 
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import android.database.sqlite.SQLiteConstraintException
 import app.cash.turbine.test
 import com.dataloom.checklist.data.FakeClock
@@ -31,7 +32,7 @@ class RoomCatalogRepositoryTest {
     private val ids = SequentialIds()
     private val db = inMemoryDatabase()
     private val catalog = RoomCatalogRepository(db, clock, ids)
-    private val checklists = RoomChecklistRepository(db, clock, ids)
+    private val checklists = RoomChecklistRepository(db, clock, ids, NoPhotoStore)
 
     // Assigned in setUp; value classes cannot be lateinit.
     private var groceries = CategoryId("")

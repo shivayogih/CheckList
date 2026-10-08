@@ -1,5 +1,6 @@
 package com.dataloom.checklist.data.repository
 
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import app.cash.turbine.test
 import com.dataloom.checklist.data.FakeClock
 import com.dataloom.checklist.data.FakeSeedSource
@@ -38,7 +39,7 @@ class RoomChecklistRepositoryTest {
     private val clock = FakeClock(now = 10_000)
     private val ids = SequentialIds()
     private val db = inMemoryDatabase()
-    private val repository = RoomChecklistRepository(db, clock, ids)
+    private val repository = RoomChecklistRepository(db, clock, ids, NoPhotoStore)
     private val catalog = RoomCatalogRepository(db, clock, ids)
 
     private lateinit var groceries: Category

@@ -1,5 +1,7 @@
 // Data layer: Room (single source of truth), seed catalog, and the Hilt bindings of the domain repositories.
 // The encrypted profile uses Tink. DataStore, import/export and PDF arrive in later phases.
+import com.android.build.api.variant.HostTestBuilder
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
@@ -26,6 +28,16 @@ android {
     }
 }
 
+// MigrationTestHelper reads the committed schemas as assets (CL-210; same approach as the quality pass,
+// CL-173). Added to the unit-test component only through the Variant API (AGP 9 no longer accepts the
+// legacy sourceSets cast), so the schemas never ship in an APK.
+androidComponents {
+    onVariants { variant ->
+        variant.hostTests[HostTestBuilder.UNIT_TEST_TYPE]?.sources?.assets
+            ?.addStaticSourceDirectory(layout.projectDirectory.dir("schemas").asFile.absolutePath)
+    }
+}
+
 // Exported schemas are committed: they are the baseline for migrations and MigrationTestHelper tests.
 room {
     schemaDirectory("$projectDir/schemas")
@@ -35,6 +47,8 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.room.runtime)
+    // EXIF orientation of picked photos (the image pipeline in data/photo).
+    implementation(libs.androidx.exifinterface)
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

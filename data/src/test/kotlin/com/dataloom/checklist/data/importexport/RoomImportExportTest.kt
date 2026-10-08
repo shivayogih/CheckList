@@ -1,5 +1,6 @@
 package com.dataloom.checklist.data.importexport
 
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import androidx.test.core.app.ApplicationProvider
 import com.dataloom.checklist.data.FakeClock
 import com.dataloom.checklist.data.FakeSeedSource
@@ -59,7 +60,7 @@ class RoomImportExportTest {
         val clock = FakeClock(now = 1_791_432_000_000L)
         val ids = SequentialIds(prefix)
         val db: CheckListDatabase = inMemoryDatabase()
-        val checklists = RoomChecklistRepository(db, clock, ids)
+        val checklists = RoomChecklistRepository(db, clock, ids, NoPhotoStore)
         val catalog = RoomCatalogRepository(db, clock, ids)
         val codec = JsonTransferCodec()
         val export = ExportChecklistsUseCase(checklists, catalog, codec, clock)

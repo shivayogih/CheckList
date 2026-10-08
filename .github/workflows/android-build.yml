@@ -40,10 +40,17 @@ jobs:
 
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.
+      # `if: always()` so the generated schema is printed even when a test failed first.
       - name: Room schema is committed
+        if: always()
         run: |
           git status --porcelain -- data/schemas
-          test -z "$(git status --porcelain -- data/schemas)"
+          if [ -n "$(git status --porcelain -- data/schemas)" ]; then
+            echo "::error::A Room schema differs from the committed one. Commit the file(s) printed below."
+            git add -N data/schemas
+            git --no-pager diff -- data/schemas
+            exit 1
+          fi
 
       - name: Lint
         run: ./gradlew --stacktrace :app:lintDevDebug

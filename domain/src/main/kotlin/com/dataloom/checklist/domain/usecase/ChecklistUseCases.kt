@@ -5,6 +5,8 @@ import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistQuery
 import com.dataloom.checklist.domain.model.ChecklistSummary
+import com.dataloom.checklist.domain.photo.NoPhotoFileCleaner
+import com.dataloom.checklist.domain.photo.PhotoFileCleaner
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.validation.ChecklistValidator
 import com.dataloom.checklist.domain.validation.ValidationResult
@@ -81,9 +83,17 @@ class UnarchiveChecklistUseCase @Inject constructor(private val checklists: Chec
     suspend operator fun invoke(id: ChecklistId): DomainResult<Unit> = success(checklists.setArchived(id, archived = false))
 }
 
-/** Hard delete; the confirmation dialog is the UI's job (section 4). */
-class DeleteChecklistUseCase @Inject constructor(private val checklists: ChecklistRepository) {
-    suspend operator fun invoke(id: ChecklistId): DomainResult<Unit> = success(checklists.deleteChecklist(id))
+/** Hard delete; the confirmation dialog is the UI's job (section 4). Photo files go after the rows. */
+class DeleteChecklistUseCase @Inject constructor(
+    private val checklists: ChecklistRepository,
+    private val photoFiles: PhotoFileCleaner = NoPhotoFileCleaner,
+) {
+    suspend operator fun invoke(id: ChecklistId): DomainResult<Unit> {
+        val files = photoFiles.filesOfChecklist(id)
+        checklists.deleteChecklist(id)
+        files.run()
+        return success(Unit)
+    }
 }
 
 /**

@@ -3,6 +3,8 @@ package com.dataloom.checklist.domain.usecase
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.domain.photo.NoPhotoFileCleaner
+import com.dataloom.checklist.domain.photo.PhotoFileCleaner
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.validation.ValidationError
 import javax.inject.Inject
@@ -20,8 +22,16 @@ class AddCategoriesToChecklistUseCase @Inject constructor(private val checklists
 }
 
 /** Removes the section and its items. Destructive: the UI (and the AI executor) confirm first. */
-class RemoveSectionUseCase @Inject constructor(private val checklists: ChecklistRepository) {
-    suspend operator fun invoke(sectionId: SectionId): DomainResult<Unit> = success(checklists.removeSection(sectionId))
+class RemoveSectionUseCase @Inject constructor(
+    private val checklists: ChecklistRepository,
+    private val photoFiles: PhotoFileCleaner = NoPhotoFileCleaner,
+) {
+    suspend operator fun invoke(sectionId: SectionId): DomainResult<Unit> {
+        val files = photoFiles.filesOfSection(sectionId)
+        checklists.removeSection(sectionId)
+        files.run()
+        return success(Unit)
+    }
 }
 
 /** [toIndex] is the 0-based target display position among the checklist's sections. */
