@@ -16,6 +16,9 @@ hilt = "2.60.1"
 androidxHilt = "1.4.0"
 room = "2.8.5"
 robolectric = "4.17"
+# Screenshot tests (CL-216): Roborazzi 1.76.0, latest on Maven Central (2026-09-29). Used as a library only,
+# without its Gradle plugin; see docs/testing.md for what was checked against AGP 9.4 / Kotlin 2.4.20.
+roborazzi = "1.76.0"
 androidxTestCore = "1.7.0"
 javaxInject = "1"
 turbine = "1.2.1"
@@ -46,6 +49,9 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+# Compose UI tests on the JVM with Robolectric; versions come from the Compose BOM.
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -58,6 +64,8 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }

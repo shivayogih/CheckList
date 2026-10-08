@@ -68,6 +68,15 @@ jobs:
             **/build/test-results/
           if-no-files-found: ignore
 
+      # PNGs recorded by the Roborazzi screenshot tests (item row, form, viewer, PDF page; light, dark, 200% font, Tamil).
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: app/build/outputs/roborazzi/
+          if-no-files-found: ignore
+
       - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:
