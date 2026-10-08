@@ -179,13 +179,17 @@ class JsonTransferCodecTest {
     }
 
     @Test
-    fun deeplyNestedJsonDoesNotCrash() {
+    fun deeplyNestedJsonIsRejectedWithoutOverflowingTheStack() {
         val depth = 50_000
         val nested = "[".repeat(depth) + "]".repeat(depth)
-        val inProfile = codec.decode(envelope().replace("\"profile\":null", "\"profile\":$nested").toByteArray())
-        // Either outcome is acceptable; the point is that the stack survives and nothing throws.
-        assertTrue(inProfile is DecodeResult.Decoded || inProfile == DecodeResult.Rejected(ImportRejection.Malformed))
+        assertEquals(ImportRejection.Malformed, rejection(envelope().replace("\"profile\":null", "\"profile\":$nested")))
         assertEquals(ImportRejection.Malformed, rejection(envelope(checklists = nested)))
+        // Brackets inside strings are text, not nesting.
+        val bracketsInText = "[".repeat(100) + "\\\"" + "{".repeat(100)
+        val doc = decoded(envelope(checklists = """[{"ref":"k1","title":"$bracketsInText","sections":[]}]""").toByteArray())
+        assertEquals("[".repeat(100) + "\"" + "{".repeat(100), doc.checklists.single().title)
+        // A small nested profile is fine and is skipped on import.
+        assertTrue(decoded(golden("hostile-strings.json")).profilePresent)
     }
 
     @Test

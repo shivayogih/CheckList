@@ -60,6 +60,9 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
 
     override fun decode(bytes: ByteArray): DecodeResult {
         val text = decodeUtf8(bytes) ?: return DecodeResult.Rejected(ImportRejection.Malformed)
+        // kotlinx.serialization recurses per nesting level (even when skipping), so a file of
+        // a few hundred thousand '[' would overflow the stack. The format needs only a few levels.
+        if (nestingDepth(text) > MAX_NESTING_DEPTH) return DecodeResult.Rejected(ImportRejection.Malformed)
         return try {
             val header = HEADER_READER.decodeFromString(VersionHeaderDto.serializer(), text)
             decodeVersioned(text, header.formatVersion, header.schemaVersion)
@@ -109,8 +112,34 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
         return text.removePrefix(BYTE_ORDER_MARK)
     }
 
+    /** Deepest bracket nesting outside strings; stops counting once past the limit. */
+    private fun nestingDepth(text: String): Int {
+        var depth = 0
+        var deepest = 0
+        var inString = false
+        var escaped = false
+        for (ch in text) {
+            when {
+                escaped -> escaped = false
+                inString && ch == '\\' -> escaped = true
+                ch == '"' -> inString = !inString
+                inString -> Unit
+                ch == '{' || ch == '[' -> {
+                    depth++
+                    if (depth > deepest) deepest = depth
+                    if (deepest > MAX_NESTING_DEPTH) return deepest
+                }
+                ch == '}' || ch == ']' -> depth--
+            }
+        }
+        return deepest
+    }
+
     private companion object {
         const val BYTE_ORDER_MARK = "﻿"
+
+        /** Version 1 needs 5 levels (file, checklists, checklist, sections, section); the rest is headroom for the profile. */
+        const val MAX_NESTING_DEPTH = 32
 
         /** Strict: the format document is the contract, so anything outside it is refused. */
         val READER = Json {

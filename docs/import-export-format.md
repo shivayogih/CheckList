@@ -126,6 +126,7 @@ Only categories and units that a section or item uses are created. If two sectio
 | Categories / custom units | 1,000 / 500 | While parsing |
 | Sections | 200 per checklist, 20,000 in total | While parsing / after parsing |
 | Any single string | 2,000 UTF-16 units | While parsing; the field limits above apply afterwards |
+| JSON nesting | 32 levels of `{`/`[` (the format uses 5) | Before parsing, so hostile nesting cannot overflow the parser's stack |
 | Reported problems | First 50, with the total count | Validation |
 
 An export that would break a limit is refused instead of written, so every exported file can be imported again.
