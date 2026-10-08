@@ -35,11 +35,15 @@ fun ComposeTestRule.assertAccessible(screen: String) {
         val unmerged = onAllNodes(anyNode, useUnmergedTree = true).fetchSemanticsNodes(atLeastOneRootRequired = true)
 
         merged.filter { it.isActionable() }.forEach { node ->
-            if (node.label().isBlank()) add("unlabelled ${node.role()} control (node ${node.id})")
+            if (node.label().isBlank()) add("unlabelled ${node.role()} control (node ${node.id}: ${node.config})")
             val minPx = with(node.layoutInfo.density) { minTouchTarget.toPx() }
+            // touchBoundsInRoot is clipped to the visible area, so a control scrolled out of view
+            // reports 0 x 0; its laid-out size is the real target then.
             val bounds = node.touchBoundsInRoot
-            if (bounds.width + 0.5f < minPx || bounds.height + 0.5f < minPx) {
-                val size = with(node.layoutInfo.density) { "${bounds.width.toDp()} x ${bounds.height.toDp()}" }
+            val width = maxOf(bounds.width, node.size.width.toFloat())
+            val height = maxOf(bounds.height, node.size.height.toFloat())
+            if (width + 0.5f < minPx || height + 0.5f < minPx) {
+                val size = with(node.layoutInfo.density) { "${width.toDp()} x ${height.toDp()}" }
                 add("touch target $size < 48dp for '${node.label()}'")
             }
         }
@@ -55,11 +59,25 @@ fun ComposeTestRule.assertAccessible(screen: String) {
             .forEach { node ->
                 val layouts = mutableListOf<TextLayoutResult>()
                 node.config[SemanticsActions.GetTextLayoutResult].action?.invoke(layouts)
-                if (layouts.any { it.hasVisualOverflow }) add("text is cut off: '${layouts.first().layoutInput.text}'")
+                layouts.firstOrNull()?.takeIf { it.isCutOff() }?.let { add("text is cut off: '${it.layoutInput.text}' (${it.describe()})") }
             }
     }
     assertTrue("$screen: ${problems.size} accessibility problem(s):\n" + problems.joinToString("\n"), problems.isEmpty())
 }
+
+/**
+ * Text the user cannot read in full: an ellipsis, or a laid-out box smaller than the text needs.
+ * `hasVisualOverflow` is not used: under Robolectric's native graphics it reported overflow even
+ * for one short word that fits ("Rice").
+ */
+private fun TextLayoutResult.isCutOff(): Boolean =
+    (0 until lineCount).any { isLineEllipsized(it) } ||
+        size.width + 1 < multiParagraph.width ||
+        size.height + 1 < multiParagraph.height
+
+private fun TextLayoutResult.describe(): String =
+    "size $size, text ${multiParagraph.width} x ${multiParagraph.height}, lines $lineCount, " +
+        "ellipsized ${(0 until lineCount).any { isLineEllipsized(it) }}, overflow w=$didOverflowWidth h=$didOverflowHeight"
 
 private fun SemanticsNode.isActionable(): Boolean =
     SemanticsActions.OnClick in config || SemanticsActions.SetText in config

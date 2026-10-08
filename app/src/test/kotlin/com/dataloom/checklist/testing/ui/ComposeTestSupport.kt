@@ -5,9 +5,11 @@ import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.hasScrollToNodeAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
 import java.util.concurrent.TimeUnit
 import org.robolectric.shadows.ShadowLooper
@@ -29,7 +31,11 @@ fun advanceMainLooper(millis: Long) {
     ShadowLooper.idleMainLooper(millis, TimeUnit.MILLISECONDS)
 }
 
-/** Waits until a node matching [matcher] exists, then returns the first one. */
+/**
+ * Waits until a node matching [matcher] exists, then returns the first one. While it is missing,
+ * scrollable containers are scrolled to look for it: a lazy list only composes what is on screen,
+ * and Robolectric's default screen is small (320 x 470 dp).
+ */
 fun ComposeTestRule.awaitNode(
     matcher: SemanticsMatcher,
     useUnmergedTree: Boolean = false,
@@ -37,9 +43,21 @@ fun ComposeTestRule.awaitNode(
 ): SemanticsNodeInteraction {
     waitUntil(timeoutMillis) {
         advanceMainLooper(STEP_MS)
-        onAllNodes(matcher, useUnmergedTree).fetchSemanticsNodes().isNotEmpty()
+        exists(matcher, useUnmergedTree) || scrollTo(matcher) && exists(matcher, useUnmergedTree)
     }
     return onAllNodes(matcher, useUnmergedTree).onFirst()
+}
+
+private fun ComposeTestRule.exists(matcher: SemanticsMatcher, useUnmergedTree: Boolean): Boolean =
+    onAllNodes(matcher, useUnmergedTree).fetchSemanticsNodes().isNotEmpty()
+
+/** Scrolls each scrollable container until one shows [matcher]; false if none does (yet). */
+private fun ComposeTestRule.scrollTo(matcher: SemanticsMatcher): Boolean {
+    val scrollables = onAllNodes(hasScrollToNodeAction())
+    val count = scrollables.fetchSemanticsNodes().size
+    return (0 until count).any { index ->
+        runCatching { scrollables[index].performScrollToNode(matcher) }.isSuccess
+    }
 }
 
 /** Waits until a node with exactly this text (or content description) exists. */
