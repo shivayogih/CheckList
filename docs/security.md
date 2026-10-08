@@ -17,7 +17,8 @@ How CheckList protects user data and the project's secrets. To report a vulnerab
 | Backup and device-transfer rules that exclude the profile keyset | Implemented (Phase 5, CL-153) |
 | Profile data minimization (name, optional email and phone only) and redacted `toString()` | Implemented (Phase 5, CL-150) |
 | Release-safe logging wrapper; lint ban on `Log.*` and `println` | Planned (deferred from Phase 5 to the Phase 8 static-analysis work) |
-| Import limits and validation | Planned (Phase 6) |
+| Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | Implemented (Phase 6, CL-160) |
+| Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | Implemented (Phase 6, CL-160) |
 | gitleaks and secret scanning in `pr-checks`; push protection | Planned (Phase 8) |
 | Signing and Play credentials in Bitrise protected storage | Planned (Phase 9) |
 | HTTPS-only network config, App Check | Planned (Phase 10) |

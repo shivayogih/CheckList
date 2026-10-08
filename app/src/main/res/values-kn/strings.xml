@@ -13,4 +13,27 @@
     <string name="settings_version">ಆವೃತ್ತಿ %1$s</string>
     <string name="navigate_back">ಹಿಂದೆ</string>
     <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">ಪಟ್ಟಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="pdf_page_number">ಪುಟ %1$d / %2$d</string>
+    <string name="pdf_progress">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
+    <string name="pdf_prepared_by">ತಯಾರಿಸಿದವರು: %1$s</string>
+    <string name="pdf_no_items">ಈ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ.</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">%1$s ಚಾಲಿತ</string>
+    <string name="pdf_exported_at">ರಫ್ತು: %1$s</string>
+    <!-- "Google Play" and %1$s (the app name "CheckList") are not translated. -->
+    <string name="pdf_get_app">Google Play ನಲ್ಲಿ ಆ್ಯಪ್ ಪಡೆಯಿರಿ</string>
+    <string name="pdf_promo_title">%1$s ಪಡೆಯಿರಿ</string>
+    <string name="pdf_promo_scan">Google Play ನಲ್ಲಿ ಆ್ಯಪ್ ಪಡೆಯಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
+    <string name="pdf_import_hint">ಈ ಪಟ್ಟಿಯನ್ನು ಆ್ಯಪ್‌ನಲ್ಲಿ ಬಳಸಲು, ಕಳುಹಿಸಿದವರಿಂದ %1$s ಫೈಲ್ (.json) ಕೇಳಿ ಪಡೆದು ಇಂಪೋರ್ಟ್ ಮಾಡಿ.</string>
+    <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
+    <string name="share_export_subject">%1$s ಪಟ್ಟಿಗಳು</string>
+    <string name="share_export_intro">ಇದು ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಪಟ್ಟಿಗಳಿರುವ %1$s ಫೈಲ್.</string>
+    <string name="share_export_get_app">Google Play ನಲ್ಲಿ %1$s ಪಡೆಯಿರಿ: %2$s</string>
+    <string name="share_export_steps_title">ಇಂಪೋರ್ಟ್ ಮಾಡಲು:</string>
+    <string name="share_export_step_install">1. %1$s ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ.</string>
+    <string name="share_export_step_open">2. ಆ್ಯಪ್ ತೆರೆಯಿರಿ → ಸೆಟ್ಟಿಂಗ್‌ಗಳು → ಇಂಪೋರ್ಟ್.</string>
+    <string name="share_export_step_choose">3. ಈ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="share_export_step_confirm">4. ಪೂರ್ವವೀಕ್ಷಣೆ ನೋಡಿ ಖಚಿತಪಡಿಸಿ.</string>
 </resources>

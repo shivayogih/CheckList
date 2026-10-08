@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The only folder the FileProvider exposes: files made for the Sharesheet (section 19.3). -->
+<paths>
+    <cache-path
+        name="exports"
+        path="exports/" />
+</paths>

@@ -14,4 +14,27 @@
     <string name="settings_version">Version %1$s</string>
     <string name="navigate_back">Back</string>
     <string name="language_title">Choose language</string>
+    <!-- Import/export and PDF (Phase 6) -->
+    <string name="share_checklist_chooser_title">Share checklist</string>
+    <string name="pdf_page_number">Page %1$d of %2$d</string>
+    <string name="pdf_progress">%1$d of %2$d done</string>
+    <string name="pdf_prepared_by">Prepared by %1$s</string>
+    <string name="pdf_no_items">This checklist has no items.</string>
+    <!-- %1$s is the app name, which stays "CheckList" in every language. -->
+    <string name="pdf_powered_by">Powered by %1$s</string>
+    <string name="pdf_exported_at">Exported %1$s</string>
+    <!-- "Google Play" and %1$s (the app name "CheckList") are not translated. -->
+    <string name="pdf_get_app">Get the app on Google Play</string>
+    <string name="pdf_promo_title">Get %1$s</string>
+    <string name="pdf_promo_scan">Scan to get the app on Google Play</string>
+    <string name="pdf_import_hint">To use this list in the app, ask the sender for the %1$s file (.json) and import it.</string>
+    <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
+    <string name="share_export_subject">%1$s lists</string>
+    <string name="share_export_intro">This is a %1$s file with one or more checklists.</string>
+    <string name="share_export_get_app">Get %1$s on Google Play: %2$s</string>
+    <string name="share_export_steps_title">To import it:</string>
+    <string name="share_export_step_install">1. Install %1$s.</string>
+    <string name="share_export_step_open">2. Open the app → Settings → Import.</string>
+    <string name="share_export_step_choose">3. Choose this file.</string>
+    <string name="share_export_step_confirm">4. Review the preview and confirm.</string>
 </resources>

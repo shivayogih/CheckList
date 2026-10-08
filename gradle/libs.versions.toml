@@ -21,6 +21,9 @@ javaxInject = "1"
 turbine = "1.2.1"
 # Profile encryption (CL-151); tink-android 1.23.0 checked on Maven Central, released 2026-07-09.
 tink = "1.23.0"
+# QR code in the PDF export (CL-168); zxing core 3.5.4 checked on Maven Central (latest stable,
+# released 2025-11-11, Apache-2.0, no runtime dependencies).
+zxing = "3.5.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +53,7 @@ androidx-test-core = { group = "androidx.test", name = "core", version.ref = "an
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
+zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
