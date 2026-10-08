@@ -34,7 +34,7 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Room / DAO | Robolectric in-memory database; a small instrumented set | DAOs, foreign-key cascades, FTS, transactions, seed idempotency | `pr-checks` (Robolectric), Bitrise `staging` (instrumented) | Planned (Phase 2, CL-112) |
 | Migrations | `MigrationTestHelper` + committed schemas | Every N → N+1 and 1 → latest | `pr-checks` | Planned (Phase 7) |
 | Repository | Fakes + Room | Offline behavior, error mapping, consistency after import | `pr-checks` | Planned (Phase 2-7) |
-| Import/export | Golden JSON files | Valid, malformed, oversized, future version, hostile references, round trip | `pr-checks` | Planned (Phase 6) |
+| Import/export | Golden JSON files (`data/src/test/resources/transfer`), fakes, Robolectric Room | Valid, malformed, oversized, future version, hostile references and strings, conflicts, rollback, round trip | `pr-checks` | Implemented (Phase 6, CL-160) |
 | AI mapping | JUnit 4 over the real seed catalog and real use cases with in-memory fakes | Parser tables in 7 languages (native script and transliteration), quantity and unit edge cases, validator rejecting bad tool calls, nothing executes without confirmation | `pr-checks` (`:ai:testDebugUnitTest`) | Implemented for the offline parser (Phase 10, CL-208); recorded online responses Planned (CL-211) |
 | Compose UI | Compose test rule, Hilt test runner | Journeys J1-J6, navigation, quantity/unit, language switching | Bitrise `staging` (emulator), Robolectric smoke on PRs | Planned (Phase 7); Phase 3 covers J1-J3 logic through ViewModel tests |
 | Screenshot | Roborazzi | Key screens × 7 locales × 100% and 200% font × light and dark | `pr-checks` (diff report) | Planned (Phase 4, 7) |

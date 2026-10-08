@@ -43,7 +43,7 @@ How CheckList is put together and the rules that keep it that way. The approved 
 |---|---|---|---|---|
 | `:app` | `com.android.application` | `:domain`, `:data`, `:ai` | UI, navigation, localization helpers, dependency wiring | Implemented shell (Phase 1) |
 | `:domain` | `org.jetbrains.kotlin.jvm` | coroutines only | Models, repository interfaces, use cases, validation, `SupportedLanguages` | Languages implemented; models in progress (Phase 2) |
-| `:data` | `com.android.library` | `:domain` | Room, DataStore, seed loader, import/export, PDF | Empty module; Planned (Phase 2, 5, 6) |
+| `:data` | `com.android.library` | `:domain` | Room, DataStore, seed loader, import/export JSON codec | Implemented (Phase 2, 5, 6) |
 | `:ai` | `com.android.library` | `:domain` only | `AIService` contract, mock and offline parser, tool catalog, plan validator, confirmation policy and gate, executor | In progress (Phase 10, CL-200); online AI Planned (CL-211) |
 
 Two rules are enforced by the compiler rather than by review (ADR-001):
@@ -77,7 +77,8 @@ Base package `com.dataloom.checklist`. Sources live under `src/main/kotlin`.
 ```text
 app/      presentation/{home,settings,components,theme,...}, navigation/, localization/, di/ (Phase 2)
 domain/   domain/{model,repository,common,localization,usecase (Phase 2),validation (Phase 2)}
-data/     data/{local/{dao,entity,database,migration,fts},repository,mapper,seed,settings,profile,importexport,pdf}
+data/     data/{local/{dao,entity,database,migration,fts},repository,mapper,seed,settings,profile,importexport}
+app/      transfer/ (Phase 6: Storage Access Framework, Sharesheet, PDF), transfer/pdf/
 ai/       ai/{model,tools,service,mapper,policy,executor}
 ```
 

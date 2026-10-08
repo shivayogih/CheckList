@@ -27,6 +27,12 @@ val versionMinor = versionPart("VERSION_MINOR", 0..9)
 val versionPatch = versionPart("VERSION_PATCH", 0..9)
 val versionBuild = versionPart("VERSION_BUILD", 0..99)
 
+// The one place to set the Google Play link printed on exported PDFs (with a QR code) and sent with
+// shared files. Leave it empty until the listing is live: with no link, nothing points to the store.
+// Use the production listing in every flavor, for example
+// "https://play.google.com/store/apps/details?id=com.dataloom.checklist".
+val playStoreUrl = ""
+
 android {
     namespace = "com.dataloom.checklist"
     compileSdk = 37
@@ -39,6 +45,7 @@ android {
         versionName = "$versionMajor.$versionMinor.$versionPatch"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "PLAY_STORE_URL", "\"$playStoreUrl\"")
     }
 
     // One flavor dimension: which environment the build talks to and how it is identified.
@@ -112,6 +119,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    // QR code encoder for the PDF export; pure Java, drawn as vector rects.
+    implementation(libs.zxing.core)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
