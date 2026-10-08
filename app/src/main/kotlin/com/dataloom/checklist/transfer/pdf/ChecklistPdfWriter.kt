@@ -157,9 +157,8 @@ class AndroidChecklistPdfWriter @Inject constructor(
         val builder = StaticLayout.Builder.obtain(text, 0, text.length, paint, width.toInt())
             .setAlignment(alignment)
             .setLineSpacing(0f, LINE_SPACING)
+            // Builder defaults: simple line breaking and no hyphenation, which Indic scripts do not use.
             .setIncludePad(true)
-            .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
-            .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // Indic fallback fonts are taller than the default Latin font; size lines for them.
             builder.setUseLineSpacingFromFallbacks(true)
