@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -14,6 +15,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -36,7 +38,7 @@ import com.dataloom.checklist.transfer.TransferDocuments
 import com.dataloom.checklist.transfer.TransferViewModel
 
 /**
- * Language, Your profile, export and import, and About. Export and import go through the Storage
+ * Language, Your profile, export and import, the AI assistant switches, and About. Export and import go through the Storage
  * Access Framework: the user picks the file, so no storage permission is needed.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,8 +49,10 @@ fun SettingsScreen(
     onOpenProfile: () -> Unit,
     onShowTutorial: () -> Unit,
     transferViewModel: TransferViewModel = hiltViewModel(),
+    aiSettingsViewModel: AiSettingsViewModel = hiltViewModel(),
 ) {
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
+    val aiState by aiSettingsViewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     TransferEffects(transferViewModel, snackbarHostState)
     val exportLauncher = rememberLauncherForActivityResult(TransferDocuments.createJson()) { uri ->
@@ -111,6 +115,21 @@ fun SettingsScreen(
                     ),
             )
             HorizontalDivider()
+            SwitchRow(
+                title = stringResource(R.string.settings_ai_enabled),
+                summary = stringResource(R.string.settings_ai_enabled_summary),
+                checked = aiState.enabled,
+                enabled = aiState.isLoaded,
+                onCheckedChange = aiSettingsViewModel::setEnabled,
+            )
+            SwitchRow(
+                title = stringResource(R.string.settings_ai_auto_add),
+                summary = stringResource(R.string.settings_ai_auto_add_summary),
+                checked = aiState.autoAdd,
+                enabled = aiState.autoAddAvailable,
+                onCheckedChange = aiSettingsViewModel::setAutoAdd,
+            )
+            HorizontalDivider()
             ListItem(
                 headlineContent = { Text(stringResource(R.string.settings_about)) },
                 supportingContent = { Text(stringResource(R.string.settings_version, BuildConfig.VERSION_NAME)) },
@@ -134,4 +153,17 @@ fun SettingsScreen(
             onDismiss = transferViewModel::dismissImport,
         )
     }
+}
+
+/** A whole-row switch: TalkBack reads the title, the summary and "on"/"off" as one control. */
+@Composable
+private fun SwitchRow(title: String, summary: String, checked: Boolean, enabled: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    ListItem(
+        headlineContent = { Text(title) },
+        supportingContent = { Text(summary) },
+        trailingContent = { Switch(checked = checked, onCheckedChange = null, enabled = enabled) },
+        modifier = Modifier
+            .heightIn(min = 64.dp)
+            .toggleable(value = checked, enabled = enabled, role = Role.Switch, onValueChange = onCheckedChange),
+    )
 }

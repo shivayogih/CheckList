@@ -235,4 +235,39 @@
         <item quantity="one">നിങ്ങൾക്ക് %1$d ലിസ്റ്റ് പുരോഗമിക്കുന്നു.</item>
         <item quantity="other">നിങ്ങൾക്ക് %1$d ലിസ്റ്റുകൾ പുരോഗമിക്കുന്നു.</item>
     </plurals>
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
+    <string name="settings_ai_enabled">AI സഹായി (ഓഫ്‌ലൈൻ)</string>
+    <string name="settings_ai_enabled_summary">ടൈപ്പ് ചെയ്ത് ഇനങ്ങൾ ചേർക്കുകയോ മാറ്റുകയോ ചെയ്യുക, ഉദാ. “2 കിലോ അരി, 1 ലിറ്റർ പാൽ”. ഇത് ഈ ഫോണിൽ തന്നെ പ്രവർത്തിക്കുന്നു; നിങ്ങൾ ടൈപ്പ് ചെയ്യുന്നത് എങ്ങോട്ടും അയയ്ക്കില്ല.</string>
+    <string name="settings_ai_auto_add">ചോദിക്കാതെ ഇനങ്ങൾ ചേർക്കാൻ AI-യെ അനുവദിക്കുക</string>
+    <string name="settings_ai_auto_add_summary">ഒരു ലളിതമായ മാറ്റത്തിന് മാത്രം. അതിലും വലുത് എപ്പോഴും ആദ്യം നിങ്ങളെ കാണിക്കും.</string>
+    <string name="ai_command_label">എന്ത് ചേർക്കണം അല്ലെങ്കിൽ മാറ്റണം എന്ന് സഹായിയോട് പറയുക</string>
+    <string name="ai_command_hint">ഉദാഹരണം: 2 കിലോ അരി, 1 ലിറ്റർ പാൽ</string>
+    <string name="ai_command_submit">പോകുക</string>
+    <string name="ai_working">നിങ്ങളുടെ നിർദ്ദേശം വായിക്കുന്നു</string>
+    <string name="ai_message_dismiss">ശരി</string>
+    <string name="ai_review_title">എന്ത് മാറുമെന്ന് പരിശോധിക്കുക</string>
+    <string name="ai_review_hint">വേണ്ടാത്തവയുടെ അടയാളം മാറ്റുക. സ്ഥിരീകരിക്കുക അമർത്തുന്നതുവരെ ഒന്നും മാറില്ല.</string>
+    <string name="ai_review_not_understood">മനസ്സിലായില്ല: %1$s</string>
+    <string name="ai_action_confirm">സ്ഥിരീകരിക്കുക</string>
+    <string name="ai_step_add">%1$s ചേർക്കുക</string>
+    <string name="ai_step_add_category">%1$s വിഭാഗം ചേർക്കുക</string>
+    <string name="ai_step_create_checklist">%1$s ചെക്ക്‌ലിസ്റ്റ് സൃഷ്ടിക്കുക</string>
+    <string name="ai_step_set_quantity">%1$s അളവ് മാറ്റുക</string>
+    <string name="ai_step_set_unit">%1$s യൂണിറ്റ് മാറ്റുക</string>
+    <string name="ai_step_complete">%1$s പൂർത്തിയായി എന്ന് അടയാളപ്പെടുത്തുക</string>
+    <string name="ai_step_uncomplete">%1$s പൂർത്തിയായില്ല എന്ന് അടയാളപ്പെടുത്തുക</string>
+    <string name="ai_step_delete">%1$s ഇല്ലാതാക്കുക</string>
+    <string name="ai_step_remove_section">%1$s, അതിലെ ഇനങ്ങൾ എന്നിവ നീക്കം ചെയ്യുക</string>
+    <string name="ai_step_to_section">%1$s വിഭാഗത്തിലേക്ക്</string>
+    <string name="ai_step_amount_to_section">%1$s, %2$s വിഭാഗത്തിലേക്ക്</string>
+    <string name="ai_result_done">ചെയ്തു: %1$s.</string>
+    <string name="ai_result_already">ഇതിനകം പട്ടികയിലുണ്ട്: %1$s.</string>
+    <string name="ai_result_failed">ചെയ്തില്ല: %1$s.</string>
+    <string name="ai_unavailable_disabled">AI സഹായി ഓഫാണ്. ക്രമീകരണങ്ങളിൽ ഓണാക്കുക, അല്ലെങ്കിൽ ഇനങ്ങൾ സ്വയം ചേർക്കുക.</string>
+    <string name="ai_unavailable_timeout">സഹായി മറുപടി നൽകാൻ വളരെ സമയമെടുത്തു. വീണ്ടും ശ്രമിക്കുക, അല്ലെങ്കിൽ ഇനങ്ങൾ സ്വയം ചേർക്കുക.</string>
+    <string name="ai_unavailable_other">സഹായിക്ക് ഇപ്പോൾ ഇത് ചെയ്യാൻ കഴിയില്ല. നിങ്ങൾക്ക് ഇനങ്ങൾ സ്വയം ചേർക്കാം.</string>
+    <string name="ai_not_understood">ക്ഷമിക്കണം, മനസ്സിലായില്ല. “2 കിലോ അരി, 1 ലിറ്റർ പാൽ” പോലെ എഴുതുക, അല്ലെങ്കിൽ ഇനങ്ങൾ സ്വയം ചേർക്കുക.</string>
+    <string name="ai_empty_command">എന്ത് ചേർക്കണം അല്ലെങ്കിൽ മാറ്റണം എന്ന് എഴുതുക, ഉദാ. “2 കിലോ അരി”.</string>
+    <string name="ai_too_long">ഒരു നിർദ്ദേശത്തിന് ഇത് വളരെ നീളമാണ്. ചെറുതാക്കി നോക്കുക.</string>
+    <string name="ai_nothing_selected">ഒന്നും തിരഞ്ഞെടുത്തില്ല, അതിനാൽ ഒന്നും മാറിയില്ല.</string>
 </resources>

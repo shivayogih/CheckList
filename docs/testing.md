@@ -23,6 +23,7 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | `ProfileCipherTest` | `:data`, Robolectric (Phase 5) | Encryption round trip, no plain text in the blob, random nonces, every flipped byte detected, row/version/key binding |
 | `KeysetProfileAeadProviderTest` | `:data`, Robolectric (Phase 5) | Keyset wrapping and reload, lost/replaced/failing master key, destroy, failure classification. A software master key stands in for the Keystore, which Robolectric lacks |
 | `EncryptedProfileRepositoryTest` | `:data`, Robolectric (Phase 5) | Save, observe, clear, key loss, tampering, restore without keys, temporary Keystore failure, newer payload version |
+| `DataStoreAiPreferencesTest` | `:app` (CL-240) | AI switches on a real Preferences DataStore file: off on a new install, kept across a restart, "add without asking" only with the assistant on |
 | `BackupRulesTest` | `:app` (Phase 5) | Cloud backup, device transfer and legacy Auto Backup all exclude the profile keyset |
 
 ## Strategy by layer
@@ -30,7 +31,7 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Layer | Tools | What | Runs in | Status |
 |---|---|---|---|---|
 | Domain unit | JUnit 4, kotlinx-coroutines-test | Use cases, validators, quantity math, localizer fallback, confirmation policy, command validator | `pr-checks` | Started; use cases Planned (Phase 2, CL-111) |
-| ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133, CL-135): Home, create, add categories, detail, add items, item editor, profile |
+| ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133, CL-135): Home, create, add categories, detail (including the PDF-after-delete race, CL-241), add items, item editor, profile; AI settings and the AI command → review → confirm/cancel flow over the real validator, gate and executor (CL-240) |
 | Room / DAO | Robolectric in-memory database; a small instrumented set | DAOs, foreign-key cascades, FTS, transactions, seed idempotency | `pr-checks` (Robolectric), Bitrise `staging` (instrumented) | Planned (Phase 2, CL-112) |
 | Migrations | `MigrationTestHelper` + committed schemas | Every N → N+1 and 1 → latest | `pr-checks` | Planned (Phase 7) |
 | Repository | Fakes + Room | Offline behavior, error mapping, consistency after import | `pr-checks` | Planned (Phase 2-7) |
