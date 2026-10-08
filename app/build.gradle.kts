@@ -113,6 +113,12 @@ android {
             // enough heap for software-rendered Compose screenshots.
             it.systemProperty("robolectric.pixelCopyRenderMode", "hardware")
             it.maxHeapSize = "2g"
+            it.testLogging {
+                // Robolectric start-up failures wrap the real cause three levels deep; show all of it.
+                exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+                showCauses = true
+                showStackTraces = true
+            }
         }
     }
 }
