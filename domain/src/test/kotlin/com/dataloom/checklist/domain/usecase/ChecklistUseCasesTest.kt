@@ -122,4 +122,15 @@ class ChecklistUseCasesTest {
         }
         assertEquals("week", repo.lastQuery!!.search)
     }
+
+    @Test
+    fun `title used check trims, ignores case, skips blank and the excluded checklist`() = runTest {
+        val isUsed = IsChecklistTitleUsedUseCase(repo)
+        val id = createdId("Weekly")
+
+        assertTrue(isUsed("  weekly "))
+        assertFalse(isUsed("Monthly"))
+        assertFalse(isUsed("   "))
+        assertFalse(isUsed("Weekly", excluding = id))
+    }
 }

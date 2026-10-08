@@ -45,6 +45,21 @@ class CreateChecklistUseCase @Inject constructor(private val checklists: Checkli
     }
 }
 
+/**
+ * True when a checklist other than [excluding] already uses [title] (trimmed, case-insensitive).
+ * Forms call it while the user types to show a gentle warning before saving; duplicate titles stay
+ * allowed, so this never blocks a save. Blank titles return false (the validator reports those).
+ *
+ * Added in Phase 3 (CL-122), additive to the Phase 2 contract.
+ */
+class IsChecklistTitleUsedUseCase @Inject constructor(private val checklists: ChecklistRepository) {
+    suspend operator fun invoke(title: String, excluding: ChecklistId? = null): Boolean {
+        val clean = title.trim()
+        if (clean.isEmpty()) return false
+        return checklists.titleExists(clean, excluding)
+    }
+}
+
 class UpdateChecklistUseCase @Inject constructor(private val checklists: ChecklistRepository) {
     suspend operator fun invoke(id: ChecklistId, title: String, description: String?): DomainResult<SavedChecklist> {
         val fields = when (val result = ChecklistValidator.validate(title, description)) {
