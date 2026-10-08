@@ -7,6 +7,8 @@ plugins {
     // Annotation processing runs on KSP: kapt is not supported with AGP 9 built-in Kotlin.
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    // Screenshot goldens for the shared components (CL-262): record and verify tasks plus test properties.
+    alias(libs.plugins.roborazzi)
 }
 
 // versionCode = MAJOR*10000 + MINOR*1000 + PATCH*100 + BUILD (ADR-016).
@@ -106,6 +108,12 @@ android {
         unitTests.isReturnDefaultValues = true
         // Compose UI tests run on Robolectric (CL-171) and need the merged resources and assets.
         unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            // Closer to a real device when Roborazzi reads pixels back (README: Robolectric Options), and
+            // enough heap for software-rendered Compose screenshots.
+            it.systemProperty("robolectric.pixelCopyRenderMode", "hardware")
+            it.maxHeapSize = "2g"
+        }
     }
 }
 
@@ -144,6 +152,8 @@ dependencies {
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
     // Declares the empty ComponentActivity that createComposeRule() starts; debug builds only.

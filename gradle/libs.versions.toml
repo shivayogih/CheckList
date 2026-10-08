@@ -16,6 +16,9 @@ hilt = "2.60.1"
 androidxHilt = "1.4.0"
 room = "2.8.5"
 robolectric = "4.17"
+# Screenshot tests (CL-262). Roborazzi 1.76.0 is the latest release on Maven Central (2026-09-29); its Gradle
+# plugin is built with Gradle 9.5.1 and runs Compose screenshots on Robolectric 4.10+ (we use 4.17).
+roborazzi = "1.76.0"
 androidxTestCore = "1.7.0"
 javaxInject = "1"
 turbine = "1.2.1"
@@ -55,6 +58,8 @@ androidx-hilt-lifecycle-viewmodel-compose = { group = "androidx.hilt", name = "h
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
@@ -71,3 +76,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 room = { id = "androidx.room", version.ref = "room" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
