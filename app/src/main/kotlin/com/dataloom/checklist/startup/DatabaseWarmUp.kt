@@ -34,7 +34,7 @@ class DatabaseWarmUp @Inject constructor(
                 withContext(io) { database.get().openHelper.writableDatabase }
             } catch (cancellation: CancellationException) {
                 throw cancellation
-            } catch (@Suppress("TooGenericExceptionCaught") failure: Exception) {
+            } catch (@Suppress("TooGenericExceptionCaught", "SwallowedException") failure: Exception) {
                 // Intentionally ignored, see above.
             }
         }

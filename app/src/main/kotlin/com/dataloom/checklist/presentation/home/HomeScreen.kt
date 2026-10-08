@@ -167,7 +167,9 @@ private fun HomeContent(
             ) {
                 // Stable keys: the greeting card appearing must not shift the search field's identity.
                 item(key = "search", contentType = "search") { SearchField(state.search, onAction) }
-                item(key = "filter-sort", contentType = "filter-sort") { FilterAndSort(state.filter, state.sort, onAction) }
+                item(key = "filter-sort", contentType = "filter-sort") {
+                    FilterAndSort(state.filter, state.sort, onAction)
+                }
                 greeting?.let { item(key = "greeting", contentType = "greeting") { GreetingCard(it) } }
                 if (!state.isLoading && state.checklists.isEmpty()) {
                     item(key = "empty", contentType = "empty") { EmptyResults(state) }

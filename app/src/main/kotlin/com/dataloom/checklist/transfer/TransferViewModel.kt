@@ -129,7 +129,10 @@ class TransferViewModel @Inject constructor(
         }
         val message = ExportShareText.build(exportShareStrings(), StoreLink.of(BuildConfig.PLAY_STORE_URL))
         // FileProvider parses its path XML on first use: keep that off the main thread too.
-        _effects.send(TransferEffect.Share(withContext(io) { sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text) }))
+        val intent = withContext(io) {
+            sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text)
+        }
+        _effects.send(TransferEffect.Share(intent))
     }
 
     private fun exportShareStrings(): ExportShareStrings {
@@ -178,7 +181,9 @@ class TransferViewModel @Inject constructor(
         val labels = unitLabels ?: defaultUnitLabels()
         val file = withContext(io) { exportFiles.newFile(TransferDocuments.pdfFileName(detail.checklist.title)) }
         writePdf(detail, options, labels) { file.outputStream() }
-        _effects.send(TransferEffect.Share(withContext(io) { sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, detail.checklist.title) }))
+        val title = detail.checklist.title
+        val intent = withContext(io) { sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, title) }
+        _effects.send(TransferEffect.Share(intent))
     }
 
     /** Saves the PDF to a document the user created with [TransferDocuments.createPdf]. */

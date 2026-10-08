@@ -55,7 +55,9 @@ fun UnitPickerDialog(
         title = { Text(stringResource(R.string.unit_picker_title)) },
         text = {
             LazyColumn(modifier = Modifier.selectableGroup()) {
-                item(key = "none", contentType = "option") { UnitOption(stringResource(R.string.unit_none), selected == null) { onSelect(null) } }
+                item(key = "none", contentType = "option") {
+                    UnitOption(stringResource(R.string.unit_none), selected == null) { onSelect(null) }
+                }
                 items(sortedUnits, key = { it.code.value }, contentType = { "option" }) { unit ->
                     UnitOption(unitLabel(unit), unit.code == selected) { onSelect(unit.code) }
                 }

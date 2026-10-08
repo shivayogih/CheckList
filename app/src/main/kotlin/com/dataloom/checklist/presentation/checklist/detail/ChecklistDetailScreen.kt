@@ -214,7 +214,9 @@ private fun DetailContent(
                 item(key = "ai-command", contentType = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
-                item(key = "header-${section.id.value}", contentType = "section-header") { SectionHeader(section, onAction) }
+                item(key = "header-${section.id.value}", contentType = "section-header") {
+                    SectionHeader(section, onAction)
+                }
                 if (section.items.isEmpty()) {
                     item(key = "empty-${section.id.value}", contentType = "section-empty") {
                         Text(
@@ -238,7 +240,9 @@ private fun DetailContent(
                 }
             }
             if (!state.isLoading) {
-                item(key = "footer", contentType = "footer") { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
+                item(key = "footer", contentType = "footer") {
+                    AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories)
+                }
             }
         }
     }

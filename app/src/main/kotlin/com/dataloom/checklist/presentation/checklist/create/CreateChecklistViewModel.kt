@@ -101,7 +101,8 @@ class CreateChecklistViewModel @Inject constructor(
         Form(
             title = savedState.get<String>(KEY_TITLE).orEmpty(),
             description = savedState.get<String>(KEY_DESCRIPTION).orEmpty(),
-            selected = savedState.get<ArrayList<String>>(KEY_SELECTED).orEmpty().mapTo(LinkedHashSet()) { CategoryId(it) },
+            selected = savedState.get<ArrayList<String>>(KEY_SELECTED).orEmpty()
+                .mapTo(LinkedHashSet()) { CategoryId(it) },
         ),
     )
     private val newCategoryDialog = NewCategoryDialogController(createCategory) { languageProvider.language.value }

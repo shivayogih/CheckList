@@ -122,7 +122,9 @@ class HomeViewModel @Inject constructor(
 
     /** What the database is asked: the search text is debounced, sort and filter are not. */
     private val databaseQuery: Flow<ChecklistQuery> = combine(
-        query.map { it.search }.distinctUntilChanged().debounce { text -> if (text.isEmpty()) 0L else SEARCH_DEBOUNCE_MS },
+        query.map { it.search }.distinctUntilChanged().debounce { text ->
+            if (text.isEmpty()) 0L else SEARCH_DEBOUNCE_MS
+        },
         query.map { it.sort }.distinctUntilChanged(),
         query.map { it.filter }.distinctUntilChanged(),
     ) { search, sort, filter -> ChecklistQuery(search = search, sort = sort, filter = filter) }
@@ -199,9 +201,11 @@ class HomeViewModel @Inject constructor(
 
     private fun restoredQuery() = ChecklistQuery(
         search = savedState.get<String>(KEY_SEARCH).orEmpty(),
-        sort = savedState.get<String>(KEY_SORT)?.let { name -> ChecklistSort.entries.firstOrNull { it.name == name } }
+        sort = savedState.get<String>(KEY_SORT)
+            ?.let { name -> ChecklistSort.entries.firstOrNull { it.name == name } }
             ?: ChecklistSort.RECENT,
-        filter = savedState.get<String>(KEY_FILTER)?.let { name -> ChecklistFilter.entries.firstOrNull { it.name == name } }
+        filter = savedState.get<String>(KEY_FILTER)
+            ?.let { name -> ChecklistFilter.entries.firstOrNull { it.name == name } }
             ?: ChecklistFilter.ACTIVE,
     )
 

@@ -63,7 +63,8 @@ class RoomImportExportTest {
         val checklists = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined)
         val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
         val codec = JsonTransferCodec()
-        val export = ExportChecklistsUseCase(checklists, catalog, codec, clock, Dispatchers.Unconfined, Dispatchers.Unconfined)
+        val export =
+            ExportChecklistsUseCase(checklists, catalog, codec, clock, Dispatchers.Unconfined, Dispatchers.Unconfined)
         val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined)
         val apply = ApplyImportUseCase(checklists, catalog, RoomTransactionRunner(db))
 

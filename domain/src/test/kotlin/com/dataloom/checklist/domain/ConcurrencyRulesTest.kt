@@ -43,19 +43,22 @@ class ConcurrencyRulesTest {
 
     @Test
     fun `no class names a concrete dispatcher, only CoroutinesModule does`() {
-        val found = violations(Regex("""Dispatchers\.(IO|Default|Unconfined)\b"""), allowed = setOf("CoroutinesModule.kt"))
+        val pattern = Regex("""Dispatchers\.(IO|Default|Unconfined)\b""")
+        val found = violations(pattern, allowed = setOf("CoroutinesModule.kt"))
         assertTrue("Inject @IoDispatcher or @DefaultDispatcher instead:\n${found.joinToString("\n")}", found.isEmpty())
     }
 
     @Test
     fun `no GlobalScope and no runBlocking in production code`() {
         val found = violations(Regex("""\b(GlobalScope|runBlocking)\b"""))
-        assertTrue("Use a structured scope (viewModelScope or the injected application scope):\n${found.joinToString("\n")}", found.isEmpty())
+        val advice = "Use a structured scope (viewModelScope or the injected application scope)"
+        assertTrue("$advice:\n${found.joinToString("\n")}", found.isEmpty())
     }
 
     @Test
     fun `scopes are created only by the application module`() {
         val found = violations(Regex("""\bCoroutineScope\("""), allowed = setOf("AppModule.kt"))
-        assertTrue("Inject the @ApplicationScope scope instead of creating one:\n${found.joinToString("\n")}", found.isEmpty())
+        val advice = "Inject the @ApplicationScope scope instead of creating one"
+        assertTrue("$advice:\n${found.joinToString("\n")}", found.isEmpty())
     }
 }

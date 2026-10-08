@@ -38,7 +38,9 @@ class TransferUseCasesTest {
         val transactions = DirectTransactionRunner()
         val groceries: Category = catalog.seedCategory("groceries", "Groceries")
         val vegetables: Category = catalog.seedCategory("vegetables", "Vegetables")
-        val export = ExportChecklistsUseCase(checklists, catalog, codec, Clock { 1_791_432_000_000L }, Dispatchers.Unconfined, Dispatchers.Unconfined)
+        val export = ExportChecklistsUseCase(
+            checklists, catalog, codec, Clock { 1_791_432_000_000L }, Dispatchers.Unconfined, Dispatchers.Unconfined,
+        )
         val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined)
         val apply = ApplyImportUseCase(checklists, catalog, transactions)
 

@@ -231,7 +231,8 @@ class ChecklistDetailViewModel @AssistedInject constructor(
                 pendingSectionRemoval.value = null
                 launchWrite { removeSection(section.id) }
             }
-            ChecklistDetailAction.StartRename -> setRename(RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty()))
+            ChecklistDetailAction.StartRename ->
+                setRename(RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty()))
             is ChecklistDetailAction.RenameChanged -> setRename(rename.value?.copy(title = action.title, error = null))
             ChecklistDetailAction.DismissRename -> setRename(null)
             ChecklistDetailAction.ConfirmRename -> confirmRename()
