@@ -17,9 +17,9 @@ import kotlinx.coroutines.withContext
  * seven languages of names). Doing it from `Application.onCreate` overlaps that cost with the
  * first-run flag read and the first frame instead of making the first screen wait for it.
  *
- * [DatabaseOpener] holds the database lazily, so injecting this class does not build it on the main thread. A failure is
- * dropped here on purpose (it must never crash the launch): the first real query hits the same error
- * and reports it to the screen that needs the data.
+ * [DatabaseOpener] holds the database lazily, so injecting this class does not build it on the main
+ * thread. A failure is dropped here on purpose (it must never crash the launch): the first real query
+ * hits the same error and reports it to the screen that needs the data.
  */
 @Singleton
 class DatabaseWarmUp @Inject constructor(
