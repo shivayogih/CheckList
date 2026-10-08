@@ -194,4 +194,40 @@
     <string name="settings_import_summary">CheckList ಬ್ಯಾಕಪ್ ಫೈಲ್‌ನಿಂದ ಪಟ್ಟಿಗಳನ್ನು ಸೇರಿಸಿ</string>
     <string name="share_no_app">ಈ ಫೈಲ್ ಹಂಚಿಕೊಳ್ಳಲು ಈ ಫೋನ್‌ನಲ್ಲಿ ಯಾವುದೇ ಆ್ಯಪ್ ಇಲ್ಲ.</string>
     <string name="transfer_write_failed">ಫೈಲ್ ಬರೆಯಲು ಆಗಲಿಲ್ಲ. ಸಂಗ್ರಹಣೆ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-210). -->
+    <string name="settings_ai_enabled">AI ಸಹಾಯಕ (ಆಫ್‌ಲೈನ್)</string>
+    <string name="settings_ai_enabled_summary">ಟೈಪ್ ಮಾಡಿ ಐಟಂಗಳನ್ನು ಸೇರಿಸಿ ಅಥವಾ ಬದಲಿಸಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು”. ಇದು ಈ ಫೋನ್‌ನಲ್ಲೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ; ನೀವು ಟೈಪ್ ಮಾಡಿದ್ದು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="settings_ai_auto_add">ಕೇಳದೆ ಐಟಂ ಸೇರಿಸಲು AI ಗೆ ಅನುಮತಿಸಿ</string>
+    <string name="settings_ai_auto_add_summary">ಒಂದು ಸರಳ ಬದಲಾವಣೆಗೆ ಮಾತ್ರ. ಅದಕ್ಕಿಂತ ದೊಡ್ಡದನ್ನು ಯಾವಾಗಲೂ ಮೊದಲು ನಿಮಗೆ ತೋರಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="ai_command_label">ಏನು ಸೇರಿಸಬೇಕು ಅಥವಾ ಬದಲಿಸಬೇಕು ಎಂದು ಸಹಾಯಕನಿಗೆ ಹೇಳಿ</string>
+    <string name="ai_command_hint">ಉದಾಹರಣೆ: 2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು</string>
+    <string name="ai_command_submit">ಮುಂದುವರಿಸಿ</string>
+    <string name="ai_working">ನಿಮ್ಮ ಆದೇಶವನ್ನು ಓದಲಾಗುತ್ತಿದೆ</string>
+    <string name="ai_message_dismiss">ಸರಿ</string>
+    <string name="ai_review_title">ಏನು ಬದಲಾಗುತ್ತದೆ ಎಂದು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="ai_review_hint">ಬೇಡವಾದುದರ ಗುರುತು ತೆಗೆಯಿರಿ. ದೃಢೀಕರಿಸಿ ಒತ್ತುವವರೆಗೆ ಏನೂ ಬದಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="ai_review_not_understood">ಅರ್ಥವಾಗಲಿಲ್ಲ: %1$s</string>
+    <string name="ai_action_confirm">ದೃಢೀಕರಿಸಿ</string>
+    <string name="ai_step_add">%1$s ಸೇರಿಸಿ</string>
+    <string name="ai_step_add_category">%1$s ವರ್ಗವನ್ನು ಸೇರಿಸಿ</string>
+    <string name="ai_step_create_checklist">%1$s ಚೆಕ್‌ಲಿಸ್ಟ್ ರಚಿಸಿ</string>
+    <string name="ai_step_set_quantity">%1$s ಪ್ರಮಾಣವನ್ನು ಬದಲಿಸಿ</string>
+    <string name="ai_step_set_unit">%1$s ಘಟಕವನ್ನು ಬದಲಿಸಿ</string>
+    <string name="ai_step_complete">%1$s ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಗುರುತಿಸಿ</string>
+    <string name="ai_step_uncomplete">%1$s ಪೂರ್ಣಗೊಂಡಿಲ್ಲ ಎಂದು ಗುರುತಿಸಿ</string>
+    <string name="ai_step_delete">%1$s ಅಳಿಸಿ</string>
+    <string name="ai_step_remove_section">%1$s ಮತ್ತು ಅದರ ಐಟಂಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="ai_step_to_section">%1$s ಗೆ</string>
+    <string name="ai_step_amount_to_section">%1$s, %2$s ಗೆ</string>
+    <string name="ai_result_done">ಮುಗಿದಿದೆ: %1$s.</string>
+    <string name="ai_result_already">ಈಗಾಗಲೇ ಪಟ್ಟಿಯಲ್ಲಿದೆ: %1$s.</string>
+    <string name="ai_result_failed">ಆಗಲಿಲ್ಲ: %1$s.</string>
+    <string name="ai_unavailable_disabled">AI ಸಹಾಯಕ ಆಫ್ ಆಗಿದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆನ್ ಮಾಡಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_unavailable_timeout">ಸಹಾಯಕ ಉತ್ತರಿಸಲು ತುಂಬಾ ಸಮಯ ತೆಗೆದುಕೊಂಡಿತು. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_unavailable_other">ಸಹಾಯಕ ಈಗ ಇದನ್ನು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. ನೀವು ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಬಹುದು.</string>
+    <string name="ai_not_understood">ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು” ರೀತಿ ಬರೆಯಿರಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_empty_command">ಏನು ಸೇರಿಸಬೇಕು ಅಥವಾ ಬದಲಿಸಬೇಕು ಎಂದು ಬರೆಯಿರಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ”.</string>
+    <string name="ai_too_long">ಒಂದು ಆದೇಶಕ್ಕೆ ಇದು ತುಂಬಾ ಉದ್ದವಾಗಿದೆ. ಚಿಕ್ಕದಾಗಿ ಬರೆದು ನೋಡಿ.</string>
+    <string name="ai_nothing_selected">ಏನನ್ನೂ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ, ಆದ್ದರಿಂದ ಏನೂ ಬದಲಾಗಿಲ್ಲ.</string>
 </resources>

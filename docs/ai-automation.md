@@ -1,6 +1,6 @@
 # AI and automation
 
-CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: in-app AI in progress (Phase 10, CL-200 to CL-213): the offline part is implemented in `:ai` (contract, tool validation, confirmation gate, executor, offline parser in 7 languages); online AI and the review UI are Planned (CL-210, CL-211). CI agents: Planned (Phase 11, CL-220 to CL-224).** Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
+CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: in-app AI in progress (Phase 10, CL-200 to CL-213): the offline part is implemented in `:ai` (contract, tool validation, confirmation gate, executor, offline parser in 7 languages); the Settings switches, the command field and the review sheet are implemented in `:app` (CL-210); online AI is Planned (CL-211). CI agents: Planned (Phase 11, CL-220 to CL-224).** Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
 
 ## Rules
 
@@ -13,7 +13,14 @@ CheckList uses AI in two separate places: optional features **inside the app**, 
 
 ## In-app AI (Phase 10)
 
-**Status:** the offline part is implemented in `:ai` (CL-201 to CL-209). It has no UI yet: the review screen and the Settings toggles are CL-210, the online service is CL-211, Undo is CL-212. Until the app binds a settings source, AI stays off and every call answers `Unavailable(DISABLED)`.
+**Status:** the offline part is implemented in `:ai` (CL-201 to CL-209) and has a UI (CL-210, see "In the app" below). The online service is CL-211, Undo is CL-212. AI is off until the user turns it on in Settings; while it is off every call answers `Unavailable(DISABLED)`.
+
+### In the app (CL-210)
+
+- **Settings → "AI assistant (offline)"**, off by default, with a one-line privacy note (it runs on the phone; nothing is sent). A second switch, **"Let AI add items without asking"**, is the `autoExecuteSimple` setting that `PlanGate.autoApprove` depends on; it is off by default, can only be turned on while the assistant is on, and turns off with it. Both live in a Preferences DataStore (`settings/AiPreferences.kt`, file `ai_settings`) that is bound as the AI layer's settings source, so the switch takes effect on the next call.
+- **Checklist detail → command field**, shown only while the assistant is on. The user types a command in any app language ("2 kg rice and 1 litre milk", "दो किलो चावल और एक लीटर दूध"); `AiCommandViewModel` builds the snapshot, calls `AiAssistant.interpret` and opens the **review sheet**: one checkbox row per step with the item, quantity, unit and target section, the parts that were not understood, and Confirm / Cancel. Only ticked steps go to `AiAssistant.confirm` (`PlanGate`) and `execute`; Cancel or closing the sheet drops the plan, so it can never run later. A one-step plan skips the sheet only when "add without asking" is on (`autoApprove`).
+- **Messages** (translated, under the field, announced by TalkBack): what ran ("Done: Rice, Milk."), what was already on the list, what did not run (a failed step and the steps after it); and, instead of a plan, "the assistant is off", "took too long" (timeout), "not understood" (also for a plan with no steps), "can't do that right now" (offline, quota, not supported), or "type a command". Each one points to adding items by hand.
+- A confirmed plan finishes in the application scope even if the screen closes, like the deferred item delete.
 
 ### Implementations
 
@@ -83,9 +90,9 @@ Vocabulary lives in data, not code: `ai/src/main/resources/com/dataloom/checklis
 
 ### Wiring
 
-`AiModule` (Hilt, installed in `SingletonComponent`) binds `AIService` to `CompositeAIService`. Two optional slots are declared with `@BindsOptionalOf`, so `:app` needs no change today:
+`AiModule` (Hilt, installed in `SingletonComponent`) binds `AIService` to `CompositeAIService`. Two optional slots are declared with `@BindsOptionalOf`:
 
-- `AiSettingsSource`: bind one backed by the settings store (CL-210). Missing → AI off.
+- `@AiSettingsStore AiSettingsSource`: the settings store. `:app` binds `DataStoreAiPreferences` here (`di/SettingsModule.kt`, CL-210). Missing → AI off. The slot is qualified because `AiModule` itself provides the unqualified `AiSettingsSource` that the rest of `:ai` injects (the store, or `DISABLED`); an unqualified binding in the app would be a duplicate binding.
 - `@OnlineAiService AIService`: bind the online implementation (CL-211). Missing → offline only.
 
 Callers use `AiAssistant`: `snapshot`, `interpret` or `generate`, `review`, then `confirm` (or `autoApprove`) and `execute`.
@@ -98,7 +105,7 @@ Callers use `AiAssistant`: `snapshot`, `interpret` or `generate`, `review`, then
 4. Run the function-calling loop on the device: answer read calls with `ReadToolRunner` and send the results back; collect write calls as `ToolCall`s into `ActionPlan(source = ONLINE_MODEL)`. Never execute inside the loop: the plan goes through the same validator, policy and gate.
 5. Map errors: no network → `Unavailable(OFFLINE)`, quota → `Unavailable(QUOTA)`; `CompositeAIService` already applies the timeout.
 6. Bind it: `@Binds @OnlineAiService abstract fun online(impl: GeminiAIService): AIService`.
-7. Ship the opt-in screen (CL-210) with the privacy explanation below before `onlineEnabled` can be turned on. Add recorded-response tests: real model output replayed through the validator.
+7. Add an online opt-in switch with the privacy explanation below to Settings (next to the CL-210 switches) before `onlineEnabled` can be turned on; `DataStoreAiPreferences` always reports it off today. Add recorded-response tests: real model output replayed through the validator.
 
 ### Tradeoffs to know
 
