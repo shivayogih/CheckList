@@ -257,7 +257,7 @@ class ChecklistDetailViewModelTest {
             vm.onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
 
             assertEquals(ChecklistDetailEffect.PdfReady(PdfExport.SHARE), awaitItem())
-            // The PDF reads the database after PdfReady, so the item must be gone by now (CL-214).
+            // The PDF reads the database after PdfReady, so the item must be gone by now (CL-241).
             assertNull(repo.item(sugar.id))
         }
         assertEquals(listOf("Rice", "Salt"), vm.uiState.value.sections.first().items.map { it.name })

@@ -195,7 +195,7 @@
     <string name="share_no_app">ही फाइल शेअर करू शकेल असे कोणतेही अ‍ॅप या फोनवर नाही.</string>
     <string name="transfer_write_failed">फाइल लिहिता आली नाही. स्टोरेज तपासा आणि पुन्हा प्रयत्न करा.</string>
 
-    <!-- AI assistant: Settings switches, command field and review sheet (CL-210). -->
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI सहाय्यक (ऑफलाइन)</string>
     <string name="settings_ai_enabled_summary">टाइप करून आयटम जोडा किंवा बदला, उदा. “2 किलो तांदूळ आणि 1 लिटर दूध”. हे याच फोनवर चालते; तुम्ही टाइप केलेले कुठेही पाठवले जात नाही.</string>
     <string name="settings_ai_auto_add">AI ला न विचारता आयटम जोडू द्या</string>

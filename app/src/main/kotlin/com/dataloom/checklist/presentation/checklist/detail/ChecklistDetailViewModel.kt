@@ -101,7 +101,7 @@ sealed interface ChecklistDetailAction {
 
     /**
      * Share or save as PDF was tapped. Deletions still waiting for Undo are committed first, so the
-     * PDF never contains an item the user just deleted (CL-214); then [ChecklistDetailEffect.PdfReady].
+     * PDF never contains an item the user just deleted (CL-241); then [ChecklistDetailEffect.PdfReady].
      */
     data class ExportPdf(val export: PdfExport) : ChecklistDetailAction
     data class MoveItemUp(val id: ChecklistItemId) : ChecklistDetailAction

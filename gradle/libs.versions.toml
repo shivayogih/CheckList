@@ -24,7 +24,7 @@ tink = "1.23.0"
 # QR code in the PDF export (CL-168); zxing core 3.5.4 checked on Maven Central (latest stable,
 # released 2025-11-11, Apache-2.0, no runtime dependencies).
 zxing = "3.5.4"
-# AI assistant toggles (CL-210); datastore 1.2.1 checked on the AndroidX release page: latest stable,
+# AI assistant toggles (CL-240); datastore 1.2.1 checked on the AndroidX release page: latest stable,
 # released 2026-03-11, needs Kotlin Gradle plugin 2.0 or newer.
 datastore = "1.2.1"
 

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 /**
- * The user's AI choices from Settings (CL-210). Everything is off until the user turns it on.
+ * The user's AI choices from Settings (CL-240). Everything is off until the user turns it on.
  * Online AI (CL-211) is not offered yet, so [AiSettings.onlineEnabled] is always false.
  */
 interface AiPreferences {

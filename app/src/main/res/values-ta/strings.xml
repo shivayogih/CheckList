@@ -195,7 +195,7 @@
     <string name="share_no_app">இந்தக் கோப்பைப் பகிர இந்த ஃபோனில் எந்த ஆப்ஸும் இல்லை.</string>
     <string name="transfer_write_failed">கோப்பை எழுத முடியவில்லை. சேமிப்பகத்தைச் சரிபார்த்து மீண்டும் முயலவும்.</string>
 
-    <!-- AI assistant: Settings switches, command field and review sheet (CL-210). -->
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI உதவியாளர் (ஆஃப்லைன்)</string>
     <string name="settings_ai_enabled_summary">தட்டச்சு செய்து பொருட்களைச் சேர்க்கவும் அல்லது மாற்றவும், எ.கா. “2 கிலோ அரிசி மற்றும் 1 லிட்டர் பால்”. இது இந்த ஃபோனிலேயே இயங்குகிறது; நீங்கள் தட்டச்சு செய்வது எங்கும் அனுப்பப்படாது.</string>
     <string name="settings_ai_auto_add">கேட்காமல் பொருட்களைச் சேர்க்க AI-ஐ அனுமதி</string>

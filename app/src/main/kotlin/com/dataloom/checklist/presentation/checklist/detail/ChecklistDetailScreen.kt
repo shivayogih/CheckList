@@ -112,7 +112,7 @@ fun ChecklistDetailScreen(
     val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
         if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
     }
-    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-214).
+    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
     val pdfActions = listOf(
         MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
             onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))

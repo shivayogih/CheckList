@@ -195,7 +195,7 @@
     <string name="share_no_app">ఈ ఫైల్‌ను షేర్ చేయగల యాప్ ఈ ఫోన్‌లో లేదు.</string>
     <string name="transfer_write_failed">ఫైల్‌ను రాయడం సాధ్యం కాలేదు. నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
 
-    <!-- AI assistant: Settings switches, command field and review sheet (CL-210). -->
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI సహాయకుడు (ఆఫ్‌లైన్)</string>
     <string name="settings_ai_enabled_summary">టైప్ చేసి అంశాలను జోడించండి లేదా మార్చండి, ఉదా. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు”. ఇది ఈ ఫోన్‌లోనే పనిచేస్తుంది; మీరు టైప్ చేసింది ఎక్కడికీ పంపబడదు.</string>
     <string name="settings_ai_auto_add">అడగకుండా అంశాలను జోడించడానికి AIని అనుమతించు</string>

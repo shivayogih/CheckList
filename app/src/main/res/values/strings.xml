@@ -196,7 +196,7 @@
     <string name="share_no_app">No app on this phone can share this file.</string>
     <string name="transfer_write_failed">The file could not be written. Check the storage and try again.</string>
 
-    <!-- AI assistant: Settings switches, command field and review sheet (CL-210). -->
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI assistant (offline)</string>
     <string name="settings_ai_enabled_summary">Add or change items by typing, like “2 kg rice and 1 litre milk”. It works on this phone; what you type is not sent anywhere.</string>
     <string name="settings_ai_auto_add">Let AI add items without asking</string>
