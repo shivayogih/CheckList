@@ -241,6 +241,46 @@
     <string name="share_no_app">ही फाइल शेअर करू शकेल असे कोणतेही अ‍ॅप या फोनवर नाही.</string>
     <string name="transfer_write_failed">फाइल लिहिता आली नाही. स्टोरेज तपासा आणि पुन्हा प्रयत्न करा.</string>
 
+    <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="onboarding_welcome_title">%1$s मध्ये आपले स्वागत आहे</string>
+    <string name="onboarding_welcome_subtitle">तुमची भाषा निवडा. तुम्ही ती नंतर सेटिंग्जमध्ये बदलू शकता.</string>
+    <string name="onboarding_phone_language">फोनची भाषा</string>
+    <string name="onboarding_continue">सुरू ठेवा</string>
+    <string name="onboarding_skip">वगळा</string>
+    <string name="onboarding_next">पुढे</string>
+    <string name="onboarding_get_started">सुरुवात करा</string>
+    <string name="onboarding_skip_for_now">आत्ता वगळा</string>
+    <string name="onboarding_page1_title">कशासाठीही यादी बनवा</string>
+    <string name="onboarding_page1_body">खरेदी, प्रवास, परीक्षा, दवाखान्यातील भेटी. काही टॅपमध्ये चेकलिस्ट तयार करा.</string>
+    <string name="onboarding_page2_title">वस्तू निवडा आणि प्रमाण ठरवा</string>
+    <string name="onboarding_page2_body">तुमच्या भाषेतील तयार वस्तू शोधा, टिक करा आणि 5 किलो सारखे प्रमाण निवडा.</string>
+    <string name="onboarding_page3_title">टिक करा, शेअर करा आणि खाजगी ठेवा</string>
+    <string name="onboarding_page3_body">खरेदी करताना वस्तूंवर टिक करा, यादी व्हॉट्सॲपवर पाठवा आणि इंटरनेटशिवाय वापरा.</string>
+    <string name="onboarding_page_position">पान %1$d / %2$d</string>
+    <string name="onboarding_demo_list_title">दिवाळी खरेदी</string>
+    <string name="onboarding_demo_rice">तांदूळ</string>
+    <string name="onboarding_demo_sugar">साखर</string>
+    <string name="onboarding_demo_diyas">पणत्या</string>
+    <string name="onboarding_demo_rice_flour">तांदळाचे पीठ</string>
+    <string name="onboarding_demo_search">तां</string>
+    <string name="onboarding_demo_groceries">किराणा</string>
+    <string name="onboarding_demo_offline">इंटरनेटशिवाय चालते</string>
+    <string name="onboarding_demo_private">तुमच्या फोनवरच राहते</string>
+    <string name="onboarding_profile_title">तुमच्याबद्दल सांगा</string>
+    <string name="onboarding_profile_intro">आम्ही तुमचे स्वागत करू शकू आणि तुम्ही शेअर करता त्या याद्यांमध्ये तुमचे नाव जोडू शकू. खाते किंवा पासवर्ड नको.</string>
+    <string name="onboarding_profile_banner">फक्त याच फोनवर साठवले जाते, एन्क्रिप्शनने लॉक केलेले.</string>
+    <string name="onboarding_profile_name_hint">ऐच्छिक. तुम्ही निवडले तरच PDF मध्ये दिसेल.</string>
+    <string name="onboarding_profile_more">ईमेल आणि पत्ता जोडा</string>
+    <string name="onboarding_profile_less">ईमेल आणि पत्ता लपवा</string>
+    <string name="profile_address">पत्ता (ऐच्छिक)</string>
+    <string name="home_greeting_title">नमस्ते, %1$s 🙏</string>
+    <string name="settings_show_tutorial">ट्यूटोरियल पुन्हा दाखवा</string>
+    <string name="settings_show_tutorial_summary">CheckList कसे काम करते ते पहा</string>
+    <plurals name="home_greeting_in_progress">
+        <item quantity="one">तुमची %1$d यादी सुरू आहे.</item>
+        <item quantity="other">तुमच्या %1$d याद्या सुरू आहेत.</item>
+    </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI सहाय्यक (ऑफलाइन)</string>
     <string name="settings_ai_enabled_summary">टाइप करून आयटम जोडा किंवा बदला, उदा. “2 किलो तांदूळ आणि 1 लिटर दूध”. हे याच फोनवर चालते; तुम्ही टाइप केलेले कुठेही पाठवले जात नाही.</string>

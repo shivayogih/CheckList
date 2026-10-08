@@ -241,6 +241,46 @@
     <string name="share_no_app">ഈ ഫയൽ പങ്കിടാൻ കഴിയുന്ന ആപ്പൊന്നും ഈ ഫോണിലില്ല.</string>
     <string name="transfer_write_failed">ഫയൽ എഴുതാനായില്ല. സ്റ്റോറേജ് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
 
+    <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="onboarding_welcome_title">%1$s-ലേക്ക് സ്വാഗതം</string>
+    <string name="onboarding_welcome_subtitle">നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക. ഇത് പിന്നീട് ക്രമീകരണങ്ങളിൽ മാറ്റാം.</string>
+    <string name="onboarding_phone_language">ഫോൺ ഭാഷ</string>
+    <string name="onboarding_continue">തുടരുക</string>
+    <string name="onboarding_skip">ഒഴിവാക്കുക</string>
+    <string name="onboarding_next">അടുത്തത്</string>
+    <string name="onboarding_get_started">തുടങ്ങാം</string>
+    <string name="onboarding_skip_for_now">ഇപ്പോൾ ഒഴിവാക്കുക</string>
+    <string name="onboarding_page1_title">എന്തിനും ഒരു ലിസ്റ്റ് ഉണ്ടാക്കാം</string>
+    <string name="onboarding_page1_body">ഷോപ്പിംഗ്, യാത്ര, പരീക്ഷ, ആശുപത്രി സന്ദർശനം. ഏതാനും ടാപ്പുകളിൽ ചെക്ക്‌ലിസ്റ്റ് ഉണ്ടാക്കാം.</string>
+    <string name="onboarding_page2_title">സാധനങ്ങൾ തിരഞ്ഞെടുത്ത് അളവ് നൽകാം</string>
+    <string name="onboarding_page2_body">നിങ്ങളുടെ ഭാഷയിൽ തയ്യാറായ സാധനങ്ങൾ തിരയുക, ടിക്ക് ചെയ്യുക, 5 കിലോ പോലുള്ള അളവ് തിരഞ്ഞെടുക്കുക.</string>
+    <string name="onboarding_page3_title">ടിക്ക് ചെയ്യാം, പങ്കിടാം, സ്വകാര്യമായി സൂക്ഷിക്കാം</string>
+    <string name="onboarding_page3_body">ഷോപ്പിംഗ് സമയത്ത് സാധനങ്ങൾ ടിക്ക് ചെയ്യുക, ലിസ്റ്റ് വാട്ട്‌സ്ആപ്പിൽ അയയ്ക്കുക, ഇന്റർനെറ്റ് ഇല്ലാതെയും ഉപയോഗിക്കുക.</string>
+    <string name="onboarding_page_position">പേജ് %1$d / %2$d</string>
+    <string name="onboarding_demo_list_title">ദീപാവലി ഷോപ്പിംഗ്</string>
+    <string name="onboarding_demo_rice">അരി</string>
+    <string name="onboarding_demo_sugar">പഞ്ചസാര</string>
+    <string name="onboarding_demo_diyas">ചിരാതുകൾ</string>
+    <string name="onboarding_demo_rice_flour">അരിപ്പൊടി</string>
+    <string name="onboarding_demo_search">അ</string>
+    <string name="onboarding_demo_groceries">പലചരക്ക്</string>
+    <string name="onboarding_demo_offline">ഇന്റർനെറ്റ് ഇല്ലാതെയും പ്രവർത്തിക്കും</string>
+    <string name="onboarding_demo_private">നിങ്ങളുടെ ഫോണിൽ തന്നെ ഇരിക്കും</string>
+    <string name="onboarding_profile_title">നിങ്ങളെക്കുറിച്ച് പറയൂ</string>
+    <string name="onboarding_profile_intro">നിങ്ങളെ അഭിവാദ്യം ചെയ്യാനും നിങ്ങൾ പങ്കിടുന്ന ലിസ്റ്റുകളിൽ പേര് ചേർക്കാനും. അക്കൗണ്ടോ പാസ്‌വേഡോ വേണ്ട.</string>
+    <string name="onboarding_profile_banner">ഈ ഫോണിൽ മാത്രം സൂക്ഷിക്കുന്നു, എൻക്രിപ്ഷൻ ഉപയോഗിച്ച് ലോക്ക് ചെയ്‌തിരിക്കുന്നു.</string>
+    <string name="onboarding_profile_name_hint">ഓപ്ഷണൽ. നിങ്ങൾ തിരഞ്ഞെടുത്താൽ മാത്രം PDF-കളിൽ കാണിക്കും.</string>
+    <string name="onboarding_profile_more">ഇമെയിലും വിലാസവും ചേർക്കുക</string>
+    <string name="onboarding_profile_less">ഇമെയിലും വിലാസവും മറയ്ക്കുക</string>
+    <string name="profile_address">വിലാസം (ഓപ്ഷണൽ)</string>
+    <string name="home_greeting_title">നമസ്തേ, %1$s 🙏</string>
+    <string name="settings_show_tutorial">ട്യൂട്ടോറിയൽ വീണ്ടും കാണിക്കുക</string>
+    <string name="settings_show_tutorial_summary">CheckList എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്ന് കാണുക</string>
+    <plurals name="home_greeting_in_progress">
+        <item quantity="one">നിങ്ങൾക്ക് %1$d ലിസ്റ്റ് പുരോഗമിക്കുന്നു.</item>
+        <item quantity="other">നിങ്ങൾക്ക് %1$d ലിസ്റ്റുകൾ പുരോഗമിക്കുന്നു.</item>
+    </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI സഹായി (ഓഫ്‌ലൈൻ)</string>
     <string name="settings_ai_enabled_summary">ടൈപ്പ് ചെയ്ത് ഇനങ്ങൾ ചേർക്കുകയോ മാറ്റുകയോ ചെയ്യുക, ഉദാ. “2 കിലോ അരി, 1 ലിറ്റർ പാൽ”. ഇത് ഈ ഫോണിൽ തന്നെ പ്രവർത്തിക്കുന്നു; നിങ്ങൾ ടൈപ്പ് ചെയ്യുന്നത് എങ്ങോട്ടും അയയ്ക്കില്ല.</string>

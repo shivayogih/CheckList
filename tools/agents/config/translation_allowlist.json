@@ -1,0 +1,5 @@
+{
+  "_comment": "Read by checklist_agents/translations.py. 'terms' stay in Latin letters in every language and are ignored by the untranslated and script checks; 'keys' are string names (or plurals names) skipped by those checks. Placeholders such as %1$s are always ignored.",
+  "terms": ["CheckList", "Google Play", "Google", "PDF", "JSON", ".json", "QR", "AI", "Gemini", "Firebase", "CSV", "Android", "OK"],
+  "keys": []
+}

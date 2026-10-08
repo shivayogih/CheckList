@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -70,8 +72,10 @@ fun HomeScreen(
     onCreateChecklist: () -> Unit,
     onOpenChecklist: (ChecklistId) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
+    greetingViewModel: HomeGreetingViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val greeting by greetingViewModel.greeting.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
@@ -109,6 +113,7 @@ fun HomeScreen(
 
     HomeContent(
         state = state,
+        greeting = greeting,
         snackbarHostState = snackbarHostState,
         onAction = viewModel::onAction,
         onOpenSettings = onOpenSettings,
@@ -121,6 +126,7 @@ fun HomeScreen(
 @Composable
 private fun HomeContent(
     state: HomeUiState,
+    greeting: GreetingUi?,
     snackbarHostState: SnackbarHostState,
     onAction: (HomeAction) -> Unit,
     onOpenSettings: () -> Unit,
@@ -161,6 +167,7 @@ private fun HomeContent(
             ) {
                 item { SearchField(state.search, onAction) }
                 item { FilterAndSort(state.filter, state.sort, onAction) }
+                greeting?.let { item { GreetingCard(it) } }
                 if (!state.isLoading && state.checklists.isEmpty()) {
                     item { EmptyResults(state) }
                 }
@@ -179,6 +186,29 @@ private fun HomeContent(
             onConfirm = { onAction(HomeAction.ConfirmDelete) },
             onDismiss = { onAction(HomeAction.DismissDelete) },
         )
+    }
+}
+
+/** 00g: shown only when the profile has a name. */
+@Composable
+private fun GreetingCard(greeting: GreetingUi) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(
+                text = stringResource(R.string.home_greeting_title, greeting.name),
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Text(
+                text = pluralStringResource(R.plurals.home_greeting_in_progress, greeting.inProgress, greeting.inProgress),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
     }
 }
 

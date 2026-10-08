@@ -14,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 class ProfileCipherTest {
 
     private val aead = softwareAead()
-    private val profile = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210")
+    private val profile = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210", "12, 4th Cross, Hubballi")
 
     private fun encrypt(p: UserProfile = profile) = ProfileCipher.encrypt(aead, p, "me", "alias")
 
@@ -26,9 +26,36 @@ class ProfileCipherTest {
     }
 
     @Test
+    fun addressAndAnEmptyNameRoundTrip() {
+        val onlyAddress = UserProfile(address = "12, 4th Cross")
+        assertEquals(onlyAddress, ProfileCipher.decrypt(aead, encrypt(onlyAddress), "me", 1, "alias"))
+    }
+
+    /** A payload written by the app before CL-250: no address key, and it is still decryptable. */
+    @Test
+    fun payloadWrittenBeforeTheAddressExistedStillDecrypts() {
+        val old = """{"n":"Asha Rao","e":"asha@example.com","p":"+91 98765 43210"}"""
+        val ciphertext = aead.encrypt(old.toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))
+        assertEquals(
+            UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210", null),
+            ProfileCipher.decrypt(aead, ciphertext, "me", 1, "alias"),
+        )
+        val nameOnly = aead.encrypt("""{"n":"ಆಶಾ"}""".toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))
+        assertEquals(UserProfile("ಆಶಾ"), ProfileCipher.decrypt(aead, nameOnly, "me", 1, "alias"))
+    }
+
+    /** A newer payload with keys this version does not know is still readable (forward compatibility). */
+    @Test
+    fun unknownFutureKeysAreIgnored() {
+        val future = """{"n":"Asha","a":"Hubballi","z":"later"}"""
+        val ciphertext = aead.encrypt(future.toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))
+        assertEquals(UserProfile("Asha", address = "Hubballi"), ProfileCipher.decrypt(aead, ciphertext, "me", 1, "alias"))
+    }
+
+    @Test
     fun ciphertextContainsNoPlainText() {
         val bytes = String(encrypt(), Charsets.ISO_8859_1)
-        listOf("Asha", "asha@example.com", "98765").forEach { assertFalse(it, bytes.contains(it)) }
+        listOf("Asha", "asha@example.com", "98765", "Hubballi").forEach { assertFalse(it, bytes.contains(it)) }
     }
 
     @Test

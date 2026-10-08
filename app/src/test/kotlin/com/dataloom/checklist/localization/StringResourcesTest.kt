@@ -29,6 +29,23 @@ class StringResourcesTest {
             .toSet()
     }
 
+    private fun pluralKeys(folder: String): Set<String> {
+        val nodes = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+            .parse(File(resDir, "$folder/strings.xml")).getElementsByTagName("plurals")
+        return (0 until nodes.length).map { (nodes.item(it) as Element).getAttribute("name") }.toSet()
+    }
+
+    @Test
+    fun `all languages have exactly the English plurals`() {
+        val english = pluralKeys("values")
+        assertTrue(english.contains("home_greeting_in_progress"))
+        SupportedLanguages.all
+            .filter { it != SupportedLanguages.ENGLISH }
+            .forEach { language ->
+                assertEquals("Plural mismatch in values-${language.tag}", english, pluralKeys("values-${language.tag}"))
+            }
+    }
+
     @Test
     fun `every supported language except English has a values folder`() {
         SupportedLanguages.all
