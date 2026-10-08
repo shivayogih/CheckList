@@ -67,10 +67,11 @@ ci/scripts/detekt.sh --update-baseline  # only to re-baseline pre-existing code 
 
 Configuration (`config/detekt/detekt.yml`) is detekt's defaults plus three project conventions: `@Composable` functions may be PascalCase, guard-clause early returns do not count towards `ReturnCount`, and `ForbiddenImport` bans `android.util.Log` (except `AndroidLogSink.kt`).
 
-**Baseline (`config/detekt/baseline.xml`).** The first run found 471 issues in code written before detekt existed: 414 `MaxLineLength` (lines of 121-200 characters, about half in tests), `ReturnCount`, `SwallowedException` (deliberate in the profile key-loss handling), `LongMethod` on Compose screens, `TooManyFunctions` on repositories and a few others. Rewrapping hundreds of lines across files that other work was changing at the same time would have caused merge conflicts for no behaviour change, so they were baselined instead (442 entries; detekt matches entries by rule, file and code signature, not line number). Rules for the baseline:
+**Baseline (`config/detekt/baseline.xml`).** The first run found 471 issues in code written before detekt existed: 414 `MaxLineLength` (lines of 121-200 characters, about half in tests), `ReturnCount`, `SwallowedException` (deliberate in the profile key-loss handling), `LongMethod` on Compose screens, `TooManyFunctions` on repositories and a few others. Rewrapping hundreds of lines across files that other work was changing at the same time would have caused merge conflicts for no behaviour change, so they were baselined instead (442 entries; detekt matches entries by rule, file and code signature, not line number). Code merged into `develop` before detekt was adopted is treated the same way: the AI assistant UI (CL-240) added 15 entries when `develop` was merged in (457 in total). Rules for the baseline:
 
 - It may only ever shrink. New and changed code must pass without new entries (Definition of Done item 4); `--update-baseline` is not used to hide new findings.
 - When a file is refactored anyway, fix its baselined findings and delete their entries.
+- Some signatures are coarse (for example a whole file's top-level declarations), so a baselined entry can occasionally hide a similar new finding in the same file. When you touch a file with baselined entries, prefer fixing them.
 - detekt is an alpha: if a future alpha breaks, pin the previous version in `detekt.sh` and record it here. Move to 2.0.0 stable when it ships.
 
 ### Secrets and supply chain (CL-184)
