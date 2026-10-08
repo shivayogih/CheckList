@@ -104,6 +104,8 @@ android {
 
     testOptions {
         unitTests.isReturnDefaultValues = true
+        // Compose UI tests run on Robolectric (CL-171) and need the merged resources and assets.
+        unitTests.isIncludeAndroidResources = true
     }
 }
 
@@ -136,4 +138,14 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
+
+    // Compose UI, accessibility and Hilt graph tests on the JVM (Robolectric, SDK 34 on JDK 17).
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.compiler)
+    // Declares the empty ComponentActivity that createComposeRule() starts; debug builds only.
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
