@@ -24,6 +24,10 @@ android {
         // Robolectric tests read the real seed assets.
         unitTests.isIncludeAndroidResources = true
     }
+
+    // MigrationTestHelper reads the committed schemas as assets (CL-173). Unit tests only: the
+    // schemas never ship in an APK.
+    sourceSets.getByName("test").assets.srcDir("$projectDir/schemas")
 }
 
 // Exported schemas are committed: they are the baseline for migrations and MigrationTestHelper tests.
