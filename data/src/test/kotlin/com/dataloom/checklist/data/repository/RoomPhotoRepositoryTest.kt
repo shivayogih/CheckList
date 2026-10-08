@@ -65,9 +65,19 @@ class RoomPhotoRepositoryTest {
     private val cleaner by lazy { StorePhotoFileCleaner(photos, store) }
 
     private lateinit var groceries: Category
-    private lateinit var checklistId: ChecklistId
-    private lateinit var sectionId: SectionId
-    private lateinit var itemId: ChecklistItemId
+    // Value-class ids cannot be lateinit, so they are held nullable and read through checked getters.
+    private var checklistIdOrNull: ChecklistId? = null
+    private var sectionIdOrNull: SectionId? = null
+    private var itemIdOrNull: ChecklistItemId? = null
+    private var checklistId: ChecklistId
+        get() = checklistIdOrNull!!
+        set(value) { checklistIdOrNull = value }
+    private var sectionId: SectionId
+        get() = sectionIdOrNull!!
+        set(value) { sectionIdOrNull = value }
+    private var itemId: ChecklistItemId
+        get() = itemIdOrNull!!
+        set(value) { itemIdOrNull = value }
 
     @Before
     fun setUp() = runTest {
