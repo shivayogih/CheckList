@@ -45,6 +45,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 data class ItemUi(
     val id: ChecklistItemId,
@@ -83,6 +85,9 @@ data class ChecklistDetailUiState(
     val progress: Float get() = if (totalItems == 0) 0f else completedItems.toFloat() / totalItems
 }
 
+/** The two PDF menu actions. */
+enum class PdfExport { SHARE, SAVE }
+
 sealed interface ChecklistDetailAction {
     data class ToggleItem(val id: ChecklistItemId, val completed: Boolean) : ChecklistDetailAction
 
@@ -93,6 +98,12 @@ sealed interface ChecklistDetailAction {
 
     /** Deletes every item still waiting for Undo, e.g. after the snackbar was lost to a rotation. */
     data object CommitPendingDeletes : ChecklistDetailAction
+
+    /**
+     * Share or save as PDF was tapped. Deletions still waiting for Undo are committed first, so the
+     * PDF never contains an item the user just deleted (CL-214); then [ChecklistDetailEffect.PdfReady].
+     */
+    data class ExportPdf(val export: PdfExport) : ChecklistDetailAction
     data class MoveItemUp(val id: ChecklistItemId) : ChecklistDetailAction
     data class MoveItemDown(val id: ChecklistItemId) : ChecklistDetailAction
     data class MoveSectionUp(val id: SectionId) : ChecklistDetailAction
@@ -111,6 +122,9 @@ sealed interface ChecklistDetailEffect {
 
     /** The checklist was deleted (here or elsewhere): the screen closes. */
     data object ChecklistGone : ChecklistDetailEffect
+
+    /** Every pending deletion is now in the database: the PDF can be built. */
+    data class PdfReady(val export: PdfExport) : ChecklistDetailEffect
     data class Error(val message: UiText) : ChecklistDetailEffect
 }
 
@@ -147,6 +161,9 @@ class ChecklistDetailViewModel @AssistedInject constructor(
 
     private val id = ChecklistId(checklistId)
     private val pendingDeletes = MutableStateFlow<Set<ChecklistItemId>>(emptySet())
+
+    /** Serializes delete commits, so a PDF export waits for a commit that is already running. */
+    private val deleteCommits = Mutex()
     private val rename = MutableStateFlow<RenameDialogUi?>(null)
     private val pendingSectionRemoval = MutableStateFlow<SectionUi?>(null)
     private val effects = Channel<ChecklistDetailEffect>(Channel.BUFFERED)
@@ -194,6 +211,10 @@ class ChecklistDetailViewModel @AssistedInject constructor(
             is ChecklistDetailAction.UndoDelete -> pendingDeletes.update { it - action.id }
             is ChecklistDetailAction.CommitDelete -> commitDeletes(setOf(action.id))
             ChecklistDetailAction.CommitPendingDeletes -> commitDeletes(pendingDeletes.value)
+            is ChecklistDetailAction.ExportPdf -> launchWrite {
+                commitDeletesNow(pendingDeletes.value)
+                effects.send(ChecklistDetailEffect.PdfReady(action.export))
+            }
             is ChecklistDetailAction.MoveItemUp -> moveItemBy(action.id, -1)
             is ChecklistDetailAction.MoveItemDown -> moveItemBy(action.id, +1)
             is ChecklistDetailAction.MoveSectionUp -> moveSectionBy(action.id, -1)
@@ -220,13 +241,21 @@ class ChecklistDetailViewModel @AssistedInject constructor(
     }
 
     private fun commitDeletes(ids: Set<ChecklistItemId>) {
+        if ((ids intersect pendingDeletes.value).isEmpty()) return
+        launchWrite { commitDeletesNow(ids) }
+    }
+
+    /**
+     * Deletes those of [ids] still waiting for Undo and returns once they are gone from the database.
+     * Under [deleteCommits], so an item whose commit is already running is not deleted twice and a
+     * caller that needs the result (PDF export) waits for it.
+     */
+    private suspend fun commitDeletesNow(ids: Set<ChecklistItemId>) = deleteCommits.withLock {
         val toDelete = ids intersect pendingDeletes.value
-        if (toDelete.isEmpty()) return
-        launchWrite {
-            toDelete.forEach { deleteItem(it) }
-            // Un-hide only after the delete, so the row does not flash back for one frame.
-            pendingDeletes.update { it - toDelete }
-        }
+        if (toDelete.isEmpty()) return@withLock
+        toDelete.forEach { deleteItem(it) }
+        // Un-hide only after the delete, so the row does not flash back for one frame.
+        pendingDeletes.update { it - toDelete }
     }
 
     private fun moveItemBy(itemId: ChecklistItemId, step: Int) {

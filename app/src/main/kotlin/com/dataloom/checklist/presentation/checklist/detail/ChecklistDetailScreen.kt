@@ -33,6 +33,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -90,6 +91,34 @@ fun ChecklistDetailScreen(
     val scope = rememberCoroutineScope()
     val onAction = viewModel::onAction
 
+    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
+    TransferEffects(transferViewModel, snackbarHostState)
+    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
+    val customUnitLabels = state.sections
+        .flatMap { section -> section.items.mapNotNull { it.unit } }
+        .filter { it.customLabel != null }
+        .associate { it.code to it.customLabel.orEmpty() }
+    val unitLabels = rememberUnitLabels(customUnitLabels)
+    val id = remember(checklistId) { ChecklistId(checklistId) }
+    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
+        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+    }
+    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-214).
+    val pdfActions = listOf(
+        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
+        },
+        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SAVE))
+        },
+    )
+    val exportPdf by rememberUpdatedState { export: PdfExport ->
+        when (export) {
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
+            PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
+        }
+    }
+
     // An Undo snackbar lost to a rotation or to leaving the screen cannot be answered any more.
     LaunchedEffect(viewModel) { onAction(ChecklistDetailAction.CommitPendingDeletes) }
 
@@ -115,33 +144,17 @@ fun ChecklistDetailScreen(
                     }
                 }
                 ChecklistDetailEffect.ChecklistGone -> navigation.onBack()
+                is ChecklistDetailEffect.PdfReady -> {
+                    // The deletion is final now; its Undo snackbar would offer something it cannot do.
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                    exportPdf(effect.export)
+                }
                 is ChecklistDetailEffect.Error -> scope.launch {
                     snackbarHostState.showSnackbar(effect.message.resolve(resources))
                 }
             }
         }
     }
-
-    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
-    TransferEffects(transferViewModel, snackbarHostState)
-    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
-    val customUnitLabels = state.sections
-        .flatMap { section -> section.items.mapNotNull { it.unit } }
-        .filter { it.customLabel != null }
-        .associate { it.code to it.customLabel.orEmpty() }
-    val unitLabels = rememberUnitLabels(customUnitLabels)
-    val id = remember(checklistId) { ChecklistId(checklistId) }
-    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
-    }
-    val pdfActions = listOf(
-        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
-            transferViewModel.sharePdf(id, unitLabels = unitLabels)
-        },
-        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
-            savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
-        },
-    )
 
     DetailContent(state, snackbarHostState, onAction, navigation, pdfActions)
 }
