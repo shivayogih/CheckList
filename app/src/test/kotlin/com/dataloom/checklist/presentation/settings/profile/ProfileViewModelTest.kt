@@ -192,4 +192,51 @@ class ProfileViewModelTest {
         assertEquals("", vm.uiState.value.phone)
         assertFalse(vm.uiState.value.showClearConfirm)
     }
+
+    // CL-280: keyboard filters, live errors and the enabled state of Save.
+
+    @Test
+    fun `phone letters and symbols cannot be typed and Indic digits become ASCII`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.PhoneChanged("98a7#6*"))
+        assertEquals("9876", vm.uiState.value.phone)
+        vm.onAction(ProfileAction.PhoneChanged("+\u096F\u096E 98-ab"))
+        assertEquals("+98 98-", vm.uiState.value.phone)
+        vm.onAction(ProfileAction.PhoneChanged("9".repeat(80)))
+        assertEquals(FieldLimits.PHONE_MAX, vm.uiState.value.phone.length)
+    }
+
+    @Test
+    fun `email spaces and control characters are removed as they are typed`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.EmailChanged(" a sha@exa\u200Bmple.com\n"))
+        assertEquals("asha@example.com", vm.uiState.value.email)
+        assertNull(vm.uiState.value.emailError)
+    }
+
+    @Test
+    fun `an invalid value is flagged while typing and Save is disabled until it is fixed`() = runTest {
+        val vm = viewModel()
+        assertTrue(vm.uiState.value.canSave) // every field is optional, an empty form is valid
+
+        vm.onAction(ProfileAction.EmailChanged("not-an-email"))
+        assertEquals(UiText(R.string.error_email_invalid), vm.uiState.value.emailError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ProfileAction.PhoneChanged("12"))
+        assertEquals(UiText(R.string.error_phone_invalid, listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)), vm.uiState.value.phoneError)
+
+        vm.onAction(ProfileAction.EmailChanged("asha@example.com"))
+        vm.onAction(ProfileAction.PhoneChanged("98450 12345"))
+        assertTrue(vm.uiState.value.canSave)
+    }
+
+    @Test
+    fun `a name of only spaces or invisible characters is treated as empty`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.NameChanged("   \u200B  "))
+        assertNull(vm.uiState.value.nameError)
+        vm.onAction(ProfileAction.Save)
+        assertEquals(null, (repo.state.value as? ProfileState.Available)?.profile?.displayName)
+    }
 }

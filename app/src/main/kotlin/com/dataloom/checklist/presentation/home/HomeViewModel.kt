@@ -13,6 +13,8 @@ import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.DuplicateChecklistUseCase
 import com.dataloom.checklist.domain.usecase.ObserveChecklistsUseCase
 import com.dataloom.checklist.domain.usecase.UnarchiveChecklistUseCase
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -121,7 +123,7 @@ class HomeViewModel @Inject constructor(
 
     fun onAction(action: HomeAction) {
         when (action) {
-            is HomeAction.SearchChanged -> query.value = query.value.copy(search = action.text)
+            is HomeAction.SearchChanged -> query.value = query.value.copy(search = InputText.forTyping(action.text, FieldLimits.SEARCH_MAX))
             is HomeAction.SortChanged -> query.value = query.value.copy(sort = action.sort)
             is HomeAction.FilterChanged -> query.value = query.value.copy(filter = action.filter)
             is HomeAction.Duplicate -> launchWrite {

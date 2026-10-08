@@ -17,6 +17,8 @@ import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.settings.AiPreferences
@@ -123,7 +125,11 @@ class AiCommandViewModel @AssistedInject constructor(
 
     fun onAction(action: AiCommandAction) {
         when (action) {
-            is AiCommandAction.CommandChanged -> state.update { it.copy(command = action.text) }
+            is AiCommandAction.CommandChanged -> {
+                // Control and bidi characters never reach the parser; the length is the assistant's own limit.
+                val text = InputText.forField(action.text, FieldLimits.AI_COMMAND_MAX, multiline = true)
+                state.update { it.copy(command = text) }
+            }
             AiCommandAction.Submit -> submit()
             is AiCommandAction.ToggleStep -> state.update { current ->
                 val review = current.review ?: return@update current
