@@ -1,0 +1,70 @@
+{
+  "language": "hi",
+  "scripts": ["DEVANAGARI"],
+  "numbers": {
+    "एक": "1", "दो": "2", "तीन": "3", "चार": "4", "पांच": "5", "पाँच": "5", "छह": "6", "छः": "6", "छे": "6",
+    "सात": "7", "आठ": "8", "नौ": "9", "दस": "10", "बारह": "12", "बीस": "20",
+    "आधा": "0.5", "आधी": "0.5", "डेढ़": "1.5", "ढाई": "2.5",
+    "ek": "1", "do": "2", "teen": "3", "char": "4", "chaar": "4", "paanch": "5", "panch": "5", "chhe": "6",
+    "saat": "7", "aath": "8", "nau": "9", "das": "10", "baarah": "12", "bees": "20",
+    "aadha": "0.5", "adha": "0.5", "aadhi": "0.5", "dedh": "1.5", "dhai": "2.5", "dhaai": "2.5"
+  },
+  "units": {
+    "KG": ["किलो", "किग्रा", "कि.ग्रा", "केजी"],
+    "GRAM": ["ग्राम", "ग्रा"],
+    "LITRE": ["लीटर", "लिटर"],
+    "MILLILITRE": ["मिलीलीटर", "मिली", "एमएल"],
+    "DOZEN": ["दर्जन", "डज़न", "डजन", "darjan", "darjen"],
+    "PIECE": ["पीस", "टुकड़ा", "टुकड़े", "tukda", "tukde"],
+    "PACK": ["पैकेट", "पैक", "paket"],
+    "BOX": ["डिब्बा", "डिब्बे", "बॉक्स", "dibba", "dibbe"],
+    "BOTTLE": ["बोतल", "botal"],
+    "PAIR": ["जोड़ी", "जोड़ा", "जोड़े", "joda", "jode"],
+    "METER": ["मीटर"],
+    "NOS": ["नग"]
+  },
+  "separators": ["और", "तथा", "व", "aur"],
+  "fillers": ["को", "भी", "कुछ", "थोड़ा", "थोड़ी", "कृपया", "में", "लिस्ट", "सूची", "ko", "bhi", "kuch", "thoda", "thodi", "kripya", "mein"],
+  "nameSuffixes": ["ों", "ें", "े"],
+  "titleConnectors": ["नाम", "naam"],
+  "intents": {
+    "ADD": {
+      "prefixes": [],
+      "suffixes": [
+        "जोड़ो", "जोड़ें", "जोड़ दो", "डालो", "डाल दो", "चाहिए", "लाना", "लाना है", "लेना", "लेना है", "लिखो",
+        "add करो", "ऐड करो", "ऐड कर दो",
+        "jodo", "jod do", "dalo", "daal do", "chahiye", "chaiye", "lana", "lana hai", "lena", "lena hai", "likho",
+        "add karo", "add kar do"
+      ]
+    },
+    "COMPLETE": {
+      "prefixes": [],
+      "suffixes": [
+        "हो गया", "हो गई", "हो गए", "ले लिया", "ले ली", "ले लिए", "खरीद लिया", "खरीद ली", "मिल गया", "आ गया", "टिक करो",
+        "ho gaya", "ho gayi", "ho gaye", "le liya", "le li", "kharid liya", "mil gaya", "aa gaya", "tick karo"
+      ]
+    },
+    "UNCOMPLETE": {
+      "prefixes": [],
+      "suffixes": ["नहीं हुआ", "नहीं हुई", "बाकी है", "बाकी", "अभी चाहिए", "nahi hua", "nahin hua", "baaki hai", "baki hai", "baaki", "abhi chahiye"]
+    },
+    "REMOVE": {
+      "prefixes": [],
+      "suffixes": [
+        "हटाओ", "हटा दो", "निकालो", "निकाल दो", "नहीं चाहिए", "मत लाना", "काट दो",
+        "hatao", "hata do", "nikalo", "nikal do", "nahi chahiye", "nahin chahiye", "mat lana", "kaat do"
+      ]
+    },
+    "UPDATE": {
+      "prefixes": [],
+      "suffixes": ["कर दो", "करो", "करें", "kar do", "karo"]
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": ["नई सूची", "नई लिस्ट", "nayi list", "nai list", "nayi suchi"],
+      "suffixes": [
+        "सूची बनाओ", "की सूची बनाओ", "लिस्ट बनाओ", "की लिस्ट बनाओ", "सूची बनाएं", "लिस्ट बनाएं",
+        "list banao", "ki list banao", "suchi banao"
+      ]
+    }
+  }
+}

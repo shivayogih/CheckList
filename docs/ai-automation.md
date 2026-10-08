@@ -1,6 +1,6 @@
 # AI and automation
 
-CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: Planned (in-app AI: Phase 10, CL-200 to CL-212; CI agents: Phase 11, CL-220 to CL-224).** The `:ai` module exists but is empty. Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
+CheckList uses AI in two separate places: optional features **inside the app**, and agents **inside CI** that help the developer. Neither is required for the app to work. **Status: in-app AI in progress (Phase 10, CL-200 to CL-213): the offline part is implemented in `:ai` (contract, tool validation, confirmation gate, executor, offline parser in 7 languages); online AI and the review UI are Planned (CL-210, CL-211). CI agents: Planned (Phase 11, CL-220 to CL-224).** Design reasoning: [phase0-architecture.md](phase0-architecture.md) sections 11 to 13.
 
 ## Rules
 
@@ -13,47 +13,98 @@ CheckList uses AI in two separate places: optional features **inside the app**, 
 
 ## In-app AI (Phase 10)
 
+**Status:** the offline part is implemented in `:ai` (CL-201 to CL-209). It has no UI yet: the review screen and the Settings toggles are CL-210, the online service is CL-211, Undo is CL-212. Until the app binds a settings source, AI stays off and every call answers `Unavailable(DISABLED)`.
+
 ### Implementations
 
-| Implementation | Network | Role |
-|---|---|---|
-| `MockAIService` | None | Default in `dev` builds and in all tests. Deterministic canned plans, so the review UI can be built before any real AI. |
-| `OfflineCommandParser` | None | Rule-based quick add in all 7 languages: number + unit synonym + item name matched against the local catalog and aliases. "5 ಕೆಜಿ ಅಕ್ಕಿ", "5 किलो चावल", "5 kg rice" all become `rice, 5, KG`. Not an LLM. |
-| `GeminiAIService` (opt-in) | Internet | Firebase AI Logic → Gemini Developer API on the free Spark plan, protected by App Check (Play Integrity). Generation, suggestions, free-form commands and summaries through function calling. |
-| `OnDeviceGeminiNanoService` | None | Experiment behind a developer flag only (ML Kit Prompt API is alpha and limited to a few devices). |
+| Implementation | Network | Role | Status |
+|---|---|---|---|
+| `MockAIService` | None | Tests and demos. Deterministic canned plans (or scripted answers per utterance) that pass validation against the real catalog; records every request. | Implemented |
+| `OfflineCommandParser` | None | Rule-based commands in all 7 languages, native script and common transliteration: "2 kg rice, 1 litre milk", "ಎರಡು ಕೆಜಿ ಅಕ್ಕಿ", "दो किलो चावल और एक लीटर दूध", "rice done", "remove onion", "make rice 3 kg", "new list Diwali shopping". Not an LLM. `generateChecklist` and the suggestion calls answer `Unavailable(NOT_SUPPORTED)`; `summarize` is computed locally. | Implemented |
+| `CompositeAIService` | Optional | What Hilt binds as `AIService`. Off unless the user enabled AI. Tries the offline parser first; asks the online service only when it is installed, the user enabled online AI and the offline answer was not a success. Online calls time out after 15 s and every failure becomes a friendly `AiResult`. | Implemented |
+| `GeminiAIService` (opt-in) | Internet | Firebase AI Logic → Gemini Developer API on the free Spark plan, protected by App Check (Play Integrity). Generation, suggestions, free-form commands. | Planned (CL-211) |
+| `OnDeviceGeminiNanoService` | None | Experiment behind a developer flag only (ML Kit Prompt API is alpha and limited to a few devices). | Not planned yet |
 
-`CompositeAIService` picks the best available: the offline parser for simple quick add, Gemini if the user enabled online AI and is connected, otherwise `AiResult.Unavailable`.
-
-### Flow
+### Flow and guarantees
 
 ```text
-AiAssistantViewModel (:app)
- → AIService                      returns AiResult<ActionPlan | Suggestions | Summary>
- → CommandMapper + CommandValidator (:ai)   resolves canonical keys and units against the catalog
- → ConfirmationPolicy (:ai)       ── needs review ──► review screen (:app) ── confirm ──┐
- │ auto-allowed                                                                        │
- ▼                                                                                     ▼
- ActionPlanExecutor (:ai) → domain use cases → repositories → Room (one transaction, one Undo)
+AiAssistant.snapshot(checklistId)       ContextSnapshot: refs s1, i3 → real IDs stay on the device
+ → AIService.interpret / generate        AiResult<ActionPlan>  (raw ToolCalls, nothing executed)
+ → PlanValidator                         shape + catalog + checklist checks → ValidatedPlan
+ → ConfirmationPolicy                    NONE | CONFIRM | REVIEW → ReviewedPlan
+ → PlanGate.confirm(reviewed, unticked)  the user's yes → ConfirmedPlan (single use)
+   or PlanGate.autoApprove(reviewed)     only when the requirement is NONE
+ → ActionPlanExecutor.execute(confirmed) domain use cases only → ExecutionReport
 ```
 
-### Tools the model may call
+- **Nothing runs without a yes.** `ActionPlanExecutor` accepts only a `ConfirmedPlan`, whose constructor is internal to `:ai`; the only ways to get one are `PlanGate.confirm` (the user confirmed on screen) and `PlanGate.autoApprove` (returns `null` unless the policy said `NONE`). A confirmed plan can run once.
+- **AI never writes.** The executor calls `CreateChecklistUseCase`, `AddCategoriesToChecklistUseCase`, `AddMasterItemsToSectionUseCase`, `AddCustomItemUseCase`, `UpdateChecklistItemUseCase`, `SetItemCompletedUseCase`, `RemoveSectionUseCase` and `DeleteChecklistItemUseCase`: the same business rules as the UI. `:ai` has no path to Room.
+- **Validation before review.** Unknown tools, read tools used as plan steps, missing, extra or wrongly typed arguments, unknown refs, unit codes not in `BuiltInUnits`, quantities that are not positive or exceed `Quantity` limits, unknown categories, a category already in the list, and `createChecklist` not first are rejected with a typed `ToolProblem`. A partly rejected plan is still shown, always on the full review screen, with the rejected parts listed.
+- **Partial execution:** the executor stops at the first failed step and reports what ran. It does not wrap the plan in one database transaction because `:domain` has no transaction use case; Undo is CL-212.
 
-| Tool | Use case | Confirmation |
-|---|---|---|
-| `searchMasterItems`, `suggestCategories`, `suggestItems`, `summarizeChecklist` | Read-only | None |
-| `addChecklistItem`, `addCategory`, `updateItemQuantity`, `updateItemUnit`, `completeItem`, `uncompleteItem` | Create or modify one thing | Confirm by default; auto only if the user enables "Let AI add items without asking" |
-| `createChecklist` and any plan with more than one operation | Bulk | Always reviewed |
-| `removeCategory`, `deleteItem` | Destructive | Always confirmed |
+### Confirmation policy
 
-The tool list is defined once in `ToolCatalog` (`:ai`) and converted to Gemini function declarations; a contract test keeps the declarations and the executor in sync. The model must answer with canonical keys and unit codes; unknown units are a validation error shown to the user, never a silently created custom unit.
+| Plan | Requirement |
+|---|---|
+| Read tools | Answered on the device by `ReadToolRunner`; never a plan step |
+| One create or modify step (`addChecklistItem`, `addCategory`, `updateItemQuantity`, `updateItemUnit`, `completeItem`, `uncompleteItem`) | `CONFIRM`; `NONE` only if the user enabled "Let AI add items without asking" |
+| An item that also creates its category section | `REVIEW` |
+| `createChecklist`, any plan with more than one step, anything rejected or not understood | `REVIEW` |
+| `removeCategory`, `deleteItem` | `REVIEW`, always |
+
+### Tools
+
+The 13 tools from design section 13 are the `AiTool` enum (`tools/ToolCatalog.kt`): name, risk class and typed parameters. `ToolCatalog.declarations(allowedUnits)` turns them into vendor-neutral function declarations (unit parameters are limited to the allowed codes). `ToolCatalogTest` checks that every declared write tool is understood by the validator and every read tool is answered by `ReadToolRunner`, so a tool cannot be declared to a model without being handled.
+
+| Tool | Risk |
+|---|---|
+| `searchMasterItems`, `suggestCategories`, `suggestItems`, `summarizeChecklist` | Read |
+| `createChecklist`, `addCategory`, `addChecklistItem` | Create |
+| `updateItemQuantity`, `updateItemUnit`, `completeItem`, `uncompleteItem` | Modify |
+| `removeCategory`, `deleteItem` | Destructive |
+
+### How the offline parser works
+
+1. **Normalize** (`TextNormalizer`): NFKC, lower case, native digits of every Indian script to ASCII, zero-width joiners removed, decimal commas and `½` fractions read, `2kg` split only when the glued part is a real unit word.
+2. **Intent** (`CommandGrammar`): each language pack lists prefix and suffix markers per intent ("remove", "ತೆಗೆ", "हटाओ", "done", "ಆಯ್ತು", ...). The longest matching marker wins; with no marker the command means "add".
+3. **Items:** the rest is split at separators and "and" words or suffixes (`और`, `ಮತ್ತು`, Tamil `-உம்`, Malayalam `-ഉം`). Each part becomes quantity (digits or number words, including "half", "डेढ़", "ಒಂದೂವರೆ"), unit (synonyms mapped to `BuiltInUnits` codes) and a name, in either order ("2 kg rice" or "rice 2 kg").
+4. **Lookup:** the name is searched with `SearchMasterItemsUseCase` in the user's language and English, trying the name as typed and then with common case endings removed (Kannada `-ಅನ್ನು`, Hindi `को`, Tamil `-ஐ`, Malayalam chillu repair, ...). A hit is accepted only if it matches the whole word or differs by a short ending, so "egg" never becomes "eggplant". No hit means a custom item with the typed name.
+5. **Plan:** add-intents become `addChecklistItem` calls (master key or custom name); complete, uncomplete, remove and update look the item up in the open checklist and use its ref. Anything that cannot be placed becomes an `UnresolvedFragment` the review screen shows.
+
+**Known limits:** one intent per sentence; transliterated words with case endings ("akkiyannu") are matched only if the pack lists the ending; compound number words ("two hundred and fifty") are not read, so larger amounts need digits; no spelling correction beyond the catalog's search. Free-form requests ("plan a Goa trip") need online AI.
+
+### Language packs
+
+Vocabulary lives in data, not code: `ai/src/main/resources/com/dataloom/checklist/ai/lang/<tag>.json`, one file per language (`en`, `kn`, `hi`, `ta`, `te`, `mr`, `ml`), with number words, unit synonyms, intent markers, separators, "and" suffixes, stripable endings, stem repairs and filler words. English is always merged in because people mix it in. Packs are loaded for every language in `SupportedLanguages` (`:domain`), so a new app language needs only its JSON file plus a table in `OfflineCommandParserTest`; `LanguagePacksTest` fails if a pack is missing, a unit key is not a `BuiltInUnits` code, a number word is not a valid quantity, or a language cannot express every intent. The six Indian-language packs need review by native speakers (CL-213).
 
 ### What is sent (context minimization)
 
-Only: checklist title, category canonical keys, item keys or names and quantities, the user's locale, and the allowed unit codes. Database IDs are replaced by short per-request refs (`s1`, `i3`). Never: profile fields, notes, IDs. Prompts and responses are not logged in release builds.
+`ChecklistContext` holds only: checklist title, section category keys and names, item canonical keys or names, quantities, units and completion, the locale and the allowed unit codes. Database IDs are replaced by per-request refs (`s1`, `i3`) mapped back on the device by `ContextSnapshot`; notes and user-item keys (which embed IDs) are never included. `ContextSnapshotTest` asserts this. Prompts and responses must not be logged in release builds.
+
+### Wiring
+
+`AiModule` (Hilt, installed in `SingletonComponent`) binds `AIService` to `CompositeAIService`. Two optional slots are declared with `@BindsOptionalOf`, so `:app` needs no change today:
+
+- `AiSettingsSource`: bind one backed by the settings store (CL-210). Missing → AI off.
+- `@OnlineAiService AIService`: bind the online implementation (CL-211). Missing → offline only.
+
+Callers use `AiAssistant`: `snapshot`, `interpret` or `generate`, `review`, then `confirm` (or `autoApprove`) and `execute`.
+
+### Plugging in online AI (CL-211)
+
+1. Create a Firebase project on the free Spark plan with no billing account; enable Firebase AI Logic with the Gemini Developer API, and App Check with Play Integrity (debug provider for `dev`). Only `google-services.json` (an identifier, not a secret) goes in the app; keep it out of Git for `prod`.
+2. Add the Firebase BoM, `firebase-ai` and `firebase-appcheck-playintegrity` to `gradle/libs.versions.toml`, verifying the versions against AGP 9.4, Kotlin 2.4 and minSdk 26 at that time. Put them in a new `GeminiAIService` in `:ai` (or a separate `:ai-online` module to keep the SDK out of builds that do not need it).
+3. Convert `ToolCatalog.declarations(context.allowedUnits)` to Firebase `FunctionDeclaration`s and send the minimized `ChecklistContext` with a system instruction to use only canonical keys, unit codes and refs.
+4. Run the function-calling loop on the device: answer read calls with `ReadToolRunner` and send the results back; collect write calls as `ToolCall`s into `ActionPlan(source = ONLINE_MODEL)`. Never execute inside the loop: the plan goes through the same validator, policy and gate.
+5. Map errors: no network → `Unavailable(OFFLINE)`, quota → `Unavailable(QUOTA)`; `CompositeAIService` already applies the timeout.
+6. Bind it: `@Binds @OnlineAiService abstract fun online(impl: GeminiAIService): AIService`.
+7. Ship the opt-in screen (CL-210) with the privacy explanation below before `onlineEnabled` can be turned on. Add recorded-response tests: real model output replayed through the validator.
 
 ### Tradeoffs to know
 
-- **Key protection:** the app ships only the Firebase config (an identifier). App Check attests genuine app and device. A determined attacker on a rooted device could still use up the free quota; with no billing account linked, the worst case is that online AI is unavailable, never a bill.
+- **Contract location:** `AIService` and its models live in `:ai`, not `:domain`. The contract talks about tool calls, refs and plans, which only the AI layer needs; keeping it out of `:domain` meant no change to the shared domain contract. `:app` depends on `:ai`, so it can still inject the interface.
+- **Rules versus a model:** the offline parser is predictable, free, private and instant, but understands only the patterns in its packs. It covers quick add and simple edits; everything else waits for online AI.
+- **Key protection:** the app ships only the Firebase config. App Check attests a genuine app and device. A determined attacker on a rooted device could still use up the free quota; with no billing account linked, the worst case is that online AI is unavailable, never a bill.
 - **Privacy:** on the Gemini free tier, Google may use request content to improve its products. Hence opt-in, plain-language disclosure, and minimal context.
 
 ### Voice (future)

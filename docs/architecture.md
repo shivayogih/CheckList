@@ -16,7 +16,7 @@ How CheckList is put together and the rules that keep it that way. The approved 
 | Domain models and repository contracts | In progress (Phase 2, CL-110) |
 | Use cases, Room data layer, Hilt, seed catalog | Planned (Phase 2, CL-111 to CL-119) |
 | Core screens: Home, create checklist, categories, checklist detail, add items, item editor; Settings > Your profile | In progress (Phase 3, CL-120 to CL-135) |
-| Optional AI layer | Planned (Phase 10) |
+| Optional AI layer | Offline part in progress (Phase 10, CL-200 to CL-209): contract, tool validation, confirmation gate, offline parser in 7 languages; online AI and UI Planned (CL-210, CL-211) |
 
 ## Principles
 
@@ -44,7 +44,7 @@ How CheckList is put together and the rules that keep it that way. The approved 
 | `:app` | `com.android.application` | `:domain`, `:data`, `:ai` | UI, navigation, localization helpers, dependency wiring | Implemented shell (Phase 1) |
 | `:domain` | `org.jetbrains.kotlin.jvm` | coroutines only | Models, repository interfaces, use cases, validation, `SupportedLanguages` | Languages implemented; models in progress (Phase 2) |
 | `:data` | `com.android.library` | `:domain` | Room, DataStore, seed loader, import/export, PDF | Empty module; Planned (Phase 2, 5, 6) |
-| `:ai` | `com.android.library` | `:domain` only | `AIService` implementations, tool catalog, command mapper/validator, confirmation policy, executor | Empty module; Planned (Phase 10) |
+| `:ai` | `com.android.library` | `:domain` only | `AIService` contract, mock and offline parser, tool catalog, plan validator, confirmation policy and gate, executor | In progress (Phase 10, CL-200); online AI Planned (CL-211) |
 
 Two rules are enforced by the compiler rather than by review (ADR-001):
 
