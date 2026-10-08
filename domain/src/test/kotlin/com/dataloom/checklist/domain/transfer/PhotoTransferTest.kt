@@ -77,20 +77,24 @@ class PhotoTransferTest {
 
     @Test
     fun `photos are only valid in format version 2`() {
-        assertEquals(listOf(ImportProblem.PHOTOS_NEED_FORMAT_2), problems(photoDocument(photo(1), formatVersion = 1), available(1)))
+        assertEquals(listOf(ImportProblem.PHOTOS_NEED_FORMAT_2), problems(photoDocument(photo(1), formatVersion = 1),
+            available(1)))
     }
 
     @Test
     fun `a photo whose archive entry is missing or that comes from a plain json file is refused`() {
-        assertEquals(listOf(ImportProblem.MISSING_PHOTO_FILE), problems(photoDocument(photo(1), photo(2)), available(1)))
+        assertEquals(listOf(ImportProblem.MISSING_PHOTO_FILE), problems(photoDocument(photo(1), photo(2)),
+            available(1)))
         assertEquals(listOf(ImportProblem.MISSING_PHOTO_FILE), problems(photoDocument(photo(1)), null))
     }
 
     @Test
     fun `photo paths must be plain photos entries and unique ignoring case`() {
-        val hostile = listOf("../x.jpg", "photos/../x.jpg", "/abs.jpg", "photos/a/b.jpg", "photos/p1.gif", "checklists.json", "")
+        val hostile = listOf("../x.jpg", "photos/../x.jpg", "/abs.jpg", "photos/a/b.jpg", "photos/p1.gif",
+            "checklists.json", "")
         hostile.forEach { file ->
-            val p = (ImportValidator.validate(photoDocument(TransferPhoto("p1", file)), available(1)) as ImportRejection.Invalid).issues
+            val p = (ImportValidator.validate(photoDocument(TransferPhoto("p1", file)),
+                available(1)) as ImportRejection.Invalid).issues
             assertEquals(file, listOf(ImportProblem.INVALID_PHOTO_PATH), p.map { it.problem })
         }
         val duplicate = photoDocument(TransferPhoto("p1", "photos/a.jpg"), TransferPhoto("p2", "photos/A.JPG"))
@@ -99,7 +103,8 @@ class PhotoTransferTest {
 
     @Test
     fun `photo refs must be well formed and unique`() {
-        val doc = photoDocument(TransferPhoto("p 1", "photos/p1.jpg"), TransferPhoto("p2", "photos/p2.jpg"), TransferPhoto("p2", "photos/p3.jpg"))
+        val doc = photoDocument(TransferPhoto("p 1", "photos/p1.jpg"), TransferPhoto("p2", "photos/p2.jpg"),
+            TransferPhoto("p2", "photos/p3.jpg"))
         assertEquals(listOf(ImportProblem.INVALID_REF, ImportProblem.DUPLICATE_REF), problems(doc, available(1, 2, 3)))
     }
 
@@ -107,7 +112,8 @@ class PhotoTransferTest {
     fun `a caption over 80 characters is refused using the same rule as the form`() {
         val ok = photoDocument(TransferPhoto("p1", "photos/p1.jpg", "ಅ".repeat(80)))
         assertNull(ImportValidator.validate(ok, available(1)))
-        val bad = (ImportValidator.validate(photoDocument(TransferPhoto("p1", "photos/p1.jpg", "x".repeat(81))), available(1)) as ImportRejection.Invalid).issues.single()
+        val bad = (ImportValidator.validate(photoDocument(TransferPhoto("p1", "photos/p1.jpg", "x".repeat(81))),
+            available(1)) as ImportRejection.Invalid).issues.single()
         assertEquals(ImportProblem.INVALID_FIELDS, bad.problem)
         assertEquals(listOf(ValidationError.CAPTION_TOO_LONG), bad.fieldErrors)
         assertEquals(TransferElement.PHOTO, bad.element)
@@ -132,7 +138,8 @@ class PhotoTransferTest {
         private val inner: FakeChecklistRepository,
         val byName: MutableMap<String, List<ItemPhoto>> = HashMap(),
     ) : ChecklistRepository by inner {
-        override fun observeChecklist(id: ChecklistId, locale: String): Flow<com.dataloom.checklist.domain.model.ChecklistDetail?> =
+        override fun observeChecklist(id: ChecklistId,
+            locale: String): Flow<com.dataloom.checklist.domain.model.ChecklistDetail?> =
             inner.observeChecklist(id, locale).map { detail ->
                 detail?.copy(
                     sections = detail.sections.map { section ->
@@ -152,7 +159,8 @@ class PhotoTransferTest {
             if (failOnAdd) error("database write failed")
             added += itemId to photos
             return photos.map {
-                ItemPhoto(PhotoId("ph-${next++}"), itemId, it.fileName, it.width, it.height, it.byteSize, 1000, null, 1L)
+                ItemPhoto(PhotoId("ph-${next++}"), itemId, it.fileName, it.width, it.height, it.byteSize, 1000, null,
+                    1L)
             }
         }
 
@@ -163,7 +171,8 @@ class PhotoTransferTest {
 
     /** A store that cannot decode: every [stage] fails, as for a corrupt image. */
     private class UndecodableStore(private val inner: FakePhotoStore) : PhotoStore by inner {
-        override suspend fun stage(source: ImageSource): StagePhotoResult = StagePhotoResult.Failed(PhotoFailure.NOT_AN_IMAGE)
+        override suspend fun stage(source: ImageSource): StagePhotoResult =
+            StagePhotoResult.Failed(PhotoFailure.NOT_AN_IMAGE)
     }
 
     private inner class Device(store: PhotoStore = FakePhotoStore()) {
@@ -217,7 +226,8 @@ class PhotoTransferTest {
         val id = device.sample("a.jpg" to "Front of shop", "gone.jpg" to null)
         val sink = MemorySink()
 
-        val result = device.export(ExportRequest(listOf(id), "en", "1.0", includePhotos = true), sink) as ExportResult.Exported
+        val result = device.export(ExportRequest(listOf(id), "en", "1.0", includePhotos = true),
+            sink) as ExportResult.Exported
 
         assertEquals(1, result.photoCount)
         assertEquals(1, result.skippedPhotoCount)
@@ -227,7 +237,8 @@ class PhotoTransferTest {
         assertEquals("AAAA", String(zip.getValue("photos/p1.jpg")))
         val decoded = (device.codec.decode(zip.getValue("checklists.json")) as DecodeResult.Decoded).document
         assertEquals(2, decoded.formatVersion)
-        assertEquals(listOf(TransferPhoto("p1", "photos/p1.jpg", "Front of shop")), decoded.items.first { it.displayName == "Rice" }.photos)
+        assertEquals(listOf(TransferPhoto("p1", "photos/p1.jpg", "Front of shop")),
+            decoded.items.first { it.displayName == "Rice" }.photos)
         assertTrue(decoded.items.first { it.displayName == "Salt" }.photos.isEmpty())
     }
 
@@ -253,7 +264,8 @@ class PhotoTransferTest {
         device.fileStore.put("ok.jpg", "ok")
         val id = device.sample("huge.jpg" to null, "ok.jpg" to null)
 
-        val result = device.export(ExportRequest(listOf(id), "en", "1.0", includePhotos = true), MemorySink()) as ExportResult.Exported
+        val result = device.export(ExportRequest(listOf(id), "en", "1.0", includePhotos = true),
+            MemorySink()) as ExportResult.Exported
 
         assertEquals(1, result.photoCount)
         assertEquals(1, result.skippedPhotoCount)
@@ -269,7 +281,8 @@ class PhotoTransferTest {
 
         val result = device.export(ExportRequest(listOf(id), "en", "1.0", includePhotos = true), sink)
 
-        assertEquals(ExportResult.TooLarge(TransferLimit.PHOTOS, (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong()), result)
+        assertEquals(ExportResult.TooLarge(TransferLimit.PHOTOS, (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong()),
+            result)
         assertFalse(sink.opened)
     }
 
@@ -305,13 +318,15 @@ class PhotoTransferTest {
         // The fake codec keeps documents in memory per device, so the target reads with the source's codec.
         val bytes = sink.out.toByteArray()
         val ready = (
-            PreviewImportUseCase(target.checklists, target.catalog, source.codec, target.fileStore!!)(BytesSource(bytes), "en")
+            PreviewImportUseCase(target.checklists, target.catalog, source.codec,
+                target.fileStore!!)(BytesSource(bytes), "en")
                 as ImportPreviewResult.Ready
             ).preview
         assertEquals(2, ready.photoCount)
 
         val summary = (
-            ApplyImportUseCase(target.checklists, target.catalog, target.transactions, target.photos, target.fileStore)(ready.validated, "en")
+            ApplyImportUseCase(target.checklists, target.catalog, target.transactions, target.photos,
+                target.fileStore)(ready.validated, "en")
                 as ImportResult.Imported
             ).summary
 
@@ -341,7 +356,7 @@ class PhotoTransferTest {
     }
 
     @Test
-    fun `a failed transaction discards the staged photos and keeps the scratch files for a retry or dismiss`() = runTest {
+    fun `a failed transaction discards staged photos and keeps the scratch files for a retry`() = runTest {
         val device = Device()
         val bytes = archive(device, twoPhotos, "photos/p1.jpg" to jpeg, "photos/p2.jpg" to jpeg)
         val ready = (device.preview(BytesSource(bytes), "en") as ImportPreviewResult.Ready).preview
@@ -383,7 +398,8 @@ class PhotoTransferTest {
 
         val rejection = (device.preview(BytesSource(bytes), "en") as ImportPreviewResult.Rejected).rejection
 
-        assertEquals(listOf(ImportProblem.MISSING_PHOTO_FILE), (rejection as ImportRejection.Invalid).issues.map { it.problem })
+        assertEquals(listOf(ImportProblem.MISSING_PHOTO_FILE),
+            (rejection as ImportRejection.Invalid).issues.map { it.problem })
         assertEquals(0, device.checklists.checklistCount())
     }
 

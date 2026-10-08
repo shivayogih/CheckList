@@ -77,8 +77,15 @@ class RoomPhotoTransferTest {
         val apply = ApplyImportUseCase(checklists, catalog, RoomTransactionRunner(db), photos, store)
 
         init {
-            SeedLoader(FakeSeedSource(), clock, SequentialIds("$name-seed")).seedIfNeeded(db.openHelper.writableDatabase)
+            SeedLoader(FakeSeedSource(), clock,
+                SequentialIds("$name-seed")).seedIfNeeded(db.openHelper.writableDatabase)
         }
+
+        fun count(table: String): Int =
+            db.openHelper.readableDatabase.query("SELECT COUNT(*) FROM $table").use {
+                it.moveToFirst()
+                it.getInt(0)
+            }
 
         suspend fun detail(id: ChecklistId) = checklists.observeChecklist(id, "en").first()!!
 
@@ -89,7 +96,8 @@ class RoomPhotoTransferTest {
             val groceries = catalog.observeCategories("en").first().single { it.canonicalKey == "groceries" }
             val id = checklists.createChecklist("Weekly", null, listOf(groceries.id))
             val section = detail(id).sections.single().id
-            val item = checklists.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null, null))).single()
+            val item = checklists.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null,
+                null))).single()
             val sources = List(count) { TestImages.source(TestImages.jpegBytes(TestImages.halves(120 + it * 10, 90))) }
             val added = (AddItemPhotosUseCase(photos, store)(item, sources) as DomainResult.Success).value.added
             SetPhotoCaptionUseCase(photos)(added.first().id, "Front of the shop")
@@ -188,7 +196,7 @@ class RoomPhotoTransferTest {
     }
 
     @Test
-    fun `a png entry is re-encoded and an image that cannot be decoded is skipped without failing the import`() = runTest {
+    fun `a png entry is re-encoded and undecodable images are skipped without failing the import`() = runTest {
         val id = phoneA.weeklyWithPhotos(count = 1)
         val original = entries(phoneA.exportZip(id))
         val png = TestImages.pngBytes(TestImages.halves(64, 48))
@@ -198,7 +206,9 @@ class RoomPhotoTransferTest {
                 // Add two more photos to the item: one that is a stub PNG, one claiming a huge size.
                 text.replace(
                     "\"photos\": [",
-                    "\"photos\": [\n{\"ref\":\"p8\",\"file\":\"photos/stub.png\",\"caption\":null},\n{\"ref\":\"p9\",\"file\":\"photos/huge.png\",\"caption\":null},",
+                    "\"photos\": [\n" +
+                        "{\"ref\":\"p8\",\"file\":\"photos/stub.png\",\"caption\":null},\n" +
+                        "{\"ref\":\"p9\",\"file\":\"photos/huge.png\",\"caption\":null},",
                 )
             }
         val archive = zipOf(
@@ -232,7 +242,8 @@ class RoomPhotoTransferTest {
         val result = phoneB.preview(Bytes(archive), "en")
 
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.UnsafeArchive(ArchiveProblem.UNSAFE_PATH)), result)
-        assertEquals(0, phoneB.db.openHelper.readableDatabase.query("SELECT COUNT(*) FROM checklist").use { it.moveToFirst(); it.getInt(0) })
+        assertEquals(0,
+            phoneB.count("checklist"))
         assertTrue(phoneB.storedFiles().isEmpty())
         assertFalse(File(temp.root, "escaped.jpg").exists())
     }

@@ -40,38 +40,22 @@ internal sealed interface EncodeResult {
  *
  * Re-encoding writes no EXIF block, which removes the GPS location and every other tag.
  */
+@Suppress("TooManyFunctions") // The pipeline steps, one small function each.
 internal object ImageEncoder {
 
-    fun encode(source: ImageSource): EncodeResult {
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        try {
-            source.openStream().use { BitmapFactory.decodeStream(it, null, bounds) }
-        } catch (_: IOException) {
-            return EncodeResult.Failed(PhotoFailure.UNREADABLE)
-        } catch (_: SecurityException) {
-            return EncodeResult.Failed(PhotoFailure.UNREADABLE)
-        }
-        val width = bounds.outWidth
-        val height = bounds.outHeight
-        if (width <= 0 || height <= 0) return EncodeResult.Failed(PhotoFailure.NOT_AN_IMAGE)
-        if (width.toLong() * height > PhotoLimits.MAX_SOURCE_PIXELS) return EncodeResult.Failed(PhotoFailure.TOO_MANY_PIXELS)
+    /** Why a source was refused; thrown inside the pipeline and turned into [EncodeResult.Failed] once. */
+    private class Refused(val reason: PhotoFailure) : RuntimeException(null, null, false, false)
 
+    fun encode(source: ImageSource): EncodeResult = try {
+        EncodeResult.Ok(process(source))
+    } catch (refused: Refused) {
+        EncodeResult.Failed(refused.reason)
+    }
+
+    private fun process(source: ImageSource): EncodedImage {
+        val (width, height) = readBounds(source)
         val orientation = readOrientation(source)
-        val options = BitmapFactory.Options().apply {
-            inSampleSize = sampleSizeFor(max(width, height))
-            inPreferredConfig = Bitmap.Config.ARGB_8888
-        }
-        val maybeDecoded: Bitmap? = try {
-            source.openStream().use { BitmapFactory.decodeStream(it, null, options) }
-        } catch (_: IOException) {
-            return EncodeResult.Failed(PhotoFailure.UNREADABLE)
-        } catch (_: SecurityException) {
-            return EncodeResult.Failed(PhotoFailure.UNREADABLE)
-        } catch (_: OutOfMemoryError) {
-            return EncodeResult.Failed(PhotoFailure.TOO_MANY_PIXELS)
-        }
-        val decoded = maybeDecoded ?: return EncodeResult.Failed(PhotoFailure.NOT_AN_IMAGE)
-
+        val decoded = decode(source, max(width, height))
         return try {
             val oriented = orientAndScale(decoded, orientation)
             val flat = flattenOnWhite(oriented)
@@ -80,12 +64,43 @@ internal object ImageEncoder {
             if (thumb !== flat) thumb.recycle()
             if (flat !== oriented) flat.recycle()
             if (oriented !== decoded) oriented.recycle()
-            EncodeResult.Ok(result)
+            result
         } catch (_: OutOfMemoryError) {
-            EncodeResult.Failed(PhotoFailure.TOO_MANY_PIXELS)
+            throw Refused(PhotoFailure.TOO_MANY_PIXELS)
         } finally {
             decoded.recycle()
         }
+    }
+
+    /** Step 1: the pixel size from the header alone; absurd sizes are refused before anything is decoded. */
+    private fun readBounds(source: ImageSource): Pair<Int, Int> {
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        decodeStream(source, bounds)
+        val width = bounds.outWidth
+        val height = bounds.outHeight
+        if (width <= 0 || height <= 0) throw Refused(PhotoFailure.NOT_AN_IMAGE)
+        if (width.toLong() * height > PhotoLimits.MAX_SOURCE_PIXELS) throw Refused(PhotoFailure.TOO_MANY_PIXELS)
+        return width to height
+    }
+
+    /** Step 3: decodes downsampled so a 50 megapixel photo never needs 200 MB of memory. */
+    private fun decode(source: ImageSource, longEdge: Int): Bitmap {
+        val options = BitmapFactory.Options().apply {
+            inSampleSize = sampleSizeFor(longEdge)
+            inPreferredConfig = Bitmap.Config.ARGB_8888
+        }
+        return decodeStream(source, options) ?: throw Refused(PhotoFailure.NOT_AN_IMAGE)
+    }
+
+    @Suppress("ThrowsCount") // One mapping from platform failures to the three reasons the UI knows.
+    private fun decodeStream(source: ImageSource, options: BitmapFactory.Options): Bitmap? = try {
+        source.openStream().use { BitmapFactory.decodeStream(it, null, options) }
+    } catch (_: IOException) {
+        throw Refused(PhotoFailure.UNREADABLE)
+    } catch (_: SecurityException) {
+        throw Refused(PhotoFailure.UNREADABLE)
+    } catch (_: OutOfMemoryError) {
+        throw Refused(PhotoFailure.TOO_MANY_PIXELS)
     }
 
     /**
@@ -107,7 +122,9 @@ internal object ImageEncoder {
     }
 
     private fun readOrientation(source: ImageSource): Int = try {
-        source.openStream().use { ExifInterface(it).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL) }
+        source.openStream().use {
+            ExifInterface(it).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        }
     } catch (_: IOException) {
         ExifInterface.ORIENTATION_NORMAL
     } catch (_: RuntimeException) {
@@ -115,31 +132,41 @@ internal object ImageEncoder {
     }
 
     private fun orientAndScale(decoded: Bitmap, orientation: Int): Bitmap {
-        val matrix = Matrix()
-        when (orientation) {
-            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.postScale(-1f, 1f)
-            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
-            ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
-                matrix.postRotate(180f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_TRANSPOSE -> {
-                matrix.postRotate(90f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
-            ExifInterface.ORIENTATION_TRANSVERSE -> {
-                matrix.postRotate(-90f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(-90f)
-        }
+        val matrix = orientationMatrix(orientation)
         val longEdge = max(decoded.width, decoded.height)
         val scale = min(1f, PhotoLimits.LONG_EDGE_PX.toFloat() / longEdge)
         if (scale < 1f) matrix.postScale(scale, scale)
         if (matrix.isIdentity) return decoded
         return Bitmap.createBitmap(decoded, 0, 0, decoded.width, decoded.height, matrix, true)
     }
+
+    /** The rotation and mirroring that make the pixels upright for an EXIF orientation value. */
+    private fun orientationMatrix(orientation: Int): Matrix {
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.postScale(MIRROR, 1f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(HALF_TURN)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
+                matrix.postRotate(HALF_TURN)
+                matrix.postScale(MIRROR, 1f)
+            }
+            ExifInterface.ORIENTATION_TRANSPOSE -> {
+                matrix.postRotate(QUARTER_TURN)
+                matrix.postScale(MIRROR, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(QUARTER_TURN)
+            ExifInterface.ORIENTATION_TRANSVERSE -> {
+                matrix.postRotate(-QUARTER_TURN)
+                matrix.postScale(MIRROR, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(-QUARTER_TURN)
+        }
+        return matrix
+    }
+
+    private const val QUARTER_TURN = 90f
+    private const val HALF_TURN = 180f
+    private const val MIRROR = -1f
 
     /** JPEG has no alpha: transparent PNG and WebP pixels become white instead of black. */
     private fun flattenOnWhite(bitmap: Bitmap): Bitmap {

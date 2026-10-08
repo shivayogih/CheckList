@@ -56,13 +56,19 @@ class AddItemPhotosUseCase @Inject constructor(
             }
         }
         if (saved.isEmpty()) return success(AddPhotosOutcome(emptyList(), skipped, failed, lastFailure))
+        return persist(itemId, saved, AddPhotosOutcome(emptyList(), skipped, failed, lastFailure))
+    }
 
+    private suspend fun persist(
+        itemId: ChecklistItemId,
+        saved: List<StoredPhoto>,
+        counts: AddPhotosOutcome,
+    ): DomainResult<AddPhotosOutcome> {
         val rows = photos.addPhotos(itemId, saved)
         // The item may have been deleted while the images were being saved: keep no stray files.
         val kept = rows.mapTo(HashSet()) { it.fileName }
         saved.filter { it.fileName !in kept }.forEach { store.delete(it.fileName) }
-        if (rows.isEmpty()) return failure(DomainError.NotFound)
-        return success(AddPhotosOutcome(rows, skipped, failed, lastFailure))
+        return if (rows.isEmpty()) failure(DomainError.NotFound) else success(counts.copy(added = rows))
     }
 }
 

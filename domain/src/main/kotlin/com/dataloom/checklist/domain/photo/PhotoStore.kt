@@ -63,6 +63,7 @@ data class StoredFileInfo(val fileName: String, val lastModifiedMillis: Long)
  * never stored; [save] copies the pixels and re-encodes them, which also removes EXIF data such as
  * the GPS location.
  */
+@Suppress("TooManyFunctions") // One port for all photo files; splitting it would scatter the staging protocol.
 interface PhotoStore {
 
     /**
@@ -72,7 +73,7 @@ interface PhotoStore {
      */
     suspend fun save(source: ImageSource): SavePhotoResult
 
-    /** Like [save] but writes into the staging area; call [commit] after the database accepted the row, or [discard]. */
+    /** Like [save] but writes into the staging area; [commit] after the database took the row, else [discard]. */
     suspend fun stage(source: ImageSource): StagePhotoResult
 
     /** Moves a staged photo (and its thumbnail) into place. Returns false if the staged files are gone. */
@@ -119,10 +120,12 @@ interface PhotoStore {
  * A store that holds nothing. Used where no store is wired (plain JVM tests of other features);
  * every file is missing and nothing can be saved.
  */
+@Suppress("TooManyFunctions") // Mirrors the port.
 object NoPhotoStore : PhotoStore {
     override suspend fun save(source: ImageSource): SavePhotoResult = SavePhotoResult.Failed(PhotoFailure.WRITE_FAILED)
 
-    override suspend fun stage(source: ImageSource): StagePhotoResult = StagePhotoResult.Failed(PhotoFailure.WRITE_FAILED)
+    override suspend fun stage(source: ImageSource): StagePhotoResult =
+        StagePhotoResult.Failed(PhotoFailure.WRITE_FAILED)
 
     override suspend fun commit(staged: StagedPhoto): Boolean = false
 

@@ -7,6 +7,7 @@ import com.dataloom.checklist.data.local.entity.ItemPhotoEntity
 
 /** Rows of item_photo. Reads of a whole checklist go through the @Relation in [ChecklistDao.observeDetail]. */
 @Dao
+@Suppress("TooManyFunctions") // One DAO per table: each query is a single statement.
 interface ItemPhotoDao {
 
     @Insert

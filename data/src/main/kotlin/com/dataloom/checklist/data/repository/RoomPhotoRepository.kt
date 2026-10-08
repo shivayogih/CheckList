@@ -86,7 +86,8 @@ class RoomPhotoRepository @Inject constructor(
 
     override suspend fun fileNamesOfItem(itemId: ChecklistItemId): List<String> = photoDao.fileNamesOfItem(itemId.value)
 
-    override suspend fun fileNamesOfSection(sectionId: SectionId): List<String> = photoDao.fileNamesOfSection(sectionId.value)
+    override suspend fun fileNamesOfSection(sectionId: SectionId): List<String> =
+        photoDao.fileNamesOfSection(sectionId.value)
 
     override suspend fun fileNamesOfChecklist(checklistId: ChecklistId): List<String> =
         photoDao.fileNamesOfChecklist(checklistId.value)

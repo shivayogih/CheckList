@@ -153,6 +153,14 @@ class ExportChecklistsUseCase @Inject constructor(
         return ids.mapNotNull { checklists.observeChecklist(it, request.locale).first() }
     }
 
+    private fun metadata(request: ExportRequest) = TransferMetadata(
+        app = TransferFormat.APP_NAME,
+        appVersion = request.appVersion,
+        exportedAt = TransferText.timestamp(clock.nowMillis()),
+        locale = request.locale,
+        includesProfile = false,
+    )
+
     internal suspend fun buildDocument(
         details: List<ChecklistDetail>,
         request: ExportRequest,
@@ -216,13 +224,7 @@ class ExportChecklistsUseCase @Inject constructor(
         return TransferDocument(
             formatVersion = if (photos != null) TransferFormat.FORMAT_VERSION else TransferFormat.JSON_FORMAT_VERSION,
             schemaVersion = TransferFormat.SCHEMA_VERSION,
-            metadata = TransferMetadata(
-                app = TransferFormat.APP_NAME,
-                appVersion = request.appVersion,
-                exportedAt = TransferText.timestamp(clock.nowMillis()),
-                locale = request.locale,
-                includesProfile = false,
-            ),
+            metadata = metadata(request),
             units = unitRefs.values.toList(),
             categories = categoryRefs.values.toList(),
             checklists = exported,
@@ -245,51 +247,52 @@ class PreviewImportUseCase @Inject constructor(
     private val codec: TransferCodec,
     private val photoStore: PhotoStore = NoPhotoStore,
 ) {
-    suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult {
-        var archive: ImportArchive? = null
-        val bytes = when (val read = read(source)) {
-            is ReadResult.Json -> read.bytes
-            is ReadResult.Archive -> {
-                archive = read.archive
-                read.json
-            }
-            is ReadResult.Failed -> return ImportPreviewResult.Rejected(read.rejection)
+    suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult =
+        when (val read = read(source)) {
+            is ReadResult.Failed -> ImportPreviewResult.Rejected(read.rejection)
+            is ReadResult.Json -> preview(read.bytes, null, locale)
+            is ReadResult.Archive -> preview(read.json, read.archive, locale)
         }
-        suspend fun reject(rejection: ImportRejection): ImportPreviewResult {
-            archive?.let { photoStore.deleteScratchDirectory(it.directory) }
-            return ImportPreviewResult.Rejected(rejection)
+
+    /** Anything but a ready preview removes the archive's scratch directory; a ready one keeps it for the import. */
+    private suspend fun preview(bytes: ByteArray, archive: ImportArchive?, locale: String): ImportPreviewResult {
+        val result = parse(bytes, archive, locale)
+        if (result !is ImportPreviewResult.Ready && archive != null) {
+            photoStore.deleteScratchDirectory(archive.directory)
         }
-        val document = when (val decoded = withContext(Dispatchers.Default) { codec.decode(bytes) }) {
-            is DecodeResult.Rejected -> return reject(decoded.rejection)
-            is DecodeResult.Decoded -> decoded.document
-        }
-        ImportValidator.validate(document, archive?.photos?.keys)?.let { return reject(it) }
-        val validated = ValidatedImport(document, archive, photoStore)
+        return result
+    }
+
+    private suspend fun parse(bytes: ByteArray, archive: ImportArchive?, locale: String): ImportPreviewResult {
+        val decoded = withContext(Dispatchers.Default) { codec.decode(bytes) }
+        if (decoded is DecodeResult.Rejected) return ImportPreviewResult.Rejected(decoded.rejection)
+        val document = (decoded as DecodeResult.Decoded).document
+        val invalid = ImportValidator.validate(document, archive?.photos?.keys)
+        if (invalid != null) return ImportPreviewResult.Rejected(invalid)
 
         return when (val outcome = ImportPlanner(checklists, catalog).plan(document, locale)) {
-            is ImportPlanner.Outcome.Rejected -> reject(outcome.rejection)
-            is ImportPlanner.Outcome.Planned -> {
-                val plan = outcome.plan
-                ImportPreviewResult.Ready(
-                    ImportPreview(
-                        checklistCount = plan.checklists.size,
-                        itemCount = plan.itemCount,
-                        completedItemCount = plan.completedItemCount,
-                        newCategories = plan.newCategories.map { it.name },
-                        matchedCategoryCount = plan.matchedCategoryCount,
-                        newUnits = plan.newUnits.map { it.label },
-                        matchedUnitCount = plan.matchedUnitCount,
-                        renamedChecklists = plan.renames,
-                        profileSkipped = document.profilePresent,
-                        sourceLocale = document.metadata.locale,
-                        exportedAt = document.metadata.exportedAt,
-                        validated = validated,
-                        photoCount = plan.photoCount,
-                    ),
-                )
-            }
+            is ImportPlanner.Outcome.Rejected -> ImportPreviewResult.Rejected(outcome.rejection)
+            is ImportPlanner.Outcome.Planned -> ImportPreviewResult.Ready(
+                previewOf(document, outcome.plan, ValidatedImport(document, archive, photoStore)),
+            )
         }
     }
+
+    private fun previewOf(document: TransferDocument, plan: ImportPlan, validated: ValidatedImport) = ImportPreview(
+        checklistCount = plan.checklists.size,
+        itemCount = plan.itemCount,
+        completedItemCount = plan.completedItemCount,
+        newCategories = plan.newCategories.map { it.name },
+        matchedCategoryCount = plan.matchedCategoryCount,
+        newUnits = plan.newUnits.map { it.label },
+        matchedUnitCount = plan.matchedUnitCount,
+        renamedChecklists = plan.renames,
+        profileSkipped = document.profilePresent,
+        sourceLocale = document.metadata.locale,
+        exportedAt = document.metadata.exportedAt,
+        validated = validated,
+        photoCount = plan.photoCount,
+    )
 
     private sealed interface ReadResult {
         class Json(val bytes: ByteArray) : ReadResult
@@ -305,14 +308,19 @@ class PreviewImportUseCase @Inject constructor(
      */
     private suspend fun read(source: ImportSource): ReadResult = withContext(Dispatchers.IO) {
         val reported = source.sizeBytes
-        if (reported != null && reported > TransferLimits.MAX_ARCHIVE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
+        if (reported != null && reported > TransferLimits.MAX_ARCHIVE_BYTES) {
+            return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
+        }
         try {
             BufferedInputStream(source.openStream()).use { input ->
                 if (startsLikeZip(input)) {
                     readArchive(input)
                 } else {
-                    if (reported != null && reported > TransferLimits.MAX_FILE_BYTES) return@use ReadResult.Failed(ImportRejection.FileTooLarge)
-                    readJson(input)
+                    if (reported != null && reported > TransferLimits.MAX_FILE_BYTES) {
+                        ReadResult.Failed(ImportRejection.FileTooLarge)
+                    } else {
+                        readJson(input)
+                    }
                 }
             }
         } catch (_: IOException) {
@@ -399,8 +407,9 @@ class ApplyImportUseCase @Inject constructor(
         val staging = stagePhotos(plan, validated.archive)
         val ids = try {
             transactions.inTransaction { write(plan, staging) }
-        } catch (e: Throwable) {
-            // The caller may retry or dismiss; the raw photos stay until then.
+        } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+            // Any failure, even cancellation, must not leave staged files behind. The raw photos
+            // stay in the scratch directory until the caller retries or dismisses.
             staging.all.forEach { photoStore.discard(it.staged) }
             throw e
         }
@@ -429,13 +438,18 @@ class ApplyImportUseCase @Inject constructor(
     private suspend fun stagePhotos(plan: ImportPlan, archive: ImportArchive?): Staging {
         val byItem = java.util.IdentityHashMap<PlannedItem, List<StagedImportPhoto>>()
         var skipped = 0
-        val items = plan.checklists.flatMap { list -> list.sections.flatMap { it.items } }.filter { it.photos.isNotEmpty() }
+        val items = plan.checklists.flatMap { list -> list.sections.flatMap { it.items } }
+            .filter { it.photos.isNotEmpty() }
         for (item in items) {
             val staged = ArrayList<StagedImportPhoto>()
             for (photo in item.photos) {
                 val file = archive?.photos?.get(photo.key)
                 val result = if (file == null) null else photoStore.stage(fileSource(file))
-                if (result is StagePhotoResult.Staged) staged += StagedImportPhoto(result.staged, photo.caption) else skipped++
+                if (result is StagePhotoResult.Staged) {
+                    staged += StagedImportPhoto(result.staged, photo.caption)
+                } else {
+                    skipped++
+                }
             }
             if (staged.isNotEmpty()) byItem[item] = staged
         }

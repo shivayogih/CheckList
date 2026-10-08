@@ -129,12 +129,18 @@ class RoomChecklistRepository @Inject constructor(
                         // A photo whose file is missing cannot be copied; the copy simply has one photo fewer.
                         val newName = photoStore.copy(photo.fileName) ?: return@forEach
                         copiedFiles += newName
-                        photoRows += photo.copy(id = ids.newId(), checklistItemId = newItemId, fileName = newName, createdAt = now)
+                        photoRows += photo.copy(
+                            id = ids.newId(),
+                            checklistItemId = newItemId,
+                            fileName = newName,
+                            createdAt = now,
+                        )
                     }
                 }
                 if (photoRows.isNotEmpty()) photoDao.insertAll(photoRows)
             }
-        } catch (e: Throwable) {
+        } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+            // Copied files are removed on any failure, cancellation included, before the error moves on.
             withContext(NonCancellable) { copiedFiles.forEach { photoStore.delete(it) } }
             throw e
         }

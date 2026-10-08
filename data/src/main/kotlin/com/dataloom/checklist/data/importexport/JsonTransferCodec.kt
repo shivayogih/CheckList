@@ -59,7 +59,8 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
     @Inject constructor() : this(JsonMigrators.ALL)
 
     override fun encode(document: TransferDocument): ByteArray {
-        // Items without photos (every item of a version 1 file) carry no "photos" key, so version 1 output is unchanged.
+        // Items without photos (every item of a version 1 file) carry no "photos" key,
+        // so version 1 output is unchanged.
         val tree = WRITER.encodeToJsonElement(TransferFileDto.serializer(), document.toDto()).jsonObject
         val items = tree.getValue("items").jsonArray.map { item ->
             val fields = item.jsonObject
@@ -89,7 +90,8 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
 
     private fun decodeVersioned(text: String, formatVersion: Int, schemaVersion: Int): DecodeResult {
         // Every format version from 1 up to the current one has the same shape (version 2 only adds optional photos).
-        val current = formatVersion in 1..TransferFormat.FORMAT_VERSION && schemaVersion == TransferFormat.SCHEMA_VERSION
+        val current = formatVersion in 1..TransferFormat.FORMAT_VERSION &&
+            schemaVersion == TransferFormat.SCHEMA_VERSION
         if (current) return DecodeResult.Decoded(READER.decodeFromString(TransferFileDto.serializer(), text).toDomain())
 
         val newer = formatVersion > TransferFormat.FORMAT_VERSION || schemaVersion > TransferFormat.SCHEMA_VERSION

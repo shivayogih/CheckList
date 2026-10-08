@@ -66,7 +66,8 @@ internal data class ImportPlan(
     val checklists: List<PlannedChecklist>,
 ) {
     val itemCount: Int get() = checklists.sumOf { list -> list.sections.sumOf { it.items.size } }
-    val photoCount: Int get() = checklists.sumOf { list -> list.sections.sumOf { s -> s.items.sumOf { it.photos.size } } }
+    val photoCount: Int
+        get() = checklists.sumOf { list -> list.sections.sumOf { s -> s.items.sumOf { it.photos.size } } }
     val completedItemCount: Int get() = checklists.sumOf { list -> list.sections.sumOf { s -> s.items.count { it.completed } } }
     val renames: List<ChecklistRename>
         get() = checklists.filter { it.title != it.originalTitle }.map { ChecklistRename(it.originalTitle, it.title) }
@@ -181,7 +182,9 @@ internal class ImportPlanner(
                 notes = result.value.notes,
                 completed = item.completed,
                 photos = item.photos.mapNotNull { photo ->
-                    ArchivePaths.photoKey(photo.file)?.let { PlannedPhoto(it, photo.caption?.let(ImportValidator::captionText)) }
+                    ArchivePaths.photoKey(photo.file)?.let {
+                        PlannedPhoto(it, photo.caption?.let(ImportValidator::captionText))
+                    }
                 },
             )
         }

@@ -52,7 +52,9 @@ class ItemPhotoMigrationTest {
             assertEquals(0L, db.count("item_photo"))
             val indices = db.names("SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = 'item_photo'")
             assertTrue(indices.toString(), "index_item_photo_checklist_item_id_position" in indices)
-            val item = db.query("SELECT display_name, quantity_milli, unit_code, position FROM checklist_item WHERE id = 'item-1'")
+            val item = db.query(
+                "SELECT display_name, quantity_milli, unit_code, position FROM checklist_item WHERE id = 'item-1'",
+            )
             item.use {
                 assertTrue(it.moveToFirst())
                 assertEquals("Rice", it.getString(0))
@@ -77,7 +79,8 @@ class ItemPhotoMigrationTest {
             val items = room.checklistItemDao()
             assertEquals("Rice", items.getById("item-1")?.displayName)
             room.openHelper.writableDatabase.execSQL(
-                "INSERT INTO item_photo (id, checklist_item_id, file_name, width, height, byte_size, position, caption, created_at) " +
+                "INSERT INTO item_photo (id, checklist_item_id, file_name, width, height, byte_size, position, " +
+                    "caption, created_at) " +
                     "VALUES ('ph-1', 'item-1', 'a.jpg', 800, 600, 12345, 1000, NULL, 5)",
             )
             assertEquals(1, room.itemPhotoDao().getForItem("item-1").size)
@@ -94,13 +97,18 @@ class ItemPhotoMigrationTest {
     /** Written with raw SQL against the version 1 columns: this is what version 1 users have on their phones. */
     private fun createV1WithData() {
         helper.createDatabase(DB, 1).use { db ->
-            db.execSQL("INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) VALUES ('KG', 1, 0, NULL, 10)")
             db.execSQL(
-                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, created_at, updated_at) " +
+                "INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) " +
+                    "VALUES ('KG', 1, 0, NULL, 10)",
+            )
+            db.execSQL(
+                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, " +
+                    "created_at, updated_at) " +
                     "VALUES ('cat-1', 'groceries', NULL, 'x', 0, 0, 0, 0)",
             )
             db.execSQL(
-                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, created_at, updated_at) " +
+                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, " +
+                    "created_at, updated_at) " +
                     "VALUES ('cat-2', 'vegetables', NULL, 'x', 0, 0, 0, 0)",
             )
             db.execSQL(
@@ -117,9 +125,11 @@ class ItemPhotoMigrationTest {
             )
             listOf("item-1" to "Rice", "item-2" to "Salt", "item-3" to "Oil").forEachIndexed { index, (id, name) ->
                 db.execSQL(
-                    "INSERT INTO checklist_item (id, checklist_category_id, master_item_id, canonical_key, display_name, " +
-                        "display_name_locale, quantity_milli, unit_code, notes, is_completed, completed_at, position, created_at, updated_at) " +
-                        "VALUES ('$id', 'sec-1', NULL, NULL, '$name', 'en', 2500, 'KG', NULL, 0, NULL, ${(index + 1) * 1000}, 0, 0)",
+                    "INSERT INTO checklist_item (id, checklist_category_id, master_item_id, canonical_key, " +
+                        "display_name, display_name_locale, quantity_milli, unit_code, notes, is_completed, " +
+                        "completed_at, position, created_at, updated_at) " +
+                        "VALUES ('$id', 'sec-1', NULL, NULL, '$name', 'en', 2500, 'KG', NULL, 0, NULL, " +
+                        "${(index + 1) * 1000}, 0, 0)",
                 )
             }
         }

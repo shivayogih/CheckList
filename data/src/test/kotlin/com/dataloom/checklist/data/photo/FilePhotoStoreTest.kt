@@ -89,7 +89,8 @@ class FilePhotoStoreTest {
 
     @Test
     fun `exif orientation 6 rotates a landscape image into portrait`() = runTest {
-        val source = TestImages.jpegWithExif(temp.root, width = 200, height = 100, orientation = ExifInterface.ORIENTATION_ROTATE_90, withGps = false)
+        val source = TestImages.jpegWithExif(temp.root, width = 200, height = 100,
+            orientation = ExifInterface.ORIENTATION_ROTATE_90, withGps = false)
         val photo = saved(TestImages.source(source))
         assertEquals(100, photo.width)
         assertEquals(200, photo.height)
@@ -102,14 +103,16 @@ class FilePhotoStoreTest {
     @Test
     fun `exif orientation 3 turns the image upside down and 2 mirrors it`() = runTest {
         val upside = saved(
-            TestImages.source(TestImages.jpegWithExif(temp.root, 200, 100, ExifInterface.ORIENTATION_ROTATE_180, withGps = false)),
+            TestImages.source(TestImages.jpegWithExif(temp.root, 200, 100, ExifInterface.ORIENTATION_ROTATE_180,
+                withGps = false)),
         )
         val rotated = TestImages.decode(store.file(upside.fileName))
         assertTrue(Color.blue(rotated.getPixel(20, 50)) > 180)
         assertTrue(Color.red(rotated.getPixel(180, 50)) > 180)
 
         val mirrored = saved(
-            TestImages.source(TestImages.jpegWithExif(temp.root, 200, 100, ExifInterface.ORIENTATION_FLIP_HORIZONTAL, withGps = false)),
+            TestImages.source(TestImages.jpegWithExif(temp.root, 200, 100, ExifInterface.ORIENTATION_FLIP_HORIZONTAL,
+                withGps = false)),
         )
         val flipped = TestImages.decode(store.file(mirrored.fileName))
         assertTrue(Color.blue(flipped.getPixel(20, 50)) > 180)
@@ -223,7 +226,8 @@ class FilePhotoStoreTest {
 
     @Test
     fun `a staged photo is invisible until committed and removable by discard`() = runTest {
-        val staged = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40, 40)))) as StagePhotoResult.Staged).staged
+        val staged = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40,
+            40)))) as StagePhotoResult.Staged).staged
         assertFalse(store.file(staged.photo.fileName).exists())
         assertTrue(store.listStored().isEmpty())
 
@@ -232,7 +236,8 @@ class FilePhotoStoreTest {
         assertTrue(store.thumbnailFile(staged.photo.fileName).isFile)
         assertFalse("Committing twice is not possible", store.commit(staged))
 
-        val other = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40, 40)))) as StagePhotoResult.Staged).staged
+        val other = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40,
+            40)))) as StagePhotoResult.Staged).staged
         store.discard(other)
         assertFalse(store.commit(other))
         assertFalse(store.file(other.photo.fileName).exists())
@@ -240,7 +245,8 @@ class FilePhotoStoreTest {
 
     @Test
     fun `stale staging files and scratch directories are swept, fresh ones kept`() = runTest {
-        val stale = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40, 40)))) as StagePhotoResult.Staged).staged
+        val stale = (store.stage(TestImages.source(TestImages.jpegBytes(TestImages.halves(40,
+            40)))) as StagePhotoResult.Staged).staged
         val scratch = store.newScratchDirectory()
         File(scratch, "raw-1.bin").writeBytes(ByteArray(10))
         val now = System.currentTimeMillis()
@@ -248,7 +254,8 @@ class FilePhotoStoreTest {
         store.deleteStaleStaging(now, olderThanMillis = PhotoLimits.ORPHAN_MIN_AGE_MILLIS)
         assertTrue("Fresh staging is kept", scratch.isDirectory)
 
-        store.deleteStaleStaging(now + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS, olderThanMillis = PhotoLimits.ORPHAN_MIN_AGE_MILLIS)
+        store.deleteStaleStaging(now + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS,
+            olderThanMillis = PhotoLimits.ORPHAN_MIN_AGE_MILLIS)
         assertFalse(scratch.exists())
         assertFalse(store.commit(stale))
     }

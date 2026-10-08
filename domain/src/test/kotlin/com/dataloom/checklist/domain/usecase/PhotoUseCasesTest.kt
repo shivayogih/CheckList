@@ -140,7 +140,8 @@ class PhotoUseCasesTest {
     @Test
     fun `caption over 80 characters is a typed error and is not saved`() = runTest {
         val a = outcome(add(item, listOf(textSource("a")))).added.single()
-        val result = SetPhotoCaptionUseCase(photos)(a.id, "x".repeat(PhotoLimits.CAPTION_MAX + 1)) as DomainResult.Failure
+        val result = SetPhotoCaptionUseCase(photos)(a.id,
+            "x".repeat(PhotoLimits.CAPTION_MAX + 1)) as DomainResult.Failure
         assertEquals(DomainError.Invalid(listOf(ValidationError.CAPTION_TOO_LONG)), result.error)
         assertNull(photos.photosOf(item)!!.single().caption)
         assertTrue(SetPhotoCaptionUseCase(photos)(a.id, "x".repeat(PhotoLimits.CAPTION_MAX)) is DomainResult.Success)
@@ -178,9 +179,11 @@ class PhotoUseCasesTest {
     @Test
     fun `deleting an item deletes its photo files`() = runTest {
         val groceries = catalog.seedCategory("groceries", "Groceries")
-        val list = (CreateChecklistUseCase(repo)("Weekly", categoryIds = listOf(groceries.id)) as DomainResult.Success).value.id
+        val list = (CreateChecklistUseCase(repo)("Weekly",
+            categoryIds = listOf(groceries.id)) as DomainResult.Success).value.id
         val section = repo.detail(list)!!.sections.single().id
-        val itemId = repo.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null, null))).single()
+        val itemId = repo.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null,
+            null))).single()
         photos.addItem(itemId, section, list)
         val saved = outcome(AddItemPhotosUseCase(photos, store)(itemId, listOf(textSource("a"), textSource("b")))).added
 
@@ -193,9 +196,11 @@ class PhotoUseCasesTest {
     @Test
     fun `deleting a checklist or a section deletes the photo files of its items`() = runTest {
         val groceries = catalog.seedCategory("groceries", "Groceries")
-        val list = (CreateChecklistUseCase(repo)("Weekly", categoryIds = listOf(groceries.id)) as DomainResult.Success).value.id
+        val list = (CreateChecklistUseCase(repo)("Weekly",
+            categoryIds = listOf(groceries.id)) as DomainResult.Success).value.id
         val section = repo.detail(list)!!.sections.single().id
-        val itemId = repo.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null, null))).single()
+        val itemId = repo.addItems(section, listOf(NewChecklistItem(null, null, "Rice", "en", null, null,
+            null))).single()
         photos.addItem(itemId, section, list)
         AddItemPhotosUseCase(photos, store)(itemId, listOf(textSource("a")))
         assertEquals(2, store.files.size)

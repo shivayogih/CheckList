@@ -23,7 +23,10 @@ fun ExportResult.toUiText(): UiText = when (this) {
     is ExportResult.Exported -> when {
         photoCount == 0 && skippedPhotoCount == 0 -> UiText(R.string.export_done, listOf(checklistCount, itemCount))
         skippedPhotoCount == 0 -> UiText(R.string.export_done_photos, listOf(checklistCount, itemCount, photoCount))
-        else -> UiText(R.string.export_done_photos_skipped, listOf(checklistCount, itemCount, photoCount, skippedPhotoCount))
+        else -> UiText(
+            R.string.export_done_photos_skipped,
+            listOf(checklistCount, itemCount, photoCount, skippedPhotoCount),
+        )
     }
     ExportResult.NothingToExport -> UiText(R.string.export_nothing)
     is ExportResult.TooLarge -> UiText(R.string.export_too_large)
@@ -32,5 +35,8 @@ fun ExportResult.toUiText(): UiText = when (this) {
 fun ImportSummary.toUiText(): UiText = when {
     photoCount == 0 && skippedPhotoCount == 0 -> UiText(R.string.import_done, listOf(checklistIds.size, itemCount))
     skippedPhotoCount == 0 -> UiText(R.string.import_done_photos, listOf(checklistIds.size, itemCount, photoCount))
-    else -> UiText(R.string.import_done_photos_skipped, listOf(checklistIds.size, itemCount, photoCount, skippedPhotoCount))
+    else -> UiText(
+        R.string.import_done_photos_skipped,
+        listOf(checklistIds.size, itemCount, photoCount, skippedPhotoCount),
+    )
 }

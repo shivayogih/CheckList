@@ -62,7 +62,8 @@ object ImportValidator {
         )
         val photoCount = document.items.sumOf { it.photos.size }
         if (photoCount > TransferLimits.MAX_ARCHIVE_ENTRIES - 1) {
-            return ImportRejection.LimitExceeded(TransferLimit.PHOTOS, (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong())
+            val max = (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong()
+            return ImportRejection.LimitExceeded(TransferLimit.PHOTOS, max)
         }
         val broken = limits.firstOrNull { (_, count, max) -> count > max } ?: return null
         return ImportRejection.LimitExceeded(broken.first, broken.third.toLong())
@@ -239,15 +240,16 @@ object ImportValidator {
     ) {
         if (item.photos.isEmpty()) return
         if (formatVersion < 2) {
-            issues.add(ImportIssue(TransferElement.ITEM, itemIndex, TransferText.reportRef(item.ref), ImportProblem.PHOTOS_NEED_FORMAT_2))
+            itemProblem(issues, item, itemIndex, ImportProblem.PHOTOS_NEED_FORMAT_2)
             return
         }
         if (item.photos.size > PhotoLimits.MAX_PER_ITEM) {
-            issues.add(ImportIssue(TransferElement.ITEM, itemIndex, TransferText.reportRef(item.ref), ImportProblem.TOO_MANY_PHOTOS))
+            itemProblem(issues, item, itemIndex, ImportProblem.TOO_MANY_PHOTOS)
         }
         item.photos.forEachIndexed { index, photo ->
             val report = { problem: ImportProblem, errors: List<ValidationError> ->
-                issues.add(ImportIssue(TransferElement.PHOTO, index, TransferText.reportRef(photo.ref), problem, errors))
+                val ref = TransferText.reportRef(photo.ref)
+                issues.add(ImportIssue(TransferElement.PHOTO, index, ref, problem, errors))
             }
             when {
                 !TransferText.isValidRef(photo.ref) -> report(ImportProblem.INVALID_REF, emptyList())
@@ -264,6 +266,10 @@ object ImportValidator {
                 report(ImportProblem.INVALID_FIELDS, listOf(ValidationError.CAPTION_TOO_LONG))
             }
         }
+    }
+
+    private fun itemProblem(issues: IssueCollector, item: TransferItem, index: Int, problem: ImportProblem) {
+        issues.add(ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), problem))
     }
 
     /** A caption is one line: control characters and line breaks are cleaned like other single-line text. */

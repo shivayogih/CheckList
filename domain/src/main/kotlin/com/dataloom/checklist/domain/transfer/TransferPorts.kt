@@ -85,4 +85,15 @@ object TransferLimits {
 }
 
 /** Which limit a file broke. */
-enum class TransferLimit { FILE_SIZE, CHECKLISTS, ITEMS, CATEGORIES, UNITS, SECTIONS, TEXT_LENGTH, ARCHIVE_SIZE, PHOTO_SIZE, PHOTOS }
+enum class TransferLimit {
+    FILE_SIZE,
+    CHECKLISTS,
+    ITEMS,
+    CATEGORIES,
+    UNITS,
+    SECTIONS,
+    TEXT_LENGTH,
+    ARCHIVE_SIZE,
+    PHOTO_SIZE,
+    PHOTOS,
+}

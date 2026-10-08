@@ -30,6 +30,7 @@ import kotlinx.coroutines.withContext
  * [PhotoNames.isSafeName]; anything else is treated as a missing file, so a hostile name cannot
  * reach outside the directory.
  */
+@Suppress("TooManyFunctions") // Implements the whole PhotoStore port; each function is a small file operation.
 class FilePhotoStore(
     private val root: File,
     private val io: CoroutineDispatcher,
@@ -92,7 +93,8 @@ class FilePhotoStore(
         file(fileName).takeIf { it.isFile }?.length()
     }
 
-    override fun file(fileName: String): File = File(root, if (PhotoNames.isSafeName(fileName)) fileName else INVALID_NAME)
+    override fun file(fileName: String): File =
+        File(root, if (PhotoNames.isSafeName(fileName)) fileName else INVALID_NAME)
 
     override fun thumbnailFile(fileName: String): File =
         File(root, if (PhotoNames.isSafeName(fileName)) PhotoNames.thumbnailName(fileName) else INVALID_NAME)
@@ -133,7 +135,9 @@ class FilePhotoStore(
             staging.mkdirs()
             main.writeBytes(encoded.main)
             thumb.writeBytes(encoded.thumbnail)
-            StagePhotoResult.Staged(StagedPhoto(StoredPhoto(name, encoded.width, encoded.height, encoded.main.size.toLong())))
+            StagePhotoResult.Staged(
+            StagedPhoto(StoredPhoto(name, encoded.width, encoded.height, encoded.main.size.toLong())),
+        )
         } catch (_: IOException) {
             main.delete()
             thumb.delete()

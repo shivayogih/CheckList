@@ -30,7 +30,8 @@ class FakePhotoStore(var now: () -> Long = { 1_000L }) : PhotoStore {
     val staged = LinkedHashMap<String, ByteArray>()
     private var next = 1
 
-    fun put(fileName: String, bytes: String = "img", lastModified: Long = now()) = putBytes(fileName, bytes.toByteArray(), lastModified)
+    fun put(fileName: String, bytes: String = "img", lastModified: Long = now()) = putBytes(fileName,
+        bytes.toByteArray(), lastModified)
 
     fun putBytes(fileName: String, bytes: ByteArray, lastModified: Long = now()) {
         files[fileName] = bytes
@@ -122,7 +123,8 @@ class FakePhotoRepository : PhotoRepository {
     /** Item -> (section, checklist), so the by-section and by-checklist reads can be answered. */
     private val owners = HashMap<ChecklistItemId, Pair<SectionId, ChecklistId>>()
 
-    fun addItem(id: ChecklistItemId, section: SectionId = SectionId("sec"), checklist: ChecklistId = ChecklistId("cl")) {
+    fun addItem(id: ChecklistItemId, section: SectionId = SectionId("sec"),
+        checklist: ChecklistId = ChecklistId("cl")) {
         items += id
         owners[id] = section to checklist
     }
@@ -142,7 +144,8 @@ class FakePhotoRepository : PhotoRepository {
         var position = rows.filter { it.itemId == itemId }.maxOfOrNull { it.position } ?: 0
         return photos.map {
             position += 1000
-            ItemPhoto(PhotoId("ph-${next++}"), itemId, it.fileName, it.width, it.height, it.byteSize, position, null, 1L)
+            ItemPhoto(PhotoId("ph-${next++}"), itemId, it.fileName, it.width, it.height, it.byteSize, position, null,
+                1L)
         }.also { rows += it }
     }
 

@@ -60,7 +60,8 @@ class JsonTransferCodecTest {
         val doc = decoded(golden("valid-photos-v2.json"))
         assertEquals(2, doc.formatVersion)
         assertEquals(
-            listOf(TransferPhoto("p1", "photos/p1.jpg", "கடையின் முன்பக்கம்"), TransferPhoto("p2", "photos/p2.jpg", null)),
+            listOf(TransferPhoto("p1", "photos/p1.jpg", "கடையின் முன்பக்கம்"), TransferPhoto("p2", "photos/p2.jpg",
+                null)),
             doc.items[0].photos,
         )
         assertTrue(doc.items[1].photos.isEmpty())
@@ -81,14 +82,17 @@ class JsonTransferCodecTest {
     fun aVersion1FileWithPhotosDecodesButTheValidatorRefusesIt() {
         val text = String(golden("valid-photos-v2.json")).replace("\"formatVersion\": 2", "\"formatVersion\": 1")
         val doc = decoded(text.toByteArray())
-        val issues = (ImportValidator.validate(doc, setOf("photos/p1.jpg", "photos/p2.jpg")) as ImportRejection.Invalid).issues
+        val issues = (ImportValidator.validate(doc, setOf("photos/p1.jpg",
+            "photos/p2.jpg")) as ImportRejection.Invalid).issues
         assertEquals(listOf(ImportProblem.PHOTOS_NEED_FORMAT_2), issues.map { it.problem })
     }
 
     @Test
     fun photoFieldsAreStrict() {
-        val item = """{"ref":"i1","sectionRef":"s1","displayName":"x","displayNameLocale":"en","photos":[{"ref":"p1","file":"photos/p1.jpg","extra":1}]}"""
-        assertEquals(ImportRejection.Malformed, rejection(envelope(items = "[$item]").replace("\"formatVersion\":1", "\"formatVersion\":2")))
+        val photo = """{"ref":"p1","file":"photos/p1.jpg","extra":1}"""
+        val item = """{"ref":"i1","sectionRef":"s1","displayName":"x","displayNameLocale":"en","photos":[$photo]}"""
+        assertEquals(ImportRejection.Malformed, rejection(envelope(items = "[$item]").replace("\"formatVersion\":1",
+            "\"formatVersion\":2")))
     }
 
     @Test

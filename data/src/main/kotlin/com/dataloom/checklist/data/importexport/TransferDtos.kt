@@ -91,7 +91,7 @@ internal data class ItemDto(
     val notes: String? = null,
     val completed: Boolean = false,
     val position: Int = 0,
-    /** formatVersion 2 only; version 1 files have none (a version 1 file that has the key is refused by the validator). */
+    /** formatVersion 2 only. A version 1 file that has the key decodes, and the validator refuses it. */
     @Serializable(with = PhotoListSerializer::class) val photos: List<PhotoDto> = emptyList(),
 )
 

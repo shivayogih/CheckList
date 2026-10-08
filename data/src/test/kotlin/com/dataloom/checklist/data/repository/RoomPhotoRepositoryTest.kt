@@ -191,7 +191,8 @@ class RoomPhotoRepositoryTest {
         // Young files are kept (an add may be in progress), old ones go.
         val young = SweepOrphanPhotosUseCase(photos, store) { System.currentTimeMillis() }()
         assertEquals(0, young)
-        val old = SweepOrphanPhotosUseCase(photos, store) { System.currentTimeMillis() + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS }()
+        val old = SweepOrphanPhotosUseCase(photos,
+            store) { System.currentTimeMillis() + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS }()
         assertEquals(1, old)
         assertTrue(filesOnDisk().isEmpty())
     }
@@ -199,7 +200,8 @@ class RoomPhotoRepositoryTest {
     @Test
     fun `the sweep keeps files that have a row, thumbnails included`() = runTest {
         val kept = addPhotos(itemId, 1).added.single()
-        val deleted = SweepOrphanPhotosUseCase(photos, store) { System.currentTimeMillis() + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS }()
+        val deleted = SweepOrphanPhotosUseCase(photos,
+            store) { System.currentTimeMillis() + 2 * PhotoLimits.ORPHAN_MIN_AGE_MILLIS }()
         assertEquals(0, deleted)
         assertEquals(listOf(PhotoNames.thumbnailName(kept.fileName), kept.fileName).sorted(), filesOnDisk())
     }

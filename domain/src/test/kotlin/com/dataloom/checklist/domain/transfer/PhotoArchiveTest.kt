@@ -84,7 +84,8 @@ class PhotoArchiveTest {
     @Test
     fun `directories and other files are refused`() {
         assertUnsafe(ArchiveProblem.UNEXPECTED_ENTRY, zipOf("checklists.json" to json, "photos/" to ByteArray(0)))
-        assertUnsafe(ArchiveProblem.UNEXPECTED_ENTRY, zipOf("checklists.json" to json, "readme.txt" to "hi".toByteArray()))
+        assertUnsafe(ArchiveProblem.UNEXPECTED_ENTRY, zipOf("checklists.json" to json,
+            "readme.txt" to "hi".toByteArray()))
         assertUnsafe(ArchiveProblem.UNEXPECTED_ENTRY, zipOf("checklists.json" to json, "other/p1.jpg" to jpeg))
     }
 
@@ -97,17 +98,20 @@ class PhotoArchiveTest {
 
     @Test
     fun `an entry that is not an image of its extension is refused`() {
-        assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json, "photos/p1.jpg" to "<svg/>".toByteArray()))
+        assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json,
+            "photos/p1.jpg" to "<svg/>".toByteArray()))
         assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json, "photos/p1.jpg" to png))
         assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json, "photos/p1.png" to jpeg))
         assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json, "photos/p1.jpg" to ByteArray(0)))
         // What a symbolic link entry holds: the path it points to.
-        assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json, "photos/link.jpg" to "../../../etc/passwd".toByteArray()))
+        assertUnsafe(ArchiveProblem.NOT_AN_IMAGE, zipOf("checklists.json" to json,
+            "photos/link.jpg" to "../../../etc/passwd".toByteArray()))
     }
 
     @Test
     fun `the same name twice is refused ignoring case`() {
-        assertUnsafe(ArchiveProblem.DUPLICATE_ENTRY, zipOf("checklists.json" to json, "photos/p1.jpg" to jpeg, "photos/P1.JPG" to jpeg))
+        assertUnsafe(ArchiveProblem.DUPLICATE_ENTRY, zipOf("checklists.json" to json, "photos/p1.jpg" to jpeg,
+            "photos/P1.JPG" to jpeg))
     }
 
     @Test

@@ -41,9 +41,11 @@ class StorePhotoFileCleaner @Inject constructor(
     private val store: PhotoStore,
 ) : PhotoFileCleaner {
 
-    override suspend fun filesOfItem(itemId: ChecklistItemId): PendingFileDeletion = deletion(photos.fileNamesOfItem(itemId))
+    override suspend fun filesOfItem(itemId: ChecklistItemId): PendingFileDeletion =
+        deletion(photos.fileNamesOfItem(itemId))
 
-    override suspend fun filesOfSection(sectionId: SectionId): PendingFileDeletion = deletion(photos.fileNamesOfSection(sectionId))
+    override suspend fun filesOfSection(sectionId: SectionId): PendingFileDeletion =
+        deletion(photos.fileNamesOfSection(sectionId))
 
     override suspend fun filesOfChecklist(checklistId: ChecklistId): PendingFileDeletion =
         deletion(photos.fileNamesOfChecklist(checklistId))
