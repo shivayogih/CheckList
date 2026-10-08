@@ -9,6 +9,7 @@
     <string name="settings_language">ഭാഷ</string>
     <string name="settings_language_system">സിസ്റ്റം ഡിഫോൾട്ട്</string>
     <string name="settings_about">കുറിച്ച്</string>
+    <string name="app_logo_description">ചെക്ക്‌ലിസ്റ്റ് ലോഗോ</string>
     <string name="settings_version">പതിപ്പ് %1$s</string>
     <string name="navigate_back">തിരികെ</string>
     <string name="language_title">ഭാഷ തിരഞ്ഞെടുക്കുക</string>

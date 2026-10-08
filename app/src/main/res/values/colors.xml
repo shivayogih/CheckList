@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#0B5D1E</color>
+    <!-- Brand green of the supplied launcher icon background. -->
+    <color name="ic_launcher_background">#087B4B</color>
+    <!-- Adaptive icon background; dev and staging override it so the builds are told apart by colour. -->
+    <color name="launcher_background">#087B4B</color>
+    <color name="splash_background">#FCFDF7</color>
 </resources>

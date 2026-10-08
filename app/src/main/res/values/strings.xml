@@ -10,6 +10,7 @@
     <string name="settings_language">Language</string>
     <string name="settings_language_system">System default</string>
     <string name="settings_about">About</string>
+    <string name="app_logo_description">CheckList logo</string>
     <string name="settings_version">Version %1$s</string>
     <string name="navigate_back">Back</string>
     <string name="language_title">Choose language</string>
