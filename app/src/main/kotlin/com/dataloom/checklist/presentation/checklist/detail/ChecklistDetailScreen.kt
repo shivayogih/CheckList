@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.detail
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.presentation.common.asString
@@ -59,6 +61,10 @@ import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.TextInputDialog
+import com.dataloom.checklist.presentation.transfer.TransferEffects
+import com.dataloom.checklist.presentation.transfer.rememberUnitLabels
+import com.dataloom.checklist.transfer.TransferDocuments
+import com.dataloom.checklist.transfer.TransferViewModel
 import kotlinx.coroutines.launch
 
 /** Navigation out of the detail screen. */
@@ -76,6 +82,7 @@ fun ChecklistDetailScreen(
     viewModel: ChecklistDetailViewModel = hiltViewModel<ChecklistDetailViewModel, ChecklistDetailViewModel.Factory>(
         creationCallback = { factory -> factory.create(checklistId) },
     ),
+    transferViewModel: TransferViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -115,7 +122,28 @@ fun ChecklistDetailScreen(
         }
     }
 
-    DetailContent(state, snackbarHostState, onAction, navigation)
+    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
+    TransferEffects(transferViewModel, snackbarHostState)
+    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
+    val customUnitLabels = state.sections
+        .flatMap { section -> section.items.mapNotNull { it.unit } }
+        .filter { it.customLabel != null }
+        .associate { it.code to it.customLabel.orEmpty() }
+    val unitLabels = rememberUnitLabels(customUnitLabels)
+    val id = remember(checklistId) { ChecklistId(checklistId) }
+    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
+        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+    }
+    val pdfActions = listOf(
+        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
+            transferViewModel.sharePdf(id, unitLabels = unitLabels)
+        },
+        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
+            savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
+        },
+    )
+
+    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -125,6 +153,7 @@ private fun DetailContent(
     snackbarHostState: SnackbarHostState,
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
+    pdfActions: List<MenuAction>,
 ) {
     Scaffold(
         topBar = {
@@ -137,7 +166,7 @@ private fun DetailContent(
                         actions = listOf(
                             MenuAction(stringResource(R.string.detail_rename)) { onAction(ChecklistDetailAction.StartRename) },
                             MenuAction(stringResource(R.string.add_categories_title), onClick = navigation.onAddCategories),
-                        ),
+                        ) + pdfActions,
                     )
                 },
             )

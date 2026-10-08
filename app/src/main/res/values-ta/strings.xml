@@ -164,4 +164,34 @@
     <string name="profile_unavailable">இந்த ஃபோனின் பாதுகாப்பான சேமிப்பகம் இப்போது செயல்படவில்லை, எனவே உங்கள் சுயவிவரத்தைக் காட்டவோ சேமிக்கவோ முடியாது. பிறகு மீண்டும் முயலவும், அல்லது புதிதாகத் தொடங்க சுயவிவரத்தை நீக்கவும்.</string>
     <string name="settings_profile">உங்கள் சுயவிவரம்</string>
     <string name="settings_profile_summary">பெயர் மற்றும் தொடர்பு விவரங்கள், இந்த ஃபோனில் குறியாக்கம் செய்து சேமிக்கப்பட்டவை</string>
+
+    <!-- Import, export and PDF screens (CL-136). -->
+    <string name="action_import">இறக்குமதி செய்</string>
+    <string name="detail_save_pdf">PDF ஆகச் சேமி</string>
+    <string name="detail_share_pdf">PDF ஆகப் பகிர்</string>
+    <string name="export_done">ஏற்றுமதி முடிந்தது. பட்டியல்கள்: %1$d, பொருட்கள்: %2$d.</string>
+    <string name="export_nothing">ஏற்றுமதி செய்ய பட்டியல்கள் எதுவும் இல்லை.</string>
+    <string name="export_too_large">ஒரே கோப்பில் ஏற்றுமதி செய்ய இது அதிகம்.</string>
+    <string name="import_done">இறக்குமதி முடிந்தது. பட்டியல்கள்: %1$d, பொருட்கள்: %2$d.</string>
+    <string name="import_error_invalid">இந்தக் கோப்பில் கண்ட சிக்கல்கள்: %1$d. எதுவும் இறக்குமதி செய்யப்படவில்லை.</string>
+    <string name="import_error_malformed">இது CheckList காப்புக் கோப்பு அல்ல.</string>
+    <string name="import_error_newer_app">இந்தக் கோப்பு CheckList இன் புதிய பதிப்பில் உருவாக்கப்பட்டது. இறக்குமதி செய்ய ஆப்ஸைப் புதுப்பிக்கவும்.</string>
+    <string name="import_error_nothing">இந்தக் கோப்பில் பட்டியல்கள் எதுவும் இல்லை.</string>
+    <string name="import_error_too_large">இந்தக் கோப்பு இறக்குமதி செய்ய மிகப் பெரியது.</string>
+    <string name="import_error_unreadable">இந்தக் கோப்பைப் படிக்க முடியவில்லை. மீண்டும் தேர்ந்தெடுத்துப் பாருங்கள்.</string>
+    <string name="import_error_unsupported">இந்தக் கோப்பின் பதிப்பு ஆதரிக்கப்படவில்லை.</string>
+    <string name="import_preview_checklists">பட்டியல்கள்: %1$d</string>
+    <string name="import_preview_items">பொருட்கள்: %1$d (முடிந்தவை: %2$d)</string>
+    <string name="import_preview_new_categories">புதிய வகைகள்: %1$s</string>
+    <string name="import_preview_new_units">புதிய அலகுகள்: %1$s</string>
+    <string name="import_preview_profile_skipped">இந்தக் கோப்பில் உள்ள சுயவிவரம் இறக்குமதி செய்யப்படாது.</string>
+    <string name="import_preview_renamed">“%1$s” என்பது “%2$s” என இறக்குமதி செய்யப்படும்.</string>
+    <string name="import_preview_title">இந்தப் பட்டியல்களை இறக்குமதி செய்யவா?</string>
+    <string name="pdf_saved">PDF சேமிக்கப்பட்டது.</string>
+    <string name="settings_export_all">எல்லா பட்டியல்களையும் ஏற்றுமதி செய்</string>
+    <string name="settings_export_all_summary">பின்னர் இறக்குமதி செய்யக்கூடிய காப்புக் கோப்பை (.json) சேமிக்கவும்</string>
+    <string name="settings_import">பட்டியல்களை இறக்குமதி செய்</string>
+    <string name="settings_import_summary">CheckList காப்புக் கோப்பிலிருந்து பட்டியல்களைச் சேர்க்கவும்</string>
+    <string name="share_no_app">இந்தக் கோப்பைப் பகிர இந்த ஃபோனில் எந்த ஆப்ஸும் இல்லை.</string>
+    <string name="transfer_write_failed">கோப்பை எழுத முடியவில்லை. சேமிப்பகத்தைச் சரிபார்த்து மீண்டும் முயலவும்.</string>
 </resources>

@@ -164,4 +164,34 @@
     <string name="profile_unavailable">ಈ ಫೋನ್‌ನ ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ, ಆದ್ದರಿಂದ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ತೋರಿಸಲು ಅಥವಾ ಉಳಿಸಲು ಆಗುವುದಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಹೊಸದಾಗಿ ಪ್ರಾರಂಭಿಸಲು ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ.</string>
     <string name="settings_profile">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್</string>
     <string name="settings_profile_summary">ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳು, ಈ ಫೋನ್‌ನಲ್ಲಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿ ಉಳಿಸಲಾಗಿದೆ</string>
+
+    <!-- Import, export and PDF screens (CL-136). -->
+    <string name="action_import">ಆಮದು ಮಾಡಿ</string>
+    <string name="detail_save_pdf">PDF ಆಗಿ ಉಳಿಸಿ</string>
+    <string name="detail_share_pdf">PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="export_done">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
+    <string name="export_nothing">ರಫ್ತು ಮಾಡಲು ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
+    <string name="export_too_large">ಒಂದೇ ಫೈಲ್‌ನಲ್ಲಿ ರಫ್ತು ಮಾಡಲು ಇದು ತುಂಬಾ ಹೆಚ್ಚು.</string>
+    <string name="import_done">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
+    <string name="import_error_invalid">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಕಂಡ ಸಮಸ್ಯೆಗಳು: %1$d. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
+    <string name="import_error_malformed">ಇದು CheckList ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅಲ್ಲ.</string>
+    <string name="import_error_newer_app">ಈ ಫೈಲ್ CheckList ನ ಹೊಸ ಆವೃತ್ತಿಯಲ್ಲಿ ಮಾಡಲಾಗಿದೆ. ಆಮದು ಮಾಡಲು ಆ್ಯಪ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.</string>
+    <string name="import_error_nothing">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
+    <string name="import_error_too_large">ಈ ಫೈಲ್ ಆಮದು ಮಾಡಲು ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ.</string>
+    <string name="import_error_unreadable">ಈ ಫೈಲ್ ಓದಲು ಆಗಲಿಲ್ಲ. ಮತ್ತೆ ಆಯ್ಕೆಮಾಡಿ ನೋಡಿ.</string>
+    <string name="import_error_unsupported">ಈ ಫೈಲ್ ಆವೃತ್ತಿಗೆ ಬೆಂಬಲವಿಲ್ಲ.</string>
+    <string name="import_preview_checklists">ಪಟ್ಟಿಗಳು: %1$d</string>
+    <string name="import_preview_items">ವಸ್ತುಗಳು: %1$d (ಮುಗಿದವು: %2$d)</string>
+    <string name="import_preview_new_categories">ಹೊಸ ವರ್ಗಗಳು: %1$s</string>
+    <string name="import_preview_new_units">ಹೊಸ ಘಟಕಗಳು: %1$s</string>
+    <string name="import_preview_profile_skipped">ಈ ಫೈಲ್‌ನಲ್ಲಿರುವ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಆಮದು ಮಾಡುವುದಿಲ್ಲ.</string>
+    <string name="import_preview_renamed">“%1$s” ಅನ್ನು “%2$s” ಆಗಿ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ.</string>
+    <string name="import_preview_title">ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೆ?</string>
+    <string name="pdf_saved">PDF ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="settings_export_all">ಎಲ್ಲಾ ಪಟ್ಟಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ</string>
+    <string name="settings_export_all_summary">ನಂತರ ಆಮದು ಮಾಡಬಹುದಾದ ಬ್ಯಾಕಪ್ ಫೈಲ್ (.json) ಉಳಿಸಿ</string>
+    <string name="settings_import">ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಿ</string>
+    <string name="settings_import_summary">CheckList ಬ್ಯಾಕಪ್ ಫೈಲ್‌ನಿಂದ ಪಟ್ಟಿಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="share_no_app">ಈ ಫೈಲ್ ಹಂಚಿಕೊಳ್ಳಲು ಈ ಫೋನ್‌ನಲ್ಲಿ ಯಾವುದೇ ಆ್ಯಪ್ ಇಲ್ಲ.</string>
+    <string name="transfer_write_failed">ಫೈಲ್ ಬರೆಯಲು ಆಗಲಿಲ್ಲ. ಸಂಗ್ರಹಣೆ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
 </resources>

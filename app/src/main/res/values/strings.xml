@@ -165,4 +165,34 @@
     <string name="profile_unavailable">Secure storage on this phone is not working right now, so your profile can\'t be shown or saved. Try again later, or delete the profile to start over.</string>
     <string name="settings_profile">Your profile</string>
     <string name="settings_profile_summary">Name and contact details, stored encrypted on this phone</string>
+
+    <!-- Import, export and PDF screens (CL-136). -->
+    <string name="action_import">Import</string>
+    <string name="detail_save_pdf">Save as PDF</string>
+    <string name="detail_share_pdf">Share as PDF</string>
+    <string name="export_done">Exported. Checklists: %1$d, items: %2$d.</string>
+    <string name="export_nothing">There are no checklists to export.</string>
+    <string name="export_too_large">Too much to export in one file.</string>
+    <string name="import_done">Imported. Checklists: %1$d, items: %2$d.</string>
+    <string name="import_error_invalid">Problems found in this file: %1$d. Nothing was imported.</string>
+    <string name="import_error_malformed">This is not a CheckList backup file.</string>
+    <string name="import_error_newer_app">This file was made by a newer version of CheckList. Update the app to import it.</string>
+    <string name="import_error_nothing">This file has no checklists.</string>
+    <string name="import_error_too_large">This file is too large to import.</string>
+    <string name="import_error_unreadable">This file could not be read. Try picking it again.</string>
+    <string name="import_error_unsupported">This file version is not supported.</string>
+    <string name="import_preview_checklists">Checklists: %1$d</string>
+    <string name="import_preview_items">Items: %1$d (done: %2$d)</string>
+    <string name="import_preview_new_categories">New categories: %1$s</string>
+    <string name="import_preview_new_units">New units: %1$s</string>
+    <string name="import_preview_profile_skipped">The profile in this file is not imported.</string>
+    <string name="import_preview_renamed">“%1$s” will be imported as “%2$s”.</string>
+    <string name="import_preview_title">Import these checklists?</string>
+    <string name="pdf_saved">PDF saved.</string>
+    <string name="settings_export_all">Export all checklists</string>
+    <string name="settings_export_all_summary">Save a backup file (.json) that you can import later</string>
+    <string name="settings_import">Import checklists</string>
+    <string name="settings_import_summary">Add checklists from a CheckList backup file</string>
+    <string name="share_no_app">No app on this phone can share this file.</string>
+    <string name="transfer_write_failed">The file could not be written. Check the storage and try again.</string>
 </resources>

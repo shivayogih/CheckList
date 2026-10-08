@@ -164,4 +164,34 @@
     <string name="profile_unavailable">इस फ़ोन का सुरक्षित स्टोरेज अभी काम नहीं कर रहा है, इसलिए आपकी प्रोफ़ाइल दिखाई या सहेजी नहीं जा सकती। बाद में फिर कोशिश करें, या नए सिरे से शुरू करने के लिए प्रोफ़ाइल हटाएँ।</string>
     <string name="settings_profile">आपकी प्रोफ़ाइल</string>
     <string name="settings_profile_summary">नाम और संपर्क विवरण, इस फ़ोन पर एन्क्रिप्ट करके सहेजे गए</string>
+
+    <!-- Import, export and PDF screens (CL-136). -->
+    <string name="action_import">आयात करें</string>
+    <string name="detail_save_pdf">PDF के रूप में सहेजें</string>
+    <string name="detail_share_pdf">PDF के रूप में साझा करें</string>
+    <string name="export_done">निर्यात हो गया। सूचियाँ: %1$d, वस्तुएँ: %2$d।</string>
+    <string name="export_nothing">निर्यात करने के लिए कोई सूची नहीं है।</string>
+    <string name="export_too_large">एक फ़ाइल में निर्यात करने के लिए यह बहुत ज़्यादा है।</string>
+    <string name="import_done">आयात हो गया। सूचियाँ: %1$d, वस्तुएँ: %2$d।</string>
+    <string name="import_error_invalid">इस फ़ाइल में मिली समस्याएँ: %1$d। कुछ भी आयात नहीं हुआ।</string>
+    <string name="import_error_malformed">यह CheckList बैकअप फ़ाइल नहीं है।</string>
+    <string name="import_error_newer_app">यह फ़ाइल CheckList के नए संस्करण में बनी है। इसे आयात करने के लिए ऐप अपडेट करें।</string>
+    <string name="import_error_nothing">इस फ़ाइल में कोई सूची नहीं है।</string>
+    <string name="import_error_too_large">यह फ़ाइल आयात करने के लिए बहुत बड़ी है।</string>
+    <string name="import_error_unreadable">यह फ़ाइल पढ़ी नहीं जा सकी। इसे फिर से चुनकर देखें।</string>
+    <string name="import_error_unsupported">इस फ़ाइल का संस्करण समर्थित नहीं है।</string>
+    <string name="import_preview_checklists">सूचियाँ: %1$d</string>
+    <string name="import_preview_items">वस्तुएँ: %1$d (पूरी: %2$d)</string>
+    <string name="import_preview_new_categories">नई श्रेणियाँ: %1$s</string>
+    <string name="import_preview_new_units">नई इकाइयाँ: %1$s</string>
+    <string name="import_preview_profile_skipped">इस फ़ाइल की प्रोफ़ाइल आयात नहीं की जाती।</string>
+    <string name="import_preview_renamed">“%1$s” को “%2$s” के रूप में आयात किया जाएगा।</string>
+    <string name="import_preview_title">ये सूचियाँ आयात करें?</string>
+    <string name="pdf_saved">PDF सहेजी गई।</string>
+    <string name="settings_export_all">सभी सूचियाँ निर्यात करें</string>
+    <string name="settings_export_all_summary">बैकअप फ़ाइल (.json) सहेजें जिसे बाद में आयात कर सकें</string>
+    <string name="settings_import">सूचियाँ आयात करें</string>
+    <string name="settings_import_summary">CheckList बैकअप फ़ाइल से सूचियाँ जोड़ें</string>
+    <string name="share_no_app">इस फ़ोन पर यह फ़ाइल साझा करने वाला कोई ऐप नहीं है।</string>
+    <string name="transfer_write_failed">फ़ाइल लिखी नहीं जा सकी। स्टोरेज जाँचें और फिर कोशिश करें।</string>
 </resources>

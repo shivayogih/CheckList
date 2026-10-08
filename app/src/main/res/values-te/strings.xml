@@ -164,4 +164,34 @@
     <string name="profile_unavailable">ఈ ఫోన్‌లోని సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు, కాబట్టి మీ ప్రొఫైల్‌ను చూపించడం లేదా సేవ్ చేయడం సాధ్యం కాదు. తర్వాత మళ్లీ ప్రయత్నించండి, లేదా కొత్తగా ప్రారంభించడానికి ప్రొఫైల్‌ను తొలగించండి.</string>
     <string name="settings_profile">మీ ప్రొఫైల్</string>
     <string name="settings_profile_summary">పేరు మరియు సంప్రదింపు వివరాలు, ఈ ఫోన్‌లో ఎన్‌క్రిప్ట్ చేసి సేవ్ చేయబడ్డాయి</string>
+
+    <!-- Import, export and PDF screens (CL-136). -->
+    <string name="action_import">దిగుమతి చేయండి</string>
+    <string name="detail_save_pdf">PDFగా సేవ్ చేయండి</string>
+    <string name="detail_share_pdf">PDFగా షేర్ చేయండి</string>
+    <string name="export_done">ఎగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
+    <string name="export_nothing">ఎగుమతి చేయడానికి జాబితాలు ఏవీ లేవు.</string>
+    <string name="export_too_large">ఒకే ఫైల్‌లో ఎగుమతి చేయడానికి ఇది చాలా ఎక్కువ.</string>
+    <string name="import_done">దిగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
+    <string name="import_error_invalid">ఈ ఫైల్‌లో కనిపించిన సమస్యలు: %1$d. ఏదీ దిగుమతి కాలేదు.</string>
+    <string name="import_error_malformed">ఇది CheckList బ్యాకప్ ఫైల్ కాదు.</string>
+    <string name="import_error_newer_app">ఈ ఫైల్ CheckList యొక్క కొత్త వెర్షన్‌లో తయారైంది. దిగుమతి చేయడానికి యాప్‌ను అప్‌డేట్ చేయండి.</string>
+    <string name="import_error_nothing">ఈ ఫైల్‌లో జాబితాలు ఏవీ లేవు.</string>
+    <string name="import_error_too_large">ఈ ఫైల్ దిగుమతి చేయడానికి చాలా పెద్దది.</string>
+    <string name="import_error_unreadable">ఈ ఫైల్‌ను చదవడం సాధ్యం కాలేదు. మళ్లీ ఎంచుకుని చూడండి.</string>
+    <string name="import_error_unsupported">ఈ ఫైల్ వెర్షన్‌కు మద్దతు లేదు.</string>
+    <string name="import_preview_checklists">జాబితాలు: %1$d</string>
+    <string name="import_preview_items">వస్తువులు: %1$d (పూర్తయినవి: %2$d)</string>
+    <string name="import_preview_new_categories">కొత్త వర్గాలు: %1$s</string>
+    <string name="import_preview_new_units">కొత్త యూనిట్లు: %1$s</string>
+    <string name="import_preview_profile_skipped">ఈ ఫైల్‌లోని ప్రొఫైల్ దిగుమతి చేయబడదు.</string>
+    <string name="import_preview_renamed">“%1$s” అనేది “%2$s”గా దిగుమతి అవుతుంది.</string>
+    <string name="import_preview_title">ఈ జాబితాలను దిగుమతి చేయాలా?</string>
+    <string name="pdf_saved">PDF సేవ్ చేయబడింది.</string>
+    <string name="settings_export_all">అన్ని జాబితాలను ఎగుమతి చేయండి</string>
+    <string name="settings_export_all_summary">తర్వాత దిగుమతి చేయగల బ్యాకప్ ఫైల్ (.json) సేవ్ చేయండి</string>
+    <string name="settings_import">జాబితాలను దిగుమతి చేయండి</string>
+    <string name="settings_import_summary">CheckList బ్యాకప్ ఫైల్ నుండి జాబితాలను జోడించండి</string>
+    <string name="share_no_app">ఈ ఫైల్‌ను షేర్ చేయగల యాప్ ఈ ఫోన్‌లో లేదు.</string>
+    <string name="transfer_write_failed">ఫైల్‌ను రాయడం సాధ్యం కాలేదు. నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
 </resources>
