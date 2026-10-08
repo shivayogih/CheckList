@@ -15,6 +15,10 @@ import kotlinx.coroutines.flow.Flow
  * Checklists, their sections and items. Implemented by :data on Room (the single source of truth).
  * Every multi-row write is one transaction. Inputs are already validated by use cases.
  * [locale] is the BCP 47 language used to resolve category display names.
+ *
+ * Writes that target a single existing row (setArchived, deleteChecklist, removeSection,
+ * moveSection, updateItem, setItemCompleted, deleteItem, moveItem) are no-ops when the ID does not
+ * exist, because the row may have been deleted concurrently (another screen, import, AI).
  */
 interface ChecklistRepository {
 

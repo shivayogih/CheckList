@@ -153,7 +153,7 @@ class FakeChecklistRepository(
             item.copy(
                 displayName = update.displayName ?: item.displayName,
                 quantity = if (update.clearQuantity) null else update.quantity ?: item.quantity,
-                unit = if (update.clearQuantity) null else update.unit ?: item.unit,
+                unit = if (update.clearQuantity || update.clearUnit) null else update.unit ?: item.unit,
                 notes = if (update.clearNotes) null else update.notes ?: item.notes,
             )
         }

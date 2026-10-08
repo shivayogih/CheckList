@@ -300,6 +300,17 @@ class ItemUseCasesTest {
     }
 
     @Test
+    fun `update with a quantity but no unit clears only the unit`() = runTest {
+        val id = riceItemId()
+        UpdateChecklistItemUseCase(repo, catalog)(id, "Rice", Quantity.of(3), null, null)
+
+        val item = repo.item(id)!!
+        assertEquals(Quantity.of(3), item.quantity)
+        assertNull(item.unit)
+        assertTrue(repo.updates.single().second.clearUnit)
+    }
+
+    @Test
     fun `invalid update writes nothing`() = runTest {
         val id = riceItemId()
         val update = UpdateChecklistItemUseCase(repo, catalog)
