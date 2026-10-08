@@ -136,7 +136,7 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
     }
 
     private companion object {
-        const val BYTE_ORDER_MARK = "﻿"
+        const val BYTE_ORDER_MARK = "\uFEFF"
 
         /** Version 1 needs 5 levels (file, checklists, checklist, sections, section); the rest is headroom for the profile. */
         const val MAX_NESTING_DEPTH = 32
