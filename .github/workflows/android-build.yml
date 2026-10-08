@@ -31,6 +31,10 @@ jobs:
       # Caches Gradle dependencies and the wrapper; the key changes when build files or the catalog change.
       - uses: gradle/actions/setup-gradle@v4
 
+      # Seed catalog rules (CL-113): keys, categories, unit codes and all 7 locale files.
+      - name: Validate seed catalog
+        run: python3 tools/seed/validate_seed.py
+
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :app:testDevDebugUnitTest
 
