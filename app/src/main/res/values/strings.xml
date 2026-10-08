@@ -195,4 +195,44 @@
     <string name="settings_import_summary">Add checklists from a CheckList backup file</string>
     <string name="share_no_app">No app on this phone can share this file.</string>
     <string name="transfer_write_failed">The file could not be written. Check the storage and try again.</string>
+
+    <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
+    <string name="onboarding_welcome_title">Welcome to %1$s</string>
+    <string name="onboarding_welcome_subtitle">Choose your language. You can change it later in Settings.</string>
+    <string name="onboarding_phone_language">Phone language</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_skip_for_now">Skip for now</string>
+    <string name="onboarding_page1_title">Make a list for anything</string>
+    <string name="onboarding_page1_body">Shopping, travel, exams, hospital visits. Create a checklist in a few taps.</string>
+    <string name="onboarding_page2_title">Pick items and set how much</string>
+    <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 KG.</string>
+    <string name="onboarding_page3_title">Tick, share and stay private</string>
+    <string name="onboarding_page3_body">Tick items while you shop, send the list on WhatsApp, and use it without internet.</string>
+    <string name="onboarding_page_position">Page %1$d of %2$d</string>
+    <string name="onboarding_demo_list_title">Diwali Shopping</string>
+    <string name="onboarding_demo_rice">Rice</string>
+    <string name="onboarding_demo_sugar">Sugar</string>
+    <string name="onboarding_demo_diyas">Diyas</string>
+    <string name="onboarding_demo_rice_flour">Rice flour</string>
+    <string name="onboarding_demo_search">ri</string>
+    <string name="onboarding_demo_groceries">Groceries</string>
+    <string name="onboarding_demo_offline">Works offline</string>
+    <string name="onboarding_demo_private">Stays on your phone</string>
+    <string name="onboarding_profile_title">Tell us about you</string>
+    <string name="onboarding_profile_intro">So we can greet you and add your name to lists you share. No account or password needed.</string>
+    <string name="onboarding_profile_banner">Saved only on this phone, locked with encryption.</string>
+    <string name="onboarding_profile_name_hint">Optional. Shown on PDFs only if you choose.</string>
+    <string name="onboarding_profile_more">Add email and address</string>
+    <string name="onboarding_profile_less">Hide email and address</string>
+    <string name="profile_address">Address (optional)</string>
+    <string name="home_greeting_title">Namaste, %1$s 🙏</string>
+    <string name="settings_show_tutorial">Show tutorial again</string>
+    <string name="settings_show_tutorial_summary">See how CheckList works</string>
+    <plurals name="home_greeting_in_progress">
+        <item quantity="one">You have %1$d list in progress.</item>
+        <item quantity="other">You have %1$d lists in progress.</item>
+    </plurals>
 </resources>

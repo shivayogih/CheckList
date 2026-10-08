@@ -45,6 +45,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onOpenLanguage: () -> Unit,
     onOpenProfile: () -> Unit,
+    onShowTutorial: () -> Unit,
     transferViewModel: TransferViewModel = hiltViewModel(),
 ) {
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
@@ -114,6 +115,13 @@ fun SettingsScreen(
                 headlineContent = { Text(stringResource(R.string.settings_about)) },
                 supportingContent = { Text(stringResource(R.string.settings_version, BuildConfig.VERSION_NAME)) },
                 modifier = Modifier.heightIn(min = 64.dp),
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_show_tutorial)) },
+                supportingContent = { Text(stringResource(R.string.settings_show_tutorial_summary)) },
+                modifier = Modifier
+                    .heightIn(min = 64.dp)
+                    .clickable(role = Role.Button, onClick = onShowTutorial),
             )
         }
     }

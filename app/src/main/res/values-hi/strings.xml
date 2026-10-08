@@ -194,4 +194,45 @@
     <string name="settings_import_summary">CheckList बैकअप फ़ाइल से सूचियाँ जोड़ें</string>
     <string name="share_no_app">इस फ़ोन पर यह फ़ाइल साझा करने वाला कोई ऐप नहीं है।</string>
     <string name="transfer_write_failed">फ़ाइल लिखी नहीं जा सकी। स्टोरेज जाँचें और फिर कोशिश करें।</string>
+
+    <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="onboarding_welcome_title">%1$s में आपका स्वागत है</string>
+    <string name="onboarding_welcome_subtitle">अपनी भाषा चुनें। आप इसे बाद में सेटिंग्स में बदल सकते हैं।</string>
+    <string name="onboarding_phone_language">फ़ोन की भाषा</string>
+    <string name="onboarding_continue">जारी रखें</string>
+    <string name="onboarding_skip">छोड़ें</string>
+    <string name="onboarding_next">आगे</string>
+    <string name="onboarding_get_started">शुरू करें</string>
+    <string name="onboarding_skip_for_now">अभी छोड़ें</string>
+    <string name="onboarding_page1_title">किसी भी चीज़ की सूची बनाएँ</string>
+    <string name="onboarding_page1_body">खरीदारी, यात्रा, परीक्षा, अस्पताल की विज़िट। कुछ ही टैप में चेकलिस्ट बनाएँ।</string>
+    <string name="onboarding_page2_title">चीज़ें चुनें और मात्रा तय करें</string>
+    <string name="onboarding_page2_body">अपनी भाषा में तैयार चीज़ें खोजें, टिक करें और 5 किलो जैसी मात्रा चुनें।</string>
+    <string name="onboarding_page3_title">टिक करें, शेयर करें और निजी रहें</string>
+    <string name="onboarding_page3_body">खरीदारी करते समय चीज़ें टिक करें, सूची व्हाट्सऐप पर भेजें और बिना इंटरनेट के इस्तेमाल करें।</string>
+    <string name="onboarding_page_position">पेज %1$d / %2$d</string>
+    <string name="onboarding_demo_list_title">दिवाली की खरीदारी</string>
+    <string name="onboarding_demo_rice">चावल</string>
+    <string name="onboarding_demo_sugar">चीनी</string>
+    <string name="onboarding_demo_diyas">दीये</string>
+    <string name="onboarding_demo_rice_flour">चावल का आटा</string>
+    <string name="onboarding_demo_search">चा</string>
+    <string name="onboarding_demo_groceries">किराना</string>
+    <string name="onboarding_demo_offline">बिना इंटरनेट के चलता है</string>
+    <string name="onboarding_demo_private">आपके फ़ोन पर ही रहता है</string>
+    <string name="onboarding_profile_title">अपने बारे में बताएँ</string>
+    <string name="onboarding_profile_intro">ताकि हम आपका स्वागत कर सकें और आपकी साझा की गई सूचियों में आपका नाम जोड़ सकें। खाते या पासवर्ड की ज़रूरत नहीं।</string>
+    <string name="onboarding_profile_banner">सिर्फ़ इसी फ़ोन में सहेजा जाता है, एन्क्रिप्शन से लॉक किया गया।</string>
+    <string name="onboarding_profile_name_hint">वैकल्पिक। PDF में तभी दिखेगा जब आप चाहेंगे।</string>
+    <string name="onboarding_profile_more">ईमेल और पता जोड़ें</string>
+    <string name="onboarding_profile_less">ईमेल और पता छिपाएँ</string>
+    <string name="profile_address">पता (वैकल्पिक)</string>
+    <string name="home_greeting_title">नमस्ते, %1$s 🙏</string>
+    <string name="settings_show_tutorial">ट्यूटोरियल फिर से दिखाएँ</string>
+    <string name="settings_show_tutorial_summary">देखें कि CheckList कैसे काम करता है</string>
+    <plurals name="home_greeting_in_progress">
+        <item quantity="one">आपकी %1$d सूची चल रही है।</item>
+        <item quantity="other">आपकी %1$d सूचियाँ चल रही हैं।</item>
+    </plurals>
 </resources>
