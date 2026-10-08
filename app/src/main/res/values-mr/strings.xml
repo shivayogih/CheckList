@@ -208,7 +208,7 @@
     <string name="onboarding_page2_body">तुमच्या भाषेतील तयार वस्तू शोधा, टिक करा आणि 5 किलो सारखे प्रमाण निवडा.</string>
     <string name="onboarding_page3_title">टिक करा, शेअर करा आणि खाजगी ठेवा</string>
     <string name="onboarding_page3_body">खरेदी करताना वस्तूंवर टिक करा, यादी व्हॉट्सॲपवर पाठवा आणि इंटरनेटशिवाय वापरा.</string>
-    <string name="onboarding_page_position">पान %1$d / %2$d</string>
+    <string name="onboarding_page_position">पान %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">दिवाळी खरेदी</string>
     <string name="onboarding_demo_rice">तांदूळ</string>
     <string name="onboarding_demo_sugar">साखर</string>
@@ -229,8 +229,8 @@
     <string name="settings_show_tutorial">ट्यूटोरियल पुन्हा दाखवा</string>
     <string name="settings_show_tutorial_summary">CheckList कसे काम करते ते पहा</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">तुमची %1$d यादी सुरू आहे.</item>
-        <item quantity="other">तुमच्या %1$d याद्या सुरू आहेत.</item>
+        <item quantity="one">तुमची %1$s यादी सुरू आहे.</item>
+        <item quantity="other">तुमच्या %1$s याद्या सुरू आहेत.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI सहाय्यक (ऑफलाइन)</string>

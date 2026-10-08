@@ -208,7 +208,7 @@
     <string name="onboarding_page2_body">మీ భాషలో సిద్ధంగా ఉన్న వస్తువులను వెతకండి, టిక్ చేయండి, 5 కిలోల వంటి పరిమాణం ఎంచుకోండి.</string>
     <string name="onboarding_page3_title">టిక్ చేయండి, షేర్ చేయండి, ప్రైవేట్‌గా ఉంచండి</string>
     <string name="onboarding_page3_body">షాపింగ్ చేస్తున్నప్పుడు వస్తువులను టిక్ చేయండి, జాబితాను వాట్సాప్‌లో పంపండి, ఇంటర్నెట్ లేకుండా వాడండి.</string>
-    <string name="onboarding_page_position">పేజీ %1$d / %2$d</string>
+    <string name="onboarding_page_position">పేజీ %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">దీపావళి షాపింగ్</string>
     <string name="onboarding_demo_rice">బియ్యం</string>
     <string name="onboarding_demo_sugar">పంచదార</string>
@@ -229,8 +229,8 @@
     <string name="settings_show_tutorial">ట్యుటోరియల్ మళ్లీ చూపించు</string>
     <string name="settings_show_tutorial_summary">CheckList ఎలా పనిచేస్తుందో చూడండి</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">మీకు %1$d జాబితా కొనసాగుతోంది.</item>
-        <item quantity="other">మీకు %1$d జాబితాలు కొనసాగుతున్నాయి.</item>
+        <item quantity="one">మీకు %1$s జాబితా కొనసాగుతోంది.</item>
+        <item quantity="other">మీకు %1$s జాబితాలు కొనసాగుతున్నాయి.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI సహాయకుడు (ఆఫ్‌లైన్)</string>

@@ -48,7 +48,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -61,6 +60,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistSort
+import com.dataloom.checklist.presentation.common.countText
 import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
@@ -208,7 +208,7 @@ private fun GreetingCard(greeting: GreetingUi) {
                 style = MaterialTheme.typography.headlineSmall,
             )
             Text(
-                text = pluralStringResource(R.plurals.home_greeting_in_progress, greeting.inProgress, greeting.inProgress),
+                text = countText(R.plurals.home_greeting_in_progress, greeting.inProgress),
                 style = MaterialTheme.typography.bodyLarge,
             )
         }

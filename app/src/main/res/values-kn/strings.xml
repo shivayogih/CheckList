@@ -208,7 +208,7 @@
     <string name="onboarding_page2_body">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಿದ್ಧ ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ, ಟಿಕ್ ಮಾಡಿ, 5 ಕೆ.ಜಿ.ಯಂತಹ ಪ್ರಮಾಣ ಆರಿಸಿ.</string>
     <string name="onboarding_page3_title">ಟಿಕ್ ಮಾಡಿ, ಹಂಚಿಕೊಳ್ಳಿ, ಖಾಸಗಿಯಾಗಿರಿ</string>
     <string name="onboarding_page3_body">ಶಾಪಿಂಗ್ ಮಾಡುವಾಗ ವಸ್ತುಗಳಿಗೆ ಟಿಕ್ ಮಾಡಿ, ಪಟ್ಟಿಯನ್ನು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಕಳುಹಿಸಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಬಳಸಿ.</string>
-    <string name="onboarding_page_position">%2$d ರಲ್ಲಿ %1$d ನೇ ಪುಟ</string>
+    <string name="onboarding_page_position">%2$s ರಲ್ಲಿ %1$s ನೇ ಪುಟ</string>
     <string name="onboarding_demo_list_title">ದೀಪಾವಳಿ ಖರೀದಿ</string>
     <string name="onboarding_demo_rice">ಅಕ್ಕಿ</string>
     <string name="onboarding_demo_sugar">ಸಕ್ಕರೆ</string>
@@ -229,8 +229,8 @@
     <string name="settings_show_tutorial">ಟ್ಯುಟೋರಿಯಲ್ ಮತ್ತೆ ತೋರಿಸಿ</string>
     <string name="settings_show_tutorial_summary">CheckList ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂದು ನೋಡಿ</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">ನೀವು %1$d ಪಟ್ಟಿಯನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
-        <item quantity="other">ನೀವು %1$d ಪಟ್ಟಿಗಳನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
+        <item quantity="one">ನೀವು %1$s ಪಟ್ಟಿಯನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
+        <item quantity="other">ನೀವು %1$s ಪಟ್ಟಿಗಳನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI ಸಹಾಯಕ (ಆಫ್‌ಲೈನ್)</string>
