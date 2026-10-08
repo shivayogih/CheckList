@@ -74,19 +74,22 @@ fun ComposeTestRule.assertAccessible(screen: String) {
 }
 
 /**
- * Text the user cannot read in full: an ellipsis, or a laid-out box smaller than the text needs.
- * `hasVisualOverflow` is not used: under Robolectric's native graphics it reported overflow even
- * for one short word that fits ("Rice").
+ * Text the user cannot read in full: an ellipsis, a line wider than the laid-out box, or a box
+ * shorter than the text. `hasVisualOverflow` is not used: the layout this action returns is
+ * measured against the parent's maximum width, so its paragraph is wider than the text node
+ * ("Rice": node 34px, paragraph 220px) and it always reported a width overflow.
  */
 private fun TextLayoutResult.isCutOff(): Boolean =
     (0 until lineCount).any { isLineEllipsized(it) } ||
-        size.width + 1 < multiParagraph.width ||
-        size.height + 1 < multiParagraph.height
+        widestLine() > size.width + 1 ||
+        multiParagraph.height > size.height + 1
+
+private fun TextLayoutResult.widestLine(): Float =
+    (0 until lineCount).maxOfOrNull { getLineRight(it) - getLineLeft(it) } ?: 0f
 
 private fun TextLayoutResult.describe(): String =
-    "size $size, text ${multiParagraph.width} x ${multiParagraph.height}, lines $lineCount, " +
-        "ellipsized ${(0 until lineCount).any { isLineEllipsized(it) }}, " +
-        "overflow w=$didOverflowWidth h=$didOverflowHeight"
+    "box $size, widest line ${widestLine()}, text height ${multiParagraph.height}, lines $lineCount, " +
+        "ellipsized ${(0 until lineCount).any { isLineEllipsized(it) }}"
 
 private fun SemanticsNode.isActionable(): Boolean =
     SemanticsActions.OnClick in config || SemanticsActions.SetText in config
