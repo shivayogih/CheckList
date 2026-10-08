@@ -42,7 +42,7 @@ user_profile (one row, encrypted blob)     item_search_fts (FTS4, derived)     s
 | `unit_def` | `code` (PK), `allows_decimal`, `is_custom`, `custom_label`, `sort_order` | Built-in codes (`BuiltInUnits` in `:domain`): KG, GRAM, LITRE, MILLILITRE, DOZEN, PIECE, PACK, BOX, BOTTLE, PAIR, METER, NOS; custom: `CUSTOM_<uuid>`. Labels come from string resources, never from this table |
 | `checklist_category` | `id`, `checklist_id` (CASCADE), `category_id` (RESTRICT), `display_order` | Unique `(checklist_id, category_id)`: a category appears once per checklist |
 | `checklist_item` | `id`, `checklist_category_id` (CASCADE), `master_item_id` (SET NULL), `canonical_key`, `display_name`, `display_name_locale`, `quantity_milli`, `unit_code`, `notes`, `is_completed`, `completed_at`, `position` | Index `(checklist_category_id, position)` |
-| `user_profile` | `id = 'me'`, `enc_payload` (AES-256-GCM blob), `key_alias`, `schema_version`, `updated_at` | Phase 5; see [security.md](security.md) |
+| `user_profile` | `id = 'me'`, `enc_payload` (AES-256-GCM blob), `key_alias`, `schema_version`, `updated_at` | Used since Phase 5 without a schema change (`ProfileDao`, `EncryptedProfileRepository`); see [security.md](security.md) |
 | `item_search_fts` | FTS4 `unicode61`: `ref_type`, `ref_id`, `category_id`, `locale`, `text` | Rebuilt for a row in the same transaction as its source |
 | `seed_meta` | `seed_version` | Drives catalog upgrades |
 

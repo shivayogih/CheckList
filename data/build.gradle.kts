@@ -1,5 +1,5 @@
 // Data layer: Room (single source of truth), seed catalog, and the Hilt bindings of the domain repositories.
-// DataStore, import/export and PDF arrive in later phases.
+// The encrypted profile uses Tink. DataStore, import/export and PDF arrive in later phases.
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.serialization.json)
+    // Profile encryption: AES-256-GCM keyset wrapped by an Android Keystore key (ADR-011).
+    implementation(libs.tink.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

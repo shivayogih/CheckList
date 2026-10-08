@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Backup and device-transfer rules for Android 12 and higher (docs/security.md, "Backups").
+    Checklists (the Room database) are backed up and transferred. The wrapped Tink keyset of the
+    encrypted profile is not: it is useless without its Android Keystore key, which never leaves the
+    device, and keeping it out means a backup is never paired with any profile key material.
+    The encrypted profile row lives inside the database, which these rules cannot split by table.
+    It travels only as ciphertext that no other device can decrypt; on first read there the app
+    erases it and asks the user to enter the profile again (ProfileState.Reset).
+    Keep in sync with backup_rules.xml (Android 11 and lower); BackupRulesTest checks both.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="checklist_profile_keyset.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="checklist_profile_keyset.xml" />
+    </device-transfer>
+</data-extraction-rules>

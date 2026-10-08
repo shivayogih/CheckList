@@ -1,7 +1,7 @@
 # :data
 Room database (the single source of truth), the bundled seed catalog and the Hilt bindings of the
-domain repositories. DataStore settings, the encrypted profile, import/export and PDF arrive in later
-phases. Depends on `:domain`.
+domain repositories, and the encrypted profile. DataStore settings, import/export and PDF arrive in
+later phases. Depends on `:domain`.
 
 - `local/entity`, `local/dao`, `local/database`: schema v1 (architecture section 5.3). Exported
   schemas live in `schemas/` and are committed; never use a destructive migration.
@@ -10,4 +10,8 @@ phases. Depends on `:domain`.
   database creation and whenever the asset's `seedVersion` grows.
 - `repository`, `mapper`: `RoomChecklistRepository` and `RoomCatalogRepository`, with display-name
   resolution (section 6.2).
-- `di`: `DataModule`.
+- `profile`: the encrypted profile (Phase 5). `KeysetProfileAeadProvider` holds a Tink AES-256-GCM
+  keyset wrapped by an Android Keystore key, `ProfileCipher` encrypts the row with associated data
+  bound to table, column, row, version and key alias, and `EncryptedProfileRepository` handles key
+  loss and tampering. Details: [docs/security.md](../docs/security.md).
+- `di`: `DataModule`, `ProfileModule`.
