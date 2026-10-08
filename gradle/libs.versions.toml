@@ -28,6 +28,9 @@ zxing = "3.5.4"
 # Java 26 class files and the Kotlin/Compose bytecode filters). Used through AGP's built-in coverage
 # and Gradle's core jacoco plugin, so no third-party Gradle plugin is needed.
 jacoco = "0.8.15"
+# AI assistant toggles (CL-240); datastore 1.2.1 checked on the AndroidX release page: latest stable,
+# released 2026-03-11, needs Kotlin Gradle plugin 2.0 or newer.
+datastore = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -65,6 +68,7 @@ javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "j
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

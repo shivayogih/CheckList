@@ -191,4 +191,40 @@
     <string name="settings_import_summary">CheckList காப்புக் கோப்பிலிருந்து பட்டியல்களைச் சேர்க்கவும்</string>
     <string name="share_no_app">இந்தக் கோப்பைப் பகிர இந்த ஃபோனில் எந்த ஆப்ஸும் இல்லை.</string>
     <string name="transfer_write_failed">கோப்பை எழுத முடியவில்லை. சேமிப்பகத்தைச் சரிபார்த்து மீண்டும் முயலவும்.</string>
+
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
+    <string name="settings_ai_enabled">AI உதவியாளர் (ஆஃப்லைன்)</string>
+    <string name="settings_ai_enabled_summary">தட்டச்சு செய்து பொருட்களைச் சேர்க்கவும் அல்லது மாற்றவும், எ.கா. “2 கிலோ அரிசி மற்றும் 1 லிட்டர் பால்”. இது இந்த ஃபோனிலேயே இயங்குகிறது; நீங்கள் தட்டச்சு செய்வது எங்கும் அனுப்பப்படாது.</string>
+    <string name="settings_ai_auto_add">கேட்காமல் பொருட்களைச் சேர்க்க AI-ஐ அனுமதி</string>
+    <string name="settings_ai_auto_add_summary">ஒரு எளிய மாற்றத்திற்கு மட்டும். அதைவிடப் பெரியது எப்போதும் முதலில் உங்களுக்குக் காட்டப்படும்.</string>
+    <string name="ai_command_label">எதைச் சேர்க்க அல்லது மாற்ற வேண்டும் என்று உதவியாளரிடம் சொல்லுங்கள்</string>
+    <string name="ai_command_hint">எடுத்துக்காட்டு: 2 கிலோ அரிசி மற்றும் 1 லிட்டர் பால்</string>
+    <string name="ai_command_submit">செல்</string>
+    <string name="ai_working">உங்கள் கட்டளை படிக்கப்படுகிறது</string>
+    <string name="ai_message_dismiss">சரி</string>
+    <string name="ai_review_title">என்ன மாறும் என்று பாருங்கள்</string>
+    <string name="ai_review_hint">வேண்டாதவற்றின் குறியை நீக்குங்கள். உறுதிசெய் அழுத்தும் வரை எதுவும் மாறாது.</string>
+    <string name="ai_review_not_understood">புரியவில்லை: %1$s</string>
+    <string name="ai_action_confirm">உறுதிசெய்</string>
+    <string name="ai_step_add">%1$s சேர்</string>
+    <string name="ai_step_add_category">%1$s வகையைச் சேர்</string>
+    <string name="ai_step_create_checklist">%1$s சரிபார்ப்புப் பட்டியலை உருவாக்கு</string>
+    <string name="ai_step_set_quantity">%1$s அளவை மாற்று</string>
+    <string name="ai_step_set_unit">%1$s அலகை மாற்று</string>
+    <string name="ai_step_complete">%1$s முடிந்தது எனக் குறி</string>
+    <string name="ai_step_uncomplete">%1$s முடியவில்லை எனக் குறி</string>
+    <string name="ai_step_delete">%1$s நீக்கு</string>
+    <string name="ai_step_remove_section">%1$s மற்றும் அதன் பொருட்களை அகற்று</string>
+    <string name="ai_step_to_section">%1$s பிரிவில்</string>
+    <string name="ai_step_amount_to_section">%1$s, %2$s பிரிவில்</string>
+    <string name="ai_result_done">முடிந்தது: %1$s.</string>
+    <string name="ai_result_already">ஏற்கனவே பட்டியலில் உள்ளது: %1$s.</string>
+    <string name="ai_result_failed">செய்யப்படவில்லை: %1$s.</string>
+    <string name="ai_unavailable_disabled">AI உதவியாளர் அணைக்கப்பட்டுள்ளது. அமைப்புகளில் இயக்கவும், அல்லது பொருட்களை நீங்களே சேர்க்கவும்.</string>
+    <string name="ai_unavailable_timeout">உதவியாளர் பதிலளிக்க அதிக நேரம் எடுத்தது. மீண்டும் முயலவும், அல்லது பொருட்களை நீங்களே சேர்க்கவும்.</string>
+    <string name="ai_unavailable_other">உதவியாளரால் இப்போது இதைச் செய்ய முடியாது. பொருட்களை நீங்களே சேர்க்கலாம்.</string>
+    <string name="ai_not_understood">மன்னிக்கவும், புரியவில்லை. “2 கிலோ அரிசி மற்றும் 1 லிட்டர் பால்” போல எழுதுங்கள், அல்லது பொருட்களை நீங்களே சேர்க்கவும்.</string>
+    <string name="ai_empty_command">எதைச் சேர்க்க அல்லது மாற்ற வேண்டும் என்று எழுதுங்கள், எ.கா. “2 கிலோ அரிசி”.</string>
+    <string name="ai_too_long">ஒரு கட்டளைக்கு இது மிக நீளம். சுருக்கமாக எழுதிப் பாருங்கள்.</string>
+    <string name="ai_nothing_selected">எதுவும் தேர்ந்தெடுக்கப்படவில்லை, அதனால் எதுவும் மாறவில்லை.</string>
 </resources>
