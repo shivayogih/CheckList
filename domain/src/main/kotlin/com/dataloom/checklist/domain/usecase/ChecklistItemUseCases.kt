@@ -111,6 +111,7 @@ class UpdateChecklistItemUseCase @Inject constructor(
             notes = fields.notes,
             clearQuantity = fields.quantity == null,
             clearNotes = fields.notes == null,
+            clearUnit = fields.unit == null,
         )
         checklists.updateItem(itemId, update)
         return success(Unit)

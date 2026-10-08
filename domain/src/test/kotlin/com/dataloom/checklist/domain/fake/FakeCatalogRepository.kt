@@ -119,6 +119,9 @@ class FakeCatalogRepository : CatalogRepository {
             .take(limit)
     }
 
+    override suspend fun getMasterItem(id: MasterItemId, locale: String): MasterItem? =
+        masterItems.value.firstOrNull { it.id == id }
+
     override suspend fun findMasterItemByName(categoryId: CategoryId, name: String, locale: String): MasterItem? =
         masterItems.value.firstOrNull { it.categoryId == categoryId && it.displayName.equals(name.trim(), ignoreCase = true) }
 
