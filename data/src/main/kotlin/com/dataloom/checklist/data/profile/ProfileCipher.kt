@@ -25,7 +25,7 @@ internal object ProfileCipher {
     private val json = Json { ignoreUnknownKeys = true }
 
     fun encrypt(aead: Aead, profile: UserProfile, rowId: String, keyAlias: String): ByteArray {
-        val payload = ProfilePayload(profile.displayName, profile.email, profile.phone)
+        val payload = ProfilePayload(profile.displayName, profile.email, profile.phone, profile.address)
         val plaintext = json.encodeToString(ProfilePayload.serializer(), payload).toByteArray(Charsets.UTF_8)
         return aead.encrypt(plaintext, associatedData(rowId, PAYLOAD_VERSION, keyAlias))
     }
@@ -38,19 +38,27 @@ internal object ProfileCipher {
     fun decrypt(aead: Aead, ciphertext: ByteArray, rowId: String, payloadVersion: Int, keyAlias: String): UserProfile {
         val plaintext = aead.decrypt(ciphertext, associatedData(rowId, payloadVersion, keyAlias))
         val payload = json.decodeFromString(ProfilePayload.serializer(), plaintext.toString(Charsets.UTF_8))
-        return UserProfile(payload.displayName, payload.email, payload.phone)
+        return UserProfile(payload.displayName, payload.email, payload.phone, payload.address)
     }
 
     fun associatedData(rowId: String, payloadVersion: Int, keyAlias: String): ByteArray =
         "checklist.db/$TABLE/$COLUMN/id=$rowId/v=$payloadVersion/key=$keyAlias".toByteArray(Charsets.UTF_8)
 }
 
-/** Plain-text shape inside the ciphertext. Short names keep the blob small; never stored unencrypted. */
+/**
+ * Plain-text shape inside the ciphertext. Short names keep the blob small; never stored unencrypted.
+ *
+ * Additive evolution (CL-250): [address] was added without a new payload version. Every field has a
+ * default, so payloads written before the address existed (or before the name became optional) still
+ * decode, and null fields are not written (`encodeDefaults` is off), so a profile without an address
+ * encrypts to the same bytes shape as before. Do not rename these keys.
+ */
 @Serializable
 internal data class ProfilePayload(
-    @SerialName("n") val displayName: String,
+    @SerialName("n") val displayName: String? = null,
     @SerialName("e") val email: String? = null,
     @SerialName("p") val phone: String? = null,
+    @SerialName("a") val address: String? = null,
 ) {
     override fun toString(): String = "ProfilePayload(***)"
 }
