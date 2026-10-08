@@ -3,9 +3,10 @@ package com.dataloom.checklist.domain.model
 /**
  * The user's own details, kept only on this device and only encrypted (architecture section 19.1).
  *
- * Data minimization: the Phase 0 sketch also listed a postal address and home/office locations. No
- * v1 feature uses them, so they are not collected. A display name (for "Include my name" on PDFs and
- * exports) plus optional contact fields is all the app needs.
+ * Every field is optional (CL-250): first-run setup lets the user skip all of them. A display name
+ * (for the Home greeting and "Include my name" on PDFs and exports), email, phone and an optional
+ * postal [address] are all the app collects; there are no locations and no location permission.
+ * None of it is ever sent to AI.
  *
  * Values are validated and normalized by [com.dataloom.checklist.domain.validation.ProfileValidator];
  * create and save one through `SaveProfileUseCase`.
@@ -14,10 +15,15 @@ package com.dataloom.checklist.domain.model
  * accident. Read the properties explicitly where they are really needed.
  */
 data class UserProfile(
-    val displayName: String,
+    val displayName: String? = null,
     val email: String? = null,
     val phone: String? = null,
+    /** Added in CL-250. Stored inside the same encrypted payload; older payloads simply lack it. */
+    val address: String? = null,
 ) {
+    /** True when no field has a value; such a profile is never stored (see `SaveProfileUseCase`). */
+    val isEmpty: Boolean get() = displayName == null && email == null && phone == null && address == null
+
     override fun toString(): String = "UserProfile(***)"
 }
 

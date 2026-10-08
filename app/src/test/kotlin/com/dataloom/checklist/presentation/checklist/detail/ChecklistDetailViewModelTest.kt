@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
 import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
@@ -14,6 +15,7 @@ import com.dataloom.checklist.domain.usecase.ObserveChecklistDetailUseCase
 import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
 import com.dataloom.checklist.domain.usecase.RemoveSectionUseCase
 import com.dataloom.checklist.domain.usecase.SetItemCompletedUseCase
+import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.usecase.UpdateChecklistUseCase
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.testing.FakeCatalogRepository
@@ -21,6 +23,7 @@ import com.dataloom.checklist.testing.FakeChecklistRepository
 import com.dataloom.checklist.testing.FakeLanguageProvider
 import com.dataloom.checklist.testing.MainDispatcherRule
 import com.dataloom.checklist.testing.keepCollecting
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -52,13 +55,13 @@ class ChecklistDetailViewModelTest {
         repo.addItems(fruitsSection, listOf(newItem("Apple")))
     }
 
-    private fun TestScope.viewModel(): ChecklistDetailViewModel {
+    private fun TestScope.viewModel(writes: ChecklistRepository = repo): ChecklistDetailViewModel {
         val vm = ChecklistDetailViewModel(
             checklistId = checklistId.value,
             observeDetail = ObserveChecklistDetailUseCase(repo),
             observeUnits = ObserveUnitsUseCase(catalog),
             setItemCompleted = SetItemCompletedUseCase(repo),
-            deleteItem = DeleteChecklistItemUseCase(repo),
+            deleteItem = DeleteChecklistItemUseCase(writes),
             moveItem = MoveItemUseCase(repo),
             moveSection = MoveSectionUseCase(repo),
             removeSection = RemoveSectionUseCase(repo),
@@ -238,5 +241,72 @@ class ChecklistDetailViewModelTest {
             repo.deleteChecklist(checklistId)
             assertEquals(ChecklistDetailEffect.ChecklistGone, awaitItem())
         }
+    }
+
+    @Test
+    fun `sharing a PDF right after a delete commits the delete first`() = runTest {
+        seed()
+        val vm = viewModel()
+        val sugar = vm.item("Sugar")
+
+        vm.effect.test {
+            vm.onAction(ChecklistDetailAction.DeleteItem(sugar))
+            assertEquals(ChecklistDetailEffect.ItemDeleted(sugar.id, "Sugar"), awaitItem())
+            assertTrue("Still in the database while Undo is offered", repo.item(sugar.id) != null)
+
+            vm.onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
+
+            assertEquals(ChecklistDetailEffect.PdfReady(PdfExport.SHARE), awaitItem())
+            // The PDF reads the database after PdfReady, so the item must be gone by now (CL-241).
+            assertNull(repo.item(sugar.id))
+        }
+        assertEquals(listOf("Rice", "Salt"), vm.uiState.value.sections.first().items.map { it.name })
+    }
+
+    @Test
+    fun `saving a PDF waits for a delete commit that is already running`() = runTest {
+        seed()
+        // The Undo snackbar closed and its delete is still writing (slow storage) when Save is tapped.
+        val release = CompletableDeferred<Unit>()
+        val deleted = mutableListOf<ChecklistItemId>()
+        val slowDeletes = object : ChecklistRepository by repo {
+            override suspend fun deleteItem(itemId: ChecklistItemId) {
+                deleted += itemId
+                release.await()
+                repo.deleteItem(itemId)
+            }
+        }
+        val vm = viewModel(writes = slowDeletes)
+        val sugar = vm.item("Sugar")
+
+        vm.effect.test {
+            vm.onAction(ChecklistDetailAction.DeleteItem(sugar))
+            awaitItem()
+            vm.onAction(ChecklistDetailAction.CommitDelete(sugar.id))
+            vm.onAction(ChecklistDetailAction.ExportPdf(PdfExport.SAVE))
+
+            expectNoEvents()
+            release.complete(Unit)
+
+            assertEquals(ChecklistDetailEffect.PdfReady(PdfExport.SAVE), awaitItem())
+            assertNull(repo.item(sugar.id))
+        }
+        assertEquals("Deleted once, not once per caller", listOf(sugar.id), deleted)
+    }
+
+    @Test
+    fun `a PDF with nothing waiting for undo is ready at once and keeps undone items`() = runTest {
+        seed()
+        val vm = viewModel()
+        val sugar = vm.item("Sugar")
+        vm.onAction(ChecklistDetailAction.DeleteItem(sugar))
+        vm.onAction(ChecklistDetailAction.UndoDelete(sugar.id))
+
+        vm.effect.test {
+            skipItems(1) // ItemDeleted from above
+            vm.onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
+            assertEquals(ChecklistDetailEffect.PdfReady(PdfExport.SHARE), awaitItem())
+        }
+        assertTrue(repo.item(sugar.id) != null)
     }
 }

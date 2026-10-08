@@ -15,7 +15,7 @@ How CheckList protects user data and the project's secrets. To report a vulnerab
 | Profile encryption with Tink and Android Keystore (AES-256-GCM, associated data per row and column) | Implemented (Phase 5, CL-151, CL-152) |
 | Key-loss and tamper handling: erase, report, never crash | Implemented (Phase 5, CL-152) |
 | Backup and device-transfer rules that exclude the profile keyset | Implemented (Phase 5, CL-153) |
-| Profile data minimization (name, optional email and phone only) and redacted `toString()` | Implemented (Phase 5, CL-150) |
+| Profile data minimization (every field optional: name, email, phone, address; no locations) and redacted `toString()` | Implemented (Phase 5, CL-150; optional fields and address in CL-250) |
 | Release-safe logging wrapper; lint ban on `Log.*` and `println` | Planned (deferred from Phase 5 to the Phase 8 static-analysis work) |
 | Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | Implemented (Phase 6, CL-160) |
 | Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | Implemented (Phase 6, CL-160) |
@@ -35,7 +35,11 @@ The app is single-user, offline and has no backend or account. The realistic ris
 
 ### The encrypted profile (implemented, Phase 5)
 
-**What is stored.** A display name (required, up to 50 characters) and an optional email and phone number. The Phase 0 sketch also listed a postal address and home/office locations; no v1 feature needs them, so they are not collected and the app asks for no location permission. Validation and normalization live in `ProfileValidator` in `:domain`.
+**What is stored.** Four optional fields: a display name (up to 50 characters), an email, a phone number and a postal address (up to 200 characters, line breaks kept). Every field is optional, including the name (CL-250), so first-run setup can be skipped entirely; a form with every field blank stores nothing, and saving an emptied form in Settings deletes the stored profile. The Phase 0 sketch also listed home/office locations; no feature needs them, so they are not collected and the app asks for no location permission. There is no account, password or OTP and no backend. Validation and normalization live in `ProfileValidator` in `:domain`. **None of it is ever sent to AI**: the AI layer has no access to the profile (see Data leaving the device).
+
+**Payload compatibility.** The address was added to the encrypted JSON payload without a new payload version (`schema_version` stays 1, so there is no schema change and no migration). Every payload key has a default and unknown keys are ignored, so a row written before CL-250 (no address) still decrypts, and a profile without an address encrypts to the same shape as before. `ProfileCipherTest` and `EncryptedProfileRepositoryTest` keep tests for the pre-CL-250 payload. The key-loss, tamper and backup behaviour below is unchanged.
+
+**First-run flag.** Whether the first-run flow was finished is stored as `onboarding_completed` in Preferences DataStore. It is a plain convenience flag, not personal data. The typed profile text is held only in the ViewModel while the form is open and is deliberately not put in `SavedStateHandle`, which the system writes to disk unencrypted; after process death the flow resumes at the same step with empty fields.
 
 **How it is encrypted.** Envelope encryption with Tink (`com.google.crypto.tink:tink-android` 1.23.0):
 
