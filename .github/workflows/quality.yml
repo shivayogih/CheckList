@@ -1,0 +1,154 @@
+# Quality pipeline (Phase 8 and 11: CL-181 to CL-189, CL-220 to CL-229).
+# Runs next to "Android build" on every branch push, so feature branches get feedback before a PR
+# exists and the results also show on the branch's PR. Free: public repository, standard runners,
+# no paid service, no secret required.
+#
+# Supply chain: every action is pinned to a full commit SHA (version in the comment; Dependabot
+# updates both). Tools that are downloaded (gitleaks, detekt) are checked against a SHA-256.
+name: Quality
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+# Nothing may write by default; jobs ask for what they need.
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  wrapper-validation:
+    name: Gradle wrapper validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Fails if gradle/wrapper/gradle-wrapper.jar is not an official Gradle release.
+      # v6 runs on Node.js 24 (v4 targets the deprecated Node.js 20). Validation only, no Gradle caching involved.
+      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      GITLEAKS_VERSION: "8.30.1"
+      # From gitleaks_8.30.1_checksums.txt on the gitleaks GitHub release.
+      GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # scan the whole history, not only the last commit
+          persist-credentials: false
+      # The gitleaks CLI is MIT-licensed and needs no licence key (the gitleaks-action wrapper does for organisations).
+      - name: Install gitleaks
+        run: |
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/$archive" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP" gitleaks
+      - name: Scan history
+        run: |
+          mkdir -p build/reports
+          "$RUNNER_TEMP/gitleaks" git --redact --no-banner --verbose \
+            --report-format sarif --report-path build/reports/gitleaks.sarif .
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: gitleaks-report
+          path: build/reports/gitleaks.sarif
+          if-no-files-found: ignore
+
+  detekt:
+    name: Static analysis (detekt)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write # SARIF upload to code scanning (free on public repositories)
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+      # Downloads the pinned detekt CLI from Maven Central, checks its SHA-256 and fails on any
+      # finding that is not in config/detekt/baseline.xml.
+      - name: detekt
+        run: ci/scripts/detekt.sh
+      - name: Upload detekt to code scanning
+        if: always() && hashFiles('build/reports/detekt/detekt.sarif') != ''
+        # Reporting only: if code scanning is unavailable the findings are still in the job log and artifact.
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          sarif_file: build/reports/detekt/detekt.sarif
+          category: detekt
+      - name: Upload detekt reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: detekt-reports
+          path: build/reports/detekt/
+          if-no-files-found: ignore
+
+  checks-and-agents:
+    name: Logging ban, CI agents and their tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read # issue-sync asks GitHub whether a branch's PR was merged
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # all branches and tags: issue-sync and release notes compare against them
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: tools/agents/requirements.txt
+      - name: Install agent dependencies
+        run: python -m pip install --disable-pip-version-check -r tools/agents/requirements.txt
+
+      - name: Python tests (agents and checks)
+        run: python -m pytest -q -p no:cacheprovider tools/agents/tests tools/checks
+
+      # Release-safe logging (design 19.3): no android.util.Log, println, print or System.out/err in main sources.
+      - name: Logging ban
+        run: python tools/checks/logging_ban.py
+
+      # The agents are rule-based ADK workflows: no API key needed. If the owner adds the optional
+      # GEMINI_API_KEY secret, they also append an advisory AI summary (docs/ai-automation.md).
+      - name: Translation consistency agent
+        working-directory: tools/agents
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python -m checklist_agents translations --repo ../.. ${GEMINI_API_KEY:+--enrich}
+
+      - name: Issue tracker sync agent
+        if: always()
+        working-directory: tools/agents
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python -m checklist_agents issue-sync --repo ../.. ${GEMINI_API_KEY:+--enrich}
+
+      - name: Release notes preview (since the last tag)
+        if: always()
+        working-directory: tools/agents
+        run: python -m checklist_agents release-notes --repo ../.. --to HEAD --out-dir "$RUNNER_TEMP/whatsnew"
