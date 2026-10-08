@@ -21,7 +21,7 @@ data class AiSettingsUiState(
     val autoAddAvailable: Boolean get() = isLoaded && enabled
 }
 
-/** The "AI assistant (offline)" and "Let AI add items without asking" switches in Settings (CL-210). */
+/** The "AI assistant (offline)" and "Let AI add items without asking" switches in Settings (CL-240). */
 @HiltViewModel
 class AiSettingsViewModel @Inject constructor(
     private val preferences: AiPreferences,

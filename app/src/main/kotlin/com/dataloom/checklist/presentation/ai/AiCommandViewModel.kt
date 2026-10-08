@@ -90,7 +90,7 @@ sealed interface AiCommandAction {
 }
 
 /**
- * The AI command field of the checklist detail screen (CL-210): the user types "2 kg rice and 1 litre
+ * The AI command field of the checklist detail screen (CL-240): the user types "2 kg rice and 1 litre
  * milk" in any app language, [AiAssistant] proposes a plan, the user reviews it step by step and only
  * the ticked steps run, through the confirmation gate and the same use cases the screens use.
  * A plan the user allowed to run without asking (Settings, one simple step) skips the sheet.
