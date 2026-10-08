@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="home_title">ನನ್ನ ಪಟ್ಟಿಗಳು</string>
+    <string name="home_empty_title">ಇನ್ನೂ ಯಾವುದೇ ಪಟ್ಟಿಗಳಿಲ್ಲ</string>
+    <string name="home_empty_body">ಶಾಪಿಂಗ್, ಪ್ರಯಾಣ, ಪರೀಕ್ಷೆ ಅಥವಾ ಯಾವುದಕ್ಕಾದರೂ ನಿಮ್ಮ ಮೊದಲ ಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ.</string>
+    <string name="home_create_checklist">ಪಟ್ಟಿ ರಚಿಸಿ</string>
+    <string name="home_create_coming_soon">ಪಟ್ಟಿ ರಚನೆ ಮುಂದಿನ ಅಪ್‌ಡೇಟ್‌ನಲ್ಲಿ ಬರಲಿದೆ.</string>
+    <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="settings_language">ಭಾಷೆ</string>
+    <string name="settings_language_system">ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್</string>
+    <string name="settings_about">ಕುರಿತು</string>
+    <string name="settings_version">ಆವೃತ್ತಿ %1$s</string>
+    <string name="navigate_back">ಹಿಂದೆ</string>
+    <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+</resources>

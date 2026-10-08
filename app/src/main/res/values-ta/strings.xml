@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="home_title">என் பட்டியல்கள்</string>
+    <string name="home_empty_title">இன்னும் பட்டியல்கள் இல்லை</string>
+    <string name="home_empty_body">ஷாப்பிங், பயணம், தேர்வு அல்லது எதற்கும் உங்கள் முதல் பட்டியலை உருவாக்குங்கள்.</string>
+    <string name="home_create_checklist">பட்டியலை உருவாக்கு</string>
+    <string name="home_create_coming_soon">பட்டியல் உருவாக்கும் வசதி அடுத்த புதுப்பிப்பில் வரும்.</string>
+    <string name="settings_title">அமைப்புகள்</string>
+    <string name="settings_language">மொழி</string>
+    <string name="settings_language_system">சிஸ்டம் இயல்புநிலை</string>
+    <string name="settings_about">பற்றி</string>
+    <string name="settings_version">பதிப்பு %1$s</string>
+    <string name="navigate_back">பின்செல்</string>
+    <string name="language_title">மொழியைத் தேர்ந்தெடுக்கவும்</string>
+</resources>

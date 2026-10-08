@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AppCompat theme is required because MainActivity extends AppCompatActivity (per-app language support).
+         All visible UI is Compose; colours come from CheckListTheme. -->
+    <style name="Theme.CheckList" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>
