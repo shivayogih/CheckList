@@ -54,6 +54,11 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.presentation.ai.AiCommandAction
+import com.dataloom.checklist.presentation.ai.AiCommandPanel
+import com.dataloom.checklist.presentation.ai.AiCommandUiState
+import com.dataloom.checklist.presentation.ai.AiCommandViewModel
+import com.dataloom.checklist.presentation.ai.AiReviewSheet
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.quantityText
 import com.dataloom.checklist.presentation.common.resolve
@@ -84,8 +89,12 @@ fun ChecklistDetailScreen(
         creationCallback = { factory -> factory.create(checklistId) },
     ),
     transferViewModel: TransferViewModel = hiltViewModel(),
+    aiViewModel: AiCommandViewModel = hiltViewModel<AiCommandViewModel, AiCommandViewModel.Factory>(
+        creationCallback = { factory -> factory.create(checklistId) },
+    ),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val aiState by aiViewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
@@ -156,7 +165,7 @@ fun ChecklistDetailScreen(
         }
     }
 
-    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions)
+    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -167,6 +176,8 @@ private fun DetailContent(
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
     pdfActions: List<MenuAction>,
+    aiState: AiCommandUiState,
+    onAiAction: (AiCommandAction) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -194,6 +205,10 @@ private fun DetailContent(
         ) {
             if (!state.isLoading) {
                 item { ProgressHeader(state) }
+            }
+            // Only while the assistant is on in Settings; the screen works the same without it.
+            if (!state.isLoading && aiState.isAvailable) {
+                item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
                 item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
@@ -224,6 +239,8 @@ private fun DetailContent(
             }
         }
     }
+
+    aiState.review?.takeIf { aiState.isAvailable }?.let { review -> AiReviewSheet(review, onAiAction) }
 
     state.pendingSectionRemoval?.let { section ->
         ConfirmDialog(

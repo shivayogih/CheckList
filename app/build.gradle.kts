@@ -121,6 +121,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     // QR code encoder for the PDF export; pure Java, drawn as vector rects.
     implementation(libs.zxing.core)
+    // Settings toggles for the AI assistant (CL-210).
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
