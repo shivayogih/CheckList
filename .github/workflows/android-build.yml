@@ -35,19 +35,6 @@ jobs:
       - name: Validate seed catalog
         run: python3 tools/seed/validate_seed.py
 
-      # TEMPORARY (CL-155): repeat the profile repository tests to reproduce and then prove a fix.
-      - name: Stress EncryptedProfileRepositoryTest
-        run: |
-          fails=0
-          for i in $(seq 1 60); do
-            if ! ./gradlew -q :data:testDebugUnitTest --tests '*EncryptedProfileRepositoryTest' --rerun > /dev/null 2>&1; then
-              fails=$((fails+1))
-              if [ "$fails" -le 3 ]; then grep -h -A25 '<failure' data/build/test-results/testDebugUnitTest/*.xml | head -60; fi
-            fi
-          done
-          echo "STRESS RESULT: $fails of 60 runs failed"
-          test "$fails" -eq 0
-
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
