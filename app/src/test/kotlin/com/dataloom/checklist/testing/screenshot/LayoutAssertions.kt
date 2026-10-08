@@ -38,10 +38,17 @@ internal fun ComposeTestRule.assertNoTextOverflow() {
         val results = mutableListOf<TextLayoutResult>()
         node.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(results)
         results.forEach { layout ->
-            if (layout.didOverflowWidth) problems += "text wider than its box: ${describe(node)}"
-            if (layout.didOverflowHeight) problems += "text taller than its box: ${describe(node)}"
-            if (layout.hasVisualOverflow && !layout.didOverflowWidth && !layout.didOverflowHeight) {
-                problems += "text is truncated: ${describe(node)}"
+            // Measured from the lines themselves: `didOverflowWidth` / `didOverflowHeight` also report a text that
+            // fits (they compare the paragraph with its rounded box), so they cannot be used as a failure signal.
+            val boxWidth = layout.size.width.toFloat()
+            val widest = (0 until layout.lineCount).maxOfOrNull { layout.getLineRight(it) - layout.getLineLeft(it) } ?: 0f
+            if (widest > boxWidth + 1f) problems += "text wider than its box (${widest} > $boxWidth px): ${describe(node)}"
+            val ellipsized = (0 until layout.lineCount).any { layout.isLineEllipsized(it) }
+            if (ellipsized) problems += "text is ellipsized: ${describe(node)}"
+            if (layout.multiParagraph.didExceedMaxLines) problems += "text is cut by its line limit: ${describe(node)}"
+            val textHeight = layout.multiParagraph.height
+            if (textHeight > layout.size.height + 1f) {
+                problems += "text taller than its box ($textHeight > ${layout.size.height} px): ${describe(node)}"
             }
         }
     }
@@ -74,7 +81,9 @@ internal fun ComposeTestRule.assertTouchTargetsAtLeast(min: Dp = 48.dp) {
         val height = node.size.height.toFloat()
         // One pixel of rounding is not a failure.
         if (width + 1f < minPx || height + 1f < minPx) {
-            problems += "touch target too small (${width / density.density} x ${height / density.density} dp): ${describe(node)}"
+            val b = node.boundsInRoot
+            val parent = node.parent?.let { "${it.size.width / density.density} x ${it.size.height / density.density} dp at ${b.left / density.density},${b.top / density.density}" }
+            problems += "touch target too small (${width / density.density} x ${height / density.density} dp, parent $parent): ${describe(node)}"
         }
     }
     check(problems.isEmpty()) { "Touch targets under $min:\n" + problems.distinct().joinToString("\n") { " - $it" } }
