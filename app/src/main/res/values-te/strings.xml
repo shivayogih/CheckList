@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="home_title">నా జాబితాలు</string>
+    <string name="home_empty_title">ఇంకా జాబితాలు లేవు</string>
+    <string name="home_empty_body">షాపింగ్, ప్రయాణం, పరీక్ష లేదా దేనికైనా మీ మొదటి జాబితాను సృష్టించండి.</string>
+    <string name="home_create_checklist">జాబితాను సృష్టించండి</string>
+    <string name="home_create_coming_soon">జాబితా సృష్టించే సౌకర్యం తదుపరి అప్‌డేట్‌లో వస్తుంది.</string>
+    <string name="settings_title">సెట్టింగ్‌లు</string>
+    <string name="settings_language">భాష</string>
+    <string name="settings_language_system">సిస్టమ్ డిఫాల్ట్</string>
+    <string name="settings_about">గురించి</string>
+    <string name="settings_version">వెర్షన్ %1$s</string>
+    <string name="navigate_back">వెనుకకు</string>
+    <string name="language_title">భాషను ఎంచుకోండి</string>
+</resources>

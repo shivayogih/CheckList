@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="home_title">माझ्या याद्या</string>
+    <string name="home_empty_title">अजून कोणतीही यादी नाही</string>
+    <string name="home_empty_body">खरेदी, प्रवास, परीक्षा किंवा कशासाठीही तुमची पहिली यादी तयार करा.</string>
+    <string name="home_create_checklist">यादी तयार करा</string>
+    <string name="home_create_coming_soon">यादी तयार करण्याची सुविधा पुढील अपडेटमध्ये येईल.</string>
+    <string name="settings_title">सेटिंग्ज</string>
+    <string name="settings_language">भाषा</string>
+    <string name="settings_language_system">सिस्टम डीफॉल्ट</string>
+    <string name="settings_about">माहिती</string>
+    <string name="settings_version">आवृत्ती %1$s</string>
+    <string name="navigate_back">मागे</string>
+    <string name="language_title">भाषा निवडा</string>
+</resources>

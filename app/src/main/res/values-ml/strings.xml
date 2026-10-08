@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="home_title">എന്റെ പട്ടികകൾ</string>
+    <string name="home_empty_title">ഇതുവരെ പട്ടികകളൊന്നുമില്ല</string>
+    <string name="home_empty_body">ഷോപ്പിംഗ്, യാത്ര, പരീക്ഷ അല്ലെങ്കിൽ എന്തിനും നിങ്ങളുടെ ആദ്യ പട്ടിക തയ്യാറാക്കൂ.</string>
+    <string name="home_create_checklist">പട്ടിക തയ്യാറാക്കുക</string>
+    <string name="home_create_coming_soon">പട്ടിക തയ്യാറാക്കാനുള്ള സൗകര്യം അടുത്ത അപ്‌ഡേറ്റിൽ വരും.</string>
+    <string name="settings_title">ക്രമീകരണങ്ങൾ</string>
+    <string name="settings_language">ഭാഷ</string>
+    <string name="settings_language_system">സിസ്റ്റം ഡിഫോൾട്ട്</string>
+    <string name="settings_about">കുറിച്ച്</string>
+    <string name="settings_version">പതിപ്പ് %1$s</string>
+    <string name="navigate_back">തിരികെ</string>
+    <string name="language_title">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+</resources>
