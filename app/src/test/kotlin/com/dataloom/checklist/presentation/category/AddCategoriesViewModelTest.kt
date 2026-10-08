@@ -28,7 +28,8 @@ class AddCategoriesViewModelTest {
     private val groceries = catalog.seedCategory("groceries", "Groceries")
     private val fruits = catalog.seedCategory("fruits", "Fruits")
     private val gifts = catalog.seedCategory("gifts", "Gifts")
-    private lateinit var checklistId: ChecklistId
+    // Set by the setup helper; value classes cannot be lateinit.
+    private var checklistId = ChecklistId("")
 
     private suspend fun TestScope.viewModel(): AddCategoriesViewModel {
         checklistId = repo.createChecklist("Diwali", null, listOf(groceries.id))

@@ -37,8 +37,9 @@ class ItemEditorViewModelTest {
     private val catalog = FakeCatalogRepository()
     private val repo = FakeChecklistRepository(catalog)
     private val groceries = catalog.seedCategory("groceries", "Groceries")
-    private lateinit var checklistId: ChecklistId
-    private lateinit var sectionId: SectionId
+    // Set by the setup helper; value classes cannot be lateinit.
+    private var checklistId = ChecklistId("")
+    private var sectionId = SectionId("")
 
     private suspend fun seed() {
         checklistId = repo.createChecklist("Diwali", null, listOf(groceries.id))

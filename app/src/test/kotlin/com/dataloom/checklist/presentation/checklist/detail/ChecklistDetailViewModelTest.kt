@@ -39,7 +39,8 @@ class ChecklistDetailViewModelTest {
     private val repo = FakeChecklistRepository(catalog)
     private val groceries = catalog.seedCategory("groceries", "Groceries")
     private val fruits = catalog.seedCategory("fruits", "Fruits")
-    private lateinit var checklistId: ChecklistId
+    // Set by the setup helper; value classes cannot be lateinit.
+    private var checklistId = ChecklistId("")
 
     private fun newItem(name: String, quantity: Quantity? = null, unit: UnitCode? = null) =
         NewChecklistItem(null, null, name, "en", quantity, unit, null)

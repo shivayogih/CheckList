@@ -38,8 +38,9 @@ class AddItemsViewModelTest {
     private val sugar = catalog.seedMasterItem(groceries.id, "sugar", "Sugar", BuiltInUnits.KG.code, useCount = 9)
     private val soap = catalog.seedMasterItem(groceries.id, "soap", "Soap", BuiltInUnits.PIECE.code)
     private val apple = catalog.seedMasterItem(fruits.id, "apple", "Apple", BuiltInUnits.KG.code)
-    private lateinit var checklistId: ChecklistId
-    private lateinit var sectionId: SectionId
+    // Set by the setup helper; value classes cannot be lateinit.
+    private var checklistId = ChecklistId("")
+    private var sectionId = SectionId("")
 
     private suspend fun TestScope.viewModel(): AddItemsViewModel {
         checklistId = repo.createChecklist("Diwali", null, listOf(groceries.id))
