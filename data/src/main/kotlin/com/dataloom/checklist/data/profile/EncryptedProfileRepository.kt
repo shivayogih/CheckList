@@ -52,8 +52,15 @@ class EncryptedProfileRepository internal constructor(
     private val writeLock = Mutex()
     private val resetPending = MutableStateFlow(false)
 
+    /**
+     * [resetPending] is combined only as a trigger; its current value is read at evaluation time.
+     * combine() delivers each upstream's values from its own collector, so the flag value it hands
+     * over can lag behind the real one. [erase] sets the flag while combine is still evaluating, and
+     * the row deletion that follows can be combined with the old `false`. That emitted a spurious
+     * NotSet, followed by Reset once the stale `true` arrived (CL-155).
+     */
     override fun observeProfile(): Flow<ProfileState> =
-        combine(dao.observe(ROW_ID), resetPending) { row, reset -> stateOf(row, reset) }
+        combine(dao.observe(ROW_ID), resetPending) { row, _ -> stateOf(row, resetPending.value) }
             .filterNotNull()
             .distinctUntilChanged()
             .flowOn(io)
