@@ -1,9 +1,8 @@
 package com.dataloom.checklist.startup
 
-import com.dataloom.checklist.data.local.database.CheckListDatabase
+import com.dataloom.checklist.data.local.database.DatabaseOpener
 import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.common.IoDispatcher
-import dagger.Lazy
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CancellationException
@@ -18,20 +17,20 @@ import kotlinx.coroutines.withContext
  * seven languages of names). Doing it from `Application.onCreate` overlaps that cost with the
  * first-run flag read and the first frame instead of making the first screen wait for it.
  *
- * The database is a [Lazy]: injecting this class must not build it on the main thread. A failure is
+ * [DatabaseOpener] holds the database lazily, so injecting this class does not build it on the main thread. A failure is
  * dropped here on purpose (it must never crash the launch): the first real query hits the same error
  * and reports it to the screen that needs the data.
  */
 @Singleton
 class DatabaseWarmUp @Inject constructor(
-    private val database: Lazy<CheckListDatabase>,
+    private val opener: DatabaseOpener,
     @param:ApplicationScope private val scope: CoroutineScope,
     @param:IoDispatcher private val io: CoroutineDispatcher,
 ) {
     fun start() {
         scope.launch {
             try {
-                withContext(io) { database.get().openHelper.writableDatabase }
+                withContext(io) { opener.open() }
             } catch (cancellation: CancellationException) {
                 throw cancellation
             } catch (@Suppress("TooGenericExceptionCaught", "SwallowedException") failure: Exception) {
