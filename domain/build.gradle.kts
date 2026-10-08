@@ -1,6 +1,20 @@
 // Pure Kotlin/JVM module: it cannot see Android or Room, which keeps business rules portable and fast to test.
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    // Coverage report for the unit tests (CL-175): ./gradlew :domain:test :domain:jacocoTestReport
+    jacoco
+}
+
+jacoco {
+    toolVersion = libs.versions.jacoco.get()
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
 
 java {
