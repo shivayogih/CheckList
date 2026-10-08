@@ -136,6 +136,7 @@ fun SegmentedChoice(
     Box(modifier = modifier.heightIn(min = Dimens.MinTouchTarget), contentAlignment = Alignment.CenterStart) {
         Row(
             modifier = Modifier
+                .fillMaxWidth()
                 .height(IntrinsicSize.Min)
                 .heightIn(min = Dimens.ChipHeight)
                 .clip(shape)
@@ -149,13 +150,14 @@ fun SegmentedChoice(
                 }
                 Row(
                     modifier = Modifier
+                        .weight(1f)
                         .fillMaxHeight()
                         .heightIn(min = Dimens.MinTouchTarget)
                         .background(if (selected) colors.primaryContainer else colors.background)
                         .selectable(selected = selected, role = Role.RadioButton, onClick = { onSelect(index) })
                         .padding(horizontal = 14.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
                 ) {
                     if (selected) {
                         Icon(
@@ -167,6 +169,8 @@ fun SegmentedChoice(
                     }
                     Text(
                         text = label,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                        modifier = Modifier.weight(1f, fill = false),
                         style = CheckListText.chip.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold),
                         color = if (selected) colors.onPrimaryContainer else colors.onSurface,
                     )

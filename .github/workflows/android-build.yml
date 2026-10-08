@@ -38,6 +38,21 @@ jobs:
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
+      # Screenshot goldens (CL-262): renders every shared component in 15 variants and, with record mode on,
+      # writes the PNGs. They are uploaded below, so a failed comparison can be reviewed and the goldens
+      # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
+      - name: Record screenshots
+        if: always()
+        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' -Proborazzi.test.record=true
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: app/src/test/screenshots/
+          if-no-files-found: ignore
+
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.
       - name: Room schema is committed

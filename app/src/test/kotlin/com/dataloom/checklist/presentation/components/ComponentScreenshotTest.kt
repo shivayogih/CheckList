@@ -88,6 +88,18 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
     }
 
     @Test
+    fun iconButtons() = shoot("icon_buttons") { s ->
+        // Icon only, no visible text; the translated description is what TalkBack and the tooltip say.
+        Row {
+            AppIconButton(painterResource(R.drawable.ic_search), s.t("Search", "ಹುಡುಕಿ", "தேடு"), {})
+            AppIconButton(painterResource(R.drawable.ic_filter_list), s.t("Filter", "ಫಿಲ್ಟರ್", "வடிகட்டு"), {})
+            AppIconButton(painterResource(R.drawable.ic_sort), s.t("Sort", "ವಿಂಗಡಿಸಿ", "வரிசைப்படுத்து"), {})
+            AppIconButton(painterResource(R.drawable.ic_share), s.t("Share", "ಹಂಚಿಕೊಳ್ಳಿ", "பகிர்"), {})
+            AppIconButton(painterResource(R.drawable.ic_more_vert), s.t("More", "ಇನ್ನಷ್ಟು", "மேலும்"), {})
+        }
+    }
+
+    @Test
     fun searchField() = shoot("search_field") { s ->
         val placeholder = s.t("Search checklists", "ಪಟ್ಟಿಗಳನ್ನು ಹುಡುಕಿ", "பட்டியல்களைத் தேடு")
         val clear = s.t("Clear search", "ಹುಡುಕಾಟ ತೆರವುಗೊಳಿಸಿ", "தேடலை அழி")

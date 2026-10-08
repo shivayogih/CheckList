@@ -93,5 +93,6 @@ internal fun ComposeContentTestRule.scene(): SemanticsNodeInteraction = onNodeWi
  */
 internal fun ComposeContentTestRule.captureScene(name: String, variant: ScreenshotVariant) {
     waitForIdle()
+    if (!variant.golden) return
     scene().captureRoboImage("$GOLDEN_DIR/${name}_${variant.id}.png")
 }

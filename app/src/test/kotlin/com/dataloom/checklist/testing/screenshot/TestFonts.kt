@@ -11,7 +11,9 @@ import android.graphics.fonts.FontFamily as PlatformFontFamily
  * emoji, so those would be drawn as empty boxes in every golden. The fonts below are **test resources only**
  * (`src/test/resources/fonts`); the app itself uses the system fonts and bundles none.
  *
- *  - Noto Sans Kannada and Noto Sans Tamil, regular and bold (SIL OFL 1.1, see `OFL.txt`).
+ *  - Noto Sans for Kannada, Tamil, Malayalam, Devanagari (Hindi, Marathi) and Telugu, regular and bold, each
+ *    cut to its own script block with `pyftsubset` so Latin text still uses the platform font (SIL OFL 1.1,
+ *    see `OFL.txt`).
  *  - Noto Color Emoji, cut down with `pyftsubset` to the ~25 emoji the test scenes use (the full font is 25 MB).
  *
  * They are chained as **custom fallbacks in front of the system font** in one `Typeface`, so Latin text
@@ -40,6 +42,9 @@ internal object TestFonts {
             Typeface.CustomFallbackBuilder(family("NotoColorEmoji-subset.ttf"))
                 .addCustomFallback(family("NotoSansKannada_400Regular.ttf", "NotoSansKannada_700Bold.ttf"))
                 .addCustomFallback(family("NotoSansTamil_400Regular.ttf", "NotoSansTamil_700Bold.ttf"))
+                .addCustomFallback(family("NotoSansMalayalam_400Regular.ttf", "NotoSansMalayalam_700Bold.ttf"))
+                .addCustomFallback(family("NotoSansDevanagari_400Regular.ttf", "NotoSansDevanagari_700Bold.ttf"))
+                .addCustomFallback(family("NotoSansTelugu_400Regular.ttf", "NotoSansTelugu_700Bold.ttf"))
                 .setSystemFallback("sans-serif")
                 .build()
         } catch (t: Throwable) {

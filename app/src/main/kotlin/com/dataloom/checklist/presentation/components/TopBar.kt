@@ -86,8 +86,8 @@ fun CheckListTopBar(
 }
 
 /**
- * A 48 x 48 dp icon button for the bar (back, close, share, settings). [contentDescription] is required:
- * an icon button without a label is invisible to TalkBack.
+ * A 48 x 48 dp icon button for the bar (back, close, share, search, sort). Icon only, no visible text;
+ * [contentDescription] is required, read by TalkBack and shown as a tooltip. See [AppIconButton].
  */
 @Composable
 fun TopBarIconButton(
@@ -97,20 +97,7 @@ fun TopBarIconButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
-    Box(
-        modifier = modifier
-            .size(Dimens.MinTouchTarget)
-            .clip(CircleShape)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(
-            painter = icon,
-            contentDescription = contentDescription,
-            tint = if (enabled) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-            modifier = Modifier.size(Dimens.Icon),
-        )
-    }
+    AppIconButton(icon, contentDescription, onClick, modifier, enabled)
 }
 
 /** The back arrow (mirrors in right-to-left layouts). */
@@ -125,7 +112,7 @@ fun TopBarCloseButton(contentDescription: String, onClick: () -> Unit, modifier:
     TopBarIconButton(painterResource(R.drawable.ic_close), contentDescription, onClick, modifier)
 }
 
-/** A text action such as "Save" at the end of the bar: 18 sp SemiBold in the primary colour, 48 dp tall. */
+/** A text action such as "Save" at the end of the bar; keep text only where an icon would be ambiguous: 18 sp SemiBold in the primary colour, 48 dp tall. */
 @Composable
 fun TopBarTextAction(
     text: String,
