@@ -1,6 +1,8 @@
 package com.dataloom.checklist.domain.transfer
 
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.domain.common.DefaultDispatcher
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
@@ -13,7 +15,7 @@ import com.dataloom.checklist.domain.repository.ChecklistRepository
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
@@ -40,6 +42,8 @@ class ExportChecklistsUseCase @Inject constructor(
     private val catalog: CatalogRepository,
     private val codec: TransferCodec,
     private val clock: Clock,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
 ) {
     suspend operator fun invoke(request: ExportRequest, sink: ExportSink): ExportResult {
         val details = loadDetails(request)
@@ -50,11 +54,12 @@ class ExportChecklistsUseCase @Inject constructor(
         }
         if (itemCount > TransferLimits.MAX_ITEMS) return ExportResult.TooLarge(TransferLimit.ITEMS, TransferLimits.MAX_ITEMS.toLong())
 
-        val bytes = codec.encode(buildDocument(details, request))
+        // Building and encoding a large export is CPU work: keep it off the caller's (often main) thread.
+        val bytes = withContext(default) { codec.encode(buildDocument(details, request)) }
         if (bytes.size > TransferLimits.MAX_FILE_BYTES) {
             return ExportResult.TooLarge(TransferLimit.FILE_SIZE, TransferLimits.MAX_FILE_BYTES)
         }
-        withContext(Dispatchers.IO) { sink.openStream().use { it.write(bytes) } }
+        withContext(io) { sink.openStream().use { it.write(bytes) } }
         return ExportResult.Exported(details.size, itemCount, bytes.size)
     }
 
@@ -147,13 +152,15 @@ class PreviewImportUseCase @Inject constructor(
     private val checklists: ChecklistRepository,
     private val catalog: CatalogRepository,
     private val codec: TransferCodec,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
 ) {
     suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult {
         val bytes = when (val read = readBounded(source)) {
             is ReadResult.Bytes -> read.bytes
             is ReadResult.Failed -> return ImportPreviewResult.Rejected(read.rejection)
         }
-        val document = when (val decoded = withContext(Dispatchers.Default) { codec.decode(bytes) }) {
+        val document = when (val decoded = withContext(default) { codec.decode(bytes) }) {
             is DecodeResult.Rejected -> return ImportPreviewResult.Rejected(decoded.rejection)
             is DecodeResult.Decoded -> decoded.document
         }
@@ -191,7 +198,7 @@ class PreviewImportUseCase @Inject constructor(
     }
 
     /** Trusts neither the reported size nor the stream: reading stops one byte past the limit. */
-    private suspend fun readBounded(source: ImportSource): ReadResult = withContext(Dispatchers.IO) {
+    private suspend fun readBounded(source: ImportSource): ReadResult = withContext(io) {
         val reported = source.sizeBytes
         if (reported != null && reported > TransferLimits.MAX_FILE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
         try {

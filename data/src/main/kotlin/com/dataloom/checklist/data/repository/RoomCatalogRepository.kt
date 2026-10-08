@@ -11,6 +11,7 @@ import com.dataloom.checklist.data.mapper.TranslationIndex
 import com.dataloom.checklist.data.mapper.toDomain
 import com.dataloom.checklist.data.mapper.toIndex
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.domain.common.DefaultDispatcher
 import com.dataloom.checklist.domain.common.IdGenerator
 import com.dataloom.checklist.domain.model.Category
 import com.dataloom.checklist.domain.model.CategoryId
@@ -20,9 +21,11 @@ import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.domain.repository.CatalogRepository
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 /**
@@ -33,6 +36,7 @@ class RoomCatalogRepository @Inject constructor(
     private val db: CheckListDatabase,
     private val clock: Clock,
     private val ids: IdGenerator,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
 ) : CatalogRepository {
 
     private val categoryDao = db.categoryDao()
@@ -54,7 +58,7 @@ class RoomCatalogRepository @Inject constructor(
                         .thenComparator { a, b -> collator.compare(a.second.displayName, b.second.displayName) },
                 )
                 .map { it.second }
-        }.distinctUntilChanged()
+        }.distinctUntilChanged().flowOn(default)
 
     override suspend fun getCategory(id: CategoryId, locale: String): Category? {
         val category = categoryDao.getById(id.value) ?: return null
@@ -110,7 +114,7 @@ class RoomCatalogRepository @Inject constructor(
         ) { rows, translations ->
             val index = translations.toIndex()
             sortByUse(rows.map { it.toDomain(index, locale) }, locale)
-        }.distinctUntilChanged()
+        }.distinctUntilChanged().flowOn(default)
 
     override suspend fun searchMasterItems(query: String, locale: String, categoryId: CategoryId?, limit: Int): List<MasterItem> {
         if (limit <= 0) return emptyList()
@@ -184,7 +188,7 @@ class RoomCatalogRepository @Inject constructor(
     }
 
     override fun observeUnits(): Flow<List<UnitDef>> =
-        unitDao.observeAll().map { units -> units.map { it.toDomain() } }.distinctUntilChanged()
+        unitDao.observeAll().map { units -> units.map { it.toDomain() } }.distinctUntilChanged().flowOn(default)
 
     override suspend fun getUnit(code: UnitCode): UnitDef? = unitDao.getByCode(code.value)?.toDomain()
 

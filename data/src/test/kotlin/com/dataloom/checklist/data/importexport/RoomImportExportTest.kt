@@ -39,6 +39,7 @@ import com.dataloom.checklist.domain.transfer.TransferLimits
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -59,11 +60,11 @@ class RoomImportExportTest {
         val clock = FakeClock(now = 1_791_432_000_000L)
         val ids = SequentialIds(prefix)
         val db: CheckListDatabase = inMemoryDatabase()
-        val checklists = RoomChecklistRepository(db, clock, ids)
-        val catalog = RoomCatalogRepository(db, clock, ids)
+        val checklists = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined)
+        val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
         val codec = JsonTransferCodec()
-        val export = ExportChecklistsUseCase(checklists, catalog, codec, clock)
-        val preview = PreviewImportUseCase(checklists, catalog, codec)
+        val export = ExportChecklistsUseCase(checklists, catalog, codec, clock, Dispatchers.Unconfined, Dispatchers.Unconfined)
+        val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined)
         val apply = ApplyImportUseCase(checklists, catalog, RoomTransactionRunner(db))
 
         init {

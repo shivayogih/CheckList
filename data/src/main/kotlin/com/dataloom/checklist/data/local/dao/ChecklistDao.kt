@@ -41,6 +41,10 @@ interface ChecklistDao {
     )
     fun observeSummaries(archived: Boolean?, pattern: String?): Flow<List<ChecklistSummaryRow>>
 
+    /** True while at least one checklist exists. Reads at most one row, unlike [observeSummaries]. */
+    @Query("SELECT EXISTS(SELECT 1 FROM checklist)")
+    fun observeAny(): Flow<Boolean>
+
     @Transaction
     @Query("SELECT * FROM checklist WHERE id = :id")
     fun observeDetail(id: String): Flow<ChecklistWithSections?>
