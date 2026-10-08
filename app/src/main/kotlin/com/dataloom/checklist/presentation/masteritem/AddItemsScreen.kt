@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
@@ -183,7 +184,12 @@ private fun SearchBar(state: AddItemsUiState, onAction: (AddItemsAction) -> Unit
                 null
             } else {
                 {
-                    IconButton(onClick = { onAction(AddItemsAction.QueryChanged("")) }) {
+                    // Explicit 48dp: inside the field the default 40dp button lost its touch
+                    // padding at 200% text.
+                    IconButton(
+                        onClick = { onAction(AddItemsAction.QueryChanged("")) },
+                        modifier = Modifier.size(48.dp),
+                    ) {
                         Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))
                     }
                 }

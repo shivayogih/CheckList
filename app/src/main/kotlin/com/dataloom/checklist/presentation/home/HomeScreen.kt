@@ -3,6 +3,7 @@ package com.dataloom.checklist.presentation.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -13,9 +14,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -148,11 +152,13 @@ private fun HomeContent(
         },
         floatingActionButton = {
             if (!state.isFirstUse) {
-                ExtendedFloatingActionButton(
-                    onClick = onCreateChecklist,
-                    icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                    text = { Text(stringResource(R.string.home_create_checklist)) },
-                )
+                // The content-slot overload: its label merges into the button, so TalkBack reads
+                // "Create checklist" (the icon/text overload left the button unlabelled in the audit).
+                ExtendedFloatingActionButton(onClick = onCreateChecklist) {
+                    Icon(painterResource(R.drawable.ic_add), contentDescription = null)
+                    Spacer(Modifier.width(12.dp))
+                    Text(stringResource(R.string.home_create_checklist))
+                }
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -217,9 +223,18 @@ private fun GreetingCard(greeting: GreetingUi) {
 
 @Composable
 private fun FirstUse(onCreateChecklist: () -> Unit, modifier: Modifier = Modifier) {
+    // Scrolls when 200% text no longer fits the screen (the button was clipped in the audit), and
+    // stays vertically centred when it does fit.
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        FirstUseContent(onCreateChecklist, Modifier.verticalScroll(rememberScrollState()).heightIn(min = maxHeight))
+    }
+}
+
+@Composable
+private fun FirstUseContent(onCreateChecklist: () -> Unit, modifier: Modifier) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(horizontal = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
