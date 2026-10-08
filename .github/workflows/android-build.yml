@@ -38,12 +38,12 @@ jobs:
       # TEMPORARY (CL-155): repeat the profile repository tests to reproduce and then prove a fix.
       - name: Stress EncryptedProfileRepositoryTest
         run: |
-          cat > "$RUNNER_TEMP/full.gradle" <<'EOF'
-          allprojects { tasks.withType(Test).configureEach { testLogging { exceptionFormat = 'full'; events 'failed' } } }
-          EOF
           fails=0
           for i in $(seq 1 40); do
-            ./gradlew -q -I "$RUNNER_TEMP/full.gradle" :data:testDebugUnitTest --tests '*EncryptedProfileRepositoryTest' --rerun || fails=$((fails+1))
+            if ! ./gradlew -q :data:testDebugUnitTest --tests '*EncryptedProfileRepositoryTest' --rerun > /dev/null 2>&1; then
+              fails=$((fails+1))
+              if [ "$fails" -le 3 ]; then grep -h -A25 '<failure' data/build/test-results/testDebugUnitTest/*.xml | head -60; fi
+            fi
           done
           echo "STRESS RESULT: $fails of 40 runs failed"
           test "$fails" -eq 0
