@@ -72,9 +72,16 @@ fun ImportPreviewDialog(preview: ImportPreview, busy: Boolean, onConfirm: () -> 
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 val style = MaterialTheme.typography.bodyLarge
-                Text(stringResource(R.string.import_preview_checklists, formatCount(preview.checklistCount)), style = style)
                 Text(
-                    stringResource(R.string.import_preview_items, formatCount(preview.itemCount), formatCount(preview.completedItemCount)),
+                    stringResource(R.string.import_preview_checklists, formatCount(preview.checklistCount)),
+                    style = style,
+                )
+                Text(
+                    stringResource(
+                        R.string.import_preview_items,
+                        formatCount(preview.itemCount),
+                        formatCount(preview.completedItemCount),
+                    ),
                     style = style,
                 )
                 if (preview.newCategories.isNotEmpty()) {

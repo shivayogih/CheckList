@@ -12,4 +12,5 @@ fun progressText(completed: Int, total: Int): String =
 
 /** A plural whose only argument is [count], such as "Add 3 items". */
 @Composable
-fun countText(@PluralsRes pluralRes: Int, count: Int): String = pluralStringResource(pluralRes, count, formatCount(count))
+fun countText(@PluralsRes pluralRes: Int, count: Int): String =
+    pluralStringResource(pluralRes, count, formatCount(count))

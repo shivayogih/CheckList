@@ -39,7 +39,10 @@ fun unitLabel(code: UnitCode): String {
     return if (res != null) stringResource(res) else code.value
 }
 
-/** "5 kg", "2.5" (formatted for the app language), or null when there is no amount. [unit] is null when the item has no unit. */
+/**
+ * "5 kg", "2.5" (formatted for the app language), or null when there is no amount. [unit] is null
+ * when the item has no unit.
+ */
 @Composable
 fun quantityText(quantity: Quantity?, unit: UnitDef?): String? {
     if (quantity == null) return null

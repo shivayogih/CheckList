@@ -111,9 +111,13 @@ class DatabaseMigrationTest {
      */
     private fun createV1WithData() {
         helper.createDatabase(TEST_DB, 1).use { db ->
-            db.execSQL("INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) VALUES ('KG', 1, 0, NULL, 10)")
             db.execSQL(
-                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, created_at, updated_at) " +
+                "INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) " +
+                    "VALUES ('KG', 1, 0, NULL, 10)",
+            )
+            db.execSQL(
+                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, " +
+                    "created_at, updated_at) " +
                     "VALUES ('cat-1', 'groceries', NULL, '🛒', 0, 0, 0, 0)",
             )
             db.execSQL(
@@ -126,7 +130,8 @@ class DatabaseMigrationTest {
             )
             db.execSQL(
                 "INSERT INTO checklist_item (id, checklist_category_id, master_item_id, canonical_key, display_name, " +
-                    "display_name_locale, quantity_milli, unit_code, notes, is_completed, completed_at, position, created_at, updated_at) " +
+                    "display_name_locale, quantity_milli, unit_code, notes, is_completed, completed_at, position, " +
+                    "created_at, updated_at) " +
                     "VALUES ('item-1', 'sec-1', NULL, NULL, 'Rice', 'en', 2500, 'KG', NULL, 0, NULL, 1000, 0, 0)",
             )
         }

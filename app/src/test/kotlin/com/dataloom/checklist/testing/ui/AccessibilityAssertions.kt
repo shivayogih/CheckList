@@ -49,20 +49,28 @@ fun ComposeTestRule.assertAccessible(screen: String) {
         }
         if (unmerged.none { SemanticsProperties.Heading in it.config }) add("no heading")
         merged.filter {
-            it.config.getOrNull(SemanticsProperties.Role) == Role.Checkbox && SemanticsProperties.ToggleableState in it.config
+            it.config.getOrNull(SemanticsProperties.Role) == Role.Checkbox &&
+                SemanticsProperties.ToggleableState in it.config
         }.forEach { node ->
             if (node.config.getOrNull(SemanticsProperties.StateDescription).isNullOrBlank()) {
                 add("checkbox row '${node.label()}' has no state description")
             }
         }
-        unmerged.filter { SemanticsActions.GetTextLayoutResult in it.config && SemanticsProperties.EditableText !in it.config }
+        unmerged
+            .filter { SemanticsActions.GetTextLayoutResult in it.config }
+            .filter { SemanticsProperties.EditableText !in it.config }
             .forEach { node ->
                 val layouts = mutableListOf<TextLayoutResult>()
                 node.config[SemanticsActions.GetTextLayoutResult].action?.invoke(layouts)
-                layouts.firstOrNull()?.takeIf { it.isCutOff() }?.let { add("text is cut off: '${it.layoutInput.text}' (${it.describe()})") }
+                layouts.firstOrNull()?.takeIf { it.isCutOff() }?.let {
+                    add("text is cut off: '${it.layoutInput.text}' (${it.describe()})")
+                }
             }
     }
-    assertTrue("$screen: ${problems.size} accessibility problem(s):\n" + problems.joinToString("\n"), problems.isEmpty())
+    assertTrue(
+        "$screen: ${problems.size} accessibility problem(s):\n" + problems.joinToString("\n"),
+        problems.isEmpty(),
+    )
 }
 
 /**
@@ -77,7 +85,8 @@ private fun TextLayoutResult.isCutOff(): Boolean =
 
 private fun TextLayoutResult.describe(): String =
     "size $size, text ${multiParagraph.width} x ${multiParagraph.height}, lines $lineCount, " +
-        "ellipsized ${(0 until lineCount).any { isLineEllipsized(it) }}, overflow w=$didOverflowWidth h=$didOverflowHeight"
+        "ellipsized ${(0 until lineCount).any { isLineEllipsized(it) }}, " +
+        "overflow w=$didOverflowWidth h=$didOverflowHeight"
 
 private fun SemanticsNode.isActionable(): Boolean =
     SemanticsActions.OnClick in config || SemanticsActions.SetText in config

@@ -35,7 +35,8 @@ class ThemeContrastTest {
         val text = listOf(
             "onPrimary on primary" to (s.onPrimary to s.primary),
             "onPrimaryContainer on primaryContainer" to (s.onPrimaryContainer to s.primaryContainer),
-            "onSecondaryContainer on secondaryContainer (selected chips)" to (s.onSecondaryContainer to s.secondaryContainer),
+            "onSecondaryContainer on secondaryContainer (selected chips)" to
+                (s.onSecondaryContainer to s.secondaryContainer),
             "onBackground on background" to (s.onBackground to s.background),
             "onSurface on surface" to (s.onSurface to s.surface),
             "onSurfaceVariant on surface (secondary text)" to (s.onSurfaceVariant to s.surface),

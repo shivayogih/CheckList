@@ -23,7 +23,8 @@ class StringFormatTest {
 
     private val resDir = File("src/main/res")
     private val placeholder = Regex("""%(\d+\$)?[-#+ 0,(]*\d*(\.\d+)?([a-zA-Z%])""")
-    private val folders = listOf("values") + SupportedLanguages.all.filter { it != SupportedLanguages.ENGLISH }.map { "values-${it.tag}" }
+    private val folders = listOf("values") +
+        SupportedLanguages.all.filter { it != SupportedLanguages.ENGLISH }.map { "values-${it.tag}" }
 
     private data class Entry(val key: String, val text: String, val formatted: Boolean)
 
@@ -36,7 +37,8 @@ class StringFormatTest {
             for (i in 0 until strings.length) {
                 val e = strings.item(i) as Element
                 if (e.getAttribute("translatable") == "false" && folder != "values") continue
-                result[e.getAttribute("name")] = Entry(e.getAttribute("name"), e.textContent, e.getAttribute("formatted") != "false")
+                val name = e.getAttribute("name")
+                result[name] = Entry(name, e.textContent, e.getAttribute("formatted") != "false")
             }
             val plurals = doc.getElementsByTagName("plurals")
             for (i in 0 until plurals.length) {
@@ -53,7 +55,11 @@ class StringFormatTest {
     }
 
     private fun placeholders(entry: Entry): List<String> =
-        if (!entry.formatted) emptyList() else placeholder.findAll(entry.text).map { it.value }.filter { it != "%%" }.sorted().toList()
+        if (!entry.formatted) {
+            emptyList()
+        } else {
+            placeholder.findAll(entry.text).map { it.value }.filter { it != "%%" }.sorted().toList()
+        }
 
     @Test
     fun `every plural has one and other forms in every language`() {
@@ -88,8 +94,9 @@ class StringFormatTest {
         folders.forEach { folder ->
             entries(folder).values.forEach { entry ->
                 placeholders(entry).forEach { p ->
-                    assertTrue("$folder/${entry.key}: '$p' is not positional (use %1\$s)", Regex("""%\d+\$.*""").matches(p))
-                    assertTrue("$folder/${entry.key}: '$p' formats a number; pass LocaleNumbers text as %N\$s", p.endsWith("s"))
+                    val where = "$folder/${entry.key}: '$p'"
+                    assertTrue("$where is not positional (use %1\$s)", Regex("""%\d+\$.*""").matches(p))
+                    assertTrue("$where formats a number; pass LocaleNumbers text as %N\$s", p.endsWith("s"))
                 }
             }
         }
@@ -100,7 +107,10 @@ class StringFormatTest {
         folders.forEach { folder ->
             entries(folder).values.filter { it.formatted }.forEach { entry ->
                 val rest = placeholder.replace(entry.text, "")
-                assertTrue("$folder/${entry.key} has a bare '%': escape it as %% or set formatted=\"false\"", '%' !in rest)
+                assertTrue(
+                    "$folder/${entry.key} has a bare '%': escape it as %% or set formatted=\"false\"",
+                    '%' !in rest,
+                )
             }
         }
     }

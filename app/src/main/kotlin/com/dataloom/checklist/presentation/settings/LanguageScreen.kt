@@ -59,7 +59,8 @@ fun LanguageScreen(onBack: () -> Unit) {
                 // Each native name carries its language, so TalkBack reads "ಕನ್ನಡ" with a Kannada voice
                 // even while the app is still in English.
                 val label = when (option) {
-                    LanguagePreference.SystemDefault -> AnnotatedString(stringResource(R.string.settings_language_system))
+                    LanguagePreference.SystemDefault ->
+                        AnnotatedString(stringResource(R.string.settings_language_system))
                     is LanguagePreference.Specific -> AnnotatedString(
                         text = option.language.nativeName,
                         spanStyle = SpanStyle(localeList = LocaleList(option.language.tag)),
