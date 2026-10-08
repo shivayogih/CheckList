@@ -30,8 +30,10 @@ class FakePhotoStore(var now: () -> Long = { 1_000L }) : PhotoStore {
     val staged = LinkedHashMap<String, ByteArray>()
     private var next = 1
 
-    fun put(fileName: String, bytes: String = "img", lastModified: Long = now()) {
-        files[fileName] = bytes.toByteArray()
+    fun put(fileName: String, bytes: String = "img", lastModified: Long = now()) = putBytes(fileName, bytes.toByteArray(), lastModified)
+
+    fun putBytes(fileName: String, bytes: ByteArray, lastModified: Long = now()) {
+        files[fileName] = bytes
         files[PhotoNames.thumbnailName(fileName)] = "thumb".toByteArray()
         modified[fileName] = lastModified
         modified[PhotoNames.thumbnailName(fileName)] = lastModified
@@ -49,7 +51,7 @@ class FakePhotoStore(var now: () -> Long = { 1_000L }) : PhotoStore {
         val bytes = read(source) ?: return SavePhotoResult.Failed(PhotoFailure.UNREADABLE)
         if (String(bytes).startsWith("BAD")) return SavePhotoResult.Failed(PhotoFailure.NOT_AN_IMAGE)
         val name = newName()
-        put(name, String(bytes))
+        putBytes(name, bytes)
         return SavePhotoResult.Saved(StoredPhoto(name, 100, 50, bytes.size.toLong()))
     }
 
@@ -63,7 +65,7 @@ class FakePhotoStore(var now: () -> Long = { 1_000L }) : PhotoStore {
 
     override suspend fun commit(staged: StagedPhoto): Boolean {
         val bytes = this.staged.remove(staged.photo.fileName) ?: return false
-        put(staged.photo.fileName, String(bytes))
+        putBytes(staged.photo.fileName, bytes)
         return true
     }
 
@@ -82,13 +84,15 @@ class FakePhotoStore(var now: () -> Long = { 1_000L }) : PhotoStore {
     override suspend fun copy(fileName: String): String? {
         val bytes = files[fileName] ?: return null
         val name = newName()
-        put(name, String(bytes))
+        putBytes(name, bytes)
         return name
     }
 
     override fun open(fileName: String): InputStream? = files[fileName]?.let { ByteArrayInputStream(it) }
 
     override fun openThumbnail(fileName: String): InputStream? = open(PhotoNames.thumbnailName(fileName))
+
+    override suspend fun byteSize(fileName: String): Long? = files[fileName]?.size?.toLong()
 
     override fun file(fileName: String): File = File("/fake/$fileName")
 

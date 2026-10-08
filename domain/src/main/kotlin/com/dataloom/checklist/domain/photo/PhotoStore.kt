@@ -92,6 +92,9 @@ interface PhotoStore {
 
     fun openThumbnail(fileName: String): InputStream?
 
+    /** Size in bytes of the stored image, or null when the file is missing. */
+    suspend fun byteSize(fileName: String): Long?
+
     /** The stored image as a file (it may not exist: a missing file is a normal state shown as a placeholder). */
     fun file(fileName: String): File
 
@@ -132,6 +135,8 @@ object NoPhotoStore : PhotoStore {
     override fun open(fileName: String): InputStream? = null
 
     override fun openThumbnail(fileName: String): InputStream? = null
+
+    override suspend fun byteSize(fileName: String): Long? = null
 
     override fun file(fileName: String): File = File("/nonexistent/$fileName")
 

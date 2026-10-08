@@ -134,10 +134,7 @@ class ExportChecklistsUseCase @Inject constructor(
             private set
 
         suspend fun add(photo: ItemPhoto): TransferPhoto? {
-            val size = withContext(Dispatchers.IO) {
-                val file = store.file(photo.fileName)
-                if (file.isFile) file.length() else -1L
-            }
+            val size = store.byteSize(photo.fileName) ?: -1L
             if (size <= 0 || size > TransferLimits.MAX_PHOTO_BYTES) {
                 skipped++
                 return null

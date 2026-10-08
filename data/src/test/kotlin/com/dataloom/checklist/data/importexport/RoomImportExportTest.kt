@@ -1,6 +1,5 @@
 package com.dataloom.checklist.data.importexport
 
-import com.dataloom.checklist.domain.photo.NoPhotoStore
 import androidx.test.core.app.ApplicationProvider
 import com.dataloom.checklist.data.FakeClock
 import com.dataloom.checklist.data.FakeSeedSource
@@ -20,6 +19,7 @@ import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.transfer.ApplyImportUseCase
 import com.dataloom.checklist.domain.transfer.ChecklistRename

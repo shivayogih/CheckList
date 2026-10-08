@@ -88,6 +88,10 @@ class FilePhotoStore(
 
     override fun openThumbnail(fileName: String): InputStream? = openOrNull(thumbnailFile(fileName))
 
+    override suspend fun byteSize(fileName: String): Long? = withContext(io) {
+        file(fileName).takeIf { it.isFile }?.length()
+    }
+
     override fun file(fileName: String): File = File(root, if (PhotoNames.isSafeName(fileName)) fileName else INVALID_NAME)
 
     override fun thumbnailFile(fileName: String): File =
