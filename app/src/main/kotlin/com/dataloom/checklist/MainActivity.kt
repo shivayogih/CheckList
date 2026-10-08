@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.dataloom.checklist.localization.AppCompatLanguageProvider
 import com.dataloom.checklist.navigation.CheckListNavHost
 import com.dataloom.checklist.presentation.theme.CheckListTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Single activity hosting the Compose UI.
@@ -18,9 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var languageProvider: AppCompatLanguageProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        // A language change recreates the activity; ViewModels on the back stack then see the new language.
+        languageProvider.refresh()
         setContent {
             CheckListTheme {
                 CheckListNavHost()
