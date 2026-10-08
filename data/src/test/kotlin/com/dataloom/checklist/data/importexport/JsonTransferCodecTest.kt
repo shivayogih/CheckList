@@ -83,7 +83,7 @@ class JsonTransferCodecTest {
     @Test
     fun newerVersionIsRejectedEvenWithAnUnknownShape() {
         assertEquals(
-            DecodeResult.Rejected(ImportRejection.UnsupportedVersion(2, 3, requiresNewerApp = true)),
+            DecodeResult.Rejected(ImportRejection.UnsupportedVersion(3, 3, requiresNewerApp = true)),
             codec.decode(golden("future-version.json")),
         )
     }

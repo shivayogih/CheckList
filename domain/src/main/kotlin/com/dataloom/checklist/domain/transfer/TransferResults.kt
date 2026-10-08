@@ -1,6 +1,8 @@
 package com.dataloom.checklist.domain.transfer
 
 import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.photo.NoPhotoStore
+import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.validation.ValidationError
 
 /**
@@ -29,6 +31,9 @@ sealed interface ImportRejection {
 
     data class LimitExceeded(val limit: TransferLimit, val max: Long) : ImportRejection
 
+    /** A zip that is malformed or unsafe (path traversal, wrong entry type, duplicate...). */
+    data class UnsafeArchive(val problem: ArchiveProblem) : ImportRejection
+
     /** Valid file without any checklist. */
     data object NothingToImport : ImportRejection
 
@@ -39,8 +44,28 @@ sealed interface ImportRejection {
     data class Invalid(val issues: List<ImportIssue>, val totalIssues: Int) : ImportRejection
 }
 
+enum class ArchiveProblem {
+    /** Not a readable zip, or `checklists.json` is missing. */
+    NOT_AN_ARCHIVE,
+
+    /** The same entry name twice (compared ignoring case). */
+    DUPLICATE_ENTRY,
+
+    /** A name with `..`, an absolute path, a backslash, a drive letter or a nested directory. */
+    UNSAFE_PATH,
+
+    /** A directory, or a file other than `checklists.json` and `photos/<name>.<ext>`. */
+    UNEXPECTED_ENTRY,
+
+    /** An entry with an extension that is not jpg, jpeg, png or webp. */
+    DISALLOWED_EXTENSION,
+
+    /** An entry whose first bytes are not an image of its extension's family. */
+    NOT_AN_IMAGE,
+}
+
 /** The kind of file element an issue belongs to. */
-enum class TransferElement { UNIT, CATEGORY, CHECKLIST, SECTION, ITEM }
+enum class TransferElement { UNIT, CATEGORY, CHECKLIST, SECTION, ITEM, PHOTO }
 
 enum class ImportProblem {
     /** Blank, too long, or characters other than letters, digits, '_', '-', '.'. */
@@ -72,6 +97,21 @@ enum class ImportProblem {
 
     /** Domain validation failed; see [ImportIssue.fieldErrors] (same rules as the UI). */
     INVALID_FIELDS,
+
+    /** A photo `file` that is not `photos/<name>.<jpg|jpeg|png|webp>` with a plain name. */
+    INVALID_PHOTO_PATH,
+
+    /** Two photos naming the same archive file (compared ignoring case). */
+    DUPLICATE_PHOTO_FILE,
+
+    /** An item with more than [com.dataloom.checklist.domain.photo.PhotoLimits.MAX_PER_ITEM] photos. */
+    TOO_MANY_PHOTOS,
+
+    /** The photo names an archive entry that does not exist, or the file is not a photo archive. */
+    MISSING_PHOTO_FILE,
+
+    /** `photos` in a file that is not formatVersion 2. */
+    PHOTOS_NEED_FORMAT_2,
 }
 
 /**
@@ -93,7 +133,19 @@ data class ChecklistRename(val originalTitle: String, val importedTitle: String)
  * A file that passed parsing and validation. Only this module can create one, so
  * [ApplyImportUseCase] never receives an unchecked document.
  */
-class ValidatedImport internal constructor(internal val document: TransferDocument)
+class ValidatedImport internal constructor(
+    internal val document: TransferDocument,
+    internal val archive: ImportArchive? = null,
+    private val store: PhotoStore = NoPhotoStore,
+) {
+    /**
+     * Deletes the raw photos of an archive import from the scratch directory. Call it when the user
+     * dismisses the preview; [ApplyImportUseCase] does it itself once the import is over.
+     */
+    suspend fun discard() {
+        archive?.let { store.deleteScratchDirectory(it.directory) }
+    }
+}
 
 /**
  * What an import would do, for the confirmation screen ("3 checklists, 42 items, 2 new
@@ -117,6 +169,8 @@ data class ImportPreview(
     val sourceLocale: String,
     val exportedAt: String,
     val validated: ValidatedImport,
+    /** Photos that will be imported (0 for a plain JSON file). */
+    val photoCount: Int = 0,
 )
 
 sealed interface ImportPreviewResult {
@@ -131,6 +185,9 @@ data class ImportSummary(
     val newCategoryCount: Int,
     val newUnitCount: Int,
     val renamedChecklists: List<ChecklistRename>,
+    val photoCount: Int = 0,
+    /** Photos of the file that could not be decoded and were left out. */
+    val skippedPhotoCount: Int = 0,
 )
 
 sealed interface ImportResult {
@@ -141,7 +198,14 @@ sealed interface ImportResult {
 }
 
 sealed interface ExportResult {
-    data class Exported(val checklistCount: Int, val itemCount: Int, val byteCount: Int) : ExportResult
+    data class Exported(
+        val checklistCount: Int,
+        val itemCount: Int,
+        val byteCount: Int,
+        val photoCount: Int = 0,
+        /** Photos left out because their file is missing or over the archive's per-photo limit. */
+        val skippedPhotoCount: Int = 0,
+    ) : ExportResult
 
     /** No checklist to export (none selected, or all of them were deleted meanwhile). */
     data object NothingToExport : ExportResult

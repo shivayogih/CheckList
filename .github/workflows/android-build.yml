@@ -36,7 +36,7 @@ jobs:
         run: python3 tools/seed/validate_seed.py
 
       - name: Unit tests
-        run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
+        run: ./gradlew --stacktrace --continue :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.

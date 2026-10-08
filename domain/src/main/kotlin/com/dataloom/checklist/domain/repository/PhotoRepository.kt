@@ -40,3 +40,24 @@ interface PhotoRepository {
     /** Every file name that has a row; anything else in the photo directory is an orphan. */
     suspend fun allFileNames(): Set<String>
 }
+
+/** A repository without photos, for tests of other features; nothing is ever stored. */
+object NoPhotoRepository : PhotoRepository {
+    override suspend fun photosOf(itemId: ChecklistItemId): List<ItemPhoto>? = emptyList()
+
+    override suspend fun addPhotos(itemId: ChecklistItemId, photos: List<StoredPhoto>): List<ItemPhoto> = emptyList()
+
+    override suspend fun removePhoto(photoId: PhotoId): ItemPhoto? = null
+
+    override suspend fun movePhoto(photoId: PhotoId, toIndex: Int) = Unit
+
+    override suspend fun setCaption(photoId: PhotoId, caption: String?) = Unit
+
+    override suspend fun fileNamesOfItem(itemId: ChecklistItemId): List<String> = emptyList()
+
+    override suspend fun fileNamesOfSection(sectionId: SectionId): List<String> = emptyList()
+
+    override suspend fun fileNamesOfChecklist(checklistId: ChecklistId): List<String> = emptyList()
+
+    override suspend fun allFileNames(): Set<String> = emptySet()
+}

@@ -9,6 +9,7 @@ import com.dataloom.checklist.domain.transfer.TransferDocument
 import com.dataloom.checklist.domain.transfer.TransferFormat
 import com.dataloom.checklist.domain.transfer.TransferItem
 import com.dataloom.checklist.domain.transfer.TransferMetadata
+import com.dataloom.checklist.domain.transfer.TransferPhoto
 import com.dataloom.checklist.domain.transfer.TransferSection
 import com.dataloom.checklist.domain.transfer.TransferUnit
 import java.nio.ByteBuffer
@@ -17,9 +18,11 @@ import java.nio.charset.CodingErrorAction
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -55,8 +58,16 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
 
     @Inject constructor() : this(JsonMigrators.ALL)
 
-    override fun encode(document: TransferDocument): ByteArray =
-        WRITER.encodeToString(TransferFileDto.serializer(), document.toDto()).toByteArray(StandardCharsets.UTF_8)
+    override fun encode(document: TransferDocument): ByteArray {
+        // Items without photos (every item of a version 1 file) carry no "photos" key, so version 1 output is unchanged.
+        val tree = WRITER.encodeToJsonElement(TransferFileDto.serializer(), document.toDto()).jsonObject
+        val items = tree.getValue("items").jsonArray.map { item ->
+            val fields = item.jsonObject
+            if (fields["photos"]?.jsonArray?.isEmpty() == true) JsonObject(fields - "photos") else fields
+        }
+        val trimmed = JsonObject(tree + ("items" to JsonArray(items)))
+        return WRITER.encodeToString(JsonObject.serializer(), trimmed).toByteArray(StandardCharsets.UTF_8)
+    }
 
     override fun decode(bytes: ByteArray): DecodeResult {
         val text = decodeUtf8(bytes) ?: return DecodeResult.Rejected(ImportRejection.Malformed)
@@ -77,7 +88,8 @@ class JsonTransferCodec internal constructor(private val migrators: List<JsonMig
     }
 
     private fun decodeVersioned(text: String, formatVersion: Int, schemaVersion: Int): DecodeResult {
-        val current = formatVersion == TransferFormat.FORMAT_VERSION && schemaVersion == TransferFormat.SCHEMA_VERSION
+        // Every format version from 1 up to the current one has the same shape (version 2 only adds optional photos).
+        val current = formatVersion in 1..TransferFormat.FORMAT_VERSION && schemaVersion == TransferFormat.SCHEMA_VERSION
         if (current) return DecodeResult.Decoded(READER.decodeFromString(TransferFileDto.serializer(), text).toDomain())
 
         val newer = formatVersion > TransferFormat.FORMAT_VERSION || schemaVersion > TransferFormat.SCHEMA_VERSION
@@ -191,6 +203,7 @@ private fun TransferDocument.toDto() = TransferFileDto(
             notes = it.notes,
             completed = it.completed,
             position = it.position,
+            photos = it.photos.map { photo -> PhotoDto(photo.ref, photo.file, photo.caption) },
         )
     },
     // Profile export arrives with the profile feature; until then the field is always null.
@@ -225,6 +238,7 @@ private fun TransferFileDto.toDomain() = TransferDocument(
             notes = it.notes,
             completed = it.completed,
             position = it.position,
+            photos = it.photos.map { photo -> TransferPhoto(photo.ref, photo.file, photo.caption) },
         )
     },
     profilePresent = profile != null && profile !is JsonNull,

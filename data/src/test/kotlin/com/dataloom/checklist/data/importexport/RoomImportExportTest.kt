@@ -297,7 +297,7 @@ class RoomImportExportTest {
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), phoneB.preview(BytesSource(padded, sizeBytes = null), "en"))
         val future = requireNotNull(javaClass.getResourceAsStream("/transfer/future-version.json")).use { it.readBytes() }
         assertEquals(
-            ImportPreviewResult.Rejected(ImportRejection.UnsupportedVersion(2, 3, requiresNewerApp = true)),
+            ImportPreviewResult.Rejected(ImportRejection.UnsupportedVersion(3, 3, requiresNewerApp = true)),
             phoneB.previewOf(future),
         )
         assertEquals(0, phoneB.count("checklist"))

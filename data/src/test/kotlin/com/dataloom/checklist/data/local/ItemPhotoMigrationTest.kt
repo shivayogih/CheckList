@@ -100,6 +100,10 @@ class ItemPhotoMigrationTest {
                     "VALUES ('cat-1', 'groceries', NULL, 'x', 0, 0, 0, 0)",
             )
             db.execSQL(
+                "INSERT INTO category (id, canonical_key, custom_name, icon_key, is_custom, is_hidden, created_at, updated_at) " +
+                    "VALUES ('cat-2', 'vegetables', NULL, 'x', 0, 0, 0, 0)",
+            )
+            db.execSQL(
                 "INSERT INTO checklist (id, title, description, created_at, updated_at, is_archived, archived_at) " +
                     "VALUES ('list-1', 'Goa Trip', 'Notes', 0, 0, 0, NULL)",
             )
@@ -109,7 +113,7 @@ class ItemPhotoMigrationTest {
             )
             db.execSQL(
                 "INSERT INTO checklist_category (id, checklist_id, category_id, display_order, created_at) " +
-                    "VALUES ('sec-2', 'list-1', 'cat-1', 2000, 0)",
+                    "VALUES ('sec-2', 'list-1', 'cat-2', 2000, 0)",
             )
             listOf("item-1" to "Rice", "item-2" to "Salt", "item-3" to "Oil").forEachIndexed { index, (id, name) ->
                 db.execSQL(

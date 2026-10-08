@@ -24,8 +24,8 @@ class ImportValidatorTest {
     @Test
     fun `newer versions ask for an app update and unknown older ones are refused`() {
         assertEquals(
-            ImportRejection.UnsupportedVersion(2, 1, requiresNewerApp = true),
-            ImportValidator.validate(document(formatVersion = 2)),
+            ImportRejection.UnsupportedVersion(3, 1, requiresNewerApp = true),
+            ImportValidator.validate(document(formatVersion = 3)),
         )
         assertEquals(
             ImportRejection.UnsupportedVersion(1, 7, requiresNewerApp = true),

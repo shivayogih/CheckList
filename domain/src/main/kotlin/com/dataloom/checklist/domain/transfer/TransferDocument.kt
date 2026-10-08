@@ -82,12 +82,25 @@ data class TransferItem(
     val completed: Boolean = false,
     /** Order within the section; values are relative only. */
     val position: Int = 0,
+    /** Photos of the item (formatVersion 2, zip archive only), in display order. */
+    val photos: List<TransferPhoto> = emptyList(),
+)
+
+/** One photo of an item. The image itself is the archive entry named by [file]. */
+data class TransferPhoto(
+    val ref: String,
+    /** Archive path, `photos/<name>.jpg` (also `.jpeg`, `.png`, `.webp` on import). */
+    val file: String,
+    val caption: String? = null,
 )
 
 /** Version numbers and fixed values of the format. Bump with care: see the format document. */
 object TransferFormat {
-    /** Shape of the envelope. */
-    const val FORMAT_VERSION = 1
+    /** Shape of the envelope. Version 2 adds `items[].photos` and is only valid inside a zip archive. */
+    const val FORMAT_VERSION = 2
+
+    /** The plain JSON format (no photos); still written when photos are not exported, and always readable. */
+    const val JSON_FORMAT_VERSION = 1
 
     /** Shape of the content model. */
     const val SCHEMA_VERSION = 1
@@ -98,4 +111,12 @@ object TransferFormat {
     const val CUSTOM_UNIT_CODE = "CUSTOM"
 
     const val MIME_TYPE = "application/json"
+
+    /** Photo archive: a zip with [ARCHIVE_JSON_ENTRY] and `photos/<name>.jpg` entries. */
+    const val ZIP_MIME_TYPE = "application/zip"
+    const val ARCHIVE_JSON_ENTRY = "checklists.json"
+    const val ARCHIVE_PHOTO_DIRECTORY = "photos/"
+
+    /** Extensions an archive photo may have; the bytes must also be an image of that family. */
+    val PHOTO_EXTENSIONS = setOf("jpg", "jpeg", "png", "webp")
 }
