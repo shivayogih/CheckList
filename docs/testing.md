@@ -19,6 +19,11 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | `QuantityTest` | `:domain` (CL-110, in progress) | Exact milli-unit parsing, limits, decimal places |
 | `StringResourcesTest` | `:app` | Every supported language has `values-<tag>/strings.xml` with exactly the English translatable keys |
 | Android Lint | `:app` | `MissingTranslation`, `ExtraTranslation` and `HardcodedText` are errors |
+| `ProfileValidatorTest`, `ProfileUseCasesTest` | `:domain` (Phase 5) | Profile rules and normalization, every error at once, storage failure reported as a value, redacted `toString()` |
+| `ProfileCipherTest` | `:data`, Robolectric (Phase 5) | Encryption round trip, no plain text in the blob, random nonces, every flipped byte detected, row/version/key binding |
+| `KeysetProfileAeadProviderTest` | `:data`, Robolectric (Phase 5) | Keyset wrapping and reload, lost/replaced/failing master key, destroy, failure classification. A software master key stands in for the Keystore, which Robolectric lacks |
+| `EncryptedProfileRepositoryTest` | `:data`, Robolectric (Phase 5) | Save, observe, clear, key loss, tampering, restore without keys, temporary Keystore failure, newer payload version |
+| `BackupRulesTest` | `:app` (Phase 5) | Cloud backup, device transfer and legacy Auto Backup all exclude the profile keyset |
 
 ## Strategy by layer
 

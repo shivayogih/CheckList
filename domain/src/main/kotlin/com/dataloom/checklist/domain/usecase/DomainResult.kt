@@ -36,6 +36,12 @@ sealed interface DomainError {
 
     /** Only seeded categories have a translated name to go back to. */
     data object CustomCategoryHasNoDefaultName : DomainError
+
+    /**
+     * The profile could not be encrypted because the device's secure key storage failed (Phase 5).
+     * Nothing was stored. The UI suggests trying again, or clearing the profile to start with new keys.
+     */
+    data object SecureStorageUnavailable : DomainError
 }
 
 internal fun ValidationResult.Invalid.toFailure(): DomainResult.Failure = DomainResult.Failure(DomainError.Invalid(errors))

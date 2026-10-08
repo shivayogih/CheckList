@@ -12,11 +12,13 @@ How CheckList protects user data and the project's secrets. To report a vulnerab
 | Only the launcher activity is exported | Implemented (Phase 1) |
 | GitHub Actions workflow with `permissions: contents: read` | Implemented (Phase 1) |
 | Dependabot updates, CODEOWNERS, private vulnerability reporting policy | Implemented (Phase 8 groundwork, CL-180) |
-| Profile encryption with Tink and Android Keystore | Planned (Phase 5) |
-| Backup rules that exclude the profile | Planned (Phase 5) |
-| Release-safe logging wrapper and `@Sensitive` values | Planned (Phase 5) |
-| Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | In progress (Phase 6, CL-160) |
-| Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | In progress (Phase 6, CL-160) |
+| Profile encryption with Tink and Android Keystore (AES-256-GCM, associated data per row and column) | Implemented (Phase 5, CL-151, CL-152) |
+| Key-loss and tamper handling: erase, report, never crash | Implemented (Phase 5, CL-152) |
+| Backup and device-transfer rules that exclude the profile keyset | Implemented (Phase 5, CL-153) |
+| Profile data minimization (name, optional email and phone only) and redacted `toString()` | Implemented (Phase 5, CL-150) |
+| Release-safe logging wrapper; lint ban on `Log.*` and `println` | Planned (deferred from Phase 5 to the Phase 8 static-analysis work) |
+| Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | Implemented (Phase 6, CL-160) |
+| Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | Implemented (Phase 6, CL-160) |
 | gitleaks and secret scanning in `pr-checks`; push protection | Planned (Phase 8) |
 | Signing and Play credentials in Bitrise protected storage | Planned (Phase 9) |
 | HTTPS-only network config, App Check | Planned (Phase 10) |
@@ -28,10 +30,45 @@ The app is single-user, offline and has no backend or account. The realistic ris
 
 ## Data at rest
 
-- Android already encrypts app storage (file-based encryption). Checklist data is not highly sensitive, so the Room database is **not** additionally encrypted in v1 (ADR-011).
-- The **profile** (name, email, phone, address, locations) is stored as one AES-256-GCM blob, using Tink with a non-exportable Android Keystore master key (hardware-backed where available). One blob instead of per-column encryption hides field lengths. Jetpack `security-crypto` is deprecated and not used.
+- Android already encrypts app storage (file-based encryption). Checklist data is not highly sensitive, so the Room database is **not** additionally encrypted in v1 (ADR-011, no SQLCipher).
 - **Revisit trigger:** if a feature starts storing identity numbers, medical details or financial data inside checklist items, move the database to SQLCipher with a Keystore-wrapped passphrase through a tested migration.
-- Backups (`dataExtractionRules`, `fullBackupContent`) include checklists but exclude `user_profile` and Tink keysets. Keystore keys do not move to a new device, so a restored profile blob could never be decrypted anyway; the app detects this and asks the user to re-enter the profile.
+
+### The encrypted profile (implemented, Phase 5)
+
+**What is stored.** A display name (required, up to 50 characters) and an optional email and phone number. The Phase 0 sketch also listed a postal address and home/office locations; no v1 feature needs them, so they are not collected and the app asks for no location permission. Validation and normalization live in `ProfileValidator` in `:domain`.
+
+**How it is encrypted.** Envelope encryption with Tink (`com.google.crypto.tink:tink-android` 1.23.0):
+
+| Layer | What | Where it lives |
+|---|---|---|
+| Master key | AES-256-GCM key generated inside the Android Keystore (TEE-backed where available), non-exportable, alias `checklist_profile_master_v1`. No user authentication is required, so a lock-screen change does not invalidate it | Android Keystore; never in app files, never in a backup |
+| Data keyset | Tink AES-256-GCM keyset, encrypted by the master key with associated data `checklist/user_profile/keyset/v1` | Private SharedPreferences file `checklist_profile_keyset.xml`, excluded from backup |
+| Profile | One JSON payload encrypted by the keyset | `user_profile.enc_payload` (schema v1, row `id = 'me'`) |
+
+- **One ciphertext per row**, as section 5.3 designed: nothing in the profile needs SQL, and one blob does not reveal which fields are filled or how long each is. The v1 table is reused unchanged, so there is **no schema change and no migration**.
+- **Associated data binds the ciphertext to where it is stored**: `checklist.db/user_profile/enc_payload/id=<row>/v=<schema_version>/key=<key_alias>`. A blob copied into another row or column, or relabelled with another version or key alias, fails authentication rather than decrypting.
+- Keystore calls are slow, so the keyset is unwrapped once per process and the Keystore key is not used for every read.
+- Jetpack `security-crypto` (EncryptedSharedPreferences, MasterKey) is deprecated and not used. The Tink APIs used are the current ones: `AndroidKeystore` for the master key, `KeysetHandle.generateNew(PredefinedAeadParameters.AES256_GCM)`, `TinkProtoKeysetFormat.serializeEncryptedKeyset`/`parseEncryptedKeyset` in their `Configuration` overloads and `getPrimitive(RegistryConfiguration.get(), …)`; the build has no Tink deprecation warnings, not the deprecated `AndroidKeysetManager` builder options.
+- `UserProfile.toString()` and the internal payload's `toString()` print `***`, so the profile cannot leak through logs, crash messages or test output by accident.
+
+**Failure handling (never crash, never lose data by accident).** `EncryptedProfileRepository` reports problems through `ProfileState` instead of throwing:
+
+| Situation | What happens | UI sees |
+|---|---|---|
+| Keystore key missing, invalidated (`KeyPermanentlyInvalidatedException`, `UnrecoverableKeyException`) or replaced, so the keyset cannot be unwrapped | Profile row erased, keyset and key destroyed, fresh keys on the next save | `ProfileState.Reset` until a new profile is saved or `AcknowledgeProfileResetUseCase` runs |
+| Ciphertext fails authentication (tampering, relabelled row) | Row erased; the keys were fine and are kept | `ProfileState.Reset` |
+| Row present but no keys (data restored to a new phone; the keys stayed on the old one) | Row erased; no keys are created just by reading | `ProfileState.Reset` |
+| Keystore error that may be temporary (`ProviderException`, `KeyStoreException`) | Nothing deleted; saves return `DomainError.SecureStorageUnavailable` | `ProfileState.Unavailable` |
+| Row written by a newer app version | Nothing deleted | `ProfileState.Unavailable` |
+
+Erasing only deletes the row if it still holds the exact ciphertext that failed, so a profile saved in the meantime is never removed. **Clearing the profile** deletes the row and destroys both keys (crypto-shredding): even if old SQLite pages or a backup still hold the ciphertext, nothing can decrypt it. Clearing always works, so it is also the user's way out of `Unavailable`. The reset notice is held in memory; if the process dies before the UI shows it, the user simply finds no profile.
+
+### Backups and device transfer
+
+`android:dataExtractionRules` (Android 12+, cloud backup and device-to-device transfer) and `android:fullBackupContent` (Android 11 and lower) both exclude `sharedpref/checklist_profile_keyset.xml`. `BackupRulesTest` in `:app` keeps the rules and the file name in sync.
+
+- **Why the keyset is excluded:** it is useless without the Keystore key, which never leaves the device, and excluding it means a backup is never paired with any profile key material.
+- **Why the database is still backed up:** it holds the checklists, which users expect back on a new phone. Backup rules work on files, not tables, so the encrypted profile row travels inside `checklist.db`, as ciphertext only. No other device can decrypt it; on first read there the app erases it and shows `ProfileState.Reset` so the user can enter the profile again (risk table, section 25).
 
 ## Data leaving the device
 
@@ -43,8 +80,8 @@ The app is single-user, offline and has no backend or account. The realistic ris
 
 ## Code and logs
 
-- One logging wrapper, a no-op in release builds. Lint bans `Log.*` and `println` elsewhere (Phase 5).
-- Profile fields are wrapped in a `@Sensitive` value class whose `toString()` prints `***`.
+- One logging wrapper, a no-op in release builds; lint bans `Log.*` and `println` elsewhere (planned, deferred to Phase 8). The profile code logs nothing.
+- `UserProfile.toString()` prints `***` (implemented, Phase 5). This replaces the planned `@Sensitive` value class: one redacted type is simpler for screens and gives the same protection.
 - AI prompts and responses are never logged in release builds.
 - `debuggable=false` for release; exported components limited to the launcher activity (and a non-exported `FileProvider`).
 

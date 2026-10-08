@@ -116,7 +116,7 @@ Flavor means which environment; build type means how it is built (`release` is m
 | kotlinx.coroutines | Flows, suspend APIs | Implemented |
 | Hilt (KSP) | Dependency injection | Planned (Phase 2, CL-112) |
 | Room (KSP), DataStore | Storage | Planned (Phase 2) |
-| Tink + Android Keystore | Profile encryption | Planned (Phase 5) |
+| Tink (`tink-android`) + Android Keystore | Profile encryption | Implemented (Phase 5) |
 | Turbine, Robolectric, Roborazzi | Tests | Planned (Phase 2-7) |
 | Firebase AI Logic, App Check | Optional online AI | Planned (Phase 10) |
 

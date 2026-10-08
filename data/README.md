@@ -1,7 +1,7 @@
 # :data
 Room database (the single source of truth), the bundled seed catalog and the Hilt bindings of the
-domain repositories. DataStore settings, the encrypted profile, import/export and PDF arrive in later
-phases. Depends on `:domain`.
+domain repositories, and the encrypted profile. DataStore settings, import/export and PDF arrive in
+later phases. Depends on `:domain`.
 
 - `local/entity`, `local/dao`, `local/database`: schema v1 (architecture section 5.3). Exported
   schemas live in `schemas/` and are committed; never use a destructive migration.
@@ -13,4 +13,8 @@ phases. Depends on `:domain`.
 - `importexport` (Phase 6): `JsonTransferCodec` (the versioned JSON file of
   docs/import-export-format.md, with parse-time limits) and `RoomTransactionRunner` (the one
   transaction an import writes in). The pipeline itself is in `:domain` (`domain/transfer`).
-- `di`: `DataModule`, `ImportExportModule`.
+- `profile`: the encrypted profile (Phase 5). `KeysetProfileAeadProvider` holds a Tink AES-256-GCM
+  keyset wrapped by an Android Keystore key, `ProfileCipher` encrypts the row with associated data
+  bound to table, column, row, version and key alias, and `EncryptedProfileRepository` handles key
+  loss and tampering. Details: [docs/security.md](../docs/security.md).
+- `di`: `DataModule`, `ProfileModule`, `ImportExportModule`.
