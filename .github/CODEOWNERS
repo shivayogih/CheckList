@@ -1,0 +1,3 @@
+# The repository owner owns every file, so GitHub requests their review on every PR.
+# Branch rules rely on required CI checks rather than approval counts (design section 15.2).
+* @shivayogih

@@ -1,0 +1,70 @@
+name: Feature
+description: Propose new behavior or an improvement for users.
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. The maintainer assigns the CL-xxx ID and adds the row to
+        `docs/project-management/issues.csv` when the issue is accepted.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Who needs this and why? Describe the situation, not the solution.
+      placeholder: "Kamala wants to share her Diwali list with her son, but..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: What should the app do? Steps or a short user journey are ideal.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How will we know it is done? One check per line.
+      placeholder: |
+        - Works offline
+        - All 7 languages
+        - Usable with TalkBack and at 200% font scale
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Checklists
+        - Categories and items
+        - Search
+        - Languages
+        - Accessibility
+        - Profile and privacy
+        - Import, export and PDF
+        - AI (optional features)
+        - Settings
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Suggested priority
+      options:
+        - Low
+        - Medium
+        - High
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Alternatives and notes
+      description: Other approaches you considered, mockups, links.
+    validations:
+      required: false
