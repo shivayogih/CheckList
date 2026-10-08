@@ -1,0 +1,176 @@
+package com.dataloom.checklist.presentation.settings.profile
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dataloom.checklist.domain.model.ProfileState
+import com.dataloom.checklist.domain.model.UserProfile
+import com.dataloom.checklist.domain.usecase.AcknowledgeProfileResetUseCase
+import com.dataloom.checklist.domain.usecase.ClearProfileUseCase
+import com.dataloom.checklist.domain.usecase.DomainError
+import com.dataloom.checklist.domain.usecase.DomainResult
+import com.dataloom.checklist.domain.usecase.ObserveProfileUseCase
+import com.dataloom.checklist.domain.usecase.SaveProfileUseCase
+import com.dataloom.checklist.domain.validation.Field
+import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.toUiText
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/** What the encrypted store reported, as the screen needs it ([ProfileState] plus "still loading"). */
+enum class ProfileStatus { LOADING, NOT_SET, AVAILABLE, RESET, UNAVAILABLE }
+
+data class ProfileUiState(
+    val status: ProfileStatus = ProfileStatus.LOADING,
+    val name: String = "",
+    val nameError: UiText? = null,
+    val email: String = "",
+    val emailError: UiText? = null,
+    val phone: String = "",
+    val phoneError: UiText? = null,
+    val isSaving: Boolean = false,
+    val showClearConfirm: Boolean = false,
+) {
+    /** While secure storage is failing nothing can be read or saved; only "Delete profile" works. */
+    val canEdit: Boolean get() = status != ProfileStatus.LOADING && status != ProfileStatus.UNAVAILABLE
+
+    /** Delete is offered whenever something is (or may be) stored. */
+    val canClear: Boolean get() = status == ProfileStatus.AVAILABLE || status == ProfileStatus.UNAVAILABLE
+}
+
+sealed interface ProfileAction {
+    data class NameChanged(val name: String) : ProfileAction
+    data class EmailChanged(val email: String) : ProfileAction
+    data class PhoneChanged(val phone: String) : ProfileAction
+    data object Save : ProfileAction
+    data object AcknowledgeReset : ProfileAction
+    data object RequestClear : ProfileAction
+    data object ConfirmClear : ProfileAction
+    data object DismissClear : ProfileAction
+}
+
+sealed interface ProfileEffect {
+    data object Saved : ProfileEffect
+    data object Cleared : ProfileEffect
+    data class Error(val message: UiText) : ProfileEffect
+}
+
+/**
+ * The optional user profile (name, email, phone), stored only encrypted on the device (CL-135).
+ * The form is filled from the stored profile until the user starts typing, so a store update never
+ * overwrites unsaved edits.
+ */
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    observeProfile: ObserveProfileUseCase,
+    private val saveProfile: SaveProfileUseCase,
+    private val clearProfile: ClearProfileUseCase,
+    private val acknowledgeProfileReset: AcknowledgeProfileResetUseCase,
+) : ViewModel() {
+
+    private val state = MutableStateFlow(ProfileUiState())
+    val uiState: StateFlow<ProfileUiState> = state.asStateFlow()
+
+    private val effects = Channel<ProfileEffect>(Channel.BUFFERED)
+    val effect: Flow<ProfileEffect> = effects.receiveAsFlow()
+
+    /** True once the user has typed; stored values then no longer replace the form. */
+    private var edited = false
+
+    init {
+        viewModelScope.launch {
+            observeProfile().collect { profileState -> onStoreChanged(profileState) }
+        }
+    }
+
+    fun onAction(action: ProfileAction) {
+        when (action) {
+            is ProfileAction.NameChanged -> edit { it.copy(name = action.name, nameError = null) }
+            is ProfileAction.EmailChanged -> edit { it.copy(email = action.email, emailError = null) }
+            is ProfileAction.PhoneChanged -> edit { it.copy(phone = action.phone, phoneError = null) }
+            ProfileAction.Save -> save()
+            ProfileAction.AcknowledgeReset -> viewModelScope.launch { acknowledgeProfileReset() }
+            ProfileAction.RequestClear -> state.update { it.copy(showClearConfirm = true) }
+            ProfileAction.DismissClear -> state.update { it.copy(showClearConfirm = false) }
+            ProfileAction.ConfirmClear -> clear()
+        }
+    }
+
+    private fun onStoreChanged(profileState: ProfileState) {
+        val status = when (profileState) {
+            ProfileState.NotSet -> ProfileStatus.NOT_SET
+            is ProfileState.Available -> ProfileStatus.AVAILABLE
+            ProfileState.Reset -> ProfileStatus.RESET
+            ProfileState.Unavailable -> ProfileStatus.UNAVAILABLE
+        }
+        state.update { current ->
+            val withStatus = current.copy(status = status)
+            if (!edited && profileState is ProfileState.Available) withStatus.fill(profileState.profile) else withStatus
+        }
+    }
+
+    private fun edit(change: (ProfileUiState) -> ProfileUiState) {
+        edited = true
+        state.update(change)
+    }
+
+    private fun save() {
+        val current = state.value
+        if (current.isSaving || !current.canEdit) return
+        state.update { it.copy(isSaving = true) }
+        viewModelScope.launch {
+            when (val result = saveProfile(current.name, current.email, current.phone)) {
+                is DomainResult.Success -> {
+                    edited = false
+                    // Show the normalized values that were actually stored.
+                    state.update { it.fill(result.value).copy(isSaving = false) }
+                    effects.send(ProfileEffect.Saved)
+                }
+                is DomainResult.Failure -> {
+                    val error = result.error
+                    if (error is DomainError.Invalid) {
+                        val errors = error.errors
+                        fun errorFor(field: Field) = errors.firstOrNull { it.field == field }?.toUiText()
+                        state.update {
+                            it.copy(
+                                isSaving = false,
+                                nameError = errorFor(Field.DISPLAY_NAME),
+                                emailError = errorFor(Field.EMAIL),
+                                phoneError = errorFor(Field.PHONE),
+                            )
+                        }
+                    } else {
+                        state.update { it.copy(isSaving = false) }
+                        effects.send(ProfileEffect.Error(error.toUiText()))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun clear() {
+        state.update { it.copy(showClearConfirm = false) }
+        viewModelScope.launch {
+            clearProfile()
+            edited = false
+            state.update { it.fill(null) }
+            effects.send(ProfileEffect.Cleared)
+        }
+    }
+
+    private fun ProfileUiState.fill(profile: UserProfile?) = copy(
+        name = profile?.displayName.orEmpty(),
+        email = profile?.email.orEmpty(),
+        phone = profile?.phone.orEmpty(),
+        nameError = null,
+        emailError = null,
+        phoneError = null,
+    )
+}

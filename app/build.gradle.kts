@@ -116,6 +116,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     // QR code encoder for the PDF export; pure Java, drawn as vector rects.
@@ -133,4 +134,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }
