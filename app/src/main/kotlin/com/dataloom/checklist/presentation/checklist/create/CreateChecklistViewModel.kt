@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.create
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.CategoryId
@@ -37,6 +38,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 data class CreateChecklistUiState(
@@ -81,6 +83,7 @@ class CreateChecklistViewModel @Inject constructor(
     private val isTitleUsed: IsChecklistTitleUsedUseCase,
     createCategory: CreateCategoryUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     private data class Form(
@@ -92,7 +95,15 @@ class CreateChecklistViewModel @Inject constructor(
         val isSaving: Boolean = false,
     )
 
-    private val form = MutableStateFlow(Form())
+    // The typed title, description and ticked categories survive process death (they are not personal
+    // data: a checklist title is not the encrypted profile). Errors and the saving flag do not.
+    private val form = MutableStateFlow(
+        Form(
+            title = savedState.get<String>(KEY_TITLE).orEmpty(),
+            description = savedState.get<String>(KEY_DESCRIPTION).orEmpty(),
+            selected = savedState.get<ArrayList<String>>(KEY_SELECTED).orEmpty().mapTo(LinkedHashSet()) { CategoryId(it) },
+        ),
+    )
     private val newCategoryDialog = NewCategoryDialogController(createCategory) { languageProvider.language.value }
     private val effects = Channel<CreateChecklistEffect>(Channel.BUFFERED)
 
@@ -127,10 +138,10 @@ class CreateChecklistViewModel @Inject constructor(
 
     fun onAction(action: CreateChecklistAction) {
         when (action) {
-            is CreateChecklistAction.TitleChanged -> form.update { it.copy(title = action.title, titleError = null) }
+            is CreateChecklistAction.TitleChanged -> edit { it.copy(title = action.title, titleError = null) }
             is CreateChecklistAction.DescriptionChanged ->
-                form.update { it.copy(description = action.description, descriptionError = null) }
-            is CreateChecklistAction.ToggleCategory -> form.update {
+                edit { it.copy(description = action.description, descriptionError = null) }
+            is CreateChecklistAction.ToggleCategory -> edit {
                 it.copy(selected = if (action.id in it.selected) it.selected - action.id else it.selected + action.id)
             }
             CreateChecklistAction.OpenNewCategory -> newCategoryDialog.open()
@@ -138,10 +149,18 @@ class CreateChecklistViewModel @Inject constructor(
             CreateChecklistAction.DismissNewCategory -> newCategoryDialog.dismiss()
             CreateChecklistAction.ConfirmNewCategory -> viewModelScope.launch {
                 // A category the user just created is one they want in this checklist.
-                newCategoryDialog.confirm()?.let { id -> form.update { it.copy(selected = it.selected + id) } }
+                newCategoryDialog.confirm()?.let { id -> edit { it.copy(selected = it.selected + id) } }
             }
             CreateChecklistAction.Create -> create()
         }
+    }
+
+    /** Applies a user edit and mirrors the form fields into saved state. */
+    private fun edit(change: (Form) -> Form) {
+        val updated = form.updateAndGet(change)
+        savedState[KEY_TITLE] = updated.title
+        savedState[KEY_DESCRIPTION] = updated.description
+        savedState[KEY_SELECTED] = ArrayList(updated.selected.map { it.value })
     }
 
     private fun create() {
@@ -176,8 +195,11 @@ class CreateChecklistViewModel @Inject constructor(
         }
     }
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
         const val TITLE_CHECK_DEBOUNCE_MS = 300L
+        const val KEY_TITLE = "create_title"
+        const val KEY_DESCRIPTION = "create_description"
+        const val KEY_SELECTED = "create_selected_categories"
     }
 }

@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.home
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.ChecklistFilter
@@ -12,22 +13,27 @@ import com.dataloom.checklist.domain.usecase.DeleteChecklistUseCase
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.DuplicateChecklistUseCase
 import com.dataloom.checklist.domain.usecase.ObserveChecklistsUseCase
+import com.dataloom.checklist.domain.usecase.ObserveHasChecklistsUseCase
 import com.dataloom.checklist.domain.usecase.UnarchiveChecklistUseCase
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 /** One checklist on Home. */
@@ -84,8 +90,19 @@ sealed interface HomeEffect {
 /**
  * Home: the user's checklists with search, sort and the Active/Archived filter (FR-01, FR-09). The
  * list is a live Room query, so changes made on any other screen appear here without a refresh.
+ *
+ * State that must survive: the search text, sort and filter are written to [SavedStateHandle], so a
+ * killed process comes back to the same view. A rotation, a language change, dark mode or a font
+ * size change only recreates the activity; this ViewModel and its state flows stay. The "Delete?"
+ * dialog is held in memory only: after process death the user must ask again before anything is
+ * destroyed.
+ *
+ * Performance: the search text reaches the database only after [SEARCH_DEBOUNCE_MS] without typing
+ * (the text field itself updates at once), and clearing it applies immediately. Sort and filter apply
+ * immediately. "Does any checklist exist" is a one-row existence query, not a second copy of the
+ * whole list with its progress counts.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     observeChecklists: ObserveChecklistsUseCase,
@@ -93,18 +110,27 @@ class HomeViewModel @Inject constructor(
     private val archiveChecklist: ArchiveChecklistUseCase,
     private val unarchiveChecklist: UnarchiveChecklistUseCase,
     private val deleteChecklist: DeleteChecklistUseCase,
+    observeHasChecklists: ObserveHasChecklistsUseCase,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
-    private val query = MutableStateFlow(ChecklistQuery())
+    private val query = MutableStateFlow(restoredQuery())
     private val pendingDelete = MutableStateFlow<ChecklistRowUi?>(null)
     private val effects = Channel<HomeEffect>(Channel.BUFFERED)
 
     val effect: Flow<HomeEffect> = effects.receiveAsFlow()
 
+    /** What the database is asked: the search text is debounced, sort and filter are not. */
+    private val databaseQuery: Flow<ChecklistQuery> = combine(
+        query.map { it.search }.distinctUntilChanged().debounce { text -> if (text.isEmpty()) 0L else SEARCH_DEBOUNCE_MS },
+        query.map { it.sort }.distinctUntilChanged(),
+        query.map { it.filter }.distinctUntilChanged(),
+    ) { search, sort, filter -> ChecklistQuery(search = search, sort = sort, filter = filter) }
+
     val uiState: StateFlow<HomeUiState> = combine(
         query,
-        query.flatMapLatest { q -> observeChecklists(q) },
-        observeChecklists(ChecklistQuery(filter = ChecklistFilter.ALL)).map { it.isNotEmpty() },
+        databaseQuery.flatMapLatest { q -> observeChecklists(q) },
+        observeHasChecklists(),
         pendingDelete,
     ) { current, list, hasAny, delete ->
         // The results can lag the query by one database read; showing them beats a flashing spinner.
@@ -117,13 +143,18 @@ class HomeViewModel @Inject constructor(
             pendingDelete = delete,
             hasAnyChecklist = hasAny,
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), HomeUiState())
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
+        // The restored query is shown from the first frame, before the first database read.
+        query.value.let { HomeUiState(search = it.search, sort = it.sort, filter = it.filter) },
+    )
 
     fun onAction(action: HomeAction) {
         when (action) {
-            is HomeAction.SearchChanged -> query.value = query.value.copy(search = action.text)
-            is HomeAction.SortChanged -> query.value = query.value.copy(sort = action.sort)
-            is HomeAction.FilterChanged -> query.value = query.value.copy(filter = action.filter)
+            is HomeAction.SearchChanged -> updateQuery { it.copy(search = action.text) }
+            is HomeAction.SortChanged -> updateQuery { it.copy(sort = action.sort) }
+            is HomeAction.FilterChanged -> updateQuery { it.copy(filter = action.filter) }
             is HomeAction.Duplicate -> launchWrite {
                 when (val result = duplicateChecklist(action.id, action.copyTitle)) {
                     is DomainResult.Success -> HomeEffect.Duplicated(result.value.id, action.copyTitle.trim())
@@ -159,6 +190,21 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch { block()?.let { effects.send(it) } }
     }
 
+    private fun updateQuery(change: (ChecklistQuery) -> ChecklistQuery) {
+        val updated = query.updateAndGet(change)
+        savedState[KEY_SEARCH] = updated.search
+        savedState[KEY_SORT] = updated.sort.name
+        savedState[KEY_FILTER] = updated.filter.name
+    }
+
+    private fun restoredQuery() = ChecklistQuery(
+        search = savedState.get<String>(KEY_SEARCH).orEmpty(),
+        sort = savedState.get<String>(KEY_SORT)?.let { name -> ChecklistSort.entries.firstOrNull { it.name == name } }
+            ?: ChecklistSort.RECENT,
+        filter = savedState.get<String>(KEY_FILTER)?.let { name -> ChecklistFilter.entries.firstOrNull { it.name == name } }
+            ?: ChecklistFilter.ACTIVE,
+    )
+
     private fun ChecklistSummary.toRow() = ChecklistRowUi(
         id = checklist.id,
         title = checklist.title,
@@ -168,7 +214,11 @@ class HomeViewModel @Inject constructor(
         isArchived = checklist.isArchived,
     )
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
+        const val SEARCH_DEBOUNCE_MS = 250L
+        const val KEY_SEARCH = "home_search"
+        const val KEY_SORT = "home_sort"
+        const val KEY_FILTER = "home_filter"
     }
 }

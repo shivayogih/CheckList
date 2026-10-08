@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.masteritem
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
@@ -42,7 +43,7 @@ class AddItemsViewModelTest {
     private var checklistId = ChecklistId("")
     private var sectionId = SectionId("")
 
-    private suspend fun TestScope.viewModel(): AddItemsViewModel {
+    private suspend fun TestScope.viewModel(handle: SavedStateHandle = SavedStateHandle()): AddItemsViewModel {
         checklistId = repo.createChecklist("Diwali", null, listOf(groceries.id))
         sectionId = repo.detail(checklistId)!!.sections.single().id
         val vm = AddItemsViewModel(
@@ -53,6 +54,7 @@ class AddItemsViewModelTest {
             searchMasterItems = SearchMasterItemsUseCase(catalog),
             addMasterItems = AddMasterItemsToSectionUseCase(repo, catalog),
             languageProvider = FakeLanguageProvider(),
+            savedState = handle,
         )
         keepCollecting(vm.uiState)
         advanceUntilIdle()
@@ -82,6 +84,21 @@ class AddItemsViewModelTest {
         vm.onAction(AddItemsAction.AllCategoriesChanged(true))
         advanceUntilIdle()
         assertEquals(listOf("Soap", "Apple"), vm.rowNames())
+    }
+
+    @Test
+    fun `the search text and the all categories switch are restored after process death`() = runTest {
+        val handle = SavedStateHandle()
+        val first = viewModel(handle)
+        first.onAction(AddItemsAction.QueryChanged("ap"))
+        first.onAction(AddItemsAction.AllCategoriesChanged(true))
+        advanceUntilIdle()
+
+        val second = viewModel(handle)
+
+        assertEquals("ap", second.uiState.value.query)
+        assertTrue(second.uiState.value.allCategories)
+        assertEquals(listOf("Soap", "Apple"), second.rowNames())
     }
 
     @Test

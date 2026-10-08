@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.detail
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
@@ -55,7 +56,10 @@ class ChecklistDetailViewModelTest {
         repo.addItems(fruitsSection, listOf(newItem("Apple")))
     }
 
-    private fun TestScope.viewModel(writes: ChecklistRepository = repo): ChecklistDetailViewModel {
+    private fun TestScope.viewModel(
+        writes: ChecklistRepository = repo,
+        handle: SavedStateHandle = SavedStateHandle(),
+    ): ChecklistDetailViewModel {
         val vm = ChecklistDetailViewModel(
             checklistId = checklistId.value,
             observeDetail = ObserveChecklistDetailUseCase(repo),
@@ -68,6 +72,7 @@ class ChecklistDetailViewModelTest {
             updateChecklist = UpdateChecklistUseCase(repo),
             languageProvider = FakeLanguageProvider(),
             applicationScope = backgroundScope,
+            savedState = handle,
         )
         keepCollecting(vm.uiState)
         return vm
@@ -230,6 +235,22 @@ class ChecklistDetailViewModelTest {
         assertNull(vm.uiState.value.rename)
         assertEquals("Diwali 2026", vm.uiState.value.title)
         assertEquals("For the festival", repo.detail(checklistId)!!.checklist.description)
+    }
+
+    @Test
+    fun `an open rename dialog and its text are restored after process death`() = runTest {
+        seed()
+        val handle = SavedStateHandle()
+        val first = viewModel(handle = handle)
+        first.onAction(ChecklistDetailAction.StartRename)
+        first.onAction(ChecklistDetailAction.RenameChanged("Diwali 2027"))
+
+        val second = viewModel(handle = handle)
+
+        assertEquals("Diwali 2027", second.uiState.value.rename?.title)
+
+        second.onAction(ChecklistDetailAction.DismissRename)
+        assertNull(viewModel(handle = handle).uiState.value.rename)
     }
 
     @Test

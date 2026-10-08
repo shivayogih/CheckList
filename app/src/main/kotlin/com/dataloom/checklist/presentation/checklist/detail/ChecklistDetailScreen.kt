@@ -98,15 +98,18 @@ fun ChecklistDetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
-    val onAction = viewModel::onAction
+    val onAction = remember(viewModel) { viewModel::onAction }
 
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
     TransferEffects(transferViewModel, snackbarHostState)
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
-    val customUnitLabels = state.sections
-        .flatMap { section -> section.items.mapNotNull { it.unit } }
-        .filter { it.customLabel != null }
-        .associate { it.code to it.customLabel.orEmpty() }
+    // Recomputed only when the sections change, not on every recomposition (rename dialog, snackbar...).
+    val customUnitLabels = remember(state.sections) {
+        state.sections
+            .flatMap { section -> section.items.mapNotNull { it.unit } }
+            .filter { it.customLabel != null }
+            .associate { it.code to it.customLabel.orEmpty() }
+    }
     val unitLabels = rememberUnitLabels(customUnitLabels)
     val id = remember(checklistId) { ChecklistId(checklistId) }
     val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
@@ -204,16 +207,16 @@ private fun DetailContent(
             contentPadding = PaddingValues(bottom = 24.dp),
         ) {
             if (!state.isLoading) {
-                item { ProgressHeader(state) }
+                item(key = "progress", contentType = "progress") { ProgressHeader(state) }
             }
             // Only while the assistant is on in Settings; the screen works the same without it.
             if (!state.isLoading && aiState.isAvailable) {
-                item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
+                item(key = "ai-command", contentType = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
-                item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
+                item(key = "header-${section.id.value}", contentType = "section-header") { SectionHeader(section, onAction) }
                 if (section.items.isEmpty()) {
-                    item(key = "empty-${section.id.value}") {
+                    item(key = "empty-${section.id.value}", contentType = "section-empty") {
                         Text(
                             stringResource(R.string.detail_section_empty),
                             style = MaterialTheme.typography.bodyMedium,
@@ -222,20 +225,20 @@ private fun DetailContent(
                         )
                     }
                 }
-                items(section.items, key = { it.id.value }) { item ->
+                items(section.items, key = { it.id.value }, contentType = { "item" }) { item ->
                     ItemRow(
                         item = item,
                         onAction = onAction,
                         onEdit = { navigation.onEditItem(section.id, item.id) },
                     )
                 }
-                item(key = "add-${section.id.value}") {
+                item(key = "add-${section.id.value}", contentType = "add-item") {
                     AddItemButton(section.name) { navigation.onAddItem(section.id) }
                     HorizontalDivider()
                 }
             }
             if (!state.isLoading) {
-                item { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
+                item(key = "footer", contentType = "footer") { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
             }
         }
     }

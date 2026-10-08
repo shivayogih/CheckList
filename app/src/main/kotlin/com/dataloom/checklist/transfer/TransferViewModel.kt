@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.BuildConfig
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.UnitCode
@@ -31,7 +32,7 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.Locale
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -96,6 +97,7 @@ class TransferViewModel @Inject constructor(
     private val pdfWriter: ChecklistPdfWriter,
     private val exportFiles: ExportFiles,
     private val sharer: FileSharer,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TransferUiState())
@@ -119,14 +121,15 @@ class TransferViewModel @Inject constructor(
      */
     fun shareExport(checklistIds: List<ChecklistId>? = null) = runBusy {
         val request = ExportRequest(checklistIds, locale = locale, appVersion = BuildConfig.VERSION_NAME)
-        val file = exportFiles.newFile(TransferDocuments.exportFileName())
+        val file = withContext(io) { exportFiles.newFile(TransferDocuments.exportFileName()) }
         val result = exportChecklists(request) { file.outputStream() }
         if (result !is ExportResult.Exported) {
             file.delete()
             return@runBusy _effects.send(TransferEffect.Exported(result))
         }
         val message = ExportShareText.build(exportShareStrings(), StoreLink.of(BuildConfig.PLAY_STORE_URL))
-        _effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text)))
+        // FileProvider parses its path XML on first use: keep that off the main thread too.
+        _effects.send(TransferEffect.Share(withContext(io) { sharer.shareIntent(file, TransferDocuments.JSON_MIME_TYPE, message.subject, message.text) }))
     }
 
     private fun exportShareStrings(): ExportShareStrings {
@@ -173,9 +176,9 @@ class TransferViewModel @Inject constructor(
     fun sharePdf(checklistId: ChecklistId, options: PdfOptions = PdfOptions(), unitLabels: UnitLabels? = null) = runBusy {
         val detail = observeDetail(checklistId, locale).first() ?: return@runBusy _effects.send(TransferEffect.ChecklistMissing)
         val labels = unitLabels ?: defaultUnitLabels()
-        val file = exportFiles.newFile(TransferDocuments.pdfFileName(detail.checklist.title))
+        val file = withContext(io) { exportFiles.newFile(TransferDocuments.pdfFileName(detail.checklist.title)) }
         writePdf(detail, options, labels) { file.outputStream() }
-        _effects.send(TransferEffect.Share(sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, detail.checklist.title)))
+        _effects.send(TransferEffect.Share(withContext(io) { sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, detail.checklist.title) }))
     }
 
     /** Saves the PDF to a document the user created with [TransferDocuments.createPdf]. */
@@ -186,7 +189,7 @@ class TransferViewModel @Inject constructor(
     }
 
     private suspend fun writePdf(detail: ChecklistDetail, options: PdfOptions, labels: UnitLabels, open: () -> OutputStream) =
-        withContext(Dispatchers.IO) { open().use { pdfWriter.write(detail, options, labels, it) } }
+        withContext(io) { open().use { pdfWriter.write(detail, options, labels, it) } }
 
     private suspend fun defaultUnitLabels(): UnitLabels {
         val custom = observeUnits().first().filter { it.isCustom }.associate { it.code to it.customLabel }
