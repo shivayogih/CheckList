@@ -1,0 +1,6 @@
+# CI agents (Phase 11). Checked on PyPI 2026-10-08:
+# - google-adk 2.10.0 (2026-09-25, requires Python >= 3.10). 2.11.0 (2026-10-02) exists; it is less than
+#   two weeks old, so the previous release is pinned (supply-chain cooldown). Dependabot proposes updates.
+# - pytest 9.1.1.
+google-adk==2.10.0
+pytest==9.1.1

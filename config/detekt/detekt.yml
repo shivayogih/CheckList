@@ -1,0 +1,23 @@
+# detekt 2 configuration (CL-182). Only the differences from detekt's default config are listed:
+# ci/scripts/detekt.sh runs with --build-upon-default-config. Each change below is a project
+# convention, not a way to hide findings. Findings in code written before detekt was adopted are
+# listed in config/detekt/baseline.xml instead (see docs/ci-cd.md, "Static analysis").
+
+naming:
+  FunctionNaming:
+    # Jetpack Compose convention: @Composable functions are nouns in PascalCase.
+    ignoreAnnotated: ['Composable']
+
+style:
+  ReturnCount:
+    # Early returns for validation failures ("guard clauses") are the house style for use cases
+    # that return DomainResult; only the returns after the guards count towards the limit.
+    excludeGuardClauses: true
+  ForbiddenImport:
+    # Release-safe logging (design 19.3): log through AppLog, never android.util.Log directly.
+    # tools/checks/logging_ban.py also bans println, print and System.out/err in main sources.
+    active: true
+    forbiddenImports:
+      - value: 'android.util.Log'
+        reason: 'Use com.dataloom.checklist.domain.common.AppLog; it does nothing in release builds.'
+    excludes: ['**/logging/AndroidLogSink.kt']
