@@ -1,0 +1,419 @@
+# =====================================================================================
+# CheckList: Bitrise configuration (Phase 9, CL-190..CL-197)
+#
+# Read docs/bitrise-setup.md first: it explains every secret named below and how to
+# create it, and how to keep this project under the free Hobby plan's 300 credits/month.
+#
+# How this file is organised
+#   meta          which build machine runs the builds (stack + machine type)
+#   app.envs      plain, NON-secret settings shared by every workflow
+#   step_bundles  reusable groups of steps ("setup" and "finish"); they replace the
+#                 legacy before_run/after_run chaining
+#   workflows     pr, dev, staging, production; each one declares its own target-based
+#                 `triggers:` (the legacy project-level trigger_map is not used)
+#
+# Which workflow runs when (GitHub Actions does the frequent work for free; Bitrise
+# only runs on rare events so credits last the month; see architecture section 16.2)
+#   pr          pull request INTO main or release/*   tests, lint, assembleDevDebug
+#   dev         push to develop                       assembleDevDebug -> Firebase (dev testers)
+#   staging     push to release/*                     tests -> staging APK -> Firebase (staging testers)
+#                                                     production AAB -> sign -> Play closed testing
+#   production  tag vX.Y.Z                            validate -> tests + lint -> production AAB
+#                                                     -> sign -> release notes -> Play production (draft)
+#
+# Secrets are referenced ONLY by name ($BITRISEIO_..., $FIREBASE_...). Their values live
+# in Bitrise (Project settings > Code signing & files, and Secrets), never in this file.
+# Steps that need a secret are guarded by `run_if` so a missing secret skips the step with
+# a clear log line instead of failing (except production, which fails fast on purpose).
+#
+# Step versions are locked to a major version (e.g. git-clone@8): Bitrise then picks up
+# the latest compatible fixes. Versions verified on 2026-10-08 (see docs/bitrise-setup.md).
+# =====================================================================================
+
+format_version: "25"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+
+meta:
+  bitrise.io:
+    # Ubuntu 24.04 stack with the Android SDK; the "Linux Medium" machine (machine type id
+    # `standard`) is the one available on the Hobby plan. Check both in the Workflow Editor
+    # under "Stacks & Machines" if Bitrise ever renames them.
+    stack: ubuntu-noble-24.04-bitrise-2025-android
+    machine_type_id: standard
+
+app:
+  envs:
+  # Gradle project layout.
+  - PROJECT_LOCATION: .
+  - MODULE: app
+  # Production applicationId. Play needs it for uploads; staging/dev add .staging / .dev.
+  - PACKAGE_NAME: com.dataloom.checklist
+  # Extra arguments for every Gradle call. The build cache is already on in gradle.properties.
+  - GRADLE_ARGS: --stacktrace
+  # Unit tests for every module, one variant each (running `test` would build all six
+  # variants of :app and roughly double the minutes). Add new modules here.
+  - UNIT_TEST_TASKS: ":domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest"
+  # Play track for closed testing. "alpha" is the API name of Play Console's default
+  # closed testing track; change it if you create a custom closed track.
+  - PLAY_CLOSED_TRACK: alpha
+  # Release status on the closed track. Use "draft" until the app has completed its first
+  # release in Play Console (Play only accepts draft releases for a never-published app).
+  - PLAY_CLOSED_STATUS: completed
+  # Firebase App Distribution tester group aliases (Firebase console > App Distribution >
+  # Testers & Groups). Not secret.
+  - FIREBASE_GROUPS_DEV: dev-testers
+  - FIREBASE_GROUPS_STAGING: staging-testers
+  # Scratch folder for CI outputs (build/ is git-ignored).
+  - CI_OUT_DIR: $BITRISE_SOURCE_DIR/build/ci
+
+step_bundles:
+  # -------------------------------------------------------------------------------------
+  # setup: check out the code, select JDK 17 and restore the Gradle dependency cache.
+  # -------------------------------------------------------------------------------------
+  setup:
+    summary: Clone, JDK 17, restore Gradle cache
+    inputs:
+    # Empty = Bitrise's default shallow clone (fastest). Workflows that write release
+    # notes or validate tags pass "-1" (full history) because they read `git log`.
+    - clone_depth: ""
+    # "yes" also fetches tags, needed to find the previous release for release notes.
+    - fetch_tags: "no"
+    steps:
+    - git-clone@8:
+        inputs:
+        - clone_depth: $clone_depth
+        - fetch_tags: $fetch_tags
+    - set-java-version@1:
+        inputs:
+        # AGP 9 / Gradle 9 need JDK 17+; the app targets Java 17 (compileOptions).
+        - set_java_version: "17"
+    # Key-based cache: the key is derived from the Gradle files automatically, so editing
+    # libs.versions.toml or the wrapper starts a fresh cache. Saves several minutes a build.
+    - restore-gradle-cache@3: {}
+
+  # -------------------------------------------------------------------------------------
+  # finish: publish test results and reports, save the cache, upload artifacts.
+  # Every step here also runs after a failure, so a red build still shows its reports.
+  # -------------------------------------------------------------------------------------
+  finish:
+    summary: Reports, Gradle cache, artifacts
+    steps:
+    - script@1:
+        title: Collect test results and reports
+        is_always_run: true
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            ci/scripts/collect-reports.sh "$CI_OUT_DIR"
+    - custom-test-results-export@1:
+        title: Export unit test results to Test Reports
+        is_always_run: true
+        # A build with no tests (e.g. dev) has nothing to export: skip instead of failing.
+        is_skippable: true
+        run_if: '{{ getenv "CI_JUNIT_FILE" | ne "" }}'
+        inputs:
+        - test_name: unit-tests
+        - base_path: $CI_JUNIT_FILE
+        # base_path is a single file, so the docs say to use "*" here.
+        - search_pattern: "*"
+    # Saving the cache costs upload time, so only builds of real branches save it;
+    # PR builds reuse it read-only.
+    - save-gradle-cache@1:
+        run_if: '{{ not .IsPR }}'
+    - deploy-to-bitrise-io@2:
+        is_always_run: true
+        inputs:
+        # The repository is public: no public install pages for our builds, no e-mails.
+        - is_enable_public_page: "false"
+        - notify_user_groups: none
+
+workflows:
+  # ===================================================================================
+  # pr: pull requests into main or release/*. PRs into develop are checked by GitHub
+  # Actions only (free and unlimited on a public repo), which keeps this rare.
+  # Secrets are NOT available here (keep "Expose for Pull Requests" off for all of them).
+  # ===================================================================================
+  pr:
+    title: PR checks (main, release/*)
+    summary: Unit tests, lint and a dev debug build for PRs into main or release/*.
+    triggers:
+      pull_request:
+      - target_branch: main
+        draft_enabled: false
+      - target_branch:
+          regex: '^release/.+$'
+        draft_enabled: false
+    steps:
+    - bundle::setup: {}
+    - script@1:
+        title: Unit tests and lint
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            # One Gradle call for tests and lint: the project is configured only once.
+            # --continue runs lint even when a test fails, so both reports are produced.
+            ./gradlew $GRADLE_ARGS --continue $UNIT_TEST_TASKS :app:lintDevDebug
+    - android-build@1:
+        title: Build devDebug APK
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: devDebug
+        - build_type: apk
+        - arguments: $GRADLE_ARGS
+    - bundle::finish: {}
+
+  # ===================================================================================
+  # dev: every push to develop. Builds the debug-signed dev APK and sends it to the dev
+  # testers in Firebase App Distribution. No tests: the PR into develop already ran them
+  # on GitHub Actions. If the Firebase secrets are missing, the build still succeeds and
+  # the APK is downloadable from the Bitrise build page.
+  # ===================================================================================
+  dev:
+    title: Dev build to Firebase
+    summary: assembleDevDebug and Firebase App Distribution (dev testers).
+    triggers:
+      push:
+      - branch: develop
+    steps:
+    - bundle::setup:
+        inputs:
+        # Enough history for useful tester notes without a full clone.
+        - clone_depth: "50"
+        - fetch_tags: "yes"
+    - android-build@1:
+        title: Build devDebug APK
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: devDebug
+        - build_type: apk
+        - arguments: $GRADLE_ARGS
+    - script@1:
+        title: Write tester notes
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            mkdir -p "$CI_OUT_DIR"
+            ci/scripts/release-notes.sh --max 10 > "$CI_OUT_DIR/release-notes.txt"
+            envman add --key RELEASE_NOTES_FILE --value "$CI_OUT_DIR/release-notes.txt"
+    - script@1:
+        title: Firebase secrets missing, skipping distribution
+        run_if: '{{ or (getenv "BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL" | eq "") (getenv "FIREBASE_APP_ID_DEV" | eq "") }}'
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            echo "Skipping Firebase App Distribution: add the FIREBASE_SERVICE_ACCOUNT file and the"
+            echo "FIREBASE_APP_ID_DEV secret (docs/bitrise-setup.md, step 6) to enable it."
+            echo "The APK is still available under Artifacts on this build page."
+    - firebase-app-distribution@0.12:
+        run_if: '{{ and (getenv "BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL" | ne "") (getenv "FIREBASE_APP_ID_DEV" | ne "") }}'
+        inputs:
+        - service_credentials_file: $BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL
+        - app: $FIREBASE_APP_ID_DEV
+        - app_path: $BITRISE_APK_PATH
+        - release_notes_file: $RELEASE_NOTES_FILE
+        - groups: $FIREBASE_GROUPS_DEV
+    - bundle::finish: {}
+
+  # ===================================================================================
+  # staging: every push to release/*. Two outputs from one build:
+  #   1. staging APK (com.dataloom.checklist.staging), signed with the upload key, to the
+  #      staging testers in Firebase App Distribution. An APK, not an AAB: Firebase only
+  #      accepts AABs for an app that is linked to and published on Google Play, and the
+  #      .staging app never is.
+  #   2. production AAB (com.dataloom.checklist), signed with the upload key, to Play's
+  #      closed testing track (the 12-testers/14-days rule, architecture section 17.3).
+  # Every push to release/* is a new Play upload, so VERSION_BUILD in version.properties
+  # must be bumped first; the version check fails the build in seconds otherwise.
+  # ===================================================================================
+  staging:
+    title: Staging build to Firebase and Play closed testing
+    summary: Tests, signed staging APK to Firebase, signed production AAB to Play closed testing.
+    triggers:
+      push:
+      - branch:
+          regex: '^release/.+$'
+    steps:
+    - bundle::setup:
+        inputs:
+        - clone_depth: "-1"
+        - fetch_tags: "yes"
+    - script@1:
+        title: Check versionCode is new
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            ci/scripts/validate-version.sh --code-only
+    - script@1:
+        title: Unit tests
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            ./gradlew $GRADLE_ARGS $UNIT_TEST_TASKS
+    - script@1:
+        title: Write release notes
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            # Writes build/ci/whatsnew/whatsnew-en-US (Play) and prints the same text.
+            ci/scripts/release-notes.sh --out-dir "$CI_OUT_DIR/whatsnew"
+            envman add --key RELEASE_NOTES_FILE --value "$CI_OUT_DIR/whatsnew/whatsnew-en-US"
+    - script@1:
+        title: Signing or Firebase secrets missing, skipping distribution
+        run_if: '{{ or (getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | eq "") (getenv "BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL" | eq "") (getenv "FIREBASE_APP_ID_STAGING" | eq "") (getenv "BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL" | eq "") }}'
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            missing=()
+            [ -n "${BITRISEIO_ANDROID_KEYSTORE_URL:-}" ] || missing+=("upload keystore (Code signing & files)")
+            [ -n "${BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL:-}" ] || missing+=("FIREBASE_SERVICE_ACCOUNT file")
+            [ -n "${FIREBASE_APP_ID_STAGING:-}" ] || missing+=("FIREBASE_APP_ID_STAGING secret")
+            [ -n "${BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL:-}" ] || missing+=("SERVICE_ACCOUNT_JSON_KEY file (Play)")
+            echo "Missing: ${missing[*]}"
+            echo "Steps that need them are skipped; see docs/bitrise-setup.md."
+    # --- 1. Staging APK -> Firebase App Distribution --------------------------------
+    - android-build@1:
+        title: Build stagingRelease APK
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: stagingRelease
+        - build_type: apk
+        - arguments: $GRADLE_ARGS
+    - sign-apk@2:
+        title: Sign staging APK
+        run_if: '{{ getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne "" }}'
+        inputs:
+        - android_app: $BITRISE_APK_PATH
+        - output_name: checklist-staging-signed
+        # Release builds are never debuggable; refuse to sign one by mistake.
+        - debuggable_permitted: "false"
+    - firebase-app-distribution@0.12:
+        run_if: '{{ and (getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne "") (getenv "BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL" | ne "") (getenv "FIREBASE_APP_ID_STAGING" | ne "") }}'
+        inputs:
+        - service_credentials_file: $BITRISEIO_FIREBASE_SERVICE_ACCOUNT_URL
+        - app: $FIREBASE_APP_ID_STAGING
+        - app_path: $BITRISE_SIGNED_APK_PATH
+        - release_notes_file: $RELEASE_NOTES_FILE
+        - groups: $FIREBASE_GROUPS_STAGING
+    # --- 2. Production AAB -> Play closed testing -------------------------------------
+    - android-build@1:
+        title: Build productionRelease AAB
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: productionRelease
+        - build_type: aab
+        - arguments: $GRADLE_ARGS
+    - sign-apk@2:
+        title: Sign production AAB with the upload key
+        run_if: '{{ getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne "" }}'
+        inputs:
+        - android_app: $BITRISE_AAB_PATH
+        - output_name: checklist-production-signed
+        - debuggable_permitted: "false"
+    - google-play-deploy@4:
+        title: Upload to Play closed testing
+        run_if: '{{ and (getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne "") (getenv "BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL" | ne "") }}'
+        inputs:
+        - service_account_json_key_path: $BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL
+        - package_name: $PACKAGE_NAME
+        - app_path: $BITRISE_SIGNED_AAB_PATH
+        - track: $PLAY_CLOSED_TRACK
+        - status: $PLAY_CLOSED_STATUS
+        - whatsnews_dir: $CI_OUT_DIR/whatsnew
+        # The AAB carries its own R8 mapping file, so mapping_file stays empty (v4 default).
+    - bundle::finish: {}
+
+  # ===================================================================================
+  # production: a tag vX.Y.Z (created on main after the release PR is merged).
+  # Uploads to Play as a DRAFT on the production track: nothing reaches users until you
+  # press "Release" in Play Console yourself. This is the manual approval gate.
+  # Missing secrets fail this workflow on purpose: a release must never half-run.
+  # ===================================================================================
+  production:
+    title: Production release to Play (draft)
+    summary: Validate tag and version, full tests and lint, signed AAB to Play production as a draft.
+    triggers:
+      tag:
+      - name:
+          regex: '^v\d+\.\d+\.\d+$'
+    steps:
+    - bundle::setup:
+        inputs:
+        - clone_depth: "-1"
+        - fetch_tags: "yes"
+    - script@1:
+        title: Validate tag, version and branch
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            # Tag == versionName, versionCode > every code in releases.csv, tag on origin/main.
+            # Exports VERSION_NAME and VERSION_CODE for later steps.
+            ci/scripts/validate-version.sh "$BITRISE_GIT_TAG"
+    - script@1:
+        title: Check release secrets exist
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            missing=0
+            for name in BITRISEIO_ANDROID_KEYSTORE_URL BITRISEIO_ANDROID_KEYSTORE_PASSWORD \
+                        BITRISEIO_ANDROID_KEYSTORE_ALIAS BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL; do
+              if [ -z "${!name:-}" ]; then
+                echo "Missing secret: $name"
+                missing=1
+              fi
+            done
+            # Fail before the expensive build, not after it.
+            [ "$missing" -eq 0 ] || { echo "See docs/bitrise-setup.md, steps 4 and 5."; exit 1; }
+    - script@1:
+        title: Unit tests and release lint
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            ./gradlew $GRADLE_ARGS --continue $UNIT_TEST_TASKS :app:lintProductionRelease
+    - android-build@1:
+        title: Build productionRelease AAB
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: productionRelease
+        - build_type: aab
+        - arguments: $GRADLE_ARGS
+    - sign-apk@2:
+        title: Sign production AAB with the upload key
+        inputs:
+        - android_app: $BITRISE_AAB_PATH
+        - output_name: checklist-$BITRISE_GIT_TAG-signed
+        - debuggable_permitted: "false"
+    - script@1:
+        title: Write release notes
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -euo pipefail
+            # Notes since the previous v* tag, user-facing commits only, max 500 characters.
+            ci/scripts/release-notes.sh --to "$BITRISE_GIT_TAG" --out-dir "$CI_OUT_DIR/whatsnew"
+            cp "$CI_OUT_DIR/whatsnew/whatsnew-en-US" "$BITRISE_DEPLOY_DIR/release-notes-$BITRISE_GIT_TAG.txt"
+    - google-play-deploy@4:
+        title: Upload to Play production as a draft
+        inputs:
+        - service_account_json_key_path: $BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL
+        - package_name: $PACKAGE_NAME
+        - app_path: $BITRISE_SIGNED_AAB_PATH
+        - track: production
+        - status: draft
+        - release_name: $VERSION_NAME ($VERSION_CODE)
+        - whatsnews_dir: $CI_OUT_DIR/whatsnew
+    - bundle::finish: {}
