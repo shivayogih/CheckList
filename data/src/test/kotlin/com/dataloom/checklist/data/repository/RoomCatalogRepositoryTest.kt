@@ -33,8 +33,9 @@ class RoomCatalogRepositoryTest {
     private val catalog = RoomCatalogRepository(db, clock, ids)
     private val checklists = RoomChecklistRepository(db, clock, ids)
 
-    private lateinit var groceries: CategoryId
-    private lateinit var vegetables: CategoryId
+    // Assigned in setUp; value classes cannot be lateinit.
+    private var groceries = CategoryId("")
+    private var vegetables = CategoryId("")
 
     @Before
     fun setUp() = runTest {

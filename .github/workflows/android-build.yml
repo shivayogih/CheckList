@@ -34,10 +34,12 @@ jobs:
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :app:testDevDebugUnitTest
 
-      # TEMPORARY (CL-112): prints the generated Room schema so it can be committed; removed afterwards.
-      - name: Print Room schema
-        if: always()
-        run: find data/schemas data/build -path '*schemas*' -name '*.json' -print -exec cat {} \; || true
+      # The build regenerates Room schemas into data/schemas; any difference means an entity changed
+      # without its exported schema (and migration) being committed.
+      - name: Room schema is committed
+        run: |
+          git status --porcelain -- data/schemas
+          test -z "$(git status --porcelain -- data/schemas)"
 
       - name: Lint
         run: ./gradlew --stacktrace :app:lintDevDebug
