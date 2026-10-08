@@ -24,4 +24,4 @@ Each flavor overrides the colour `launcher_background`, the adaptive icon XMLs a
 
 ## Where AppLogo is used
 
-`AppLogo` is shown in Settings > About. The Welcome / first-run screen (CL-250 onboarding branch, not merged when this was done) should call `AppLogo(size = 96.dp)`.
+`AppLogo` is shown in Settings > About. The Welcome / first-run screen (`WelcomeContent`) shows `AppLogo(size = 96.dp)`.
