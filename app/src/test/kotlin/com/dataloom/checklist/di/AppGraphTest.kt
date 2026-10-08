@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.test.core.app.ActivityScenario
+import com.dataloom.checklist.ai.AiAssistant
 import com.dataloom.checklist.MainActivity
 import com.dataloom.checklist.domain.repository.CatalogRepository
 import com.dataloom.checklist.domain.repository.ChecklistRepository
@@ -12,12 +13,14 @@ import com.dataloom.checklist.domain.transfer.ApplyImportUseCase
 import com.dataloom.checklist.domain.transfer.ExportChecklistsUseCase
 import com.dataloom.checklist.domain.transfer.PreviewImportUseCase
 import com.dataloom.checklist.localization.AppLanguageProvider
+import com.dataloom.checklist.presentation.ai.AiCommandViewModel
 import com.dataloom.checklist.presentation.category.AddCategoriesViewModel
 import com.dataloom.checklist.presentation.checklist.create.CreateChecklistViewModel
 import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailViewModel
 import com.dataloom.checklist.presentation.checklist.item.ItemEditorViewModel
 import com.dataloom.checklist.presentation.home.HomeViewModel
 import com.dataloom.checklist.presentation.masteritem.AddItemsViewModel
+import com.dataloom.checklist.presentation.settings.AiSettingsViewModel
 import com.dataloom.checklist.presentation.settings.profile.ProfileViewModel
 import com.dataloom.checklist.transfer.DocumentAccess
 import com.dataloom.checklist.transfer.FileSharer
@@ -27,6 +30,7 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
+import javax.inject.Provider
 import kotlin.reflect.KClass
 import kotlinx.coroutines.CoroutineScope
 import org.junit.Assert.assertNotNull
@@ -44,9 +48,9 @@ import org.robolectric.RobolectricTestRunner
  * which catches what compiles but fails on construction (a module that throws, a scope mistake, a
  * ViewModel whose assisted factory is wired wrong). Nothing is replaced: it uses the real modules.
  *
- * `AiAssistant` is not requested yet: injecting it exposed a dependency cycle in :ai's AiModule
- * (`Optional<AiSettingsSource>` is satisfied by `provideSettings` itself). That module belongs to
- * the AI track, which binds the Settings source; add `AiAssistant` here once it is fixed.
+ * Requesting `AiAssistant` here first exposed a dependency cycle in :ai's AiModule
+ * (`Optional<AiSettingsSource>` satisfied by its own provider), since fixed by the `@AiSettingsStore`
+ * qualifier; the test keeps that graph honest.
  */
 @HiltAndroidTest
 @RunWith(RobolectricTestRunner::class)
@@ -75,6 +79,8 @@ class AppGraphTest {
 
     @Inject lateinit var pdfWriter: ChecklistPdfWriter
 
+    @Inject lateinit var aiAssistant: Provider<AiAssistant>
+
     @Inject @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
@@ -86,11 +92,12 @@ class AppGraphTest {
     }
 
     @Test
-    fun `singleton graph provides repositories and transfer services`() {
+    fun `singleton graph provides repositories, transfer services and the AI assistant`() {
         listOf(
             catalogRepository, profileRepository, languageProvider, exportChecklists, previewImport, applyImport,
             documentAccess, fileSharer, pdfWriter, applicationScope,
         ).forEach(::assertNotNull)
+        assertNotNull(aiAssistant.get())
         // One database and one repository per process (Room invalidation needs a single instance).
         assertSame(checklistRepository, otherChecklistRepository)
     }
@@ -105,6 +112,7 @@ class AppGraphTest {
                     CreateChecklistViewModel::class.java,
                     ProfileViewModel::class.java,
                     TransferViewModel::class.java,
+                    AiSettingsViewModel::class.java,
                 ).forEach { assertNotNull(provider[it]) }
 
                 val extras = activity.defaultViewModelCreationExtras
@@ -127,6 +135,12 @@ class AppGraphTest {
                     assisted(
                         AddItemsViewModel::class,
                         extras.withCreationCallback<AddItemsViewModel.Factory> { it.create(MISSING_ID, MISSING_ID) },
+                    ),
+                )
+                assertNotNull(
+                    assisted(
+                        AiCommandViewModel::class,
+                        extras.withCreationCallback<AiCommandViewModel.Factory> { it.create(MISSING_ID) },
                     ),
                 )
                 assertNotNull(
