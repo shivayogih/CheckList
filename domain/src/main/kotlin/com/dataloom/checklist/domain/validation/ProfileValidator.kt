@@ -3,7 +3,8 @@ package com.dataloom.checklist.domain.validation
 import com.dataloom.checklist.domain.model.UserProfile
 
 /**
- * Profile rules. Normalization: the display name is trimmed and inner whitespace (line breaks too)
+ * Profile rules. Every field is optional (CL-250): blank input becomes null, and a profile with no
+ * values is valid (it is simply empty). Normalization: the display name is trimmed and inner whitespace (line breaks too)
  * collapsed to one space; blank optional fields become null; phone digits typed on an Indic keyboard
  * (for example "९८७") are stored as ASCII digits so the number dials and exports the same everywhere.
  */
@@ -14,20 +15,39 @@ object ProfileValidator {
 
     private val WHITESPACE_RUN = Regex("\\s+")
 
-    fun validate(displayName: String, email: String?, phone: String?): ValidationResult<UserProfile> {
-        val (cleanName, nameError) = requiredText(
-            displayName.collapseWhitespace(),
+    fun validate(
+        displayName: String?,
+        email: String?,
+        phone: String?,
+        address: String? = null,
+    ): ValidationResult<UserProfile> {
+        val (cleanName, nameError) = optionalText(
+            displayName?.collapseWhitespace(),
             FieldLimits.DISPLAY_NAME_MAX,
-            ValidationError.DISPLAY_NAME_BLANK,
             ValidationError.DISPLAY_NAME_TOO_LONG,
         )
         val (cleanEmail, emailError) = emailOf(email)
         val (cleanPhone, phoneError) = phoneOf(phone)
+        val (cleanAddress, addressError) = optionalText(
+            address?.let(::cleanAddress),
+            FieldLimits.ADDRESS_MAX,
+            ValidationError.ADDRESS_TOO_LONG,
+        )
         return validationOf(
-            UserProfile(cleanName, cleanEmail, cleanPhone),
-            listOfNotNull(nameError, emailError, phoneError),
+            UserProfile(cleanName, cleanEmail, cleanPhone, cleanAddress),
+            listOfNotNull(nameError, emailError, phoneError, addressError),
         )
     }
+
+    /**
+     * Addresses keep their line breaks (one line per row of the form) but each line is trimmed, inner
+     * whitespace collapsed, blank lines dropped and other control characters removed.
+     */
+    private fun cleanAddress(raw: String): String =
+        raw.replace("\r\n", "\n").replace('\r', '\n').split('\n')
+            .map { line -> line.filterNot { it.isISOControl() && !it.isWhitespace() }.collapseWhitespace() }
+            .filter { it.isNotEmpty() }
+            .joinToString("\n")
 
     /**
      * Deliberately loose: one "@" with something before it, a dotted domain after it, no spaces or

@@ -1,7 +1,7 @@
 package com.dataloom.checklist.domain.validation
 
 /** The form field an error belongs to, so a screen can show the message under the right input. */
-enum class Field { TITLE, DESCRIPTION, ITEM_NAME, NOTES, QUANTITY, UNIT, CATEGORY_NAME, UNIT_LABEL, POSITION, DISPLAY_NAME, EMAIL, PHONE }
+enum class Field { TITLE, DESCRIPTION, ITEM_NAME, NOTES, QUANTITY, UNIT, CATEGORY_NAME, UNIT_LABEL, POSITION, DISPLAY_NAME, EMAIL, PHONE, ADDRESS }
 
 /**
  * Typed validation failures. The domain never produces user-visible text: the UI maps each code to a
@@ -31,6 +31,7 @@ enum class ValidationError(val field: Field) {
     NEGATIVE_POSITION(Field.POSITION),
 
     // Profile (Phase 5)
+    /** No longer produced: since CL-250 the name is optional. Kept so the error contract stays stable. */
     DISPLAY_NAME_BLANK(Field.DISPLAY_NAME),
     DISPLAY_NAME_TOO_LONG(Field.DISPLAY_NAME),
     EMAIL_TOO_LONG(Field.EMAIL),
@@ -40,4 +41,7 @@ enum class ValidationError(val field: Field) {
 
     /** Characters other than digits, separators and a leading "+", too long, or not 7 to 15 digits. */
     PHONE_INVALID(Field.PHONE),
+
+    /** Longer than [FieldLimits.ADDRESS_MAX] (CL-250). */
+    ADDRESS_TOO_LONG(Field.ADDRESS),
 }
