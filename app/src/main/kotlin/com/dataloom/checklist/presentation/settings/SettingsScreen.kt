@@ -48,6 +48,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onOpenLanguage: () -> Unit,
     onOpenProfile: () -> Unit,
+    onShowTutorial: () -> Unit,
     transferViewModel: TransferViewModel = hiltViewModel(),
     aiSettingsViewModel: AiSettingsViewModel = hiltViewModel(),
 ) {
@@ -135,6 +136,13 @@ fun SettingsScreen(
                 supportingContent = { Text(stringResource(R.string.settings_version, BuildConfig.VERSION_NAME)) },
                 leadingContent = { AppLogo(size = 56.dp) },
                 modifier = Modifier.heightIn(min = 64.dp),
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_show_tutorial)) },
+                supportingContent = { Text(stringResource(R.string.settings_show_tutorial_summary)) },
+                modifier = Modifier
+                    .heightIn(min = 64.dp)
+                    .clickable(role = Role.Button, onClick = onShowTutorial),
             )
         }
     }

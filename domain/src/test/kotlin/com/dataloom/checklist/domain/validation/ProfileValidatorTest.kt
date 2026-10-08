@@ -17,8 +17,36 @@ class ProfileValidatorTest {
     }
 
     @Test
-    fun `blank name is rejected`() {
-        assertEquals(listOf(ValidationError.DISPLAY_NAME_BLANK), errorsOf(ProfileValidator.validate(" \t ", null, null)))
+    fun `every field is optional and a blank name becomes null`() {
+        assertEquals(ValidationResult.Valid(UserProfile()), ProfileValidator.validate(" \t ", null, null))
+        assertEquals(ValidationResult.Valid(UserProfile()), ProfileValidator.validate(null, " ", "", "  \n "))
+        assertTrue((ProfileValidator.validate("", "", "") as ValidationResult.Valid).value.isEmpty)
+    }
+
+    @Test
+    fun `a profile without a name keeps its other fields`() {
+        val result = ProfileValidator.validate("", "asha@example.com", "+91 98765 43210") as ValidationResult.Valid
+        assertEquals(UserProfile(null, "asha@example.com", "+91 98765 43210", null), result.value)
+        assertFalse(result.value.isEmpty)
+    }
+
+    // Address
+
+    @Test
+    fun `address keeps line breaks, trims lines, drops blank lines and control characters`() {
+        val raw = "  12,  4th Cross \r\n\n  Vidyanagar\u0007, Hubballi  \r"
+        val result = ProfileValidator.validate(null, null, null, raw) as ValidationResult.Valid
+        assertEquals("12, 4th Cross\nVidyanagar, Hubballi", result.value.address)
+    }
+
+    @Test
+    fun `address boundary is 200 code points`() {
+        assertTrue(ProfileValidator.validate(null, null, null, "ಅ".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)
+        assertTrue(ProfileValidator.validate(null, null, null, "🙂".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)
+        assertEquals(
+            listOf(ValidationError.ADDRESS_TOO_LONG),
+            errorsOf(ProfileValidator.validate(null, null, null, "a".repeat(FieldLimits.ADDRESS_MAX + 1))),
+        )
     }
 
     @Test
@@ -86,8 +114,8 @@ class ProfileValidatorTest {
     @Test
     fun `every problem is reported at once`() {
         assertEquals(
-            listOf(ValidationError.DISPLAY_NAME_BLANK, ValidationError.EMAIL_INVALID, ValidationError.PHONE_INVALID),
-            errorsOf(ProfileValidator.validate("", "nope", "abc")),
+            listOf(ValidationError.DISPLAY_NAME_TOO_LONG, ValidationError.EMAIL_INVALID, ValidationError.PHONE_INVALID, ValidationError.ADDRESS_TOO_LONG),
+            errorsOf(ProfileValidator.validate("n".repeat(51), "nope", "abc", "a".repeat(201))),
         )
     }
 
@@ -95,8 +123,8 @@ class ProfileValidatorTest {
 
     @Test
     fun `profile toString never prints personal data`() {
-        val text = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210").toString()
-        listOf("Asha", "asha@", "98765").forEach { assertFalse(text.contains(it)) }
+        val text = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210", "12 Vidyanagar").toString()
+        listOf("Asha", "asha@", "98765", "Vidyanagar").forEach { assertFalse(text.contains(it)) }
     }
 
     private fun errorsOf(result: ValidationResult<*>): List<ValidationError> = (result as ValidationResult.Invalid).errors

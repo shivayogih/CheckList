@@ -196,6 +196,46 @@
     <string name="share_no_app">ఈ ఫైల్‌ను షేర్ చేయగల యాప్ ఈ ఫోన్‌లో లేదు.</string>
     <string name="transfer_write_failed">ఫైల్‌ను రాయడం సాధ్యం కాలేదు. నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
 
+    <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
+    <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
+    <string name="onboarding_welcome_title">%1$s కు స్వాగతం</string>
+    <string name="onboarding_welcome_subtitle">మీ భాషను ఎంచుకోండి. దీన్ని తర్వాత సెట్టింగ్స్‌లో మార్చుకోవచ్చు.</string>
+    <string name="onboarding_phone_language">ఫోన్ భాష</string>
+    <string name="onboarding_continue">కొనసాగించండి</string>
+    <string name="onboarding_skip">దాటవేయి</string>
+    <string name="onboarding_next">తదుపరి</string>
+    <string name="onboarding_get_started">ప్రారంభించండి</string>
+    <string name="onboarding_skip_for_now">ఇప్పుడు వద్దు</string>
+    <string name="onboarding_page1_title">దేనికైనా జాబితా చేయండి</string>
+    <string name="onboarding_page1_body">షాపింగ్, ప్రయాణం, పరీక్షలు, ఆసుపత్రి సందర్శనలు. కొన్ని ట్యాప్‌లలో చెక్‌లిస్ట్ సృష్టించండి.</string>
+    <string name="onboarding_page2_title">వస్తువులను ఎంచుకుని పరిమాణం పెట్టండి</string>
+    <string name="onboarding_page2_body">మీ భాషలో సిద్ధంగా ఉన్న వస్తువులను వెతకండి, టిక్ చేయండి, 5 కిలోల వంటి పరిమాణం ఎంచుకోండి.</string>
+    <string name="onboarding_page3_title">టిక్ చేయండి, షేర్ చేయండి, ప్రైవేట్‌గా ఉంచండి</string>
+    <string name="onboarding_page3_body">షాపింగ్ చేస్తున్నప్పుడు వస్తువులను టిక్ చేయండి, జాబితాను వాట్సాప్‌లో పంపండి, ఇంటర్నెట్ లేకుండా వాడండి.</string>
+    <string name="onboarding_page_position">పేజీ %1$d / %2$d</string>
+    <string name="onboarding_demo_list_title">దీపావళి షాపింగ్</string>
+    <string name="onboarding_demo_rice">బియ్యం</string>
+    <string name="onboarding_demo_sugar">పంచదార</string>
+    <string name="onboarding_demo_diyas">ప్రమిదలు</string>
+    <string name="onboarding_demo_rice_flour">బియ్యప్పిండి</string>
+    <string name="onboarding_demo_search">బి</string>
+    <string name="onboarding_demo_groceries">సరుకులు</string>
+    <string name="onboarding_demo_offline">ఇంటర్నెట్ లేకుండా పనిచేస్తుంది</string>
+    <string name="onboarding_demo_private">మీ ఫోన్‌లోనే ఉంటుంది</string>
+    <string name="onboarding_profile_title">మీ గురించి చెప్పండి</string>
+    <string name="onboarding_profile_intro">మిమ్మల్ని పలకరించడానికి, మీరు షేర్ చేసే జాబితాలకు మీ పేరు జోడించడానికి. ఖాతా లేదా పాస్‌వర్డ్ అవసరం లేదు.</string>
+    <string name="onboarding_profile_banner">ఈ ఫోన్‌లో మాత్రమే సేవ్ అవుతుంది, ఎన్‌క్రిప్షన్‌తో లాక్ చేయబడింది.</string>
+    <string name="onboarding_profile_name_hint">ఐచ్ఛికం. మీరు ఎంచుకుంటేనే PDFలలో చూపబడుతుంది.</string>
+    <string name="onboarding_profile_more">ఇమెయిల్ మరియు చిరునామా జోడించండి</string>
+    <string name="onboarding_profile_less">ఇమెయిల్ మరియు చిరునామా దాచండి</string>
+    <string name="profile_address">చిరునామా (ఐచ్ఛికం)</string>
+    <string name="home_greeting_title">నమస్తే, %1$s 🙏</string>
+    <string name="settings_show_tutorial">ట్యుటోరియల్ మళ్లీ చూపించు</string>
+    <string name="settings_show_tutorial_summary">CheckList ఎలా పనిచేస్తుందో చూడండి</string>
+    <plurals name="home_greeting_in_progress">
+        <item quantity="one">మీకు %1$d జాబితా కొనసాగుతోంది.</item>
+        <item quantity="other">మీకు %1$d జాబితాలు కొనసాగుతున్నాయి.</item>
+    </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI సహాయకుడు (ఆఫ్‌లైన్)</string>
     <string name="settings_ai_enabled_summary">టైప్ చేసి అంశాలను జోడించండి లేదా మార్చండి, ఉదా. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు”. ఇది ఈ ఫోన్‌లోనే పనిచేస్తుంది; మీరు టైప్ చేసింది ఎక్కడికీ పంపబడదు.</string>

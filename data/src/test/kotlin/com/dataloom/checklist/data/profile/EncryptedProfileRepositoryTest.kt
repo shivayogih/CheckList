@@ -31,6 +31,7 @@ class EncryptedProfileRepositoryTest {
 
     private val asha = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210")
     private val ravi = UserProfile("Ravi")
+    private val withAddress = UserProfile("Kamala", null, "+91 98450 12345", "12, 4th Cross, Vidyanagar, Hubballi")
 
     /** A new provider has no cached keyset, like the next app start. */
     private fun newRepository() =
@@ -44,6 +45,35 @@ class EncryptedProfileRepositoryTest {
     fun tearDown() {
         db.close()
         prefs.edit().clear().commit()
+    }
+
+    @Test
+    fun addressIsStoredEncryptedAndRoundTrips() = runTest {
+        assertTrue(repository.saveProfile(withAddress))
+
+        assertEquals(ProfileState.Available(withAddress), repository.observeProfile().first())
+        val stored = String(dao.get(EncryptedProfileRepository.ROW_ID)!!.encPayload, Charsets.ISO_8859_1)
+        assertFalse(stored.contains("Hubballi"))
+    }
+
+    /** CL-250: a row saved by an older app version has no address key and must still open. */
+    @Test
+    fun profileStoredBeforeTheAddressExistedStillDecrypts() = runTest {
+        repository.saveProfile(ravi) // creates the keys
+        val row = dao.get(EncryptedProfileRepository.ROW_ID)!!
+        val aead = KeysetProfileAeadProvider(prefs, master).existingAead()!!
+        val oldPayload = """{"n":"Asha Rao","e":"asha@example.com","p":"+91 98765 43210"}"""
+        val oldRow = aead.encrypt(
+            oldPayload.toByteArray(Charsets.UTF_8),
+            ProfileCipher.associatedData(row.id, row.schemaVersion, row.keyAlias),
+        )
+        dao.upsert(UserProfileEntity(row.id, oldRow, row.keyAlias, row.schemaVersion, row.updatedAt))
+        restartApp()
+
+        assertEquals(ProfileState.Available(asha), repository.observeProfile().first())
+        // Saving again upgrades the row in place and keeps working.
+        assertTrue(repository.saveProfile(withAddress))
+        assertEquals(ProfileState.Available(withAddress), repository.observeProfile().first())
     }
 
     @Test

@@ -21,6 +21,9 @@ object FieldLimits {
     const val EMAIL_MAX = 254
     const val EMAIL_LOCAL_PART_MAX = 64
 
+    /** Postal address (CL-250): a few lines, counted in code points including line breaks. */
+    const val ADDRESS_MAX = 200
+
     /** Typed phone number including "+" and separators. */
     const val PHONE_MAX = 25
 
