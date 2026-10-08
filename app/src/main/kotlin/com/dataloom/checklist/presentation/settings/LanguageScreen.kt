@@ -12,17 +12,20 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.domain.localization.SupportedLanguages
 import com.dataloom.checklist.localization.AppLocales
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 
 /**
@@ -39,8 +42,8 @@ fun LanguageScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.language_title)) },
+            AppTopBar(
+                title = stringResource(R.string.language_title),
                 navigationIcon = { BackButton(onBack) },
             )
         },
@@ -53,9 +56,14 @@ fun LanguageScreen(onBack: () -> Unit) {
         ) {
             items(options) { option ->
                 val selected = option == current
+                // Each native name carries its language, so TalkBack reads "ಕನ್ನಡ" with a Kannada voice
+                // even while the app is still in English.
                 val label = when (option) {
-                    LanguagePreference.SystemDefault -> stringResource(R.string.settings_language_system)
-                    is LanguagePreference.Specific -> option.language.nativeName
+                    LanguagePreference.SystemDefault -> AnnotatedString(stringResource(R.string.settings_language_system))
+                    is LanguagePreference.Specific -> AnnotatedString(
+                        text = option.language.nativeName,
+                        spanStyle = SpanStyle(localeList = LocaleList(option.language.tag)),
+                    )
                 }
                 ListItem(
                     headlineContent = { Text(label) },

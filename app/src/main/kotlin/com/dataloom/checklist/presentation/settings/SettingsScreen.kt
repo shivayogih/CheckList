@@ -15,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -29,6 +28,7 @@ import com.dataloom.checklist.BuildConfig
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.localization.AppLocales
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.transfer.ImportPreviewDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
@@ -63,8 +63,8 @@ fun SettingsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.settings_title)) },
+            AppTopBar(
+                title = stringResource(R.string.settings_title),
                 navigationIcon = { BackButton(onBack) },
             )
         },

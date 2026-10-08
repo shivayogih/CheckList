@@ -50,7 +50,7 @@ fun UnitPickerDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.unit_picker_title)) },
+        title = { DialogTitle(stringResource(R.string.unit_picker_title)) },
         text = {
             LazyColumn(modifier = Modifier.selectableGroup()) {
                 item { UnitOption(stringResource(R.string.unit_none), selected == null) { onSelect(null) } }

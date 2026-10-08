@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -31,7 +32,7 @@ fun ConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(title) },
+        title = { DialogTitle(title) },
         text = { Text(message, style = MaterialTheme.typography.bodyLarge) },
         confirmButton = { TextButton(onClick = onConfirm) { Text(confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
@@ -54,7 +55,7 @@ fun TextInputDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(title) },
+        title = { DialogTitle(title) },
         text = {
             Column {
                 OutlinedTextField(
@@ -78,4 +79,10 @@ fun TextInputDialog(
         confirmButton = { TextButton(onClick = onConfirm, enabled = enabled) { Text(confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
+}
+
+/** A dialog title marked as a heading, so TalkBack announces what the dialog is about first. */
+@Composable
+fun DialogTitle(text: String) {
+    Text(text, modifier = Modifier.semantics { heading() })
 }
