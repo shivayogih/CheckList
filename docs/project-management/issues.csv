@@ -1,0 +1,9 @@
+Issue ID,Title,Description,Type,Priority,Status,Assignee,Branch,Pull Request,Build Number,Environment,Test Status,AI Review Status,Created Date,Updated Date,Release
+CL-100,Phase 0 product and architecture,Requirements and architecture design (docs/phase0-architecture.md),Documentation,High,DONE,Claude,main,,,,NOT_APPLICABLE,NOT_APPLICABLE,2026-10-08,2026-10-08,
+CL-101,Add Gradle project with version catalog and modules,Gradle 9.6 + AGP 9.4 project; :app :domain :data :ai modules; libs.versions.toml,Feature,High,CODE_REVIEW,Claude,feature/CL-101-project-setup,,,DEV,PENDING,NOT_APPLICABLE,2026-10-08,2026-10-08,1.0.0
+CL-102,Add environment flavors and versioning,dev/staging/production flavors; debug/release build types; versionCode Option B,Feature,High,CODE_REVIEW,Claude,feature/CL-101-project-setup,,,DEV,PENDING,NOT_APPLICABLE,2026-10-08,2026-10-08,1.0.0
+CL-103,Add Compose theme and navigation shell,Material 3 theme; type-safe navigation; Home and Settings shells,Feature,High,CODE_REVIEW,Claude,feature/CL-101-project-setup,,,DEV,PENDING,NOT_APPLICABLE,2026-10-08,2026-10-08,1.0.0
+CL-104,Add localization foundation for seven languages,String resources in en kn hi ta te mr ml; per-app language picker; key-parity test,Feature,High,CODE_REVIEW,Claude,feature/CL-101-project-setup,,,DEV,PENDING,NOT_APPLICABLE,2026-10-08,2026-10-08,1.0.0
+CL-105,Add Android build workflow,GitHub Actions builds all three environments with tests and lint,CI/CD,High,CODE_REVIEW,Claude,feature/CL-101-project-setup,,,DEV,PENDING,NOT_APPLICABLE,2026-10-08,2026-10-08,1.0.0
+CL-106,Add detekt and ktlint,Static analysis; deferred to Phase 8 because detekt 1.x does not support Kotlin 2.4 and detekt 2.0 is still alpha,Technical Debt,Medium,BACKLOG,,,,,,,,2026-10-08,2026-10-08,1.0.0
+CL-107,Native-speaker review of translations,Review the six machine-assisted translations before release,Task,High,BACKLOG,Shivayogi Hiremath,,,,,,,2026-10-08,2026-10-08,1.0.0
