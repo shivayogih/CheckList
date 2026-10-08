@@ -25,13 +25,13 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Layer | Tools | What | Runs in | Status |
 |---|---|---|---|---|
 | Domain unit | JUnit 4, kotlinx-coroutines-test | Use cases, validators, quantity math, localizer fallback, confirmation policy, command validator | `pr-checks` | Started; use cases Planned (Phase 2, CL-111) |
-| ViewModel | JUnit, Turbine, fake repositories | State transitions, effects, empty and error states | `pr-checks` | Planned (Phase 3) |
+| ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133): Home, create, add categories, detail, add items, item editor |
 | Room / DAO | Robolectric in-memory database; a small instrumented set | DAOs, foreign-key cascades, FTS, transactions, seed idempotency | `pr-checks` (Robolectric), Bitrise `staging` (instrumented) | Planned (Phase 2, CL-112) |
 | Migrations | `MigrationTestHelper` + committed schemas | Every N → N+1 and 1 → latest | `pr-checks` | Planned (Phase 7) |
 | Repository | Fakes + Room | Offline behavior, error mapping, consistency after import | `pr-checks` | Planned (Phase 2-7) |
 | Import/export | Golden JSON files | Valid, malformed, oversized, future version, hostile references, round trip | `pr-checks` | Planned (Phase 6) |
 | AI mapping | Golden utterances in 7 languages → expected `ActionPlan` (MockAIService or recorded responses) | | `pr-checks` | Planned (Phase 10) |
-| Compose UI | Compose test rule, Hilt test runner | Journeys J1-J6, navigation, quantity/unit, language switching | Bitrise `staging` (emulator), Robolectric smoke on PRs | Planned (Phase 3, 7) |
+| Compose UI | Compose test rule, Hilt test runner | Journeys J1-J6, navigation, quantity/unit, language switching | Bitrise `staging` (emulator), Robolectric smoke on PRs | Planned (Phase 7); Phase 3 covers J1-J3 logic through ViewModel tests |
 | Screenshot | Roborazzi | Key screens × 7 locales × 100% and 200% font × light and dark | `pr-checks` (diff report) | Planned (Phase 4, 7) |
 | Accessibility | Semantics assertions, automated accessibility checks | Labels, touch target size, contrast | `pr-checks`, `staging` | Planned (Phase 4, 7) |
 | Static analysis | Lint (now), detekt and ktlint (CL-106) | | `pr-checks` | Lint implemented; detekt/ktlint Planned (Phase 8) |

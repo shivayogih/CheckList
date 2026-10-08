@@ -2,7 +2,7 @@
 
 CheckList is designed for people like Kamala, 68, who reads Kannada and uses only WhatsApp. If a screen works for her with large text and TalkBack, it works for everyone. Design reasoning: [phase0-architecture.md](phase0-architecture.md) section 10.
 
-**Status:** the Phase 1 shell already uses Material 3 type in `sp`, string-resource content descriptions (for example the shared back button) and a visible back button rather than gestures. The full set of rules below applies to every screen from Phase 3; the in-app text size, the high-contrast theme and automated checks are Planned (Phase 4, CL-140 to CL-147; tests in Phase 7).
+**Status:** the Phase 1 shell already uses Material 3 type in `sp`, string-resource content descriptions (for example the shared back button) and a visible back button rather than gestures. The Phase 3 screens (CL-132) apply the Compose rules below: merged checkbox rows with a state description, category headings, named "⋮" menus on every row, Move up/Move down in menus and as TalkBack actions, confirmation dialogs and Undo for item deletion, and auto-mirrored directional icons. Drag-to-reorder is not built; the in-app text size, the high-contrast theme and automated checks are Planned (Phase 4, CL-140 to CL-147; tests in Phase 7).
 
 ## Targets
 
