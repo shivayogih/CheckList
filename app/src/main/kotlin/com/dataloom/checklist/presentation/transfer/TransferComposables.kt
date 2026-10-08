@@ -23,7 +23,9 @@ import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.transfer.ImportPreview
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.builtInUnitLabel
+import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.DialogTitle
 import com.dataloom.checklist.transfer.TransferEffect
 import com.dataloom.checklist.transfer.TransferViewModel
 import com.dataloom.checklist.transfer.pdf.UnitLabels
@@ -63,16 +65,16 @@ fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHos
 fun ImportPreviewDialog(preview: ImportPreview, busy: Boolean, onConfirm: () -> Unit, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.import_preview_title)) },
+        title = { DialogTitle(stringResource(R.string.import_preview_title)) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 val style = MaterialTheme.typography.bodyLarge
-                Text(stringResource(R.string.import_preview_checklists, preview.checklistCount), style = style)
+                Text(stringResource(R.string.import_preview_checklists, formatCount(preview.checklistCount)), style = style)
                 Text(
-                    stringResource(R.string.import_preview_items, preview.itemCount, preview.completedItemCount),
+                    stringResource(R.string.import_preview_items, formatCount(preview.itemCount), formatCount(preview.completedItemCount)),
                     style = style,
                 )
                 if (preview.newCategories.isNotEmpty()) {

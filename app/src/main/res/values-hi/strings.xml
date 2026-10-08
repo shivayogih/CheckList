@@ -14,8 +14,7 @@
     <string name="language_title">भाषा चुनें</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">सूची साझा करें</string>
-    <string name="pdf_page_number">पृष्ठ %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d में से %1$d पूरे</string>
+    <string name="pdf_page_number">पृष्ठ %1$s / %2$s</string>
     <string name="pdf_prepared_by">तैयार करने वाले: %1$s</string>
     <string name="pdf_no_items">इस सूची में कोई आइटम नहीं है।</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -60,7 +59,6 @@
     <string name="add_items_search_label">चीज़ें खोजें</string>
     <string name="add_items_title">%1$s में जोड़ें</string>
     <string name="add_items_type_to_search">खोजने के लिए चीज़ का नाम लिखें।</string>
-    <string name="add_selected">चुनी हुई जोड़ें (%1$d)</string>
     <string name="category_create">श्रेणी बनाएँ</string>
     <string name="category_name_label">श्रेणी का नाम</string>
     <string name="checklist_copy_title">%1$s (कॉपी)</string>
@@ -90,7 +88,7 @@
     <string name="error_quantity_invalid">2 या 2.5 जैसी संख्या लिखें (99999 तक)।</string>
     <string name="error_quantity_whole">इस इकाई के लिए 2 जैसी पूरी संख्या चाहिए।</string>
     <string name="error_title_blank">सूची का नाम लिखें।</string>
-    <string name="error_too_long">ज़्यादा से ज़्यादा %1$d अक्षर लिखें।</string>
+    <string name="error_too_long">ज़्यादा से ज़्यादा %1$s अक्षर लिखें।</string>
     <string name="error_unit_label_blank">इकाई का नाम लिखें।</string>
     <string name="error_unit_unknown">यह इकाई अब मौजूद नहीं है। कोई दूसरी चुनें।</string>
     <string name="error_unit_without_quantity">इस इकाई के लिए मात्रा लिखें, या “कोई इकाई नहीं” चुनें।</string>
@@ -115,7 +113,6 @@
     <string name="item_quantity_optional">मात्रा (वैकल्पिक)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s के सुझावों में सहेजें</string>
-    <string name="progress_done">%2$d में से %1$d पूरी</string>
     <string name="progress_no_items">अभी कोई चीज़ नहीं</string>
     <string name="search_clear">खोज साफ़ करें</string>
     <string name="sort_progress">प्रगति</string>
@@ -147,7 +144,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">अपना नाम दर्ज करें।</string>
     <string name="error_email_invalid">name@example.com जैसा ईमेल पता दर्ज करें।</string>
-    <string name="error_phone_invalid">%1$d से %2$d अंकों का फ़ोन नंबर दर्ज करें।</string>
+    <string name="error_phone_invalid">%1$s से %2$s अंकों का फ़ोन नंबर दर्ज करें।</string>
     <string name="error_secure_storage">सुरक्षित स्टोरेज अभी काम नहीं कर रहा है। कुछ भी सहेजा नहीं गया। बाद में फिर कोशिश करें।</string>
     <string name="profile_clear">प्रोफ़ाइल हटाएँ</string>
     <string name="profile_clear_message">आपका नाम और संपर्क विवरण इस फ़ोन से मिटा दिए जाएँगे।</string>
@@ -169,19 +166,19 @@
     <string name="action_import">आयात करें</string>
     <string name="detail_save_pdf">PDF के रूप में सहेजें</string>
     <string name="detail_share_pdf">PDF के रूप में साझा करें</string>
-    <string name="export_done">निर्यात हो गया। सूचियाँ: %1$d, वस्तुएँ: %2$d।</string>
+    <string name="export_done">निर्यात हो गया। सूचियाँ: %1$s, वस्तुएँ: %2$s।</string>
     <string name="export_nothing">निर्यात करने के लिए कोई सूची नहीं है।</string>
     <string name="export_too_large">एक फ़ाइल में निर्यात करने के लिए यह बहुत ज़्यादा है।</string>
-    <string name="import_done">आयात हो गया। सूचियाँ: %1$d, वस्तुएँ: %2$d।</string>
-    <string name="import_error_invalid">इस फ़ाइल में मिली समस्याएँ: %1$d। कुछ भी आयात नहीं हुआ।</string>
+    <string name="import_done">आयात हो गया। सूचियाँ: %1$s, वस्तुएँ: %2$s।</string>
+    <string name="import_error_invalid">इस फ़ाइल में मिली समस्याएँ: %1$s। कुछ भी आयात नहीं हुआ।</string>
     <string name="import_error_malformed">यह CheckList बैकअप फ़ाइल नहीं है।</string>
     <string name="import_error_newer_app">यह फ़ाइल CheckList के नए संस्करण में बनी है। इसे आयात करने के लिए ऐप अपडेट करें।</string>
     <string name="import_error_nothing">इस फ़ाइल में कोई सूची नहीं है।</string>
     <string name="import_error_too_large">यह फ़ाइल आयात करने के लिए बहुत बड़ी है।</string>
     <string name="import_error_unreadable">यह फ़ाइल पढ़ी नहीं जा सकी। इसे फिर से चुनकर देखें।</string>
     <string name="import_error_unsupported">इस फ़ाइल का संस्करण समर्थित नहीं है।</string>
-    <string name="import_preview_checklists">सूचियाँ: %1$d</string>
-    <string name="import_preview_items">वस्तुएँ: %1$d (पूरी: %2$d)</string>
+    <string name="import_preview_checklists">सूचियाँ: %1$s</string>
+    <string name="import_preview_items">वस्तुएँ: %1$s (पूरी: %2$s)</string>
     <string name="import_preview_new_categories">नई श्रेणियाँ: %1$s</string>
     <string name="import_preview_new_units">नई इकाइयाँ: %1$s</string>
     <string name="import_preview_profile_skipped">इस फ़ाइल की प्रोफ़ाइल आयात नहीं की जाती।</string>

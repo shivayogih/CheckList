@@ -23,7 +23,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,7 +45,9 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.MasterItemId
 import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.countText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.CheckRow
 import com.dataloom.checklist.presentation.components.UnitButton
@@ -87,8 +88,8 @@ fun AddItemsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.add_items_title, state.sectionName)) },
+            AppTopBar(
+                title = stringResource(R.string.add_items_title, state.sectionName),
                 navigationIcon = { BackButton(onDone) },
             )
         },
@@ -103,7 +104,7 @@ fun AddItemsScreen(
                         .padding(16.dp)
                         .heightIn(min = 56.dp),
                 ) {
-                    Text(stringResource(R.string.add_selected, state.selectedCount))
+                    Text(countText(R.plurals.add_selected_items, state.selectedCount))
                 }
             }
         },

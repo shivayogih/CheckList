@@ -14,8 +14,7 @@
     <string name="language_title">భాషను ఎంచుకోండి</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">జాబితాను షేర్ చేయండి</string>
-    <string name="pdf_page_number">పేజీ %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d లో %1$d పూర్తయ్యాయి</string>
+    <string name="pdf_page_number">పేజీ %1$s / %2$s</string>
     <string name="pdf_prepared_by">తయారు చేసినవారు: %1$s</string>
     <string name="pdf_no_items">ఈ జాబితాలో అంశాలు ఏవీ లేవు.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -60,7 +59,6 @@
     <string name="add_items_search_label">వస్తువులను వెతకండి</string>
     <string name="add_items_title">%1$s కు జోడించండి</string>
     <string name="add_items_type_to_search">వెతకడానికి వస్తువు పేరు టైప్ చేయండి.</string>
-    <string name="add_selected">ఎంచుకున్నవి జోడించండి (%1$d)</string>
     <string name="category_create">వర్గం సృష్టించండి</string>
     <string name="category_name_label">వర్గం పేరు</string>
     <string name="checklist_copy_title">%1$s (నకలు)</string>
@@ -90,7 +88,7 @@
     <string name="error_quantity_invalid">2 లేదా 2.5 వంటి సంఖ్య నమోదు చేయండి (99999 వరకు).</string>
     <string name="error_quantity_whole">ఈ కొలమానానికి 2 వంటి పూర్ణ సంఖ్య కావాలి.</string>
     <string name="error_title_blank">జాబితాకు పేరు నమోదు చేయండి.</string>
-    <string name="error_too_long">గరిష్టంగా %1$d అక్షరాలు వాడండి.</string>
+    <string name="error_too_long">గరిష్టంగా %1$s అక్షరాలు వాడండి.</string>
     <string name="error_unit_label_blank">కొలమానానికి పేరు నమోదు చేయండి.</string>
     <string name="error_unit_unknown">ఈ కొలమానం ఇప్పుడు లేదు. వేరొకటి ఎంచుకోండి.</string>
     <string name="error_unit_without_quantity">ఈ కొలమానానికి పరిమాణం నమోదు చేయండి, లేదా “కొలమానం లేదు” ఎంచుకోండి.</string>
@@ -115,7 +113,6 @@
     <string name="item_quantity_optional">పరిమాణం (ఐచ్ఛికం)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s సూచనలలో సేవ్ చేయండి</string>
-    <string name="progress_done">%2$d లో %1$d పూర్తయ్యాయి</string>
     <string name="progress_no_items">ఇంకా వస్తువులు లేవు</string>
     <string name="search_clear">వెతుకులాటను తుడిచివేయండి</string>
     <string name="sort_progress">పురోగతి</string>
@@ -147,7 +144,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">మీ పేరును నమోదు చేయండి.</string>
     <string name="error_email_invalid">name@example.com లాంటి ఈమెయిల్ చిరునామాను నమోదు చేయండి.</string>
-    <string name="error_phone_invalid">%1$d నుండి %2$d అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
+    <string name="error_phone_invalid">%1$s నుండి %2$s అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
     <string name="error_secure_storage">సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు. ఏదీ సేవ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
     <string name="profile_clear">ప్రొఫైల్‌ను తొలగించండి</string>
     <string name="profile_clear_message">మీ పేరు మరియు సంప్రదింపు వివరాలు ఈ ఫోన్ నుండి తుడిచివేయబడతాయి.</string>
@@ -169,19 +166,19 @@
     <string name="action_import">దిగుమతి చేయండి</string>
     <string name="detail_save_pdf">PDFగా సేవ్ చేయండి</string>
     <string name="detail_share_pdf">PDFగా షేర్ చేయండి</string>
-    <string name="export_done">ఎగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
+    <string name="export_done">ఎగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s.</string>
     <string name="export_nothing">ఎగుమతి చేయడానికి జాబితాలు ఏవీ లేవు.</string>
     <string name="export_too_large">ఒకే ఫైల్‌లో ఎగుమతి చేయడానికి ఇది చాలా ఎక్కువ.</string>
-    <string name="import_done">దిగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
-    <string name="import_error_invalid">ఈ ఫైల్‌లో కనిపించిన సమస్యలు: %1$d. ఏదీ దిగుమతి కాలేదు.</string>
+    <string name="import_done">దిగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s.</string>
+    <string name="import_error_invalid">ఈ ఫైల్‌లో కనిపించిన సమస్యలు: %1$s. ఏదీ దిగుమతి కాలేదు.</string>
     <string name="import_error_malformed">ఇది CheckList బ్యాకప్ ఫైల్ కాదు.</string>
     <string name="import_error_newer_app">ఈ ఫైల్ CheckList యొక్క కొత్త వెర్షన్‌లో తయారైంది. దిగుమతి చేయడానికి యాప్‌ను అప్‌డేట్ చేయండి.</string>
     <string name="import_error_nothing">ఈ ఫైల్‌లో జాబితాలు ఏవీ లేవు.</string>
     <string name="import_error_too_large">ఈ ఫైల్ దిగుమతి చేయడానికి చాలా పెద్దది.</string>
     <string name="import_error_unreadable">ఈ ఫైల్‌ను చదవడం సాధ్యం కాలేదు. మళ్లీ ఎంచుకుని చూడండి.</string>
     <string name="import_error_unsupported">ఈ ఫైల్ వెర్షన్‌కు మద్దతు లేదు.</string>
-    <string name="import_preview_checklists">జాబితాలు: %1$d</string>
-    <string name="import_preview_items">వస్తువులు: %1$d (పూర్తయినవి: %2$d)</string>
+    <string name="import_preview_checklists">జాబితాలు: %1$s</string>
+    <string name="import_preview_items">వస్తువులు: %1$s (పూర్తయినవి: %2$s)</string>
     <string name="import_preview_new_categories">కొత్త వర్గాలు: %1$s</string>
     <string name="import_preview_new_units">కొత్త యూనిట్లు: %1$s</string>
     <string name="import_preview_profile_skipped">ఈ ఫైల్‌లోని ప్రొఫైల్ దిగుమతి చేయబడదు.</string>

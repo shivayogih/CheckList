@@ -14,8 +14,7 @@
     <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">ಪಟ್ಟಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="pdf_page_number">ಪುಟ %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
+    <string name="pdf_page_number">ಪುಟ %1$s / %2$s</string>
     <string name="pdf_prepared_by">ತಯಾರಿಸಿದವರು: %1$s</string>
     <string name="pdf_no_items">ಈ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -60,7 +59,6 @@
     <string name="add_items_search_label">ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ</string>
     <string name="add_items_title">%1$s ಗೆ ಸೇರಿಸಿ</string>
     <string name="add_items_type_to_search">ಹುಡುಕಲು ವಸ್ತುವಿನ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಿ.</string>
-    <string name="add_selected">ಆಯ್ಕೆಮಾಡಿದವನ್ನು ಸೇರಿಸಿ (%1$d)</string>
     <string name="category_create">ವರ್ಗ ರಚಿಸಿ</string>
     <string name="category_name_label">ವರ್ಗದ ಹೆಸರು</string>
     <string name="checklist_copy_title">%1$s (ನಕಲು)</string>
@@ -90,7 +88,7 @@
     <string name="error_quantity_invalid">2 ಅಥವಾ 2.5 ರಂತಹ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (99999 ವರೆಗೆ).</string>
     <string name="error_quantity_whole">ಈ ಘಟಕಕ್ಕೆ 2 ರಂತಹ ಪೂರ್ಣ ಸಂಖ್ಯೆ ಬೇಕು.</string>
     <string name="error_title_blank">ಪಟ್ಟಿಗೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>
-    <string name="error_too_long">ಗರಿಷ್ಠ %1$d ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ.</string>
+    <string name="error_too_long">ಗರಿಷ್ಠ %1$s ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ.</string>
     <string name="error_unit_label_blank">ಘಟಕಕ್ಕೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>
     <string name="error_unit_unknown">ಈ ಘಟಕ ಈಗ ಇಲ್ಲ. ಬೇರೆಯದನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="error_unit_without_quantity">ಈ ಘಟಕಕ್ಕೆ ಪ್ರಮಾಣ ನಮೂದಿಸಿ, ಅಥವಾ “ಘಟಕ ಇಲ್ಲ” ಆಯ್ಕೆಮಾಡಿ.</string>
@@ -115,7 +113,6 @@
     <string name="item_quantity_optional">ಪ್ರಮಾಣ (ಐಚ್ಛಿಕ)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s ಸಲಹೆಗಳಲ್ಲಿ ಉಳಿಸಿ</string>
-    <string name="progress_done">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
     <string name="progress_no_items">ಇನ್ನೂ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ</string>
     <string name="search_clear">ಹುಡುಕಾಟ ತೆರವುಗೊಳಿಸಿ</string>
     <string name="sort_progress">ಪ್ರಗತಿ</string>
@@ -147,7 +144,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.</string>
     <string name="error_email_invalid">name@example.com ರೀತಿಯ ಇಮೇಲ್ ವಿಳಾಸ ನಮೂದಿಸಿ.</string>
-    <string name="error_phone_invalid">%1$d ರಿಂದ %2$d ಅಂಕಿಗಳ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.</string>
+    <string name="error_phone_invalid">%1$s ರಿಂದ %2$s ಅಂಕಿಗಳ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.</string>
     <string name="error_secure_storage">ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ. ಏನನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="profile_clear">ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ</string>
     <string name="profile_clear_message">ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ಈ ಫೋನ್‌ನಿಂದ ಅಳಿಸಲಾಗುತ್ತದೆ.</string>
@@ -169,19 +166,19 @@
     <string name="action_import">ಆಮದು ಮಾಡಿ</string>
     <string name="detail_save_pdf">PDF ಆಗಿ ಉಳಿಸಿ</string>
     <string name="detail_share_pdf">PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="export_done">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
+    <string name="export_done">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s.</string>
     <string name="export_nothing">ರಫ್ತು ಮಾಡಲು ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
     <string name="export_too_large">ಒಂದೇ ಫೈಲ್‌ನಲ್ಲಿ ರಫ್ತು ಮಾಡಲು ಇದು ತುಂಬಾ ಹೆಚ್ಚು.</string>
-    <string name="import_done">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
-    <string name="import_error_invalid">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಕಂಡ ಸಮಸ್ಯೆಗಳು: %1$d. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
+    <string name="import_done">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s.</string>
+    <string name="import_error_invalid">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಕಂಡ ಸಮಸ್ಯೆಗಳು: %1$s. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
     <string name="import_error_malformed">ಇದು CheckList ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅಲ್ಲ.</string>
     <string name="import_error_newer_app">ಈ ಫೈಲ್ CheckList ನ ಹೊಸ ಆವೃತ್ತಿಯಲ್ಲಿ ಮಾಡಲಾಗಿದೆ. ಆಮದು ಮಾಡಲು ಆ್ಯಪ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.</string>
     <string name="import_error_nothing">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
     <string name="import_error_too_large">ಈ ಫೈಲ್ ಆಮದು ಮಾಡಲು ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ.</string>
     <string name="import_error_unreadable">ಈ ಫೈಲ್ ಓದಲು ಆಗಲಿಲ್ಲ. ಮತ್ತೆ ಆಯ್ಕೆಮಾಡಿ ನೋಡಿ.</string>
     <string name="import_error_unsupported">ಈ ಫೈಲ್ ಆವೃತ್ತಿಗೆ ಬೆಂಬಲವಿಲ್ಲ.</string>
-    <string name="import_preview_checklists">ಪಟ್ಟಿಗಳು: %1$d</string>
-    <string name="import_preview_items">ವಸ್ತುಗಳು: %1$d (ಮುಗಿದವು: %2$d)</string>
+    <string name="import_preview_checklists">ಪಟ್ಟಿಗಳು: %1$s</string>
+    <string name="import_preview_items">ವಸ್ತುಗಳು: %1$s (ಮುಗಿದವು: %2$s)</string>
     <string name="import_preview_new_categories">ಹೊಸ ವರ್ಗಗಳು: %1$s</string>
     <string name="import_preview_new_units">ಹೊಸ ಘಟಕಗಳು: %1$s</string>
     <string name="import_preview_profile_skipped">ಈ ಫೈಲ್‌ನಲ್ಲಿರುವ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಆಮದು ಮಾಡುವುದಿಲ್ಲ.</string>

@@ -15,8 +15,7 @@
     <string name="language_title">Choose language</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">Share checklist</string>
-    <string name="pdf_page_number">Page %1$d of %2$d</string>
-    <string name="pdf_progress">%1$d of %2$d done</string>
+    <string name="pdf_page_number">Page %1$s of %2$s</string>
     <string name="pdf_prepared_by">Prepared by %1$s</string>
     <string name="pdf_no_items">This checklist has no items.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -61,7 +60,6 @@
     <string name="add_items_search_label">Search items</string>
     <string name="add_items_title">Add to %1$s</string>
     <string name="add_items_type_to_search">Type the name of an item to search.</string>
-    <string name="add_selected">Add selected (%1$d)</string>
     <string name="category_create">Create category</string>
     <string name="category_name_label">Category name</string>
     <string name="checklist_copy_title">%1$s (copy)</string>
@@ -91,7 +89,7 @@
     <string name="error_quantity_invalid">Enter a number like 2 or 2.5 (up to 99999).</string>
     <string name="error_quantity_whole">This unit needs a whole number, like 2.</string>
     <string name="error_title_blank">Enter a name for the checklist.</string>
-    <string name="error_too_long">Use at most %1$d characters.</string>
+    <string name="error_too_long">Use at most %1$s characters.</string>
     <string name="error_unit_label_blank">Enter a name for the unit.</string>
     <string name="error_unit_unknown">This unit no longer exists. Choose another one.</string>
     <string name="error_unit_without_quantity">Enter an amount for this unit, or choose “No unit”.</string>
@@ -116,7 +114,6 @@
     <string name="item_quantity_optional">Amount (optional)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">Save to %1$s suggestions</string>
-    <string name="progress_done">%1$d of %2$d done</string>
     <string name="progress_no_items">No items yet</string>
     <string name="search_clear">Clear search</string>
     <string name="sort_progress">Progress</string>
@@ -148,7 +145,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">Enter your name.</string>
     <string name="error_email_invalid">Enter an email address like name@example.com.</string>
-    <string name="error_phone_invalid">Enter a phone number with %1$d to %2$d digits.</string>
+    <string name="error_phone_invalid">Enter a phone number with %1$s to %2$s digits.</string>
     <string name="error_secure_storage">Secure storage is not working right now. Nothing was saved. Try again later.</string>
     <string name="profile_clear">Delete profile</string>
     <string name="profile_clear_message">Your name and contact details will be erased from this phone.</string>
@@ -170,19 +167,19 @@
     <string name="action_import">Import</string>
     <string name="detail_save_pdf">Save as PDF</string>
     <string name="detail_share_pdf">Share as PDF</string>
-    <string name="export_done">Exported. Checklists: %1$d, items: %2$d.</string>
+    <string name="export_done">Exported. Checklists: %1$s, items: %2$s.</string>
     <string name="export_nothing">There are no checklists to export.</string>
     <string name="export_too_large">Too much to export in one file.</string>
-    <string name="import_done">Imported. Checklists: %1$d, items: %2$d.</string>
-    <string name="import_error_invalid">Problems found in this file: %1$d. Nothing was imported.</string>
+    <string name="import_done">Imported. Checklists: %1$s, items: %2$s.</string>
+    <string name="import_error_invalid">Problems found in this file: %1$s. Nothing was imported.</string>
     <string name="import_error_malformed">This is not a CheckList backup file.</string>
     <string name="import_error_newer_app">This file was made by a newer version of CheckList. Update the app to import it.</string>
     <string name="import_error_nothing">This file has no checklists.</string>
     <string name="import_error_too_large">This file is too large to import.</string>
     <string name="import_error_unreadable">This file could not be read. Try picking it again.</string>
     <string name="import_error_unsupported">This file version is not supported.</string>
-    <string name="import_preview_checklists">Checklists: %1$d</string>
-    <string name="import_preview_items">Items: %1$d (done: %2$d)</string>
+    <string name="import_preview_checklists">Checklists: %1$s</string>
+    <string name="import_preview_items">Items: %1$s (done: %2$s)</string>
     <string name="import_preview_new_categories">New categories: %1$s</string>
     <string name="import_preview_new_units">New units: %1$s</string>
     <string name="import_preview_profile_skipped">The profile in this file is not imported.</string>

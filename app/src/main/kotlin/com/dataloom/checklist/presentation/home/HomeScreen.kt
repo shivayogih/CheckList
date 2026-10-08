@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,7 +35,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -58,7 +59,9 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistSort
+import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
@@ -129,8 +132,8 @@ private fun HomeContent(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.home_title)) },
+            AppTopBar(
+                title = stringResource(R.string.home_title),
                 actions = {
                     // A labelled text button, not a bare gear icon: clearer for first-time users.
                     TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.settings_title)) }
@@ -235,13 +238,16 @@ private fun SearchField(search: String, onAction: (HomeAction) -> Unit) {
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction: (HomeAction) -> Unit) {
     var sortMenuOpen by rememberSaveable { mutableStateOf(false) }
-    Row(
+    // A flow row, not a row: at 200% font the sort button wraps to its own line instead of squeezing.
+    FlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
         FilterChip(
             selected = filter == ChecklistFilter.ACTIVE,
@@ -331,7 +337,7 @@ private fun ChecklistCard(row: ChecklistRowUi, onAction: (HomeAction) -> Unit, o
                     text = if (row.totalItems == 0) {
                         stringResource(R.string.progress_no_items)
                     } else {
-                        stringResource(R.string.progress_done, row.completedItems, row.totalItems)
+                        progressText(row.completedItems, row.totalItems)
                     },
                     style = MaterialTheme.typography.bodyMedium,
                 )

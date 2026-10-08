@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="progress_items_done">
+        <item quantity="one">%2$s पैकी %1$s पूर्ण</item>
+        <item quantity="other">%2$s पैकी %1$s पूर्ण</item>
+    </plurals>
+    <plurals name="add_selected_items">
+        <item quantity="one">%1$s वस्तू जोडा</item>
+        <item quantity="other">%1$s वस्तू जोडा</item>
+    </plurals>
+    <plurals name="add_selected_categories">
+        <item quantity="one">%1$s वर्ग जोडा</item>
+        <item quantity="other">%1$s वर्ग जोडा</item>
+    </plurals>
+</resources>
