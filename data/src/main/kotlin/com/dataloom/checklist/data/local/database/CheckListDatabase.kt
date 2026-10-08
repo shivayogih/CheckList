@@ -9,6 +9,7 @@ import com.dataloom.checklist.data.local.dao.CategoryDao
 import com.dataloom.checklist.data.local.dao.ChecklistDao
 import com.dataloom.checklist.data.local.dao.ChecklistItemDao
 import com.dataloom.checklist.data.local.dao.MasterItemDao
+import com.dataloom.checklist.data.local.dao.ProfileDao
 import com.dataloom.checklist.data.local.dao.SearchIndexDao
 import com.dataloom.checklist.data.local.dao.SectionDao
 import com.dataloom.checklist.data.local.dao.SeedMetaDao
@@ -64,6 +65,9 @@ abstract class CheckListDatabase : RoomDatabase() {
     abstract fun unitDao(): UnitDao
 
     abstract fun seedMetaDao(): SeedMetaDao
+
+    /** Encrypted profile row (Phase 5). Adding a DAO does not change the schema. */
+    abstract fun profileDao(): ProfileDao
 
     companion object {
         const val NAME = "checklist.db"
