@@ -17,6 +17,7 @@ androidxHilt = "1.4.0"
 room = "2.8.5"
 robolectric = "4.17"
 androidxTestCore = "1.7.0"
+javaxInject = "1"
 turbine = "1.2.1"
 
 [libraries]
@@ -44,6 +45,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]

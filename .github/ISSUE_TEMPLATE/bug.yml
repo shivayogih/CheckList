@@ -1,0 +1,91 @@
+name: Bug
+description: Something does not work as expected.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not include personal data (your name, phone, address, profile contents) or
+        exported files that contain them. For a security problem, use private vulnerability
+        reporting instead (see SECURITY.md).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see? Include the exact error message if there was one.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a checklist
+        2. Tap "Add item"
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Settings > About shows it, for example "1.0.0-staging".
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Build
+      options:
+        - Production (Google Play)
+        - Staging
+        - Dev
+        - Built locally
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Pixel 8, Android 16"
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: App language
+      options:
+        - System default
+        - English
+        - Kannada
+        - Hindi
+        - Tamil
+        - Telugu
+        - Marathi
+        - Malayalam
+    validations:
+      required: true
+  - type: checkboxes
+    id: context
+    attributes:
+      label: Conditions
+      description: Tick everything that applied when the bug happened.
+      options:
+        - label: Offline (airplane mode or no connection)
+        - label: Large font or display size
+        - label: TalkBack or another screen reader on
+        - label: Dark theme
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or logs
+      description: Remove anything personal before attaching.
+    validations:
+      required: false

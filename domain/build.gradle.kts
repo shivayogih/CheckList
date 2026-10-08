@@ -16,7 +16,10 @@ kotlin {
 
 dependencies {
     api(libs.kotlinx.coroutines.core)
+    // Only the JSR-330 annotation, so Hilt in :app can construct use cases without :domain knowing Hilt.
+    api(libs.javax.inject)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }

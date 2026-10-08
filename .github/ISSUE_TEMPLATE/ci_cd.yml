@@ -1,0 +1,71 @@
+name: CI/CD
+description: A problem or improvement in GitHub Actions, Bitrise, signing or release automation.
+title: "[CI/CD] "
+labels: ["ci-cd"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check docs/troubleshooting.md first. Never paste secrets, keystore data, service account
+        JSON or unredacted logs that may contain them.
+  - type: dropdown
+    id: system
+    attributes:
+      label: System
+      options:
+        - GitHub Actions
+        - Bitrise
+        - Firebase App Distribution
+        - Google Play upload
+        - Local Gradle build
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow
+      options:
+        - Android build (Phase 1)
+        - pr-checks
+        - ai-review
+        - ci-failure
+        - Bitrise pr
+        - Bitrise dev
+        - Bitrise staging
+        - Bitrise production
+        - Not workflow-specific
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Failure
+        - Flaky run
+        - Too slow or too many credits
+        - Improvement
+    validations:
+      required: true
+  - type: input
+    id: run
+    attributes:
+      label: Run link
+      description: Link to the failing or slow run, if any.
+    validations:
+      required: false
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What happened, the failing step, and the trimmed error output (redact anything sensitive).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed fix
+    validations:
+      required: false

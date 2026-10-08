@@ -1,9 +1,474 @@
 {
   "locale": "en",
-  "categories": {"groceries": "Groceries", "vegetables": "Vegetables"},
+  "categories": {
+    "groceries": "Groceries",
+    "vegetables": "Vegetables",
+    "fruits": "Fruits",
+    "clothing": "Clothing",
+    "travel": "Travel",
+    "documents": "Documents",
+    "exam": "Exam",
+    "gifts": "Gifts",
+    "pooja_items": "Pooja Items",
+    "decorations": "Decorations",
+    "medicines": "Medicines",
+    "toiletries": "Toiletries",
+    "electronics": "Electronics",
+    "stationery": "Stationery",
+    "other": "Other"
+  },
   "items": {
-    "rice": {"name": "Rice"},
-    "sugar": {"name": "Sugar"},
-    "tomato": {"name": "Tomato"}
+    "rice": {
+      "name": "Rice",
+      "aliases": []
+    },
+    "wheat": {
+      "name": "Wheat",
+      "aliases": [
+        "gehun"
+      ]
+    },
+    "sugar": {
+      "name": "Sugar",
+      "aliases": []
+    },
+    "salt": {
+      "name": "Salt",
+      "aliases": []
+    },
+    "dal": {
+      "name": "Dal",
+      "aliases": [
+        "lentils",
+        "pulses",
+        "daal"
+      ]
+    },
+    "cooking_oil": {
+      "name": "Cooking Oil",
+      "aliases": [
+        "oil"
+      ]
+    },
+    "tea": {
+      "name": "Tea",
+      "aliases": [
+        "tea powder",
+        "chai"
+      ]
+    },
+    "coffee": {
+      "name": "Coffee",
+      "aliases": [
+        "coffee powder"
+      ]
+    },
+    "milk": {
+      "name": "Milk",
+      "aliases": []
+    },
+    "spices": {
+      "name": "Spices",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "potato": {
+      "name": "Potato",
+      "aliases": [
+        "aloo"
+      ]
+    },
+    "onion": {
+      "name": "Onion",
+      "aliases": []
+    },
+    "tomato": {
+      "name": "Tomato",
+      "aliases": []
+    },
+    "carrot": {
+      "name": "Carrot",
+      "aliases": []
+    },
+    "beans": {
+      "name": "Beans",
+      "aliases": [
+        "french beans",
+        "green beans"
+      ]
+    },
+    "cabbage": {
+      "name": "Cabbage",
+      "aliases": []
+    },
+    "cauliflower": {
+      "name": "Cauliflower",
+      "aliases": [
+        "gobi"
+      ]
+    },
+    "brinjal": {
+      "name": "Brinjal",
+      "aliases": [
+        "eggplant",
+        "aubergine"
+      ]
+    },
+    "spinach": {
+      "name": "Spinach",
+      "aliases": [
+        "palak"
+      ]
+    },
+    "apple": {
+      "name": "Apple",
+      "aliases": []
+    },
+    "banana": {
+      "name": "Banana",
+      "aliases": []
+    },
+    "orange": {
+      "name": "Orange",
+      "aliases": []
+    },
+    "mango": {
+      "name": "Mango",
+      "aliases": []
+    },
+    "grapes": {
+      "name": "Grapes",
+      "aliases": []
+    },
+    "pomegranate": {
+      "name": "Pomegranate",
+      "aliases": []
+    },
+    "shirt": {
+      "name": "Shirt",
+      "aliases": []
+    },
+    "pants": {
+      "name": "Pants",
+      "aliases": [
+        "trousers"
+      ]
+    },
+    "t_shirt": {
+      "name": "T-Shirt",
+      "aliases": [
+        "tshirt",
+        "tee"
+      ]
+    },
+    "saree": {
+      "name": "Saree",
+      "aliases": [
+        "sari"
+      ]
+    },
+    "dress": {
+      "name": "Dress",
+      "aliases": [
+        "frock"
+      ]
+    },
+    "socks": {
+      "name": "Socks",
+      "aliases": []
+    },
+    "shoes": {
+      "name": "Shoes",
+      "aliases": []
+    },
+    "travel_passport": {
+      "name": "Passport",
+      "aliases": []
+    },
+    "tickets": {
+      "name": "Tickets",
+      "aliases": []
+    },
+    "hotel_booking": {
+      "name": "Hotel Booking",
+      "aliases": []
+    },
+    "clothes": {
+      "name": "Clothes",
+      "aliases": []
+    },
+    "charger": {
+      "name": "Charger",
+      "aliases": []
+    },
+    "power_bank": {
+      "name": "Power Bank",
+      "aliases": []
+    },
+    "travel_toiletries": {
+      "name": "Toiletries",
+      "aliases": [
+        "toiletry kit"
+      ]
+    },
+    "travel_medicines": {
+      "name": "Medicines",
+      "aliases": []
+    },
+    "aadhaar_card": {
+      "name": "Aadhaar Card",
+      "aliases": [
+        "aadhar",
+        "adhar"
+      ]
+    },
+    "pan_card": {
+      "name": "PAN Card",
+      "aliases": [
+        "pan"
+      ]
+    },
+    "passport": {
+      "name": "Passport",
+      "aliases": []
+    },
+    "driving_licence": {
+      "name": "Driving Licence",
+      "aliases": [
+        "driving license",
+        "dl",
+        "licence",
+        "license"
+      ]
+    },
+    "educational_certificates": {
+      "name": "Educational Certificates",
+      "aliases": [
+        "marks card",
+        "marksheet",
+        "certificates"
+      ]
+    },
+    "passport_photos": {
+      "name": "Passport Photos",
+      "aliases": [
+        "photos"
+      ]
+    },
+    "hall_ticket": {
+      "name": "Hall Ticket",
+      "aliases": [
+        "admit card"
+      ]
+    },
+    "id_card": {
+      "name": "ID Card",
+      "aliases": [
+        "identity card"
+      ]
+    },
+    "pen": {
+      "name": "Pen",
+      "aliases": []
+    },
+    "pencil": {
+      "name": "Pencil",
+      "aliases": []
+    },
+    "eraser": {
+      "name": "Eraser",
+      "aliases": [
+        "rubber"
+      ]
+    },
+    "calculator": {
+      "name": "Calculator",
+      "aliases": []
+    },
+    "books": {
+      "name": "Books",
+      "aliases": []
+    },
+    "notes": {
+      "name": "Notes",
+      "aliases": []
+    },
+    "sweets": {
+      "name": "Sweets",
+      "aliases": [
+        "mithai"
+      ]
+    },
+    "greeting_card": {
+      "name": "Greeting Card",
+      "aliases": []
+    },
+    "incense_sticks": {
+      "name": "Incense Sticks",
+      "aliases": [
+        "agarbatti"
+      ]
+    },
+    "camphor": {
+      "name": "Camphor",
+      "aliases": [
+        "kapoor"
+      ]
+    },
+    "kumkum": {
+      "name": "Kumkum",
+      "aliases": [
+        "kumkuma",
+        "roli"
+      ]
+    },
+    "turmeric": {
+      "name": "Turmeric",
+      "aliases": [
+        "haldi"
+      ]
+    },
+    "flowers": {
+      "name": "Flowers",
+      "aliases": []
+    },
+    "coconut": {
+      "name": "Coconut",
+      "aliases": []
+    },
+    "cotton_wicks": {
+      "name": "Cotton Wicks",
+      "aliases": [
+        "lamp wicks"
+      ]
+    },
+    "balloons": {
+      "name": "Balloons",
+      "aliases": []
+    },
+    "rangoli_colours": {
+      "name": "Rangoli Colours",
+      "aliases": [
+        "rangoli colors",
+        "rangoli"
+      ]
+    },
+    "decorative_lights": {
+      "name": "Decorative Lights",
+      "aliases": [
+        "serial lights",
+        "string lights"
+      ]
+    },
+    "fever_tablets": {
+      "name": "Fever Tablets",
+      "aliases": [
+        "paracetamol"
+      ]
+    },
+    "pain_balm": {
+      "name": "Pain Balm",
+      "aliases": [
+        "balm"
+      ]
+    },
+    "bandage": {
+      "name": "Bandage",
+      "aliases": []
+    },
+    "antiseptic_liquid": {
+      "name": "Antiseptic Liquid",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS",
+      "aliases": [
+        "oral rehydration salts"
+      ]
+    },
+    "cough_syrup": {
+      "name": "Cough Syrup",
+      "aliases": []
+    },
+    "soap": {
+      "name": "Soap",
+      "aliases": []
+    },
+    "toothpaste": {
+      "name": "Toothpaste",
+      "aliases": [
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "Toothbrush",
+      "aliases": [
+        "brush"
+      ]
+    },
+    "shampoo": {
+      "name": "Shampoo",
+      "aliases": []
+    },
+    "hair_oil": {
+      "name": "Hair Oil",
+      "aliases": []
+    },
+    "comb": {
+      "name": "Comb",
+      "aliases": []
+    },
+    "batteries": {
+      "name": "Batteries",
+      "aliases": [
+        "cells"
+      ]
+    },
+    "light_bulb": {
+      "name": "Light Bulb",
+      "aliases": [
+        "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "Extension Board",
+      "aliases": [
+        "spike guard",
+        "multi plug"
+      ]
+    },
+    "earphones": {
+      "name": "Earphones",
+      "aliases": [
+        "headphones"
+      ]
+    },
+    "notebook": {
+      "name": "Notebook",
+      "aliases": []
+    },
+    "scissors": {
+      "name": "Scissors",
+      "aliases": []
+    },
+    "glue": {
+      "name": "Glue",
+      "aliases": [
+        "gum"
+      ]
+    },
+    "stapler": {
+      "name": "Stapler",
+      "aliases": []
+    },
+    "ruler": {
+      "name": "Ruler",
+      "aliases": [
+        "scale"
+      ]
+    }
   }
 }

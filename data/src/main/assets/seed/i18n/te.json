@@ -1,570 +1,567 @@
 {
-  "locale": "kn",
+  "locale": "te",
   "categories": {
-    "groceries": "ದಿನಸಿ",
-    "vegetables": "ತರಕಾರಿ",
-    "fruits": "ಹಣ್ಣುಗಳು",
-    "clothing": "ಬಟ್ಟೆಗಳು",
-    "travel": "ಪ್ರಯಾಣ",
-    "documents": "ದಾಖಲೆಗಳು",
-    "exam": "ಪರೀಕ್ಷೆ",
-    "gifts": "ಉಡುಗೊರೆಗಳು",
-    "pooja_items": "ಪೂಜಾ ಸಾಮಗ್ರಿ",
-    "decorations": "ಅಲಂಕಾರ",
-    "medicines": "ಔಷಧಿಗಳು",
-    "toiletries": "ಸ್ನಾನದ ಸಾಮಗ್ರಿ",
-    "electronics": "ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್",
-    "stationery": "ಲೇಖನ ಸಾಮಗ್ರಿ",
-    "other": "ಇತರೆ"
+    "groceries": "కిరాణా",
+    "vegetables": "కూరగాయలు",
+    "fruits": "పండ్లు",
+    "clothing": "బట్టలు",
+    "travel": "ప్రయాణం",
+    "documents": "పత్రాలు",
+    "exam": "పరీక్ష",
+    "gifts": "బహుమతులు",
+    "pooja_items": "పూజా సామగ్రి",
+    "decorations": "అలంకరణ",
+    "medicines": "మందులు",
+    "toiletries": "స్నానపు సామగ్రి",
+    "electronics": "ఎలక్ట్రానిక్స్",
+    "stationery": "స్టేషనరీ",
+    "other": "ఇతరాలు"
   },
   "items": {
     "rice": {
-      "name": "ಅಕ್ಕಿ",
+      "name": "బియ్యం",
       "aliases": [
-        "akki"
+        "biyyam"
       ]
     },
     "wheat": {
-      "name": "ಗೋಧಿ",
+      "name": "గోధుమలు",
       "aliases": [
-        "godhi"
+        "godhumalu"
       ]
     },
     "sugar": {
-      "name": "ಸಕ್ಕರೆ",
+      "name": "చక్కెర",
       "aliases": [
-        "sakkare"
+        "chakkera",
+        "panchadara",
+        "పంచదార"
       ]
     },
     "salt": {
-      "name": "ಉಪ್ಪು",
+      "name": "ఉప్పు",
       "aliases": [
         "uppu"
       ]
     },
     "dal": {
-      "name": "ಬೇಳೆ",
+      "name": "పప్పు",
       "aliases": [
-        "bele"
+        "pappu"
       ]
     },
     "cooking_oil": {
-      "name": "ಅಡುಗೆ ಎಣ್ಣೆ",
+      "name": "వంట నూనె",
       "aliases": [
-        "enne",
-        "ಎಣ್ಣೆ"
+        "nune",
+        "నూనె"
       ]
     },
     "tea": {
-      "name": "ಟೀ ಪುಡಿ",
+      "name": "టీ పొడి",
       "aliases": [
         "tea",
-        "chaha",
-        "ಚಹಾ"
+        "tea podi"
       ]
     },
     "coffee": {
-      "name": "ಕಾಫಿ ಪುಡಿ",
+      "name": "కాఫీ పొడి",
       "aliases": [
-        "kaapi",
         "coffee",
-        "ಕಾಫಿ"
+        "kaafi",
+        "కాఫీ"
       ]
     },
     "milk": {
-      "name": "ಹಾಲು",
+      "name": "పాలు",
       "aliases": [
-        "haalu",
-        "halu"
+        "paalu"
       ]
     },
     "spices": {
-      "name": "ಮಸಾಲೆ",
+      "name": "మసాలా దినుసులు",
       "aliases": [
-        "masale",
         "masala"
       ]
     },
     "potato": {
-      "name": "ಆಲೂಗಡ್ಡೆ",
+      "name": "బంగాళాదుంప",
       "aliases": [
-        "aloogadde",
-        "batate"
+        "bangaladumpa",
+        "aloo"
       ]
     },
     "onion": {
-      "name": "ಈರುಳ್ಳಿ",
+      "name": "ఉల్లిపాయ",
       "aliases": [
-        "eerulli",
-        "ullagadde"
+        "ullipaya",
+        "ulligadda"
       ]
     },
     "tomato": {
-      "name": "ಟೊಮೆಟೊ",
+      "name": "టమాటా",
       "aliases": [
+        "tamata",
         "tomato"
       ]
     },
     "carrot": {
-      "name": "ಕ್ಯಾರೆಟ್",
+      "name": "క్యారెట్",
       "aliases": [
         "carrot"
       ]
     },
     "beans": {
-      "name": "ಬೀನ್ಸ್",
+      "name": "బీన్స్",
       "aliases": [
         "beans"
       ]
     },
     "cabbage": {
-      "name": "ಎಲೆಕೋಸು",
+      "name": "క్యాబేజీ",
       "aliases": [
-        "elekosu",
         "cabbage"
       ]
     },
     "cauliflower": {
-      "name": "ಹೂಕೋಸು",
+      "name": "కాలీఫ్లవర్",
       "aliases": [
-        "hookosu",
-        "gobi"
+        "cauliflower",
+        "gobi puvvu"
       ]
     },
     "brinjal": {
-      "name": "ಬದನೆಕಾಯಿ",
+      "name": "వంకాయ",
       "aliases": [
-        "badanekayi",
-        "badane"
+        "vankaya"
       ]
     },
     "spinach": {
-      "name": "ಪಾಲಕ್ ಸೊಪ್ಪು",
+      "name": "పాలకూర",
       "aliases": [
-        "palak",
-        "soppu"
+        "palakura",
+        "palak"
       ]
     },
     "apple": {
-      "name": "ಸೇಬು",
+      "name": "ఆపిల్",
       "aliases": [
-        "sebu",
         "apple"
       ]
     },
     "banana": {
-      "name": "ಬಾಳೆಹಣ್ಣು",
+      "name": "అరటిపండు",
       "aliases": [
-        "balehannu"
+        "aratipandu",
+        "arati"
       ]
     },
     "orange": {
-      "name": "ಕಿತ್ತಳೆ",
+      "name": "నారింజ",
       "aliases": [
-        "kittale"
+        "narinja",
+        "kamala"
       ]
     },
     "mango": {
-      "name": "ಮಾವಿನಹಣ್ಣು",
+      "name": "మామిడిపండు",
       "aliases": [
-        "mavinahannu",
-        "mavu"
+        "mamidi",
+        "mamidipandu"
       ]
     },
     "grapes": {
-      "name": "ದ್ರಾಕ್ಷಿ",
+      "name": "ద్రాక్ష",
       "aliases": [
-        "drakshi"
+        "draksha"
       ]
     },
     "pomegranate": {
-      "name": "ದಾಳಿಂಬೆ",
+      "name": "దానిమ్మ",
       "aliases": [
-        "dalimbe"
+        "danimma"
       ]
     },
     "shirt": {
-      "name": "ಶರ್ಟ್",
+      "name": "చొక్కా",
       "aliases": [
-        "shirt",
-        "angi"
+        "chokka",
+        "shirt"
       ]
     },
     "pants": {
-      "name": "ಪ್ಯಾಂಟ್",
+      "name": "ప్యాంటు",
       "aliases": [
         "pant"
       ]
     },
     "t_shirt": {
-      "name": "ಟಿ-ಶರ್ಟ್",
+      "name": "టీ-షర్ట్",
       "aliases": [
         "tshirt"
       ]
     },
     "saree": {
-      "name": "ಸೀರೆ",
+      "name": "చీర",
       "aliases": [
-        "seere",
+        "cheera",
         "saree"
       ]
     },
     "dress": {
-      "name": "ಡ್ರೆಸ್",
+      "name": "డ్రెస్",
       "aliases": [
         "dress",
         "frock"
       ]
     },
     "socks": {
-      "name": "ಸಾಕ್ಸ್",
+      "name": "సాక్సులు",
       "aliases": [
         "socks"
       ]
     },
     "shoes": {
-      "name": "ಶೂಗಳು",
+      "name": "బూట్లు",
       "aliases": [
         "shoes",
-        "boot"
+        "boots"
       ]
     },
     "travel_passport": {
-      "name": "ಪಾಸ್ಪೋರ್ಟ್",
+      "name": "పాస్పోర్ట్",
       "aliases": [
         "passport"
       ]
     },
     "tickets": {
-      "name": "ಟಿಕೆಟ್",
+      "name": "టికెట్లు",
       "aliases": [
         "ticket"
       ]
     },
     "hotel_booking": {
-      "name": "ಹೋಟೆಲ್ ಬುಕಿಂಗ್",
+      "name": "హోటల్ బుకింగ్",
       "aliases": [
         "hotel"
       ]
     },
     "clothes": {
-      "name": "ಬಟ್ಟೆ",
+      "name": "బట్టలు",
       "aliases": [
-        "batte"
+        "battalu"
       ]
     },
     "charger": {
-      "name": "ಚಾರ್ಜರ್",
+      "name": "ఛార్జర్",
       "aliases": [
         "charger"
       ]
     },
     "power_bank": {
-      "name": "ಪವರ್ ಬ್ಯಾಂಕ್",
+      "name": "పవర్ బ్యాంక్",
       "aliases": [
         "power bank"
       ]
     },
     "travel_toiletries": {
-      "name": "ಸ್ನಾನದ ಸಾಮಗ್ರಿ",
+      "name": "స్నానపు సామగ్రి",
       "aliases": []
     },
     "travel_medicines": {
-      "name": "ಔಷಧಿಗಳು",
+      "name": "మందులు",
       "aliases": [
-        "aushadhi",
-        "maatre"
+        "mandulu"
       ]
     },
     "aadhaar_card": {
-      "name": "ಆಧಾರ್ ಕಾರ್ಡ್",
+      "name": "ఆధార్ కార్డ్",
       "aliases": [
         "aadhaar",
         "aadhar"
       ]
     },
     "pan_card": {
-      "name": "ಪ್ಯಾನ್ ಕಾರ್ಡ್",
+      "name": "పాన్ కార్డ్",
       "aliases": [
         "pan"
       ]
     },
     "passport": {
-      "name": "ಪಾಸ್ಪೋರ್ಟ್",
+      "name": "పాస్పోర్ట్",
       "aliases": [
         "passport"
       ]
     },
     "driving_licence": {
-      "name": "ಡ್ರೈವಿಂಗ್ ಲೈಸೆನ್ಸ್",
+      "name": "డ్రైవింగ్ లైసెన్స్",
       "aliases": [
         "dl",
         "licence"
       ]
     },
     "educational_certificates": {
-      "name": "ಶೈಕ್ಷಣಿಕ ಪ್ರಮಾಣಪತ್ರಗಳು",
+      "name": "విద్యా సర్టిఫికెట్లు",
       "aliases": [
-        "marks card",
-        "certificates"
+        "certificates",
+        "marks memo"
       ]
     },
     "passport_photos": {
-      "name": "ಪಾಸ್ಪೋರ್ಟ್ ಫೋಟೋಗಳು",
+      "name": "పాస్పోర్ట్ ఫోటోలు",
       "aliases": [
         "photo"
       ]
     },
     "hall_ticket": {
-      "name": "ಹಾಲ್ ಟಿಕೆಟ್",
+      "name": "హాల్ టికెట్",
       "aliases": [
-        "hall ticket",
-        "pravesha patra"
+        "hall ticket"
       ]
     },
     "id_card": {
-      "name": "ಗುರುತಿನ ಚೀಟಿ",
+      "name": "గుర్తింపు కార్డు",
       "aliases": [
         "id card"
       ]
     },
     "pen": {
-      "name": "ಪೆನ್ನು",
+      "name": "పెన్ను",
       "aliases": [
         "pen"
       ]
     },
     "pencil": {
-      "name": "ಪೆನ್ಸಿಲ್",
+      "name": "పెన్సిల్",
       "aliases": [
         "pencil"
       ]
     },
     "eraser": {
-      "name": "ರಬ್ಬರ್",
+      "name": "రబ్బరు",
       "aliases": [
         "rubber",
         "eraser"
       ]
     },
     "calculator": {
-      "name": "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+      "name": "క్యాలిక్యులేటర్",
       "aliases": [
         "calculator"
       ]
     },
     "books": {
-      "name": "ಪುಸ್ತಕಗಳು",
+      "name": "పుస్తకాలు",
       "aliases": [
-        "pustaka"
+        "pustakam"
       ]
     },
     "notes": {
-      "name": "ಟಿಪ್ಪಣಿಗಳು",
+      "name": "నోట్సు",
       "aliases": [
         "notes"
       ]
     },
     "sweets": {
-      "name": "ಸಿಹಿತಿಂಡಿ",
+      "name": "స్వీట్లు",
       "aliases": [
-        "sihi",
         "sweets"
       ]
     },
     "greeting_card": {
-      "name": "ಶುಭಾಶಯ ಪತ್ರ",
+      "name": "శుభాకాంక్షల కార్డు",
       "aliases": [
         "greeting card"
       ]
     },
     "incense_sticks": {
-      "name": "ಊದುಬತ್ತಿ",
+      "name": "అగరుబత్తీలు",
       "aliases": [
-        "oodubatti",
         "agarbatti"
       ]
     },
     "camphor": {
-      "name": "ಕರ್ಪೂರ",
+      "name": "కర్పూరం",
       "aliases": [
-        "karpoora"
+        "karpuram"
       ]
     },
     "kumkum": {
-      "name": "ಕುಂಕುಮ",
+      "name": "కుంకుమ",
       "aliases": [
         "kumkuma"
       ]
     },
     "turmeric": {
-      "name": "ಅರಿಶಿನ",
+      "name": "పసుపు",
       "aliases": [
-        "arishina"
+        "pasupu"
       ]
     },
     "flowers": {
-      "name": "ಹೂವು",
+      "name": "పువ్వులు",
       "aliases": [
-        "hoovu"
+        "puvvulu",
+        "poolu"
       ]
     },
     "coconut": {
-      "name": "ತೆಂಗಿನಕಾಯಿ",
+      "name": "కొబ్బరికాయ",
       "aliases": [
-        "tenginakayi",
-        "kayi"
+        "kobbarikaya"
       ]
     },
     "cotton_wicks": {
-      "name": "ಹತ್ತಿ ಬತ್ತಿ",
+      "name": "వత్తులు",
       "aliases": [
-        "batti"
+        "vattulu",
+        "vattu"
       ]
     },
     "balloons": {
-      "name": "ಬಲೂನುಗಳು",
+      "name": "బెలూన్లు",
       "aliases": [
         "balloon"
       ]
     },
     "rangoli_colours": {
-      "name": "ರಂಗೋಲಿ ಬಣ್ಣ",
+      "name": "ముగ్గు రంగులు",
       "aliases": [
+        "muggu",
         "rangoli"
       ]
     },
     "decorative_lights": {
-      "name": "ಅಲಂಕಾರಿಕ ದೀಪಗಳು",
+      "name": "అలంకరణ దీపాలు",
       "aliases": [
         "serial lights"
       ]
     },
     "fever_tablets": {
-      "name": "ಜ್ವರದ ಮಾತ್ರೆ",
+      "name": "జ్వరం మాత్రలు",
       "aliases": [
-        "jwara",
+        "jwaram",
         "paracetamol"
       ]
     },
     "pain_balm": {
-      "name": "ನೋವಿನ ಮುಲಾಮು",
+      "name": "నొప్పి బామ్",
       "aliases": [
         "balm"
       ]
     },
     "bandage": {
-      "name": "ಬ್ಯಾಂಡೇಜ್",
+      "name": "కట్టు",
       "aliases": [
+        "kattu",
         "bandage"
       ]
     },
     "antiseptic_liquid": {
-      "name": "ಆಂಟಿಸೆಪ್ಟಿಕ್ ದ್ರವ",
+      "name": "యాంటిసెప్టిక్ ద్రావణం",
       "aliases": [
         "antiseptic"
       ]
     },
     "ors": {
-      "name": "ORS ಪುಡಿ",
+      "name": "ORS పొడి",
       "aliases": [
         "ors"
       ]
     },
     "cough_syrup": {
-      "name": "ಕೆಮ್ಮಿನ ಸಿರಪ್",
+      "name": "దగ్గు మందు",
       "aliases": [
         "cough syrup"
       ]
     },
     "soap": {
-      "name": "ಸೋಪು",
+      "name": "సబ్బు",
       "aliases": [
-        "sopu",
-        "soap"
+        "sabbu"
       ]
     },
     "toothpaste": {
-      "name": "ಟೂತ್ ಪೇಸ್ಟ್",
+      "name": "టూత్ పేస్ట్",
       "aliases": [
         "paste"
       ]
     },
     "toothbrush": {
-      "name": "ಹಲ್ಲುಜ್ಜುವ ಬ್ರಷ್",
+      "name": "టూత్ బ్రష్",
       "aliases": [
         "brush"
       ]
     },
     "shampoo": {
-      "name": "ಶಾಂಪೂ",
+      "name": "షాంపూ",
       "aliases": [
         "shampoo"
       ]
     },
     "hair_oil": {
-      "name": "ಕೂದಲಿನ ಎಣ್ಣೆ",
+      "name": "తలనూనె",
       "aliases": [
-        "enne"
+        "nune"
       ]
     },
     "comb": {
-      "name": "ಬಾಚಣಿಗೆ",
+      "name": "దువ్వెన",
       "aliases": [
-        "bachanige"
+        "duvvena"
       ]
     },
     "batteries": {
-      "name": "ಬ್ಯಾಟರಿಗಳು",
+      "name": "బ్యాటరీలు",
       "aliases": [
         "battery"
       ]
     },
     "light_bulb": {
-      "name": "ಬಲ್ಬ್",
+      "name": "బల్బు",
       "aliases": [
         "bulb"
       ]
     },
     "extension_board": {
-      "name": "ಎಕ್ಸ್ಟೆನ್ಷನ್ ಬೋರ್ಡ್",
+      "name": "ఎక్స్టెన్షన్ బోర్డు",
       "aliases": [
         "extension"
       ]
     },
     "earphones": {
-      "name": "ಇಯರ್ ಫೋನ್",
+      "name": "ఇయర్ ఫోన్లు",
       "aliases": [
         "earphone"
       ]
     },
     "notebook": {
-      "name": "ನೋಟ್ ಪುಸ್ತಕ",
+      "name": "నోటు పుస్తకం",
       "aliases": [
         "notebook"
       ]
     },
     "scissors": {
-      "name": "ಕತ್ತರಿ",
+      "name": "కత్తెర",
       "aliases": [
-        "kattari"
+        "kattera"
       ]
     },
     "glue": {
-      "name": "ಅಂಟು",
+      "name": "జిగురు",
       "aliases": [
-        "antu",
+        "jiguru",
         "gum"
       ]
     },
     "stapler": {
-      "name": "ಸ್ಟೇಪ್ಲರ್",
+      "name": "స్టేప్లర్",
       "aliases": [
         "stapler"
       ]
     },
     "ruler": {
-      "name": "ಸ್ಕೇಲ್",
+      "name": "స్కేలు",
       "aliases": [
         "scale",
         "ruler"

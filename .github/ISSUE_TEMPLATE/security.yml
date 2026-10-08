@@ -1,0 +1,52 @@
+name: Security hardening
+description: A public, non-sensitive security improvement (not a vulnerability report).
+title: "[Security] "
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Stop: is this a real vulnerability?** If someone could exploit it today (data exposure,
+        a leaked secret, a way to bypass a protection), do **not** open a public issue. Report it
+        privately with GitHub private vulnerability reporting:
+        https://github.com/shivayogih/CheckList/security/advisories/new (see SECURITY.md).
+
+        Use this form only for hardening ideas and policy gaps that are safe to discuss in public,
+        for example "add a lint rule that bans Log calls" or "exclude a new file from backups".
+
+        Never paste secrets, keys, tokens, keystore data, personal data or exploit code here.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: This is not an exploitable vulnerability, and the description contains no secrets or personal data
+          required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Gap
+      description: What protection is missing or weaker than it should be?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed hardening
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Data at rest (profile encryption, backups)
+        - Logging and personal data
+        - Import and export
+        - AI context and privacy
+        - Build, signing and secrets
+        - CI/CD
+        - Dependencies
+        - Other
+    validations:
+      required: true
