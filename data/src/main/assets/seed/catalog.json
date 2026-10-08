@@ -1,0 +1,26 @@
+{
+  "seedVersion": 1,
+  "units": [
+    {"code": "KG", "allowsDecimal": true, "sortOrder": 10},
+    {"code": "GRAM", "allowsDecimal": true, "sortOrder": 20},
+    {"code": "LITRE", "allowsDecimal": true, "sortOrder": 30},
+    {"code": "MILLILITRE", "allowsDecimal": true, "sortOrder": 40},
+    {"code": "DOZEN", "allowsDecimal": false, "sortOrder": 50},
+    {"code": "PIECE", "allowsDecimal": false, "sortOrder": 60},
+    {"code": "PACK", "allowsDecimal": false, "sortOrder": 70},
+    {"code": "BOX", "allowsDecimal": false, "sortOrder": 80},
+    {"code": "BOTTLE", "allowsDecimal": false, "sortOrder": 90},
+    {"code": "PAIR", "allowsDecimal": false, "sortOrder": 100},
+    {"code": "METER", "allowsDecimal": true, "sortOrder": 110},
+    {"code": "NOS", "allowsDecimal": false, "sortOrder": 120}
+  ],
+  "categories": [
+    {"key": "groceries", "icon": "🛒", "sortOrder": 10},
+    {"key": "vegetables", "icon": "🥕", "sortOrder": 20}
+  ],
+  "items": [
+    {"key": "rice", "category": "groceries", "defaultUnit": "KG"},
+    {"key": "sugar", "category": "groceries", "defaultUnit": "KG"},
+    {"key": "tomato", "category": "vegetables", "defaultUnit": "KG"}
+  ]
+}

@@ -21,6 +21,8 @@ data class ChecklistItemUpdate(
     val clearQuantity: Boolean = false,
     /** True clears notes. */
     val clearNotes: Boolean = false,
+    /** True clears the unit only; [clearQuantity] still clears both. */
+    val clearUnit: Boolean = false,
 )
 
 enum class ChecklistSort { RECENT, TITLE, PROGRESS }

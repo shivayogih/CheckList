@@ -41,6 +41,9 @@ interface CatalogRepository {
      */
     suspend fun searchMasterItems(query: String, locale: String, categoryId: CategoryId? = null, limit: Int = 50): List<MasterItem>
 
+    /** Any master item, hidden or not; null when it does not exist. */
+    suspend fun getMasterItem(id: MasterItemId, locale: String): MasterItem?
+
     suspend fun findMasterItemByName(categoryId: CategoryId, name: String, locale: String): MasterItem?
 
     suspend fun createMasterItem(categoryId: CategoryId, name: String, nameLocale: String, defaultUnit: UnitCode?): MasterItemId

@@ -1,0 +1,9 @@
+{
+  "locale": "kn",
+  "categories": {"groceries": "ದಿನಸಿ", "vegetables": "ತರಕಾರಿಗಳು"},
+  "items": {
+    "rice": {"name": "ಅಕ್ಕಿ", "aliases": ["akki"]},
+    "sugar": {"name": "ಸಕ್ಕರೆ", "aliases": ["sakkare"]},
+    "tomato": {"name": "ಟೊಮೆಟೊ", "aliases": ["tomato"]}
+  }
+}

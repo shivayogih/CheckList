@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    // Annotation processing runs on KSP: kapt is not supported with AGP 9 built-in Kotlin.
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 // versionCode = MAJOR*10000 + MINOR*1000 + PATCH*100 + BUILD (ADR-016).
@@ -108,6 +111,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

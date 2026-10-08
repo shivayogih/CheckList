@@ -1,0 +1,9 @@
+{
+  "locale": "en",
+  "categories": {"groceries": "Groceries", "vegetables": "Vegetables"},
+  "items": {
+    "rice": {"name": "Rice"},
+    "sugar": {"name": "Sugar"},
+    "tomato": {"name": "Tomato"}
+  }
+}

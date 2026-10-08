@@ -1,6 +1,10 @@
-// Data layer: Room, DataStore, seed catalog, import/export and PDF arrive here from Phase 2.
+// Data layer: Room (single source of truth), seed catalog, and the Hilt bindings of the domain repositories.
+// DataStore, import/export and PDF arrive in later phases.
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 android {
@@ -15,8 +19,31 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    testOptions {
+        // Robolectric tests read the real seed assets.
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+
+// Exported schemas are committed: they are the baseline for migrations and MigrationTestHelper tests.
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
     implementation(project(":domain"))
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.room.testing)
 }
