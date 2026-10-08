@@ -9,7 +9,8 @@ import androidx.room.PrimaryKey
 /**
  * The single profile row (id "me"). The whole profile is one AES-256-GCM blob rather than
  * per-column ciphertext: nothing in it needs SQL, and one blob leaks no per-field lengths.
- * Reading and writing it arrives with the profile feature (Phase 5).
+ * Written and read only by `EncryptedProfileRepository` (Phase 5), which binds [encPayload] to this
+ * table, column, row, [schemaVersion] and [keyAlias] through the AEAD associated data.
  *
  * Not a data class: generated equals would compare the array by reference.
  */
