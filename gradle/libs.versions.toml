@@ -19,6 +19,8 @@ robolectric = "4.17"
 androidxTestCore = "1.7.0"
 javaxInject = "1"
 turbine = "1.2.1"
+# Profile encryption (CL-151); tink-android 1.23.0 checked on Maven Central, released 2026-07-09.
+tink = "1.23.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +49,7 @@ robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
