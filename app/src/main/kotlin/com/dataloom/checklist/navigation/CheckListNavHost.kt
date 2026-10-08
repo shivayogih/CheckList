@@ -15,6 +15,7 @@ import com.dataloom.checklist.presentation.home.HomeScreen
 import com.dataloom.checklist.presentation.masteritem.AddItemsScreen
 import com.dataloom.checklist.presentation.settings.LanguageScreen
 import com.dataloom.checklist.presentation.settings.SettingsScreen
+import com.dataloom.checklist.presentation.settings.profile.ProfileScreen
 import kotlinx.serialization.Serializable
 
 // Type-safe destinations: arguments are constructor fields. IDs travel as their String values
@@ -27,6 +28,9 @@ data object SettingsRoute
 
 @Serializable
 data object LanguageRoute
+
+@Serializable
+data object ProfileRoute
 
 @Serializable
 data object CreateChecklistRoute
@@ -63,7 +67,11 @@ fun CheckListNavHost(navController: NavHostController = rememberNavController())
             SettingsScreen(
                 onBack = { navController.popBackStack() },
                 onOpenLanguage = { navController.navigate(LanguageRoute) },
+                onOpenProfile = { navController.navigate(ProfileRoute) },
             )
+        }
+        composable<ProfileRoute> {
+            ProfileScreen(onBack = { navController.popBackStack() })
         }
         composable<LanguageRoute> {
             LanguageScreen(onBack = { navController.popBackStack() })

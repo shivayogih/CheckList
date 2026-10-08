@@ -30,7 +30,7 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Layer | Tools | What | Runs in | Status |
 |---|---|---|---|---|
 | Domain unit | JUnit 4, kotlinx-coroutines-test | Use cases, validators, quantity math, localizer fallback, confirmation policy, command validator | `pr-checks` | Started; use cases Planned (Phase 2, CL-111) |
-| ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133): Home, create, add categories, detail, add items, item editor |
+| ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133, CL-135): Home, create, add categories, detail, add items, item editor, profile |
 | Room / DAO | Robolectric in-memory database; a small instrumented set | DAOs, foreign-key cascades, FTS, transactions, seed idempotency | `pr-checks` (Robolectric), Bitrise `staging` (instrumented) | Planned (Phase 2, CL-112) |
 | Migrations | `MigrationTestHelper` + committed schemas | Every N → N+1 and 1 → latest | `pr-checks` | Planned (Phase 7) |
 | Repository | Fakes + Room | Offline behavior, error mapping, consistency after import | `pr-checks` | Planned (Phase 2-7) |

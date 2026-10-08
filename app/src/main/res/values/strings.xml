@@ -121,4 +121,25 @@
     <string name="unit_pair">pair</string>
     <string name="unit_picker_title">Choose unit</string>
     <string name="unit_piece">pcs</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">Enter your name.</string>
+    <string name="error_email_invalid">Enter an email address like name@example.com.</string>
+    <string name="error_phone_invalid">Enter a phone number with %1$d to %2$d digits.</string>
+    <string name="error_secure_storage">Secure storage is not working right now. Nothing was saved. Try again later.</string>
+    <string name="profile_clear">Delete profile</string>
+    <string name="profile_clear_message">Your name and contact details will be erased from this phone.</string>
+    <string name="profile_clear_title">Delete your profile?</string>
+    <string name="profile_cleared">Profile deleted.</string>
+    <string name="profile_email">Email (optional)</string>
+    <string name="profile_intro">Optional. Your name can be added to lists you share. Everything here stays on this phone, encrypted, and is never uploaded.</string>
+    <string name="profile_name">Your name</string>
+    <string name="profile_phone">Phone (optional)</string>
+    <string name="profile_reset_dismiss">Got it</string>
+    <string name="profile_reset_notice">Your saved profile could not be opened on this phone, so it was erased to keep it safe. Please enter it again.</string>
+    <string name="profile_saved">Profile saved.</string>
+    <string name="profile_title">Your profile</string>
+    <string name="profile_unavailable">Secure storage on this phone is not working right now, so your profile can\'t be shown or saved. Try again later, or delete the profile to start over.</string>
+    <string name="settings_profile">Your profile</string>
+    <string name="settings_profile_summary">Name and contact details, stored encrypted on this phone</string>
 </resources>

@@ -23,10 +23,10 @@ import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.localization.AppLocales
 import com.dataloom.checklist.presentation.components.BackButton
 
-/** Phase 1 shell: Language and About. Other settings arrive with their phases. */
+/** Language, Your profile and About. Other settings arrive with their phases. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(onBack: () -> Unit, onOpenLanguage: () -> Unit) {
+fun SettingsScreen(onBack: () -> Unit, onOpenLanguage: () -> Unit, onOpenProfile: () -> Unit) {
     val languageSummary = when (val preference = remember { AppLocales.current() }) {
         LanguagePreference.SystemDefault -> stringResource(R.string.settings_language_system)
         is LanguagePreference.Specific -> preference.language.nativeName
@@ -47,6 +47,14 @@ fun SettingsScreen(onBack: () -> Unit, onOpenLanguage: () -> Unit) {
                 modifier = Modifier
                     .heightIn(min = 64.dp)
                     .clickable(role = Role.Button, onClick = onOpenLanguage),
+            )
+            HorizontalDivider()
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_profile)) },
+                supportingContent = { Text(stringResource(R.string.settings_profile_summary)) },
+                modifier = Modifier
+                    .heightIn(min = 64.dp)
+                    .clickable(role = Role.Button, onClick = onOpenProfile),
             )
             HorizontalDivider()
             ListItem(

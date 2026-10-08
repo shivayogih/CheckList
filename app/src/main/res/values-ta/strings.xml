@@ -120,4 +120,25 @@
     <string name="unit_pair">ஜோடி</string>
     <string name="unit_picker_title">அலகைத் தேர்ந்தெடு</string>
     <string name="unit_piece">துண்டு</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">உங்கள் பெயரை உள்ளிடவும்.</string>
+    <string name="error_email_invalid">name@example.com போன்ற மின்னஞ்சல் முகவரியை உள்ளிடவும்.</string>
+    <string name="error_phone_invalid">%1$d முதல் %2$d இலக்கங்கள் உள்ள ஃபோன் எண்ணை உள்ளிடவும்.</string>
+    <string name="error_secure_storage">பாதுகாப்பான சேமிப்பகம் இப்போது செயல்படவில்லை. எதுவும் சேமிக்கப்படவில்லை. பிறகு மீண்டும் முயலவும்.</string>
+    <string name="profile_clear">சுயவிவரத்தை நீக்கு</string>
+    <string name="profile_clear_message">உங்கள் பெயரும் தொடர்பு விவரங்களும் இந்த ஃபோனிலிருந்து அழிக்கப்படும்.</string>
+    <string name="profile_clear_title">உங்கள் சுயவிவரத்தை நீக்கவா?</string>
+    <string name="profile_cleared">சுயவிவரம் நீக்கப்பட்டது.</string>
+    <string name="profile_email">மின்னஞ்சல் (விருப்பத்தேர்வு)</string>
+    <string name="profile_intro">விருப்பத்தேர்வு. நீங்கள் பகிரும் பட்டியல்களில் உங்கள் பெயரைச் சேர்க்கலாம். இங்குள்ள அனைத்தும் குறியாக்கம் செய்யப்பட்டு இந்த ஃபோனிலேயே இருக்கும், ஒருபோதும் பதிவேற்றப்படாது.</string>
+    <string name="profile_name">உங்கள் பெயர்</string>
+    <string name="profile_phone">ஃபோன் (விருப்பத்தேர்வு)</string>
+    <string name="profile_reset_dismiss">சரி</string>
+    <string name="profile_reset_notice">சேமித்த உங்கள் சுயவிவரத்தை இந்த ஃபோனில் திறக்க முடியவில்லை, எனவே பாதுகாப்புக்காக அது அழிக்கப்பட்டது. மீண்டும் உள்ளிடவும்.</string>
+    <string name="profile_saved">சுயவிவரம் சேமிக்கப்பட்டது.</string>
+    <string name="profile_title">உங்கள் சுயவிவரம்</string>
+    <string name="profile_unavailable">இந்த ஃபோனின் பாதுகாப்பான சேமிப்பகம் இப்போது செயல்படவில்லை, எனவே உங்கள் சுயவிவரத்தைக் காட்டவோ சேமிக்கவோ முடியாது. பிறகு மீண்டும் முயலவும், அல்லது புதிதாகத் தொடங்க சுயவிவரத்தை நீக்கவும்.</string>
+    <string name="settings_profile">உங்கள் சுயவிவரம்</string>
+    <string name="settings_profile_summary">பெயர் மற்றும் தொடர்பு விவரங்கள், இந்த ஃபோனில் குறியாக்கம் செய்து சேமிக்கப்பட்டவை</string>
 </resources>

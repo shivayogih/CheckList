@@ -120,4 +120,25 @@
     <string name="unit_pair">जोडी</string>
     <string name="unit_picker_title">एकक निवडा</string>
     <string name="unit_piece">पीस</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">तुमचे नाव टाका.</string>
+    <string name="error_email_invalid">name@example.com सारखा ईमेल पत्ता टाका.</string>
+    <string name="error_phone_invalid">%1$d ते %2$d अंकांचा फोन नंबर टाका.</string>
+    <string name="error_secure_storage">सुरक्षित स्टोरेज सध्या काम करत नाही. काहीही जतन झाले नाही. नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="profile_clear">प्रोफाइल हटवा</string>
+    <string name="profile_clear_message">तुमचे नाव आणि संपर्क तपशील या फोनवरून पुसले जातील.</string>
+    <string name="profile_clear_title">तुमची प्रोफाइल हटवायची?</string>
+    <string name="profile_cleared">प्रोफाइल हटवली.</string>
+    <string name="profile_email">ईमेल (ऐच्छिक)</string>
+    <string name="profile_intro">ऐच्छिक. तुम्ही शेअर करत असलेल्या याद्यांमध्ये तुमचे नाव जोडता येते. येथील सर्व माहिती एन्क्रिप्ट होऊन याच फोनवर राहते आणि कधीही अपलोड होत नाही.</string>
+    <string name="profile_name">तुमचे नाव</string>
+    <string name="profile_phone">फोन (ऐच्छिक)</string>
+    <string name="profile_reset_dismiss">ठीक आहे</string>
+    <string name="profile_reset_notice">तुमची जतन केलेली प्रोफाइल या फोनवर उघडता आली नाही, म्हणून सुरक्षेसाठी ती पुसली गेली. कृपया ती पुन्हा भरा.</string>
+    <string name="profile_saved">प्रोफाइल जतन केली.</string>
+    <string name="profile_title">तुमची प्रोफाइल</string>
+    <string name="profile_unavailable">या फोनवरील सुरक्षित स्टोरेज सध्या काम करत नाही, त्यामुळे तुमची प्रोफाइल दाखवता किंवा जतन करता येत नाही. नंतर पुन्हा प्रयत्न करा, किंवा नव्याने सुरुवात करण्यासाठी प्रोफाइल हटवा.</string>
+    <string name="settings_profile">तुमची प्रोफाइल</string>
+    <string name="settings_profile_summary">नाव आणि संपर्क तपशील, या फोनवर एन्क्रिप्ट करून जतन केलेले</string>
 </resources>

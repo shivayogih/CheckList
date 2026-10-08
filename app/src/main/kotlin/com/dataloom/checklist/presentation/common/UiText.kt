@@ -35,6 +35,14 @@ fun ValidationError.toUiText(): UiText = when (this) {
     ValidationError.UNIT_LABEL_BLANK -> UiText(R.string.error_unit_label_blank)
     ValidationError.UNIT_LABEL_TOO_LONG -> tooLong(FieldLimits.UNIT_LABEL_MAX)
     ValidationError.NEGATIVE_POSITION -> UiText(R.string.error_generic)
+    ValidationError.DISPLAY_NAME_BLANK -> UiText(R.string.error_display_name_blank)
+    ValidationError.DISPLAY_NAME_TOO_LONG -> tooLong(FieldLimits.DISPLAY_NAME_MAX)
+    ValidationError.EMAIL_TOO_LONG -> tooLong(FieldLimits.EMAIL_MAX)
+    ValidationError.EMAIL_INVALID -> UiText(R.string.error_email_invalid)
+    ValidationError.PHONE_INVALID -> UiText(
+        R.string.error_phone_invalid,
+        listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX),
+    )
 }
 
 /** Maps a refused write to a message; field-level errors are shown next to their fields instead. */
@@ -46,6 +54,7 @@ fun DomainError.toUiText(): UiText = when (this) {
     is DomainError.CategoryInUse -> UiText(R.string.error_generic)
     DomainError.SeededCategoryNotDeletable -> UiText(R.string.error_generic)
     DomainError.CustomCategoryHasNoDefaultName -> UiText(R.string.error_generic)
+    DomainError.SecureStorageUnavailable -> UiText(R.string.error_secure_storage)
 }
 
 private fun tooLong(max: Int) = UiText(R.string.error_too_long, listOf(max))

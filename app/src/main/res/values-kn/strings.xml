@@ -120,4 +120,25 @@
     <string name="unit_pair">ಜೋಡಿ</string>
     <string name="unit_picker_title">ಘಟಕ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="unit_piece">ಪೀಸ್</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="error_email_invalid">name@example.com ರೀತಿಯ ಇಮೇಲ್ ವಿಳಾಸ ನಮೂದಿಸಿ.</string>
+    <string name="error_phone_invalid">%1$d ರಿಂದ %2$d ಅಂಕಿಗಳ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.</string>
+    <string name="error_secure_storage">ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ. ಏನನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="profile_clear">ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ</string>
+    <string name="profile_clear_message">ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ಈ ಫೋನ್‌ನಿಂದ ಅಳಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="profile_clear_title">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅಳಿಸಬೇಕೆ?</string>
+    <string name="profile_cleared">ಪ್ರೊಫೈಲ್ ಅಳಿಸಲಾಗಿದೆ.</string>
+    <string name="profile_email">ಇಮೇಲ್ (ಐಚ್ಛಿಕ)</string>
+    <string name="profile_intro">ಐಚ್ಛಿಕ. ನೀವು ಹಂಚಿಕೊಳ್ಳುವ ಪಟ್ಟಿಗಳಿಗೆ ನಿಮ್ಮ ಹೆಸರನ್ನು ಸೇರಿಸಬಹುದು. ಇಲ್ಲಿರುವುದೆಲ್ಲವೂ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ ಮತ್ತು ಎಂದಿಗೂ ಅಪ್‌ಲೋಡ್ ಆಗುವುದಿಲ್ಲ.</string>
+    <string name="profile_name">ನಿಮ್ಮ ಹೆಸರು</string>
+    <string name="profile_phone">ಫೋನ್ (ಐಚ್ಛಿಕ)</string>
+    <string name="profile_reset_dismiss">ಸರಿ</string>
+    <string name="profile_reset_notice">ಉಳಿಸಿದ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಈ ಫೋನ್‌ನಲ್ಲಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಸುರಕ್ಷತೆಗಾಗಿ ಅದನ್ನು ಅಳಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ನಮೂದಿಸಿ.</string>
+    <string name="profile_saved">ಪ್ರೊಫೈಲ್ ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="profile_title">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್</string>
+    <string name="profile_unavailable">ಈ ಫೋನ್‌ನ ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ, ಆದ್ದರಿಂದ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ತೋರಿಸಲು ಅಥವಾ ಉಳಿಸಲು ಆಗುವುದಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಹೊಸದಾಗಿ ಪ್ರಾರಂಭಿಸಲು ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ.</string>
+    <string name="settings_profile">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್</string>
+    <string name="settings_profile_summary">ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳು, ಈ ಫೋನ್‌ನಲ್ಲಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿ ಉಳಿಸಲಾಗಿದೆ</string>
 </resources>

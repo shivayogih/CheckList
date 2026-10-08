@@ -120,4 +120,25 @@
     <string name="unit_pair">जोड़ी</string>
     <string name="unit_picker_title">इकाई चुनें</string>
     <string name="unit_piece">पीस</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">अपना नाम दर्ज करें।</string>
+    <string name="error_email_invalid">name@example.com जैसा ईमेल पता दर्ज करें।</string>
+    <string name="error_phone_invalid">%1$d से %2$d अंकों का फ़ोन नंबर दर्ज करें।</string>
+    <string name="error_secure_storage">सुरक्षित स्टोरेज अभी काम नहीं कर रहा है। कुछ भी सहेजा नहीं गया। बाद में फिर कोशिश करें।</string>
+    <string name="profile_clear">प्रोफ़ाइल हटाएँ</string>
+    <string name="profile_clear_message">आपका नाम और संपर्क विवरण इस फ़ोन से मिटा दिए जाएँगे।</string>
+    <string name="profile_clear_title">अपनी प्रोफ़ाइल हटाएँ?</string>
+    <string name="profile_cleared">प्रोफ़ाइल हटा दी गई।</string>
+    <string name="profile_email">ईमेल (वैकल्पिक)</string>
+    <string name="profile_intro">वैकल्पिक। आपका नाम आपकी साझा की गई सूचियों में जोड़ा जा सकता है। यहाँ की सारी जानकारी एन्क्रिप्ट होकर इसी फ़ोन पर रहती है और कभी अपलोड नहीं होती।</string>
+    <string name="profile_name">आपका नाम</string>
+    <string name="profile_phone">फ़ोन (वैकल्पिक)</string>
+    <string name="profile_reset_dismiss">ठीक है</string>
+    <string name="profile_reset_notice">आपकी सहेजी गई प्रोफ़ाइल इस फ़ोन पर खोली नहीं जा सकी, इसलिए सुरक्षा के लिए उसे मिटा दिया गया। कृपया उसे फिर से भरें।</string>
+    <string name="profile_saved">प्रोफ़ाइल सहेजी गई।</string>
+    <string name="profile_title">आपकी प्रोफ़ाइल</string>
+    <string name="profile_unavailable">इस फ़ोन का सुरक्षित स्टोरेज अभी काम नहीं कर रहा है, इसलिए आपकी प्रोफ़ाइल दिखाई या सहेजी नहीं जा सकती। बाद में फिर कोशिश करें, या नए सिरे से शुरू करने के लिए प्रोफ़ाइल हटाएँ।</string>
+    <string name="settings_profile">आपकी प्रोफ़ाइल</string>
+    <string name="settings_profile_summary">नाम और संपर्क विवरण, इस फ़ोन पर एन्क्रिप्ट करके सहेजे गए</string>
 </resources>

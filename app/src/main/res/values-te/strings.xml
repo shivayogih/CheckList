@@ -120,4 +120,25 @@
     <string name="unit_pair">జత</string>
     <string name="unit_picker_title">కొలమానం ఎంచుకోండి</string>
     <string name="unit_piece">ముక్క</string>
+
+    <!-- Profile screen (CL-135). -->
+    <string name="error_display_name_blank">మీ పేరును నమోదు చేయండి.</string>
+    <string name="error_email_invalid">name@example.com లాంటి ఈమెయిల్ చిరునామాను నమోదు చేయండి.</string>
+    <string name="error_phone_invalid">%1$d నుండి %2$d అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
+    <string name="error_secure_storage">సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు. ఏదీ సేవ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="profile_clear">ప్రొఫైల్‌ను తొలగించండి</string>
+    <string name="profile_clear_message">మీ పేరు మరియు సంప్రదింపు వివరాలు ఈ ఫోన్ నుండి తుడిచివేయబడతాయి.</string>
+    <string name="profile_clear_title">మీ ప్రొఫైల్‌ను తొలగించాలా?</string>
+    <string name="profile_cleared">ప్రొఫైల్ తొలగించబడింది.</string>
+    <string name="profile_email">ఈమెయిల్ (ఐచ్ఛికం)</string>
+    <string name="profile_intro">ఐచ్ఛికం. మీరు షేర్ చేసే జాబితాలకు మీ పేరును జోడించవచ్చు. ఇక్కడ ఉన్నదంతా ఎన్‌క్రిప్ట్ చేయబడి ఈ ఫోన్‌లోనే ఉంటుంది, ఎప్పుడూ అప్‌లోడ్ కాదు.</string>
+    <string name="profile_name">మీ పేరు</string>
+    <string name="profile_phone">ఫోన్ (ఐచ్ఛికం)</string>
+    <string name="profile_reset_dismiss">సరే</string>
+    <string name="profile_reset_notice">సేవ్ చేసిన మీ ప్రొఫైల్‌ను ఈ ఫోన్‌లో తెరవడం సాధ్యం కాలేదు, కాబట్టి భద్రత కోసం దాన్ని తుడిచివేశాము. దయచేసి మళ్లీ నమోదు చేయండి.</string>
+    <string name="profile_saved">ప్రొఫైల్ సేవ్ చేయబడింది.</string>
+    <string name="profile_title">మీ ప్రొఫైల్</string>
+    <string name="profile_unavailable">ఈ ఫోన్‌లోని సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు, కాబట్టి మీ ప్రొఫైల్‌ను చూపించడం లేదా సేవ్ చేయడం సాధ్యం కాదు. తర్వాత మళ్లీ ప్రయత్నించండి, లేదా కొత్తగా ప్రారంభించడానికి ప్రొఫైల్‌ను తొలగించండి.</string>
+    <string name="settings_profile">మీ ప్రొఫైల్</string>
+    <string name="settings_profile_summary">పేరు మరియు సంప్రదింపు వివరాలు, ఈ ఫోన్‌లో ఎన్‌క్రిప్ట్ చేసి సేవ్ చేయబడ్డాయి</string>
 </resources>
