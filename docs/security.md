@@ -15,7 +15,8 @@ How CheckList protects user data and the project's secrets. To report a vulnerab
 | Profile encryption with Tink and Android Keystore | Planned (Phase 5) |
 | Backup rules that exclude the profile | Planned (Phase 5) |
 | Release-safe logging wrapper and `@Sensitive` values | Planned (Phase 5) |
-| Import limits and validation | Planned (Phase 6) |
+| Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | In progress (Phase 6, CL-160) |
+| Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | In progress (Phase 6, CL-160) |
 | gitleaks and secret scanning in `pr-checks`; push protection | Planned (Phase 8) |
 | Signing and Play credentials in Bitrise protected storage | Planned (Phase 9) |
 | HTTPS-only network config, App Check | Planned (Phase 10) |

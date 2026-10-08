@@ -1,6 +1,8 @@
 # Import/export format
 
-The JSON file format CheckList uses to move checklists between phones and for backups the user controls. **Status: Planned (Phase 6, CL-160 to CL-166).** This page is the specification the implementation and its golden-file tests must follow. Design reasoning: [phase0-architecture.md](phase0-architecture.md) section 20.
+The JSON file format CheckList uses to move checklists between phones and for backups the user controls. **Status: In progress (Phase 6, CL-160 to CL-169).** This page is the specification the implementation and its golden-file tests must follow. Design reasoning: [phase0-architecture.md](phase0-architecture.md) section 20.
+
+Where the code lives: the pipeline (validation, matching, use cases `ExportChecklistsUseCase`, `PreviewImportUseCase`, `ApplyImportUseCase`) is in `:domain` under `domain/transfer`; the JSON codec and the Room transaction are in `:data` under `data/importexport`; the Storage Access Framework, Sharesheet and PDF helpers are in `:app` under `transfer/`.
 
 ## Principles
 
@@ -90,7 +92,43 @@ Exactly one of `canonicalKey` (seeded category) or `customName` (user category).
 | `notes` | Up to 500 chars, or null |
 | `completed`, `position` | Completion state and order within the section |
 
-## Versions
+### Rules the importer adds
+
+These complete the field tables above; the code and its tests follow them.
+
+- **Refs** are 1-64 characters of letters, digits, `_`, `-` and `.`, unique per kind (sections unique across all checklists). A `units` ref may not equal a built-in code, so an item's `unit` is never ambiguous. `units[].code` must be `"CUSTOM"`.
+- **Optional fields** may be left out: `description`, `createdAt`, `icon`, `canonicalKey`, `quantity`, `unit`, `notes` (null), `archived`, `completed`, `includesProfile` (false), `position` (0), `profile` (null). Everything else is required. Unknown keys, comments, trailing commas, wrong types and non-UTF-8 bytes make the file malformed (a leading byte order mark is accepted).
+- **`order` and `position`** are relative: sections and items are sorted by them (ties keep file order) and get fresh sparse values on import. They must not be negative. An export writes 0, 1, 2...
+- **`createdAt`**, if present, must be ISO-8601; it is informational. Imported checklists are created at import time and sorted as the most recent.
+- **`canonicalKey`** is lower-case letters, digits, `_` and `-`, optionally followed by `:` and an id (`custom:<uuid>`), at most 100 characters. **`displayNameLocale`** is BCP 47 shaped (`kn`, `en-IN`), at most 35 characters. **`icon`** is at most 32 UTF-16 units.
+- **Text cleaning:** control characters (Unicode Cc) and bidirectional overrides/isolates (U+202A-U+202E, U+2066-U+2069) are removed from every text before validation; line breaks are kept only in `description` and `notes`. ZWJ/ZWNJ and other format characters are kept because Indic spelling and emoji need them. Lengths are then checked in code points after trimming, exactly like the UI.
+- **Profile:** exports always write `"profile": null` until the opt-in profile export ships (Phase 5). A file with a non-null `profile` still imports; the profile is skipped and the preview says so.
+- **Empty files:** a valid file without any checklist is refused as "nothing to import".
+
+### Matching on import (never duplicate)
+
+| File says | Maps to | Otherwise |
+|---|---|---|
+| `canonicalKey` | The seeded category with that key | A custom category named after the key ("festival_lights" becomes "Festival lights"), for files from a newer catalog |
+| `customName` | An existing custom category with that name, ignoring case and Unicode width (NFKC); else any category whose name in the app language matches (so "Pooja Items" maps to the seeded Pooja Items) | One new custom category, however many file categories carry that name |
+| Custom unit `label` | An existing custom unit with that label, ignoring case | One new custom unit per label |
+| Built-in unit code | The built-in unit | Refused as an unknown unit if this database lacks it |
+| `title` already used (ignoring case), or repeated in the file | "Goa Trip (2)", "Goa Trip (3)"... shortened to stay within 100 characters | Imported unchanged |
+
+Only categories and units that a section or item uses are created. If two sections of one checklist end up on the same category, the file is refused. When an existing unit matched by label counts whole things but the file has a fraction for it, the file is refused rather than the amount changed. Matching runs again when the user confirms, so anything created since the preview is reused, and renames shown in the summary are the ones actually applied.
+
+### Limits
+
+| Limit | Value | When it is checked |
+|---|---|---|
+| File size | 10 MB (10,485,760 bytes) | Reported size before opening, then actual bytes while reading |
+| Checklists / items | 500 / 20,000 | While parsing (the array stops being read) |
+| Categories / custom units | 1,000 / 500 | While parsing |
+| Sections | 200 per checklist, 20,000 in total | While parsing / after parsing |
+| Any single string | 2,000 UTF-16 units | While parsing; the field limits above apply afterwards |
+| Reported problems | First 50, with the total count | Validation |
+
+An export that would break a limit is refused instead of written, so every exported file can be imported again.
 
 - The importer supports every `formatVersion` and `schemaVersion` up to the app's current one, upgrading older files through chained `JsonMigrator`s.
 - A newer version is rejected with "Update the app to import this file".
@@ -119,6 +157,10 @@ Pick a file (ACTION_OPEN_DOCUMENT; no storage permission)
 
 Generated on the device with `android.graphics.pdf.PdfDocument` and `StaticLayout` (correct shaping for Indic scripts), A4, large font, checkbox glyphs, category headings. Options: include completed items, include my name (off by default). Shared through the Android Sharesheet with a `FileProvider` URI; no app-specific APIs.
 
+As built: checkboxes are drawn as shapes (not font glyphs, which not every device font has), headings stay with their first item, and every item is laid out with the locale of its name so locale-specific glyph forms (Marathi versus Hindi) are right. Shaping limits: glyphs come from the device's fonts (a device without a font for a script shows boxes); the PDF stores shaped glyphs, so copying or searching Indic text in some PDF viewers can return wrong characters; before Android 9 lines get extra padding instead of fallback-font line heights; colour emoji may be dropped. Share files are written to `cacheDir/exports` and deleted once older than an hour, whenever a new one is made (instead of "on next launch", which would need startup work in the application class).
+
 ## Test fixtures
 
 Golden files live with the `:data` tests: valid files (every field, minimal), malformed JSON, oversized files, a future version, broken and duplicate references, hostile strings, and a round trip (export → import → export gives the same content apart from refs and timestamps).
+
+As built: `data/src/test/resources/transfer/` holds `valid-full.json` (all seven scripts), `valid-minimal.json`, `future-version.json`, `broken-refs.json` and `hostile-strings.json`; malformed, oversized and over-limit inputs are generated in `JsonTransferCodecTest`. `RoomImportExportTest` runs export → import → export between two Room databases, the rename and no-duplicate rules, and a failure injected halfway through an import that must leave every table unchanged. Domain rules are covered by `ImportValidatorTest` and `TransferUseCasesTest`.
