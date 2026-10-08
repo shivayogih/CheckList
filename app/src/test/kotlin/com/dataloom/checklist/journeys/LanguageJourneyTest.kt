@@ -11,14 +11,19 @@ import androidx.core.os.LocaleListCompat
 import androidx.test.core.app.ApplicationProvider
 import com.dataloom.checklist.MainActivity
 import com.dataloom.checklist.R
+import com.dataloom.checklist.di.OnboardingModule
 import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.domain.localization.SupportedLanguages
 import com.dataloom.checklist.localization.AppLocales
+import com.dataloom.checklist.onboarding.OnboardingStore
+import com.dataloom.checklist.testing.FakeOnboardingStore
 import com.dataloom.checklist.testing.ui.awaitNode
 import com.dataloom.checklist.testing.ui.awaitText
 import com.dataloom.checklist.testing.ui.string
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import java.util.Locale
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -39,9 +44,15 @@ import org.robolectric.annotation.Config
  * recreated MainActivity) is the same on every version.
  */
 @HiltAndroidTest
+@UninstallModules(OnboardingModule::class)
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [32])
 class LanguageJourneyTest {
+
+    // A returning user: the app opens on Home, not in the first-run flow (CL-250).
+    @BindValue
+    @JvmField
+    val onboardingStore: OnboardingStore = FakeOnboardingStore(initial = true)
 
     private val hiltRule = HiltAndroidRule(this)
     private val composeRule = createAndroidComposeRule<MainActivity>()

@@ -13,13 +13,16 @@ import com.dataloom.checklist.domain.transfer.ApplyImportUseCase
 import com.dataloom.checklist.domain.transfer.ExportChecklistsUseCase
 import com.dataloom.checklist.domain.transfer.PreviewImportUseCase
 import com.dataloom.checklist.localization.AppLanguageProvider
+import com.dataloom.checklist.onboarding.StartViewModel
 import com.dataloom.checklist.presentation.ai.AiCommandViewModel
 import com.dataloom.checklist.presentation.category.AddCategoriesViewModel
 import com.dataloom.checklist.presentation.checklist.create.CreateChecklistViewModel
 import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailViewModel
 import com.dataloom.checklist.presentation.checklist.item.ItemEditorViewModel
+import com.dataloom.checklist.presentation.home.HomeGreetingViewModel
 import com.dataloom.checklist.presentation.home.HomeViewModel
 import com.dataloom.checklist.presentation.masteritem.AddItemsViewModel
+import com.dataloom.checklist.presentation.onboarding.OnboardingViewModel
 import com.dataloom.checklist.presentation.settings.AiSettingsViewModel
 import com.dataloom.checklist.presentation.settings.profile.ProfileViewModel
 import com.dataloom.checklist.transfer.DocumentAccess
@@ -113,6 +116,9 @@ class AppGraphTest {
                     ProfileViewModel::class.java,
                     TransferViewModel::class.java,
                     AiSettingsViewModel::class.java,
+                    HomeGreetingViewModel::class.java,
+                    OnboardingViewModel::class.java,
+                    StartViewModel::class.java,
                 ).forEach { assertNotNull(provider[it]) }
 
                 val extras = activity.defaultViewModelCreationExtras

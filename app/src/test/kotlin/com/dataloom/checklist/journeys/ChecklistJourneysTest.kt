@@ -17,13 +17,18 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import com.dataloom.checklist.MainActivity
 import com.dataloom.checklist.R
+import com.dataloom.checklist.di.OnboardingModule
+import com.dataloom.checklist.onboarding.OnboardingStore
+import com.dataloom.checklist.testing.FakeOnboardingStore
 import com.dataloom.checklist.testing.ui.awaitGone
 import com.dataloom.checklist.testing.ui.awaitNode
 import com.dataloom.checklist.testing.ui.awaitText
 import com.dataloom.checklist.testing.ui.plural
 import com.dataloom.checklist.testing.ui.string
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -37,8 +42,14 @@ import org.robolectric.RobolectricTestRunner
  * Only the Android framework is simulated. Copy comes from string resources, never hard-coded.
  */
 @HiltAndroidTest
+@UninstallModules(OnboardingModule::class)
 @RunWith(RobolectricTestRunner::class)
 class ChecklistJourneysTest {
+
+    // A returning user: the app opens on Home, not in the first-run flow (CL-250).
+    @BindValue
+    @JvmField
+    val onboardingStore: OnboardingStore = FakeOnboardingStore(initial = true)
 
     private val hiltRule = HiltAndroidRule(this)
     private val composeRule = createAndroidComposeRule<MainActivity>()
@@ -116,7 +127,8 @@ class ChecklistJourneysTest {
     /** J1: Home (first use) -> Create checklist -> name + Groceries -> Create -> detail screen. */
     private fun createChecklist(title: String) {
         composeRule.awaitNode(hasText(string(R.string.home_create_checklist)) and hasClickAction()).performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.create_title_label))).performTextInput(title)
+        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.create_title_label)))
+            .performTextInput(title)
         composeRule.awaitNode(hasText(GROCERIES) and isToggleable()).performClick()
         composeRule.awaitNode(hasText(string(R.string.action_create)) and hasClickAction()).performClick()
         composeRule.awaitNode(hasText(title) and isHeading())
@@ -124,8 +136,10 @@ class ChecklistJourneysTest {
 
     /** J2: "Add item to Groceries" -> search -> tick the suggestion -> "Add 1 item". */
     private fun addCatalogItem(name: String) {
-        composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction()).performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label))).performTextInput(name)
+        composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
+            .performClick()
+        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+            .performTextInput(name)
         composeRule.awaitNode(hasText(name) and isToggleable()).performClick()
         composeRule.awaitNode(hasText(plural(R.plurals.add_selected_items, 1, "1")) and hasClickAction()).performClick()
         composeRule.awaitNode(itemRow(name))
@@ -133,9 +147,12 @@ class ChecklistJourneysTest {
 
     /** J2: search for a name the catalog does not have -> "Create new item" -> Add item. */
     private fun addCustomItem(name: String) {
-        composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction()).performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label))).performTextInput(name)
-        composeRule.awaitNode(hasText(string(R.string.add_items_create_named, name)) and hasClickAction()).performClick()
+        composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
+            .performClick()
+        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+            .performTextInput(name)
+        composeRule.awaitNode(hasText(string(R.string.add_items_create_named, name)) and hasClickAction())
+            .performClick()
         composeRule.awaitText(string(R.string.item_new_title, GROCERIES))
         composeRule.awaitNode(hasText(string(R.string.detail_add_item)) and hasClickAction()).performClick()
         composeRule.awaitNode(itemRow(name))
@@ -152,7 +169,8 @@ class ChecklistJourneysTest {
 
     private fun isHeading() = SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)
 
-    private fun hasStateDescription(text: String) = SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, text)
+    private fun hasStateDescription(text: String) =
+        SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, text)
 
     private companion object {
         /** The seeded "groceries" category in English (data/src/main/assets/seed/i18n/en.json). */

@@ -34,6 +34,7 @@ import com.dataloom.checklist.navigation.ItemEditorRoute
 import com.dataloom.checklist.navigation.LanguageRoute
 import com.dataloom.checklist.navigation.ProfileRoute
 import com.dataloom.checklist.navigation.SettingsRoute
+import com.dataloom.checklist.onboarding.StartDestination
 import com.dataloom.checklist.presentation.theme.CheckListTheme
 import com.dataloom.checklist.testing.HiltComponentActivity
 import com.dataloom.checklist.testing.ui.assertAccessible
@@ -140,7 +141,8 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
         val (checklist, section) = seedChecklist()
         launchApp()
         navigate(AddItemsRoute(checklist.value, section.value))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label))).performTextInput("Sugar")
+        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+            .performTextInput("Sugar")
         composeRule.awaitNode(hasText("Sugar") and isToggleable()).performClick()
         composeRule.awaitText(string(R.string.item_quantity_optional))
         composeRule.assertAccessible("Add items, $screen")
@@ -196,7 +198,7 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
             WithFontScale(fontScale) {
                 CheckListTheme {
                     navController = rememberNavController()
-                    CheckListNavHost(navController)
+                    CheckListNavHost(StartDestination.HOME, navController)
                 }
             }
         }
@@ -213,8 +215,8 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
         val created = createChecklist(TITLE, "Things for the beach", listOf(groceries)) as DomainResult.Success
         val checklist = created.value.id
         val section = checklists.observeChecklist(checklist, language).first()!!.sections.single().id
-        val rice = (addCustomItem(checklist, section, "Rice", language, Quantity.parse("5"), UnitCode("KG")) as DomainResult.Success)
-            .value as CustomItemOutcome.Added
+        val riceResult = addCustomItem(checklist, section, "Rice", language, Quantity.parse("5"), UnitCode("KG"))
+        val rice = (riceResult as DomainResult.Success).value as CustomItemOutcome.Added
         addCustomItem(checklist, section, "Soap", language)
         setItemCompleted(rice.itemId, completed = true)
         checklist to section
