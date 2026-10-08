@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: the empty Hilt activity that Compose UI tests render screens in (CL-171). -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name=".testing.HiltComponentActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
