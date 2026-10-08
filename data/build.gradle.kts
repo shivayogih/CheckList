@@ -1,5 +1,7 @@
 // Data layer: Room (single source of truth), seed catalog, and the Hilt bindings of the domain repositories.
 // The encrypted profile uses Tink. DataStore, import/export and PDF arrive in later phases.
+import com.android.build.api.variant.HostTestBuilder
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
@@ -24,10 +26,16 @@ android {
         // Robolectric tests read the real seed assets.
         unitTests.isIncludeAndroidResources = true
     }
+}
 
-    // MigrationTestHelper reads the committed schemas as assets (CL-173). Unit tests only: the
-    // schemas never ship in an APK.
-    sourceSets.getByName("test").assets.srcDir("$projectDir/schemas")
+// MigrationTestHelper reads the committed schemas as assets (CL-173). Added to the unit-test
+// component only through the Variant API (AGP 9 no longer accepts the legacy sourceSets cast), so
+// the schemas never ship in an APK.
+androidComponents {
+    onVariants { variant ->
+        variant.hostTests[HostTestBuilder.UNIT_TEST_TYPE]?.sources?.assets
+            ?.addStaticSourceDirectory(layout.projectDirectory.dir("schemas").asFile.absolutePath)
+    }
 }
 
 // Exported schemas are committed: they are the baseline for migrations and MigrationTestHelper tests.
