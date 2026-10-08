@@ -1,0 +1,54 @@
+{
+  "language": "mr",
+  "scripts": ["DEVANAGARI"],
+  "numbers": {
+    "एक": "1", "दोन": "2", "तीन": "3", "चार": "4", "पाच": "5", "सहा": "6", "सात": "7", "आठ": "8", "नऊ": "9",
+    "दहा": "10", "बारा": "12", "वीस": "20", "अर्धा": "0.5", "अर्धी": "0.5", "दीड": "1.5", "अडीच": "2.5",
+    "ek": "1", "don": "2", "teen": "3", "char": "4", "paach": "5", "pach": "5", "saha": "6", "saat": "7",
+    "aath": "8", "nau": "9", "daha": "10", "bara": "12", "vees": "20", "ardha": "0.5", "didh": "1.5", "adich": "2.5"
+  },
+  "units": {
+    "KG": ["किलो"],
+    "GRAM": ["ग्रॅम", "ग्राम"],
+    "LITRE": ["लिटर", "लीटर"],
+    "MILLILITRE": ["मिली"],
+    "DOZEN": ["डझन", "dazan"],
+    "PIECE": ["तुकडा", "पीस", "tukda"],
+    "PACK": ["पाकीट", "पॅकेट", "pakit"],
+    "BOX": ["डबा", "खोका", "daba"],
+    "BOTTLE": ["बाटली", "batli"],
+    "PAIR": ["जोडी", "jodi"],
+    "METER": ["मीटर"],
+    "NOS": ["नग"]
+  },
+  "separators": ["आणि", "व", "ani"],
+  "fillers": ["थोडे", "थोडा", "थोडी", "कृपया", "यादीत", "पण", "thode", "yadit"],
+  "nameSuffixes": ["ला", "चे", "ची", "चा"],
+  "titleConnectors": ["नावाची", "navachi"],
+  "intents": {
+    "ADD": {
+      "prefixes": [],
+      "suffixes": ["जोडा", "जोड", "टाका", "हवे", "हवा", "हवी", "आणा", "आण", "घ्या", "joda", "jod", "taka", "hava", "havi", "aana", "ghya", "add kara"]
+    },
+    "COMPLETE": {
+      "prefixes": [],
+      "suffixes": ["झाले", "झाला", "झाली", "घेतले", "घेतला", "घेतली", "आणले", "मिळाले", "zhala", "zala", "zhale", "ghetla", "ghetle", "anla", "milala"]
+    },
+    "UNCOMPLETE": {
+      "prefixes": [],
+      "suffixes": ["झाले नाही", "झाला नाही", "नाही झाले", "बाकी", "बाकी आहे", "zhala nahi", "zala nahi", "baki", "baki aahe"]
+    },
+    "REMOVE": {
+      "prefixes": [],
+      "suffixes": ["काढा", "काढ", "काढून टाका", "नको", "नको आहे", "kadha", "kadh", "nako"]
+    },
+    "UPDATE": {
+      "prefixes": [],
+      "suffixes": ["कर", "करा", "kar", "kara"]
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": ["नवीन यादी", "navin yadi", "navi yadi", "navin list"],
+      "suffixes": ["यादी बनव", "यादी बनवा", "यादी तयार करा", "yadi banva", "list banva"]
+    }
+  }
+}
