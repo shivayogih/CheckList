@@ -120,8 +120,9 @@ class RoomPhotoTransferTest {
         override fun openStream() = out
     }
 
-    private val phoneA = Phone("a")
-    private val phoneB = Phone("b")
+    // Built lazily: the temporary folder rule has not run yet while properties are initialised.
+    private val phoneA by lazy { Phone("a") }
+    private val phoneB by lazy { Phone("b") }
 
     @After
     fun tearDown() {
