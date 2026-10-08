@@ -13,6 +13,20 @@ object FieldLimits {
 
     /** Unit labels sit next to numbers in tight rows, so they stay short. */
     const val UNIT_LABEL_MAX = 20
+
+    /** Profile display name (Phase 5): short enough for a PDF header line. */
+    const val DISPLAY_NAME_MAX = 50
+
+    /** RFC 5321 limits for an address and its local part. */
+    const val EMAIL_MAX = 254
+    const val EMAIL_LOCAL_PART_MAX = 64
+
+    /** Typed phone number including "+" and separators. */
+    const val PHONE_MAX = 25
+
+    /** Digits in a phone number; 15 is the E.164 maximum. */
+    const val PHONE_DIGITS_MIN = 7
+    const val PHONE_DIGITS_MAX = 15
 }
 
 internal fun String.codePointLength(): Int = codePointCount(0, length)
