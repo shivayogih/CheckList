@@ -9,6 +9,8 @@ import androidx.compose.ui.unit.sp
 // tall Indic scripts (Kannada, Tamil, Malayalam) from clipping. All sizes in sp, so system
 // font scaling still applies on top.
 internal val CheckListTypography = Typography(
+    // Onboarding titles (UI-SPEC section 2).
+    headlineMedium = TextStyle(fontSize = 28.sp, lineHeight = 38.sp, fontWeight = FontWeight.Bold),
     headlineSmall = TextStyle(fontSize = 26.sp, lineHeight = 36.sp, fontWeight = FontWeight.SemiBold),
     titleLarge = TextStyle(fontSize = 24.sp, lineHeight = 34.sp, fontWeight = FontWeight.SemiBold),
     titleMedium = TextStyle(fontSize = 20.sp, lineHeight = 30.sp, fontWeight = FontWeight.Medium),

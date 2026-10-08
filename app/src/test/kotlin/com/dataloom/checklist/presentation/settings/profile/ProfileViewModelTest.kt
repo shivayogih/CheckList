@@ -72,13 +72,16 @@ class ProfileViewModelTest {
     @Test
     fun `every field error is shown at once and nothing is stored`() = runTest {
         val vm = viewModel()
+        vm.onAction(ProfileAction.NameChanged("n".repeat(FieldLimits.DISPLAY_NAME_MAX + 1)))
         vm.onAction(ProfileAction.EmailChanged("not-an-email"))
         vm.onAction(ProfileAction.PhoneChanged("12"))
+        vm.onAction(ProfileAction.AddressChanged("a".repeat(FieldLimits.ADDRESS_MAX + 1)))
 
         vm.onAction(ProfileAction.Save)
 
         val state = vm.uiState.value
-        assertEquals(UiText(R.string.error_display_name_blank), state.nameError)
+        assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.DISPLAY_NAME_MAX)), state.nameError)
+        assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.ADDRESS_MAX)), state.addressError)
         assertEquals(UiText(R.string.error_email_invalid), state.emailError)
         assertEquals(
             UiText(R.string.error_phone_invalid, listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)),
@@ -89,6 +92,31 @@ class ProfileViewModelTest {
 
         vm.onAction(ProfileAction.EmailChanged("asha@example.com"))
         assertNull(vm.uiState.value.emailError)
+    }
+
+    @Test
+    fun `the address is saved and shown again`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.AddressChanged("  12, 4th Cross \n Hubballi "))
+        vm.effect.test {
+            vm.onAction(ProfileAction.Save)
+            assertEquals(ProfileEffect.Saved, awaitItem())
+        }
+
+        assertEquals("12, 4th Cross\nHubballi", (repo.state.value as ProfileState.Available).profile.address)
+        assertEquals("12, 4th Cross\nHubballi", vm.uiState.value.address)
+    }
+
+    @Test
+    fun `saving a form with every field blank is allowed and stores nothing`() = runTest {
+        val vm = viewModel()
+        vm.effect.test {
+            vm.onAction(ProfileAction.Save)
+            assertEquals(ProfileEffect.Saved, awaitItem())
+        }
+
+        assertEquals(0, repo.saveCalls)
+        assertEquals(ProfileState.NotSet, repo.state.value)
     }
 
     @Test

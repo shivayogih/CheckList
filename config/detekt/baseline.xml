@@ -8,6 +8,7 @@
     <ID>CyclomaticComplexMethod:ChecklistDetailViewModel.kt:ChecklistDetailViewModel$fun onAction</ID>
     <ID>CyclomaticComplexMethod:CommandGrammar.kt:CommandGrammar$private fun classify: List&lt;Element&gt;</ID>
     <ID>CyclomaticComplexMethod:ImportValidator.kt:ImportValidator$private fun checkItems</ID>
+    <ID>CyclomaticComplexMethod:OnboardingViewModel.kt:OnboardingViewModel$fun onAction</ID>
     <ID>CyclomaticComplexMethod:PlanValidator.kt:PlanValidator$private suspend fun addItem: Outcome</ID>
     <ID>CyclomaticComplexMethod:UiText.kt:fun ValidationError.toUiText: UiText</ID>
     <ID>LongMethod:AddCategoriesScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun AddCategoriesScreen</ID>
@@ -18,12 +19,15 @@
     <ID>LongMethod:CreateChecklistScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateChecklistScreen</ID>
     <ID>LongMethod:ItemEditorScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ItemEditorScreen</ID>
     <ID>LongMethod:ProfileScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileScreen</ID>
+    <ID>LongMethod:ProfileSetupContent.kt:@Composable fun ProfileSetupContent</ID>
     <ID>LongMethod:SettingsScreen.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen</ID>
+    <ID>LongMethod:WelcomeContent.kt:@Composable fun WelcomeContent</ID>
     <ID>LoopWithTooManyJumpStatements:TextNormalizer.kt:TextNormalizer$for</ID>
     <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$0.22f</ID>
     <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$21f</ID>
     <ID>MagicNumber:ChecklistPdfWriter.kt:AndroidChecklistPdfWriter$66f</ID>
     <ID>MagicNumber:PdfPageLayout.kt:PdfPageLayout$0.95f</ID>
+    <ID>MagicNumber:TutorialIllustrations.kt:5</ID>
     <ID>MatchingDeclarationName:ChecklistDetailScreen.kt:ChecklistDetailNavigation</ID>
     <ID>MatchingDeclarationName:OverflowMenu.kt:MenuAction</ID>
     <ID>MaxLineLength:ActionPlanExecutor.kt:ActionPlanExecutor.Run$addCustomItem(checklistId, sectionId, operation.name, locale, operation.quantity, operation.unit)</ID>
@@ -176,6 +180,7 @@
     <ID>MaxLineLength:HomeScreen.kt:if (result == SnackbarResult.ActionPerformed) viewModel.onAction(HomeAction.UndoArchive(effect.id))</ID>
     <ID>MaxLineLength:HomeScreen.kt:onAction(HomeAction.Duplicate(row.id, copyTitle(row.title, { resources.getString(R.string.checklist_copy_title, it) })))</ID>
     <ID>MaxLineLength:HomeScreen.kt:snackbarHostState.showSnackbar(resources.getString(R.string.home_unarchived_message, effect.title))</ID>
+    <ID>MaxLineLength:HomeScreen.kt:text = pluralStringResource(R.plurals.home_greeting_in_progress, greeting.inProgress, greeting.inProgress)</ID>
     <ID>MaxLineLength:ImportPlanner.kt:ImportPlan$val completedItemCount: Int get() = checklists.sumOf { list -&gt; list.sections.sumOf { s -&gt; s.items.count { it.completed } } }</ID>
     <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$issues += ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), ImportProblem.INVALID_FIELDS, result.errors)</ID>
     <ID>MaxLineLength:ImportPlanner.kt:ImportPlanner$issues += ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), ImportProblem.UNKNOWN_UNIT)</ID>
@@ -259,6 +264,16 @@
     <ID>MaxLineLength:OfflineCommandParser.kt:OfflineCommandParser$val unresolved = command.unparsed.mapTo(mutableListOf()) { UnresolvedFragment(it, UnresolvedReason.NOT_UNDERSTOOD) }</ID>
     <ID>MaxLineLength:OfflineCommandParserTest.kt:OfflineCommandParserTest$"updateItemQuantity" -&gt; listOfNotNull("update", args["itemRef"], args["quantity"], args["unit"]).joinToString(" ")</ID>
     <ID>MaxLineLength:OfflineCommandParserTest.kt:OfflineCommandParserTest$assertEquals(listOf("create Diwali shopping"), plan("create a checklist called Diwali shopping", "en", null).calls.map { it.describe() })</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.EmailChanged -&gt; edit { it.copy(email = action.value, fieldErrors = it.fieldErrors.copy(email = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.NameChanged -&gt; edit { it.copy(name = action.value, fieldErrors = it.fieldErrors.copy(name = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$is OnboardingAction.PhoneChanged -&gt; edit { it.copy(phone = action.value, fieldErrors = it.fieldErrors.copy(phone = null)) }</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt:OnboardingViewModel$val saved = savedState.get&lt;String&gt;(KEY_STEP)?.let { name -&gt; OnboardingStep.entries.firstOrNull { it.name == name } }</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.ADDRESS_MAX)), vm.uiState.value.fieldErrors.address)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$private fun replayViewModel</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$val handle = SavedStateHandle(mapOf(OnboardingViewModel.KEY_STEP to "nonsense", OnboardingViewModel.KEY_PAGE to 99))</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.NextPage, OnboardingAction.NextPage, OnboardingAction.NextPage)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.PageSettled(page), OnboardingAction.SkipTutorial)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt:OnboardingViewModelTest$vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.SkipTutorial, OnboardingAction.NameChanged("Kamala"))</ID>
     <ID>MaxLineLength:PdfQrCode.kt:PdfQrCode$val code = Encoder.encode(text, ErrorCorrectionLevel.M, mapOf(EncodeHintType.CHARACTER_SET to Charsets.UTF_8.name()))</ID>
     <ID>MaxLineLength:PlanValidator.kt:PlanValidator$AiTool.DELETE_ITEM -&gt; simpleItemOperation(args, session) { item -&gt; PlannedOperation.DeleteItem(index, item.itemId, item.name) }</ID>
     <ID>MaxLineLength:PlanValidator.kt:PlanValidator$Outcome.Ok(PlannedOperation.UpdateQuantity(index, session.checklistId(), item.itemId, item.name, quantity, unitDef?.code))</ID>
@@ -292,18 +307,27 @@
     <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val plan = validate(call("addChecklistItem", "name" to "rice", "canonicalKey" to "rice"), call("deleteItem", "itemRef" to "i42"))</ID>
     <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val toFocused = harness.validator.validate(ActionPlan(listOf(eggs), PlanSource.MOCK), focused).operations.single() as PlannedOperation.AddItem</ID>
     <ID>MaxLineLength:PlanValidatorTest.kt:PlanValidatorTest$val toOther = harness.validator.validate(ActionPlan(listOf(eggs), PlanSource.MOCK), unfocused).operations.single() as PlannedOperation.AddItem</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertEquals(UserProfile("Asha", address = "Hubballi"), ProfileCipher.decrypt(aead, ciphertext, "me", 1, "alias"))</ID>
     <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertThrows(GeneralSecurityException::class.java) { ProfileCipher.decrypt(aead, ciphertext, "other", 1, "alias") }</ID>
     <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$assertThrows(GeneralSecurityException::class.java) { ProfileCipher.decrypt(aead, tampered, "me", 1, "alias") }</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$val ciphertext = aead.encrypt(future.toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))</ID>
+    <ID>MaxLineLength:ProfileCipherTest.kt:ProfileCipherTest$val nameOnly = aead.encrypt("""{"n":"ಆಶಾ"}""".toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))</ID>
     <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$/** Registry-backed configuration with the AEAD key types registered; the non-deprecated Tink APIs take it explicitly. */</ID>
     <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$return TinkProtoKeysetFormat.parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig).aead()</ID>
     <ID>MaxLineLength:ProfileKeys.kt:KeysetProfileAeadProvider$val wrapped = TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig)</ID>
     <ID>MaxLineLength:ProfileScreen.kt:keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next)</ID>
-    <ID>MaxLineLength:ProfileUseCasesTest.kt:ProfileUseCasesTest$DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.DISPLAY_NAME_BLANK, ValidationError.EMAIL_INVALID)))</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:painter = painterResource(if (state.moreExpanded) R.drawable.ic_expand_less else R.drawable.ic_expand_more)</ID>
+    <ID>MaxLineLength:ProfileSetupContent.kt:text = stringResource(if (state.moreExpanded) R.string.onboarding_profile_less else R.string.onboarding_profile_more)</ID>
+    <ID>MaxLineLength:ProfileValidator.kt:ProfileValidator$*</ID>
     <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertEquals(it, listOf(ValidationError.EMAIL_INVALID), errorsOf(ProfileValidator.validate("Asha", it, null)))</ID>
     <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertEquals(it, listOf(ValidationError.PHONE_INVALID), errorsOf(ProfileValidator.validate("Asha", null, it)))</ID>
-    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertEquals(listOf(ValidationError.DISPLAY_NAME_BLANK), errorsOf(ProfileValidator.validate(" \t ", null, null)))</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertTrue(ProfileValidator.validate(null, null, null, "ಅ".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$assertTrue(ProfileValidator.validate(null, null, null, "🙂".repeat(FieldLimits.ADDRESS_MAX)) is ValidationResult.Valid)</ID>
     <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf("12345", "1234567890123456", "+91 98765 4321O", "98765#43210", "++919876543210", "-9876543210", "9-".repeat(13) + "9")</ID>
     <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf("asha", "@example.com", "asha@", "asha@example", "asha@@example.com", "asha@example..com", "as ha@example.com", "asha@.com", "asha@example.com.")</ID>
+    <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$listOf(ValidationError.DISPLAY_NAME_TOO_LONG, ValidationError.EMAIL_INVALID, ValidationError.PHONE_INVALID, ValidationError.ADDRESS_TOO_LONG)</ID>
     <ID>MaxLineLength:ProfileValidatorTest.kt:ProfileValidatorTest$private fun errorsOf: List&lt;ValidationError&gt;</ID>
     <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$AiResult.Success(ReadToolResult.Items(catalog.search(query, locale, category?.id).map { it.toSuggestion() }))</ID>
     <ID>MaxLineLength:ReadToolRunner.kt:ReadToolRunner$catalog.categories(locale).filterNot { it.isHidden }.map { CategorySuggestion(it.canonicalKey, it.displayName) }</ID>
@@ -418,6 +442,9 @@
     <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$fun</ID>
     <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$private suspend</ID>
     <ID>MaxLineLength:TransferViewModel.kt:TransferViewModel$val detail = observeDetail(checklistId, locale).first() ?: return@runBusy _effects.send(TransferEffect.ChecklistMissing)</ID>
+    <ID>MaxLineLength:TutorialContent.kt:.</ID>
+    <ID>MaxLineLength:TutorialContent.kt:text = stringResource(if (page &gt;= TUTORIAL_PAGE_COUNT - 1) R.string.onboarding_get_started else R.string.onboarding_next)</ID>
+    <ID>MaxLineLength:TutorialIllustrations.kt:color = if (checked) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface</ID>
     <ID>MaxLineLength:UnitUseCasesTest.kt:UnitUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.UNIT_LABEL_BLANK))), create(" ", allowsDecimal = true))</ID>
     <ID>MaxLineLength:UnitUseCasesTest.kt:UnitUseCasesTest$assertEquals(DomainResult.Failure(DomainError.Invalid(listOf(ValidationError.UNIT_LABEL_TOO_LONG))), create("u".repeat(21), allowsDecimal = true))</ID>
     <ID>MaxLineLength:ValidationError.kt:Field$enum</ID>
@@ -447,6 +474,7 @@
     <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: ProfileKeyException.KeyLost</ID>
     <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: ProfileKeyException.Unavailable</ID>
     <ID>SwallowedException:EncryptedProfileRepository.kt:EncryptedProfileRepository$e: SerializationException</ID>
+    <ID>SwallowedException:OnboardingViewModel.kt:OnboardingViewModel$e: IOException</ID>
     <ID>SwallowedException:SeedSource.kt:AssetSeedSource$missing: FileNotFoundException</ID>
     <ID>TooGenericExceptionCaught:JsonTransferCodec.kt:JsonTransferCodec$e: RuntimeException</ID>
     <ID>TooGenericExceptionCaught:ProfileKeys.kt:KeysetProfileAeadProvider$e: Exception</ID>

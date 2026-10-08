@@ -10,7 +10,6 @@ import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.ObserveProfileUseCase
 import com.dataloom.checklist.domain.usecase.SaveProfileUseCase
-import com.dataloom.checklist.domain.validation.Field
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +34,8 @@ data class ProfileUiState(
     val emailError: UiText? = null,
     val phone: String = "",
     val phoneError: UiText? = null,
+    val address: String = "",
+    val addressError: UiText? = null,
     val isSaving: Boolean = false,
     val showClearConfirm: Boolean = false,
 ) {
@@ -49,6 +50,7 @@ sealed interface ProfileAction {
     data class NameChanged(val name: String) : ProfileAction
     data class EmailChanged(val email: String) : ProfileAction
     data class PhoneChanged(val phone: String) : ProfileAction
+    data class AddressChanged(val address: String) : ProfileAction
     data object Save : ProfileAction
     data object AcknowledgeReset : ProfileAction
     data object RequestClear : ProfileAction
@@ -63,7 +65,7 @@ sealed interface ProfileEffect {
 }
 
 /**
- * The optional user profile (name, email, phone), stored only encrypted on the device (CL-135).
+ * The optional user profile (name, email, phone, address), stored only encrypted on the device (CL-135).
  * The form is filled from the stored profile until the user starts typing, so a store update never
  * overwrites unsaved edits.
  */
@@ -95,6 +97,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileAction.NameChanged -> edit { it.copy(name = action.name, nameError = null) }
             is ProfileAction.EmailChanged -> edit { it.copy(email = action.email, emailError = null) }
             is ProfileAction.PhoneChanged -> edit { it.copy(phone = action.phone, phoneError = null) }
+            is ProfileAction.AddressChanged -> edit { it.copy(address = action.address, addressError = null) }
             ProfileAction.Save -> save()
             ProfileAction.AcknowledgeReset -> viewModelScope.launch { acknowledgeProfileReset() }
             ProfileAction.RequestClear -> state.update { it.copy(showClearConfirm = true) }
@@ -126,7 +129,7 @@ class ProfileViewModel @Inject constructor(
         if (current.isSaving || !current.canEdit) return
         state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
-            when (val result = saveProfile(current.name, current.email, current.phone)) {
+            when (val result = saveProfile(current.name, current.email, current.phone, current.address)) {
                 is DomainResult.Success -> {
                     edited = false
                     // Show the normalized values that were actually stored.
@@ -136,14 +139,14 @@ class ProfileViewModel @Inject constructor(
                 is DomainResult.Failure -> {
                     val error = result.error
                     if (error is DomainError.Invalid) {
-                        val errors = error.errors
-                        fun errorFor(field: Field) = errors.firstOrNull { it.field == field }?.toUiText()
+                        val errors = error.toProfileFieldErrors()
                         state.update {
                             it.copy(
                                 isSaving = false,
-                                nameError = errorFor(Field.DISPLAY_NAME),
-                                emailError = errorFor(Field.EMAIL),
-                                phoneError = errorFor(Field.PHONE),
+                                nameError = errors.name,
+                                emailError = errors.email,
+                                phoneError = errors.phone,
+                                addressError = errors.address,
                             )
                         }
                     } else {
@@ -169,8 +172,10 @@ class ProfileViewModel @Inject constructor(
         name = profile?.displayName.orEmpty(),
         email = profile?.email.orEmpty(),
         phone = profile?.phone.orEmpty(),
+        address = profile?.address.orEmpty(),
         nameError = null,
         emailError = null,
         phoneError = null,
+        addressError = null,
     )
 }
