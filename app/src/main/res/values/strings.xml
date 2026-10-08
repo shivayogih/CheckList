@@ -195,4 +195,40 @@
     <string name="settings_import_summary">Add checklists from a CheckList backup file</string>
     <string name="share_no_app">No app on this phone can share this file.</string>
     <string name="transfer_write_failed">The file could not be written. Check the storage and try again.</string>
+
+    <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
+    <string name="settings_ai_enabled">AI assistant (offline)</string>
+    <string name="settings_ai_enabled_summary">Add or change items by typing, like “2 kg rice and 1 litre milk”. It works on this phone; what you type is not sent anywhere.</string>
+    <string name="settings_ai_auto_add">Let AI add items without asking</string>
+    <string name="settings_ai_auto_add_summary">Only for one simple change. Anything bigger is always shown to you first.</string>
+    <string name="ai_command_label">Tell the assistant what to add or change</string>
+    <string name="ai_command_hint">For example: 2 kg rice and 1 litre milk</string>
+    <string name="ai_command_submit">Go</string>
+    <string name="ai_working">Reading your command</string>
+    <string name="ai_message_dismiss">OK</string>
+    <string name="ai_review_title">Check what will change</string>
+    <string name="ai_review_hint">Untick anything you don\'t want. Nothing changes until you tap Confirm.</string>
+    <string name="ai_review_not_understood">Not understood: %1$s</string>
+    <string name="ai_action_confirm">Confirm</string>
+    <string name="ai_step_add">Add %1$s</string>
+    <string name="ai_step_add_category">Add the category %1$s</string>
+    <string name="ai_step_create_checklist">Create the checklist %1$s</string>
+    <string name="ai_step_set_quantity">Change the amount of %1$s</string>
+    <string name="ai_step_set_unit">Change the unit of %1$s</string>
+    <string name="ai_step_complete">Mark %1$s as done</string>
+    <string name="ai_step_uncomplete">Mark %1$s as not done</string>
+    <string name="ai_step_delete">Delete %1$s</string>
+    <string name="ai_step_remove_section">Remove %1$s and its items</string>
+    <string name="ai_step_to_section">To %1$s</string>
+    <string name="ai_step_amount_to_section">%1$s, to %2$s</string>
+    <string name="ai_result_done">Done: %1$s.</string>
+    <string name="ai_result_already">Already on the list: %1$s.</string>
+    <string name="ai_result_failed">Not done: %1$s.</string>
+    <string name="ai_unavailable_disabled">The AI assistant is off. Turn it on in Settings, or add items yourself.</string>
+    <string name="ai_unavailable_timeout">The assistant took too long to answer. Try again, or add items yourself.</string>
+    <string name="ai_unavailable_other">The assistant can\'t do that right now. You can add items yourself.</string>
+    <string name="ai_not_understood">Sorry, that was not understood. Try something like “2 kg rice and 1 litre milk”, or add items yourself.</string>
+    <string name="ai_empty_command">Type what to add or change, for example “2 kg rice”.</string>
+    <string name="ai_too_long">That is too long for one command. Try a shorter one.</string>
+    <string name="ai_nothing_selected">Nothing was selected, so nothing changed.</string>
 </resources>

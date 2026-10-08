@@ -12,6 +12,6 @@ AI proposes, the app disposes: an `AIService` turns a request into an `ActionPla
 | `mapper` | `PlanValidator`, `CatalogLookup`, planned operations and typed problems |
 | `policy` | `AiSettings`, `ConfirmationPolicy`, `ReviewedPlan`, `ConfirmedPlan`, `PlanGate` |
 | `executor` | `ActionPlanExecutor` |
-| `di` | `AiModule` with optional slots for settings and an online service |
+| `di` | `AiModule` with optional slots for settings (`@AiSettingsStore`, bound by `:app` to its DataStore) and an online service |
 
 Tests run on the JVM over the real seed catalog (`data/src/main/assets/seed`): `./gradlew :ai:testDebugUnitTest`. Full guide, including how to plug in online AI: [docs/ai-automation.md](../docs/ai-automation.md).

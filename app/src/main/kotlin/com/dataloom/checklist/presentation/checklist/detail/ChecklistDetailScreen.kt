@@ -33,6 +33,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -53,6 +54,11 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.presentation.ai.AiCommandAction
+import com.dataloom.checklist.presentation.ai.AiCommandPanel
+import com.dataloom.checklist.presentation.ai.AiCommandUiState
+import com.dataloom.checklist.presentation.ai.AiCommandViewModel
+import com.dataloom.checklist.presentation.ai.AiReviewSheet
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.quantityText
 import com.dataloom.checklist.presentation.common.resolve
@@ -83,12 +89,44 @@ fun ChecklistDetailScreen(
         creationCallback = { factory -> factory.create(checklistId) },
     ),
     transferViewModel: TransferViewModel = hiltViewModel(),
+    aiViewModel: AiCommandViewModel = hiltViewModel<AiCommandViewModel, AiCommandViewModel.Factory>(
+        creationCallback = { factory -> factory.create(checklistId) },
+    ),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val aiState by aiViewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     val onAction = viewModel::onAction
+
+    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
+    TransferEffects(transferViewModel, snackbarHostState)
+    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
+    val customUnitLabels = state.sections
+        .flatMap { section -> section.items.mapNotNull { it.unit } }
+        .filter { it.customLabel != null }
+        .associate { it.code to it.customLabel.orEmpty() }
+    val unitLabels = rememberUnitLabels(customUnitLabels)
+    val id = remember(checklistId) { ChecklistId(checklistId) }
+    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
+        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+    }
+    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
+    val pdfActions = listOf(
+        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
+        },
+        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SAVE))
+        },
+    )
+    val exportPdf by rememberUpdatedState { export: PdfExport ->
+        when (export) {
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
+            PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
+        }
+    }
 
     // An Undo snackbar lost to a rotation or to leaving the screen cannot be answered any more.
     LaunchedEffect(viewModel) { onAction(ChecklistDetailAction.CommitPendingDeletes) }
@@ -115,6 +153,11 @@ fun ChecklistDetailScreen(
                     }
                 }
                 ChecklistDetailEffect.ChecklistGone -> navigation.onBack()
+                is ChecklistDetailEffect.PdfReady -> {
+                    // The deletion is final now; its Undo snackbar would offer something it cannot do.
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                    exportPdf(effect.export)
+                }
                 is ChecklistDetailEffect.Error -> scope.launch {
                     snackbarHostState.showSnackbar(effect.message.resolve(resources))
                 }
@@ -122,28 +165,7 @@ fun ChecklistDetailScreen(
         }
     }
 
-    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
-    TransferEffects(transferViewModel, snackbarHostState)
-    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
-    val customUnitLabels = state.sections
-        .flatMap { section -> section.items.mapNotNull { it.unit } }
-        .filter { it.customLabel != null }
-        .associate { it.code to it.customLabel.orEmpty() }
-    val unitLabels = rememberUnitLabels(customUnitLabels)
-    val id = remember(checklistId) { ChecklistId(checklistId) }
-    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
-    }
-    val pdfActions = listOf(
-        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
-            transferViewModel.sharePdf(id, unitLabels = unitLabels)
-        },
-        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
-            savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
-        },
-    )
-
-    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions)
+    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -154,6 +176,8 @@ private fun DetailContent(
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
     pdfActions: List<MenuAction>,
+    aiState: AiCommandUiState,
+    onAiAction: (AiCommandAction) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -181,6 +205,10 @@ private fun DetailContent(
         ) {
             if (!state.isLoading) {
                 item { ProgressHeader(state) }
+            }
+            // Only while the assistant is on in Settings; the screen works the same without it.
+            if (!state.isLoading && aiState.isAvailable) {
+                item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
                 item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
@@ -211,6 +239,8 @@ private fun DetailContent(
             }
         }
     }
+
+    aiState.review?.takeIf { aiState.isAvailable }?.let { review -> AiReviewSheet(review, onAiAction) }
 
     state.pendingSectionRemoval?.let { section ->
         ConfirmDialog(
