@@ -132,34 +132,6 @@ fun ChecklistDetailScreen(
         }
     }
 
-    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
-    TransferEffects(transferViewModel, snackbarHostState)
-    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
-    val customUnitLabels = state.sections
-        .flatMap { section -> section.items.mapNotNull { it.unit } }
-        .filter { it.customLabel != null }
-        .associate { it.code to it.customLabel.orEmpty() }
-    val unitLabels = rememberUnitLabels(customUnitLabels)
-    val id = remember(checklistId) { ChecklistId(checklistId) }
-    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
-    }
-    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
-    val pdfActions = listOf(
-        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
-            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
-        },
-        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
-            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SAVE))
-        },
-    )
-    val exportPdf by rememberUpdatedState { export: PdfExport ->
-        when (export) {
-            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
-            PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
-        }
-    }
-
     // An Undo snackbar lost to a rotation or to leaving the screen cannot be answered any more.
     LaunchedEffect(viewModel) { onAction(ChecklistDetailAction.CommitPendingDeletes) }
 
@@ -241,10 +213,6 @@ private fun DetailContent(
             // Only while the assistant is on in Settings; the screen works the same without it.
             if (!state.isLoading && aiState.isAvailable) {
                 item(key = "ai-command", contentType = "ai-command") { AiCommandPanel(aiState, onAiAction) }
-            }
-            // Only while the assistant is on in Settings; the screen works the same without it.
-            if (!state.isLoading && aiState.isAvailable) {
-                item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
                 item(key = "header-${section.id.value}", contentType = "section-header") {
