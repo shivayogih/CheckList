@@ -325,4 +325,7 @@
     <string name="ai_empty_command">ఏమి జోడించాలో లేదా మార్చాలో రాయండి, ఉదా. “2 కిలో బియ్యం”.</string>
     <string name="ai_too_long">ఒక ఆదేశానికి ఇది చాలా పొడవుగా ఉంది. చిన్నగా రాసి చూడండి.</string>
     <string name="ai_nothing_selected">ఏదీ ఎంచుకోలేదు, కాబట్టి ఏదీ మారలేదు.</string>
+    <string name="settings_section_general">సాధారణం</string>
+    <string name="settings_section_data">మీ డేటా</string>
+    <string name="settings_section_ai">AI సహాయకుడు</string>
 </resources>

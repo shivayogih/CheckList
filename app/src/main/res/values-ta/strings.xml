@@ -325,4 +325,7 @@
     <string name="ai_empty_command">எதைச் சேர்க்க அல்லது மாற்ற வேண்டும் என்று எழுதுங்கள், எ.கா. “2 கிலோ அரிசி”.</string>
     <string name="ai_too_long">ஒரு கட்டளைக்கு இது மிக நீளம். சுருக்கமாக எழுதிப் பாருங்கள்.</string>
     <string name="ai_nothing_selected">எதுவும் தேர்ந்தெடுக்கப்படவில்லை, அதனால் எதுவும் மாறவில்லை.</string>
+    <string name="settings_section_general">பொது</string>
+    <string name="settings_section_data">உங்கள் தரவு</string>
+    <string name="settings_section_ai">AI உதவியாளர்</string>
 </resources>

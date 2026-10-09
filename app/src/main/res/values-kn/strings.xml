@@ -325,4 +325,7 @@
     <string name="ai_empty_command">ಏನು ಸೇರಿಸಬೇಕು ಅಥವಾ ಬದಲಿಸಬೇಕು ಎಂದು ಬರೆಯಿರಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ”.</string>
     <string name="ai_too_long">ಒಂದು ಆದೇಶಕ್ಕೆ ಇದು ತುಂಬಾ ಉದ್ದವಾಗಿದೆ. ಚಿಕ್ಕದಾಗಿ ಬರೆದು ನೋಡಿ.</string>
     <string name="ai_nothing_selected">ಏನನ್ನೂ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ, ಆದ್ದರಿಂದ ಏನೂ ಬದಲಾಗಿಲ್ಲ.</string>
+    <string name="settings_section_general">ಸಾಮಾನ್ಯ</string>
+    <string name="settings_section_data">ನಿಮ್ಮ ಡೇಟಾ</string>
+    <string name="settings_section_ai">AI ಸಹಾಯಕ</string>
 </resources>

@@ -325,4 +325,8 @@
     <string name="ai_empty_command">Type what to add or change, for example “2 kg rice”.</string>
     <string name="ai_too_long">That is too long for one command. Try a shorter one.</string>
     <string name="ai_nothing_selected">Nothing was selected, so nothing changed.</string>
+    <!-- Settings section headers (CL-301). -->
+    <string name="settings_section_general">General</string>
+    <string name="settings_section_data">Your data</string>
+    <string name="settings_section_ai">AI assistant</string>
 </resources>

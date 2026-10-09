@@ -5,14 +5,20 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.localization.AppCompatLanguageProvider
 import com.dataloom.checklist.navigation.CheckListNavHost
 import com.dataloom.checklist.onboarding.StartViewModel
+import com.dataloom.checklist.presentation.components.BrandSplash
 import com.dataloom.checklist.presentation.theme.CheckListTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 /**
  * Single activity hosting the Compose UI.
@@ -36,10 +42,21 @@ class MainActivity : AppCompatActivity() {
         languageProvider.refresh()
         setContent {
             CheckListTheme {
-                // Only the themed background shows for the few milliseconds the first-run flag takes.
+                // The brand splash (logo, name, tagline) shows on a cold start only; a recreation (rotation,
+                // language change) restores straight into the app.
+                var splashDone by rememberSaveable { mutableStateOf(savedInstanceState != null) }
+                LaunchedEffect(Unit) {
+                    delay(SPLASH_MILLIS)
+                    splashDone = true
+                }
                 val start by startViewModel.start.collectAsStateWithLifecycle()
-                start?.let { CheckListNavHost(it) }
+                val destination = start
+                if (destination == null || !splashDone) BrandSplash() else CheckListNavHost(destination)
             }
         }
+    }
+
+    private companion object {
+        const val SPLASH_MILLIS = 900L
     }
 }

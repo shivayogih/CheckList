@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Android 12+ splash screen shows the launcher artwork on the app surface colour. -->
+    <!-- Android 12+ system splash: the production launcher artwork on the brand green; BrandSplash then adds the name and tagline. -->
     <style name="Theme.CheckList" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowSplashScreenBackground">@color/splash_background</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
