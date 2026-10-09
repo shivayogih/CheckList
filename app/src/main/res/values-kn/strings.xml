@@ -8,8 +8,8 @@
     <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
     <string name="settings_language">ಭಾಷೆ</string>
     <string name="settings_language_system">ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್</string>
-    <string name="settings_about">ಕುರಿತು</string>
-    <string name="app_logo_description">ಚೆಕ್‌ಲಿಸ್ಟ್ ಲೋಗೋ</string>
+    <string name="settings_about">ಆ್ಯಪ್ ಕುರಿತು</string>
+    <string name="app_logo_description">CheckList ಲೋಗೋ</string>
     <string name="settings_version">ಆವೃತ್ತಿ %1$s</string>
     <string name="navigate_back">ಹಿಂದೆ</string>
     <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
@@ -25,14 +25,14 @@
     <string name="pdf_get_app">Google Play ನಲ್ಲಿ ಆ್ಯಪ್ ಪಡೆಯಿರಿ</string>
     <string name="pdf_promo_title">%1$s ಪಡೆಯಿರಿ</string>
     <string name="pdf_promo_scan">Google Play ನಲ್ಲಿ ಆ್ಯಪ್ ಪಡೆಯಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
-    <string name="pdf_import_hint">ಈ ಪಟ್ಟಿಯನ್ನು ಆ್ಯಪ್‌ನಲ್ಲಿ ಬಳಸಲು, ಕಳುಹಿಸಿದವರಿಂದ %1$s ಫೈಲ್ (.json) ಕೇಳಿ ಪಡೆದು ಇಂಪೋರ್ಟ್ ಮಾಡಿ.</string>
+    <string name="pdf_import_hint">ಈ ಪಟ್ಟಿಯನ್ನು ಆ್ಯಪ್‌ನಲ್ಲಿ ಬಳಸಲು, ಕಳುಹಿಸಿದವರಿಂದ %1$s ಫೈಲ್ (.json) ಕೇಳಿ ಪಡೆದು ಆಮದು ಮಾಡಿ.</string>
     <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
     <string name="share_export_subject">%1$s ಪಟ್ಟಿಗಳು</string>
     <string name="share_export_intro">ಇದು ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಪಟ್ಟಿಗಳಿರುವ %1$s ಫೈಲ್.</string>
     <string name="share_export_get_app">Google Play ನಲ್ಲಿ %1$s ಪಡೆಯಿರಿ: %2$s</string>
-    <string name="share_export_steps_title">ಇಂಪೋರ್ಟ್ ಮಾಡಲು:</string>
+    <string name="share_export_steps_title">ಆಮದು ಮಾಡಲು:</string>
     <string name="share_export_step_install">1. %1$s ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ.</string>
-    <string name="share_export_step_open">2. ಆ್ಯಪ್ ತೆರೆಯಿರಿ → ಸೆಟ್ಟಿಂಗ್‌ಗಳು → ಇಂಪೋರ್ಟ್.</string>
+    <string name="share_export_step_open">2. ಆ್ಯಪ್ ತೆರೆಯಿರಿ → ಸೆಟ್ಟಿಂಗ್‌ಗಳು → ಆಮದು.</string>
     <string name="share_export_step_choose">3. ಈ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="share_export_step_confirm">4. ಪೂರ್ವವೀಕ್ಷಣೆ ನೋಡಿ ಖಚಿತಪಡಿಸಿ.</string>
 
@@ -154,7 +154,7 @@
     <string name="error_secure_storage">ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ. ಏನನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="profile_clear">ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ</string>
     <string name="profile_clear_message">ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ಈ ಫೋನ್‌ನಿಂದ ಅಳಿಸಲಾಗುತ್ತದೆ.</string>
-    <string name="profile_clear_title">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅಳಿಸಬೇಕೆ?</string>
+    <string name="profile_clear_title">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅಳಿಸಬೇಕೇ?</string>
     <string name="profile_cleared">ಪ್ರೊಫೈಲ್ ಅಳಿಸಲಾಗಿದೆ.</string>
     <string name="profile_email">ಇಮೇಲ್ (ಐಚ್ಛಿಕ)</string>
     <string name="profile_intro">ಐಚ್ಛಿಕ. ನೀವು ಹಂಚಿಕೊಳ್ಳುವ ಪಟ್ಟಿಗಳಿಗೆ ನಿಮ್ಮ ಹೆಸರನ್ನು ಸೇರಿಸಬಹುದು. ಇಲ್ಲಿರುವುದೆಲ್ಲವೂ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ ಮತ್ತು ಎಂದಿಗೂ ಅಪ್‌ಲೋಡ್ ಆಗುವುದಿಲ್ಲ.</string>
@@ -189,7 +189,7 @@
     <string name="import_preview_new_units">ಹೊಸ ಘಟಕಗಳು: %1$s</string>
     <string name="import_preview_profile_skipped">ಈ ಫೈಲ್‌ನಲ್ಲಿರುವ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಆಮದು ಮಾಡುವುದಿಲ್ಲ.</string>
     <string name="import_preview_renamed">“%1$s” ಅನ್ನು “%2$s” ಆಗಿ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ.</string>
-    <string name="import_preview_title">ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೆ?</string>
+    <string name="import_preview_title">ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೇ?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">ಇದು ಮಾನ್ಯ CheckList ಫೋಟೋ ಬ್ಯಾಕಪ್ ಅಲ್ಲ. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
     <string name="import_preview_photos">ಫೋಟೋಗಳು: %1$s</string>
@@ -208,7 +208,7 @@
     <string name="photos_add">ಫೋಟೋ ಸೇರಿಸಿ</string>
     <string name="photos_take">ಫೋಟೋ ತೆಗೆಯಿರಿ</string>
     <string name="photos_pick">ಗ್ಯಾಲರಿಯಿಂದ ಆರಿಸಿ</string>
-    <string name="photos_remove_cd">ಫೋಟೋ %1$s ತೆಗೆಯಿರಿ</string>
+    <string name="photos_remove_cd">ಫೋಟೋ %1$s ತೆಗೆದುಹಾಕಿ</string>
     <string name="photos_move_left_cd">ಫೋಟೋ %1$s ಎಡಕ್ಕೆ ಸರಿಸಿ</string>
     <string name="photos_move_right_cd">ಫೋಟೋ %1$s ಬಲಕ್ಕೆ ಸರಿಸಿ</string>
     <string name="photos_processing">ಫೋಟೋ ಸೇರಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -227,7 +227,7 @@
     <string name="photo_viewer_zoom_in">ಜೂಮ್ ಇನ್</string>
     <string name="photo_viewer_zoom_out">ಜೂಮ್ ಔಟ್</string>
     <string name="photos_more_badge">+%1$s</string>
-    <string name="photo_delete_title">ಈ ಫೋಟೋ ಅಳಿಸಬೇಕೆ?</string>
+    <string name="photo_delete_title">ಈ ಫೋಟೋ ಅಳಿಸಬೇಕೇ?</string>
     <string name="photo_delete_body">ಇದನ್ನು ಹಿಂದಕ್ಕೆ ಪಡೆಯಲಾಗದು.</string>
     <string name="photo_caption_label">ಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)</string>
     <string name="settings_privacy_photos_title">ಫೋಟೋಗಳು ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತವೆ</string>
@@ -262,11 +262,11 @@
     <string name="onboarding_get_started">ಪ್ರಾರಂಭಿಸಿ</string>
     <string name="onboarding_skip_for_now">ಈಗ ಬಿಡಿ</string>
     <string name="onboarding_page1_title">ಯಾವುದಕ್ಕೂ ಪಟ್ಟಿ ಮಾಡಿ</string>
-    <string name="onboarding_page1_body">ಶಾಪಿಂಗ್, ಪ್ರಯಾಣ, ಪರೀಕ್ಷೆ, ಆಸ್ಪತ್ರೆ ಭೇಟಿ. ಕೆಲವೇ ಟ್ಯಾಪ್‌ಗಳಲ್ಲಿ ಚೆಕ್‌ಲಿಸ್ಟ್ ರಚಿಸಿ.</string>
+    <string name="onboarding_page1_body">ಶಾಪಿಂಗ್, ಪ್ರಯಾಣ, ಪರೀಕ್ಷೆ, ಆಸ್ಪತ್ರೆ ಭೇಟಿ. ಕೆಲವೇ ಟ್ಯಾಪ್‌ಗಳಲ್ಲಿ ಪಟ್ಟಿ ರಚಿಸಿ.</string>
     <string name="onboarding_page2_title">ವಸ್ತುಗಳನ್ನು ಆರಿಸಿ, ಪ್ರಮಾಣ ಹೊಂದಿಸಿ</string>
-    <string name="onboarding_page2_body">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಿದ್ಧ ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ, ಟಿಕ್ ಮಾಡಿ, 5 ಕೆ.ಜಿ.ಯಂತಹ ಪ್ರಮಾಣ ಆರಿಸಿ.</string>
+    <string name="onboarding_page2_body">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಿದ್ಧ ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ, ಟಿಕ್ ಮಾಡಿ, 5 ಕೆಜಿಯಂತಹ ಪ್ರಮಾಣ ಆರಿಸಿ.</string>
     <string name="onboarding_page3_title">ಟಿಕ್ ಮಾಡಿ, ಹಂಚಿಕೊಳ್ಳಿ, ಖಾಸಗಿಯಾಗಿರಿ</string>
-    <string name="onboarding_page3_body">ಶಾಪಿಂಗ್ ಮಾಡುವಾಗ ವಸ್ತುಗಳಿಗೆ ಟಿಕ್ ಮಾಡಿ, ಪಟ್ಟಿಯನ್ನು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಕಳುಹಿಸಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಬಳಸಿ.</string>
+    <string name="onboarding_page3_body">ಶಾಪಿಂಗ್ ಮಾಡುವಾಗ ವಸ್ತುಗಳಿಗೆ ಟಿಕ್ ಮಾಡಿ, ಪಟ್ಟಿಯನ್ನು WhatsApp ನಲ್ಲಿ ಕಳುಹಿಸಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಬಳಸಿ.</string>
     <string name="onboarding_page_position">%2$s ರಲ್ಲಿ %1$s ನೇ ಪುಟ</string>
     <string name="onboarding_demo_list_title">ದೀಪಾವಳಿ ಖರೀದಿ</string>
     <string name="onboarding_demo_rice">ಅಕ್ಕಿ</string>
@@ -278,7 +278,7 @@
     <string name="onboarding_demo_offline">ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ</string>
     <string name="onboarding_demo_private">ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ</string>
     <string name="onboarding_profile_title">ನಿಮ್ಮ ಬಗ್ಗೆ ತಿಳಿಸಿ</string>
-    <string name="onboarding_profile_intro">ನಿಮ್ಮನ್ನು ಸ್ವಾಗತಿಸಲು ಮತ್ತು ನೀವು ಹಂಚಿಕೊಳ್ಳುವ ಪಟ್ಟಿಗಳಿಗೆ ನಿಮ್ಮ ಹೆಸರು ಸೇರಿಸಲು. ಖಾತೆ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ಬೇಡ.</string>
+    <string name="onboarding_profile_intro">ನಿಮ್ಮನ್ನು ಸ್ವಾಗತಿಸಲು ಮತ್ತು ನೀವು ಹಂಚಿಕೊಳ್ಳುವ ಪಟ್ಟಿಗಳಿಗೆ ನಿಮ್ಮ ಹೆಸರು ಸೇರಿಸಲು. ಖಾತೆ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ಅಗತ್ಯವಿಲ್ಲ.</string>
     <string name="onboarding_profile_banner">ಈ ಫೋನ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ, ಎನ್‌ಕ್ರಿಪ್ಶನ್‌ನೊಂದಿಗೆ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ.</string>
     <string name="onboarding_profile_name_hint">ಐಚ್ಛಿಕ. ನೀವು ಆರಿಸಿದರೆ ಮಾತ್ರ PDF ಗಳಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="onboarding_profile_more">ಇಮೇಲ್ ಮತ್ತು ವಿಳಾಸ ಸೇರಿಸಿ</string>
@@ -288,17 +288,17 @@
     <string name="settings_show_tutorial">ಟ್ಯುಟೋರಿಯಲ್ ಮತ್ತೆ ತೋರಿಸಿ</string>
     <string name="settings_show_tutorial_summary">CheckList ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂದು ನೋಡಿ</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">ನೀವು %1$s ಪಟ್ಟಿಯನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
-        <item quantity="other">ನೀವು %1$s ಪಟ್ಟಿಗಳನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
+        <item quantity="one">%1$s ಪಟ್ಟಿ ಪ್ರಗತಿಯಲ್ಲಿದೆ.</item>
+        <item quantity="other">%1$s ಪಟ್ಟಿಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI ಸಹಾಯಕ (ಆಫ್‌ಲೈನ್)</string>
-    <string name="settings_ai_enabled_summary">ಟೈಪ್ ಮಾಡಿ ಐಟಂಗಳನ್ನು ಸೇರಿಸಿ ಅಥವಾ ಬದಲಿಸಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು”. ಇದು ಈ ಫೋನ್‌ನಲ್ಲೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ; ನೀವು ಟೈಪ್ ಮಾಡಿದ್ದು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ.</string>
-    <string name="settings_ai_auto_add">ಕೇಳದೆ ಐಟಂ ಸೇರಿಸಲು AI ಗೆ ಅನುಮತಿಸಿ</string>
+    <string name="settings_ai_enabled_summary">ಟೈಪ್ ಮಾಡಿ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ ಅಥವಾ ಬದಲಿಸಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು”. ಇದು ಈ ಫೋನ್‌ನಲ್ಲೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ; ನೀವು ಟೈಪ್ ಮಾಡಿದ್ದನ್ನು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="settings_ai_auto_add">ಕೇಳದೆ ವಸ್ತು ಸೇರಿಸಲು AI ಗೆ ಅನುಮತಿಸಿ</string>
     <string name="settings_ai_auto_add_summary">ಒಂದು ಸರಳ ಬದಲಾವಣೆಗೆ ಮಾತ್ರ. ಅದಕ್ಕಿಂತ ದೊಡ್ಡದನ್ನು ಯಾವಾಗಲೂ ಮೊದಲು ನಿಮಗೆ ತೋರಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="ai_command_label">ಏನು ಸೇರಿಸಬೇಕು ಅಥವಾ ಬದಲಿಸಬೇಕು ಎಂದು ಸಹಾಯಕನಿಗೆ ಹೇಳಿ</string>
     <string name="ai_command_hint">ಉದಾಹರಣೆ: 2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು</string>
-    <string name="ai_command_submit">ಮುಂದುವರಿಸಿ</string>
+    <string name="ai_command_submit">ಕಳುಹಿಸಿ</string>
     <string name="ai_working">ನಿಮ್ಮ ಆದೇಶವನ್ನು ಓದಲಾಗುತ್ತಿದೆ</string>
     <string name="ai_message_dismiss">ಸರಿ</string>
     <string name="ai_review_title">ಏನು ಬದಲಾಗುತ್ತದೆ ಎಂದು ಪರಿಶೀಲಿಸಿ</string>
@@ -307,23 +307,38 @@
     <string name="ai_action_confirm">ದೃಢೀಕರಿಸಿ</string>
     <string name="ai_step_add">%1$s ಸೇರಿಸಿ</string>
     <string name="ai_step_add_category">%1$s ವರ್ಗವನ್ನು ಸೇರಿಸಿ</string>
-    <string name="ai_step_create_checklist">%1$s ಚೆಕ್‌ಲಿಸ್ಟ್ ರಚಿಸಿ</string>
+    <string name="ai_step_create_checklist">%1$s ಪಟ್ಟಿ ರಚಿಸಿ</string>
     <string name="ai_step_set_quantity">%1$s ಪ್ರಮಾಣವನ್ನು ಬದಲಿಸಿ</string>
     <string name="ai_step_set_unit">%1$s ಘಟಕವನ್ನು ಬದಲಿಸಿ</string>
     <string name="ai_step_complete">%1$s ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಗುರುತಿಸಿ</string>
     <string name="ai_step_uncomplete">%1$s ಪೂರ್ಣಗೊಂಡಿಲ್ಲ ಎಂದು ಗುರುತಿಸಿ</string>
     <string name="ai_step_delete">%1$s ಅಳಿಸಿ</string>
-    <string name="ai_step_remove_section">%1$s ಮತ್ತು ಅದರ ಐಟಂಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="ai_step_remove_section">%1$s ಮತ್ತು ಅದರ ವಸ್ತುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
     <string name="ai_step_to_section">%1$s ಗೆ</string>
     <string name="ai_step_amount_to_section">%1$s, %2$s ಗೆ</string>
     <string name="ai_result_done">ಮುಗಿದಿದೆ: %1$s.</string>
     <string name="ai_result_already">ಈಗಾಗಲೇ ಪಟ್ಟಿಯಲ್ಲಿದೆ: %1$s.</string>
     <string name="ai_result_failed">ಆಗಲಿಲ್ಲ: %1$s.</string>
-    <string name="ai_unavailable_disabled">AI ಸಹಾಯಕ ಆಫ್ ಆಗಿದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆನ್ ಮಾಡಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
-    <string name="ai_unavailable_timeout">ಸಹಾಯಕ ಉತ್ತರಿಸಲು ತುಂಬಾ ಸಮಯ ತೆಗೆದುಕೊಂಡಿತು. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
-    <string name="ai_unavailable_other">ಸಹಾಯಕ ಈಗ ಇದನ್ನು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. ನೀವು ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಬಹುದು.</string>
-    <string name="ai_not_understood">ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು” ರೀತಿ ಬರೆಯಿರಿ, ಅಥವಾ ಐಟಂಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_unavailable_disabled">AI ಸಹಾಯಕ ಆಫ್ ಆಗಿದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆನ್ ಮಾಡಿ, ಅಥವಾ ವಸ್ತುಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_unavailable_timeout">ಸಹಾಯಕ ಉತ್ತರಿಸಲು ತುಂಬಾ ಸಮಯ ತೆಗೆದುಕೊಂಡಿತು. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ವಸ್ತುಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
+    <string name="ai_unavailable_other">ಸಹಾಯಕ ಈಗ ಇದನ್ನು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. ವಸ್ತುಗಳನ್ನು ನೀವೇ ಸೇರಿಸಬಹುದು.</string>
+    <string name="ai_not_understood">ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. “2 ಕೆಜಿ ಅಕ್ಕಿ ಮತ್ತು 1 ಲೀಟರ್ ಹಾಲು” ರೀತಿ ಬರೆಯಿರಿ, ಅಥವಾ ವಸ್ತುಗಳನ್ನು ನೀವೇ ಸೇರಿಸಿ.</string>
     <string name="ai_empty_command">ಏನು ಸೇರಿಸಬೇಕು ಅಥವಾ ಬದಲಿಸಬೇಕು ಎಂದು ಬರೆಯಿರಿ, ಉದಾ. “2 ಕೆಜಿ ಅಕ್ಕಿ”.</string>
     <string name="ai_too_long">ಒಂದು ಆದೇಶಕ್ಕೆ ಇದು ತುಂಬಾ ಉದ್ದವಾಗಿದೆ. ಚಿಕ್ಕದಾಗಿ ಬರೆದು ನೋಡಿ.</string>
     <string name="ai_nothing_selected">ಏನನ್ನೂ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ, ಆದ್ದರಿಂದ ಏನೂ ಬದಲಾಗಿಲ್ಲ.</string>
+    <string name="settings_section_general">ಸಾಮಾನ್ಯ</string>
+    <string name="settings_section_data">ನಿಮ್ಮ ಡೇಟಾ</string>
+    <string name="settings_section_ai">AI ಸಹಾಯಕ</string>
+    <string name="settings_theme">ಥೀಮ್</string>
+    <string name="theme_system">ಫೋನ್‌ನಂತೆ</string>
+    <string name="theme_light">ತಿಳಿ</string>
+    <string name="theme_dark">ಗಾಢ</string>
+    <string name="settings_text_size">ಅಕ್ಷರದ ಗಾತ್ರ</string>
+    <string name="text_size_normal">ಸಾಮಾನ್ಯ</string>
+    <string name="text_size_large">ದೊಡ್ಡದು</string>
+    <string name="text_size_extra_large">ಅತಿ ದೊಡ್ಡದು</string>
+    <string name="settings_high_contrast">ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್</string>
+    <string name="settings_high_contrast_summary">ಓದಲು ಸುಲಭವಾದ ಗಾಢ ಬಣ್ಣಗಳು</string>
+    <string name="text_size_preview">ಮುನ್ನೋಟ</string>
+    <string name="text_size_preview_item">ಅಕ್ಕಿ</string>
 </resources>

@@ -264,7 +264,7 @@
     <string name="onboarding_page1_title">Make a list for anything</string>
     <string name="onboarding_page1_body">Shopping, travel, exams, hospital visits. Create a checklist in a few taps.</string>
     <string name="onboarding_page2_title">Pick items and set how much</string>
-    <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 KG.</string>
+    <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 kg.</string>
     <string name="onboarding_page3_title">Tick, share and stay private</string>
     <string name="onboarding_page3_body">Tick items while you shop, send the list on WhatsApp, and use it without internet.</string>
     <string name="onboarding_page_position">Page %1$s of %2$s</string>
@@ -326,4 +326,21 @@
     <string name="ai_empty_command">Type what to add or change, for example “2 kg rice”.</string>
     <string name="ai_too_long">That is too long for one command. Try a shorter one.</string>
     <string name="ai_nothing_selected">Nothing was selected, so nothing changed.</string>
+    <!-- Settings section headers (CL-301). -->
+    <string name="settings_section_general">General</string>
+    <string name="settings_section_data">Your data</string>
+    <string name="settings_section_ai">AI assistant</string>
+    <!-- Appearance settings (CL-302). -->
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Follow the phone</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_text_size">Text size</string>
+    <string name="text_size_normal">Normal</string>
+    <string name="text_size_large">Large</string>
+    <string name="text_size_extra_large">Extra large</string>
+    <string name="settings_high_contrast">High contrast</string>
+    <string name="settings_high_contrast_summary">Stronger colours that are easier to read</string>
+    <string name="text_size_preview">Preview</string>
+    <string name="text_size_preview_item">Rice</string>
 </resources>

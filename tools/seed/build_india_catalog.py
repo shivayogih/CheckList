@@ -23,7 +23,7 @@ SEED = ROOT / "data/src/main/assets/seed"
 REVIEW_DOC = ROOT / "docs/catalog-translation-review.md"
 TEMPLATES_DOC = ROOT / "docs/catalog-templates-backlog.md"
 
-SEED_VERSION = 2
+SEED_VERSION = 3
 LOCALES = ["en", "kn", "hi", "ta", "te", "mr", "ml"]
 LOCALE_NAMES = {"kn": "Kannada", "hi": "Hindi", "ta": "Tamil", "te": "Telugu", "mr": "Marathi", "ml": "Malayalam"}
 

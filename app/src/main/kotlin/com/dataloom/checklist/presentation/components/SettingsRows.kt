@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +40,7 @@ import com.dataloom.checklist.presentation.theme.bannerContainer
  * item: the title, the value or subtitle and the state are read together.
  */
 
-/** A group title such as "General" or "Your data": 16 sp Bold in the primary colour, a heading for TalkBack. */
+/** A group title such as "General" or "Your data": 13 sp Bold in the primary colour, a heading for TalkBack. */
 @Composable
 fun SectionHeader(text: String, modifier: Modifier = Modifier) {
     Text(
@@ -54,7 +55,42 @@ fun SectionHeader(text: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * A row that opens something: at least 64 dp, a 26 dp [icon], the [title] at 18 sp, a [value] at 16 sp
+ * A rounded card that holds a group of Settings rows (the modern grouped-list look). Pass `showDivider = false`
+ * to the last row of the group.
+ */
+@Composable
+fun SettingsGroup(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(Dimens.Corner20),
+        color = MaterialTheme.colorScheme.surfaceContainer,
+    ) {
+        Column(Modifier.padding(horizontal = Dimens.Space12, vertical = Dimens.Space4)) { content() }
+    }
+}
+
+/** The row icon on a 40 dp tinted tile, so a list of settings scans by picture first. Decorative. */
+@Composable
+private fun IconTile(icon: Painter) {
+    val colors = MaterialTheme.colorScheme
+    Box(
+        modifier = Modifier
+            .size(Dimens.SettingsIconTile)
+            .clip(RoundedCornerShape(Dimens.Corner12))
+            .background(colors.primaryContainer),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = colors.onPrimaryContainer,
+            modifier = Modifier.size(Dimens.SettingsIcon),
+        )
+    }
+}
+
+/**
+ * A row that opens something: at least 56 dp, a tinted [icon] tile, the [title] at 15 sp, a [value] at 14 sp
  * under it and a chevron at the end. Leave [onClick] null for a row that only shows information.
  */
 @Composable
@@ -79,14 +115,7 @@ fun SettingsRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            if (icon != null) {
-                Icon(
-                    icon,
-                    contentDescription = null,
-                    tint = colors.onSurfaceVariant,
-                    modifier = Modifier.size(Dimens.SettingsIcon),
-                )
-            }
+            if (icon != null) IconTile(icon)
             RowText(title, value, Modifier.weight(1f))
             if (trailing != null) {
                 trailing()
@@ -127,14 +156,7 @@ fun SettingsSwitchRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            if (icon != null) {
-                Icon(
-                    icon,
-                    contentDescription = null,
-                    tint = colors.onSurfaceVariant,
-                    modifier = Modifier.size(Dimens.SettingsIcon),
-                )
-            }
+            if (icon != null) IconTile(icon)
             RowText(title, subtitle, Modifier.weight(1f))
             AppSwitch(checked = checked, onCheckedChange = null)
         }
@@ -216,14 +238,7 @@ fun OptionCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            if (icon != null) {
-                Icon(
-                    icon,
-                    contentDescription = null,
-                    tint = colors.onSurfaceVariant,
-                    modifier = Modifier.size(Dimens.SettingsIcon),
-                )
-            }
+            if (icon != null) IconTile(icon)
             RowText(title, subtitle, Modifier.weight(1f))
             AppRadio(selected = selected, onClick = null)
         }

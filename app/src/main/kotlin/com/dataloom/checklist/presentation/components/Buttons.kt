@@ -23,8 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.presentation.theme.Dimens
 
-// Buttons from UI-SPEC section 3: 56 dp tall (grows with the font size so wrapped Kannada or Tamil
-// text is never clipped), 28 dp corners, 18 sp SemiBold. Full width inside bottom bars.
+// Buttons from UI-SPEC section 3, compact scale: 48 dp tall (grows with the font size so wrapped Kannada or
+// Tamil text is never clipped), 28 dp corners, 14 sp SemiBold. Full width inside bottom bars.
 
 private val ButtonHeight = Dimens.ButtonHeight
 

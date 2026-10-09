@@ -8,18 +8,23 @@
     <group
         android:pivotX="54"
         android:pivotY="54"
-        android:scaleX="0.85"
-        android:scaleY="0.85">
-        <path
-            android:pathData="M76,72 A31,31 0 1 1 80,52"
-            android:strokeColor="#FFFFFF"
-            android:strokeWidth="8"
-            android:strokeLineCap="round" />
-        <path
-            android:pathData="M30,53 L44,67 L74,35"
-            android:strokeColor="#FFFFFF"
-            android:strokeWidth="10"
-            android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+        android:scaleX="0.7"
+        android:scaleY="0.7">
+        <!-- Moves the ring's centre (49.3, 56.3) onto the canvas centre so the icon sits centred in every mask. -->
+        <group
+            android:translateX="4.7"
+            android:translateY="-2.3">
+            <path
+                android:pathData="M76,72 A31,31 0 1 1 80,52"
+                android:strokeColor="#FFFFFF"
+                android:strokeWidth="8"
+                android:strokeLineCap="round" />
+            <path
+                android:pathData="M30,53 L44,67 L74,35"
+                android:strokeColor="#FFFFFF"
+                android:strokeWidth="10"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
     </group>
 </vector>
