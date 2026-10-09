@@ -268,7 +268,7 @@ class ItemEditorViewModel @AssistedInject constructor(
             when (result) {
                 is DomainResult.Success -> {
                     val value = result.value
-                    photoDraft.handOver(value)
+                    (value as? CustomItemOutcome)?.let { photoDraft.handOver(it) }
                     effects.send(
                         if (value is CustomItemOutcome.AlreadyPresent) {
                             ItemEditorEffect.AlreadyOnList(value.existing.displayName)
