@@ -35,14 +35,17 @@ UNIT_MAP = {
 }
 NEW_UNITS = [{"code": "BUNCH", "allowsDecimal": False, "sortOrder": 130}]
 
-# Seed v1 category key -> catalogue category. The key survives; gifts, pooja and decorations merge
+# Seed v1 category key -> catalogue category. The key survives; gifts and decorations merge
 # into Events & Celebrations and are retired (hidden once empty).
 CATEGORY_KEEP = {
     "groceries": "CAT001", "vegetables": "CAT002", "fruits": "CAT003", "clothing": "CAT023",
     "travel": "CAT022", "documents": "CAT024", "exam": "CAT025", "medicines": "CAT017",
     "toiletries": "CAT012", "electronics": "CAT021", "stationery": "CAT020", "other": "CAT031",
+    "pooja_items": "POOJA",
 }
-RETIRED = {"gifts": "CAT029", "pooja_items": "CAT029", "decorations": "CAT029"}
+RETIRED = {"gifts": "CAT029", "decorations": "CAT029"}
+# Not in the master catalogue, but pooja lists are core for the first users: the category stays (key pooja_items).
+EXTRA_CATEGORY = "POOJA"
 
 # Seed v1 item key -> catalogue item it is the same thing as (kept key, catalogue data wins).
 # Same-name items in the mapped category are matched automatically; these are the synonyms.
@@ -96,18 +99,28 @@ def build():
     cat_key = {c: k for k, c in CATEGORY_KEEP.items()}
     for c in master["categories"]:
         cat_key.setdefault(c["category_id"], c["category_id"].lower())
-    master_cat_ids = {c["category_id"] for c in master["categories"]}
 
     # Match legacy items to catalogue items.
     by_cat_name = {}
+    by_name = {}  # any category: two items with one name would make name search ambiguous
     for it in master["items"]:
         by_cat_name.setdefault((it["category_id"], norm(it["item_name"])), it["item_id"])
+        by_name.setdefault(norm(it["item_name"]), it["item_id"])
     en_legacy = legacy_i18n["en"]["items"]
     item_key = {}
     legacy_extra = []
+    pending = []
+    # Pass 1: same name in the mapped category. Pass 2: same name anywhere (milk moves to Dairy).
     for li in legacy["items"]:
         cat_id = CATEGORY_KEEP.get(li["category"]) or RETIRED[li["category"]]
-        target = ITEM_SYNONYMS.get(li["key"]) or by_cat_name.get((cat_id, norm(en_legacy[li["key"]]["name"])))
+        legacy_name = norm(en_legacy[li["key"]]["name"])
+        target = ITEM_SYNONYMS.get(li["key"]) or by_cat_name.get((cat_id, legacy_name))
+        if target and target not in item_key:
+            item_key[target] = li["key"]
+        else:
+            pending.append((li, cat_id, legacy_name))
+    for li, cat_id, legacy_name in pending:
+        target = by_name.get(legacy_name)
         if target and target not in item_key:
             item_key[target] = li["key"]
         else:
@@ -125,11 +138,15 @@ def build():
         key = cat_key[c["category_id"]]
         icon = old_icon.get(key) if LEGACY_ICON_KEEP and key in old_icon else ICONS[c["category_id"]]
         categories.append({"key": key, "icon": icon, "sortOrder": n * 10, "catalogId": c["category_id"]})
+    categories.append({"key": "pooja_items", "icon": old_icon["pooja_items"], "sortOrder": (len(categories) + 1) * 10})
     items = []
     for it in master["items"]:
         if not it.get("is_active", True):
             continue
         unit = UNIT_MAP[it["default_unit"]]
+        old = legacy_aliases.get(item_key[it["item_id"]])
+        if old and old["defaultUnit"]:
+            unit = old["defaultUnit"]  # released items keep the unit people already use (sugar in kg)
         entry = {"key": item_key[it["item_id"]], "category": cat_key[it["category_id"]], "defaultUnit": unit,
                  "catalogId": it["item_id"]}
         if it["subcategory"]:
@@ -161,6 +178,7 @@ def build():
                 name = en_cats[cid]
                 review[loc].append((cid, en_cats[cid], name, "fallback: no translation yet, English shown"))
             cats[cat_key[cid]] = name.strip()
+        cats["pooja_items"] = legacy_i18n[loc]["categories"]["pooja_items"]
         for it in master["items"]:
             if not it.get("is_active", True):
                 continue

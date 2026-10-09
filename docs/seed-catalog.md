@@ -87,16 +87,18 @@ Removing or renaming a released key needs a data migration; prefer hiding the it
 
 **Source**: `tools/seed/src_data/master_catalog_india.json` (schema 1.0.0, market India), plus the six translation files in `tools/seed/src_data/translations/`. `python3 tools/seed/build_india_catalog.py` generates `catalog.json`, `i18n/*.json`, `docs/catalog-translation-review.md` and `docs/catalog-templates-backlog.md`; CI runs it with `--check`, so the generated files can never drift from the source. Edit the source, regenerate, bump `SEED_VERSION` in the script.
 
-**Counts**: 31 categories (CAT001..CAT031), 563 catalogue items (ITM0001..ITM0563, all active) and 35 older items that have no catalogue equivalent (598 seed items), 13 units, 7 languages (en, kn, hi, ta, te, mr, ml). The catalogue's 68 tags and 15 checklist templates are not separate tables (see below).
+**Counts**: 31 categories (CAT001..CAT031), 563 catalogue items (ITM0001..ITM0563, all active) and 47 older items that have no catalogue equivalent (610 seed items; 40 older items were merged into catalogue items and keep their keys), 32 categories (31 from the catalogue plus the kept `pooja_items`), 13 units, 7 languages (en, kn, hi, ta, te, mr, ml). The catalogue's 68 tags and 15 checklist templates are not separate tables (see below).
 
 ### Id scheme
 
 | Catalogue | Seed `key` (stable id) | Notes |
 |---|---|---|
 | `CATnnn` | `catnnn` (e.g. `cat004`), or the **old key** for the 12 categories that existed in seedVersion 1 (`groceries`, `vegetables`, `fruits`, `clothing`, `travel`, `documents`, `exam`, `medicines`, `toiletries`, `electronics`, `stationery`, `other`) | `catalogId` records the `CATnnn`. Old icons are kept. |
-| `ITMnnnn` | `itmnnnn` (e.g. `itm0003`), or the **old key** when the item is the same thing as a seedVersion 1 item (`rice`, `potato`, `milk`...) | `catalogId` records the `ITMnnnn`. The synonym table is `ITEM_SYNONYMS` in the build script; same-name items in the mapped category match automatically. |
+| `ITMnnnn` | `itmnnnn` (e.g. `itm0003`), or the **old key** when the item is the same thing as a seedVersion 1 item (`rice`, `potato`, `milk`...) | `catalogId` records the `ITMnnnn`. Matching is by English name (see below); `ITEM_SYNONYMS` in the build script can force a merge. |
 | old item with no catalogue equivalent (`dal`, `spices`, `kumkum`...) | unchanged key | Stays in the catalogue, in its mapped category. Their translations are the seedVersion 1 ones. |
-| old categories `gifts`, `pooja_items`, `decorations` | unchanged key, listed in `retiredCategories` | Their items moved to Events & Celebrations (`cat029`); the category row is hidden once empty and never deleted. |
+| old item with the **same English name** as a catalogue item (`milk`, `onion`, `banana`...) | unchanged key | Merged: same row, so there is never a second "Milk" (name search and the AI parser need unique names). Same-category matches win, then any category (`milk` moves to Dairy & Eggs). The old default unit is kept (sugar stays kg). Synonyms are not merged: "Rice" and "Raw rice" are separate items. |
+| old categories `gifts`, `decorations` | unchanged key, listed in `retiredCategories` | Their items moved to Events & Celebrations (`cat029`); the category row is hidden once empty and never deleted. |
+| old category `pooja_items` | unchanged key, no `catalogId` | The master catalogue has no pooja category, so it stays as the 32nd category with its items. |
 
 Keys never change once released: `canonical_key` is what checklists, exports and search refer to.
 

@@ -253,6 +253,11 @@
       "icon": "📦",
       "sortOrder": 310,
       "catalogId": "CAT031"
+    },
+    {
+      "key": "pooja_items",
+      "icon": "🔔",
+      "sortOrder": 320
     }
   ],
   "items": [
@@ -667,7 +672,7 @@
     {
       "key": "sugar",
       "category": "groceries",
-      "defaultUnit": "GRAM",
+      "defaultUnit": "KG",
       "catalogId": "ITM0035",
       "subcategory": "Other staples",
       "tags": [
@@ -689,7 +694,7 @@
     {
       "key": "salt",
       "category": "groceries",
-      "defaultUnit": "GRAM",
+      "defaultUnit": "KG",
       "catalogId": "ITM0037",
       "subcategory": "Other staples",
       "tags": [
@@ -1084,7 +1089,7 @@
     {
       "key": "cabbage",
       "category": "vegetables",
-      "defaultUnit": "KG",
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0071",
       "subcategory": "Everyday vegetables",
       "tags": [
@@ -1096,7 +1101,7 @@
     {
       "key": "cauliflower",
       "category": "vegetables",
-      "defaultUnit": "KG",
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0072",
       "subcategory": "Everyday vegetables",
       "tags": [
@@ -1274,7 +1279,7 @@
       ]
     },
     {
-      "key": "itm0087",
+      "key": "coconut",
       "category": "vegetables",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0087",
@@ -1360,7 +1365,7 @@
     {
       "key": "banana",
       "category": "fruits",
-      "defaultUnit": "KG",
+      "defaultUnit": "DOZEN",
       "catalogId": "ITM0094",
       "subcategory": "Common fruits",
       "tags": [
@@ -1982,9 +1987,9 @@
       ]
     },
     {
-      "key": "itm0146",
+      "key": "milk",
       "category": "cat005",
-      "defaultUnit": "MILLILITRE",
+      "defaultUnit": "LITRE",
       "catalogId": "ITM0146",
       "subcategory": "Milk & dairy",
       "tags": [
@@ -3394,7 +3399,7 @@
     {
       "key": "shampoo",
       "category": "toiletries",
-      "defaultUnit": "PACK",
+      "defaultUnit": "BOTTLE",
       "catalogId": "ITM0273",
       "subcategory": "Bath & body",
       "tags": [
@@ -3416,7 +3421,7 @@
     {
       "key": "hair_oil",
       "category": "toiletries",
-      "defaultUnit": "PACK",
+      "defaultUnit": "BOTTLE",
       "catalogId": "ITM0275",
       "subcategory": "Bath & body",
       "tags": [
@@ -3427,7 +3432,7 @@
     {
       "key": "toothpaste",
       "category": "toiletries",
-      "defaultUnit": "PACK",
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0276",
       "subcategory": "Bath & body",
       "tags": [
@@ -3438,7 +3443,7 @@
     {
       "key": "toothbrush",
       "category": "toiletries",
-      "defaultUnit": "PACK",
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0277",
       "subcategory": "Bath & body",
       "tags": [
@@ -4294,7 +4299,7 @@
       ]
     },
     {
-      "key": "itm0355",
+      "key": "extension_board",
       "category": "cat016",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0355",
@@ -4327,7 +4332,7 @@
       ]
     },
     {
-      "key": "itm0358",
+      "key": "glue",
       "category": "cat016",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0358",
@@ -4844,9 +4849,9 @@
       ]
     },
     {
-      "key": "itm0405",
+      "key": "pen",
       "category": "stationery",
-      "defaultUnit": "PIECE",
+      "defaultUnit": "NOS",
       "catalogId": "ITM0405",
       "subcategory": "Stationery",
       "tags": [
@@ -4855,9 +4860,9 @@
       ]
     },
     {
-      "key": "itm0406",
+      "key": "pencil",
       "category": "stationery",
-      "defaultUnit": "PIECE",
+      "defaultUnit": "NOS",
       "catalogId": "ITM0406",
       "subcategory": "Stationery",
       "tags": [
@@ -4866,9 +4871,9 @@
       ]
     },
     {
-      "key": "itm0407",
+      "key": "eraser",
       "category": "stationery",
-      "defaultUnit": "PIECE",
+      "defaultUnit": "NOS",
       "catalogId": "ITM0407",
       "subcategory": "Stationery",
       "tags": [
@@ -5163,7 +5168,7 @@
       ]
     },
     {
-      "key": "itm0434",
+      "key": "power_bank",
       "category": "electronics",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0434",
@@ -5495,7 +5500,7 @@
     {
       "key": "socks",
       "category": "clothing",
-      "defaultUnit": "PIECE",
+      "defaultUnit": "PAIR",
       "catalogId": "ITM0464",
       "subcategory": "Clothing",
       "tags": [
@@ -5913,7 +5918,7 @@
     {
       "key": "calculator",
       "category": "exam",
-      "defaultUnit": null,
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0502",
       "subcategory": "Study & exams",
       "tags": [
@@ -6342,7 +6347,7 @@
     {
       "key": "greeting_card",
       "category": "cat029",
-      "defaultUnit": "PACK",
+      "defaultUnit": "PIECE",
       "catalogId": "ITM0541",
       "subcategory": "Celebrations",
       "tags": [
@@ -6623,11 +6628,6 @@
       "defaultUnit": "PACK"
     },
     {
-      "key": "milk",
-      "category": "groceries",
-      "defaultUnit": "LITRE"
-    },
-    {
       "key": "spices",
       "category": "groceries",
       "defaultUnit": "PACK"
@@ -6688,11 +6688,6 @@
       "defaultUnit": "PIECE"
     },
     {
-      "key": "power_bank",
-      "category": "travel",
-      "defaultUnit": "PIECE"
-    },
-    {
       "key": "travel_toiletries",
       "category": "travel",
       "defaultUnit": null
@@ -6728,21 +6723,6 @@
       "defaultUnit": null
     },
     {
-      "key": "pen",
-      "category": "exam",
-      "defaultUnit": "NOS"
-    },
-    {
-      "key": "pencil",
-      "category": "exam",
-      "defaultUnit": "NOS"
-    },
-    {
-      "key": "eraser",
-      "category": "exam",
-      "defaultUnit": "NOS"
-    },
-    {
       "key": "books",
       "category": "exam",
       "defaultUnit": "NOS"
@@ -6759,37 +6739,32 @@
     },
     {
       "key": "incense_sticks",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": "PACK"
     },
     {
       "key": "camphor",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": "PACK"
     },
     {
       "key": "kumkum",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": "PACK"
     },
     {
       "key": "turmeric",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": "PACK"
     },
     {
       "key": "flowers",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": null
     },
     {
-      "key": "coconut",
-      "category": "cat029",
-      "defaultUnit": "PIECE"
-    },
-    {
       "key": "cotton_wicks",
-      "category": "cat029",
+      "category": "pooja_items",
       "defaultUnit": "PACK"
     },
     {
@@ -6853,16 +6828,6 @@
       "defaultUnit": "PIECE"
     },
     {
-      "key": "extension_board",
-      "category": "electronics",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "glue",
-      "category": "stationery",
-      "defaultUnit": "PIECE"
-    },
-    {
       "key": "ruler",
       "category": "stationery",
       "defaultUnit": "PIECE"
@@ -6870,7 +6835,6 @@
   ],
   "retiredCategories": [
     "decorations",
-    "gifts",
-    "pooja_items"
+    "gifts"
   ]
 }

@@ -31,7 +31,8 @@
     "cat028": "वाहन आणि ये-जा",
     "cat029": "कार्यक्रम आणि समारंभ",
     "cat030": "डिजिटल आणि नियमित कामे",
-    "other": "इतर"
+    "other": "इतर",
+    "pooja_items": "पूजा साहित्य"
   },
   "items": {
     "itm0001": {
@@ -558,9 +559,10 @@
         "Lemon grass"
       ]
     },
-    "itm0087": {
+    "coconut": {
       "name": "नारळ",
       "aliases": [
+        "naral",
         "Coconut"
       ]
     },
@@ -918,9 +920,11 @@
         "Oregano fresh"
       ]
     },
-    "itm0146": {
+    "milk": {
       "name": "दूध",
       "aliases": [
+        "doodh",
+        "dudh",
         "Milk"
       ]
     },
@@ -2175,9 +2179,10 @@
         "Batteries AAA"
       ]
     },
-    "itm0355": {
+    "extension_board": {
       "name": "एक्सटेंशन बोर्ड",
       "aliases": [
+        "extension",
         "Extension board"
       ]
     },
@@ -2193,9 +2198,11 @@
         "Adhesive tape"
       ]
     },
-    "itm0358": {
+    "glue": {
       "name": "डिंक",
       "aliases": [
+        "dink",
+        "gum",
         "Glue"
       ]
     },
@@ -2476,22 +2483,23 @@
         "notebook"
       ]
     },
-    "itm0405": {
+    "pen": {
       "name": "पेन",
       "aliases": [
-        "Pen"
+        "pen"
       ]
     },
-    "itm0406": {
+    "pencil": {
       "name": "पेन्सिल",
       "aliases": [
-        "Pencil"
+        "pencil"
       ]
     },
-    "itm0407": {
+    "eraser": {
       "name": "खोडरबर",
       "aliases": [
-        "Eraser"
+        "rubber",
+        "eraser"
       ]
     },
     "itm0408": {
@@ -2651,10 +2659,10 @@
         "Phone charger"
       ]
     },
-    "itm0434": {
+    "power_bank": {
       "name": "पॉवर बँक",
       "aliases": [
-        "Power bank"
+        "power bank"
       ]
     },
     "earphones": {
@@ -3477,13 +3485,6 @@
         "coffee"
       ]
     },
-    "milk": {
-      "name": "दूध",
-      "aliases": [
-        "doodh",
-        "dudh"
-      ]
-    },
     "spices": {
       "name": "मसाले",
       "aliases": [
@@ -3559,12 +3560,6 @@
         "charger"
       ]
     },
-    "power_bank": {
-      "name": "पॉवर बँक",
-      "aliases": [
-        "power bank"
-      ]
-    },
     "travel_toiletries": {
       "name": "अंघोळीचे साहित्य",
       "aliases": []
@@ -3605,25 +3600,6 @@
       "name": "ओळखपत्र",
       "aliases": [
         "id card"
-      ]
-    },
-    "pen": {
-      "name": "पेन",
-      "aliases": [
-        "pen"
-      ]
-    },
-    "pencil": {
-      "name": "पेन्सिल",
-      "aliases": [
-        "pencil"
-      ]
-    },
-    "eraser": {
-      "name": "खोडरबर",
-      "aliases": [
-        "rubber",
-        "eraser"
       ]
     },
     "books": {
@@ -3674,12 +3650,6 @@
       "name": "फुले",
       "aliases": [
         "phule"
-      ]
-    },
-    "coconut": {
-      "name": "नारळ",
-      "aliases": [
-        "naral"
       ]
     },
     "cotton_wicks": {
@@ -3764,19 +3734,6 @@
       "name": "बल्ब",
       "aliases": [
         "bulb"
-      ]
-    },
-    "extension_board": {
-      "name": "एक्स्टेंशन बोर्ड",
-      "aliases": [
-        "extension"
-      ]
-    },
-    "glue": {
-      "name": "डिंक",
-      "aliases": [
-        "dink",
-        "gum"
       ]
     },
     "ruler": {

@@ -102,7 +102,7 @@ class IndiaCatalogSeedTest {
         assertEquals(snapshotBefore, row("SELECT * FROM checklist_item WHERE id = 'ci'"))
         assertEquals("1", scalar("SELECT COUNT(*) FROM checklist_item WHERE master_item_id = '$riceId'"))
         // New master data arrived; nothing was deleted.
-        assertEquals(catalog.categories.size + 3, count("category"))
+        assertEquals(catalog.categories.size + 2, count("category"))
         assertEquals(catalog.items.size, count("master_item"))
         assertEquals(13, count("unit_def"))
         assertEquals("1", scalar("SELECT COUNT(*) FROM master_item WHERE canonical_key = 'itm0003'"))

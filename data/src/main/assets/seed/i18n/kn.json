@@ -31,7 +31,8 @@
     "cat028": "ವಾಹನ",
     "cat029": "ಕಾರ್ಯಕ್ರಮ ಮತ್ತು ಸಂಭ್ರಮ",
     "cat030": "ಡಿಜಿಟಲ್ ಮತ್ತು ನಿಯಮಿತ ಕೆಲಸ",
-    "other": "ಕಸ್ಟಮ್ / ಇತರೆ"
+    "other": "ಕಸ್ಟಮ್ / ಇತರೆ",
+    "pooja_items": "ಪೂಜಾ ಸಾಮಗ್ರಿ"
   },
   "items": {
     "itm0001": {
@@ -559,9 +560,11 @@
         "Lemon grass"
       ]
     },
-    "itm0087": {
+    "coconut": {
       "name": "ತೆಂಗಿನಕಾಯಿ",
       "aliases": [
+        "tenginakayi",
+        "kayi",
         "Coconut"
       ]
     },
@@ -920,9 +923,11 @@
         "Oregano fresh"
       ]
     },
-    "itm0146": {
+    "milk": {
       "name": "ಹಾಲು",
       "aliases": [
+        "haalu",
+        "halu",
         "Milk"
       ]
     },
@@ -2177,9 +2182,10 @@
         "Batteries AAA"
       ]
     },
-    "itm0355": {
+    "extension_board": {
       "name": "ಎಕ್ಸ್ಟೆನ್ಶನ್ ಬೋರ್ಡ್",
       "aliases": [
+        "extension",
         "Extension board"
       ]
     },
@@ -2195,9 +2201,11 @@
         "Adhesive tape"
       ]
     },
-    "itm0358": {
+    "glue": {
       "name": "ಗಮ್",
       "aliases": [
+        "antu",
+        "gum",
         "Glue"
       ]
     },
@@ -2477,22 +2485,23 @@
         "notebook"
       ]
     },
-    "itm0405": {
+    "pen": {
       "name": "ಪೆನ್",
       "aliases": [
-        "Pen"
+        "pen"
       ]
     },
-    "itm0406": {
+    "pencil": {
       "name": "ಪೆನ್ಸಿಲ್",
       "aliases": [
-        "Pencil"
+        "pencil"
       ]
     },
-    "itm0407": {
+    "eraser": {
       "name": "ರಬ್ಬರ್",
       "aliases": [
-        "Eraser"
+        "rubber",
+        "eraser"
       ]
     },
     "itm0408": {
@@ -2652,10 +2661,10 @@
         "Phone charger"
       ]
     },
-    "itm0434": {
+    "power_bank": {
       "name": "ಪವರ್ ಬ್ಯಾಂಕ್",
       "aliases": [
-        "Power bank"
+        "power bank"
       ]
     },
     "earphones": {
@@ -3481,13 +3490,6 @@
         "ಕಾಫಿ"
       ]
     },
-    "milk": {
-      "name": "ಹಾಲು",
-      "aliases": [
-        "haalu",
-        "halu"
-      ]
-    },
     "spices": {
       "name": "ಮಸಾಲೆ",
       "aliases": [
@@ -3565,12 +3567,6 @@
         "charger"
       ]
     },
-    "power_bank": {
-      "name": "ಪವರ್ ಬ್ಯಾಂಕ್",
-      "aliases": [
-        "power bank"
-      ]
-    },
     "travel_toiletries": {
       "name": "ಸ್ನಾನದ ಸಾಮಗ್ರಿ",
       "aliases": []
@@ -3612,25 +3608,6 @@
       "name": "ಗುರುತಿನ ಚೀಟಿ",
       "aliases": [
         "id card"
-      ]
-    },
-    "pen": {
-      "name": "ಪೆನ್ನು",
-      "aliases": [
-        "pen"
-      ]
-    },
-    "pencil": {
-      "name": "ಪೆನ್ಸಿಲ್",
-      "aliases": [
-        "pencil"
-      ]
-    },
-    "eraser": {
-      "name": "ರಬ್ಬರ್",
-      "aliases": [
-        "rubber",
-        "eraser"
       ]
     },
     "books": {
@@ -3681,13 +3658,6 @@
       "name": "ಹೂವು",
       "aliases": [
         "hoovu"
-      ]
-    },
-    "coconut": {
-      "name": "ತೆಂಗಿನಕಾಯಿ",
-      "aliases": [
-        "tenginakayi",
-        "kayi"
       ]
     },
     "cotton_wicks": {
@@ -3768,19 +3738,6 @@
       "name": "ಬಲ್ಬ್",
       "aliases": [
         "bulb"
-      ]
-    },
-    "extension_board": {
-      "name": "ಎಕ್ಸ್ಟೆನ್ಷನ್ ಬೋರ್ಡ್",
-      "aliases": [
-        "extension"
-      ]
-    },
-    "glue": {
-      "name": "ಅಂಟು",
-      "aliases": [
-        "antu",
-        "gum"
       ]
     },
     "ruler": {

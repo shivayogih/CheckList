@@ -31,7 +31,8 @@
     "cat028": "வாகனம் & பயணம்",
     "cat029": "விழா & கொண்டாட்டம்",
     "cat030": "டிஜிட்டல் & வழக்கமான வேலைகள்",
-    "other": "மற்றவை"
+    "other": "மற்றவை",
+    "pooja_items": "பூஜை பொருட்கள்"
   },
   "items": {
     "itm0001": {
@@ -559,9 +560,10 @@
         "Lemon grass"
       ]
     },
-    "itm0087": {
+    "coconut": {
       "name": "தேங்காய்",
       "aliases": [
+        "thengai",
         "Coconut"
       ]
     },
@@ -917,9 +919,10 @@
         "Oregano fresh"
       ]
     },
-    "itm0146": {
+    "milk": {
       "name": "பால்",
       "aliases": [
+        "paal",
         "Milk"
       ]
     },
@@ -2174,9 +2177,10 @@
         "Batteries AAA"
       ]
     },
-    "itm0355": {
+    "extension_board": {
       "name": "எக்ஸ்டென்ஷன் போர்டு",
       "aliases": [
+        "extension",
         "Extension board"
       ]
     },
@@ -2192,9 +2196,11 @@
         "Adhesive tape"
       ]
     },
-    "itm0358": {
+    "glue": {
       "name": "பசை",
       "aliases": [
+        "pasai",
+        "gum",
         "Glue"
       ]
     },
@@ -2475,22 +2481,24 @@
         "note"
       ]
     },
-    "itm0405": {
+    "pen": {
       "name": "பேனா",
       "aliases": [
-        "Pen"
+        "pena",
+        "pen"
       ]
     },
-    "itm0406": {
+    "pencil": {
       "name": "பென்சில்",
       "aliases": [
-        "Pencil"
+        "pencil"
       ]
     },
-    "itm0407": {
+    "eraser": {
       "name": "ரப்பர்",
       "aliases": [
-        "Eraser"
+        "rubber",
+        "eraser"
       ]
     },
     "itm0408": {
@@ -2650,10 +2658,10 @@
         "Phone charger"
       ]
     },
-    "itm0434": {
+    "power_bank": {
       "name": "பவர் பேங்க்",
       "aliases": [
-        "Power bank"
+        "power bank"
       ]
     },
     "earphones": {
@@ -3477,12 +3485,6 @@
         "காபி"
       ]
     },
-    "milk": {
-      "name": "பால்",
-      "aliases": [
-        "paal"
-      ]
-    },
     "spices": {
       "name": "மசாலா பொருட்கள்",
       "aliases": [
@@ -3558,12 +3560,6 @@
         "charger"
       ]
     },
-    "power_bank": {
-      "name": "பவர் பேங்க்",
-      "aliases": [
-        "power bank"
-      ]
-    },
     "travel_toiletries": {
       "name": "குளியல் பொருட்கள்",
       "aliases": []
@@ -3603,26 +3599,6 @@
       "name": "அடையாள அட்டை",
       "aliases": [
         "id card"
-      ]
-    },
-    "pen": {
-      "name": "பேனா",
-      "aliases": [
-        "pena",
-        "pen"
-      ]
-    },
-    "pencil": {
-      "name": "பென்சில்",
-      "aliases": [
-        "pencil"
-      ]
-    },
-    "eraser": {
-      "name": "அழிப்பான்",
-      "aliases": [
-        "rubber",
-        "eraser"
       ]
     },
     "books": {
@@ -3674,12 +3650,6 @@
       "aliases": [
         "poo",
         "pookal"
-      ]
-    },
-    "coconut": {
-      "name": "தேங்காய்",
-      "aliases": [
-        "thengai"
       ]
     },
     "cotton_wicks": {
@@ -3761,19 +3731,6 @@
       "name": "பல்பு",
       "aliases": [
         "bulb"
-      ]
-    },
-    "extension_board": {
-      "name": "எக்ஸ்டென்ஷன் போர்டு",
-      "aliases": [
-        "extension"
-      ]
-    },
-    "glue": {
-      "name": "பசை",
-      "aliases": [
-        "pasai",
-        "gum"
       ]
     },
     "ruler": {

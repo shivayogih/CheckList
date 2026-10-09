@@ -31,7 +31,8 @@
     "cat028": "Vehicle & Commute",
     "cat029": "Events & Celebrations",
     "cat030": "Digital & Recurring Tasks",
-    "other": "Custom / Other"
+    "other": "Custom / Other",
+    "pooja_items": "Pooja Items"
   },
   "items": {
     "itm0001": {
@@ -382,7 +383,7 @@
       "name": "Lemon grass",
       "aliases": []
     },
-    "itm0087": {
+    "coconut": {
       "name": "Coconut",
       "aliases": []
     },
@@ -618,7 +619,7 @@
       "name": "Oregano fresh",
       "aliases": []
     },
-    "itm0146": {
+    "milk": {
       "name": "Milk",
       "aliases": []
     },
@@ -1458,9 +1459,12 @@
       "name": "Batteries AAA",
       "aliases": []
     },
-    "itm0355": {
+    "extension_board": {
       "name": "Extension board",
-      "aliases": []
+      "aliases": [
+        "spike guard",
+        "multi plug"
+      ]
     },
     "itm0356": {
       "name": "Electrical tape",
@@ -1470,9 +1474,11 @@
       "name": "Adhesive tape",
       "aliases": []
     },
-    "itm0358": {
+    "glue": {
       "name": "Glue",
-      "aliases": []
+      "aliases": [
+        "gum"
+      ]
     },
     "itm0359": {
       "name": "Super glue",
@@ -1658,17 +1664,19 @@
       "name": "Notebook",
       "aliases": []
     },
-    "itm0405": {
+    "pen": {
       "name": "Pen",
       "aliases": []
     },
-    "itm0406": {
+    "pencil": {
       "name": "Pencil",
       "aliases": []
     },
-    "itm0407": {
+    "eraser": {
       "name": "Eraser",
-      "aliases": []
+      "aliases": [
+        "rubber"
+      ]
     },
     "itm0408": {
       "name": "Sharpener",
@@ -1774,7 +1782,7 @@
       "name": "Phone charger",
       "aliases": []
     },
-    "itm0434": {
+    "power_bank": {
       "name": "Power bank",
       "aliases": []
     },
@@ -2343,10 +2351,6 @@
         "coffee powder"
       ]
     },
-    "milk": {
-      "name": "Milk",
-      "aliases": []
-    },
     "spices": {
       "name": "Spices",
       "aliases": [
@@ -2411,10 +2415,6 @@
       "name": "Charger",
       "aliases": []
     },
-    "power_bank": {
-      "name": "Power Bank",
-      "aliases": []
-    },
     "travel_toiletries": {
       "name": "Toiletries",
       "aliases": [
@@ -2458,20 +2458,6 @@
         "identity card"
       ]
     },
-    "pen": {
-      "name": "Pen",
-      "aliases": []
-    },
-    "pencil": {
-      "name": "Pencil",
-      "aliases": []
-    },
-    "eraser": {
-      "name": "Eraser",
-      "aliases": [
-        "rubber"
-      ]
-    },
     "books": {
       "name": "Books",
       "aliases": []
@@ -2513,10 +2499,6 @@
     },
     "flowers": {
       "name": "Flowers",
-      "aliases": []
-    },
-    "coconut": {
-      "name": "Coconut",
       "aliases": []
     },
     "cotton_wicks": {
@@ -2589,19 +2571,6 @@
       "name": "Light Bulb",
       "aliases": [
         "bulb"
-      ]
-    },
-    "extension_board": {
-      "name": "Extension Board",
-      "aliases": [
-        "spike guard",
-        "multi plug"
-      ]
-    },
-    "glue": {
-      "name": "Glue",
-      "aliases": [
-        "gum"
       ]
     },
     "ruler": {
