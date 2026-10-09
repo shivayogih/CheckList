@@ -87,7 +87,11 @@ abstract class CheckListDatabase : RoomDatabase() {
          * before an upgrade and restored if the upgrade fails, and the outcome is published in [health]
          * (CL-320). There is no destructive fallback and there must never be one (DatabaseMigrationPolicyTest).
          */
-        fun build(context: Context, seedLoader: SeedLoader, health: DatabaseHealth = DatabaseHealth()): CheckListDatabase =
+        fun build(
+            context: Context,
+            seedLoader: SeedLoader,
+            health: DatabaseHealth = DatabaseHealth(),
+        ): CheckListDatabase =
             Room.databaseBuilder(context, CheckListDatabase::class.java, NAME)
                 .openHelperFactory(
                     SafeOpenHelperFactory(

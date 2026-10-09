@@ -22,10 +22,11 @@ fun SupportSQLiteDatabase.count(table: String): Long = query("SELECT COUNT(*) FR
     it.getLong(0)
 }
 
-fun SupportSQLiteDatabase.columnNames(table: String): List<String> = query("PRAGMA table_info(`$table`)").use { cursor ->
-    val name = cursor.getColumnIndexOrThrow("name")
-    buildList { while (cursor.moveToNext()) add(cursor.getString(name)) }
-}
+fun SupportSQLiteDatabase.columnNames(table: String): List<String> =
+    query("PRAGMA table_info(`$table`)").use { cursor ->
+        val name = cursor.getColumnIndexOrThrow("name")
+        buildList { while (cursor.moveToNext()) add(cursor.getString(name)) }
+    }
 
 /** Every row of the given columns in a stable order; BLOBs become hex text so they compare by value. */
 fun SupportSQLiteDatabase.rows(table: String, columns: List<String>): List<List<String?>> {
@@ -56,7 +57,11 @@ fun SupportSQLiteDatabase.integrityCheck(): List<String> = strings("PRAGMA integ
 
 /** Rows of `PRAGMA foreign_key_check` as "table -> parent (rowid)"; empty when every reference resolves. */
 fun SupportSQLiteDatabase.foreignKeyViolations(): List<String> = query("PRAGMA foreign_key_check").use { cursor ->
-    buildList { while (cursor.moveToNext()) add("${cursor.getString(0)} rowid=${cursor.getLong(1)} -> ${cursor.getString(2)}") }
+    buildList {
+        while (cursor.moveToNext()) {
+            add("${cursor.getString(0)} rowid=${cursor.getLong(1)} -> ${cursor.getString(2)}")
+        }
+    }
 }
 
 /** Structure of the application tables: columns, foreign keys and indices. Triggers are checked separately. */
@@ -64,15 +69,24 @@ fun SupportSQLiteDatabase.schemaDescription(): List<String> = buildList {
     userTables().forEach { table ->
         query("PRAGMA table_info(`$table`)").use { c ->
             while (c.moveToNext()) {
-                add("$table column ${c.getString(1)} ${c.getString(2)} notnull=${c.getInt(3)} default=${c.getString(4)} pk=${c.getInt(5)}")
+                add(
+                    "$table column ${c.getString(1)} ${c.getString(2)} notnull=${c.getInt(3)} " +
+                        "default=${c.getString(4)} pk=${c.getInt(5)}",
+                )
             }
         }
         query("PRAGMA foreign_key_list(`$table`)").use { c ->
             while (c.moveToNext()) {
-                add("$table fk ${c.getString(3)} -> ${c.getString(2)}.${c.getString(4)} update=${c.getString(5)} delete=${c.getString(6)}")
+                add(
+                    "$table fk ${c.getString(3)} -> ${c.getString(2)}.${c.getString(4)} " +
+                        "update=${c.getString(5)} delete=${c.getString(6)}",
+                )
             }
         }
-        strings("SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = '$table' AND sql IS NOT NULL ORDER BY name")
+        strings(
+            "SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = '$table' " +
+                "AND sql IS NOT NULL ORDER BY name",
+        )
             .forEach { index ->
                 val unique = query("PRAGMA index_list(`$table`)").use { c ->
                     var found = 0

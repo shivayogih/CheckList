@@ -19,6 +19,10 @@ class DatabaseMigrationPolicyTest {
     private val repoRoot = File("..").canonicalFile
     private val schemaDir = File("schemas/${CheckListDatabase::class.java.name}")
 
+    private companion object {
+        const val DATABASE_SOURCES = "src/main/kotlin/com/dataloom/checklist/data/local/database"
+    }
+
     private val forbidden = listOf(
         "fallbackToDestructiveMigration",
         "fallbackToDestructiveMigrationFrom",
@@ -43,7 +47,7 @@ class DatabaseMigrationPolicyTest {
 
     @Test
     fun `migrations never delete or drop data unless the line says why`() {
-        val source = File("src/main/kotlin/com/dataloom/checklist/data/local/database/DatabaseMigrations.kt").readLines()
+        val source = File("$DATABASE_SOURCES/DatabaseMigrations.kt").readLines()
         val risky = Regex("""(?i)\b(DELETE\s+FROM|DROP\s+TABLE|DROP\s+COLUMN|TRUNCATE)\b""")
         val offenders = source.withIndex().filter { (_, line) ->
             !line.trimStart().startsWith("*") && !line.trimStart().startsWith("//") &&
@@ -59,7 +63,7 @@ class DatabaseMigrationPolicyTest {
         assertEquals((1..CheckListDatabase.VERSION).toList(), committed)
 
         val declared = Regex("""version\s*=\s*(\d+)""").find(
-            File("src/main/kotlin/com/dataloom/checklist/data/local/database/CheckListDatabase.kt").readText(),
+            File("$DATABASE_SOURCES/CheckListDatabase.kt").readText(),
         )?.groupValues?.get(1)?.toInt()
         assertEquals("@Database(version) must equal CheckListDatabase.VERSION", CheckListDatabase.VERSION, declared)
 

@@ -50,12 +50,12 @@ internal class SafeOpenHelperFactory(
             if (opened) return
             val stored = backup.storedVersion()
             if (stored != null && stored > currentVersion) {
-                throw fail(DatabaseFailure.Downgrade(stored, currentVersion), null)
+                fail(DatabaseFailure.Downgrade(stored, currentVersion), null)
             }
             val from = stored?.takeIf { it in 1 until currentVersion }
             val backedUp = from != null && backup.create(from)
             if (from != null && !backedUp) {
-                AppLog.w(TAG) { "No pre-migration backup of v$from could be made; migrating inside its transaction only" }
+                AppLog.w(TAG) { "No pre-migration backup of v$from; migrating inside its transaction only" }
             }
             try {
                 helper.writableDatabase
@@ -66,7 +66,7 @@ internal class SafeOpenHelperFactory(
                 } else {
                     DatabaseFailure.OpenFailed
                 }
-                throw fail(reason, error)
+                fail(reason, error)
             }
             opened = true
             health.report(DatabaseState.Ready(from))
@@ -74,12 +74,12 @@ internal class SafeOpenHelperFactory(
         }
     }
 
-    private fun fail(reason: DatabaseFailure, cause: Throwable?): DatabaseOpenException {
+    private fun fail(reason: DatabaseFailure, cause: Throwable?): Nothing {
         AppLog.e(TAG, cause) { "Database open failed: $reason" }
         val exception = DatabaseOpenException(reason, cause)
         failure = exception
         health.report(DatabaseState.Failed(reason))
-        return exception
+        throw exception
     }
 
     private fun closeQuietly(helper: SupportSQLiteOpenHelper): Boolean = try {

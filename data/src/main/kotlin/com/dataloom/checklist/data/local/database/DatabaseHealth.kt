@@ -34,7 +34,10 @@ sealed interface DatabaseState {
     data class Failed(val failure: DatabaseFailure) : DatabaseState
 }
 
-/** Thrown by every database access after [DatabaseState.Failed]; catch it to show a recovery screen instead of crashing. */
+/**
+ * Thrown by every database access after [DatabaseState.Failed]; catch it to show a recovery screen
+ * instead of crashing.
+ */
 class DatabaseOpenException(val failure: DatabaseFailure, cause: Throwable? = null) :
     IllegalStateException("The database could not be opened: $failure", cause)
 

@@ -28,13 +28,20 @@ object MigrationFixtures {
     }
 
     private fun populateV1(db: SupportSQLiteDatabase) {
+        populateCatalog(db)
+        populateSearchAndProfile(db)
+        populateChecklists(db)
+    }
+
+    private fun populateCatalog(db: SupportSQLiteDatabase) {
         listOf(
             arrayOf<Any?>("KG", 1, 0, null, 10),
             arrayOf<Any?>("PIECE", 0, 0, null, 60),
             arrayOf<Any?>("CUSTOM_u-1", 0, 1, "Bag", 900),
         ).forEach {
             db.execSQL(
-                "INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) VALUES (?, ?, ?, ?, ?)",
+                "INSERT INTO unit_def (code, allows_decimal, is_custom, custom_label, sort_order) " +
+                    "VALUES (?, ?, ?, ?, ?)",
                 it,
             )
         }
@@ -72,20 +79,33 @@ object MigrationFixtures {
             arrayOf<Any?>("rice", "hi", "चावल", null),
             arrayOf<Any?>("tomato", "en", "Tomato", "tamatar"),
         ).forEach {
-            db.execSQL("INSERT INTO master_item_translation (canonical_key, locale, name, aliases) VALUES (?, ?, ?, ?)", it)
+            db.execSQL(
+                "INSERT INTO master_item_translation (canonical_key, locale, name, aliases) VALUES (?, ?, ?, ?)",
+                it,
+            )
         }
+    }
+
+    private fun populateSearchAndProfile(db: SupportSQLiteDatabase) {
         listOf(
             arrayOf<Any?>(ItemSearchFtsEntity.REF_MASTER, "mi-1", "cat-1", "en", "Rice chawal"),
             arrayOf<Any?>(ItemSearchFtsEntity.REF_MASTER, "mi-1", "cat-1", "kn", "ಅಕ್ಕಿ akki"),
             arrayOf<Any?>(ItemSearchFtsEntity.REF_CUSTOM, "mi-3", "cat-3", "kn", "Akki bag"),
         ).forEach {
-            db.execSQL("INSERT INTO item_search_fts (ref_type, ref_id, category_id, locale, text) VALUES (?, ?, ?, ?, ?)", it)
+            db.execSQL(
+                "INSERT INTO item_search_fts (ref_type, ref_id, category_id, locale, text) VALUES (?, ?, ?, ?, ?)",
+                it,
+            )
         }
         db.execSQL("INSERT INTO seed_meta (id, seed_version) VALUES (1, 1)")
         db.execSQL(
-            "INSERT INTO user_profile (id, enc_payload, key_alias, schema_version, updated_at) VALUES ('me', ?, ?, 1, 300)",
+            "INSERT INTO user_profile (id, enc_payload, key_alias, schema_version, updated_at) " +
+                "VALUES ('me', ?, ?, 1, 300)",
             arrayOf<Any?>(profileBlob, "checklist_profile_master"),
         )
+    }
+
+    private fun populateChecklists(db: SupportSQLiteDatabase) {
         db.execSQL(
             "INSERT INTO checklist (id, title, description, created_at, updated_at, is_archived, archived_at) " +
                 "VALUES ('list-1', 'Goa Trip', 'Beach week', 1000, 2000, 0, NULL)",
@@ -109,10 +129,14 @@ object MigrationFixtures {
             // A snapshot of a catalog item, with a note and a decimal quantity.
             arrayOf<Any?>("item-1", "sec-1", "mi-1", "rice", "Rice", "en", 2_500L, "KG", "Basmati only", 0, null, 1000),
             // Completed, name saved in Kannada: the snapshot must not follow the catalog.
-            arrayOf<Any?>("item-2", "sec-1", "mi-1", "rice", "ಅಕ್ಕಿ", "kn", 1_000L, "KG", null, 1, 1500L, 2000),
+            arrayOf<Any?>(
+                "item-2", "sec-1", "mi-1", "rice", "ಅಕ್ಕಿ", "kn", 1_000L, "KG", null, 1, 1500L, 2000,
+            ),
             // Typed by the user: no master item, custom unit.
             arrayOf<Any?>("item-3", "sec-2", null, null, "Cloth bag", "en", 3_000L, "CUSTOM_u-1", null, 0, null, 1000),
-            arrayOf<Any?>("item-4", "sec-3", "mi-1", "rice", "Rice", "en", 12_000L, "PIECE", "Exam week", 1, 650L, 1000),
+            arrayOf<Any?>(
+                "item-4", "sec-3", "mi-1", "rice", "Rice", "en", 12_000L, "PIECE", "Exam week", 1, 650L, 1000,
+            ),
         ).forEach {
             db.execSQL(
                 "INSERT INTO checklist_item (id, checklist_category_id, master_item_id, canonical_key, display_name, " +
@@ -130,8 +154,8 @@ object MigrationFixtures {
             arrayOf<Any?>("ph-3", "item-3", "ph-3.jpg", 800, 800, 90_000L, 1000, null),
         ).forEach {
             db.execSQL(
-                "INSERT INTO item_photo (id, checklist_item_id, file_name, width, height, byte_size, position, caption, " +
-                    "created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 3000)",
+                "INSERT INTO item_photo (id, checklist_item_id, file_name, width, height, byte_size, position, " +
+                    "caption, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 3000)",
                 it,
             )
         }

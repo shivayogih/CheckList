@@ -54,7 +54,8 @@ internal class PreMigrationBackup(private val database: File, private val direct
     }
 
     /** Version of the stored copy, or null when there is none. */
-    fun backedUpVersion(): Int? = if (copy.isFile) versionFile.takeIf { it.isFile }?.readText()?.trim()?.toIntOrNull() else null
+    fun backedUpVersion(): Int? =
+        if (copy.isFile) versionFile.takeIf { it.isFile }?.readText()?.trim()?.toIntOrNull() else null
 
     /**
      * Puts the copy back in place of the database. The copy is first written next to the database

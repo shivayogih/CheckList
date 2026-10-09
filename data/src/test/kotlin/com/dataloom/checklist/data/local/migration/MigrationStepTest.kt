@@ -94,14 +94,18 @@ class MigrationStepTest {
                 assertTrue(MigrationFixtures.profileBlob.contentEquals(it.getBlob(0)))
             }
             // The FTS index still answers queries.
-            assertEquals(listOf("mi-1"), db.strings("SELECT ref_id FROM item_search_fts WHERE text MATCH 'chawal' AND locale = 'en'"))
+            assertEquals(
+                listOf("mi-1"),
+                db.strings("SELECT ref_id FROM item_search_fts WHERE text MATCH 'chawal' AND locale = 'en'"),
+            )
         }
     }
 
     @Test
     fun `a migrated database has the same structure as a fresh install`() {
         helper.createDatabase(CHAIN_DB, 1).use { MigrationFixtures.populate(1, it) }
-        val migrated = helper.runMigrationsAndValidate(CHAIN_DB, LATEST, true, *DatabaseMigrations.ALL).use { it.schemaDescription() }
+        val migrated = helper.runMigrationsAndValidate(CHAIN_DB, LATEST, true, *DatabaseMigrations.ALL)
+            .use { it.schemaDescription() }
 
         val fresh = Room.databaseBuilder(context, CheckListDatabase::class.java, FRESH_DB)
             .addCallback(CheckListDatabaseCallback(seedLoader = null))
@@ -117,7 +121,7 @@ class MigrationStepTest {
     }
 
     @Test
-    fun `the app opens a migrated database, restores the triggers and applies the catalogue without touching user data`() {
+    fun `the app opens a migrated database and applies the catalogue without touching user data`() {
         helper.createDatabase(OPEN_DB, 1).use { MigrationFixtures.populate(1, it) }
         lateinit var before: Map<String, Pair<List<String>, List<List<String?>>>>
         helper.runMigrationsAndValidate(OPEN_DB, LATEST, true, *DatabaseMigrations.ALL).use { before = it.snapshot() }
@@ -183,7 +187,9 @@ class MigrationStepTest {
             .allowMainThreadQueries()
             .build()
         try {
-            assertEquals(2, reopened.openHelper.writableDatabase.strings("SELECT name FROM sqlite_master WHERE type = 'trigger'").size)
+            val triggers = reopened.openHelper.writableDatabase
+                .strings("SELECT name FROM sqlite_master WHERE type = 'trigger'")
+            assertEquals(2, triggers.size)
         } finally {
             reopened.close()
         }
@@ -212,11 +218,13 @@ class MigrationStepTest {
             assertTrue("v$from -> v$to dropped table $table", table in db.userTables())
             val kept = db.columnNames(table)
             assertTrue("v$from -> v$to removed columns of $table: ${columns - kept.toSet()}", kept.containsAll(columns))
-            val expected = oldRows.map { it.joinToString("\u0000") { value -> value ?: "\u0001null" } }.sorted()
-            val actual = db.rows(table, columns).map { it.joinToString("\u0000") { value -> value ?: "\u0001null" } }.sorted()
+            val expected = oldRows.map(::flatten).sorted()
+            val actual = db.rows(table, columns).map(::flatten).sorted()
             assertEquals("v$from -> v$to changed rows of $table", expected, actual)
         }
     }
+
+    private fun flatten(row: List<String?>): String = row.joinToString("\u0000") { it ?: "\u0001null" }
 
     private companion object {
         const val STEP_DB = "migration-step-test.db"
