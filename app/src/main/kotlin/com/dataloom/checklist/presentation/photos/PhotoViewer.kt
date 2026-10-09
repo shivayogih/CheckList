@@ -88,38 +88,17 @@ fun PhotoViewerDialog(
     }
     val current = index.coerceIn(0, photos.lastIndex)
     val photo = photos[current]
-    val typography = MaterialTheme.typography
-    val shapes = MaterialTheme.shapes
 
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        // The viewer is always dark, like a gallery, whatever the app theme is.
-        MaterialTheme(colorScheme = darkColorScheme(), typography = typography, shapes = shapes) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black)
-                    .statusBarsPadding()
-                    .navigationBarsPadding(),
-            ) {
-                ViewerTopBar(itemName, onClose)
-                ZoomableImage(photo, current, photos.size, itemName, Modifier.weight(1f))
-                ViewerControls(
-                    position = current,
-                    count = photos.size,
-                    onPrevious = { index = current - 1 },
-                    onNext = { index = current + 1 },
-                )
-                // One instance per photo, so a caption typed for one is saved when the next is shown.
-                key(photo.id) { CaptionField(photo, onCaption) }
-                OutlinedButton(
-                    onClick = { confirmDelete = true },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 56.dp)
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                ) { Text(stringResource(R.string.photo_viewer_delete)) }
-            }
-        }
+        PhotoViewerContent(
+            itemName = itemName,
+            photos = photos,
+            index = current,
+            onIndexChange = { index = it },
+            onCaption = onCaption,
+            onDelete = { confirmDelete = true },
+            onClose = onClose,
+        )
     }
 
     if (confirmDelete) {
@@ -133,6 +112,53 @@ fun PhotoViewerDialog(
             },
             onDismiss = { confirmDelete = false },
         )
+    }
+}
+
+/**
+ * The viewer's screen, without the dialog window around it, so it can be drawn in screenshot
+ * tests. Always dark, like a gallery, whatever the app theme is. [onDelete] only asks: the
+ * dialog shows the confirmation.
+ */
+@Composable
+internal fun PhotoViewerContent(
+    itemName: String,
+    photos: List<PhotoUi>,
+    index: Int,
+    onIndexChange: (Int) -> Unit,
+    onCaption: (PhotoUi, String) -> Unit,
+    onDelete: () -> Unit,
+    onClose: () -> Unit,
+) {
+    val photo = photos[index]
+    val typography = MaterialTheme.typography
+    val shapes = MaterialTheme.shapes
+    MaterialTheme(colorScheme = darkColorScheme(), typography = typography, shapes = shapes) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+                .statusBarsPadding()
+                .navigationBarsPadding(),
+        ) {
+            ViewerTopBar(itemName, onClose)
+            ZoomableImage(photo, index, photos.size, itemName, Modifier.weight(1f))
+            ViewerControls(
+                position = index,
+                count = photos.size,
+                onPrevious = { onIndexChange(index - 1) },
+                onNext = { onIndexChange(index + 1) },
+            )
+            // One instance per photo, so a caption typed for one is saved when the next is shown.
+            key(photo.id) { CaptionField(photo, onCaption) }
+            OutlinedButton(
+                onClick = onDelete,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 56.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+            ) { Text(stringResource(R.string.photo_viewer_delete)) }
+        }
     }
 }
 

@@ -71,10 +71,12 @@ import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.photos.ItemPhotoSlot
+import com.dataloom.checklist.presentation.transfer.PdfOptionsDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
 import com.dataloom.checklist.presentation.transfer.rememberUnitLabels
 import com.dataloom.checklist.transfer.TransferDocuments
 import com.dataloom.checklist.transfer.TransferViewModel
+import com.dataloom.checklist.transfer.pdf.PdfOptions
 import kotlinx.coroutines.launch
 
 /** Navigation out of the detail screen. */
@@ -113,8 +115,11 @@ fun ChecklistDetailScreen(
         .associate { it.code to it.customLabel.orEmpty() }
     val unitLabels = rememberUnitLabels(customUnitLabels)
     val id = remember(checklistId) { ChecklistId(checklistId) }
+    // Asked only when the checklist has photos: the PDF is bigger with them (CL-214).
+    var includePdfPhotos by rememberSaveable { mutableStateOf(false) }
+    var pdfOptionsFor by rememberSaveable { mutableStateOf<PdfExport?>(null) }
     val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+        if (uri != null) transferViewModel.savePdfTo(uri, id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
     }
     // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
     val pdfActions = listOf(
@@ -127,7 +132,7 @@ fun ChecklistDetailScreen(
     )
     val exportPdf by rememberUpdatedState { export: PdfExport ->
         when (export) {
-            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
             PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
         }
     }
@@ -160,7 +165,7 @@ fun ChecklistDetailScreen(
                 is ChecklistDetailEffect.PdfReady -> {
                     // The deletion is final now; its Undo snackbar would offer something it cannot do.
                     snackbarHostState.currentSnackbarData?.dismiss()
-                    exportPdf(effect.export)
+                    if (state.hasPhotos) pdfOptionsFor = effect.export else exportPdf(effect.export)
                 }
                 is ChecklistDetailEffect.Error -> scope.launch {
                     snackbarHostState.showSnackbar(effect.message.resolve(resources))
@@ -170,6 +175,20 @@ fun ChecklistDetailScreen(
     }
 
     DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
+
+    pdfOptionsFor?.let { export ->
+        PdfOptionsDialog(
+            confirmLabel = stringResource(
+                if (export == PdfExport.SHARE) R.string.detail_share_pdf else R.string.detail_save_pdf,
+            ),
+            onConfirm = { includePhotos ->
+                includePdfPhotos = includePhotos
+                pdfOptionsFor = null
+                exportPdf(export)
+            },
+            onDismiss = { pdfOptionsFor = null },
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -333,7 +352,7 @@ private fun SectionHeader(section: SectionUi, onAction: (ChecklistDetailAction) 
 }
 
 @Composable
-private fun ItemRow(
+internal fun ItemRow(
     item: ItemUi,
     onAction: (ChecklistDetailAction) -> Unit,
     onEdit: () -> Unit,

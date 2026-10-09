@@ -92,6 +92,35 @@ Exactly one of `canonicalKey` (seeded category) or `customName` (user category).
 | `notes` | Up to 500 chars, or null |
 | `completed`, `position` | Completion state and order within the section |
 
+### Photos (formatVersion 2, zip archives only)
+
+`items[].photos` is an optional array of at most 3 objects, in display order:
+
+| Field | Rule |
+|---|---|
+| `ref` | Unique ref (same rules as other refs) |
+| `file` | `photos/<name>.<ext>`, exactly one directory level; `<name>` is 1-64 characters of letters, digits, `_`, `-`, `.` and does not start with `.` or `-`; `<ext>` is `jpg`, `jpeg`, `png` or `webp`; must match an entry of the archive (ignoring case) |
+| `caption` | Optional, up to 80 characters, one line |
+
+Two files exist:
+
+- **Plain JSON (`application/json`), `formatVersion` 1.** Exactly what earlier versions wrote. Written when the user does not tick "Include photos". Photos are not part of it. A version 1 file that carries `items[].photos` is refused, because photos only travel inside an archive.
+- **Photo archive (`application/zip`), `formatVersion` 2.** A zip with `checklists.json` (the same document, `formatVersion` 2, with `items[].photos`) and `photos/p1.jpg`, `photos/p2.jpg`... `schemaVersion` stays 1: the content model did not change shape, only gained an optional field. A zip is recognised by its first bytes, not its name.
+
+The importer reads both versions. `formatVersion` above 2 is refused as "from a newer app version". Version 1 files keep importing through the migrator chain (`older versions are upgraded through migrators`).
+
+**Archive rules (all checked before anything is written):**
+
+- Streamed, never extracted to the shared storage or trusted by header sizes: sizes are counted from the bytes actually read.
+- At most 2,000 entries, each photo at most 5 MB, `checklists.json` at most 10 MB, the whole archive at most 100 MB.
+- Allowed entries: `checklists.json` and `photos/<name>.<ext>` only. Directories, other file types, absolute paths, `..`, `.` segments, backslashes, drive letters, control characters, a second directory level and duplicate names (ignoring case) are refused.
+- The first bytes of every photo must match its extension (JPEG, PNG or WebP magic numbers).
+- At most 3 photos per item. A `file` that is missing from the archive, appears twice or is not a plain `photos/<name>.<ext>` path is refused; an archive photo that no item refers to is never imported.
+- Every photo is decoded and re-encoded through the same pipeline as the camera and the gallery (JPEG quality 80, long edge 1600 px, EXIF dropped). An undecodable image does not fail the import: it is left out and counted ("Photos left out: N").
+- Any failure rolls back the whole import and removes every file already written.
+
+Refusals are typed (`ImportRejection.UnsafeArchive(ArchiveProblem)`, `LimitExceeded`) and shown as one friendly message; the tests live in `PhotoArchiveTest`, `PhotoTransferTest` and `RoomPhotoTransferTest`.
+
 ### Rules the importer adds
 
 These complete the field tables above; the code and its tests follow them.
@@ -152,11 +181,11 @@ Pick a file (ACTION_OPEN_DOCUMENT; no storage permission)
 
 ## Export
 
-`ACTION_CREATE_DOCUMENT` (the user picks where to save). All checklists or a selection. The profile is excluded unless ticked. The same privacy rule applies to PDF export.
+`ACTION_CREATE_DOCUMENT` (the user picks where to save). All checklists or a selection. The profile is excluded unless ticked. "Include photos" (off by default) in the Settings export dialog writes a `.zip` photo archive instead of a `.json` file. The same privacy rule applies to PDF export.
 
 ## PDF export (related, Phase 6)
 
-Generated on the device with `android.graphics.pdf.PdfDocument` and `StaticLayout` (correct shaping for Indic scripts), A4, large font, checkbox glyphs, category headings. Options: include completed items, include my name (off by default). Shared through the Android Sharesheet with a `FileProvider` URI; no app-specific APIs.
+Generated on the device with `android.graphics.pdf.PdfDocument` and `StaticLayout` (correct shaping for Indic scripts), A4, large font, checkbox glyphs, category headings. Options: include completed items, include my name (off by default), include photos (off by default, asked only when the checklist has photos): up to 3 thumbnails of about 60 pt under each item, drawn from the 320 px thumbnails. Each photo adds an embedded image, so the file grows with the number of photos; the size was not measured on a device yet (the Robolectric `PdfDocument` is a stub that writes no image data) and stays on the follow-up list. Shared through the Android Sharesheet with a `FileProvider` URI; no app-specific APIs.
 
 As built: checkboxes are drawn as shapes (not font glyphs, which not every device font has), headings stay with their first item, and every item is laid out with the locale of its name so locale-specific glyph forms (Marathi versus Hindi) are right. Shaping limits: glyphs come from the device's fonts (a device without a font for a script shows boxes); the PDF stores shaped glyphs, so copying or searching Indic text in some PDF viewers can return wrong characters; before Android 9 lines get extra padding instead of fallback-font line heights; colour emoji may be dropped. Share files are written to `cacheDir/exports` and deleted once older than an hour, whenever a new one is made (instead of "on next launch", which would need startup work in the application class).
 

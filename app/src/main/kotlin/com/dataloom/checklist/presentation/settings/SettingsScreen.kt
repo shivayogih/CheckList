@@ -122,6 +122,12 @@ fun SettingsScreen(
                         onClick = { importLauncher.launch(TransferDocuments.OPEN_MIME_TYPES) },
                     ),
             )
+            // Where item photos live and when they leave the phone (CL-215).
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_privacy_photos_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_privacy_photos_body)) },
+                modifier = Modifier.heightIn(min = 64.dp),
+            )
             HorizontalDivider()
             SwitchRow(
                 title = stringResource(R.string.settings_ai_enabled),

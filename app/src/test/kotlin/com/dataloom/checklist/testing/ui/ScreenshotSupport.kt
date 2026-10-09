@@ -62,8 +62,9 @@ data class ScreenshotVariant(
 @Composable
 fun ScreenshotEnvironment(variant: ScreenshotVariant, content: @Composable () -> Unit) {
     val base = LocalContext.current
-    val configuration = remember(variant) {
-        Configuration(base.resources.configuration).apply {
+    val baseConfiguration = LocalConfiguration.current
+    val configuration = remember(variant, baseConfiguration) {
+        Configuration(baseConfiguration).apply {
             fontScale = variant.fontScale
             variant.languageTag?.let {
                 val locale = Locale.forLanguageTag(it)

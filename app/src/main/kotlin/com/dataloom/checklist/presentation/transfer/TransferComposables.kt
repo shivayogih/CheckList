@@ -123,10 +123,42 @@ fun ImportPreviewDialog(preview: ImportPreview, busy: Boolean, onConfirm: () -> 
  */
 @Composable
 fun ExportOptionsDialog(onExport: (includePhotos: Boolean) -> Unit, onDismiss: () -> Unit) {
+    IncludePhotosDialog(
+        title = stringResource(R.string.settings_export_all),
+        summary = stringResource(R.string.export_include_photos_summary),
+        confirmLabel = stringResource(R.string.action_export),
+        onConfirm = onExport,
+        onDismiss = onDismiss,
+    )
+}
+
+/**
+ * Shown before a PDF is shared or saved when the checklist has photos: "Include photos", off by
+ * default. [confirmLabel] names the chosen action ("Share as PDF" or "Save as PDF").
+ */
+@Composable
+fun PdfOptionsDialog(confirmLabel: String, onConfirm: (includePhotos: Boolean) -> Unit, onDismiss: () -> Unit) {
+    IncludePhotosDialog(
+        title = stringResource(R.string.pdf_options_title),
+        summary = stringResource(R.string.pdf_include_photos_summary),
+        confirmLabel = confirmLabel,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+    )
+}
+
+@Composable
+private fun IncludePhotosDialog(
+    title: String,
+    summary: String,
+    confirmLabel: String,
+    onConfirm: (includePhotos: Boolean) -> Unit,
+    onDismiss: () -> Unit,
+) {
     var includePhotos by rememberSaveable { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.settings_export_all)) },
+        title = { Text(title) },
         text = {
             Row(
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(
@@ -139,7 +171,7 @@ fun ExportOptionsDialog(onExport: (includePhotos: Boolean) -> Unit, onDismiss: (
                 Column(modifier = Modifier.weight(1f)) {
                     Text(stringResource(R.string.export_include_photos), style = MaterialTheme.typography.bodyLarge)
                     Text(
-                        stringResource(R.string.export_include_photos_summary),
+                        summary,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -147,9 +179,7 @@ fun ExportOptionsDialog(onExport: (includePhotos: Boolean) -> Unit, onDismiss: (
                 Switch(checked = includePhotos, onCheckedChange = null, modifier = Modifier.padding(start = 16.dp))
             }
         },
-        confirmButton = {
-            TextButton(onClick = { onExport(includePhotos) }) { Text(stringResource(R.string.action_export)) }
-        },
+        confirmButton = { TextButton(onClick = { onConfirm(includePhotos) }) { Text(confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
 }

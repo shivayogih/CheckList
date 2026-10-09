@@ -89,6 +89,9 @@ data class ChecklistDetailUiState(
     val pendingSectionRemoval: SectionUi? = null,
 ) {
     val progress: Float get() = if (totalItems == 0) 0f else completedItems.toFloat() / totalItems
+
+    /** True when any item has a photo, so the PDF export asks whether to include them. */
+    val hasPhotos: Boolean get() = sections.any { section -> section.items.any { it.photos.isNotEmpty() } }
 }
 
 /** The two PDF menu actions. */

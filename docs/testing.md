@@ -25,6 +25,14 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | `EncryptedProfileRepositoryTest` | `:data`, Robolectric (Phase 5) | Save, observe, clear, key loss, tampering, restore without keys, temporary Keystore failure, newer payload version |
 | `DataStoreAiPreferencesTest` | `:app` (CL-240) | AI switches on a real Preferences DataStore file: off on a new install, kept across a restart, "add without asking" only with the assistant on |
 | `BackupRulesTest` | `:app` (Phase 5) | Cloud backup, device transfer and legacy Auto Backup all exclude the profile keyset |
+| `PhotoUseCasesTest`, `PhotoArchiveTest`, `PhotoTransferTest` | `:domain` (CL-210, CL-213) | Photo limit of 3, skipped and failed counts, attach, reorder, caption, orphan sweep, delete cleanup; hostile zips (path traversal, oversize, wrong type, duplicates, 4 photos on one item) are refused with nothing written; export and import round trip |
+| `FilePhotoStoreTest`, `RoomPhotoRepositoryTest`, `ItemPhotoMigrationTest`, `RoomPhotoTransferTest` | `:data`, Robolectric (CL-210, CL-213) | Real JPEG decode and re-encode, EXIF GPS removed, orientation applied, thumbnails, copy and delete, cascade delete, migration 1 to 2 against the committed `2.json`, zip export and import on two in-memory phones |
+| `ItemEditorViewModelTest` (photos) | `:app` (CL-212) | Photos of a new item wait in the store and are attached on save; the 4th is cut off with a message; unreadable pictures give the friendly message; move and remove; edit mode writes at once |
+| `ItemPhotosUiTest` | `:app`, Robolectric + Compose (CL-216) | Item row with 0, 1 and 3 photos, the "+2" badge, row tap still toggles, "View photos" accessibility action; form add, remove, move and limit; viewer previous/next and the delete confirmation |
+| `ItemPhotosScreenshotTest` | `:app`, Roborazzi (CL-216) | Records the item row, the form, the viewer and a PDF page with photos in light, dark, 200% font and Tamil to `app/build/outputs/roborazzi` (CI artifact `screenshots`) |
+| `PhotoManifestTest` | `:app`, Robolectric (CL-212) | The merged manifest has no `CAMERA`, `READ_MEDIA_IMAGES`, `READ_EXTERNAL_STORAGE` or other media permission; the IMAGE_CAPTURE query and the Photo Picker service are declared; the FileProvider shares cache folders only |
+| `ContextPhotosTest` | `:ai` (CL-215) | An item with photos gives the AI the same context as one without; no photo name, id or caption in it; no photo property or source in the AI layer |
+| `StringResourcesTest` (photo strings) | `:app` | Every photo string and plural keeps the placeholders of the English text in all six translations |
 
 ## Strategy by layer
 
