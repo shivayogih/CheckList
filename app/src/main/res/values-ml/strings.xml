@@ -91,7 +91,7 @@
     <string name="error_quantity_not_number">അക്കങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2 അല്ലെങ്കിൽ 2.5.</string>
     <string name="error_quantity_not_positive">അളവ് പൂജ്യത്തേക്കാൾ കൂടുതലായിരിക്കണം.</string>
     <string name="error_quantity_too_precise">പരമാവധി 3 ദശാംശ സ്ഥാനങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">പട്ടികയ്ക്ക് ഒരു പേര് നൽകുക.</string>
     <string name="error_too_long">പരമാവധി %1$s അക്ഷരങ്ങൾ ഉപയോഗിക്കുക.</string>
     <string name="error_unit_label_blank">അളവിന് ഒരു പേര് നൽകുക.</string>

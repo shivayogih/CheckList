@@ -91,7 +91,7 @@
     <string name="error_quantity_not_number">ಅಂಕೆಗಳನ್ನು ಮಾತ್ರ ಬಳಸಿ, ಉದಾ. 2 ಅಥವಾ 2.5.</string>
     <string name="error_quantity_not_positive">ಪ್ರಮಾಣ ಸೊನ್ನೆಗಿಂತ ಹೆಚ್ಚಿರಬೇಕು.</string>
     <string name="error_quantity_too_precise">ಗರಿಷ್ಠ 3 ದಶಮಾಂಶ ಸ್ಥಾನಗಳನ್ನು ಬಳಸಿ, ಉದಾ. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">ಪಟ್ಟಿಗೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>
     <string name="error_too_long">ಗರಿಷ್ಠ %1$s ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ.</string>
     <string name="error_unit_label_blank">ಘಟಕಕ್ಕೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>

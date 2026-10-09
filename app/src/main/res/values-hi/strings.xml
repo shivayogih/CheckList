@@ -91,7 +91,7 @@
     <string name="error_quantity_not_number">केवल अंक लिखें, जैसे 2 या 2.5।</string>
     <string name="error_quantity_not_positive">मात्रा शून्य से अधिक होनी चाहिए।</string>
     <string name="error_quantity_too_precise">अधिकतम 3 दशमलव स्थान लिखें, जैसे 2.125।</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">सूची का नाम लिखें।</string>
     <string name="error_too_long">ज़्यादा से ज़्यादा %1$s अक्षर लिखें।</string>
     <string name="error_unit_label_blank">इकाई का नाम लिखें।</string>

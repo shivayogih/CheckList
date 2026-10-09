@@ -92,7 +92,7 @@
     <string name="error_quantity_not_number">Use digits only, like 2 or 2.5.</string>
     <string name="error_quantity_not_positive">The amount must be more than zero.</string>
     <string name="error_quantity_too_precise">Use at most 3 decimal places, like 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">Enter a name for the checklist.</string>
     <string name="error_too_long">Use at most %1$s characters.</string>
     <string name="error_unit_label_blank">Enter a name for the unit.</string>
