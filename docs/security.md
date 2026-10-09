@@ -75,7 +75,21 @@ Erasing only deletes the row if it still holds the exact ciphertext that failed,
 `android:dataExtractionRules` (Android 12+, cloud backup and device-to-device transfer) and `android:fullBackupContent` (Android 11 and lower) both exclude `sharedpref/checklist_profile_keyset.xml`. `BackupRulesTest` in `:app` keeps the rules and the file name in sync.
 
 - **Why the keyset is excluded:** it is useless without the Keystore key, which never leaves the device, and excluding it means a backup is never paired with any profile key material.
+- **Photos are backed up with the checklists (a deliberate choice):** `filesDir/item_photos` is not excluded, because a user who gets a new phone expects the pictures of their checklists back. The photos are private to the app and already stripped of their location. Android Auto Backup stops at 25 MB per app: a user with many photos can exceed that, and then Android skips the backup of the app data, photos and checklists together. Excluding the photo folder would keep the checklist backup small but silently lose every picture on restore, so the default stays. The same choice is explained to the user in Settings ("Photos stay on your phone"), and `BackupRulesTest` checks that the photo folder is not excluded. A user who wants to be sure can export with photos (a `.zip`) from Settings.
 - **Why the database is still backed up:** it holds the checklists, which users expect back on a new phone. Backup rules work on files, not tables, so the encrypted profile row travels inside `checklist.db`, as ciphertext only. No other device can decrypt it; on first read there the app erases it and shows `ProfileState.Reset` so the user can enter the profile again (risk table, section 25).
+
+### Item photos (CL-210 to CL-216)
+
+Photos attached to checklist items are personal data and are handled like the checklists, with extra care because pictures can carry a location.
+
+- **Where they live:** only in app-private storage (`filesDir/item_photos`), never in the shared gallery or on external storage. The database keeps a file name, never a `content://` URI, so a revoked picker grant cannot break a photo.
+- **What is stored:** every picture is decoded and re-encoded by `FilePhotoStore` (JPEG quality 80, long edge at most 1600 px, plus a 320 px thumbnail). Re-encoding writes new bytes, so EXIF metadata, including the GPS location, the camera model and the time, is dropped. A test checks that a picture with a GPS tag comes out without it, and that the orientation is applied before the tag is lost.
+- **No permissions:** the manifest has no `CAMERA`, `READ_MEDIA_IMAGES` or `READ_EXTERNAL_STORAGE`. The gallery uses the system Photo Picker (the user hands over only the pictures they select) and the camera uses the system camera app through `ACTION_IMAGE_CAPTURE`. `PhotoManifestTest` fails if one of these permissions ever appears in the merged manifest, for example through a new library.
+- **FileProvider:** the one provider only exposes `cacheDir/exports` and `cacheDir/camera`. The camera app writes its picture to a temporary file in `cacheDir/camera`, the app copies it into the photo store and deletes it; leftovers are removed at the next start. `filesDir/item_photos` is never exposed.
+- **Not sent to AI:** photos never reach `ChecklistContext` or `ContextSnapshot`, and the `:ai` module has no code that mentions photos. `ContextPhotosTest` proves both.
+- **Leaves the phone only when the user says so:** in an export that includes photos (a `.zip`, off by default) or in a PDF that includes photos (off by default). The Settings screen says this in plain words.
+- **Hostile import files:** a photo archive is read as a stream, sizes are counted from the bytes actually read, names are checked before anything is written, and every image is re-encoded again on import, so the file never decides what is stored. See [import-export-format.md](import-export-format.md).
+- **Backups:** see below.
 
 ## Data leaving the device
 

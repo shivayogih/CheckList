@@ -54,6 +54,8 @@ data class ChecklistItem(
     val position: Int,
     val createdAt: Long,
     val updatedAt: Long,
+    /** Up to 3 photos, ordered by position (CL-210). Defaults to none so existing callers keep compiling. */
+    val photos: List<ItemPhoto> = emptyList(),
 )
 
 internal fun progressOf(completed: Int, total: Int): Float =

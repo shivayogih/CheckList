@@ -34,10 +34,23 @@ object TransferDocuments {
     const val JSON_MIME_TYPE = TransferFormat.MIME_TYPE
     const val PDF_MIME_TYPE = "application/pdf"
 
-    /** Offered in the open dialog: some providers label .json files as text or as plain bytes. */
-    val OPEN_MIME_TYPES = arrayOf(JSON_MIME_TYPE, "text/plain", "application/octet-stream")
+    const val ZIP_MIME_TYPE = TransferFormat.ZIP_MIME_TYPE
+
+    /**
+     * Offered in the open dialog: some providers label .json files as text or as plain bytes, and a
+     * photo backup (.zip) as one of several zip types. The importer recognises the file by its bytes.
+     */
+    val OPEN_MIME_TYPES = arrayOf(
+        JSON_MIME_TYPE,
+        ZIP_MIME_TYPE,
+        "application/x-zip-compressed",
+        "text/plain",
+        "application/octet-stream",
+    )
 
     fun createJson() = ActivityResultContracts.CreateDocument(JSON_MIME_TYPE)
+
+    fun createZip() = ActivityResultContracts.CreateDocument(ZIP_MIME_TYPE)
 
     fun createPdf() = ActivityResultContracts.CreateDocument(PDF_MIME_TYPE)
 
@@ -51,6 +64,9 @@ object TransferDocuments {
 
     /** "CheckList-2026-10-08.json"; the user can rename it in the picker. */
     fun exportFileName(date: LocalDate = LocalDate.now()): String = "${TransferFormat.APP_NAME}-$date.json"
+
+    /** "CheckList-2026-10-08.zip": the export with photos. */
+    fun exportZipFileName(date: LocalDate = LocalDate.now()): String = "${TransferFormat.APP_NAME}-$date.zip"
 
     fun pdfFileName(title: String): String = "${safeFileName(title)}.pdf"
 

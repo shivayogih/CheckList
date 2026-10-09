@@ -19,8 +19,15 @@ data class SectionWithItems(
     @Embedded val section: ChecklistCategoryEntity,
     @Relation(parentColumn = "category_id", entityColumn = "id")
     val category: CategoryEntity,
-    @Relation(parentColumn = "id", entityColumn = "checklist_category_id")
-    val items: List<ChecklistItemEntity>,
+    @Relation(entity = ChecklistItemEntity::class, parentColumn = "id", entityColumn = "checklist_category_id")
+    val items: List<ItemWithPhotos>,
+)
+
+/** An item with its photos, loaded by the same @Transaction query as the rest of the checklist (CL-210). */
+data class ItemWithPhotos(
+    @Embedded val item: ChecklistItemEntity,
+    @Relation(parentColumn = "id", entityColumn = "checklist_item_id")
+    val photos: List<ItemPhotoEntity>,
 )
 
 /** Home row: counts are computed in SQL so the list never loads every item. */

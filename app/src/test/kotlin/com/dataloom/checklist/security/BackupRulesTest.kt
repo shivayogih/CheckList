@@ -42,4 +42,17 @@ class BackupRulesTest {
         excludesKeyset("backup_rules.xml", "full-backup-content")
         assertTrue(manifest.contains("android:fullBackupContent=\"@xml/backup_rules\""))
     }
+
+    @Test
+    fun `item photos are backed up with the checklists on every Android version`() {
+        // A photo whose row survives a restore but whose file does not would show as a missing picture.
+        listOf("data_extraction_rules.xml", "backup_rules.xml").forEach { file ->
+            val text = File(xmlDir, file).readText()
+            assertTrue("$file must not exclude the photo folder", !text.contains("item_photos"))
+            val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(File(xmlDir, file))
+            val excludes = document.getElementsByTagName("exclude")
+            val domains = (0 until excludes.length).map { (excludes.item(it) as Element).getAttribute("domain") }
+            assertTrue("$file must not exclude the app files folder", "file" !in domains)
+        }
+    }
 }

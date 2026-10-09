@@ -9,6 +9,8 @@ import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.photo.NoPhotoFileCleaner
+import com.dataloom.checklist.domain.photo.PhotoFileCleaner
 import com.dataloom.checklist.domain.repository.CatalogRepository
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.validation.ValidationError
@@ -123,9 +125,20 @@ class SetItemCompletedUseCase @Inject constructor(private val checklists: Checkl
         success(checklists.setItemCompleted(itemId, completed))
 }
 
-/** Destructive: the UI (and the AI executor) confirm first. */
-class DeleteChecklistItemUseCase @Inject constructor(private val checklists: ChecklistRepository) {
-    suspend operator fun invoke(itemId: ChecklistItemId): DomainResult<Unit> = success(checklists.deleteItem(itemId))
+/**
+ * Destructive: the UI (and the AI executor) confirm first. The item's photo files are deleted after
+ * the row (and its photo rows) are gone, so a failed delete never loses files.
+ */
+class DeleteChecklistItemUseCase @Inject constructor(
+    private val checklists: ChecklistRepository,
+    private val photoFiles: PhotoFileCleaner = NoPhotoFileCleaner,
+) {
+    suspend operator fun invoke(itemId: ChecklistItemId): DomainResult<Unit> {
+        val files = photoFiles.filesOfItem(itemId)
+        checklists.deleteItem(itemId)
+        files.run()
+        return success(Unit)
+    }
 }
 
 /** [toIndex] is the 0-based target position inside the item's section. */

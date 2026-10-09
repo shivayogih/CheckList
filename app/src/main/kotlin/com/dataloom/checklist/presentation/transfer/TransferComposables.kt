@@ -3,6 +3,11 @@ package com.dataloom.checklist.presentation.transfer
 import android.content.ActivityNotFoundException
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -10,14 +15,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
@@ -109,6 +121,9 @@ fun ImportPreviewDialog(preview: ImportPreview, busy: Boolean, onConfirm: () -> 
                     ),
                     style = style,
                 )
+                if (preview.photoCount > 0) {
+                    Text(stringResource(R.string.import_preview_photos, formatCount(preview.photoCount)), style = style)
+                }
                 if (preview.newCategories.isNotEmpty()) {
                     Text(
                         stringResource(R.string.import_preview_new_categories, preview.newCategories.joinToString(", ")),
@@ -132,6 +147,73 @@ fun ImportPreviewDialog(preview: ImportPreview, busy: Boolean, onConfirm: () -> 
         confirmButton = {
             TextButton(onClick = onConfirm, enabled = !busy) { Text(stringResource(R.string.action_import)) }
         },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
+    )
+}
+
+/**
+ * "Export all checklists" options: whether photos travel with the file. Photos make a .zip, so the
+ * caller picks the matching document type from [TransferDocuments] for the answer.
+ */
+@Composable
+fun ExportOptionsDialog(onExport: (includePhotos: Boolean) -> Unit, onDismiss: () -> Unit) {
+    IncludePhotosDialog(
+        title = stringResource(R.string.settings_export_all),
+        summary = stringResource(R.string.export_include_photos_summary),
+        confirmLabel = stringResource(R.string.action_export),
+        onConfirm = onExport,
+        onDismiss = onDismiss,
+    )
+}
+
+/**
+ * Shown before a PDF is shared or saved when the checklist has photos: "Include photos", off by
+ * default. [confirmLabel] names the chosen action ("Share as PDF" or "Save as PDF").
+ */
+@Composable
+fun PdfOptionsDialog(confirmLabel: String, onConfirm: (includePhotos: Boolean) -> Unit, onDismiss: () -> Unit) {
+    IncludePhotosDialog(
+        title = stringResource(R.string.pdf_options_title),
+        summary = stringResource(R.string.pdf_include_photos_summary),
+        confirmLabel = confirmLabel,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+    )
+}
+
+@Composable
+private fun IncludePhotosDialog(
+    title: String,
+    summary: String,
+    confirmLabel: String,
+    onConfirm: (includePhotos: Boolean) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var includePhotos by rememberSaveable { mutableStateOf(false) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = {
+            Row(
+                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(
+                    value = includePhotos,
+                    role = Role.Switch,
+                    onValueChange = { includePhotos = it },
+                ),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.export_include_photos), style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        summary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Switch(checked = includePhotos, onCheckedChange = null, modifier = Modifier.padding(start = 16.dp))
+            }
+        },
+        confirmButton = { TextButton(onClick = { onConfirm(includePhotos) }) { Text(confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
 }

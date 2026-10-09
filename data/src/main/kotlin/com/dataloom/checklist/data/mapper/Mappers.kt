@@ -6,6 +6,7 @@ import com.dataloom.checklist.data.local.entity.ChecklistEntity
 import com.dataloom.checklist.data.local.entity.ChecklistItemEntity
 import com.dataloom.checklist.data.local.entity.ChecklistSummaryRow
 import com.dataloom.checklist.data.local.entity.ChecklistWithSections
+import com.dataloom.checklist.data.local.entity.ItemPhotoEntity
 import com.dataloom.checklist.data.local.entity.MasterItemEntity
 import com.dataloom.checklist.data.local.entity.MasterItemTranslationEntity
 import com.dataloom.checklist.data.local.entity.UnitDefEntity
@@ -18,8 +19,10 @@ import com.dataloom.checklist.domain.model.ChecklistItem
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.ChecklistSection
 import com.dataloom.checklist.domain.model.ChecklistSummary
+import com.dataloom.checklist.domain.model.ItemPhoto
 import com.dataloom.checklist.domain.model.MasterItem
 import com.dataloom.checklist.domain.model.MasterItemId
+import com.dataloom.checklist.domain.model.PhotoId
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
@@ -80,7 +83,7 @@ fun UnitDefEntity.toDomain(): UnitDef = UnitDef(
     sortOrder = sortOrder,
 )
 
-fun ChecklistItemEntity.toDomain(): ChecklistItem = ChecklistItem(
+fun ChecklistItemEntity.toDomain(photos: List<ItemPhotoEntity> = emptyList()): ChecklistItem = ChecklistItem(
     id = ChecklistItemId(id),
     sectionId = SectionId(checklistCategoryId),
     masterItemId = masterItemId?.let(::MasterItemId),
@@ -95,6 +98,19 @@ fun ChecklistItemEntity.toDomain(): ChecklistItem = ChecklistItem(
     position = position,
     createdAt = createdAt,
     updatedAt = updatedAt,
+    photos = photos.sortedWith(compareBy({ it.position }, { it.createdAt }, { it.id })).map { it.toDomain() },
+)
+
+fun ItemPhotoEntity.toDomain(): ItemPhoto = ItemPhoto(
+    id = PhotoId(id),
+    itemId = ChecklistItemId(checklistItemId),
+    fileName = fileName,
+    width = width,
+    height = height,
+    byteSize = byteSize,
+    position = position,
+    caption = caption,
+    createdAt = createdAt,
 )
 
 /** Sections by display order, items by position; ties broken by creation time and ID so order is stable. */
@@ -110,8 +126,8 @@ fun ChecklistWithSections.toDomain(categoryTranslations: TranslationIndex, local
                     category = section.category.toDomain(categoryTranslations, locale),
                     displayOrder = section.section.displayOrder,
                     items = section.items
-                        .sortedWith(compareBy({ it.position }, { it.createdAt }, { it.id }))
-                        .map { it.toDomain() },
+                        .sortedWith(compareBy({ it.item.position }, { it.item.createdAt }, { it.item.id }))
+                        .map { it.item.toDomain(it.photos) },
                 )
             },
     )

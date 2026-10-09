@@ -4,12 +4,15 @@ import com.dataloom.checklist.domain.model.BuiltInUnits
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
+import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.domain.validation.CategoryValidator
 import com.dataloom.checklist.domain.validation.ChecklistValidator
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.domain.validation.ItemValidator
 import com.dataloom.checklist.domain.validation.UnitValidator
 import com.dataloom.checklist.domain.validation.ValidationError
 import com.dataloom.checklist.domain.validation.ValidationResult
+import com.dataloom.checklist.domain.validation.codePointLength
 
 /**
  * Structural and domain validation of a decoded file, without touching the database: limits,
@@ -18,8 +21,12 @@ import com.dataloom.checklist.domain.validation.ValidationResult
  */
 object ImportValidator {
 
-    /** Null when the document is acceptable. */
-    fun validate(document: TransferDocument): ImportRejection? {
+    /**
+     * Null when the document is acceptable. [archivePhotos] holds the lower-case keys
+     * (`photos/p1.jpg`) of the photo entries of the zip the document came from; null for a plain
+     * JSON file, which can therefore not carry photos.
+     */
+    fun validate(document: TransferDocument, archivePhotos: Set<String>? = null): ImportRejection? {
         checkVersions(document)?.let { return it }
         checkLimits(document)?.let { return it }
         if (document.checklists.isEmpty()) return ImportRejection.NothingToImport
@@ -27,14 +34,14 @@ object ImportValidator {
         val unitRefs = checkUnits(document.units, issues)
         val categoryRefs = checkCategories(document.categories, issues)
         val sectionRefs = checkChecklists(document.checklists, categoryRefs, issues)
-        checkItems(document.items, sectionRefs, unitRefs, issues)
+        checkItems(document, sectionRefs, unitRefs, archivePhotos, issues)
         return issues.toRejection()
     }
 
     private fun checkVersions(document: TransferDocument): ImportRejection? {
         val format = document.formatVersion
         val schema = document.schemaVersion
-        if (format == TransferFormat.FORMAT_VERSION && schema == TransferFormat.SCHEMA_VERSION) return null
+        if (format in 1..TransferFormat.FORMAT_VERSION && schema == TransferFormat.SCHEMA_VERSION) return null
         val newer = format > TransferFormat.FORMAT_VERSION || schema > TransferFormat.SCHEMA_VERSION
         return ImportRejection.UnsupportedVersion(format, schema, requiresNewerApp = newer)
     }
@@ -54,6 +61,11 @@ object ImportValidator {
                 TransferLimits.MAX_SECTIONS_PER_CHECKLIST,
             ),
         )
+        val photoCount = document.items.sumOf { it.photos.size }
+        if (photoCount > TransferLimits.MAX_ARCHIVE_ENTRIES - 1) {
+            val max = (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong()
+            return ImportRejection.LimitExceeded(TransferLimit.PHOTOS, max)
+        }
         val broken = limits.firstOrNull { (_, count, max) -> count > max } ?: return null
         return ImportRejection.LimitExceeded(broken.first, broken.third.toLong())
     }
@@ -170,13 +182,16 @@ object ImportValidator {
     }
 
     private fun checkItems(
-        items: List<TransferItem>,
+        document: TransferDocument,
         sectionRefs: Set<String>,
         unitRefs: Map<String, UnitDef>,
+        archivePhotos: Set<String>?,
         issues: IssueCollector,
     ) {
         val seen = HashSet<String>()
-        items.forEachIndexed { index, item ->
+        val photoRefs = HashSet<String>()
+        val photoFiles = HashSet<String>()
+        document.items.forEachIndexed { index, item ->
             val report = { problem: ImportProblem, errors: List<ValidationError> ->
                 issues.add(ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), problem, errors))
             }
@@ -211,8 +226,55 @@ object ImportValidator {
                 if (item.position < 0) add(ValidationError.NEGATIVE_POSITION)
             }
             if (errors.isNotEmpty()) report(ImportProblem.INVALID_FIELDS, errors)
+            checkPhotos(document.formatVersion, item, index, archivePhotos, photoRefs, photoFiles, issues)
         }
     }
+
+    private fun checkPhotos(
+        formatVersion: Int,
+        item: TransferItem,
+        itemIndex: Int,
+        archivePhotos: Set<String>?,
+        photoRefs: MutableSet<String>,
+        photoFiles: MutableSet<String>,
+        issues: IssueCollector,
+    ) {
+        if (item.photos.isEmpty()) return
+        if (formatVersion < 2) {
+            itemProblem(issues, item, itemIndex, ImportProblem.PHOTOS_NEED_FORMAT_2)
+            return
+        }
+        if (item.photos.size > PhotoLimits.MAX_PER_ITEM) {
+            itemProblem(issues, item, itemIndex, ImportProblem.TOO_MANY_PHOTOS)
+        }
+        item.photos.forEachIndexed { index, photo ->
+            val report = { problem: ImportProblem, errors: List<ValidationError> ->
+                val ref = TransferText.reportRef(photo.ref)
+                issues.add(ImportIssue(TransferElement.PHOTO, index, ref, problem, errors))
+            }
+            when {
+                !TransferText.isValidRef(photo.ref) -> report(ImportProblem.INVALID_REF, emptyList())
+                !photoRefs.add(photo.ref) -> report(ImportProblem.DUPLICATE_REF, emptyList())
+            }
+            val key = ArchivePaths.photoKey(photo.file)
+            when {
+                key == null -> report(ImportProblem.INVALID_PHOTO_PATH, emptyList())
+                !photoFiles.add(key) -> report(ImportProblem.DUPLICATE_PHOTO_FILE, emptyList())
+                archivePhotos == null || key !in archivePhotos -> report(ImportProblem.MISSING_PHOTO_FILE, emptyList())
+            }
+            val caption = photo.caption?.let { captionText(it) }
+            if (caption != null && caption.codePointLength() > PhotoLimits.CAPTION_MAX) {
+                report(ImportProblem.INVALID_FIELDS, listOf(ValidationError.CAPTION_TOO_LONG))
+            }
+        }
+    }
+
+    private fun itemProblem(issues: IssueCollector, item: TransferItem, index: Int, problem: ImportProblem) {
+        issues.add(ImportIssue(TransferElement.ITEM, index, TransferText.reportRef(item.ref), problem))
+    }
+
+    /** A caption is one line: control characters and line breaks are cleaned like other single-line text. */
+    internal fun captionText(raw: String): String? = InputText.normalize(raw).ifEmpty { null }
 
     /** A built-in code wins only when no unit ref could mean the same text (refs never shadow codes). */
     internal fun resolveUnit(text: String, unitRefs: Map<String, UnitDef>): UnitDef? =

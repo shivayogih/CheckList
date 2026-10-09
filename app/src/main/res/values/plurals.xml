@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Counts in prose use plurals (one/other in all seven languages). Numbers are passed as
-         text formatted by LocaleNumbers (%1$s, never %1$d) so digits stay Western (A-03). -->
+         text formatted by LocaleNumbers (%1$s, never %1$s) so digits stay Western (A-03). -->
     <plurals name="progress_items_done">
         <item quantity="one">%1$s of %2$s done</item>
         <item quantity="other">%1$s of %2$s done</item>

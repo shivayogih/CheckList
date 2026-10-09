@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.dataloom.checklist.data.local.dao.CategoryDao
 import com.dataloom.checklist.data.local.dao.ChecklistDao
 import com.dataloom.checklist.data.local.dao.ChecklistItemDao
+import com.dataloom.checklist.data.local.dao.ItemPhotoDao
 import com.dataloom.checklist.data.local.dao.MasterItemDao
 import com.dataloom.checklist.data.local.dao.ProfileDao
 import com.dataloom.checklist.data.local.dao.SearchIndexDao
@@ -19,6 +20,7 @@ import com.dataloom.checklist.data.local.entity.CategoryTranslationEntity
 import com.dataloom.checklist.data.local.entity.ChecklistCategoryEntity
 import com.dataloom.checklist.data.local.entity.ChecklistEntity
 import com.dataloom.checklist.data.local.entity.ChecklistItemEntity
+import com.dataloom.checklist.data.local.entity.ItemPhotoEntity
 import com.dataloom.checklist.data.local.entity.ItemSearchFtsEntity
 import com.dataloom.checklist.data.local.entity.MasterItemEntity
 import com.dataloom.checklist.data.local.entity.MasterItemTranslationEntity
@@ -44,8 +46,9 @@ import com.dataloom.checklist.data.seed.SeedLoader
         UserProfileEntity::class,
         ItemSearchFtsEntity::class,
         SeedMetaEntity::class,
+        ItemPhotoEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class CheckListDatabase : RoomDatabase() {
@@ -68,6 +71,9 @@ abstract class CheckListDatabase : RoomDatabase() {
 
     /** Encrypted profile row (Phase 5). Adding a DAO does not change the schema. */
     abstract fun profileDao(): ProfileDao
+
+    /** Photos of checklist items (schema v2, CL-210). */
+    abstract fun itemPhotoDao(): ItemPhotoDao
 
     companion object {
         const val NAME = "checklist.db"

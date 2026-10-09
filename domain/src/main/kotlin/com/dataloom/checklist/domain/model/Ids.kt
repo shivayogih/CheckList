@@ -13,3 +13,6 @@ package com.dataloom.checklist.domain.model
 @JvmInline value class SectionId(val value: String)
 
 @JvmInline value class ChecklistItemId(val value: String)
+
+/** One photo attached to a checklist item (row of item_photo). */
+@JvmInline value class PhotoId(val value: String)

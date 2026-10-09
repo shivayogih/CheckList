@@ -91,6 +91,15 @@ internal data class ItemDto(
     val notes: String? = null,
     val completed: Boolean = false,
     val position: Int = 0,
+    /** formatVersion 2 only. A version 1 file that has the key decodes, and the validator refuses it. */
+    @Serializable(with = PhotoListSerializer::class) val photos: List<PhotoDto> = emptyList(),
+)
+
+@Serializable
+internal data class PhotoDto(
+    val ref: String,
+    val file: String,
+    val caption: String? = null,
 )
 
 /** Thrown while parsing when a file breaks a limit; the codec turns it into a typed rejection. */
@@ -148,6 +157,10 @@ internal object ChecklistListSerializer :
 
 internal object SectionListSerializer :
     BoundedListSerializer<SectionDto>(SectionDto.serializer(), TransferLimits.MAX_SECTIONS_PER_CHECKLIST, TransferLimit.SECTIONS)
+
+/** Bounded by the archive's entry limit; the 3-per-item rule is a validation issue, not a parse failure. */
+internal object PhotoListSerializer :
+    BoundedListSerializer<PhotoDto>(PhotoDto.serializer(), TransferLimits.MAX_ARCHIVE_ENTRIES - 1, TransferLimit.PHOTOS)
 
 internal object ItemListSerializer :
     BoundedListSerializer<ItemDto>(ItemDto.serializer(), TransferLimits.MAX_ITEMS, TransferLimit.ITEMS)

@@ -38,7 +38,12 @@ datastore = "1.2.1"
 # (latest stable, a plain AAR with no Kotlin or AGP coupling).
 profileinstaller = "1.4.1"
 
+# Reads the EXIF orientation of picked photos (CL-210); 1.4.2 is the latest stable on the AndroidX
+# release page (2025-12-03). It is the AndroidX copy of the platform class, which also reads PNG and WebP.
+exifinterface = "1.4.2"
+
 [libraries]
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }

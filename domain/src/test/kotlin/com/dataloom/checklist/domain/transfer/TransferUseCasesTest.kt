@@ -261,9 +261,14 @@ class TransferUseCasesTest {
 
     @Test
     fun `oversize files are refused by reported size and by actual length`() = runTest {
-        val tooBig = BytesSource(ByteArray(1), sizeBytes = TransferLimits.MAX_FILE_BYTES + 1)
+        val tooBig = BytesSource(ByteArray(1), sizeBytes = TransferLimits.MAX_ARCHIVE_BYTES + 1)
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), device.preview(tooBig, "en"))
         assertFalse(tooBig.opened)
+        // Between 10 MB and 100 MB the file is opened: only a zip may be that large, and JSON is cut at 10 MB.
+        assertEquals(
+            ImportPreviewResult.Rejected(ImportRejection.FileTooLarge),
+            device.preview(EndlessSource(sizeBytes = TransferLimits.MAX_FILE_BYTES + 1), "en"),
+        )
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), device.preview(EndlessSource(sizeBytes = 10), "en"))
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), device.preview(EndlessSource(), "en"))
     }

@@ -9,6 +9,7 @@ import com.dataloom.checklist.domain.transfer.TransferDocument
 import com.dataloom.checklist.domain.transfer.TransferItem
 import com.dataloom.checklist.domain.transfer.TransferLimit
 import com.dataloom.checklist.domain.transfer.TransferLimits
+import com.dataloom.checklist.domain.transfer.TransferPhoto
 import com.dataloom.checklist.domain.transfer.TransferUnit
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -55,6 +56,46 @@ class JsonTransferCodecTest {
     }
 
     @Test
+    fun version2GoldenFileDecodesPhotosAndTheyRoundTrip() {
+        val doc = decoded(golden("valid-photos-v2.json"))
+        assertEquals(2, doc.formatVersion)
+        assertEquals(
+            listOf(TransferPhoto("p1", "photos/p1.jpg", "கடையின் முன்பக்கம்"), TransferPhoto("p2", "photos/p2.jpg",
+                null)),
+            doc.items[0].photos,
+        )
+        assertTrue(doc.items[1].photos.isEmpty())
+        assertNull(ImportValidator.validate(doc, setOf("photos/p1.jpg", "photos/p2.jpg")))
+        assertEquals(doc, decoded(codec.encode(doc)))
+        val text = codec.encode(doc).decodeToString()
+        assertTrue(text.contains("\"formatVersion\": 2"))
+        assertTrue(text.contains("\"file\": \"photos/p1.jpg\""))
+    }
+
+    @Test
+    fun itemsWithoutPhotosWriteNoPhotosKeySoVersion1FilesAreUnchanged() {
+        val text = codec.encode(decoded(golden("valid-full.json"))).decodeToString()
+        assertFalse(text.contains("photos"))
+    }
+
+    @Test
+    fun aVersion1FileWithPhotosDecodesButTheValidatorRefusesIt() {
+        val text = String(golden("valid-photos-v2.json")).replace("\"formatVersion\": 2", "\"formatVersion\": 1")
+        val doc = decoded(text.toByteArray())
+        val issues = (ImportValidator.validate(doc, setOf("photos/p1.jpg",
+            "photos/p2.jpg")) as ImportRejection.Invalid).issues
+        assertEquals(listOf(ImportProblem.PHOTOS_NEED_FORMAT_2), issues.map { it.problem })
+    }
+
+    @Test
+    fun photoFieldsAreStrict() {
+        val photo = """{"ref":"p1","file":"photos/p1.jpg","extra":1}"""
+        val item = """{"ref":"i1","sectionRef":"s1","displayName":"x","displayNameLocale":"en","photos":[$photo]}"""
+        assertEquals(ImportRejection.Malformed, rejection(envelope(items = "[$item]").replace("\"formatVersion\":1",
+            "\"formatVersion\":2")))
+    }
+
+    @Test
     fun minimalGoldenFileUsesDefaults() {
         val doc = decoded(golden("valid-minimal.json"))
         val item = doc.items.single()
@@ -83,7 +124,7 @@ class JsonTransferCodecTest {
     @Test
     fun newerVersionIsRejectedEvenWithAnUnknownShape() {
         assertEquals(
-            DecodeResult.Rejected(ImportRejection.UnsupportedVersion(2, 3, requiresNewerApp = true)),
+            DecodeResult.Rejected(ImportRejection.UnsupportedVersion(3, 3, requiresNewerApp = true)),
             codec.decode(golden("future-version.json")),
         )
     }
