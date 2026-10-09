@@ -11,12 +11,13 @@ import com.dataloom.checklist.domain.validation.ValidationError
 
 /**
  * A user-visible message as a string resource plus its arguments. ViewModels hold these instead of
- * text, so they stay free of Context and every message is translated.
+ * text, so they stay free of Context and every message is translated. Integer arguments are
+ * formatted for the app language by [LocaleNumbers] when the text is resolved.
  */
 data class UiText(@param:StringRes val resId: Int, val args: List<Any> = emptyList())
 
 @Composable
-fun UiText.asString(): String = stringResource(resId, *args.toTypedArray())
+fun UiText.asString(): String = stringResource(resId, *LocaleNumbers.formatArgs(args, currentAppLocale()))
 
 /** Maps a domain validation code to the message shown under its field. */
 fun ValidationError.toUiText(): UiText = when (this) {
@@ -64,4 +65,5 @@ fun DomainError.toUiText(): UiText = when (this) {
 private fun tooLong(max: Int) = UiText(R.string.error_too_long, listOf(max))
 
 /** For code outside composition (snackbars shown from an effect collector). */
-fun UiText.resolve(resources: Resources): String = resources.getString(resId, *args.toTypedArray())
+fun UiText.resolve(resources: Resources): String =
+    resources.getString(resId, *LocaleNumbers.formatArgs(args, resources.appLocale()))

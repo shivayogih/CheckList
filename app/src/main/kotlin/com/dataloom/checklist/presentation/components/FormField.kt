@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.theme.Dimens
 
 /**
@@ -157,7 +158,7 @@ private fun FormFieldCounter(value: String, maxLength: Int?) {
     if (maxLength != null) {
         val length = value.inputLength()
         Text(
-            text = stringResource(R.string.input_counter, length, maxLength),
+            text = stringResource(R.string.input_counter, formatCount(length), formatCount(maxLength)),
             style = MaterialTheme.typography.bodySmall,
             color = if (length > maxLength) colors.error else colors.onSurfaceVariant,
             textAlign = TextAlign.End,

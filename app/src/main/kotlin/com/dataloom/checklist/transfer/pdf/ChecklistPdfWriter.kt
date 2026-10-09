@@ -21,6 +21,7 @@ import com.dataloom.checklist.transfer.StoreLink
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.presentation.common.LocaleNumbers
 import com.dataloom.checklist.transfer.LocalizedResources
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.OutputStream
@@ -103,7 +104,7 @@ class AndroidChecklistPdfWriter @Inject constructor(
                 drawWatermark(canvas, branding.brand, appLocale)
                 drawHeader(canvas, branding, detail.checklist.title, appLocale)
                 placements.forEach { blocks[it.index].draw(canvas, PdfPageLayout.CONTENT_LEFT, it.top) }
-                drawFooter(canvas, branding, resources.getString(R.string.pdf_page_number, pageIndex + 1, pages.size), appLocale)
+                drawFooter(canvas, branding, pageNumber(resources, pageIndex + 1, pages.size, appLocale), appLocale)
                 document.finishPage(page)
             }
             document.writeTo(out)
@@ -269,6 +270,13 @@ class AndroidChecklistPdfWriter @Inject constructor(
         return PromoBlock(StackBlock(lines, PROMO_LINE_GAP, after = 0f), PdfQrCode.encode(storeUrl), branding.brandColor)
     }
 
+    private fun pageNumber(resources: Resources, page: Int, pageCount: Int, locale: Locale): String =
+        resources.getString(
+            R.string.pdf_page_number,
+            LocaleNumbers.formatCount(page, locale),
+            LocaleNumbers.formatCount(pageCount, locale),
+        )
+
     private fun headerBlock(detail: ChecklistDetail, options: PdfOptions, resources: Resources, appLocale: Locale): Block {
         val lines = buildList {
             add(layout(detail.checklist.title, paint(TITLE_SIZE, bold = true, locale = appLocale), CONTENT_WIDTH))
@@ -276,7 +284,12 @@ class AndroidChecklistPdfWriter @Inject constructor(
             options.preparedBy?.takeIf { it.isNotBlank() }?.let {
                 add(layout(resources.getString(R.string.pdf_prepared_by, it), paint(SMALL_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH))
             }
-            val progress = resources.getString(R.string.pdf_progress, detail.completedItems, detail.totalItems)
+            val progress = resources.getQuantityString(
+                R.plurals.progress_items_done,
+                detail.completedItems,
+                LocaleNumbers.formatCount(detail.completedItems, appLocale),
+                LocaleNumbers.formatCount(detail.totalItems, appLocale),
+            )
             add(layout(progress, paint(SMALL_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH))
         }
         return StackBlock(lines, LINE_GAP, after = HEADER_GAP)

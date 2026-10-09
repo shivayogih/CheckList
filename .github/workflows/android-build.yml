@@ -42,7 +42,24 @@ jobs:
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
-      # Screenshot goldens (CL-262): renders every shared component in 15 variants and, with record mode on,
+      # Coverage of the unit tests above (CL-175): reuses their results, reports only, no threshold.
+      - name: Coverage
+        run: |
+          ./gradlew --stacktrace :domain:jacocoTestReport :data:createDebugUnitTestCoverageReport :app:createDevDebugUnitTestCoverageReport
+          python3 tools/ci/coverage_summary.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage
+          path: |
+            domain/build/reports/jacoco/
+            data/build/reports/coverage/
+            app/build/reports/coverage/
+          if-no-files-found: ignore
+
+      # Screenshot goldens (CL-262), after the coverage steps because they re-run a slice of the unit tests: renders every shared component in 15 variants and, with record mode on,
       # writes the PNGs. They are uploaded below, so a failed comparison can be reviewed and the goldens
       # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
       - name: Record screenshots
@@ -51,7 +68,7 @@ jobs:
 
       - name: Upload screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: screenshots
           path: app/src/test/screenshots/

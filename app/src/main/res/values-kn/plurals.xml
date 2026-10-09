@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="progress_items_done">
+        <item quantity="one">%2$s ರಲ್ಲಿ %1$s ಮುಗಿದಿದೆ</item>
+        <item quantity="other">%2$s ರಲ್ಲಿ %1$s ಮುಗಿದಿದೆ</item>
+    </plurals>
+    <plurals name="add_selected_items">
+        <item quantity="one">%1$s ವಸ್ತುವನ್ನು ಸೇರಿಸಿ</item>
+        <item quantity="other">%1$s ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ</item>
+    </plurals>
+    <plurals name="add_selected_categories">
+        <item quantity="one">%1$s ವರ್ಗವನ್ನು ಸೇರಿಸಿ</item>
+        <item quantity="other">%1$s ವರ್ಗಗಳನ್ನು ಸೇರಿಸಿ</item>
+    </plurals>
+</resources>

@@ -1,4 +1,5 @@
 import java.util.Properties
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,6 +10,8 @@ plugins {
     alias(libs.plugins.hilt)
     // Screenshot goldens for the shared components (CL-262): record and verify tasks plus test properties.
     alias(libs.plugins.roborazzi)
+    // Applied here (AGP would apply it too) so the Robolectric settings below see JaCoCo's task extension.
+    jacoco
 }
 
 // versionCode = MAJOR*10000 + MINOR*1000 + PATCH*100 + BUILD (ADR-016).
@@ -72,6 +75,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Unit-test coverage (CL-175): createDevDebugUnitTestCoverageReport writes XML and HTML.
+            // Instrumentation applies to unit tests only, never to an APK.
+            enableUnitTestCoverage = true
+        }
         release {
             // Signing is never configured in Git: CI signs release bundles with secrets (section 19.4).
             isMinifyEnabled = true
@@ -113,13 +121,29 @@ android {
             // enough heap for software-rendered Compose screenshots.
             it.systemProperty("robolectric.pixelCopyRenderMode", "hardware")
             it.maxHeapSize = "2g"
-            it.testLogging {
-                // Robolectric start-up failures wrap the real cause three levels deep; show all of it.
-                exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-                showCauses = true
-                showStackTraces = true
-            }
         }
+    }
+
+    testCoverage {
+        jacocoVersion = libs.versions.jacoco.get()
+    }
+}
+
+jacoco {
+    toolVersion = libs.versions.jacoco.get()
+}
+
+tasks.withType<Test>().configureEach {
+    // Robolectric loads app classes through its own class loader; JaCoCo must instrument those too.
+    extensions.configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
+    }
+    // Print each failure's full message in the CI log: UI and accessibility assertions list every
+    // problem in the message, which the one-line default hides.
+    testLogging {
+        events(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED)
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
 }
 

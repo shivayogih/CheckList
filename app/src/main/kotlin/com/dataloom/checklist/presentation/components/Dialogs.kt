@@ -155,6 +155,12 @@ fun TextInputDialog(
     }
 }
 
+/** A dialog title marked as a heading, so TalkBack announces what the dialog is about first. */
+@Composable
+fun DialogTitle(text: String) {
+    Text(text, modifier = Modifier.semantics { heading() })
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun DialogPreview() {
