@@ -1,10 +1,9 @@
 name: Dev APK pre-release
 on:
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: Android build run id
-        required: true
+  push:
+    branches: [tmp/apk-release]
+env:
+  RUN_ID: "37934194391"
 permissions:
   contents: write
   actions: read
@@ -15,10 +14,10 @@ jobs:
       - name: Download apks artifact
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh run download "${{ inputs.run_id }}" -R "$GITHUB_REPOSITORY" -n apks -D apks
+        run: gh run download "${{ env.RUN_ID }}" -R "$GITHUB_REPOSITORY" -n apks -D apks
       - name: Publish pre-release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           ls -R apks
-          gh release create "dev-apk-${{ inputs.run_id }}" -R "$GITHUB_REPOSITORY" --prerelease --target "$GITHUB_SHA" --title "Dev APK ${{ inputs.run_id }}" --notes "Temporary test build" $(find apks -iname '*dev*.apk')
+          gh release create "dev-apk-${{ env.RUN_ID }}" -R "$GITHUB_REPOSITORY" --prerelease --target "$GITHUB_SHA" --title "Dev APK ${{ env.RUN_ID }}" --notes "Temporary test build" $(find apks -iname '*dev*.apk')
