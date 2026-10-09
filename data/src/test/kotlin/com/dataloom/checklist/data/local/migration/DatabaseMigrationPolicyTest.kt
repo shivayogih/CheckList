@@ -83,7 +83,7 @@ class DatabaseMigrationPolicyTest {
     @Test
     fun `the migration list is typed and ordered oldest first`() {
         val all: Array<Migration> = DatabaseMigrations.ALL
-        assertTrue(all.zipWithNext().all { (a, b) -> a.endVersion == b.startVersion })
+        assertTrue(all.toList().zipWithNext().all { (a, b) -> a.endVersion == b.startVersion })
     }
 
     /** Drops line and block comments so that documentation may mention the banned names. */
