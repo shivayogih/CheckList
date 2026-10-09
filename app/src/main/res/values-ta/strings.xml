@@ -237,6 +237,12 @@
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF சேமிக்கப்பட்டது.</string>
+    <string name="pdf_open">திற</string>
+    <string name="pdf_open_no_app">PDF கோப்புகளைத் திறக்கக்கூடிய ஆப்ஸ் இந்த ஃபோனில் இல்லை.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">ஒவ்வொரு பட்டியலும், எப்போதும் உங்களுடன்.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">எல்லா பட்டியல்களையும் ஏற்றுமதி செய்</string>
     <string name="settings_export_all_summary">பின்னர் இறக்குமதி செய்யக்கூடிய காப்புக் கோப்பை (.json) சேமிக்கவும்</string>
     <string name="settings_import">பட்டியல்களை இறக்குமதி செய்</string>

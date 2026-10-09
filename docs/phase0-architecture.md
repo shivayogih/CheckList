@@ -592,7 +592,7 @@ JUnit XML, lint/detekt HTML + SARIF (shown in GitHub code scanning), coverage, A
 | Flavor `applicationId` | `<base>.dev` | `<base>.staging` | `<base>` |
 | Typical variant | `devDebug` | `stagingRelease` | `productionRelease` |
 | App name | "CheckList Dev" | "CheckList Staging" | "CheckList" |
-| Launcher icon | Badge "DEV" | Badge "STG" | Normal |
+| Launcher icon | Production icon plus "DEV" ribbon | Production icon plus "STG" ribbon | Normal |
 | Minify (R8) | No | Yes | Yes |
 | StrictMode, debug logs | On | Off | Off |
 | AI default | `MockAIService` + offline parser | Offline parser; online AI opt-in (Firebase staging project) | Offline parser; online AI opt-in (Firebase production project) |

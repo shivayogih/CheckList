@@ -12,7 +12,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -38,6 +40,7 @@ import com.dataloom.checklist.presentation.common.builtInUnitLabel
 import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.DialogTitle
+import com.dataloom.checklist.transfer.TransferDocuments
 import com.dataloom.checklist.transfer.TransferEffect
 import com.dataloom.checklist.transfer.TransferViewModel
 import com.dataloom.checklist.transfer.pdf.UnitLabels
@@ -53,6 +56,8 @@ fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHos
     val resources = LocalResources.current
     LaunchedEffect(viewModel) {
         viewModel.effects.collect { effect ->
+            var action: UiText? = null
+            var onAction: () -> UiText? = { null }
             val message: UiText? = when (effect) {
                 is TransferEffect.Exported -> effect.result.toUiText()
                 is TransferEffect.ImportRejected -> effect.rejection.toUiText()
@@ -63,11 +68,31 @@ fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHos
                 } catch (_: ActivityNotFoundException) {
                     UiText(R.string.share_no_app)
                 }
-                TransferEffect.PdfSaved -> UiText(R.string.pdf_saved)
+                is TransferEffect.PdfSaved -> {
+                    action = UiText(R.string.pdf_open)
+                    onAction = {
+                        try {
+                            context.startActivity(TransferDocuments.openPdfIntent(effect.uri))
+                            null
+                        } catch (_: ActivityNotFoundException) {
+                            UiText(R.string.pdf_open_no_app)
+                        }
+                    }
+                    UiText(R.string.pdf_saved)
+                }
                 TransferEffect.ChecklistMissing -> UiText(R.string.error_not_found)
                 TransferEffect.WriteFailed -> UiText(R.string.transfer_write_failed)
             }
-            if (message != null) snackbarHostState.showSnackbar(message.resolve(resources))
+            if (message != null) {
+                val result = snackbarHostState.showSnackbar(
+                    message = message.resolve(resources),
+                    actionLabel = action?.resolve(resources),
+                    duration = if (action != null) SnackbarDuration.Long else SnackbarDuration.Short,
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    onAction()?.let { snackbarHostState.showSnackbar(it.resolve(resources)) }
+                }
+            }
         }
     }
 }

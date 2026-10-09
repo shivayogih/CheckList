@@ -237,6 +237,12 @@
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF सहेजी गई।</string>
+    <string name="pdf_open">खोलें</string>
+    <string name="pdf_open_no_app">इस फ़ोन पर PDF फ़ाइलें खोलने वाला कोई ऐप नहीं है।</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">हर सूची, हमेशा आपके साथ।</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">सभी सूचियाँ निर्यात करें</string>
     <string name="settings_export_all_summary">बैकअप फ़ाइल (.json) सहेजें जिसे बाद में आयात कर सकें</string>
     <string name="settings_import">सूचियाँ आयात करें</string>

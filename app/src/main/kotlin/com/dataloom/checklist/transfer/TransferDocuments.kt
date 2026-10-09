@@ -1,6 +1,7 @@
 package com.dataloom.checklist.transfer
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.Uri
@@ -52,6 +53,12 @@ object TransferDocuments {
     fun createZip() = ActivityResultContracts.CreateDocument(ZIP_MIME_TYPE)
 
     fun createPdf() = ActivityResultContracts.CreateDocument(PDF_MIME_TYPE)
+
+    /** Opens the saved PDF in the user's PDF viewer; start it and handle `ActivityNotFoundException`. */
+    fun openPdfIntent(uri: Uri): Intent =
+        Intent(Intent.ACTION_VIEW)
+            .setDataAndType(uri, PDF_MIME_TYPE)
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
     fun openDocument() = ActivityResultContracts.OpenDocument()
 

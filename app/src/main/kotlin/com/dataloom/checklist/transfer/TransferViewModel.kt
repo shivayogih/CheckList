@@ -62,7 +62,8 @@ sealed interface TransferEffect {
     /** Start this chooser intent from the activity (`context.startActivity(intent)`). */
     data class Share(val intent: Intent) : TransferEffect
 
-    data object PdfSaved : TransferEffect
+    /** The PDF was written to [uri]; the snackbar offers "Open" ([TransferDocuments.openPdfIntent]). */
+    data class PdfSaved(val uri: Uri) : TransferEffect
 
     /** The checklist to print or share no longer exists. */
     data object ChecklistMissing : TransferEffect
@@ -206,7 +207,7 @@ class TransferViewModel @Inject constructor(
     fun savePdfTo(uri: Uri, checklistId: ChecklistId, options: PdfOptions = PdfOptions(), unitLabels: UnitLabels? = null) = runBusy {
         val detail = observeDetail(checklistId, locale).first() ?: return@runBusy _effects.send(TransferEffect.ChecklistMissing)
         writePdf(detail, options, unitLabels ?: defaultUnitLabels()) { documents.exportSink(uri).openStream() }
-        _effects.send(TransferEffect.PdfSaved)
+        _effects.send(TransferEffect.PdfSaved(uri))
     }
 
     private suspend fun writePdf(detail: ChecklistDetail, options: PdfOptions, labels: UnitLabels, open: () -> OutputStream) =
