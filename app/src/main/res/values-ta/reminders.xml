@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">நினைவூட்டல்கள்</string>
+    <string name="settings_reminders_summary">பட்டியல் நினைவூட்டல்களைப் பார், மாற்று அல்லது நீக்கு</string>
+    <string name="reminder_set">நினைவூட்டல் அமை</string>
+    <string name="reminder_add">நினைவூட்டல் சேர்</string>
+    <string name="reminder_new_title">புதிய நினைவூட்டல்</string>
+    <string name="reminder_edit_title">நினைவூட்டலை மாற்று</string>
+    <string name="reminder_for_list">%1$s பட்டியலுக்கு</string>
+    <string name="reminder_date_button">தேதி: %1$s</string>
+    <string name="reminder_time_button">நேரம்: %1$s</string>
+    <string name="reminder_pick_date">தேதியைத் தேர்ந்தெடு</string>
+    <string name="reminder_pick_time">நேரத்தைத் தேர்ந்தெடு</string>
+    <string name="reminder_in_past">இப்போதைக்குப் பிந்தைய நேரத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="reminder_choose_list">பட்டியலைத் தேர்ந்தெடு</string>
+    <string name="reminders_empty_title">நினைவூட்டல்கள் இல்லை</string>
+    <string name="reminders_empty_body">ஒரு பட்டியலைத் திறந்து “நினைவூட்டல் அமை” என்பதைத் தேர்ந்தெடுக்கவும், அல்லது கீழே உள்ள “நினைவூட்டல் சேர்” என்பதைத் தட்டவும்.</string>
+    <string name="reminders_no_lists">முதலில் ஒரு பட்டியலை உருவாக்கி, பின்னர் அதற்கு நினைவூட்டல் சேர்க்கவும்.</string>
+    <string name="reminder_saved">நினைவூட்டல் அமைக்கப்பட்டது: %1$s</string>
+    <string name="reminder_deleted">நினைவூட்டல் நீக்கப்பட்டது</string>
+    <string name="reminder_edit_named">%1$s பட்டியலின் நினைவூட்டலை மாற்று</string>
+    <string name="reminder_delete_named">%1$s பட்டியலின் நினைவூட்டலை நீக்கு</string>
+    <string name="reminder_notifications_off">CheckList அறிவிப்புகள் முடக்கப்பட்டுள்ளன, எனவே நினைவூட்டல்கள் தோன்றாது. ஃபோன் அமைப்புகளில் அவற்றை இயக்கவும்.</string>
+    <string name="reminder_channel_name">பட்டியல் நினைவூட்டல்கள்</string>
+    <string name="reminder_channel_description">உங்கள் பட்டியல்களுக்கு நீங்கள் அமைத்த நினைவூட்டல்கள்</string>
+    <string name="reminder_notification_title">நினைவூட்டல்: %1$s</string>
+    <string name="reminder_notification_body">பட்டியலைத் திறக்கத் தட்டவும்.</string>
+    <string name="action_ok">சரி</string>
+</resources>

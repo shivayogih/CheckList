@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">रिमाइंडर</string>
+    <string name="settings_reminders_summary">सूची के रिमाइंडर देखें, बदलें या हटाएँ</string>
+    <string name="reminder_set">रिमाइंडर सेट करें</string>
+    <string name="reminder_add">रिमाइंडर जोड़ें</string>
+    <string name="reminder_new_title">नया रिमाइंडर</string>
+    <string name="reminder_edit_title">रिमाइंडर बदलें</string>
+    <string name="reminder_for_list">%1$s के लिए</string>
+    <string name="reminder_date_button">तारीख: %1$s</string>
+    <string name="reminder_time_button">समय: %1$s</string>
+    <string name="reminder_pick_date">तारीख चुनें</string>
+    <string name="reminder_pick_time">समय चुनें</string>
+    <string name="reminder_in_past">अभी के बाद का समय चुनें।</string>
+    <string name="reminder_choose_list">सूची चुनें</string>
+    <string name="reminders_empty_title">कोई रिमाइंडर नहीं</string>
+    <string name="reminders_empty_body">कोई सूची खोलें और “रिमाइंडर सेट करें” चुनें, या नीचे “रिमाइंडर जोड़ें” दबाएँ।</string>
+    <string name="reminders_no_lists">पहले एक सूची बनाएँ, फिर उसमें रिमाइंडर जोड़ें।</string>
+    <string name="reminder_saved">रिमाइंडर सेट हुआ: %1$s</string>
+    <string name="reminder_deleted">रिमाइंडर हटाया गया</string>
+    <string name="reminder_edit_named">%1$s का रिमाइंडर बदलें</string>
+    <string name="reminder_delete_named">%1$s का रिमाइंडर हटाएँ</string>
+    <string name="reminder_notifications_off">CheckList की सूचनाएँ बंद हैं, इसलिए रिमाइंडर नहीं दिखेंगे। फ़ोन की सेटिंग्स में इन्हें चालू करें।</string>
+    <string name="reminder_channel_name">सूची रिमाइंडर</string>
+    <string name="reminder_channel_description">आपकी सूचियों के लिए सेट किए गए रिमाइंडर</string>
+    <string name="reminder_notification_title">रिमाइंडर: %1$s</string>
+    <string name="reminder_notification_body">सूची खोलने के लिए दबाएँ।</string>
+    <string name="action_ok">ठीक है</string>
+</resources>

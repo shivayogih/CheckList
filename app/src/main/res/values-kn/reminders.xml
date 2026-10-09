@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="settings_reminders_summary">ಪಟ್ಟಿ ಜ್ಞಾಪನೆಗಳನ್ನು ನೋಡಿ, ಬದಲಿಸಿ ಅಥವಾ ಅಳಿಸಿ</string>
+    <string name="reminder_set">ಜ್ಞಾಪನೆ ಹೊಂದಿಸಿ</string>
+    <string name="reminder_add">ಜ್ಞಾಪನೆ ಸೇರಿಸಿ</string>
+    <string name="reminder_new_title">ಹೊಸ ಜ್ಞಾಪನೆ</string>
+    <string name="reminder_edit_title">ಜ್ಞಾಪನೆ ಬದಲಿಸಿ</string>
+    <string name="reminder_for_list">%1$s ಪಟ್ಟಿಗಾಗಿ</string>
+    <string name="reminder_date_button">ದಿನಾಂಕ: %1$s</string>
+    <string name="reminder_time_button">ಸಮಯ: %1$s</string>
+    <string name="reminder_pick_date">ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="reminder_pick_time">ಸಮಯ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="reminder_in_past">ಈಗಿನ ನಂತರದ ಸಮಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="reminder_choose_list">ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="reminders_empty_title">ಯಾವುದೇ ಜ್ಞಾಪನೆಗಳಿಲ್ಲ</string>
+    <string name="reminders_empty_body">ಪಟ್ಟಿಯನ್ನು ತೆರೆದು “ಜ್ಞಾಪನೆ ಹೊಂದಿಸಿ” ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ ಕೆಳಗಿನ “ಜ್ಞಾಪನೆ ಸೇರಿಸಿ” ಒತ್ತಿ.</string>
+    <string name="reminders_no_lists">ಮೊದಲು ಒಂದು ಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ, ನಂತರ ಅದಕ್ಕೆ ಜ್ಞಾಪನೆ ಸೇರಿಸಿ.</string>
+    <string name="reminder_saved">ಜ್ಞಾಪನೆ ಹೊಂದಿಸಲಾಗಿದೆ: %1$s</string>
+    <string name="reminder_deleted">ಜ್ಞಾಪನೆ ಅಳಿಸಲಾಗಿದೆ</string>
+    <string name="reminder_edit_named">%1$s ಪಟ್ಟಿಯ ಜ್ಞಾಪನೆ ಬದಲಿಸಿ</string>
+    <string name="reminder_delete_named">%1$s ಪಟ್ಟಿಯ ಜ್ಞಾಪನೆ ಅಳಿಸಿ</string>
+    <string name="reminder_notifications_off">CheckList ಗೆ ಅಧಿಸೂಚನೆಗಳು ಆಫ್ ಆಗಿವೆ, ಆದ್ದರಿಂದ ಜ್ಞಾಪನೆಗಳು ಕಾಣಿಸುವುದಿಲ್ಲ. ಫೋನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಅವುಗಳನ್ನು ಆನ್ ಮಾಡಿ.</string>
+    <string name="reminder_channel_name">ಪಟ್ಟಿ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="reminder_channel_description">ನಿಮ್ಮ ಪಟ್ಟಿಗಳಿಗೆ ನೀವು ಹೊಂದಿಸಿದ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="reminder_notification_title">ಜ್ಞಾಪನೆ: %1$s</string>
+    <string name="reminder_notification_body">ಪಟ್ಟಿಯನ್ನು ತೆರೆಯಲು ಒತ್ತಿ.</string>
+    <string name="action_ok">ಸರಿ</string>
+</resources>

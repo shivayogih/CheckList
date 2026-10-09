@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="settings_reminders_summary">ലിസ്റ്റ് ഓർമ്മപ്പെടുത്തലുകൾ കാണുക, മാറ്റുക അല്ലെങ്കിൽ ഇല്ലാതാക്കുക</string>
+    <string name="reminder_set">ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കുക</string>
+    <string name="reminder_add">ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക</string>
+    <string name="reminder_new_title">പുതിയ ഓർമ്മപ്പെടുത്തൽ</string>
+    <string name="reminder_edit_title">ഓർമ്മപ്പെടുത്തൽ മാറ്റുക</string>
+    <string name="reminder_for_list">%1$s ലിസ്റ്റിന്</string>
+    <string name="reminder_date_button">തീയതി: %1$s</string>
+    <string name="reminder_time_button">സമയം: %1$s</string>
+    <string name="reminder_pick_date">തീയതി തിരഞ്ഞെടുക്കുക</string>
+    <string name="reminder_pick_time">സമയം തിരഞ്ഞെടുക്കുക</string>
+    <string name="reminder_in_past">ഇപ്പോഴത്തേതിന് ശേഷമുള്ള സമയം തിരഞ്ഞെടുക്കുക.</string>
+    <string name="reminder_choose_list">ലിസ്റ്റ് തിരഞ്ഞെടുക്കുക</string>
+    <string name="reminders_empty_title">ഓർമ്മപ്പെടുത്തലുകളൊന്നുമില്ല</string>
+    <string name="reminders_empty_body">ഒരു ലിസ്റ്റ് തുറന്ന് “ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കുക” തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ താഴെയുള്ള “ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക” ടാപ്പ് ചെയ്യുക.</string>
+    <string name="reminders_no_lists">ആദ്യം ഒരു ലിസ്റ്റ് സൃഷ്ടിക്കുക, തുടർന്ന് അതിൽ ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക.</string>
+    <string name="reminder_saved">ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കി: %1$s</string>
+    <string name="reminder_deleted">ഓർമ്മപ്പെടുത്തൽ ഇല്ലാതാക്കി</string>
+    <string name="reminder_edit_named">%1$s ലിസ്റ്റിന്റെ ഓർമ്മപ്പെടുത്തൽ മാറ്റുക</string>
+    <string name="reminder_delete_named">%1$s ലിസ്റ്റിന്റെ ഓർമ്മപ്പെടുത്തൽ ഇല്ലാതാക്കുക</string>
+    <string name="reminder_notifications_off">CheckList-ന്റെ അറിയിപ്പുകൾ ഓഫാണ്, അതിനാൽ ഓർമ്മപ്പെടുത്തലുകൾ കാണിക്കില്ല. ഫോൺ ക്രമീകരണങ്ങളിൽ അവ ഓണാക്കുക.</string>
+    <string name="reminder_channel_name">ലിസ്റ്റ് ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="reminder_channel_description">നിങ്ങളുടെ ലിസ്റ്റുകൾക്കായി നിങ്ങൾ സജ്ജമാക്കിയ ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="reminder_notification_title">ഓർമ്മപ്പെടുത്തൽ: %1$s</string>
+    <string name="reminder_notification_body">ലിസ്റ്റ് തുറക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="action_ok">ശരി</string>
+</resources>

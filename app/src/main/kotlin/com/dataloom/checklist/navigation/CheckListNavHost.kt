@@ -1,6 +1,7 @@
 package com.dataloom.checklist.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +16,7 @@ import com.dataloom.checklist.presentation.checklist.item.ItemEditorScreen
 import com.dataloom.checklist.presentation.home.HomeScreen
 import com.dataloom.checklist.presentation.masteritem.AddItemsScreen
 import com.dataloom.checklist.presentation.onboarding.OnboardingScreen
+import com.dataloom.checklist.presentation.reminder.RemindersScreen
 import com.dataloom.checklist.presentation.settings.LanguageScreen
 import com.dataloom.checklist.presentation.settings.SettingsScreen
 import com.dataloom.checklist.presentation.settings.profile.ProfileScreen
@@ -37,6 +39,9 @@ data object SettingsRoute
 
 @Serializable
 data object LanguageRoute
+
+@Serializable
+data object RemindersRoute
 
 @Serializable
 data object ProfileRoute
@@ -62,12 +67,30 @@ data class ItemEditorRoute(
     val initialName: String = "",
 )
 
+/**
+ * Asks the nav host to open a checklist, for example from a reminder notification. Not a data class on
+ * purpose: each request is new, so the same checklist can be opened again by a second notification.
+ */
+class ChecklistOpenRequest(val checklistId: String)
+
 @Composable
 fun CheckListNavHost(
     start: StartDestination,
     navController: NavHostController = rememberNavController(),
+    openChecklist: ChecklistOpenRequest? = null,
+    onChecklistOpened: () -> Unit = {},
 ) {
     val startRoute: Any = if (start == StartDestination.ONBOARDING) OnboardingRoute() else HomeRoute
+    // A tapped reminder notification opens its checklist on top of Home (CL-350).
+    if (openChecklist != null && start == StartDestination.HOME) {
+        LaunchedEffect(openChecklist) {
+            navController.navigate(ChecklistDetailRoute(openChecklist.checklistId)) {
+                popUpTo<HomeRoute>()
+                launchSingleTop = true
+            }
+            onChecklistOpened()
+        }
+    }
     NavHost(navController = navController, startDestination = startRoute) {
         composable<OnboardingRoute> { entry ->
             val replay = entry.toRoute<OnboardingRoute>().replay
@@ -97,7 +120,11 @@ fun CheckListNavHost(
                 onOpenLanguage = { navController.navigate(LanguageRoute) },
                 onOpenProfile = { navController.navigate(ProfileRoute) },
                 onShowTutorial = { navController.navigate(OnboardingRoute(replay = true)) },
+                onOpenReminders = { navController.navigate(RemindersRoute) },
             )
+        }
+        composable<RemindersRoute> {
+            RemindersScreen(onBack = { navController.popBackStack() })
         }
         composable<ProfileRoute> {
             ProfileScreen(onBack = { navController.popBackStack() })

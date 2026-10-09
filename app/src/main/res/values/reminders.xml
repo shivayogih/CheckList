@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">Reminders</string>
+    <string name="settings_reminders_summary">See, change or delete checklist reminders</string>
+    <string name="reminder_set">Set reminder</string>
+    <string name="reminder_add">Add reminder</string>
+    <string name="reminder_new_title">New reminder</string>
+    <string name="reminder_edit_title">Change reminder</string>
+    <string name="reminder_for_list">For %1$s</string>
+    <string name="reminder_date_button">Date: %1$s</string>
+    <string name="reminder_time_button">Time: %1$s</string>
+    <string name="reminder_pick_date">Choose date</string>
+    <string name="reminder_pick_time">Choose time</string>
+    <string name="reminder_in_past">Choose a time later than now.</string>
+    <string name="reminder_choose_list">Choose a checklist</string>
+    <string name="reminders_empty_title">No reminders</string>
+    <string name="reminders_empty_body">Open a checklist and choose Set reminder, or tap Add reminder below.</string>
+    <string name="reminders_no_lists">Create a checklist first, then add a reminder to it.</string>
+    <string name="reminder_saved">Reminder set for %1$s</string>
+    <string name="reminder_deleted">Reminder deleted</string>
+    <string name="reminder_edit_named">Change reminder for %1$s</string>
+    <string name="reminder_delete_named">Delete reminder for %1$s</string>
+    <string name="reminder_notifications_off">Notifications are off for CheckList, so reminders cannot show. Turn them on in phone settings.</string>
+    <string name="reminder_channel_name">Checklist reminders</string>
+    <string name="reminder_channel_description">Reminders you set for your checklists</string>
+    <string name="reminder_notification_title">Reminder: %1$s</string>
+    <string name="reminder_notification_body">Tap to open the checklist.</string>
+    <string name="action_ok">OK</string>
+</resources>

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.DeviceConfigurationOverride
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.FontScale
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isToggleable
@@ -33,9 +34,12 @@ import com.dataloom.checklist.navigation.CreateChecklistRoute
 import com.dataloom.checklist.navigation.ItemEditorRoute
 import com.dataloom.checklist.navigation.LanguageRoute
 import com.dataloom.checklist.navigation.ProfileRoute
+import com.dataloom.checklist.navigation.RemindersRoute
 import com.dataloom.checklist.navigation.SettingsRoute
 import com.dataloom.checklist.onboarding.StartDestination
 import com.dataloom.checklist.presentation.theme.CheckListTheme
+import com.dataloom.checklist.reminder.Reminder
+import com.dataloom.checklist.reminder.ReminderStore
 import com.dataloom.checklist.testing.HiltComponentActivity
 import com.dataloom.checklist.testing.ui.assertAccessible
 import com.dataloom.checklist.testing.ui.awaitNode
@@ -85,6 +89,8 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
     @Inject lateinit var addCustomItem: AddCustomItemUseCase
 
     @Inject lateinit var setItemCompleted: SetItemCompletedUseCase
+
+    @Inject lateinit var reminders: ReminderStore
 
     private lateinit var navController: NavHostController
 
@@ -158,6 +164,16 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
     }
 
     @Test
+    fun `reminders with one reminder`() {
+        val (checklist, _) = seedChecklist()
+        runBlocking { reminders.upsert(Reminder("reminder-1", checklist.value, REMINDER_TIME)) }
+        launchApp()
+        navigate(RemindersRoute)
+        composeRule.awaitNode(hasContentDescription(string(R.string.reminder_delete_named, TITLE)))
+        composeRule.assertAccessible("Reminders, $screen")
+    }
+
+    @Test
     fun settings() {
         launchApp()
         navigate(SettingsRoute)
@@ -226,6 +242,9 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
         const val TITLE = "Goa Trip"
         const val GROCERIES = "Groceries & Staples"
         const val VEGETABLES = "Vegetables"
+
+        /** 2100-01-01, far enough ahead to stay a future reminder. */
+        const val REMINDER_TIME = 4_102_444_800_000L
 
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters(name = "fontScale={0}")

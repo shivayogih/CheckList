@@ -75,6 +75,9 @@ import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.photos.ItemPhotoSlot
+import com.dataloom.checklist.presentation.reminder.ReminderEffects
+import com.dataloom.checklist.presentation.reminder.ReminderTimeDialog
+import com.dataloom.checklist.presentation.reminder.RemindersViewModel
 import com.dataloom.checklist.presentation.transfer.PdfOptionsDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
 import com.dataloom.checklist.presentation.transfer.rememberUnitLabels
@@ -102,6 +105,7 @@ fun ChecklistDetailScreen(
     aiViewModel: AiCommandViewModel = hiltViewModel<AiCommandViewModel, AiCommandViewModel.Factory>(
         creationCallback = { factory -> factory.create(checklistId) },
     ),
+    remindersViewModel: RemindersViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val aiState by aiViewModel.uiState.collectAsStateWithLifecycle()
@@ -112,6 +116,24 @@ fun ChecklistDetailScreen(
 
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
     TransferEffects(transferViewModel, snackbarHostState)
+    // "Set reminder" (CL-350), offered on active checklists only: archiving removes a list's reminders.
+    ReminderEffects(remindersViewModel.effects, snackbarHostState)
+    val reminderLists by remindersViewModel.state.collectAsStateWithLifecycle()
+    val canSetReminder = reminderLists.lists.any { it.id == checklistId }
+    var reminderTime by rememberSaveable { mutableStateOf<Long?>(null) }
+    reminderTime?.let { initial ->
+        ReminderTimeDialog(
+            title = stringResource(R.string.reminder_new_title),
+            listTitle = state.title,
+            initialTime = initial,
+            isInFuture = remindersViewModel::isInFuture,
+            onSave = { time ->
+                remindersViewModel.save(checklistId, time)
+                reminderTime = null
+            },
+            onDismiss = { reminderTime = null },
+        )
+    }
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
     // Recomputed only when the sections change, not on every recomposition (rename dialog, snackbar...).
     val customUnitLabels = remember(state.sections) {
@@ -129,6 +151,11 @@ fun ChecklistDetailScreen(
         if (uri != null) transferViewModel.savePdfTo(uri, id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
     }
     // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
+    val reminderActions = if (canSetReminder) {
+        listOf(MenuAction(stringResource(R.string.reminder_set)) { reminderTime = remindersViewModel.suggestedTime() })
+    } else {
+        emptyList()
+    }
     val pdfActions = listOf(
         MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
             onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
@@ -181,7 +208,8 @@ fun ChecklistDetailScreen(
         }
     }
 
-    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
+    val moreActions = reminderActions + pdfActions
+    DetailContent(state, snackbarHostState, onAction, navigation, moreActions, aiState, aiViewModel::onAction)
 
     pdfOptionsFor?.let { export ->
         PdfOptionsDialog(
@@ -205,7 +233,7 @@ private fun DetailContent(
     snackbarHostState: SnackbarHostState,
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
-    pdfActions: List<MenuAction>,
+    moreActions: List<MenuAction>,
     aiState: AiCommandUiState,
     onAiAction: (AiCommandAction) -> Unit,
 ) {
@@ -223,7 +251,7 @@ private fun DetailContent(
                         actions = listOf(
                             MenuAction(stringResource(R.string.detail_rename)) { onAction(ChecklistDetailAction.StartRename) },
                             MenuAction(stringResource(R.string.add_categories_title), onClick = navigation.onAddCategories),
-                        ) + pdfActions,
+                        ) + moreActions,
                     )
                 },
             )

@@ -4,6 +4,7 @@ import android.app.Application
 import com.dataloom.checklist.domain.common.AppLog
 import com.dataloom.checklist.logging.AndroidLogSink
 import com.dataloom.checklist.photos.PhotoHousekeeping
+import com.dataloom.checklist.reminder.ReminderSync
 import com.dataloom.checklist.startup.DatabaseWarmUp
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -24,11 +25,15 @@ class CheckListApplication : Application() {
     @Inject
     lateinit var databaseWarmUp: DatabaseWarmUp
 
+    @Inject
+    lateinit var reminderSync: ReminderSync
+
     override fun onCreate() {
         super.onCreate()
         // Release-safe logging (design 19.3): only debug builds get a sink; release builds log nothing.
         if (BuildConfig.DEBUG) AppLog.install(AndroidLogSink)
         photoHousekeeping.start()
         databaseWarmUp.start()
+        reminderSync.start()
     }
 }

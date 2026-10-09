@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">स्मरणपत्रे</string>
+    <string name="settings_reminders_summary">यादीची स्मरणपत्रे पाहा, बदला किंवा हटवा</string>
+    <string name="reminder_set">स्मरणपत्र सेट करा</string>
+    <string name="reminder_add">स्मरणपत्र जोडा</string>
+    <string name="reminder_new_title">नवीन स्मरणपत्र</string>
+    <string name="reminder_edit_title">स्मरणपत्र बदला</string>
+    <string name="reminder_for_list">%1$s यादीसाठी</string>
+    <string name="reminder_date_button">तारीख: %1$s</string>
+    <string name="reminder_time_button">वेळ: %1$s</string>
+    <string name="reminder_pick_date">तारीख निवडा</string>
+    <string name="reminder_pick_time">वेळ निवडा</string>
+    <string name="reminder_in_past">आत्तानंतरची वेळ निवडा.</string>
+    <string name="reminder_choose_list">यादी निवडा</string>
+    <string name="reminders_empty_title">कोणतीही स्मरणपत्रे नाहीत</string>
+    <string name="reminders_empty_body">एखादी यादी उघडा आणि “स्मरणपत्र सेट करा” निवडा, किंवा खालील “स्मरणपत्र जोडा” दाबा.</string>
+    <string name="reminders_no_lists">आधी एक यादी तयार करा, मग तिला स्मरणपत्र जोडा.</string>
+    <string name="reminder_saved">स्मरणपत्र सेट झाले: %1$s</string>
+    <string name="reminder_deleted">स्मरणपत्र हटवले</string>
+    <string name="reminder_edit_named">%1$s यादीचे स्मरणपत्र बदला</string>
+    <string name="reminder_delete_named">%1$s यादीचे स्मरणपत्र हटवा</string>
+    <string name="reminder_notifications_off">CheckList च्या सूचना बंद आहेत, त्यामुळे स्मरणपत्रे दिसणार नाहीत. फोन सेटिंग्जमध्ये त्या चालू करा.</string>
+    <string name="reminder_channel_name">यादी स्मरणपत्रे</string>
+    <string name="reminder_channel_description">तुम्ही तुमच्या याद्यांसाठी सेट केलेली स्मरणपत्रे</string>
+    <string name="reminder_notification_title">स्मरणपत्र: %1$s</string>
+    <string name="reminder_notification_body">यादी उघडण्यासाठी दाबा.</string>
+    <string name="action_ok">ठीक आहे</string>
+</resources>
