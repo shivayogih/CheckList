@@ -101,6 +101,7 @@ fun ItemEditorScreen(
                     stringResource(R.string.item_new_title, state.sectionName)
                 },
                 navigationIcon = { BackButton(onBack) },
+                roomyTitle = !state.isEditing,
             )
         },
         bottomBar = {

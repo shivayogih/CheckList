@@ -27,12 +27,20 @@ fun AppTopBar(
     title: String,
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    roomyTitle: Boolean = false,
 ) {
     val density = LocalDensity.current
+    // Titles built from a category name ("New item in Meat, Poultry & Seafood") get two lines at any
+    // size, and three when the font is also large.
     val largeText = density.fontScale > LARGE_FONT_SCALE
+    val lines = when {
+        roomyTitle && largeText -> 3
+        roomyTitle || largeText -> 2
+        else -> 1
+    }
     val lineHeight = with(density) { MaterialTheme.typography.titleLarge.lineHeight.toDp() }
-    val height: Dp = if (largeText) {
-        maxOf(TopAppBarDefaults.TopAppBarExpandedHeight, lineHeight * 2 + 16.dp)
+    val height: Dp = if (lines > 1) {
+        maxOf(TopAppBarDefaults.TopAppBarExpandedHeight, lineHeight * lines + 16.dp)
     } else {
         TopAppBarDefaults.TopAppBarExpandedHeight
     }
@@ -40,7 +48,7 @@ fun AppTopBar(
         title = {
             Text(
                 text = title,
-                maxLines = if (largeText) 2 else 1,
+                maxLines = lines,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.semantics { heading() },
             )
