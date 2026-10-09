@@ -17,9 +17,11 @@ import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -83,19 +85,26 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val state = MutableStateFlow(ProfileUiState())
-    val uiState: StateFlow<ProfileUiState> = state.asStateFlow()
+
+    /**
+     * The store is observed only while the screen is on show (plus a short grace period for a
+     * rotation), not for the whole life of the ViewModel: decrypting the profile touches the Keystore,
+     * and nothing should do that while the user is elsewhere. The form text lives in [state], which
+     * the ViewModel keeps across rotation, language, dark mode and font size changes.
+     *
+     * Deliberately no SavedStateHandle: saved state is written to disk by the system, and the profile
+     * must exist only encrypted (docs/security.md). After process death the form starts from the stored profile.
+     */
+    val uiState: StateFlow<ProfileUiState> = channelFlow {
+        launch { observeProfile().collect { profileState -> onStoreChanged(profileState) } }
+        state.collect { send(it) }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), state.value)
 
     private val effects = Channel<ProfileEffect>(Channel.BUFFERED)
     val effect: Flow<ProfileEffect> = effects.receiveAsFlow()
 
     /** True once the user has typed; stored values then no longer replace the form. */
     private var edited = false
-
-    init {
-        viewModelScope.launch {
-            observeProfile().collect { profileState -> onStoreChanged(profileState) }
-        }
-    }
 
     fun onAction(action: ProfileAction) {
         when (action) {
@@ -172,6 +181,10 @@ class ProfileViewModel @Inject constructor(
             state.update { it.fill(null) }
             effects.send(ProfileEffect.Cleared)
         }
+    }
+
+    private companion object {
+        const val STOP_TIMEOUT_MS = 5_000L
     }
 
     /** Shows the validator's verdict for what is typed now, next to each field. */

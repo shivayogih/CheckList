@@ -11,6 +11,7 @@ import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.model.MasterItem
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -30,8 +31,8 @@ class RoomCatalogRepositoryTest {
     private val clock = FakeClock()
     private val ids = SequentialIds()
     private val db = inMemoryDatabase()
-    private val catalog = RoomCatalogRepository(db, clock, ids)
-    private val checklists = RoomChecklistRepository(db, clock, ids)
+    private val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
+    private val checklists = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined)
 
     // Assigned in setUp; value classes cannot be lateinit.
     private var groceries = CategoryId("")

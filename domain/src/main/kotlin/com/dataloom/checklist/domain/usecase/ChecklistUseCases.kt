@@ -23,6 +23,11 @@ class ObserveChecklistsUseCase @Inject constructor(private val checklists: Check
         checklists.observeChecklists(query.copy(search = query.search.trim()))
 }
 
+/** True while at least one checklist exists (archived ones count). A single cheap existence query. */
+class ObserveHasChecklistsUseCase @Inject constructor(private val checklists: ChecklistRepository) {
+    operator fun invoke(): Flow<Boolean> = checklists.observeHasChecklists()
+}
+
 class ObserveChecklistDetailUseCase @Inject constructor(private val checklists: ChecklistRepository) {
     /** Emits null once the checklist is deleted, so the screen can close itself. */
     operator fun invoke(id: ChecklistId, locale: String): Flow<ChecklistDetail?> = checklists.observeChecklist(id, locale)

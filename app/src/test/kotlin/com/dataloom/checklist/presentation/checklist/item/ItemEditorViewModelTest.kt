@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.item
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
@@ -47,7 +48,11 @@ class ItemEditorViewModelTest {
         sectionId = repo.detail(checklistId)!!.sections.single().id
     }
 
-    private fun TestScope.viewModel(itemId: ChecklistItemId? = null, initialName: String = ""): ItemEditorViewModel {
+    private fun TestScope.viewModel(
+        itemId: ChecklistItemId? = null,
+        initialName: String = "",
+        handle: SavedStateHandle = SavedStateHandle(),
+    ): ItemEditorViewModel {
         val vm = ItemEditorViewModel(
             checklistId = checklistId.value,
             sectionId = sectionId.value,
@@ -59,6 +64,7 @@ class ItemEditorViewModelTest {
             updateItem = UpdateChecklistItemUseCase(repo, catalog),
             createCustomUnit = CreateCustomUnitUseCase(catalog),
             languageProvider = FakeLanguageProvider("kn"),
+            savedState = handle,
         )
         keepCollecting(vm.uiState)
         return vm
@@ -168,6 +174,39 @@ class ItemEditorViewModelTest {
         assertEquals(Quantity.parse("1.25"), item.quantity)
         assertEquals(BuiltInUnits.KG.code, item.unit)
         assertNull(item.notes)
+    }
+
+    @Test
+    fun `unsaved edits survive process death and win over the stored item`() = runTest {
+        seed()
+        val id = repo.addItems(
+            sectionId,
+            listOf(NewChecklistItem(null, null, "Rice", "en", Quantity.of(5), BuiltInUnits.KG.code, "Basmati")),
+        ).single()
+        val handle = SavedStateHandle()
+        val first = viewModel(itemId = id, handle = handle)
+        first.onAction(ItemEditorAction.NameChanged("Brown rice"))
+        first.onAction(ItemEditorAction.QuantityChanged("2.5"))
+        first.onAction(ItemEditorAction.UnitChanged(BuiltInUnits.GRAM.code))
+
+        val second = viewModel(itemId = id, handle = handle)
+
+        val restored = second.uiState.value
+        assertFalse(restored.isLoading)
+        assertEquals("Brown rice", restored.name)
+        assertEquals("2.5", restored.quantityText)
+        assertEquals(BuiltInUnits.GRAM.code, restored.unit)
+        assertEquals("Basmati", repo.item(id)!!.notes) // nothing was saved to the database
+    }
+
+    @Test
+    fun `an untouched form is loaded from the item, not from saved state`() = runTest {
+        seed()
+        val id = repo.addItems(sectionId, listOf(NewChecklistItem(null, null, "Rice", "en", null, null, null))).single()
+
+        val vm = viewModel(itemId = id, handle = SavedStateHandle())
+
+        assertEquals("Rice", vm.uiState.value.name)
     }
 
     @Test
