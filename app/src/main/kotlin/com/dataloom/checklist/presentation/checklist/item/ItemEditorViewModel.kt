@@ -275,7 +275,7 @@ class ItemEditorViewModel @AssistedInject constructor(
     private fun save() {
         val current = form.value
         // Also false while a photo is still being processed: it would be lost.
-        if (!current.canSave) return
+        if (current.isSaving || current.isLoading || current.photoForm.processing > 0) return
         val quantity = when (val parsed = QuantityInput.parse(current.quantityText)) {
             QuantityParse.Empty -> null
             is QuantityParse.Valid -> parsed.quantity
