@@ -1,36 +1,246 @@
 {
   "locale": "hi",
   "categories": {
-    "groceries": "किराना",
+    "groceries": "किराना और राशन",
     "vegetables": "सब्ज़ियाँ",
     "fruits": "फल",
-    "clothing": "कपड़े",
-    "travel": "यात्रा",
-    "documents": "दस्तावेज़",
-    "exam": "परीक्षा",
-    "gifts": "उपहार",
-    "pooja_items": "पूजा सामग्री",
-    "decorations": "सजावट",
-    "medicines": "दवाइयाँ",
-    "toiletries": "नहाने-धोने का सामान",
-    "electronics": "इलेक्ट्रॉनिक्स",
-    "stationery": "स्टेशनरी",
+    "cat004": "पत्तेदार साग और हरी जड़ी-बूटियाँ",
+    "cat005": "डेयरी और अंडे",
+    "cat006": "मीट, चिकन और मछली",
+    "cat007": "बेकरी और नाश्ता",
+    "cat008": "स्नैक्स और मिठाई",
+    "cat009": "मसाले, तेल और सॉस",
+    "cat010": "पेय पदार्थ",
+    "cat011": "फ्रोज़न और रेडी-टू-कुक",
+    "toiletries": "पर्सनल केयर",
+    "cat013": "सफ़ाई और कपड़े धोना",
+    "cat014": "डिस्पोज़ेबल सामान",
+    "cat015": "रसोई और डाइनिंग सामान",
+    "cat016": "घर का रखरखाव",
+    "medicines": "दवाइयाँ और फ़र्स्ट एड",
+    "cat018": "बच्चे और बेबी",
+    "cat019": "पालतू जानवर का सामान",
+    "stationery": "ऑफिस और स्टेशनरी",
+    "electronics": "इलेक्ट्रॉनिक्स और एक्सेसरीज़",
+    "travel": "यात्रा और पैकिंग",
+    "clothing": "कपड़े और जूते-चप्पल",
+    "documents": "दस्तावेज़ और काम",
+    "exam": "पढ़ाई और परीक्षा",
+    "cat026": "फिटनेस और खेल",
+    "cat027": "बागवानी और खेती",
+    "cat028": "गाड़ी और आना-जाना",
+    "cat029": "उत्सव और समारोह",
+    "cat030": "डिजिटल और नियमित काम",
     "other": "अन्य"
   },
   "items": {
     "rice": {
-      "name": "चावल",
+      "name": "कच्चा चावल",
       "aliases": [
         "chawal",
-        "chaval"
+        "chaval",
+        "Raw rice"
+      ]
+    },
+    "itm0002": {
+      "name": "सोना मसूरी चावल",
+      "aliases": [
+        "Sona masoori rice"
+      ]
+    },
+    "itm0003": {
+      "name": "बासमती चावल",
+      "aliases": [
+        "Basmati rice"
+      ]
+    },
+    "itm0004": {
+      "name": "ब्राउन राइस",
+      "aliases": [
+        "Brown rice"
+      ]
+    },
+    "itm0005": {
+      "name": "इडली चावल",
+      "aliases": [
+        "Idli rice"
+      ]
+    },
+    "itm0006": {
+      "name": "पोहा",
+      "aliases": [
+        "Poha / avalakki"
       ]
     },
     "wheat": {
-      "name": "गेहूँ",
+      "name": "गेहूं का आटा",
       "aliases": [
         "gehun",
         "gehu",
-        "गेहूं"
+        "गेहूं",
+        "Wheat flour / atta"
+      ]
+    },
+    "itm0008": {
+      "name": "मैदा",
+      "aliases": [
+        "Maida"
+      ]
+    },
+    "itm0009": {
+      "name": "रवा / सूजी",
+      "aliases": [
+        "Rava / sooji"
+      ]
+    },
+    "itm0010": {
+      "name": "बेसन",
+      "aliases": [
+        "Besan / gram flour"
+      ]
+    },
+    "itm0011": {
+      "name": "रागी का आटा",
+      "aliases": [
+        "Ragi flour"
+      ]
+    },
+    "itm0012": {
+      "name": "ज्वार का आटा",
+      "aliases": [
+        "Jowar flour"
+      ]
+    },
+    "itm0013": {
+      "name": "बाजरे का आटा",
+      "aliases": [
+        "Bajra flour"
+      ]
+    },
+    "itm0014": {
+      "name": "कॉर्न फ्लोर",
+      "aliases": [
+        "Corn flour"
+      ]
+    },
+    "itm0015": {
+      "name": "दलिया",
+      "aliases": [
+        "Dalia / broken wheat"
+      ]
+    },
+    "itm0016": {
+      "name": "ओट्स",
+      "aliases": [
+        "Oats"
+      ]
+    },
+    "itm0017": {
+      "name": "क्विनोआ",
+      "aliases": [
+        "Quinoa"
+      ]
+    },
+    "itm0018": {
+      "name": "साबूदाना",
+      "aliases": [
+        "Sabudana"
+      ]
+    },
+    "itm0019": {
+      "name": "सेवइयाँ",
+      "aliases": [
+        "Vermicelli / semiya"
+      ]
+    },
+    "itm0020": {
+      "name": "मुरमुरे",
+      "aliases": [
+        "Puffed rice / mandakki"
+      ]
+    },
+    "itm0021": {
+      "name": "अरहर दाल",
+      "aliases": [
+        "Toor dal"
+      ]
+    },
+    "itm0022": {
+      "name": "मूंग दाल",
+      "aliases": [
+        "Moong dal"
+      ]
+    },
+    "itm0023": {
+      "name": "उड़द दाल",
+      "aliases": [
+        "Urad dal"
+      ]
+    },
+    "itm0024": {
+      "name": "चना दाल",
+      "aliases": [
+        "Chana dal"
+      ]
+    },
+    "itm0025": {
+      "name": "मसूर दाल",
+      "aliases": [
+        "Masoor dal"
+      ]
+    },
+    "itm0026": {
+      "name": "साबुत मूंग",
+      "aliases": [
+        "Whole green gram"
+      ]
+    },
+    "itm0027": {
+      "name": "काला चना",
+      "aliases": [
+        "Black chana"
+      ]
+    },
+    "itm0028": {
+      "name": "काबुली चना",
+      "aliases": [
+        "Kabuli chana"
+      ]
+    },
+    "itm0029": {
+      "name": "राजमा",
+      "aliases": [
+        "Rajma"
+      ]
+    },
+    "itm0030": {
+      "name": "सफेद मटर",
+      "aliases": [
+        "White peas"
+      ]
+    },
+    "itm0031": {
+      "name": "सूखी हरी मटर",
+      "aliases": [
+        "Green peas dried"
+      ]
+    },
+    "itm0032": {
+      "name": "कुलथी",
+      "aliases": [
+        "Horse gram / hurali"
+      ]
+    },
+    "itm0033": {
+      "name": "लोबिया",
+      "aliases": [
+        "Cowpeas / alasande"
+      ]
+    },
+    "itm0034": {
+      "name": "सोया चंक्स",
+      "aliases": [
+        "Soy chunks"
       ]
     },
     "sugar": {
@@ -38,13 +248,3235 @@
       "aliases": [
         "cheeni",
         "shakkar",
-        "शक्कर"
+        "शक्कर",
+        "Sugar"
+      ]
+    },
+    "itm0036": {
+      "name": "गुड़",
+      "aliases": [
+        "Jaggery"
       ]
     },
     "salt": {
       "name": "नमक",
       "aliases": [
-        "namak"
+        "namak",
+        "Salt"
+      ]
+    },
+    "itm0038": {
+      "name": "सेंधा नमक",
+      "aliases": [
+        "Rock salt"
+      ]
+    },
+    "itm0039": {
+      "name": "इमली",
+      "aliases": [
+        "Tamarind"
+      ]
+    },
+    "itm0040": {
+      "name": "सूखा नारियल",
+      "aliases": [
+        "Dry coconut"
+      ]
+    },
+    "itm0041": {
+      "name": "मूंगफली",
+      "aliases": [
+        "Peanuts"
+      ]
+    },
+    "itm0042": {
+      "name": "काजू",
+      "aliases": [
+        "Cashews"
+      ]
+    },
+    "itm0043": {
+      "name": "बादाम",
+      "aliases": [
+        "Almonds"
+      ]
+    },
+    "itm0044": {
+      "name": "किशमिश",
+      "aliases": [
+        "Raisins"
+      ]
+    },
+    "itm0045": {
+      "name": "खजूर",
+      "aliases": [
+        "Dates"
+      ]
+    },
+    "itm0046": {
+      "name": "अलसी",
+      "aliases": [
+        "Flax seeds"
+      ]
+    },
+    "itm0047": {
+      "name": "चिया सीड्स",
+      "aliases": [
+        "Chia seeds"
+      ]
+    },
+    "itm0048": {
+      "name": "तिल",
+      "aliases": [
+        "Sesame seeds"
+      ]
+    },
+    "itm0049": {
+      "name": "सूरजमुखी के बीज",
+      "aliases": [
+        "Sunflower seeds"
+      ]
+    },
+    "potato": {
+      "name": "आलू",
+      "aliases": [
+        "aloo",
+        "alu",
+        "Potato"
+      ]
+    },
+    "onion": {
+      "name": "प्याज़",
+      "aliases": [
+        "pyaz",
+        "pyaj",
+        "प्याज",
+        "Onion"
+      ]
+    },
+    "tomato": {
+      "name": "टमाटर",
+      "aliases": [
+        "tamatar",
+        "Tomato"
+      ]
+    },
+    "carrot": {
+      "name": "गाजर",
+      "aliases": [
+        "gajar",
+        "Carrot"
+      ]
+    },
+    "itm0054": {
+      "name": "चुकंदर",
+      "aliases": [
+        "Beetroot"
+      ]
+    },
+    "itm0055": {
+      "name": "मूली",
+      "aliases": [
+        "Radish"
+      ]
+    },
+    "itm0056": {
+      "name": "शकरकंद",
+      "aliases": [
+        "Sweet potato"
+      ]
+    },
+    "itm0057": {
+      "name": "खीरा",
+      "aliases": [
+        "Cucumber"
+      ]
+    },
+    "itm0058": {
+      "name": "लौकी",
+      "aliases": [
+        "Bottle gourd"
+      ]
+    },
+    "itm0059": {
+      "name": "तुरई",
+      "aliases": [
+        "Ridge gourd"
+      ]
+    },
+    "itm0060": {
+      "name": "चिचिंडा",
+      "aliases": [
+        "Snake gourd"
+      ]
+    },
+    "itm0061": {
+      "name": "करेला",
+      "aliases": [
+        "Bitter gourd"
+      ]
+    },
+    "itm0062": {
+      "name": "पेठा",
+      "aliases": [
+        "Ash gourd"
+      ]
+    },
+    "itm0063": {
+      "name": "कद्दू",
+      "aliases": [
+        "Pumpkin"
+      ]
+    },
+    "itm0064": {
+      "name": "कच्चा केला",
+      "aliases": [
+        "Raw banana"
+      ]
+    },
+    "itm0065": {
+      "name": "सहजन की फली",
+      "aliases": [
+        "Drumstick pods"
+      ]
+    },
+    "brinjal": {
+      "name": "बैंगन",
+      "aliases": [
+        "baingan",
+        "Brinjal / eggplant"
+      ]
+    },
+    "itm0067": {
+      "name": "भिंडी",
+      "aliases": [
+        "Ladies finger / okra"
+      ]
+    },
+    "itm0068": {
+      "name": "हरी शिमला मिर्च",
+      "aliases": [
+        "Green capsicum"
+      ]
+    },
+    "itm0069": {
+      "name": "लाल शिमला मिर्च",
+      "aliases": [
+        "Red capsicum"
+      ]
+    },
+    "itm0070": {
+      "name": "पीली शिमला मिर्च",
+      "aliases": [
+        "Yellow capsicum"
+      ]
+    },
+    "cabbage": {
+      "name": "पत्ता गोभी",
+      "aliases": [
+        "patta gobhi",
+        "band gobhi",
+        "Cabbage"
+      ]
+    },
+    "cauliflower": {
+      "name": "फूलगोभी",
+      "aliases": [
+        "phool gobhi",
+        "gobi",
+        "Cauliflower"
+      ]
+    },
+    "itm0073": {
+      "name": "ब्रोकली",
+      "aliases": [
+        "Broccoli"
+      ]
+    },
+    "itm0074": {
+      "name": "गांठ गोभी",
+      "aliases": [
+        "Knol-khol"
+      ]
+    },
+    "itm0075": {
+      "name": "चौ चौ",
+      "aliases": [
+        "Chayote / chow chow"
+      ]
+    },
+    "itm0076": {
+      "name": "कुंदरू",
+      "aliases": [
+        "Ivy gourd / tindora"
+      ]
+    },
+    "itm0077": {
+      "name": "ग्वार फली",
+      "aliases": [
+        "Cluster beans"
+      ]
+    },
+    "itm0078": {
+      "name": "फ्रेंच बीन्स",
+      "aliases": [
+        "French beans"
+      ]
+    },
+    "itm0079": {
+      "name": "सेम की फली",
+      "aliases": [
+        "Broad beans / avarekalu"
+      ]
+    },
+    "itm0080": {
+      "name": "हरी मटर",
+      "aliases": [
+        "Green peas"
+      ]
+    },
+    "itm0081": {
+      "name": "स्वीट कॉर्न",
+      "aliases": [
+        "Sweet corn"
+      ]
+    },
+    "itm0082": {
+      "name": "मशरूम",
+      "aliases": [
+        "Mushroom"
+      ]
+    },
+    "itm0083": {
+      "name": "हरी मिर्च",
+      "aliases": [
+        "Green chilli"
+      ]
+    },
+    "itm0084": {
+      "name": "अदरक",
+      "aliases": [
+        "Ginger"
+      ]
+    },
+    "itm0085": {
+      "name": "लहसुन",
+      "aliases": [
+        "Garlic"
+      ]
+    },
+    "itm0086": {
+      "name": "लेमन ग्रास",
+      "aliases": [
+        "Lemon grass"
+      ]
+    },
+    "itm0087": {
+      "name": "नारियल",
+      "aliases": [
+        "Coconut"
+      ]
+    },
+    "itm0088": {
+      "name": "हरा नारियल",
+      "aliases": [
+        "Tender coconut"
+      ]
+    },
+    "itm0089": {
+      "name": "नींबू",
+      "aliases": [
+        "Lemon"
+      ]
+    },
+    "itm0090": {
+      "name": "कच्चा आम",
+      "aliases": [
+        "Raw mango"
+      ]
+    },
+    "itm0091": {
+      "name": "भुट्टा",
+      "aliases": [
+        "Corn on the cob"
+      ]
+    },
+    "itm0092": {
+      "name": "सलाद पत्ता",
+      "aliases": [
+        "Lettuce head"
+      ]
+    },
+    "apple": {
+      "name": "सेब",
+      "aliases": [
+        "seb",
+        "apple"
+      ]
+    },
+    "banana": {
+      "name": "केला",
+      "aliases": [
+        "kela",
+        "Banana"
+      ]
+    },
+    "orange": {
+      "name": "संतरा",
+      "aliases": [
+        "santra",
+        "narangi",
+        "Orange"
+      ]
+    },
+    "itm0096": {
+      "name": "मौसमी",
+      "aliases": [
+        "Sweet lime / mosambi"
+      ]
+    },
+    "pomegranate": {
+      "name": "अनार",
+      "aliases": [
+        "anar",
+        "Pomegranate"
+      ]
+    },
+    "itm0098": {
+      "name": "पपीता",
+      "aliases": [
+        "Papaya"
+      ]
+    },
+    "itm0099": {
+      "name": "तरबूज",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    "itm0100": {
+      "name": "खरबूजा",
+      "aliases": [
+        "Muskmelon"
+      ]
+    },
+    "itm0101": {
+      "name": "अनानास",
+      "aliases": [
+        "Pineapple"
+      ]
+    },
+    "grapes": {
+      "name": "अंगूर",
+      "aliases": [
+        "angoor",
+        "angur",
+        "Grapes"
+      ]
+    },
+    "itm0103": {
+      "name": "अमरूद",
+      "aliases": [
+        "Guava"
+      ]
+    },
+    "mango": {
+      "name": "आम",
+      "aliases": [
+        "aam",
+        "Mango"
+      ]
+    },
+    "itm0105": {
+      "name": "नाशपाती",
+      "aliases": [
+        "Pear"
+      ]
+    },
+    "itm0106": {
+      "name": "आड़ू",
+      "aliases": [
+        "Peach"
+      ]
+    },
+    "itm0107": {
+      "name": "आलूबुखारा",
+      "aliases": [
+        "Plum"
+      ]
+    },
+    "itm0108": {
+      "name": "कीवी",
+      "aliases": [
+        "Kiwi"
+      ]
+    },
+    "itm0109": {
+      "name": "स्ट्रॉबेरी",
+      "aliases": [
+        "Strawberry"
+      ]
+    },
+    "itm0110": {
+      "name": "ब्लूबेरी",
+      "aliases": [
+        "Blueberry"
+      ]
+    },
+    "itm0111": {
+      "name": "ड्रैगन फ्रूट",
+      "aliases": [
+        "Dragon fruit"
+      ]
+    },
+    "itm0112": {
+      "name": "चीकू",
+      "aliases": [
+        "Chikoo / sapota"
+      ]
+    },
+    "itm0113": {
+      "name": "सीताफल",
+      "aliases": [
+        "Custard apple"
+      ]
+    },
+    "itm0114": {
+      "name": "कटहल",
+      "aliases": [
+        "Jackfruit"
+      ]
+    },
+    "itm0115": {
+      "name": "एवोकाडो",
+      "aliases": [
+        "Avocado"
+      ]
+    },
+    "itm0116": {
+      "name": "लीची",
+      "aliases": [
+        "Litchi"
+      ]
+    },
+    "itm0117": {
+      "name": "जामुन",
+      "aliases": [
+        "Jamun"
+      ]
+    },
+    "itm0118": {
+      "name": "आंवला",
+      "aliases": [
+        "Amla"
+      ]
+    },
+    "itm0119": {
+      "name": "अंजीर",
+      "aliases": [
+        "Fig"
+      ]
+    },
+    "itm0120": {
+      "name": "ताज़ा खजूर",
+      "aliases": [
+        "Dates fresh"
+      ]
+    },
+    "itm0121": {
+      "name": "केला",
+      "aliases": [
+        "Banana"
+      ]
+    },
+    "itm0122": {
+      "name": "नारियल",
+      "aliases": [
+        "Coconut"
+      ]
+    },
+    "itm0123": {
+      "name": "हरा नारियल",
+      "aliases": [
+        "Tender coconut"
+      ]
+    },
+    "itm0124": {
+      "name": "अनानास",
+      "aliases": [
+        "Pineapple"
+      ]
+    },
+    "itm0125": {
+      "name": "तरबूज",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    "itm0126": {
+      "name": "खरबूजा",
+      "aliases": [
+        "Muskmelon"
+      ]
+    },
+    "itm0127": {
+      "name": "पपीता",
+      "aliases": [
+        "Papaya"
+      ]
+    },
+    "itm0128": {
+      "name": "अनार",
+      "aliases": [
+        "Pomegranate"
+      ]
+    },
+    "itm0129": {
+      "name": "कटहल",
+      "aliases": [
+        "Jackfruit"
+      ]
+    },
+    "spinach": {
+      "name": "पालक",
+      "aliases": [
+        "palak",
+        "Spinach / palak"
+      ]
+    },
+    "itm0131": {
+      "name": "मेथी",
+      "aliases": [
+        "Fenugreek leaves / methi"
+      ]
+    },
+    "itm0132": {
+      "name": "चौलाई",
+      "aliases": [
+        "Amaranth leaves / dantina soppu"
+      ]
+    },
+    "itm0133": {
+      "name": "धनिया पत्ती",
+      "aliases": [
+        "Coriander leaves"
+      ]
+    },
+    "itm0134": {
+      "name": "पुदीना",
+      "aliases": [
+        "Mint leaves"
+      ]
+    },
+    "itm0135": {
+      "name": "कड़ी पत्ता",
+      "aliases": [
+        "Curry leaves"
+      ]
+    },
+    "itm0136": {
+      "name": "सोया साग",
+      "aliases": [
+        "Dill leaves / sabbasige soppu"
+      ]
+    },
+    "itm0137": {
+      "name": "हरा प्याज़",
+      "aliases": [
+        "Spring onion"
+      ]
+    },
+    "itm0138": {
+      "name": "सलाद पत्ता",
+      "aliases": [
+        "Lettuce"
+      ]
+    },
+    "itm0139": {
+      "name": "सहजन की पत्तियाँ",
+      "aliases": [
+        "Moringa leaves"
+      ]
+    },
+    "itm0140": {
+      "name": "पोई साग",
+      "aliases": [
+        "Basale soppu / Malabar spinach"
+      ]
+    },
+    "itm0141": {
+      "name": "बेसिल",
+      "aliases": [
+        "Basil"
+      ]
+    },
+    "itm0142": {
+      "name": "पार्सली",
+      "aliases": [
+        "Parsley"
+      ]
+    },
+    "itm0143": {
+      "name": "रोज़मेरी",
+      "aliases": [
+        "Rosemary"
+      ]
+    },
+    "itm0144": {
+      "name": "थाइम",
+      "aliases": [
+        "Thyme"
+      ]
+    },
+    "itm0145": {
+      "name": "ताज़ा ओरेगानो",
+      "aliases": [
+        "Oregano fresh"
+      ]
+    },
+    "milk": {
+      "name": "दूध",
+      "aliases": [
+        "doodh",
+        "dudh",
+        "Milk"
+      ]
+    },
+    "itm0147": {
+      "name": "दही",
+      "aliases": [
+        "Curd / yogurt"
+      ]
+    },
+    "itm0148": {
+      "name": "छाछ",
+      "aliases": [
+        "Buttermilk"
+      ]
+    },
+    "itm0149": {
+      "name": "पनीर",
+      "aliases": [
+        "Paneer"
+      ]
+    },
+    "itm0150": {
+      "name": "चीज़",
+      "aliases": [
+        "Cheese"
+      ]
+    },
+    "itm0151": {
+      "name": "मक्खन",
+      "aliases": [
+        "Butter"
+      ]
+    },
+    "itm0152": {
+      "name": "घी",
+      "aliases": [
+        "Ghee"
+      ]
+    },
+    "itm0153": {
+      "name": "क्रीम",
+      "aliases": [
+        "Cream"
+      ]
+    },
+    "itm0154": {
+      "name": "कंडेंस्ड मिल्क",
+      "aliases": [
+        "Condensed milk"
+      ]
+    },
+    "itm0155": {
+      "name": "दूध पाउडर",
+      "aliases": [
+        "Milk powder"
+      ]
+    },
+    "itm0156": {
+      "name": "मुर्गी के अंडे",
+      "aliases": [
+        "Chicken eggs"
+      ]
+    },
+    "itm0157": {
+      "name": "देसी अंडे",
+      "aliases": [
+        "Country eggs"
+      ]
+    },
+    "itm0158": {
+      "name": "बटेर के अंडे",
+      "aliases": [
+        "Quail eggs"
+      ]
+    },
+    "itm0159": {
+      "name": "चिकन",
+      "aliases": [
+        "Chicken"
+      ]
+    },
+    "itm0160": {
+      "name": "चिकन ब्रेस्ट",
+      "aliases": [
+        "Chicken breast"
+      ]
+    },
+    "itm0161": {
+      "name": "चिकन लेग",
+      "aliases": [
+        "Chicken legs"
+      ]
+    },
+    "itm0162": {
+      "name": "मटन",
+      "aliases": [
+        "Mutton"
+      ]
+    },
+    "itm0163": {
+      "name": "लैम्ब",
+      "aliases": [
+        "Lamb"
+      ]
+    },
+    "itm0164": {
+      "name": "पोर्क",
+      "aliases": [
+        "Pork"
+      ]
+    },
+    "itm0165": {
+      "name": "बत्तख",
+      "aliases": [
+        "Duck"
+      ]
+    },
+    "itm0166": {
+      "name": "मछली",
+      "aliases": [
+        "Fish"
+      ]
+    },
+    "itm0167": {
+      "name": "झींगा",
+      "aliases": [
+        "Prawns"
+      ]
+    },
+    "itm0168": {
+      "name": "केकड़ा",
+      "aliases": [
+        "Crab"
+      ]
+    },
+    "itm0169": {
+      "name": "स्क्विड",
+      "aliases": [
+        "Squid"
+      ]
+    },
+    "itm0170": {
+      "name": "क्लैम",
+      "aliases": [
+        "Clams"
+      ]
+    },
+    "itm0171": {
+      "name": "मसल्स",
+      "aliases": [
+        "Mussels"
+      ]
+    },
+    "itm0172": {
+      "name": "ब्रेड",
+      "aliases": [
+        "Bread loaf"
+      ]
+    },
+    "itm0173": {
+      "name": "ब्राउन ब्रेड",
+      "aliases": [
+        "Brown bread"
+      ]
+    },
+    "itm0174": {
+      "name": "मिल्क ब्रेड",
+      "aliases": [
+        "Milk bread"
+      ]
+    },
+    "itm0175": {
+      "name": "बर्गर बन",
+      "aliases": [
+        "Burger buns"
+      ]
+    },
+    "itm0176": {
+      "name": "पाव",
+      "aliases": [
+        "Pav buns"
+      ]
+    },
+    "itm0177": {
+      "name": "पिज़्ज़ा बेस",
+      "aliases": [
+        "Pizza base"
+      ]
+    },
+    "itm0178": {
+      "name": "टॉर्टिला / रैप",
+      "aliases": [
+        "Tortilla / wraps"
+      ]
+    },
+    "itm0179": {
+      "name": "डिनर रोल",
+      "aliases": [
+        "Pav / dinner rolls"
+      ]
+    },
+    "itm0180": {
+      "name": "रस्क",
+      "aliases": [
+        "Rusk"
+      ]
+    },
+    "itm0181": {
+      "name": "बिस्कुट / कुकीज़",
+      "aliases": [
+        "Cookies / biscuits"
+      ]
+    },
+    "itm0182": {
+      "name": "केक",
+      "aliases": [
+        "Cake"
+      ]
+    },
+    "itm0183": {
+      "name": "क्रोइसैं",
+      "aliases": [
+        "Croissants"
+      ]
+    },
+    "itm0184": {
+      "name": "कॉर्न फ्लेक्स",
+      "aliases": [
+        "Corn flakes"
+      ]
+    },
+    "itm0185": {
+      "name": "म्यूसली",
+      "aliases": [
+        "Muesli"
+      ]
+    },
+    "itm0186": {
+      "name": "ग्रेनोला",
+      "aliases": [
+        "Granola"
+      ]
+    },
+    "itm0187": {
+      "name": "पीनट बटर",
+      "aliases": [
+        "Peanut butter"
+      ]
+    },
+    "itm0188": {
+      "name": "जैम",
+      "aliases": [
+        "Jam"
+      ]
+    },
+    "itm0189": {
+      "name": "शहद",
+      "aliases": [
+        "Honey"
+      ]
+    },
+    "itm0190": {
+      "name": "पैनकेक मिक्स",
+      "aliases": [
+        "Pancake mix"
+      ]
+    },
+    "itm0191": {
+      "name": "डोसा बैटर",
+      "aliases": [
+        "Dosa batter"
+      ]
+    },
+    "itm0192": {
+      "name": "इडली बैटर",
+      "aliases": [
+        "Idli batter"
+      ]
+    },
+    "itm0193": {
+      "name": "चपाती / रोटी पैक",
+      "aliases": [
+        "Chapati / roti pack"
+      ]
+    },
+    "itm0194": {
+      "name": "आलू चिप्स",
+      "aliases": [
+        "Potato chips"
+      ]
+    },
+    "itm0195": {
+      "name": "नमकीन",
+      "aliases": [
+        "Namkeen / mixture"
+      ]
+    },
+    "itm0196": {
+      "name": "चकली",
+      "aliases": [
+        "Chakli"
+      ]
+    },
+    "itm0197": {
+      "name": "मुरुक्कू",
+      "aliases": [
+        "Murukku"
+      ]
+    },
+    "itm0198": {
+      "name": "पॉपकॉर्न",
+      "aliases": [
+        "Popcorn"
+      ]
+    },
+    "itm0199": {
+      "name": "भुना चना",
+      "aliases": [
+        "Roasted chana"
+      ]
+    },
+    "itm0200": {
+      "name": "मखाना",
+      "aliases": [
+        "Makhana"
+      ]
+    },
+    "itm0201": {
+      "name": "चॉकलेट",
+      "aliases": [
+        "Chocolate"
+      ]
+    },
+    "itm0202": {
+      "name": "टॉफी",
+      "aliases": [
+        "Candy"
+      ]
+    },
+    "itm0203": {
+      "name": "आइसक्रीम",
+      "aliases": [
+        "Ice cream"
+      ]
+    },
+    "itm0204": {
+      "name": "एनर्जी बार",
+      "aliases": [
+        "Energy bar"
+      ]
+    },
+    "itm0205": {
+      "name": "सूखे मेवे मिक्स",
+      "aliases": [
+        "Trail mix"
+      ]
+    },
+    "itm0206": {
+      "name": "जीरा",
+      "aliases": [
+        "Cumin seeds"
+      ]
+    },
+    "itm0207": {
+      "name": "राई",
+      "aliases": [
+        "Mustard seeds"
+      ]
+    },
+    "itm0208": {
+      "name": "सौंफ",
+      "aliases": [
+        "Fennel seeds"
+      ]
+    },
+    "itm0209": {
+      "name": "मेथी दाना",
+      "aliases": [
+        "Fenugreek seeds"
+      ]
+    },
+    "itm0210": {
+      "name": "साबुत धनिया",
+      "aliases": [
+        "Coriander seeds"
+      ]
+    },
+    "itm0211": {
+      "name": "काली मिर्च",
+      "aliases": [
+        "Black pepper"
+      ]
+    },
+    "itm0212": {
+      "name": "लौंग",
+      "aliases": [
+        "Cloves"
+      ]
+    },
+    "itm0213": {
+      "name": "इलायची",
+      "aliases": [
+        "Cardamom"
+      ]
+    },
+    "itm0214": {
+      "name": "दालचीनी",
+      "aliases": [
+        "Cinnamon"
+      ]
+    },
+    "itm0215": {
+      "name": "तेज पत्ता",
+      "aliases": [
+        "Bay leaf"
+      ]
+    },
+    "itm0216": {
+      "name": "चक्र फूल",
+      "aliases": [
+        "Star anise"
+      ]
+    },
+    "itm0217": {
+      "name": "सूखी लाल मिर्च",
+      "aliases": [
+        "Dry red chilli"
+      ]
+    },
+    "itm0218": {
+      "name": "खसखस",
+      "aliases": [
+        "Poppy seeds"
+      ]
+    },
+    "itm0219": {
+      "name": "अजवाइन",
+      "aliases": [
+        "Ajwain"
+      ]
+    },
+    "itm0220": {
+      "name": "हींग",
+      "aliases": [
+        "Asafoetida"
+      ]
+    },
+    "itm0221": {
+      "name": "हल्दी पाउडर",
+      "aliases": [
+        "Turmeric powder"
+      ]
+    },
+    "itm0222": {
+      "name": "लाल मिर्च पाउडर",
+      "aliases": [
+        "Red chilli powder"
+      ]
+    },
+    "itm0223": {
+      "name": "धनिया पाउडर",
+      "aliases": [
+        "Coriander powder"
+      ]
+    },
+    "itm0224": {
+      "name": "जीरा पाउडर",
+      "aliases": [
+        "Cumin powder"
+      ]
+    },
+    "itm0225": {
+      "name": "गरम मसाला",
+      "aliases": [
+        "Garam masala"
+      ]
+    },
+    "itm0226": {
+      "name": "सांभर मसाला",
+      "aliases": [
+        "Sambar powder"
+      ]
+    },
+    "itm0227": {
+      "name": "रसम पाउडर",
+      "aliases": [
+        "Rasam powder"
+      ]
+    },
+    "itm0228": {
+      "name": "बिसी बेले बाथ मसाला",
+      "aliases": [
+        "Bisi bele bath powder"
+      ]
+    },
+    "itm0229": {
+      "name": "पाव भाजी मसाला",
+      "aliases": [
+        "Pav bhaji masala"
+      ]
+    },
+    "itm0230": {
+      "name": "चाट मसाला",
+      "aliases": [
+        "Chaat masala"
+      ]
+    },
+    "itm0231": {
+      "name": "काली मिर्च पाउडर",
+      "aliases": [
+        "Pepper powder"
+      ]
+    },
+    "itm0232": {
+      "name": "चिकन मसाला",
+      "aliases": [
+        "Chicken masala"
+      ]
+    },
+    "itm0233": {
+      "name": "फिश मसाला",
+      "aliases": [
+        "Fish masala"
+      ]
+    },
+    "itm0234": {
+      "name": "सूरजमुखी तेल",
+      "aliases": [
+        "Sunflower oil"
+      ]
+    },
+    "itm0235": {
+      "name": "मूंगफली तेल",
+      "aliases": [
+        "Groundnut oil"
+      ]
+    },
+    "itm0236": {
+      "name": "नारियल तेल",
+      "aliases": [
+        "Coconut oil"
+      ]
+    },
+    "itm0237": {
+      "name": "ऑलिव ऑयल",
+      "aliases": [
+        "Olive oil"
+      ]
+    },
+    "itm0238": {
+      "name": "सरसों का तेल",
+      "aliases": [
+        "Mustard oil"
+      ]
+    },
+    "itm0239": {
+      "name": "तिल का तेल",
+      "aliases": [
+        "Sesame oil"
+      ]
+    },
+    "itm0240": {
+      "name": "सिरका",
+      "aliases": [
+        "Vinegar"
+      ]
+    },
+    "itm0241": {
+      "name": "सोया सॉस",
+      "aliases": [
+        "Soy sauce"
+      ]
+    },
+    "itm0242": {
+      "name": "टोमैटो केचप",
+      "aliases": [
+        "Tomato ketchup"
+      ]
+    },
+    "itm0243": {
+      "name": "चिली सॉस",
+      "aliases": [
+        "Chilli sauce"
+      ]
+    },
+    "itm0244": {
+      "name": "मेयोनेज़",
+      "aliases": [
+        "Mayonnaise"
+      ]
+    },
+    "itm0245": {
+      "name": "मस्टर्ड सॉस",
+      "aliases": [
+        "Mustard sauce"
+      ]
+    },
+    "itm0246": {
+      "name": "अचार",
+      "aliases": [
+        "Pickle"
+      ]
+    },
+    "itm0247": {
+      "name": "नारियल का दूध",
+      "aliases": [
+        "Coconut milk"
+      ]
+    },
+    "tea": {
+      "name": "चायपत्ती",
+      "aliases": [
+        "chai",
+        "chai patti",
+        "चाय",
+        "Tea powder"
+      ]
+    },
+    "coffee": {
+      "name": "कॉफ़ी पाउडर",
+      "aliases": [
+        "coffee",
+        "कॉफी",
+        "Coffee powder"
+      ]
+    },
+    "itm0250": {
+      "name": "ग्रीन टी",
+      "aliases": [
+        "Green tea"
+      ]
+    },
+    "itm0251": {
+      "name": "कोको पाउडर",
+      "aliases": [
+        "Cocoa powder"
+      ]
+    },
+    "itm0252": {
+      "name": "ड्रिंकिंग चॉकलेट",
+      "aliases": [
+        "Drinking chocolate"
+      ]
+    },
+    "itm0253": {
+      "name": "पानी की बोतल (पैक्ड)",
+      "aliases": [
+        "Packaged drinking water"
+      ]
+    },
+    "itm0254": {
+      "name": "सोडा",
+      "aliases": [
+        "Soda water"
+      ]
+    },
+    "itm0255": {
+      "name": "फलों का जूस",
+      "aliases": [
+        "Fruit juice"
+      ]
+    },
+    "itm0256": {
+      "name": "नारियल पानी पैक",
+      "aliases": [
+        "Coconut water pack"
+      ]
+    },
+    "itm0257": {
+      "name": "कोल्ड ड्रिंक",
+      "aliases": [
+        "Soft drink"
+      ]
+    },
+    "itm0258": {
+      "name": "इलेक्ट्रोलाइट ड्रिंक",
+      "aliases": [
+        "Electrolyte drink"
+      ]
+    },
+    "itm0259": {
+      "name": "फ्रोज़न मटर",
+      "aliases": [
+        "Frozen peas"
+      ]
+    },
+    "itm0260": {
+      "name": "फ्रोज़न कॉर्न",
+      "aliases": [
+        "Frozen corn"
+      ]
+    },
+    "itm0261": {
+      "name": "फ्रोज़न मिक्स सब्ज़ी",
+      "aliases": [
+        "Frozen mixed vegetables"
+      ]
+    },
+    "itm0262": {
+      "name": "फ्रोज़न पराठा",
+      "aliases": [
+        "Frozen paratha"
+      ]
+    },
+    "itm0263": {
+      "name": "फ्रोज़न फ्राइज़",
+      "aliases": [
+        "Frozen fries"
+      ]
+    },
+    "itm0264": {
+      "name": "फ्रोज़न नगेट्स",
+      "aliases": [
+        "Frozen nuggets"
+      ]
+    },
+    "itm0265": {
+      "name": "फ्रोज़न फिश फिंगर",
+      "aliases": [
+        "Frozen fish fingers"
+      ]
+    },
+    "itm0266": {
+      "name": "रेडी-टू-ईट खाना",
+      "aliases": [
+        "Ready-to-eat meal"
+      ]
+    },
+    "itm0267": {
+      "name": "इंस्टेंट नूडल्स",
+      "aliases": [
+        "Instant noodles"
+      ]
+    },
+    "itm0268": {
+      "name": "पास्ता",
+      "aliases": [
+        "Pasta"
+      ]
+    },
+    "itm0269": {
+      "name": "पास्ता सॉस",
+      "aliases": [
+        "Pasta sauce"
+      ]
+    },
+    "itm0270": {
+      "name": "सूप पैकेट",
+      "aliases": [
+        "Soup packet"
+      ]
+    },
+    "soap": {
+      "name": "नहाने का साबुन",
+      "aliases": [
+        "sabun",
+        "Bath soap"
+      ]
+    },
+    "itm0272": {
+      "name": "बॉडी वॉश",
+      "aliases": [
+        "Body wash"
+      ]
+    },
+    "shampoo": {
+      "name": "शैंपू",
+      "aliases": [
+        "shampoo"
+      ]
+    },
+    "itm0274": {
+      "name": "कंडीशनर",
+      "aliases": [
+        "Conditioner"
+      ]
+    },
+    "hair_oil": {
+      "name": "बालों का तेल",
+      "aliases": [
+        "tel",
+        "Hair oil"
+      ]
+    },
+    "toothpaste": {
+      "name": "टूथपेस्ट",
+      "aliases": [
+        "paste",
+        "manjan",
+        "Toothpaste"
+      ]
+    },
+    "toothbrush": {
+      "name": "टूथब्रश",
+      "aliases": [
+        "brush",
+        "Toothbrush"
+      ]
+    },
+    "itm0278": {
+      "name": "माउथवॉश",
+      "aliases": [
+        "Mouthwash"
+      ]
+    },
+    "itm0279": {
+      "name": "फेस वॉश",
+      "aliases": [
+        "Face wash"
+      ]
+    },
+    "itm0280": {
+      "name": "फेस क्रीम",
+      "aliases": [
+        "Face cream"
+      ]
+    },
+    "itm0281": {
+      "name": "मॉइस्चराइज़र",
+      "aliases": [
+        "Moisturizer"
+      ]
+    },
+    "itm0282": {
+      "name": "सनस्क्रीन",
+      "aliases": [
+        "Sunscreen"
+      ]
+    },
+    "itm0283": {
+      "name": "डियोडरेंट",
+      "aliases": [
+        "Deodorant"
+      ]
+    },
+    "itm0284": {
+      "name": "शेविंग क्रीम",
+      "aliases": [
+        "Shaving cream"
+      ]
+    },
+    "itm0285": {
+      "name": "रेज़र",
+      "aliases": [
+        "Razor"
+      ]
+    },
+    "itm0286": {
+      "name": "सैनिटरी पैड",
+      "aliases": [
+        "Sanitary pads"
+      ]
+    },
+    "itm0287": {
+      "name": "टैम्पोन",
+      "aliases": [
+        "Tampons"
+      ]
+    },
+    "itm0288": {
+      "name": "मेंस्ट्रुअल कप",
+      "aliases": [
+        "Menstrual cup"
+      ]
+    },
+    "itm0289": {
+      "name": "फेस टिश्यू",
+      "aliases": [
+        "Tissue for face"
+      ]
+    },
+    "itm0290": {
+      "name": "ईयर बड्स",
+      "aliases": [
+        "Cotton buds"
+      ]
+    },
+    "comb": {
+      "name": "कंघी",
+      "aliases": [
+        "kanghi",
+        "Hair comb"
+      ]
+    },
+    "itm0292": {
+      "name": "हेयर ब्रश",
+      "aliases": [
+        "Hair brush"
+      ]
+    },
+    "itm0293": {
+      "name": "हेयर कलर",
+      "aliases": [
+        "Hair colour"
+      ]
+    },
+    "itm0294": {
+      "name": "नेल कटर",
+      "aliases": [
+        "Nail cutter"
+      ]
+    },
+    "itm0295": {
+      "name": "नेल पॉलिश रिमूवर",
+      "aliases": [
+        "Nail polish remover"
+      ]
+    },
+    "itm0296": {
+      "name": "हैंड क्रीम",
+      "aliases": [
+        "Hand cream"
+      ]
+    },
+    "itm0297": {
+      "name": "लिप बाम",
+      "aliases": [
+        "Lip balm"
+      ]
+    },
+    "itm0298": {
+      "name": "परफ्यूम",
+      "aliases": [
+        "Perfume"
+      ]
+    },
+    "itm0299": {
+      "name": "बर्तन धोने का लिक्विड",
+      "aliases": [
+        "Dishwashing liquid"
+      ]
+    },
+    "itm0300": {
+      "name": "बर्तन धोने की टिकिया",
+      "aliases": [
+        "Dishwashing bar"
+      ]
+    },
+    "itm0301": {
+      "name": "स्क्रब पैड",
+      "aliases": [
+        "Scrub pad"
+      ]
+    },
+    "itm0302": {
+      "name": "फ़र्श क्लीनर",
+      "aliases": [
+        "Floor cleaner"
+      ]
+    },
+    "itm0303": {
+      "name": "टॉयलेट क्लीनर",
+      "aliases": [
+        "Toilet cleaner"
+      ]
+    },
+    "itm0304": {
+      "name": "ग्लास क्लीनर",
+      "aliases": [
+        "Glass cleaner"
+      ]
+    },
+    "itm0305": {
+      "name": "फिनायल",
+      "aliases": [
+        "Disinfectant"
+      ]
+    },
+    "itm0306": {
+      "name": "ब्लीच",
+      "aliases": [
+        "Bleach"
+      ]
+    },
+    "itm0307": {
+      "name": "डस्टबिन बैग",
+      "aliases": [
+        "Garbage bin liner"
+      ]
+    },
+    "itm0308": {
+      "name": "सफ़ाई का कपड़ा",
+      "aliases": [
+        "Cleaning cloth"
+      ]
+    },
+    "itm0309": {
+      "name": "माइक्रोफाइबर कपड़ा",
+      "aliases": [
+        "Microfiber cloth"
+      ]
+    },
+    "itm0310": {
+      "name": "स्पंज",
+      "aliases": [
+        "Sponge"
+      ]
+    },
+    "itm0311": {
+      "name": "झाड़ू",
+      "aliases": [
+        "Broom"
+      ]
+    },
+    "itm0312": {
+      "name": "पोछा रिफिल",
+      "aliases": [
+        "Mop refill"
+      ]
+    },
+    "itm0313": {
+      "name": "डस्टर",
+      "aliases": [
+        "Duster"
+      ]
+    },
+    "itm0314": {
+      "name": "ड्रेन क्लीनर",
+      "aliases": [
+        "Drain cleaner"
+      ]
+    },
+    "itm0315": {
+      "name": "कपड़े धोने का पाउडर",
+      "aliases": [
+        "Laundry detergent powder"
+      ]
+    },
+    "itm0316": {
+      "name": "लॉन्ड्री लिक्विड",
+      "aliases": [
+        "Laundry liquid"
+      ]
+    },
+    "itm0317": {
+      "name": "फैब्रिक कंडीशनर",
+      "aliases": [
+        "Fabric conditioner"
+      ]
+    },
+    "itm0318": {
+      "name": "दाग हटाने वाला",
+      "aliases": [
+        "Stain remover"
+      ]
+    },
+    "itm0319": {
+      "name": "कपड़े धोने का ब्रश",
+      "aliases": [
+        "Laundry brush"
+      ]
+    },
+    "itm0320": {
+      "name": "कपड़े सुखाने की रस्सी",
+      "aliases": [
+        "Clothesline"
+      ]
+    },
+    "itm0321": {
+      "name": "कपड़े के क्लिप",
+      "aliases": [
+        "Cloth clips"
+      ]
+    },
+    "itm0322": {
+      "name": "टॉयलेट पेपर रोल",
+      "aliases": [
+        "Toilet paper roll"
+      ]
+    },
+    "itm0323": {
+      "name": "किचन टिश्यू रोल",
+      "aliases": [
+        "Kitchen paper towel roll"
+      ]
+    },
+    "itm0324": {
+      "name": "टिश्यू बॉक्स",
+      "aliases": [
+        "Facial tissue box"
+      ]
+    },
+    "itm0325": {
+      "name": "पेपर नैपकिन",
+      "aliases": [
+        "Paper napkins"
+      ]
+    },
+    "itm0326": {
+      "name": "पेपर प्लेट",
+      "aliases": [
+        "Paper plates"
+      ]
+    },
+    "itm0327": {
+      "name": "पेपर कप",
+      "aliases": [
+        "Paper cups"
+      ]
+    },
+    "itm0328": {
+      "name": "पेपर कटोरी",
+      "aliases": [
+        "Paper bowls"
+      ]
+    },
+    "itm0329": {
+      "name": "पेपर स्ट्रॉ",
+      "aliases": [
+        "Disposable paper straws"
+      ]
+    },
+    "itm0330": {
+      "name": "एल्युमिनियम फ़ॉइल रोल",
+      "aliases": [
+        "Aluminium foil roll"
+      ]
+    },
+    "itm0331": {
+      "name": "क्लिंग फिल्म रोल",
+      "aliases": [
+        "Cling film roll"
+      ]
+    },
+    "itm0332": {
+      "name": "बटर पेपर रोल",
+      "aliases": [
+        "Parchment paper roll"
+      ]
+    },
+    "itm0333": {
+      "name": "ज़िप-लॉक बैग",
+      "aliases": [
+        "Zip-lock bags"
+      ]
+    },
+    "itm0334": {
+      "name": "डिस्पोज़ेबल दस्ताने",
+      "aliases": [
+        "Disposable gloves"
+      ]
+    },
+    "itm0335": {
+      "name": "डिस्पोज़ेबल मास्क",
+      "aliases": [
+        "Disposable masks"
+      ]
+    },
+    "itm0336": {
+      "name": "फ़ूड स्टोरेज बैग",
+      "aliases": [
+        "Food storage bags"
+      ]
+    },
+    "itm0337": {
+      "name": "डिस्पोज़ेबल चम्मच",
+      "aliases": [
+        "Disposable spoons"
+      ]
+    },
+    "itm0338": {
+      "name": "डिस्पोज़ेबल कांटे",
+      "aliases": [
+        "Disposable forks"
+      ]
+    },
+    "itm0339": {
+      "name": "डिस्पोज़ेबल डिब्बे",
+      "aliases": [
+        "Disposable containers"
+      ]
+    },
+    "itm0340": {
+      "name": "बर्तन का स्पंज",
+      "aliases": [
+        "Dish sponge"
+      ]
+    },
+    "itm0341": {
+      "name": "स्क्रब ब्रश",
+      "aliases": [
+        "Scrub brush"
+      ]
+    },
+    "itm0342": {
+      "name": "बर्तन स्टैंड",
+      "aliases": [
+        "Dish rack"
+      ]
+    },
+    "itm0343": {
+      "name": "खाने के डिब्बे",
+      "aliases": [
+        "Food containers"
+      ]
+    },
+    "itm0344": {
+      "name": "पानी की बोतल",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0345": {
+      "name": "लंच बॉक्स",
+      "aliases": [
+        "Lunch box"
+      ]
+    },
+    "itm0346": {
+      "name": "कूड़ेदान",
+      "aliases": [
+        "Garbage bin"
+      ]
+    },
+    "itm0347": {
+      "name": "कचरे की थैलियाँ",
+      "aliases": [
+        "Garbage bags"
+      ]
+    },
+    "itm0348": {
+      "name": "बेकिंग पेपर",
+      "aliases": [
+        "Baking paper"
+      ]
+    },
+    "itm0349": {
+      "name": "रसोई की डोरी",
+      "aliases": [
+        "Kitchen twine"
+      ]
+    },
+    "itm0350": {
+      "name": "माचिस",
+      "aliases": [
+        "Matchbox"
+      ]
+    },
+    "itm0351": {
+      "name": "गैस लाइटर",
+      "aliases": [
+        "Gas lighter"
+      ]
+    },
+    "itm0352": {
+      "name": "एलईडी बल्ब",
+      "aliases": [
+        "LED bulb"
+      ]
+    },
+    "itm0353": {
+      "name": "बैटरी AA",
+      "aliases": [
+        "Batteries AA"
+      ]
+    },
+    "itm0354": {
+      "name": "बैटरी AAA",
+      "aliases": [
+        "Batteries AAA"
+      ]
+    },
+    "extension_board": {
+      "name": "एक्सटेंशन बोर्ड",
+      "aliases": [
+        "extension",
+        "Extension board"
+      ]
+    },
+    "itm0356": {
+      "name": "इलेक्ट्रिकल टेप",
+      "aliases": [
+        "Electrical tape"
+      ]
+    },
+    "itm0357": {
+      "name": "सेलो टेप",
+      "aliases": [
+        "Adhesive tape"
+      ]
+    },
+    "itm0358": {
+      "name": "गोंद",
+      "aliases": [
+        "Glue"
+      ]
+    },
+    "itm0359": {
+      "name": "सुपर ग्लू",
+      "aliases": [
+        "Super glue"
+      ]
+    },
+    "itm0360": {
+      "name": "पेंच",
+      "aliases": [
+        "Screws"
+      ]
+    },
+    "itm0361": {
+      "name": "दीवार के हुक",
+      "aliases": [
+        "Wall hooks"
+      ]
+    },
+    "itm0362": {
+      "name": "डोर स्टॉपर",
+      "aliases": [
+        "Door stopper"
+      ]
+    },
+    "itm0363": {
+      "name": "पाइप टेप",
+      "aliases": [
+        "Pipe tape"
+      ]
+    },
+    "itm0364": {
+      "name": "एयर फ्रेशनर",
+      "aliases": [
+        "Air freshener"
+      ]
+    },
+    "itm0365": {
+      "name": "मच्छर भगाने का रिफिल",
+      "aliases": [
+        "Mosquito repellent refill"
+      ]
+    },
+    "itm0366": {
+      "name": "कॉकरोच जेल",
+      "aliases": [
+        "Cockroach bait"
+      ]
+    },
+    "bandage": {
+      "name": "बैंड-एड",
+      "aliases": [
+        "patti",
+        "bandage",
+        "Adhesive bandages"
+      ]
+    },
+    "itm0368": {
+      "name": "स्टेराइल गॉज़",
+      "aliases": [
+        "Sterile gauze"
+      ]
+    },
+    "itm0369": {
+      "name": "मेडिकल टेप",
+      "aliases": [
+        "Medical tape"
+      ]
+    },
+    "itm0370": {
+      "name": "रुई का रोल",
+      "aliases": [
+        "Cotton roll"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "एंटीसेप्टिक लिक्विड",
+      "aliases": [
+        "antiseptic",
+        "Antiseptic solution"
+      ]
+    },
+    "itm0372": {
+      "name": "डिजिटल थर्मामीटर",
+      "aliases": [
+        "Digital thermometer"
+      ]
+    },
+    "itm0373": {
+      "name": "गरम पानी की थैली",
+      "aliases": [
+        "Hot water bag"
+      ]
+    },
+    "itm0374": {
+      "name": "इंस्टेंट कोल्ड पैक",
+      "aliases": [
+        "Instant cold pack"
+      ]
+    },
+    "itm0375": {
+      "name": "हैंड सैनिटाइज़र",
+      "aliases": [
+        "Hand sanitizer"
+      ]
+    },
+    "itm0376": {
+      "name": "मेडिकल दस्ताने",
+      "aliases": [
+        "Disposable medical gloves"
+      ]
+    },
+    "ors": {
+      "name": "ओआरएस पैकेट",
+      "aliases": [
+        "ors",
+        "ORS sachets"
+      ]
+    },
+    "itm0378": {
+      "name": "बेबी डायपर",
+      "aliases": [
+        "Baby diapers"
+      ]
+    },
+    "itm0379": {
+      "name": "बेबी वाइप्स",
+      "aliases": [
+        "Baby wipes"
+      ]
+    },
+    "itm0380": {
+      "name": "बेबी वॉश",
+      "aliases": [
+        "Baby wash"
+      ]
+    },
+    "itm0381": {
+      "name": "बेबी शैंपू",
+      "aliases": [
+        "Baby shampoo"
+      ]
+    },
+    "itm0382": {
+      "name": "बेबी लोशन",
+      "aliases": [
+        "Baby lotion"
+      ]
+    },
+    "itm0383": {
+      "name": "डायपर रैश क्रीम",
+      "aliases": [
+        "Diaper rash cream"
+      ]
+    },
+    "itm0384": {
+      "name": "बेबी पाउडर",
+      "aliases": [
+        "Baby powder"
+      ]
+    },
+    "itm0385": {
+      "name": "बेबी फ़ूड",
+      "aliases": [
+        "Baby food"
+      ]
+    },
+    "itm0386": {
+      "name": "दूध की बोतल",
+      "aliases": [
+        "Feeding bottle"
+      ]
+    },
+    "itm0387": {
+      "name": "बोतल साफ़ करने का ब्रश",
+      "aliases": [
+        "Bottle cleaning brush"
+      ]
+    },
+    "itm0388": {
+      "name": "स्कूल की कॉपियाँ",
+      "aliases": [
+        "School notebooks"
+      ]
+    },
+    "itm0389": {
+      "name": "क्रेयॉन",
+      "aliases": [
+        "Crayons"
+      ]
+    },
+    "itm0390": {
+      "name": "रंगीन पेंसिलें",
+      "aliases": [
+        "Colour pencils"
+      ]
+    },
+    "itm0391": {
+      "name": "स्कूल लेबल",
+      "aliases": [
+        "School labels"
+      ]
+    },
+    "itm0392": {
+      "name": "लंच बॉक्स",
+      "aliases": [
+        "Lunch box"
+      ]
+    },
+    "itm0393": {
+      "name": "पानी की बोतल",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0394": {
+      "name": "स्कूल के मोज़े",
+      "aliases": [
+        "School socks"
+      ]
+    },
+    "itm0395": {
+      "name": "स्कूल यूनिफ़ॉर्म",
+      "aliases": [
+        "School uniform"
+      ]
+    },
+    "itm0396": {
+      "name": "पालतू का खाना",
+      "aliases": [
+        "Pet food"
+      ]
+    },
+    "itm0397": {
+      "name": "कैट लिटर",
+      "aliases": [
+        "Cat litter"
+      ]
+    },
+    "itm0398": {
+      "name": "पेट शैंपू",
+      "aliases": [
+        "Pet shampoo"
+      ]
+    },
+    "itm0399": {
+      "name": "पेट ट्रीट्स",
+      "aliases": [
+        "Pet treats"
+      ]
+    },
+    "itm0400": {
+      "name": "पॉटी बैग",
+      "aliases": [
+        "Poop bags"
+      ]
+    },
+    "itm0401": {
+      "name": "पेट पैड",
+      "aliases": [
+        "Pet pads"
+      ]
+    },
+    "itm0402": {
+      "name": "पेट ब्रश",
+      "aliases": [
+        "Pet brush"
+      ]
+    },
+    "itm0403": {
+      "name": "पशु डॉक्टर की दवा",
+      "aliases": [
+        "Pet medication prescribed by vet"
+      ]
+    },
+    "notebook": {
+      "name": "कॉपी",
+      "aliases": [
+        "copy",
+        "notebook"
+      ]
+    },
+    "pen": {
+      "name": "पेन",
+      "aliases": [
+        "pen",
+        "kalam"
+      ]
+    },
+    "pencil": {
+      "name": "पेंसिल",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "रबड़",
+      "aliases": [
+        "rubber",
+        "eraser"
+      ]
+    },
+    "itm0408": {
+      "name": "शार्पनर",
+      "aliases": [
+        "Sharpener"
+      ]
+    },
+    "itm0409": {
+      "name": "हाईलाइटर",
+      "aliases": [
+        "Highlighter"
+      ]
+    },
+    "itm0410": {
+      "name": "परमानेंट मार्कर",
+      "aliases": [
+        "Permanent marker"
+      ]
+    },
+    "itm0411": {
+      "name": "व्हाइटबोर्ड मार्कर",
+      "aliases": [
+        "Whiteboard marker"
+      ]
+    },
+    "itm0412": {
+      "name": "स्टिकी नोट्स",
+      "aliases": [
+        "Sticky notes"
+      ]
+    },
+    "itm0413": {
+      "name": "प्रिंटर पेपर",
+      "aliases": [
+        "Printer paper"
+      ]
+    },
+    "itm0414": {
+      "name": "फ़ाइल फ़ोल्डर",
+      "aliases": [
+        "File folder"
+      ]
+    },
+    "itm0415": {
+      "name": "लिफ़ाफ़ा",
+      "aliases": [
+        "Envelope"
+      ]
+    },
+    "stapler": {
+      "name": "स्टैपलर",
+      "aliases": [
+        "stapler"
+      ]
+    },
+    "itm0417": {
+      "name": "स्टैपल पिन",
+      "aliases": [
+        "Staples"
+      ]
+    },
+    "itm0418": {
+      "name": "पेपर क्लिप",
+      "aliases": [
+        "Paper clips"
+      ]
+    },
+    "itm0419": {
+      "name": "बाइंडर क्लिप",
+      "aliases": [
+        "Binder clips"
+      ]
+    },
+    "scissors": {
+      "name": "कैंची",
+      "aliases": [
+        "kainchi",
+        "Scissors"
+      ]
+    },
+    "itm0421": {
+      "name": "ग्लू स्टिक",
+      "aliases": [
+        "Glue stick"
+      ]
+    },
+    "itm0422": {
+      "name": "करेक्शन टेप",
+      "aliases": [
+        "Correction tape"
+      ]
+    },
+    "itm0423": {
+      "name": "प्रिंटर इंक कार्ट्रिज",
+      "aliases": [
+        "Printer ink cartridge"
+      ]
+    },
+    "itm0424": {
+      "name": "टोनर कार्ट्रिज",
+      "aliases": [
+        "Toner cartridge"
+      ]
+    },
+    "itm0425": {
+      "name": "आईडी कार्ड होल्डर",
+      "aliases": [
+        "ID card holder"
+      ]
+    },
+    "itm0426": {
+      "name": "डेस्क ऑर्गनाइज़र",
+      "aliases": [
+        "Desk organizer"
+      ]
+    },
+    "itm0427": {
+      "name": "व्हाइटबोर्ड",
+      "aliases": [
+        "Whiteboard"
+      ]
+    },
+    "itm0428": {
+      "name": "व्हाइटबोर्ड डस्टर",
+      "aliases": [
+        "Whiteboard duster"
+      ]
+    },
+    "itm0429": {
+      "name": "डायरी / प्लानर",
+      "aliases": [
+        "Diary / planner"
+      ]
+    },
+    "itm0430": {
+      "name": "पैकिंग टेप",
+      "aliases": [
+        "Packaging tape"
+      ]
+    },
+    "itm0431": {
+      "name": "यूएसबी केबल",
+      "aliases": [
+        "USB cable"
+      ]
+    },
+    "itm0432": {
+      "name": "टाइप-सी केबल",
+      "aliases": [
+        "USB-C cable"
+      ]
+    },
+    "charger": {
+      "name": "फ़ोन चार्जर",
+      "aliases": [
+        "charger",
+        "Phone charger"
+      ]
+    },
+    "power_bank": {
+      "name": "पावर बैंक",
+      "aliases": [
+        "power bank"
+      ]
+    },
+    "earphones": {
+      "name": "ईयरफ़ोन",
+      "aliases": [
+        "earphone",
+        "Earphones"
+      ]
+    },
+    "itm0436": {
+      "name": "हेडफ़ोन",
+      "aliases": [
+        "Headphones"
+      ]
+    },
+    "itm0437": {
+      "name": "माउस",
+      "aliases": [
+        "Mouse"
+      ]
+    },
+    "itm0438": {
+      "name": "कीबोर्ड",
+      "aliases": [
+        "Keyboard"
+      ]
+    },
+    "itm0439": {
+      "name": "एचडीएमआई केबल",
+      "aliases": [
+        "HDMI cable"
+      ]
+    },
+    "itm0440": {
+      "name": "पेन ड्राइव",
+      "aliases": [
+        "USB drive"
+      ]
+    },
+    "itm0441": {
+      "name": "मेमोरी कार्ड",
+      "aliases": [
+        "Memory card"
+      ]
+    },
+    "itm0442": {
+      "name": "लैपटॉप कवर",
+      "aliases": [
+        "Laptop sleeve"
+      ]
+    },
+    "itm0443": {
+      "name": "स्क्रीन गार्ड",
+      "aliases": [
+        "Screen protector"
+      ]
+    },
+    "itm0444": {
+      "name": "फ़ोन कवर",
+      "aliases": [
+        "Phone case"
+      ]
+    },
+    "itm0445": {
+      "name": "वेबकैम",
+      "aliases": [
+        "Webcam"
+      ]
+    },
+    "itm0446": {
+      "name": "सूटकेस",
+      "aliases": [
+        "Suitcase"
+      ]
+    },
+    "itm0447": {
+      "name": "ट्रैवल बैकपैक",
+      "aliases": [
+        "Travel backpack"
+      ]
+    },
+    "itm0448": {
+      "name": "पैकिंग क्यूब्स",
+      "aliases": [
+        "Packing cubes"
+      ]
+    },
+    "itm0449": {
+      "name": "ट्रैवल साइज़ टॉयलेट्रीज़",
+      "aliases": [
+        "Travel-size toiletries"
+      ]
+    },
+    "itm0450": {
+      "name": "ट्रैवल अडैप्टर",
+      "aliases": [
+        "Travel adapter"
+      ]
+    },
+    "itm0451": {
+      "name": "नेक पिलो",
+      "aliases": [
+        "Neck pillow"
+      ]
+    },
+    "itm0452": {
+      "name": "आई मास्क",
+      "aliases": [
+        "Eye mask"
+      ]
+    },
+    "itm0453": {
+      "name": "बैग का ताला",
+      "aliases": [
+        "Luggage lock"
+      ]
+    },
+    "itm0454": {
+      "name": "रेन पोंचो",
+      "aliases": [
+        "Rain poncho"
+      ]
+    },
+    "itm0455": {
+      "name": "छाता",
+      "aliases": [
+        "Umbrella"
+      ]
+    },
+    "itm0456": {
+      "name": "रीयूज़ेबल बोतल",
+      "aliases": [
+        "Reusable water bottle"
+      ]
+    },
+    "itm0457": {
+      "name": "फ़र्स्ट-एड ट्रैवल किट",
+      "aliases": [
+        "First-aid travel kit"
+      ]
+    },
+    "itm0458": {
+      "name": "सनस्क्रीन ट्रैवल पैक",
+      "aliases": [
+        "Sunscreen travel pack"
+      ]
+    },
+    "t_shirt": {
+      "name": "टी-शर्ट",
+      "aliases": [
+        "tshirt",
+        "T-shirt"
+      ]
+    },
+    "shirt": {
+      "name": "शर्ट",
+      "aliases": [
+        "kameez",
+        "shirt"
+      ]
+    },
+    "pants": {
+      "name": "पैंट",
+      "aliases": [
+        "pant",
+        "patloon",
+        "Trousers"
+      ]
+    },
+    "itm0462": {
+      "name": "जीन्स",
+      "aliases": [
+        "Jeans"
+      ]
+    },
+    "itm0463": {
+      "name": "अंडरगारमेंट्स",
+      "aliases": [
+        "Innerwear"
+      ]
+    },
+    "socks": {
+      "name": "मोज़े",
+      "aliases": [
+        "moze",
+        "socks"
+      ]
+    },
+    "itm0465": {
+      "name": "नाइट ड्रेस",
+      "aliases": [
+        "Nightwear"
+      ]
+    },
+    "itm0466": {
+      "name": "पारंपरिक कपड़े",
+      "aliases": [
+        "Traditional wear"
+      ]
+    },
+    "itm0467": {
+      "name": "जैकेट",
+      "aliases": [
+        "Jacket"
+      ]
+    },
+    "itm0468": {
+      "name": "रेनकोट",
+      "aliases": [
+        "Raincoat"
+      ]
+    },
+    "itm0469": {
+      "name": "बेल्ट",
+      "aliases": [
+        "Belt"
+      ]
+    },
+    "itm0470": {
+      "name": "टोपी",
+      "aliases": [
+        "Cap"
+      ]
+    },
+    "itm0471": {
+      "name": "स्कार्फ़",
+      "aliases": [
+        "Scarf"
+      ]
+    },
+    "itm0472": {
+      "name": "रूमाल",
+      "aliases": [
+        "Handkerchief"
+      ]
+    },
+    "itm0473": {
+      "name": "रोज़ की चप्पल",
+      "aliases": [
+        "Daily slippers"
+      ]
+    },
+    "itm0474": {
+      "name": "सैंडल",
+      "aliases": [
+        "Sandals"
+      ]
+    },
+    "shoes": {
+      "name": "जूते",
+      "aliases": [
+        "joote",
+        "shoes"
+      ]
+    },
+    "itm0476": {
+      "name": "जूता पॉलिश",
+      "aliases": [
+        "Shoe polish"
+      ]
+    },
+    "itm0477": {
+      "name": "जूते का ब्रश",
+      "aliases": [
+        "Shoe brush"
+      ]
+    },
+    "itm0478": {
+      "name": "जूते के इनसोल",
+      "aliases": [
+        "Shoe insoles"
+      ]
+    },
+    "itm0479": {
+      "name": "आधार का काम",
+      "aliases": [
+        "Aadhaar-related task"
+      ]
+    },
+    "itm0480": {
+      "name": "पैन कार्ड का काम",
+      "aliases": [
+        "PAN-related task"
+      ]
+    },
+    "passport": {
+      "name": "पासपोर्ट",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "driving_licence": {
+      "name": "ड्राइविंग लाइसेंस",
+      "aliases": [
+        "dl",
+        "licence",
+        "Driving licence"
+      ]
+    },
+    "itm0483": {
+      "name": "गाड़ी का बीमा",
+      "aliases": [
+        "Vehicle insurance document"
+      ]
+    },
+    "itm0484": {
+      "name": "हेल्थ इंश्योरेंस पॉलिसी",
+      "aliases": [
+        "Health insurance policy"
+      ]
+    },
+    "itm0485": {
+      "name": "बैंक स्टेटमेंट",
+      "aliases": [
+        "Bank statement"
+      ]
+    },
+    "itm0486": {
+      "name": "सैलरी स्लिप",
+      "aliases": [
+        "Payslip"
+      ]
+    },
+    "itm0487": {
+      "name": "एक्सपीरियंस लेटर",
+      "aliases": [
+        "Experience letter"
+      ]
+    },
+    "itm0488": {
+      "name": "रिलीविंग लेटर",
+      "aliases": [
+        "Relieving letter"
+      ]
+    },
+    "itm0489": {
+      "name": "टैक्स के कागज़ात",
+      "aliases": [
+        "Tax document"
+      ]
+    },
+    "itm0490": {
+      "name": "रेंट एग्रीमेंट",
+      "aliases": [
+        "Rental agreement"
+      ]
+    },
+    "itm0491": {
+      "name": "घर के बिल",
+      "aliases": [
+        "Utility bill"
+      ]
+    },
+    "itm0492": {
+      "name": "वारंटी रसीद",
+      "aliases": [
+        "Warranty receipt"
+      ]
+    },
+    "itm0493": {
+      "name": "पाठ्यपुस्तकें",
+      "aliases": [
+        "Textbooks"
+      ]
+    },
+    "itm0494": {
+      "name": "संदर्भ पुस्तकें",
+      "aliases": [
+        "Reference books"
+      ]
+    },
+    "itm0495": {
+      "name": "प्रैक्टिस पेपर",
+      "aliases": [
+        "Practice papers"
+      ]
+    },
+    "itm0496": {
+      "name": "परीक्षा फॉर्म",
+      "aliases": [
+        "Exam application"
+      ]
+    },
+    "hall_ticket": {
+      "name": "हॉल टिकट",
+      "aliases": [
+        "admit card",
+        "hall ticket"
+      ]
+    },
+    "itm0498": {
+      "name": "परीक्षा के लिए आईडी",
+      "aliases": [
+        "ID proof for exam"
+      ]
+    },
+    "itm0499": {
+      "name": "परीक्षा के पेन",
+      "aliases": [
+        "Pens for exam"
+      ]
+    },
+    "itm0500": {
+      "name": "परीक्षा की पेंसिलें",
+      "aliases": [
+        "Pencils for exam"
+      ]
+    },
+    "itm0501": {
+      "name": "ज्यामिति बॉक्स",
+      "aliases": [
+        "Geometry box"
+      ]
+    },
+    "calculator": {
+      "name": "कैलकुलेटर",
+      "aliases": [
+        "calculator"
+      ]
+    },
+    "itm0503": {
+      "name": "फ्लैश कार्ड",
+      "aliases": [
+        "Flash cards"
+      ]
+    },
+    "itm0504": {
+      "name": "पढ़ाई का टाइम टेबल",
+      "aliases": [
+        "Study timetable"
+      ]
+    },
+    "itm0505": {
+      "name": "स्पोर्ट्स शूज़",
+      "aliases": [
+        "Sports shoes"
+      ]
+    },
+    "itm0506": {
+      "name": "वर्कआउट के कपड़े",
+      "aliases": [
+        "Workout clothes"
+      ]
+    },
+    "itm0507": {
+      "name": "योगा मैट",
+      "aliases": [
+        "Yoga mat"
+      ]
+    },
+    "itm0508": {
+      "name": "रेज़िस्टेंस बैंड",
+      "aliases": [
+        "Resistance bands"
+      ]
+    },
+    "itm0509": {
+      "name": "कूदने की रस्सी",
+      "aliases": [
+        "Skipping rope"
+      ]
+    },
+    "itm0510": {
+      "name": "पानी की बोतल",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0511": {
+      "name": "जिम तौलिया",
+      "aliases": [
+        "Gym towel"
+      ]
+    },
+    "itm0512": {
+      "name": "प्रोटीन शेकर",
+      "aliases": [
+        "Protein shaker"
+      ]
+    },
+    "itm0513": {
+      "name": "खेल की गेंद",
+      "aliases": [
+        "Sports ball"
+      ]
+    },
+    "itm0514": {
+      "name": "स्पोर्ट्स मोज़े",
+      "aliases": [
+        "Sports socks"
+      ]
+    },
+    "itm0515": {
+      "name": "पॉटिंग मिक्स",
+      "aliases": [
+        "Potting mix"
+      ]
+    },
+    "itm0516": {
+      "name": "खाद",
+      "aliases": [
+        "Compost"
+      ]
+    },
+    "itm0517": {
+      "name": "कोकोपीट",
+      "aliases": [
+        "Cocopeat"
+      ]
+    },
+    "itm0518": {
+      "name": "बीज",
+      "aliases": [
+        "Seeds"
+      ]
+    },
+    "itm0519": {
+      "name": "नर्सरी ट्रे",
+      "aliases": [
+        "Seedling tray"
+      ]
+    },
+    "itm0520": {
+      "name": "गमले",
+      "aliases": [
+        "Plant pots"
+      ]
+    },
+    "itm0521": {
+      "name": "झारा",
+      "aliases": [
+        "Watering can"
+      ]
+    },
+    "itm0522": {
+      "name": "बागवानी दस्ताने",
+      "aliases": [
+        "Garden gloves"
+      ]
+    },
+    "itm0523": {
+      "name": "प्रूनिंग कैंची",
+      "aliases": [
+        "Pruning shears"
+      ]
+    },
+    "itm0524": {
+      "name": "ड्रिप कनेक्टर",
+      "aliases": [
+        "Drip connector"
+      ]
+    },
+    "itm0525": {
+      "name": "मल्च",
+      "aliases": [
+        "Mulch"
+      ]
+    },
+    "itm0526": {
+      "name": "पौधों के लेबल",
+      "aliases": [
+        "Plant labels"
+      ]
+    },
+    "itm0527": {
+      "name": "ईंधन",
+      "aliases": [
+        "Fuel"
+      ]
+    },
+    "itm0528": {
+      "name": "इंजन ऑयल",
+      "aliases": [
+        "Engine oil"
+      ]
+    },
+    "itm0529": {
+      "name": "कूलेंट",
+      "aliases": [
+        "Coolant"
+      ]
+    },
+    "itm0530": {
+      "name": "वाइपर फ्लूइड",
+      "aliases": [
+        "Wiper fluid"
+      ]
+    },
+    "itm0531": {
+      "name": "टायर प्रेशर जाँच",
+      "aliases": [
+        "Tyre pressure check"
+      ]
+    },
+    "itm0532": {
+      "name": "पंक्चर किट",
+      "aliases": [
+        "Puncture kit"
+      ]
+    },
+    "itm0533": {
+      "name": "हेलमेट",
+      "aliases": [
+        "Helmet"
+      ]
+    },
+    "itm0534": {
+      "name": "रिफ्लेक्टिव जैकेट",
+      "aliases": [
+        "Reflective vest"
+      ]
+    },
+    "itm0535": {
+      "name": "गाड़ी साफ़ करने का कपड़ा",
+      "aliases": [
+        "Vehicle cleaning cloth"
+      ]
+    },
+    "itm0536": {
+      "name": "फास्टैग रिचार्ज",
+      "aliases": [
+        "Fastag recharge"
+      ]
+    },
+    "itm0537": {
+      "name": "जन्मदिन की मोमबत्तियाँ",
+      "aliases": [
+        "Birthday candles"
+      ]
+    },
+    "itm0538": {
+      "name": "केक टॉपर",
+      "aliases": [
+        "Cake topper"
+      ]
+    },
+    "balloons": {
+      "name": "गुब्बारे",
+      "aliases": [
+        "gubbare",
+        "balloon",
+        "Balloons"
+      ]
+    },
+    "itm0540": {
+      "name": "गिफ़्ट रैप",
+      "aliases": [
+        "Gift wrap"
+      ]
+    },
+    "greeting_card": {
+      "name": "ग्रीटिंग कार्ड",
+      "aliases": [
+        "greeting card"
+      ]
+    },
+    "itm0542": {
+      "name": "गिफ़्ट बैग",
+      "aliases": [
+        "Gift bag"
+      ]
+    },
+    "itm0543": {
+      "name": "पार्टी प्लेट",
+      "aliases": [
+        "Party plates"
+      ]
+    },
+    "itm0544": {
+      "name": "पार्टी कप",
+      "aliases": [
+        "Party cups"
+      ]
+    },
+    "decorative_lights": {
+      "name": "लाइट की झालर",
+      "aliases": [
+        "jhalar",
+        "serial lights",
+        "String lights"
+      ]
+    },
+    "itm0546": {
+      "name": "सजावट का सामान",
+      "aliases": [
+        "Decorations"
+      ]
+    },
+    "itm0547": {
+      "name": "रिटर्न गिफ़्ट",
+      "aliases": [
+        "Return gifts"
+      ]
+    },
+    "itm0548": {
+      "name": "बिजली बिल भरना",
+      "aliases": [
+        "Pay electricity bill"
+      ]
+    },
+    "itm0549": {
+      "name": "पानी का बिल भरना",
+      "aliases": [
+        "Pay water bill"
+      ]
+    },
+    "itm0550": {
+      "name": "इंटरनेट बिल भरना",
+      "aliases": [
+        "Pay internet bill"
+      ]
+    },
+    "itm0551": {
+      "name": "मोबाइल रिचार्ज",
+      "aliases": [
+        "Mobile recharge"
+      ]
+    },
+    "itm0552": {
+      "name": "फ़ोन का बैकअप",
+      "aliases": [
+        "Back up phone"
+      ]
+    },
+    "itm0553": {
+      "name": "लैपटॉप का बैकअप",
+      "aliases": [
+        "Back up laptop"
+      ]
+    },
+    "itm0554": {
+      "name": "ऐप अपडेट करना",
+      "aliases": [
+        "Update apps"
+      ]
+    },
+    "itm0555": {
+      "name": "डोमेन रिन्यू करना",
+      "aliases": [
+        "Renew domain"
+      ]
+    },
+    "itm0556": {
+      "name": "सब्सक्रिप्शन रिन्यू करना",
+      "aliases": [
+        "Renew subscription"
+      ]
+    },
+    "itm0557": {
+      "name": "बजट देखना",
+      "aliases": [
+        "Review budget"
+      ]
+    },
+    "itm0558": {
+      "name": "हेल्थ चेक-अप बुक करना",
+      "aliases": [
+        "Schedule health check-up"
+      ]
+    },
+    "itm0559": {
+      "name": "बीमा रिन्यूअल देखना",
+      "aliases": [
+        "Check insurance renewal"
+      ]
+    },
+    "itm0560": {
+      "name": "ईमेल इनबॉक्स साफ़ करना",
+      "aliases": [
+        "Clean email inbox"
+      ]
+    },
+    "itm0561": {
+      "name": "पासवर्ड बदलना",
+      "aliases": [
+        "Change passwords"
+      ]
+    },
+    "itm0562": {
+      "name": "कैलेंडर देखना",
+      "aliases": [
+        "Review calendar"
+      ]
+    },
+    "itm0563": {
+      "name": "अपनी चीज़",
+      "aliases": [
+        "Custom item"
       ]
     },
     "dal": {
@@ -61,59 +3493,10 @@
         "तेल"
       ]
     },
-    "tea": {
-      "name": "चाय पत्ती",
-      "aliases": [
-        "chai",
-        "chai patti",
-        "चाय"
-      ]
-    },
-    "coffee": {
-      "name": "कॉफ़ी",
-      "aliases": [
-        "coffee",
-        "कॉफी"
-      ]
-    },
-    "milk": {
-      "name": "दूध",
-      "aliases": [
-        "doodh",
-        "dudh"
-      ]
-    },
     "spices": {
       "name": "मसाले",
       "aliases": [
         "masala"
-      ]
-    },
-    "potato": {
-      "name": "आलू",
-      "aliases": [
-        "aloo",
-        "alu"
-      ]
-    },
-    "onion": {
-      "name": "प्याज़",
-      "aliases": [
-        "pyaz",
-        "pyaj",
-        "प्याज"
-      ]
-    },
-    "tomato": {
-      "name": "टमाटर",
-      "aliases": [
-        "tamatar"
-      ]
-    },
-    "carrot": {
-      "name": "गाजर",
-      "aliases": [
-        "gajar"
       ]
     },
     "beans": {
@@ -121,92 +3504,6 @@
       "aliases": [
         "beans",
         "phali"
-      ]
-    },
-    "cabbage": {
-      "name": "पत्ता गोभी",
-      "aliases": [
-        "patta gobhi",
-        "band gobhi"
-      ]
-    },
-    "cauliflower": {
-      "name": "फूलगोभी",
-      "aliases": [
-        "phool gobhi",
-        "gobi"
-      ]
-    },
-    "brinjal": {
-      "name": "बैंगन",
-      "aliases": [
-        "baingan"
-      ]
-    },
-    "spinach": {
-      "name": "पालक",
-      "aliases": [
-        "palak"
-      ]
-    },
-    "apple": {
-      "name": "सेब",
-      "aliases": [
-        "seb",
-        "apple"
-      ]
-    },
-    "banana": {
-      "name": "केला",
-      "aliases": [
-        "kela"
-      ]
-    },
-    "orange": {
-      "name": "संतरा",
-      "aliases": [
-        "santra",
-        "narangi"
-      ]
-    },
-    "mango": {
-      "name": "आम",
-      "aliases": [
-        "aam"
-      ]
-    },
-    "grapes": {
-      "name": "अंगूर",
-      "aliases": [
-        "angoor",
-        "angur"
-      ]
-    },
-    "pomegranate": {
-      "name": "अनार",
-      "aliases": [
-        "anar"
-      ]
-    },
-    "shirt": {
-      "name": "कमीज़",
-      "aliases": [
-        "kameez",
-        "shirt",
-        "शर्ट"
-      ]
-    },
-    "pants": {
-      "name": "पैंट",
-      "aliases": [
-        "pant",
-        "patloon"
-      ]
-    },
-    "t_shirt": {
-      "name": "टी-शर्ट",
-      "aliases": [
-        "tshirt"
       ]
     },
     "saree": {
@@ -221,20 +3518,6 @@
       "aliases": [
         "dress",
         "frock"
-      ]
-    },
-    "socks": {
-      "name": "मोज़े",
-      "aliases": [
-        "moze",
-        "socks"
-      ]
-    },
-    "shoes": {
-      "name": "जूते",
-      "aliases": [
-        "joote",
-        "shoes"
       ]
     },
     "travel_passport": {
@@ -261,18 +3544,6 @@
         "kapde"
       ]
     },
-    "charger": {
-      "name": "चार्जर",
-      "aliases": [
-        "charger"
-      ]
-    },
-    "power_bank": {
-      "name": "पावर बैंक",
-      "aliases": [
-        "power bank"
-      ]
-    },
     "travel_toiletries": {
       "name": "नहाने-धोने का सामान",
       "aliases": []
@@ -297,19 +3568,6 @@
         "pan"
       ]
     },
-    "passport": {
-      "name": "पासपोर्ट",
-      "aliases": [
-        "passport"
-      ]
-    },
-    "driving_licence": {
-      "name": "ड्राइविंग लाइसेंस",
-      "aliases": [
-        "dl",
-        "licence"
-      ]
-    },
     "educational_certificates": {
       "name": "शैक्षिक प्रमाणपत्र",
       "aliases": [
@@ -323,43 +3581,10 @@
         "photo"
       ]
     },
-    "hall_ticket": {
-      "name": "प्रवेश पत्र",
-      "aliases": [
-        "admit card",
-        "hall ticket"
-      ]
-    },
     "id_card": {
       "name": "पहचान पत्र",
       "aliases": [
         "id card"
-      ]
-    },
-    "pen": {
-      "name": "पेन",
-      "aliases": [
-        "pen",
-        "kalam"
-      ]
-    },
-    "pencil": {
-      "name": "पेंसिल",
-      "aliases": [
-        "pencil"
-      ]
-    },
-    "eraser": {
-      "name": "रबड़",
-      "aliases": [
-        "rubber",
-        "eraser"
-      ]
-    },
-    "calculator": {
-      "name": "कैलकुलेटर",
-      "aliases": [
-        "calculator"
       ]
     },
     "books": {
@@ -380,12 +3605,6 @@
       "aliases": [
         "mithai",
         "sweets"
-      ]
-    },
-    "greeting_card": {
-      "name": "बधाई कार्ड",
-      "aliases": [
-        "greeting card"
       ]
     },
     "incense_sticks": {
@@ -434,24 +3653,10 @@
         "baati"
       ]
     },
-    "balloons": {
-      "name": "गुब्बारे",
-      "aliases": [
-        "gubbare",
-        "balloon"
-      ]
-    },
     "rangoli_colours": {
       "name": "रंगोली के रंग",
       "aliases": [
         "rangoli"
-      ]
-    },
-    "decorative_lights": {
-      "name": "सजावटी लाइट",
-      "aliases": [
-        "jhalar",
-        "serial lights"
       ]
     },
     "fever_tablets": {
@@ -468,66 +3673,10 @@
         "balm"
       ]
     },
-    "bandage": {
-      "name": "पट्टी",
-      "aliases": [
-        "patti",
-        "bandage"
-      ]
-    },
-    "antiseptic_liquid": {
-      "name": "एंटीसेप्टिक लिक्विड",
-      "aliases": [
-        "antiseptic"
-      ]
-    },
-    "ors": {
-      "name": "ORS घोल",
-      "aliases": [
-        "ors"
-      ]
-    },
     "cough_syrup": {
       "name": "खांसी की दवा",
       "aliases": [
         "cough syrup"
-      ]
-    },
-    "soap": {
-      "name": "साबुन",
-      "aliases": [
-        "sabun"
-      ]
-    },
-    "toothpaste": {
-      "name": "टूथपेस्ट",
-      "aliases": [
-        "paste",
-        "manjan"
-      ]
-    },
-    "toothbrush": {
-      "name": "टूथब्रश",
-      "aliases": [
-        "brush"
-      ]
-    },
-    "shampoo": {
-      "name": "शैम्पू",
-      "aliases": [
-        "shampoo"
-      ]
-    },
-    "hair_oil": {
-      "name": "बालों का तेल",
-      "aliases": [
-        "tel"
-      ]
-    },
-    "comb": {
-      "name": "कंघी",
-      "aliases": [
-        "kanghi"
       ]
     },
     "batteries": {
@@ -543,42 +3692,11 @@
         "bulb"
       ]
     },
-    "extension_board": {
-      "name": "एक्सटेंशन बोर्ड",
-      "aliases": [
-        "extension"
-      ]
-    },
-    "earphones": {
-      "name": "इयरफ़ोन",
-      "aliases": [
-        "earphone"
-      ]
-    },
-    "notebook": {
-      "name": "कॉपी",
-      "aliases": [
-        "copy",
-        "notebook"
-      ]
-    },
-    "scissors": {
-      "name": "कैंची",
-      "aliases": [
-        "kainchi"
-      ]
-    },
     "glue": {
       "name": "गोंद",
       "aliases": [
         "gond",
         "gum"
-      ]
-    },
-    "stapler": {
-      "name": "स्टेपलर",
-      "aliases": [
-        "stapler"
       ]
     },
     "ruler": {

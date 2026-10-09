@@ -1,77 +1,236 @@
 {
   "locale": "en",
   "categories": {
-    "groceries": "Groceries",
+    "groceries": "Groceries & Staples",
     "vegetables": "Vegetables",
     "fruits": "Fruits",
-    "clothing": "Clothing",
-    "travel": "Travel",
-    "documents": "Documents",
-    "exam": "Exam",
-    "gifts": "Gifts",
-    "pooja_items": "Pooja Items",
-    "decorations": "Decorations",
-    "medicines": "Medicines",
-    "toiletries": "Toiletries",
-    "electronics": "Electronics",
-    "stationery": "Stationery",
-    "other": "Other"
+    "cat004": "Leafy Greens & Herbs",
+    "cat005": "Dairy & Eggs",
+    "cat006": "Meat, Poultry & Seafood",
+    "cat007": "Bakery & Breakfast",
+    "cat008": "Snacks & Sweets",
+    "cat009": "Spices, Oils & Condiments",
+    "cat010": "Beverages",
+    "cat011": "Frozen & Ready-to-Cook",
+    "toiletries": "Personal Care",
+    "cat013": "Cleaning & Laundry",
+    "cat014": "Disposable Daily Needs",
+    "cat015": "Kitchen & Dining Supplies",
+    "cat016": "Home Maintenance & Utilities",
+    "medicines": "Medicine & First Aid",
+    "cat018": "Baby & Kids",
+    "cat019": "Pet Supplies",
+    "stationery": "Office & Stationery",
+    "electronics": "Electronics & Accessories",
+    "travel": "Travel & Packing",
+    "clothing": "Clothing & Footwear",
+    "documents": "Documents & Admin",
+    "exam": "Study & Exams",
+    "cat026": "Fitness & Sports",
+    "cat027": "Gardening & Agriculture",
+    "cat028": "Vehicle & Commute",
+    "cat029": "Events & Celebrations",
+    "cat030": "Digital & Recurring Tasks",
+    "other": "Custom / Other"
   },
   "items": {
     "rice": {
-      "name": "Rice",
+      "name": "Raw rice",
+      "aliases": []
+    },
+    "itm0002": {
+      "name": "Sona masoori rice",
+      "aliases": []
+    },
+    "itm0003": {
+      "name": "Basmati rice",
+      "aliases": []
+    },
+    "itm0004": {
+      "name": "Brown rice",
+      "aliases": []
+    },
+    "itm0005": {
+      "name": "Idli rice",
+      "aliases": []
+    },
+    "itm0006": {
+      "name": "Poha / avalakki",
       "aliases": []
     },
     "wheat": {
-      "name": "Wheat",
+      "name": "Wheat flour / atta",
       "aliases": [
         "gehun"
       ]
     },
+    "itm0008": {
+      "name": "Maida",
+      "aliases": []
+    },
+    "itm0009": {
+      "name": "Rava / sooji",
+      "aliases": []
+    },
+    "itm0010": {
+      "name": "Besan / gram flour",
+      "aliases": []
+    },
+    "itm0011": {
+      "name": "Ragi flour",
+      "aliases": []
+    },
+    "itm0012": {
+      "name": "Jowar flour",
+      "aliases": []
+    },
+    "itm0013": {
+      "name": "Bajra flour",
+      "aliases": []
+    },
+    "itm0014": {
+      "name": "Corn flour",
+      "aliases": []
+    },
+    "itm0015": {
+      "name": "Dalia / broken wheat",
+      "aliases": []
+    },
+    "itm0016": {
+      "name": "Oats",
+      "aliases": []
+    },
+    "itm0017": {
+      "name": "Quinoa",
+      "aliases": []
+    },
+    "itm0018": {
+      "name": "Sabudana",
+      "aliases": []
+    },
+    "itm0019": {
+      "name": "Vermicelli / semiya",
+      "aliases": []
+    },
+    "itm0020": {
+      "name": "Puffed rice / mandakki",
+      "aliases": []
+    },
+    "itm0021": {
+      "name": "Toor dal",
+      "aliases": []
+    },
+    "itm0022": {
+      "name": "Moong dal",
+      "aliases": []
+    },
+    "itm0023": {
+      "name": "Urad dal",
+      "aliases": []
+    },
+    "itm0024": {
+      "name": "Chana dal",
+      "aliases": []
+    },
+    "itm0025": {
+      "name": "Masoor dal",
+      "aliases": []
+    },
+    "itm0026": {
+      "name": "Whole green gram",
+      "aliases": []
+    },
+    "itm0027": {
+      "name": "Black chana",
+      "aliases": []
+    },
+    "itm0028": {
+      "name": "Kabuli chana",
+      "aliases": []
+    },
+    "itm0029": {
+      "name": "Rajma",
+      "aliases": []
+    },
+    "itm0030": {
+      "name": "White peas",
+      "aliases": []
+    },
+    "itm0031": {
+      "name": "Green peas dried",
+      "aliases": []
+    },
+    "itm0032": {
+      "name": "Horse gram / hurali",
+      "aliases": []
+    },
+    "itm0033": {
+      "name": "Cowpeas / alasande",
+      "aliases": []
+    },
+    "itm0034": {
+      "name": "Soy chunks",
+      "aliases": []
+    },
     "sugar": {
       "name": "Sugar",
+      "aliases": []
+    },
+    "itm0036": {
+      "name": "Jaggery",
       "aliases": []
     },
     "salt": {
       "name": "Salt",
       "aliases": []
     },
-    "dal": {
-      "name": "Dal",
-      "aliases": [
-        "lentils",
-        "pulses",
-        "daal"
-      ]
-    },
-    "cooking_oil": {
-      "name": "Cooking Oil",
-      "aliases": [
-        "oil"
-      ]
-    },
-    "tea": {
-      "name": "Tea",
-      "aliases": [
-        "tea powder",
-        "chai"
-      ]
-    },
-    "coffee": {
-      "name": "Coffee",
-      "aliases": [
-        "coffee powder"
-      ]
-    },
-    "milk": {
-      "name": "Milk",
+    "itm0038": {
+      "name": "Rock salt",
       "aliases": []
     },
-    "spices": {
-      "name": "Spices",
-      "aliases": [
-        "masala"
-      ]
+    "itm0039": {
+      "name": "Tamarind",
+      "aliases": []
+    },
+    "itm0040": {
+      "name": "Dry coconut",
+      "aliases": []
+    },
+    "itm0041": {
+      "name": "Peanuts",
+      "aliases": []
+    },
+    "itm0042": {
+      "name": "Cashews",
+      "aliases": []
+    },
+    "itm0043": {
+      "name": "Almonds",
+      "aliases": []
+    },
+    "itm0044": {
+      "name": "Raisins",
+      "aliases": []
+    },
+    "itm0045": {
+      "name": "Dates",
+      "aliases": []
+    },
+    "itm0046": {
+      "name": "Flax seeds",
+      "aliases": []
+    },
+    "itm0047": {
+      "name": "Chia seeds",
+      "aliases": []
+    },
+    "itm0048": {
+      "name": "Sesame seeds",
+      "aliases": []
+    },
+    "itm0049": {
+      "name": "Sunflower seeds",
+      "aliases": []
     },
     "potato": {
       "name": "Potato",
@@ -91,12 +250,76 @@
       "name": "Carrot",
       "aliases": []
     },
-    "beans": {
-      "name": "Beans",
+    "itm0054": {
+      "name": "Beetroot",
+      "aliases": []
+    },
+    "itm0055": {
+      "name": "Radish",
+      "aliases": []
+    },
+    "itm0056": {
+      "name": "Sweet potato",
+      "aliases": []
+    },
+    "itm0057": {
+      "name": "Cucumber",
+      "aliases": []
+    },
+    "itm0058": {
+      "name": "Bottle gourd",
+      "aliases": []
+    },
+    "itm0059": {
+      "name": "Ridge gourd",
+      "aliases": []
+    },
+    "itm0060": {
+      "name": "Snake gourd",
+      "aliases": []
+    },
+    "itm0061": {
+      "name": "Bitter gourd",
+      "aliases": []
+    },
+    "itm0062": {
+      "name": "Ash gourd",
+      "aliases": []
+    },
+    "itm0063": {
+      "name": "Pumpkin",
+      "aliases": []
+    },
+    "itm0064": {
+      "name": "Raw banana",
+      "aliases": []
+    },
+    "itm0065": {
+      "name": "Drumstick pods",
+      "aliases": []
+    },
+    "brinjal": {
+      "name": "Brinjal / eggplant",
       "aliases": [
-        "french beans",
-        "green beans"
+        "eggplant",
+        "aubergine"
       ]
+    },
+    "itm0067": {
+      "name": "Ladies finger / okra",
+      "aliases": []
+    },
+    "itm0068": {
+      "name": "Green capsicum",
+      "aliases": []
+    },
+    "itm0069": {
+      "name": "Red capsicum",
+      "aliases": []
+    },
+    "itm0070": {
+      "name": "Yellow capsicum",
+      "aliases": []
     },
     "cabbage": {
       "name": "Cabbage",
@@ -108,18 +331,85 @@
         "gobi"
       ]
     },
-    "brinjal": {
-      "name": "Brinjal",
-      "aliases": [
-        "eggplant",
-        "aubergine"
-      ]
+    "itm0073": {
+      "name": "Broccoli",
+      "aliases": []
     },
-    "spinach": {
-      "name": "Spinach",
-      "aliases": [
-        "palak"
-      ]
+    "itm0074": {
+      "name": "Knol-khol",
+      "aliases": []
+    },
+    "itm0075": {
+      "name": "Chayote / chow chow",
+      "aliases": []
+    },
+    "itm0076": {
+      "name": "Ivy gourd / tindora",
+      "aliases": []
+    },
+    "itm0077": {
+      "name": "Cluster beans",
+      "aliases": []
+    },
+    "itm0078": {
+      "name": "French beans",
+      "aliases": []
+    },
+    "itm0079": {
+      "name": "Broad beans / avarekalu",
+      "aliases": []
+    },
+    "itm0080": {
+      "name": "Green peas",
+      "aliases": []
+    },
+    "itm0081": {
+      "name": "Sweet corn",
+      "aliases": []
+    },
+    "itm0082": {
+      "name": "Mushroom",
+      "aliases": []
+    },
+    "itm0083": {
+      "name": "Green chilli",
+      "aliases": []
+    },
+    "itm0084": {
+      "name": "Ginger",
+      "aliases": []
+    },
+    "itm0085": {
+      "name": "Garlic",
+      "aliases": []
+    },
+    "itm0086": {
+      "name": "Lemon grass",
+      "aliases": []
+    },
+    "itm0087": {
+      "name": "Coconut",
+      "aliases": []
+    },
+    "itm0088": {
+      "name": "Tender coconut",
+      "aliases": []
+    },
+    "itm0089": {
+      "name": "Lemon",
+      "aliases": []
+    },
+    "itm0090": {
+      "name": "Raw mango",
+      "aliases": []
+    },
+    "itm0091": {
+      "name": "Corn on the cob",
+      "aliases": []
+    },
+    "itm0092": {
+      "name": "Lettuce head",
+      "aliases": []
     },
     "apple": {
       "name": "Apple",
@@ -133,33 +423,1934 @@
       "name": "Orange",
       "aliases": []
     },
-    "mango": {
-      "name": "Mango",
-      "aliases": []
-    },
-    "grapes": {
-      "name": "Grapes",
+    "itm0096": {
+      "name": "Sweet lime / mosambi",
       "aliases": []
     },
     "pomegranate": {
       "name": "Pomegranate",
       "aliases": []
     },
+    "itm0098": {
+      "name": "Papaya",
+      "aliases": []
+    },
+    "itm0099": {
+      "name": "Watermelon",
+      "aliases": []
+    },
+    "itm0100": {
+      "name": "Muskmelon",
+      "aliases": []
+    },
+    "itm0101": {
+      "name": "Pineapple",
+      "aliases": []
+    },
+    "grapes": {
+      "name": "Grapes",
+      "aliases": []
+    },
+    "itm0103": {
+      "name": "Guava",
+      "aliases": []
+    },
+    "mango": {
+      "name": "Mango",
+      "aliases": []
+    },
+    "itm0105": {
+      "name": "Pear",
+      "aliases": []
+    },
+    "itm0106": {
+      "name": "Peach",
+      "aliases": []
+    },
+    "itm0107": {
+      "name": "Plum",
+      "aliases": []
+    },
+    "itm0108": {
+      "name": "Kiwi",
+      "aliases": []
+    },
+    "itm0109": {
+      "name": "Strawberry",
+      "aliases": []
+    },
+    "itm0110": {
+      "name": "Blueberry",
+      "aliases": []
+    },
+    "itm0111": {
+      "name": "Dragon fruit",
+      "aliases": []
+    },
+    "itm0112": {
+      "name": "Chikoo / sapota",
+      "aliases": []
+    },
+    "itm0113": {
+      "name": "Custard apple",
+      "aliases": []
+    },
+    "itm0114": {
+      "name": "Jackfruit",
+      "aliases": []
+    },
+    "itm0115": {
+      "name": "Avocado",
+      "aliases": []
+    },
+    "itm0116": {
+      "name": "Litchi",
+      "aliases": []
+    },
+    "itm0117": {
+      "name": "Jamun",
+      "aliases": []
+    },
+    "itm0118": {
+      "name": "Amla",
+      "aliases": []
+    },
+    "itm0119": {
+      "name": "Fig",
+      "aliases": []
+    },
+    "itm0120": {
+      "name": "Dates fresh",
+      "aliases": []
+    },
+    "itm0121": {
+      "name": "Banana",
+      "aliases": []
+    },
+    "itm0122": {
+      "name": "Coconut",
+      "aliases": []
+    },
+    "itm0123": {
+      "name": "Tender coconut",
+      "aliases": []
+    },
+    "itm0124": {
+      "name": "Pineapple",
+      "aliases": []
+    },
+    "itm0125": {
+      "name": "Watermelon",
+      "aliases": []
+    },
+    "itm0126": {
+      "name": "Muskmelon",
+      "aliases": []
+    },
+    "itm0127": {
+      "name": "Papaya",
+      "aliases": []
+    },
+    "itm0128": {
+      "name": "Pomegranate",
+      "aliases": []
+    },
+    "itm0129": {
+      "name": "Jackfruit",
+      "aliases": []
+    },
+    "spinach": {
+      "name": "Spinach / palak",
+      "aliases": [
+        "palak"
+      ]
+    },
+    "itm0131": {
+      "name": "Fenugreek leaves / methi",
+      "aliases": []
+    },
+    "itm0132": {
+      "name": "Amaranth leaves / dantina soppu",
+      "aliases": []
+    },
+    "itm0133": {
+      "name": "Coriander leaves",
+      "aliases": []
+    },
+    "itm0134": {
+      "name": "Mint leaves",
+      "aliases": []
+    },
+    "itm0135": {
+      "name": "Curry leaves",
+      "aliases": []
+    },
+    "itm0136": {
+      "name": "Dill leaves / sabbasige soppu",
+      "aliases": []
+    },
+    "itm0137": {
+      "name": "Spring onion",
+      "aliases": []
+    },
+    "itm0138": {
+      "name": "Lettuce",
+      "aliases": []
+    },
+    "itm0139": {
+      "name": "Moringa leaves",
+      "aliases": []
+    },
+    "itm0140": {
+      "name": "Basale soppu / Malabar spinach",
+      "aliases": []
+    },
+    "itm0141": {
+      "name": "Basil",
+      "aliases": []
+    },
+    "itm0142": {
+      "name": "Parsley",
+      "aliases": []
+    },
+    "itm0143": {
+      "name": "Rosemary",
+      "aliases": []
+    },
+    "itm0144": {
+      "name": "Thyme",
+      "aliases": []
+    },
+    "itm0145": {
+      "name": "Oregano fresh",
+      "aliases": []
+    },
+    "milk": {
+      "name": "Milk",
+      "aliases": []
+    },
+    "itm0147": {
+      "name": "Curd / yogurt",
+      "aliases": []
+    },
+    "itm0148": {
+      "name": "Buttermilk",
+      "aliases": []
+    },
+    "itm0149": {
+      "name": "Paneer",
+      "aliases": []
+    },
+    "itm0150": {
+      "name": "Cheese",
+      "aliases": []
+    },
+    "itm0151": {
+      "name": "Butter",
+      "aliases": []
+    },
+    "itm0152": {
+      "name": "Ghee",
+      "aliases": []
+    },
+    "itm0153": {
+      "name": "Cream",
+      "aliases": []
+    },
+    "itm0154": {
+      "name": "Condensed milk",
+      "aliases": []
+    },
+    "itm0155": {
+      "name": "Milk powder",
+      "aliases": []
+    },
+    "itm0156": {
+      "name": "Chicken eggs",
+      "aliases": []
+    },
+    "itm0157": {
+      "name": "Country eggs",
+      "aliases": []
+    },
+    "itm0158": {
+      "name": "Quail eggs",
+      "aliases": []
+    },
+    "itm0159": {
+      "name": "Chicken",
+      "aliases": []
+    },
+    "itm0160": {
+      "name": "Chicken breast",
+      "aliases": []
+    },
+    "itm0161": {
+      "name": "Chicken legs",
+      "aliases": []
+    },
+    "itm0162": {
+      "name": "Mutton",
+      "aliases": []
+    },
+    "itm0163": {
+      "name": "Lamb",
+      "aliases": []
+    },
+    "itm0164": {
+      "name": "Pork",
+      "aliases": []
+    },
+    "itm0165": {
+      "name": "Duck",
+      "aliases": []
+    },
+    "itm0166": {
+      "name": "Fish",
+      "aliases": []
+    },
+    "itm0167": {
+      "name": "Prawns",
+      "aliases": []
+    },
+    "itm0168": {
+      "name": "Crab",
+      "aliases": []
+    },
+    "itm0169": {
+      "name": "Squid",
+      "aliases": []
+    },
+    "itm0170": {
+      "name": "Clams",
+      "aliases": []
+    },
+    "itm0171": {
+      "name": "Mussels",
+      "aliases": []
+    },
+    "itm0172": {
+      "name": "Bread loaf",
+      "aliases": []
+    },
+    "itm0173": {
+      "name": "Brown bread",
+      "aliases": []
+    },
+    "itm0174": {
+      "name": "Milk bread",
+      "aliases": []
+    },
+    "itm0175": {
+      "name": "Burger buns",
+      "aliases": []
+    },
+    "itm0176": {
+      "name": "Pav buns",
+      "aliases": []
+    },
+    "itm0177": {
+      "name": "Pizza base",
+      "aliases": []
+    },
+    "itm0178": {
+      "name": "Tortilla / wraps",
+      "aliases": []
+    },
+    "itm0179": {
+      "name": "Pav / dinner rolls",
+      "aliases": []
+    },
+    "itm0180": {
+      "name": "Rusk",
+      "aliases": []
+    },
+    "itm0181": {
+      "name": "Cookies / biscuits",
+      "aliases": []
+    },
+    "itm0182": {
+      "name": "Cake",
+      "aliases": []
+    },
+    "itm0183": {
+      "name": "Croissants",
+      "aliases": []
+    },
+    "itm0184": {
+      "name": "Corn flakes",
+      "aliases": []
+    },
+    "itm0185": {
+      "name": "Muesli",
+      "aliases": []
+    },
+    "itm0186": {
+      "name": "Granola",
+      "aliases": []
+    },
+    "itm0187": {
+      "name": "Peanut butter",
+      "aliases": []
+    },
+    "itm0188": {
+      "name": "Jam",
+      "aliases": []
+    },
+    "itm0189": {
+      "name": "Honey",
+      "aliases": []
+    },
+    "itm0190": {
+      "name": "Pancake mix",
+      "aliases": []
+    },
+    "itm0191": {
+      "name": "Dosa batter",
+      "aliases": []
+    },
+    "itm0192": {
+      "name": "Idli batter",
+      "aliases": []
+    },
+    "itm0193": {
+      "name": "Chapati / roti pack",
+      "aliases": []
+    },
+    "itm0194": {
+      "name": "Potato chips",
+      "aliases": []
+    },
+    "itm0195": {
+      "name": "Namkeen / mixture",
+      "aliases": []
+    },
+    "itm0196": {
+      "name": "Chakli",
+      "aliases": []
+    },
+    "itm0197": {
+      "name": "Murukku",
+      "aliases": []
+    },
+    "itm0198": {
+      "name": "Popcorn",
+      "aliases": []
+    },
+    "itm0199": {
+      "name": "Roasted chana",
+      "aliases": []
+    },
+    "itm0200": {
+      "name": "Makhana",
+      "aliases": []
+    },
+    "itm0201": {
+      "name": "Chocolate",
+      "aliases": []
+    },
+    "itm0202": {
+      "name": "Candy",
+      "aliases": []
+    },
+    "itm0203": {
+      "name": "Ice cream",
+      "aliases": []
+    },
+    "itm0204": {
+      "name": "Energy bar",
+      "aliases": []
+    },
+    "itm0205": {
+      "name": "Trail mix",
+      "aliases": []
+    },
+    "itm0206": {
+      "name": "Cumin seeds",
+      "aliases": []
+    },
+    "itm0207": {
+      "name": "Mustard seeds",
+      "aliases": []
+    },
+    "itm0208": {
+      "name": "Fennel seeds",
+      "aliases": []
+    },
+    "itm0209": {
+      "name": "Fenugreek seeds",
+      "aliases": []
+    },
+    "itm0210": {
+      "name": "Coriander seeds",
+      "aliases": []
+    },
+    "itm0211": {
+      "name": "Black pepper",
+      "aliases": []
+    },
+    "itm0212": {
+      "name": "Cloves",
+      "aliases": []
+    },
+    "itm0213": {
+      "name": "Cardamom",
+      "aliases": []
+    },
+    "itm0214": {
+      "name": "Cinnamon",
+      "aliases": []
+    },
+    "itm0215": {
+      "name": "Bay leaf",
+      "aliases": []
+    },
+    "itm0216": {
+      "name": "Star anise",
+      "aliases": []
+    },
+    "itm0217": {
+      "name": "Dry red chilli",
+      "aliases": []
+    },
+    "itm0218": {
+      "name": "Poppy seeds",
+      "aliases": []
+    },
+    "itm0219": {
+      "name": "Ajwain",
+      "aliases": []
+    },
+    "itm0220": {
+      "name": "Asafoetida",
+      "aliases": []
+    },
+    "itm0221": {
+      "name": "Turmeric powder",
+      "aliases": []
+    },
+    "itm0222": {
+      "name": "Red chilli powder",
+      "aliases": []
+    },
+    "itm0223": {
+      "name": "Coriander powder",
+      "aliases": []
+    },
+    "itm0224": {
+      "name": "Cumin powder",
+      "aliases": []
+    },
+    "itm0225": {
+      "name": "Garam masala",
+      "aliases": []
+    },
+    "itm0226": {
+      "name": "Sambar powder",
+      "aliases": []
+    },
+    "itm0227": {
+      "name": "Rasam powder",
+      "aliases": []
+    },
+    "itm0228": {
+      "name": "Bisi bele bath powder",
+      "aliases": []
+    },
+    "itm0229": {
+      "name": "Pav bhaji masala",
+      "aliases": []
+    },
+    "itm0230": {
+      "name": "Chaat masala",
+      "aliases": []
+    },
+    "itm0231": {
+      "name": "Pepper powder",
+      "aliases": []
+    },
+    "itm0232": {
+      "name": "Chicken masala",
+      "aliases": []
+    },
+    "itm0233": {
+      "name": "Fish masala",
+      "aliases": []
+    },
+    "itm0234": {
+      "name": "Sunflower oil",
+      "aliases": []
+    },
+    "itm0235": {
+      "name": "Groundnut oil",
+      "aliases": []
+    },
+    "itm0236": {
+      "name": "Coconut oil",
+      "aliases": []
+    },
+    "itm0237": {
+      "name": "Olive oil",
+      "aliases": []
+    },
+    "itm0238": {
+      "name": "Mustard oil",
+      "aliases": []
+    },
+    "itm0239": {
+      "name": "Sesame oil",
+      "aliases": []
+    },
+    "itm0240": {
+      "name": "Vinegar",
+      "aliases": []
+    },
+    "itm0241": {
+      "name": "Soy sauce",
+      "aliases": []
+    },
+    "itm0242": {
+      "name": "Tomato ketchup",
+      "aliases": []
+    },
+    "itm0243": {
+      "name": "Chilli sauce",
+      "aliases": []
+    },
+    "itm0244": {
+      "name": "Mayonnaise",
+      "aliases": []
+    },
+    "itm0245": {
+      "name": "Mustard sauce",
+      "aliases": []
+    },
+    "itm0246": {
+      "name": "Pickle",
+      "aliases": []
+    },
+    "itm0247": {
+      "name": "Coconut milk",
+      "aliases": []
+    },
+    "tea": {
+      "name": "Tea powder",
+      "aliases": [
+        "chai"
+      ]
+    },
+    "coffee": {
+      "name": "Coffee powder",
+      "aliases": []
+    },
+    "itm0250": {
+      "name": "Green tea",
+      "aliases": []
+    },
+    "itm0251": {
+      "name": "Cocoa powder",
+      "aliases": []
+    },
+    "itm0252": {
+      "name": "Drinking chocolate",
+      "aliases": []
+    },
+    "itm0253": {
+      "name": "Packaged drinking water",
+      "aliases": []
+    },
+    "itm0254": {
+      "name": "Soda water",
+      "aliases": []
+    },
+    "itm0255": {
+      "name": "Fruit juice",
+      "aliases": []
+    },
+    "itm0256": {
+      "name": "Coconut water pack",
+      "aliases": []
+    },
+    "itm0257": {
+      "name": "Soft drink",
+      "aliases": []
+    },
+    "itm0258": {
+      "name": "Electrolyte drink",
+      "aliases": []
+    },
+    "itm0259": {
+      "name": "Frozen peas",
+      "aliases": []
+    },
+    "itm0260": {
+      "name": "Frozen corn",
+      "aliases": []
+    },
+    "itm0261": {
+      "name": "Frozen mixed vegetables",
+      "aliases": []
+    },
+    "itm0262": {
+      "name": "Frozen paratha",
+      "aliases": []
+    },
+    "itm0263": {
+      "name": "Frozen fries",
+      "aliases": []
+    },
+    "itm0264": {
+      "name": "Frozen nuggets",
+      "aliases": []
+    },
+    "itm0265": {
+      "name": "Frozen fish fingers",
+      "aliases": []
+    },
+    "itm0266": {
+      "name": "Ready-to-eat meal",
+      "aliases": []
+    },
+    "itm0267": {
+      "name": "Instant noodles",
+      "aliases": []
+    },
+    "itm0268": {
+      "name": "Pasta",
+      "aliases": []
+    },
+    "itm0269": {
+      "name": "Pasta sauce",
+      "aliases": []
+    },
+    "itm0270": {
+      "name": "Soup packet",
+      "aliases": []
+    },
+    "soap": {
+      "name": "Bath soap",
+      "aliases": []
+    },
+    "itm0272": {
+      "name": "Body wash",
+      "aliases": []
+    },
+    "shampoo": {
+      "name": "Shampoo",
+      "aliases": []
+    },
+    "itm0274": {
+      "name": "Conditioner",
+      "aliases": []
+    },
+    "hair_oil": {
+      "name": "Hair oil",
+      "aliases": []
+    },
+    "toothpaste": {
+      "name": "Toothpaste",
+      "aliases": [
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "Toothbrush",
+      "aliases": [
+        "brush"
+      ]
+    },
+    "itm0278": {
+      "name": "Mouthwash",
+      "aliases": []
+    },
+    "itm0279": {
+      "name": "Face wash",
+      "aliases": []
+    },
+    "itm0280": {
+      "name": "Face cream",
+      "aliases": []
+    },
+    "itm0281": {
+      "name": "Moisturizer",
+      "aliases": []
+    },
+    "itm0282": {
+      "name": "Sunscreen",
+      "aliases": []
+    },
+    "itm0283": {
+      "name": "Deodorant",
+      "aliases": []
+    },
+    "itm0284": {
+      "name": "Shaving cream",
+      "aliases": []
+    },
+    "itm0285": {
+      "name": "Razor",
+      "aliases": []
+    },
+    "itm0286": {
+      "name": "Sanitary pads",
+      "aliases": []
+    },
+    "itm0287": {
+      "name": "Tampons",
+      "aliases": []
+    },
+    "itm0288": {
+      "name": "Menstrual cup",
+      "aliases": []
+    },
+    "itm0289": {
+      "name": "Tissue for face",
+      "aliases": []
+    },
+    "itm0290": {
+      "name": "Cotton buds",
+      "aliases": []
+    },
+    "comb": {
+      "name": "Hair comb",
+      "aliases": []
+    },
+    "itm0292": {
+      "name": "Hair brush",
+      "aliases": []
+    },
+    "itm0293": {
+      "name": "Hair colour",
+      "aliases": []
+    },
+    "itm0294": {
+      "name": "Nail cutter",
+      "aliases": []
+    },
+    "itm0295": {
+      "name": "Nail polish remover",
+      "aliases": []
+    },
+    "itm0296": {
+      "name": "Hand cream",
+      "aliases": []
+    },
+    "itm0297": {
+      "name": "Lip balm",
+      "aliases": []
+    },
+    "itm0298": {
+      "name": "Perfume",
+      "aliases": []
+    },
+    "itm0299": {
+      "name": "Dishwashing liquid",
+      "aliases": []
+    },
+    "itm0300": {
+      "name": "Dishwashing bar",
+      "aliases": []
+    },
+    "itm0301": {
+      "name": "Scrub pad",
+      "aliases": []
+    },
+    "itm0302": {
+      "name": "Floor cleaner",
+      "aliases": []
+    },
+    "itm0303": {
+      "name": "Toilet cleaner",
+      "aliases": []
+    },
+    "itm0304": {
+      "name": "Glass cleaner",
+      "aliases": []
+    },
+    "itm0305": {
+      "name": "Disinfectant",
+      "aliases": []
+    },
+    "itm0306": {
+      "name": "Bleach",
+      "aliases": []
+    },
+    "itm0307": {
+      "name": "Garbage bin liner",
+      "aliases": []
+    },
+    "itm0308": {
+      "name": "Cleaning cloth",
+      "aliases": []
+    },
+    "itm0309": {
+      "name": "Microfiber cloth",
+      "aliases": []
+    },
+    "itm0310": {
+      "name": "Sponge",
+      "aliases": []
+    },
+    "itm0311": {
+      "name": "Broom",
+      "aliases": []
+    },
+    "itm0312": {
+      "name": "Mop refill",
+      "aliases": []
+    },
+    "itm0313": {
+      "name": "Duster",
+      "aliases": []
+    },
+    "itm0314": {
+      "name": "Drain cleaner",
+      "aliases": []
+    },
+    "itm0315": {
+      "name": "Laundry detergent powder",
+      "aliases": []
+    },
+    "itm0316": {
+      "name": "Laundry liquid",
+      "aliases": []
+    },
+    "itm0317": {
+      "name": "Fabric conditioner",
+      "aliases": []
+    },
+    "itm0318": {
+      "name": "Stain remover",
+      "aliases": []
+    },
+    "itm0319": {
+      "name": "Laundry brush",
+      "aliases": []
+    },
+    "itm0320": {
+      "name": "Clothesline",
+      "aliases": []
+    },
+    "itm0321": {
+      "name": "Cloth clips",
+      "aliases": []
+    },
+    "itm0322": {
+      "name": "Toilet paper roll",
+      "aliases": []
+    },
+    "itm0323": {
+      "name": "Kitchen paper towel roll",
+      "aliases": []
+    },
+    "itm0324": {
+      "name": "Facial tissue box",
+      "aliases": []
+    },
+    "itm0325": {
+      "name": "Paper napkins",
+      "aliases": []
+    },
+    "itm0326": {
+      "name": "Paper plates",
+      "aliases": []
+    },
+    "itm0327": {
+      "name": "Paper cups",
+      "aliases": []
+    },
+    "itm0328": {
+      "name": "Paper bowls",
+      "aliases": []
+    },
+    "itm0329": {
+      "name": "Disposable paper straws",
+      "aliases": []
+    },
+    "itm0330": {
+      "name": "Aluminium foil roll",
+      "aliases": []
+    },
+    "itm0331": {
+      "name": "Cling film roll",
+      "aliases": []
+    },
+    "itm0332": {
+      "name": "Parchment paper roll",
+      "aliases": []
+    },
+    "itm0333": {
+      "name": "Zip-lock bags",
+      "aliases": []
+    },
+    "itm0334": {
+      "name": "Disposable gloves",
+      "aliases": []
+    },
+    "itm0335": {
+      "name": "Disposable masks",
+      "aliases": []
+    },
+    "itm0336": {
+      "name": "Food storage bags",
+      "aliases": []
+    },
+    "itm0337": {
+      "name": "Disposable spoons",
+      "aliases": []
+    },
+    "itm0338": {
+      "name": "Disposable forks",
+      "aliases": []
+    },
+    "itm0339": {
+      "name": "Disposable containers",
+      "aliases": []
+    },
+    "itm0340": {
+      "name": "Dish sponge",
+      "aliases": []
+    },
+    "itm0341": {
+      "name": "Scrub brush",
+      "aliases": []
+    },
+    "itm0342": {
+      "name": "Dish rack",
+      "aliases": []
+    },
+    "itm0343": {
+      "name": "Food containers",
+      "aliases": []
+    },
+    "itm0344": {
+      "name": "Water bottle",
+      "aliases": []
+    },
+    "itm0345": {
+      "name": "Lunch box",
+      "aliases": []
+    },
+    "itm0346": {
+      "name": "Garbage bin",
+      "aliases": []
+    },
+    "itm0347": {
+      "name": "Garbage bags",
+      "aliases": []
+    },
+    "itm0348": {
+      "name": "Baking paper",
+      "aliases": []
+    },
+    "itm0349": {
+      "name": "Kitchen twine",
+      "aliases": []
+    },
+    "itm0350": {
+      "name": "Matchbox",
+      "aliases": []
+    },
+    "itm0351": {
+      "name": "Gas lighter",
+      "aliases": []
+    },
+    "itm0352": {
+      "name": "LED bulb",
+      "aliases": []
+    },
+    "itm0353": {
+      "name": "Batteries AA",
+      "aliases": []
+    },
+    "itm0354": {
+      "name": "Batteries AAA",
+      "aliases": []
+    },
+    "extension_board": {
+      "name": "Extension board",
+      "aliases": [
+        "spike guard",
+        "multi plug"
+      ]
+    },
+    "itm0356": {
+      "name": "Electrical tape",
+      "aliases": []
+    },
+    "itm0357": {
+      "name": "Adhesive tape",
+      "aliases": []
+    },
+    "itm0358": {
+      "name": "Glue",
+      "aliases": []
+    },
+    "itm0359": {
+      "name": "Super glue",
+      "aliases": []
+    },
+    "itm0360": {
+      "name": "Screws",
+      "aliases": []
+    },
+    "itm0361": {
+      "name": "Wall hooks",
+      "aliases": []
+    },
+    "itm0362": {
+      "name": "Door stopper",
+      "aliases": []
+    },
+    "itm0363": {
+      "name": "Pipe tape",
+      "aliases": []
+    },
+    "itm0364": {
+      "name": "Air freshener",
+      "aliases": []
+    },
+    "itm0365": {
+      "name": "Mosquito repellent refill",
+      "aliases": []
+    },
+    "itm0366": {
+      "name": "Cockroach bait",
+      "aliases": []
+    },
+    "bandage": {
+      "name": "Adhesive bandages",
+      "aliases": []
+    },
+    "itm0368": {
+      "name": "Sterile gauze",
+      "aliases": []
+    },
+    "itm0369": {
+      "name": "Medical tape",
+      "aliases": []
+    },
+    "itm0370": {
+      "name": "Cotton roll",
+      "aliases": []
+    },
+    "antiseptic_liquid": {
+      "name": "Antiseptic solution",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "itm0372": {
+      "name": "Digital thermometer",
+      "aliases": []
+    },
+    "itm0373": {
+      "name": "Hot water bag",
+      "aliases": []
+    },
+    "itm0374": {
+      "name": "Instant cold pack",
+      "aliases": []
+    },
+    "itm0375": {
+      "name": "Hand sanitizer",
+      "aliases": []
+    },
+    "itm0376": {
+      "name": "Disposable medical gloves",
+      "aliases": []
+    },
+    "ors": {
+      "name": "ORS sachets",
+      "aliases": [
+        "oral rehydration salts"
+      ]
+    },
+    "itm0378": {
+      "name": "Baby diapers",
+      "aliases": []
+    },
+    "itm0379": {
+      "name": "Baby wipes",
+      "aliases": []
+    },
+    "itm0380": {
+      "name": "Baby wash",
+      "aliases": []
+    },
+    "itm0381": {
+      "name": "Baby shampoo",
+      "aliases": []
+    },
+    "itm0382": {
+      "name": "Baby lotion",
+      "aliases": []
+    },
+    "itm0383": {
+      "name": "Diaper rash cream",
+      "aliases": []
+    },
+    "itm0384": {
+      "name": "Baby powder",
+      "aliases": []
+    },
+    "itm0385": {
+      "name": "Baby food",
+      "aliases": []
+    },
+    "itm0386": {
+      "name": "Feeding bottle",
+      "aliases": []
+    },
+    "itm0387": {
+      "name": "Bottle cleaning brush",
+      "aliases": []
+    },
+    "itm0388": {
+      "name": "School notebooks",
+      "aliases": []
+    },
+    "itm0389": {
+      "name": "Crayons",
+      "aliases": []
+    },
+    "itm0390": {
+      "name": "Colour pencils",
+      "aliases": []
+    },
+    "itm0391": {
+      "name": "School labels",
+      "aliases": []
+    },
+    "itm0392": {
+      "name": "Lunch box",
+      "aliases": []
+    },
+    "itm0393": {
+      "name": "Water bottle",
+      "aliases": []
+    },
+    "itm0394": {
+      "name": "School socks",
+      "aliases": []
+    },
+    "itm0395": {
+      "name": "School uniform",
+      "aliases": []
+    },
+    "itm0396": {
+      "name": "Pet food",
+      "aliases": []
+    },
+    "itm0397": {
+      "name": "Cat litter",
+      "aliases": []
+    },
+    "itm0398": {
+      "name": "Pet shampoo",
+      "aliases": []
+    },
+    "itm0399": {
+      "name": "Pet treats",
+      "aliases": []
+    },
+    "itm0400": {
+      "name": "Poop bags",
+      "aliases": []
+    },
+    "itm0401": {
+      "name": "Pet pads",
+      "aliases": []
+    },
+    "itm0402": {
+      "name": "Pet brush",
+      "aliases": []
+    },
+    "itm0403": {
+      "name": "Pet medication prescribed by vet",
+      "aliases": []
+    },
+    "notebook": {
+      "name": "Notebook",
+      "aliases": []
+    },
+    "pen": {
+      "name": "Pen",
+      "aliases": []
+    },
+    "pencil": {
+      "name": "Pencil",
+      "aliases": []
+    },
+    "eraser": {
+      "name": "Eraser",
+      "aliases": [
+        "rubber"
+      ]
+    },
+    "itm0408": {
+      "name": "Sharpener",
+      "aliases": []
+    },
+    "itm0409": {
+      "name": "Highlighter",
+      "aliases": []
+    },
+    "itm0410": {
+      "name": "Permanent marker",
+      "aliases": []
+    },
+    "itm0411": {
+      "name": "Whiteboard marker",
+      "aliases": []
+    },
+    "itm0412": {
+      "name": "Sticky notes",
+      "aliases": []
+    },
+    "itm0413": {
+      "name": "Printer paper",
+      "aliases": []
+    },
+    "itm0414": {
+      "name": "File folder",
+      "aliases": []
+    },
+    "itm0415": {
+      "name": "Envelope",
+      "aliases": []
+    },
+    "stapler": {
+      "name": "Stapler",
+      "aliases": []
+    },
+    "itm0417": {
+      "name": "Staples",
+      "aliases": []
+    },
+    "itm0418": {
+      "name": "Paper clips",
+      "aliases": []
+    },
+    "itm0419": {
+      "name": "Binder clips",
+      "aliases": []
+    },
+    "scissors": {
+      "name": "Scissors",
+      "aliases": []
+    },
+    "itm0421": {
+      "name": "Glue stick",
+      "aliases": []
+    },
+    "itm0422": {
+      "name": "Correction tape",
+      "aliases": []
+    },
+    "itm0423": {
+      "name": "Printer ink cartridge",
+      "aliases": []
+    },
+    "itm0424": {
+      "name": "Toner cartridge",
+      "aliases": []
+    },
+    "itm0425": {
+      "name": "ID card holder",
+      "aliases": []
+    },
+    "itm0426": {
+      "name": "Desk organizer",
+      "aliases": []
+    },
+    "itm0427": {
+      "name": "Whiteboard",
+      "aliases": []
+    },
+    "itm0428": {
+      "name": "Whiteboard duster",
+      "aliases": []
+    },
+    "itm0429": {
+      "name": "Diary / planner",
+      "aliases": []
+    },
+    "itm0430": {
+      "name": "Packaging tape",
+      "aliases": []
+    },
+    "itm0431": {
+      "name": "USB cable",
+      "aliases": []
+    },
+    "itm0432": {
+      "name": "USB-C cable",
+      "aliases": []
+    },
+    "charger": {
+      "name": "Phone charger",
+      "aliases": []
+    },
+    "power_bank": {
+      "name": "Power bank",
+      "aliases": []
+    },
+    "earphones": {
+      "name": "Earphones",
+      "aliases": [
+        "headphones"
+      ]
+    },
+    "itm0436": {
+      "name": "Headphones",
+      "aliases": []
+    },
+    "itm0437": {
+      "name": "Mouse",
+      "aliases": []
+    },
+    "itm0438": {
+      "name": "Keyboard",
+      "aliases": []
+    },
+    "itm0439": {
+      "name": "HDMI cable",
+      "aliases": []
+    },
+    "itm0440": {
+      "name": "USB drive",
+      "aliases": []
+    },
+    "itm0441": {
+      "name": "Memory card",
+      "aliases": []
+    },
+    "itm0442": {
+      "name": "Laptop sleeve",
+      "aliases": []
+    },
+    "itm0443": {
+      "name": "Screen protector",
+      "aliases": []
+    },
+    "itm0444": {
+      "name": "Phone case",
+      "aliases": []
+    },
+    "itm0445": {
+      "name": "Webcam",
+      "aliases": []
+    },
+    "itm0446": {
+      "name": "Suitcase",
+      "aliases": []
+    },
+    "itm0447": {
+      "name": "Travel backpack",
+      "aliases": []
+    },
+    "itm0448": {
+      "name": "Packing cubes",
+      "aliases": []
+    },
+    "itm0449": {
+      "name": "Travel-size toiletries",
+      "aliases": []
+    },
+    "itm0450": {
+      "name": "Travel adapter",
+      "aliases": []
+    },
+    "itm0451": {
+      "name": "Neck pillow",
+      "aliases": []
+    },
+    "itm0452": {
+      "name": "Eye mask",
+      "aliases": []
+    },
+    "itm0453": {
+      "name": "Luggage lock",
+      "aliases": []
+    },
+    "itm0454": {
+      "name": "Rain poncho",
+      "aliases": []
+    },
+    "itm0455": {
+      "name": "Umbrella",
+      "aliases": []
+    },
+    "itm0456": {
+      "name": "Reusable water bottle",
+      "aliases": []
+    },
+    "itm0457": {
+      "name": "First-aid travel kit",
+      "aliases": []
+    },
+    "itm0458": {
+      "name": "Sunscreen travel pack",
+      "aliases": []
+    },
+    "t_shirt": {
+      "name": "T-shirt",
+      "aliases": [
+        "tshirt",
+        "tee"
+      ]
+    },
     "shirt": {
       "name": "Shirt",
       "aliases": []
     },
     "pants": {
-      "name": "Pants",
+      "name": "Trousers",
+      "aliases": []
+    },
+    "itm0462": {
+      "name": "Jeans",
+      "aliases": []
+    },
+    "itm0463": {
+      "name": "Innerwear",
+      "aliases": []
+    },
+    "socks": {
+      "name": "Socks",
+      "aliases": []
+    },
+    "itm0465": {
+      "name": "Nightwear",
+      "aliases": []
+    },
+    "itm0466": {
+      "name": "Traditional wear",
+      "aliases": []
+    },
+    "itm0467": {
+      "name": "Jacket",
+      "aliases": []
+    },
+    "itm0468": {
+      "name": "Raincoat",
+      "aliases": []
+    },
+    "itm0469": {
+      "name": "Belt",
+      "aliases": []
+    },
+    "itm0470": {
+      "name": "Cap",
+      "aliases": []
+    },
+    "itm0471": {
+      "name": "Scarf",
+      "aliases": []
+    },
+    "itm0472": {
+      "name": "Handkerchief",
+      "aliases": []
+    },
+    "itm0473": {
+      "name": "Daily slippers",
+      "aliases": []
+    },
+    "itm0474": {
+      "name": "Sandals",
+      "aliases": []
+    },
+    "shoes": {
+      "name": "Shoes",
+      "aliases": []
+    },
+    "itm0476": {
+      "name": "Shoe polish",
+      "aliases": []
+    },
+    "itm0477": {
+      "name": "Shoe brush",
+      "aliases": []
+    },
+    "itm0478": {
+      "name": "Shoe insoles",
+      "aliases": []
+    },
+    "itm0479": {
+      "name": "Aadhaar-related task",
+      "aliases": []
+    },
+    "itm0480": {
+      "name": "PAN-related task",
+      "aliases": []
+    },
+    "passport": {
+      "name": "Passport",
+      "aliases": []
+    },
+    "driving_licence": {
+      "name": "Driving licence",
       "aliases": [
-        "trousers"
+        "driving license",
+        "dl",
+        "licence",
+        "license"
       ]
     },
-    "t_shirt": {
-      "name": "T-Shirt",
+    "itm0483": {
+      "name": "Vehicle insurance document",
+      "aliases": []
+    },
+    "itm0484": {
+      "name": "Health insurance policy",
+      "aliases": []
+    },
+    "itm0485": {
+      "name": "Bank statement",
+      "aliases": []
+    },
+    "itm0486": {
+      "name": "Payslip",
+      "aliases": []
+    },
+    "itm0487": {
+      "name": "Experience letter",
+      "aliases": []
+    },
+    "itm0488": {
+      "name": "Relieving letter",
+      "aliases": []
+    },
+    "itm0489": {
+      "name": "Tax document",
+      "aliases": []
+    },
+    "itm0490": {
+      "name": "Rental agreement",
+      "aliases": []
+    },
+    "itm0491": {
+      "name": "Utility bill",
+      "aliases": []
+    },
+    "itm0492": {
+      "name": "Warranty receipt",
+      "aliases": []
+    },
+    "itm0493": {
+      "name": "Textbooks",
+      "aliases": []
+    },
+    "itm0494": {
+      "name": "Reference books",
+      "aliases": []
+    },
+    "itm0495": {
+      "name": "Practice papers",
+      "aliases": []
+    },
+    "itm0496": {
+      "name": "Exam application",
+      "aliases": []
+    },
+    "hall_ticket": {
+      "name": "Hall ticket",
       "aliases": [
-        "tshirt",
-        "tee"
+        "admit card"
+      ]
+    },
+    "itm0498": {
+      "name": "ID proof for exam",
+      "aliases": []
+    },
+    "itm0499": {
+      "name": "Pens for exam",
+      "aliases": []
+    },
+    "itm0500": {
+      "name": "Pencils for exam",
+      "aliases": []
+    },
+    "itm0501": {
+      "name": "Geometry box",
+      "aliases": []
+    },
+    "calculator": {
+      "name": "Calculator",
+      "aliases": []
+    },
+    "itm0503": {
+      "name": "Flash cards",
+      "aliases": []
+    },
+    "itm0504": {
+      "name": "Study timetable",
+      "aliases": []
+    },
+    "itm0505": {
+      "name": "Sports shoes",
+      "aliases": []
+    },
+    "itm0506": {
+      "name": "Workout clothes",
+      "aliases": []
+    },
+    "itm0507": {
+      "name": "Yoga mat",
+      "aliases": []
+    },
+    "itm0508": {
+      "name": "Resistance bands",
+      "aliases": []
+    },
+    "itm0509": {
+      "name": "Skipping rope",
+      "aliases": []
+    },
+    "itm0510": {
+      "name": "Water bottle",
+      "aliases": []
+    },
+    "itm0511": {
+      "name": "Gym towel",
+      "aliases": []
+    },
+    "itm0512": {
+      "name": "Protein shaker",
+      "aliases": []
+    },
+    "itm0513": {
+      "name": "Sports ball",
+      "aliases": []
+    },
+    "itm0514": {
+      "name": "Sports socks",
+      "aliases": []
+    },
+    "itm0515": {
+      "name": "Potting mix",
+      "aliases": []
+    },
+    "itm0516": {
+      "name": "Compost",
+      "aliases": []
+    },
+    "itm0517": {
+      "name": "Cocopeat",
+      "aliases": []
+    },
+    "itm0518": {
+      "name": "Seeds",
+      "aliases": []
+    },
+    "itm0519": {
+      "name": "Seedling tray",
+      "aliases": []
+    },
+    "itm0520": {
+      "name": "Plant pots",
+      "aliases": []
+    },
+    "itm0521": {
+      "name": "Watering can",
+      "aliases": []
+    },
+    "itm0522": {
+      "name": "Garden gloves",
+      "aliases": []
+    },
+    "itm0523": {
+      "name": "Pruning shears",
+      "aliases": []
+    },
+    "itm0524": {
+      "name": "Drip connector",
+      "aliases": []
+    },
+    "itm0525": {
+      "name": "Mulch",
+      "aliases": []
+    },
+    "itm0526": {
+      "name": "Plant labels",
+      "aliases": []
+    },
+    "itm0527": {
+      "name": "Fuel",
+      "aliases": []
+    },
+    "itm0528": {
+      "name": "Engine oil",
+      "aliases": []
+    },
+    "itm0529": {
+      "name": "Coolant",
+      "aliases": []
+    },
+    "itm0530": {
+      "name": "Wiper fluid",
+      "aliases": []
+    },
+    "itm0531": {
+      "name": "Tyre pressure check",
+      "aliases": []
+    },
+    "itm0532": {
+      "name": "Puncture kit",
+      "aliases": []
+    },
+    "itm0533": {
+      "name": "Helmet",
+      "aliases": []
+    },
+    "itm0534": {
+      "name": "Reflective vest",
+      "aliases": []
+    },
+    "itm0535": {
+      "name": "Vehicle cleaning cloth",
+      "aliases": []
+    },
+    "itm0536": {
+      "name": "Fastag recharge",
+      "aliases": []
+    },
+    "itm0537": {
+      "name": "Birthday candles",
+      "aliases": []
+    },
+    "itm0538": {
+      "name": "Cake topper",
+      "aliases": []
+    },
+    "balloons": {
+      "name": "Balloons",
+      "aliases": []
+    },
+    "itm0540": {
+      "name": "Gift wrap",
+      "aliases": []
+    },
+    "greeting_card": {
+      "name": "Greeting card",
+      "aliases": []
+    },
+    "itm0542": {
+      "name": "Gift bag",
+      "aliases": []
+    },
+    "itm0543": {
+      "name": "Party plates",
+      "aliases": []
+    },
+    "itm0544": {
+      "name": "Party cups",
+      "aliases": []
+    },
+    "decorative_lights": {
+      "name": "String lights",
+      "aliases": [
+        "serial lights"
+      ]
+    },
+    "itm0546": {
+      "name": "Decorations",
+      "aliases": []
+    },
+    "itm0547": {
+      "name": "Return gifts",
+      "aliases": []
+    },
+    "itm0548": {
+      "name": "Pay electricity bill",
+      "aliases": []
+    },
+    "itm0549": {
+      "name": "Pay water bill",
+      "aliases": []
+    },
+    "itm0550": {
+      "name": "Pay internet bill",
+      "aliases": []
+    },
+    "itm0551": {
+      "name": "Mobile recharge",
+      "aliases": []
+    },
+    "itm0552": {
+      "name": "Back up phone",
+      "aliases": []
+    },
+    "itm0553": {
+      "name": "Back up laptop",
+      "aliases": []
+    },
+    "itm0554": {
+      "name": "Update apps",
+      "aliases": []
+    },
+    "itm0555": {
+      "name": "Renew domain",
+      "aliases": []
+    },
+    "itm0556": {
+      "name": "Renew subscription",
+      "aliases": []
+    },
+    "itm0557": {
+      "name": "Review budget",
+      "aliases": []
+    },
+    "itm0558": {
+      "name": "Schedule health check-up",
+      "aliases": []
+    },
+    "itm0559": {
+      "name": "Check insurance renewal",
+      "aliases": []
+    },
+    "itm0560": {
+      "name": "Clean email inbox",
+      "aliases": []
+    },
+    "itm0561": {
+      "name": "Change passwords",
+      "aliases": []
+    },
+    "itm0562": {
+      "name": "Review calendar",
+      "aliases": []
+    },
+    "itm0563": {
+      "name": "Custom item",
+      "aliases": []
+    },
+    "dal": {
+      "name": "Dal",
+      "aliases": [
+        "lentils",
+        "pulses",
+        "daal"
+      ]
+    },
+    "cooking_oil": {
+      "name": "Cooking Oil",
+      "aliases": [
+        "oil"
+      ]
+    },
+    "spices": {
+      "name": "Spices",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "beans": {
+      "name": "Beans",
+      "aliases": [
+        "french beans",
+        "green beans"
       ]
     },
     "saree": {
@@ -173,14 +2364,6 @@
       "aliases": [
         "frock"
       ]
-    },
-    "socks": {
-      "name": "Socks",
-      "aliases": []
-    },
-    "shoes": {
-      "name": "Shoes",
-      "aliases": []
     },
     "travel_passport": {
       "name": "Passport",
@@ -196,14 +2379,6 @@
     },
     "clothes": {
       "name": "Clothes",
-      "aliases": []
-    },
-    "charger": {
-      "name": "Charger",
-      "aliases": []
-    },
-    "power_bank": {
-      "name": "Power Bank",
       "aliases": []
     },
     "travel_toiletries": {
@@ -229,19 +2404,6 @@
         "pan"
       ]
     },
-    "passport": {
-      "name": "Passport",
-      "aliases": []
-    },
-    "driving_licence": {
-      "name": "Driving Licence",
-      "aliases": [
-        "driving license",
-        "dl",
-        "licence",
-        "license"
-      ]
-    },
     "educational_certificates": {
       "name": "Educational Certificates",
       "aliases": [
@@ -256,35 +2418,11 @@
         "photos"
       ]
     },
-    "hall_ticket": {
-      "name": "Hall Ticket",
-      "aliases": [
-        "admit card"
-      ]
-    },
     "id_card": {
       "name": "ID Card",
       "aliases": [
         "identity card"
       ]
-    },
-    "pen": {
-      "name": "Pen",
-      "aliases": []
-    },
-    "pencil": {
-      "name": "Pencil",
-      "aliases": []
-    },
-    "eraser": {
-      "name": "Eraser",
-      "aliases": [
-        "rubber"
-      ]
-    },
-    "calculator": {
-      "name": "Calculator",
-      "aliases": []
     },
     "books": {
       "name": "Books",
@@ -299,10 +2437,6 @@
       "aliases": [
         "mithai"
       ]
-    },
-    "greeting_card": {
-      "name": "Greeting Card",
-      "aliases": []
     },
     "incense_sticks": {
       "name": "Incense Sticks",
@@ -343,22 +2477,11 @@
         "lamp wicks"
       ]
     },
-    "balloons": {
-      "name": "Balloons",
-      "aliases": []
-    },
     "rangoli_colours": {
       "name": "Rangoli Colours",
       "aliases": [
         "rangoli colors",
         "rangoli"
-      ]
-    },
-    "decorative_lights": {
-      "name": "Decorative Lights",
-      "aliases": [
-        "serial lights",
-        "string lights"
       ]
     },
     "fever_tablets": {
@@ -373,52 +2496,8 @@
         "balm"
       ]
     },
-    "bandage": {
-      "name": "Bandage",
-      "aliases": []
-    },
-    "antiseptic_liquid": {
-      "name": "Antiseptic Liquid",
-      "aliases": [
-        "antiseptic"
-      ]
-    },
-    "ors": {
-      "name": "ORS",
-      "aliases": [
-        "oral rehydration salts"
-      ]
-    },
     "cough_syrup": {
       "name": "Cough Syrup",
-      "aliases": []
-    },
-    "soap": {
-      "name": "Soap",
-      "aliases": []
-    },
-    "toothpaste": {
-      "name": "Toothpaste",
-      "aliases": [
-        "paste"
-      ]
-    },
-    "toothbrush": {
-      "name": "Toothbrush",
-      "aliases": [
-        "brush"
-      ]
-    },
-    "shampoo": {
-      "name": "Shampoo",
-      "aliases": []
-    },
-    "hair_oil": {
-      "name": "Hair Oil",
-      "aliases": []
-    },
-    "comb": {
-      "name": "Comb",
       "aliases": []
     },
     "batteries": {
@@ -433,36 +2512,11 @@
         "bulb"
       ]
     },
-    "extension_board": {
-      "name": "Extension Board",
-      "aliases": [
-        "spike guard",
-        "multi plug"
-      ]
-    },
-    "earphones": {
-      "name": "Earphones",
-      "aliases": [
-        "headphones"
-      ]
-    },
-    "notebook": {
-      "name": "Notebook",
-      "aliases": []
-    },
-    "scissors": {
-      "name": "Scissors",
-      "aliases": []
-    },
     "glue": {
       "name": "Glue",
       "aliases": [
         "gum"
       ]
-    },
-    "stapler": {
-      "name": "Stapler",
-      "aliases": []
     },
     "ruler": {
       "name": "Ruler",

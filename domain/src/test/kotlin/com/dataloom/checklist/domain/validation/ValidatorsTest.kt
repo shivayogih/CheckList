@@ -118,7 +118,7 @@ class QuantityValidatorTest {
     @Test
     fun `every whole-number unit rejects fractions and accepts whole amounts`() {
         val wholeUnits = BuiltInUnits.all.filterNot { it.allowsDecimal } + customWhole
-        assertEquals(8, wholeUnits.size) // seven built-in whole units plus one custom
+        assertEquals(9, wholeUnits.size) // eight built-in whole units plus one custom
         for (unit in wholeUnits) {
             assertEquals(unit.code.value, listOf(ValidationError.QUANTITY_MUST_BE_WHOLE), QuantityValidator.validate(Quantity.parse("2.5"), unit))
             assertTrue(unit.code.value, QuantityValidator.validate(Quantity.parse("2.000"), unit).isEmpty())
