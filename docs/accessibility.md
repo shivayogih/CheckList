@@ -2,7 +2,7 @@
 
 CheckList is designed for people like Kamala, 68, who reads Kannada and uses only WhatsApp. If a screen works for her with large text and TalkBack, it works for everyone. Design reasoning: [phase0-architecture.md](phase0-architecture.md) section 10.
 
-**Status:** the Phase 1 shell already uses Material 3 type in `sp`, string-resource content descriptions (for example the shared back button) and a visible back button rather than gestures. The Phase 3 screens (CL-132) apply the Compose rules below: merged checkbox rows with a state description, category headings, named "⋮" menus on every row, Move up/Move down in menus and as TalkBack actions, confirmation dialogs and Undo for item deletion, and auto-mirrored directional icons. Drag-to-reorder is not built; the in-app text size, the high-contrast theme and automated checks are Planned (Phase 4, CL-140 to CL-147; tests in Phase 7).
+**Status:** the Phase 1 shell uses Material 3 type in `sp`, string-resource content descriptions and a visible back button rather than gestures. The Phase 3 screens (CL-132) apply the Compose rules below: merged checkbox rows with a state description, category headings, named "⋮" menus on every row, Move up/Move down in menus and as TalkBack actions, confirmation dialogs and Undo for item deletion, and auto-mirrored directional icons. The Phase 4 audit (CL-140 to CL-147, results below) added screen-title and dialog-title headings, titles that wrap at 200% text, per-language TalkBack voices for language names and a live region for the unit error, and it is now enforced by automated tests (Phase 7). Drag-to-reorder is not built; the in-app text size, the high-contrast theme and the Roborazzi screenshot matrix are still Planned.
 
 ## Targets
 
@@ -47,10 +47,38 @@ Copy guide for every string (English first; translators follow the same tone):
 
 | Check | How | Status |
 |---|---|---|
-| Semantics assertions | Compose UI tests assert content descriptions, state descriptions and headings | Planned (Phase 4, 7) |
-| Automated accessibility checks | Accessibility checks enabled in Compose UI tests (touch targets, contrast, labels) | Planned (Phase 7) |
-| Screenshot matrix | Key screens × 7 languages × 100% and 200% font × light and dark (Roborazzi) | Planned (Phase 4, 7) |
-| Manual TalkBack script | Before each release, walk journeys J1 to J6 with TalkBack on and at 200% font | Planned (Phase 4) |
+| Semantics assertions | `ScreenAccessibilityTest` (CL-174) and the journey tests (CL-171) on Robolectric | Done |
+| Automated accessibility checks | `assertAccessible()` in `app/src/test/.../testing/ui/AccessibilityAssertions.kt`: labels, 48dp targets, a heading, checkbox state, no clipped text | Done |
+| 200% font scale | Every audited screen runs at font scale 1 and 2 with real text measurement (`@GraphicsMode(NATIVE)`) | Done |
+| Palette contrast | `ThemeContrastTest` (CL-144): WCAG AA for the light and dark schemes, including inherited Material roles | Done |
+| Screenshot matrix | Key screens × 7 languages × 100% and 200% font × light and dark (Roborazzi) | Planned (photos track adds Roborazzi) |
+| Manual TalkBack script | Before each release, walk journeys J1 to J6 with TalkBack on and at 200% font | Planned (release checklist) |
+
+### Audit results (Phase 4)
+
+`ScreenAccessibilityTest` renders each screen with seeded data, at font scale 1 and 2, and runs `assertAccessible()`:
+
+- every clickable or editable node has a label (text, content description or a merged child's text);
+- every clickable node's touch bounds are at least 48dp × 48dp (Material's minimum interactive size counts);
+- the screen has at least one heading;
+- every checkbox with a toggle state also has a state description;
+- no non-editable text reports visual overflow (clipped or ellipsised) at either scale.
+
+| Screen | Found | Fix |
+|---|---|---|
+| All screens with a top bar | Title was not a heading; at 200% long titles clipped in the single-line bar | `AppTopBar`: heading title, two lines and a taller bar above 130% font scale |
+| Dialogs (confirm, text input, unit picker, import preview) | Titles were not headings | `DialogTitle` marks them as headings |
+| Home | Filter chips and the sort button overflowed the row at 200% | `FlowRow` wraps them |
+| Home, first use | At 200% the Create checklist button was squeezed to 3px tall on a small screen | Content scrolls, and stays centred when it fits |
+| Home | The floating Create checklist button had no label in the merged semantics | Content-slot `ExtendedFloatingActionButton`, whose text merges into the button |
+| Add items | Clear search button in the field was 40dp at 200% | Explicit 48dp size |
+| Language | TalkBack read "ಕನ್ನಡ" etc. with the current language's voice | Each name carries its own `LocaleList` span |
+| Item editor | Unit error appeared silently | Polite live region |
+| Counts ("3 of 8 done", "Add 2 items") | Not pluralised; Marathi showed Devanagari digits | `<plurals>` and `LocaleNumbers` (see [localization.md](localization.md)) |
+| Detail, Settings | Only the shared top bar changed (attribute-level edits) | — |
+| Palette | Light and dark text and UI pairs meet AA | No change needed |
+
+Screens audited: Home (first use and with lists), Create checklist, Checklist detail (English and Kannada), Add categories, Add items with a selection, Item editor, Settings, Language and Profile. The AI command UI is owned by the AI track and is not part of this audit.
 
 ### Manual TalkBack script (outline)
 

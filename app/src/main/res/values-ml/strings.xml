@@ -15,8 +15,7 @@
     <string name="language_title">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">പട്ടിക പങ്കിടുക</string>
-    <string name="pdf_page_number">പേജ് %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d-ൽ %1$d പൂർത്തിയായി</string>
+    <string name="pdf_page_number">പേജ് %1$s / %2$s</string>
     <string name="pdf_prepared_by">തയ്യാറാക്കിയത്: %1$s</string>
     <string name="pdf_no_items">ഈ പട്ടികയിൽ ഇനങ്ങളൊന്നുമില്ല.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -61,7 +60,6 @@
     <string name="add_items_search_label">ഇനങ്ങൾ തിരയുക</string>
     <string name="add_items_title">%1$s-ലേക്ക് ചേർക്കുക</string>
     <string name="add_items_type_to_search">തിരയാൻ ഒരു ഇനത്തിന്റെ പേര് ടൈപ്പ് ചെയ്യുക.</string>
-    <string name="add_selected">തിരഞ്ഞെടുത്തവ ചേർക്കുക (%1$d)</string>
     <string name="category_create">വിഭാഗം തയ്യാറാക്കുക</string>
     <string name="category_name_label">വിഭാഗത്തിന്റെ പേര്</string>
     <string name="checklist_copy_title">%1$s (പകർപ്പ്)</string>
@@ -93,9 +91,9 @@
     <string name="error_quantity_not_number">അക്കങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2 അല്ലെങ്കിൽ 2.5.</string>
     <string name="error_quantity_not_positive">അളവ് പൂജ്യത്തേക്കാൾ കൂടുതലായിരിക്കണം.</string>
     <string name="error_quantity_too_precise">പരമാവധി 3 ദശാംശ സ്ഥാനങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">പട്ടികയ്ക്ക് ഒരു പേര് നൽകുക.</string>
-    <string name="error_too_long">പരമാവധി %1$d അക്ഷരങ്ങൾ ഉപയോഗിക്കുക.</string>
+    <string name="error_too_long">പരമാവധി %1$s അക്ഷരങ്ങൾ ഉപയോഗിക്കുക.</string>
     <string name="error_unit_label_blank">അളവിന് ഒരു പേര് നൽകുക.</string>
     <string name="error_unit_unknown">ഈ അളവ് ഇപ്പോൾ നിലവിലില്ല. മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക.</string>
     <string name="error_unit_without_quantity">ഈ അളവിന് ഒരു എണ്ണം നൽകുക, അല്ലെങ്കിൽ “അളവില്ല” തിരഞ്ഞെടുക്കുക.</string>
@@ -120,7 +118,6 @@
     <string name="item_quantity_optional">എണ്ണം (ഐച്ഛികം)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s നിർദ്ദേശങ്ങളിൽ സംരക്ഷിക്കുക</string>
-    <string name="progress_done">%2$d-ൽ %1$d പൂർത്തിയായി</string>
     <string name="progress_no_items">ഇതുവരെ ഇനങ്ങളില്ല</string>
     <string name="search_clear">തിരയൽ മായ്ക്കുക</string>
     <string name="sort_progress">പുരോഗതി</string>
@@ -152,7 +149,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">നിങ്ങളുടെ പേര് നൽകുക.</string>
     <string name="error_email_invalid">name@example.com പോലുള്ള ഒരു ഇമെയിൽ വിലാസം നൽകുക.</string>
-    <string name="error_phone_invalid">%1$d മുതൽ %2$d വരെ അക്കങ്ങളുള്ള ഫോൺ നമ്പർ നൽകുക.</string>
+    <string name="error_phone_invalid">%1$s മുതൽ %2$s വരെ അക്കങ്ങളുള്ള ഫോൺ നമ്പർ നൽകുക.</string>
     <string name="error_secure_storage">സുരക്ഷിത സംഭരണം ഇപ്പോൾ പ്രവർത്തിക്കുന്നില്ല. ഒന്നും സംരക്ഷിച്ചില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="profile_clear">പ്രൊഫൈൽ ഇല്ലാതാക്കുക</string>
     <string name="profile_clear_message">നിങ്ങളുടെ പേരും ബന്ധപ്പെടാനുള്ള വിവരങ്ങളും ഈ ഫോണിൽ നിന്ന് മായ്‌ക്കും.</string>
@@ -174,19 +171,19 @@
     <string name="action_import">ഇംപോർട്ട് ചെയ്യുക</string>
     <string name="detail_save_pdf">PDF ആയി സംരക്ഷിക്കുക</string>
     <string name="detail_share_pdf">PDF ആയി പങ്കിടുക</string>
-    <string name="export_done">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d.</string>
+    <string name="export_done">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s.</string>
     <string name="export_nothing">എക്സ്പോർട്ട് ചെയ്യാൻ ലിസ്റ്റുകളൊന്നുമില്ല.</string>
     <string name="export_too_large">ഒരു ഫയലിൽ എക്സ്പോർട്ട് ചെയ്യാൻ ഇത് വളരെ കൂടുതലാണ്.</string>
-    <string name="import_done">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d.</string>
-    <string name="import_error_invalid">ഈ ഫയലിൽ കണ്ട പ്രശ്നങ്ങൾ: %1$d. ഒന്നും ഇംപോർട്ട് ചെയ്തില്ല.</string>
+    <string name="import_done">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s.</string>
+    <string name="import_error_invalid">ഈ ഫയലിൽ കണ്ട പ്രശ്നങ്ങൾ: %1$s. ഒന്നും ഇംപോർട്ട് ചെയ്തില്ല.</string>
     <string name="import_error_malformed">ഇതൊരു CheckList ബാക്കപ്പ് ഫയലല്ല.</string>
     <string name="import_error_newer_app">ഈ ഫയൽ CheckList-ന്റെ പുതിയ പതിപ്പിൽ നിർമ്മിച്ചതാണ്. ഇംപോർട്ട് ചെയ്യാൻ ആപ്പ് അപ്ഡേറ്റ് ചെയ്യുക.</string>
     <string name="import_error_nothing">ഈ ഫയലിൽ ലിസ്റ്റുകളൊന്നുമില്ല.</string>
     <string name="import_error_too_large">ഈ ഫയൽ ഇംപോർട്ട് ചെയ്യാൻ വളരെ വലുതാണ്.</string>
     <string name="import_error_unreadable">ഈ ഫയൽ വായിക്കാനായില്ല. വീണ്ടും തിരഞ്ഞെടുത്ത് നോക്കുക.</string>
     <string name="import_error_unsupported">ഈ ഫയൽ പതിപ്പ് പിന്തുണയ്ക്കുന്നില്ല.</string>
-    <string name="import_preview_checklists">ലിസ്റ്റുകൾ: %1$d</string>
-    <string name="import_preview_items">ഇനങ്ങൾ: %1$d (പൂർത്തിയായവ: %2$d)</string>
+    <string name="import_preview_checklists">ലിസ്റ്റുകൾ: %1$s</string>
+    <string name="import_preview_items">ഇനങ്ങൾ: %1$s (പൂർത്തിയായവ: %2$s)</string>
     <string name="import_preview_new_categories">പുതിയ വിഭാഗങ്ങൾ: %1$s</string>
     <string name="import_preview_new_units">പുതിയ യൂണിറ്റുകൾ: %1$s</string>
     <string name="import_preview_profile_skipped">ഈ ഫയലിലെ പ്രൊഫൈൽ ഇംപോർട്ട് ചെയ്യില്ല.</string>
@@ -194,11 +191,11 @@
     <string name="import_preview_title">ഈ ലിസ്റ്റുകൾ ഇംപോർട്ട് ചെയ്യണോ?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">ഇതൊരു സാധുവായ CheckList ഫോട്ടോ ബാക്കപ്പ് അല്ല. ഒന്നും ഇംപോർട്ട് ചെയ്തില്ല.</string>
-    <string name="import_preview_photos">ഫോട്ടോകൾ: %1$d</string>
-    <string name="import_done_photos">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d, ഫോട്ടോകൾ: %3$d.</string>
-    <string name="import_done_photos_skipped">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d, ഫോട്ടോകൾ: %3$d. ഒഴിവാക്കിയ ഫോട്ടോകൾ: %4$d.</string>
-    <string name="export_done_photos">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d, ഫോട്ടോകൾ: %3$d.</string>
-    <string name="export_done_photos_skipped">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$d, ഇനങ്ങൾ: %2$d, ഫോട്ടോകൾ: %3$d. ഒഴിവാക്കിയ ഫോട്ടോകൾ: %4$d.</string>
+    <string name="import_preview_photos">ഫോട്ടോകൾ: %1$s</string>
+    <string name="import_done_photos">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s, ഫോട്ടോകൾ: %3$s.</string>
+    <string name="import_done_photos_skipped">ഇംപോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s, ഫോട്ടോകൾ: %3$s. ഒഴിവാക്കിയ ഫോട്ടോകൾ: %4$s.</string>
+    <string name="export_done_photos">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s, ഫോട്ടോകൾ: %3$s.</string>
+    <string name="export_done_photos_skipped">എക്സ്പോർട്ട് ചെയ്തു. ലിസ്റ്റുകൾ: %1$s, ഇനങ്ങൾ: %2$s, ഫോട്ടോകൾ: %3$s. ഒഴിവാക്കിയ ഫോട്ടോകൾ: %4$s.</string>
     <string name="action_export">എക്സ്പോർട്ട് ചെയ്യുക</string>
     <string name="action_share">പങ്കിടുക</string>
     <string name="export_include_photos">ഫോട്ടോകൾ ഉൾപ്പെടുത്തുക</string>
@@ -206,37 +203,37 @@
     <string name="pdf_options_title">PDF ഓപ്ഷനുകൾ</string>
     <string name="pdf_include_photos_summary">ഓരോ ഇനത്തിനും താഴെ 3 ചെറിയ ഫോട്ടോകൾ വരെ കാണിക്കും. ഫയൽ വലുതാകും.</string>
     <string name="photos_section_title">ഫോട്ടോകൾ (ഓപ്ഷണൽ)</string>
-    <string name="photos_count">%2$d ൽ %1$d ഫോട്ടോകൾ</string>
+    <string name="photos_count">%2$s ൽ %1$s ഫോട്ടോകൾ</string>
     <string name="photos_add">ഫോട്ടോ ചേർക്കുക</string>
     <string name="photos_take">ഫോട്ടോ എടുക്കുക</string>
     <string name="photos_pick">ഗാലറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക</string>
-    <string name="photos_remove_cd">ഫോട്ടോ %1$d നീക്കം ചെയ്യുക</string>
-    <string name="photos_move_left_cd">ഫോട്ടോ %1$d ഇടത്തേക്ക് നീക്കുക</string>
-    <string name="photos_move_right_cd">ഫോട്ടോ %1$d വലത്തേക്ക് നീക്കുക</string>
+    <string name="photos_remove_cd">ഫോട്ടോ %1$s നീക്കം ചെയ്യുക</string>
+    <string name="photos_move_left_cd">ഫോട്ടോ %1$s ഇടത്തേക്ക് നീക്കുക</string>
+    <string name="photos_move_right_cd">ഫോട്ടോ %1$s വലത്തേക്ക് നീക്കുക</string>
     <string name="photos_processing">ഫോട്ടോ ചേർക്കുന്നു</string>
     <string name="photos_add_failed">ഈ ഫോട്ടോ ചേർക്കാനായില്ല. മറ്റൊന്ന് പരീക്ഷിക്കുക.</string>
-    <string name="photos_limit_reached">ഒരു ഇനത്തിൽ %1$d ഫോട്ടോകൾ മാത്രമേ ചേർക്കാനാകൂ. അധികമുള്ളവ ചേർത്തില്ല.</string>
+    <string name="photos_limit_reached">ഒരു ഇനത്തിൽ %1$s ഫോട്ടോകൾ മാത്രമേ ചേർക്കാനാകൂ. അധികമുള്ളവ ചേർത്തില്ല.</string>
     <string name="photo_missing">ഫോട്ടോ ലഭ്യമല്ല</string>
-    <string name="photo_cd">%3$s നുള്ള ഫോട്ടോ %1$d / %2$d</string>
-    <string name="photo_cd_caption">%3$s നുള്ള ഫോട്ടോ %1$d / %2$d. അടിക്കുറിപ്പ്: %4$s</string>
+    <string name="photo_cd">%3$s നുള്ള ഫോട്ടോ %1$s / %2$s</string>
+    <string name="photo_cd_caption">%3$s നുള്ള ഫോട്ടോ %1$s / %2$s. അടിക്കുറിപ്പ്: %4$s</string>
     <string name="photo_view_action">ഫോട്ടോകൾ കാണുക</string>
     <string name="photo_viewer_title">%1$s ന്റെ ഫോട്ടോകൾ</string>
-    <string name="photo_viewer_position">ഫോട്ടോ %1$d / %2$d</string>
+    <string name="photo_viewer_position">ഫോട്ടോ %1$s / %2$s</string>
     <string name="photo_viewer_previous">മുമ്പത്തെ ഫോട്ടോ</string>
     <string name="photo_viewer_next">അടുത്ത ഫോട്ടോ</string>
     <string name="photo_viewer_close">അടയ്ക്കുക</string>
     <string name="photo_viewer_delete">ഫോട്ടോ ഇല്ലാതാക്കുക</string>
     <string name="photo_viewer_zoom_in">സൂം ഇൻ</string>
     <string name="photo_viewer_zoom_out">സൂം ഔട്ട്</string>
-    <string name="photos_more_badge">+%1$d</string>
+    <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">ഈ ഫോട്ടോ ഇല്ലാതാക്കണോ?</string>
     <string name="photo_delete_body">ഇത് തിരികെ എടുക്കാനാവില്ല.</string>
     <string name="photo_caption_label">അടിക്കുറിപ്പ് (ഓപ്ഷണൽ)</string>
     <string name="settings_privacy_photos_title">ഫോട്ടോകൾ നിങ്ങളുടെ ഫോണിൽ തന്നെ നിൽക്കും</string>
     <string name="settings_privacy_photos_body">ഇനങ്ങളുടെ ഫോട്ടോകൾ ഈ ഫോണിൽ മാത്രമാണ് സേവ് ചെയ്യുന്നത്. അവ AI സഹായിക്ക് ഒരിക്കലും അയയ്ക്കില്ല, ചിത്രത്തിനുള്ളിലെ ലൊക്കേഷൻ വിവരവും നീക്കം ചെയ്യും. നിങ്ങൾ എക്സ്പോർട്ട് ചെയ്താലോ PDF-ൽ ഉൾപ്പെടുത്തിയാലോ മാത്രമേ ഫോട്ടോകൾ ഫോൺ വിടുകയുള്ളൂ. ഈ ഫോണിൽ Android ബാക്കപ്പ് ഓണാണെങ്കിൽ, നിങ്ങളുടെ ലിസ്റ്റുകൾക്കൊപ്പം ഫോട്ടോകളും ബാക്കപ്പ് ചെയ്യും.</string>
     <plurals name="photos_view_cd">
-        <item quantity="one">%2$s നുള്ള %1$d ഫോട്ടോ കാണുക</item>
-        <item quantity="other">%2$s നുള്ള %1$d ഫോട്ടോകൾ കാണുക</item>
+        <item quantity="one">%2$s നുള്ള %1$s ഫോട്ടോ കാണുക</item>
+        <item quantity="other">%2$s നുള്ള %1$s ഫോട്ടോകൾ കാണുക</item>
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF സംരക്ഷിച്ചു.</string>
@@ -263,7 +260,7 @@
     <string name="onboarding_page2_body">നിങ്ങളുടെ ഭാഷയിൽ തയ്യാറായ സാധനങ്ങൾ തിരയുക, ടിക്ക് ചെയ്യുക, 5 കിലോ പോലുള്ള അളവ് തിരഞ്ഞെടുക്കുക.</string>
     <string name="onboarding_page3_title">ടിക്ക് ചെയ്യാം, പങ്കിടാം, സ്വകാര്യമായി സൂക്ഷിക്കാം</string>
     <string name="onboarding_page3_body">ഷോപ്പിംഗ് സമയത്ത് സാധനങ്ങൾ ടിക്ക് ചെയ്യുക, ലിസ്റ്റ് വാട്ട്‌സ്ആപ്പിൽ അയയ്ക്കുക, ഇന്റർനെറ്റ് ഇല്ലാതെയും ഉപയോഗിക്കുക.</string>
-    <string name="onboarding_page_position">പേജ് %1$d / %2$d</string>
+    <string name="onboarding_page_position">പേജ് %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">ദീപാവലി ഷോപ്പിംഗ്</string>
     <string name="onboarding_demo_rice">അരി</string>
     <string name="onboarding_demo_sugar">പഞ്ചസാര</string>
@@ -284,8 +281,8 @@
     <string name="settings_show_tutorial">ട്യൂട്ടോറിയൽ വീണ്ടും കാണിക്കുക</string>
     <string name="settings_show_tutorial_summary">CheckList എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്ന് കാണുക</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">നിങ്ങൾക്ക് %1$d ലിസ്റ്റ് പുരോഗമിക്കുന്നു.</item>
-        <item quantity="other">നിങ്ങൾക്ക് %1$d ലിസ്റ്റുകൾ പുരോഗമിക്കുന്നു.</item>
+        <item quantity="one">നിങ്ങൾക്ക് %1$s ലിസ്റ്റ് പുരോഗമിക്കുന്നു.</item>
+        <item quantity="other">നിങ്ങൾക്ക് %1$s ലിസ്റ്റുകൾ പുരോഗമിക്കുന്നു.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI സഹായി (ഓഫ്‌ലൈൻ)</string>

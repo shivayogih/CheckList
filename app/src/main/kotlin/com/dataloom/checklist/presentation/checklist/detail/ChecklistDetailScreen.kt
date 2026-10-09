@@ -27,7 +27,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -64,8 +63,10 @@ import com.dataloom.checklist.presentation.ai.AiCommandUiState
 import com.dataloom.checklist.presentation.ai.AiCommandViewModel
 import com.dataloom.checklist.presentation.ai.AiReviewSheet
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.quantityText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
@@ -105,15 +106,18 @@ fun ChecklistDetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
-    val onAction = viewModel::onAction
+    val onAction = remember(viewModel) { viewModel::onAction }
 
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
     TransferEffects(transferViewModel, snackbarHostState)
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
-    val customUnitLabels = state.sections
-        .flatMap { section -> section.items.mapNotNull { it.unit } }
-        .filter { it.customLabel != null }
-        .associate { it.code to it.customLabel.orEmpty() }
+    // Recomputed only when the sections change, not on every recomposition (rename dialog, snackbar...).
+    val customUnitLabels = remember(state.sections) {
+        state.sections
+            .flatMap { section -> section.items.mapNotNull { it.unit } }
+            .filter { it.customLabel != null }
+            .associate { it.code to it.customLabel.orEmpty() }
+    }
     val unitLabels = rememberUnitLabels(customUnitLabels)
     val id = remember(checklistId) { ChecklistId(checklistId) }
     // Asked only when the checklist has photos: the PDF is bigger with them (CL-214).
@@ -207,8 +211,8 @@ private fun DetailContent(
     var viewerItemId by rememberSaveable { mutableStateOf<String?>(null) }
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(state.title) },
+            AppTopBar(
+                title = state.title,
                 navigationIcon = { BackButton(navigation.onBack) },
                 actions = {
                     OverflowMenu(
@@ -230,16 +234,18 @@ private fun DetailContent(
             contentPadding = PaddingValues(bottom = 24.dp),
         ) {
             if (!state.isLoading) {
-                item { ProgressHeader(state) }
+                item(key = "progress", contentType = "progress") { ProgressHeader(state) }
             }
             // Only while the assistant is on in Settings; the screen works the same without it.
             if (!state.isLoading && aiState.isAvailable) {
-                item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
+                item(key = "ai-command", contentType = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
-                item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
+                item(key = "header-${section.id.value}", contentType = "section-header") {
+                    SectionHeader(section, onAction)
+                }
                 if (section.items.isEmpty()) {
-                    item(key = "empty-${section.id.value}") {
+                    item(key = "empty-${section.id.value}", contentType = "section-empty") {
                         Text(
                             stringResource(R.string.detail_section_empty),
                             style = MaterialTheme.typography.bodyMedium,
@@ -248,7 +254,7 @@ private fun DetailContent(
                         )
                     }
                 }
-                items(section.items, key = { it.id.value }) { item ->
+                items(section.items, key = { it.id.value }, contentType = { "item" }) { item ->
                     ItemRow(
                         item = item,
                         onAction = onAction,
@@ -256,13 +262,15 @@ private fun DetailContent(
                         onViewPhotos = { viewerItemId = item.id.value },
                     )
                 }
-                item(key = "add-${section.id.value}") {
+                item(key = "add-${section.id.value}", contentType = "add-item") {
                     AddItemButton(section.name) { navigation.onAddItem(section.id) }
                     HorizontalDivider()
                 }
             }
             if (!state.isLoading) {
-                item { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
+                item(key = "footer", contentType = "footer") {
+                    AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories)
+                }
             }
         }
     }
@@ -308,7 +316,7 @@ private fun ProgressHeader(state: ChecklistDetailUiState) {
             text = if (state.totalItems == 0) {
                 stringResource(R.string.progress_no_items)
             } else {
-                stringResource(R.string.progress_done, state.completedItems, state.totalItems)
+                progressText(state.completedItems, state.totalItems)
             },
             style = MaterialTheme.typography.titleMedium,
         )

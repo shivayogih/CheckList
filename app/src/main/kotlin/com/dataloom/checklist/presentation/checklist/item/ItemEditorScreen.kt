@@ -24,7 +24,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -36,8 +35,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -50,6 +51,7 @@ import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.components.UnitButton
@@ -96,15 +98,11 @@ fun ItemEditorScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        if (state.isEditing) {
-                            stringResource(R.string.item_edit_title)
-                        } else {
-                            stringResource(R.string.item_new_title, state.sectionName)
-                        },
-                    )
+            AppTopBar(
+                title = if (state.isEditing) {
+                    stringResource(R.string.item_edit_title)
+                } else {
+                    stringResource(R.string.item_new_title, state.sectionName)
                 },
                 navigationIcon = { BackButton(onBack) },
             )
@@ -152,7 +150,14 @@ fun ItemEditorScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next),
             )
             UnitButton(unit = state.selectedUnit, onClick = { unitPickerOpen = true })
-            state.unitError?.let { Text(it.asString(), color = MaterialTheme.colorScheme.error) }
+            state.unitError?.let {
+                // Not attached to a text field, so it is announced when it appears.
+                Text(
+                    it.asString(),
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                )
+            }
             FormField(
                 value = state.notes,
                 onValueChange = { onAction(ItemEditorAction.NotesChanged(it)) },

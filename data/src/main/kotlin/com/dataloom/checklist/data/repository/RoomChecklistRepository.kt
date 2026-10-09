@@ -11,6 +11,7 @@ import com.dataloom.checklist.data.mapper.DisplayNames
 import com.dataloom.checklist.data.mapper.toDomain
 import com.dataloom.checklist.data.mapper.toIndex
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.domain.common.DefaultDispatcher
 import com.dataloom.checklist.domain.common.IdGenerator
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.model.ChecklistDetail
@@ -23,25 +24,34 @@ import com.dataloom.checklist.domain.model.ChecklistSort
 import com.dataloom.checklist.domain.model.ChecklistSummary
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 /**
  * Room implementation of [ChecklistRepository]. Multi-row writes run in one transaction, and every
  * change inside a checklist bumps its updated_at so "Recent" reflects the last edit.
+ *
+ * Threading: Room runs its queries on its own executor (suspend DAO functions are main-safe), but the
+ * `map` that follows a Room flow runs in the collector's context, which for a ViewModel is the main
+ * thread. Every observe function therefore ends in `flowOn(default)`, so mapping, sorting with a
+ * Collator and the translation lookup never run on main; the flow emits plain immutable lists.
  */
 class RoomChecklistRepository @Inject constructor(
     private val db: CheckListDatabase,
     private val clock: Clock,
     private val ids: IdGenerator,
-    private val photoStore: PhotoStore,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) : ChecklistRepository {
 
     private val checklistDao = db.checklistDao()
@@ -61,12 +71,16 @@ class RoomChecklistRepository @Inject constructor(
         return checklistDao.observeSummaries(archived, pattern)
             .map { rows -> sort(rows.map { it.toDomain() }, query.sort) }
             .distinctUntilChanged()
+            .flowOn(default)
     }
+
+    override fun observeHasChecklists(): Flow<Boolean> = checklistDao.observeAny().distinctUntilChanged()
 
     override fun observeChecklist(id: ChecklistId, locale: String): Flow<ChecklistDetail?> =
         checklistDao.observeDetail(id.value)
             .map { detail -> detail?.let { toDetail(it, locale) } }
             .distinctUntilChanged()
+            .flowOn(default)
 
     override suspend fun createChecklist(title: String, description: String?, categoryIds: List<CategoryId>): ChecklistId {
         val now = clock.nowMillis()

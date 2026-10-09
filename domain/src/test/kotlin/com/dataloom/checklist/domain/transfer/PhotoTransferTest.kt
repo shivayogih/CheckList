@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
@@ -184,8 +185,10 @@ class PhotoTransferTest {
         val groceries: Category = catalog.seedCategory("groceries", "Groceries")
         val photos = RecordingPhotos()
         val transactions = DirectTransactionRunner()
-        val export = ExportChecklistsUseCase(withPhotos, catalog, codec, Clock { 1_791_432_000_000L }, store)
-        val preview = PreviewImportUseCase(checklists, catalog, codec, store)
+        val export = ExportChecklistsUseCase(
+            withPhotos, catalog, codec, Clock { 1_791_432_000_000L }, Dispatchers.Unconfined, Dispatchers.Unconfined, store,
+        )
+        val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined, store)
         val apply = ApplyImportUseCase(checklists, catalog, transactions, photos, store)
 
         /** A checklist with the items "Rice" (photos [a.jpg with a caption, gone.jpg]) and "Salt" (none). */
@@ -318,7 +321,7 @@ class PhotoTransferTest {
         // The fake codec keeps documents in memory per device, so the target reads with the source's codec.
         val bytes = sink.out.toByteArray()
         val ready = (
-            PreviewImportUseCase(target.checklists, target.catalog, source.codec,
+            PreviewImportUseCase(target.checklists, target.catalog, source.codec, Dispatchers.Unconfined, Dispatchers.Unconfined,
                 target.fileStore!!)(BytesSource(bytes), "en")
                 as ImportPreviewResult.Ready
             ).preview

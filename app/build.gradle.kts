@@ -1,4 +1,5 @@
 import java.util.Properties
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 
 plugins {
     alias(libs.plugins.android.application)
@@ -7,6 +8,8 @@ plugins {
     // Annotation processing runs on KSP: kapt is not supported with AGP 9 built-in Kotlin.
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    // Applied here (AGP would apply it too) so the Robolectric settings below see JaCoCo's task extension.
+    jacoco
 }
 
 // versionCode = MAJOR*10000 + MINOR*1000 + PATCH*100 + BUILD (ADR-016).
@@ -70,6 +73,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Unit-test coverage (CL-175): createDevDebugUnitTestCoverageReport writes XML and HTML.
+            // Instrumentation applies to unit tests only, never to an APK.
+            enableUnitTestCoverage = true
+        }
         release {
             // Signing is never configured in Git: CI signs release bundles with secrets (section 19.4).
             isMinifyEnabled = true
@@ -104,8 +112,41 @@ android {
 
     testOptions {
         unitTests.isReturnDefaultValues = true
-        // Compose UI and screenshot tests run on Robolectric and need the merged resources and assets.
+        // Compose UI tests run on Robolectric (CL-171) and need the merged resources and assets.
         unitTests.isIncludeAndroidResources = true
+    }
+
+    testCoverage {
+        jacocoVersion = libs.versions.jacoco.get()
+    }
+}
+
+jacoco {
+    toolVersion = libs.versions.jacoco.get()
+}
+
+tasks.withType<Test>().configureEach {
+    // Robolectric loads app classes through its own class loader; JaCoCo must instrument those too.
+    extensions.configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
+    }
+    // Print each failure's full message in the CI log: UI and accessibility assertions list every
+    // problem in the message, which the one-line default hides.
+    testLogging {
+        events(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED)
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+}
+
+// Compose compiler: domain models are immutable but live in a module without the Compose compiler, so
+// they are declared stable here (app/compose-stability.conf). Stability and skippability reports are
+// written only on request, because they slow the build: ./gradlew :app:assembleDevRelease -PcomposeReports
+composeCompiler {
+    stabilityConfigurationFiles.add(layout.projectDirectory.file("compose-stability.conf"))
+    if (providers.gradleProperty("composeReports").isPresent) {
+        reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+        metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
     }
 }
 
@@ -125,6 +166,8 @@ dependencies {
     implementation(libs.zxing.core)
     // Settings toggles for the AI assistant (CL-240).
     implementation(libs.androidx.datastore.preferences)
+    // Compiles app/src/main/baseline-prof.txt into the install so the startup path is pre-compiled (CL-294).
+    implementation(libs.androidx.profileinstaller)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -141,13 +184,15 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
 
-    // Compose UI and screenshot tests on the JVM (Robolectric, SDK 34 on JDK 17).
+    // Compose UI, accessibility and Hilt graph tests on the JVM (Robolectric, SDK 34 on JDK 17).
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.roborazzi)
     testImplementation(libs.roborazzi.compose)
+    testImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.compiler)
     // Declares the empty ComponentActivity that createComposeRule() starts; debug builds only.
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

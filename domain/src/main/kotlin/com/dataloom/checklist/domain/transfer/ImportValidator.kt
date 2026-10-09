@@ -7,6 +7,7 @@ import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.domain.validation.CategoryValidator
 import com.dataloom.checklist.domain.validation.ChecklistValidator
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.domain.validation.ItemValidator
 import com.dataloom.checklist.domain.validation.UnitValidator
 import com.dataloom.checklist.domain.validation.ValidationError
@@ -273,7 +274,7 @@ object ImportValidator {
     }
 
     /** A caption is one line: control characters and line breaks are cleaned like other single-line text. */
-    internal fun captionText(raw: String): String? = TransferText.clean(raw).trim().ifEmpty { null }
+    internal fun captionText(raw: String): String? = InputText.normalize(raw).ifEmpty { null }
 
     /** A built-in code wins only when no unit ref could mean the same text (refs never shadow codes). */
     internal fun resolveUnit(text: String, unitRefs: Map<String, UnitDef>): UnitDef? =

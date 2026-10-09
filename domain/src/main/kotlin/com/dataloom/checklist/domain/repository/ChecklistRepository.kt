@@ -1,6 +1,7 @@
 package com.dataloom.checklist.domain.repository
 
 import com.dataloom.checklist.domain.model.CategoryId
+import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
@@ -10,6 +11,8 @@ import com.dataloom.checklist.domain.model.ChecklistSummary
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.SectionId
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 /**
  * Checklists, their sections and items. Implemented by :data on Room (the single source of truth).
@@ -23,6 +26,15 @@ import kotlinx.coroutines.flow.Flow
 interface ChecklistRepository {
 
     fun observeChecklists(query: ChecklistQuery): Flow<List<ChecklistSummary>>
+
+    /**
+     * Whether any checklist exists, active or archived. Home needs only this yes/no for its first-use
+     * screen, so implementations should answer it with an existence query instead of loading every
+     * checklist with its progress counts. The default derives it from [observeChecklists], which is
+     * correct but does the heavy work; :data overrides it.
+     */
+    fun observeHasChecklists(): Flow<Boolean> =
+        observeChecklists(ChecklistQuery(filter = ChecklistFilter.ALL)).map { it.isNotEmpty() }.distinctUntilChanged()
 
     /** Emits null once the checklist is deleted. */
     fun observeChecklist(id: ChecklistId, locale: String): Flow<ChecklistDetail?>

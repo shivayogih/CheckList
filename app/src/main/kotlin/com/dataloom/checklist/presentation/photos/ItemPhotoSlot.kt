@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.formatCount
 
 /** Side of the thumbnail on an item row (docs/item-photos-spec.md). */
 private val ThumbnailSize = 48.dp
@@ -30,7 +31,7 @@ private val ThumbnailSize = 48.dp
 @Composable
 fun ItemPhotoSlot(photos: List<PhotoUi>, itemName: String, onOpen: () -> Unit, modifier: Modifier = Modifier) {
     val first = photos.firstOrNull() ?: return
-    val description = pluralStringResource(R.plurals.photos_view_cd, photos.size, photos.size, itemName)
+    val description = pluralStringResource(R.plurals.photos_view_cd, photos.size, formatCount(photos.size), itemName)
     Box(
         modifier = modifier
             .padding(horizontal = 4.dp)
@@ -52,7 +53,7 @@ fun ItemPhotoSlot(photos: List<PhotoUi>, itemName: String, onOpen: () -> Unit, m
                     .clearAndSetSemantics { },
             ) {
                 Text(
-                    stringResource(R.string.photos_more_badge, more),
+                    stringResource(R.string.photos_more_badge, formatCount(more)),
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )

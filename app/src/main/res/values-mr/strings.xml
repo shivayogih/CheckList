@@ -15,8 +15,7 @@
     <string name="language_title">भाषा निवडा</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">यादी शेअर करा</string>
-    <string name="pdf_page_number">पान %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d पैकी %1$d पूर्ण</string>
+    <string name="pdf_page_number">पान %1$s / %2$s</string>
     <string name="pdf_prepared_by">तयार करणारे: %1$s</string>
     <string name="pdf_no_items">या यादीत कोणत्याही वस्तू नाहीत.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -61,7 +60,6 @@
     <string name="add_items_search_label">वस्तू शोधा</string>
     <string name="add_items_title">%1$s मध्ये जोडा</string>
     <string name="add_items_type_to_search">शोधण्यासाठी वस्तूचे नाव टाइप करा.</string>
-    <string name="add_selected">निवडलेल्या जोडा (%1$d)</string>
     <string name="category_create">वर्ग तयार करा</string>
     <string name="category_name_label">वर्गाचे नाव</string>
     <string name="checklist_copy_title">%1$s (प्रत)</string>
@@ -93,9 +91,9 @@
     <string name="error_quantity_not_number">फक्त अंक वापरा, उदा. 2 किंवा 2.5.</string>
     <string name="error_quantity_not_positive">प्रमाण शून्यापेक्षा जास्त असले पाहिजे.</string>
     <string name="error_quantity_too_precise">जास्तीत जास्त 3 दशांश स्थाने वापरा, उदा. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">यादीचे नाव लिहा.</string>
-    <string name="error_too_long">जास्तीत जास्त %1$d अक्षरे वापरा.</string>
+    <string name="error_too_long">जास्तीत जास्त %1$s अक्षरे वापरा.</string>
     <string name="error_unit_label_blank">एककाचे नाव लिहा.</string>
     <string name="error_unit_unknown">हे एकक आता अस्तित्वात नाही. दुसरे निवडा.</string>
     <string name="error_unit_without_quantity">या एककासाठी प्रमाण लिहा, किंवा “एकक नाही” निवडा.</string>
@@ -120,7 +118,6 @@
     <string name="item_quantity_optional">प्रमाण (ऐच्छिक)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s सूचनांमध्ये जतन करा</string>
-    <string name="progress_done">%2$d पैकी %1$d पूर्ण</string>
     <string name="progress_no_items">अजून वस्तू नाहीत</string>
     <string name="search_clear">शोध साफ करा</string>
     <string name="sort_progress">प्रगती</string>
@@ -152,7 +149,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">तुमचे नाव टाका.</string>
     <string name="error_email_invalid">name@example.com सारखा ईमेल पत्ता टाका.</string>
-    <string name="error_phone_invalid">%1$d ते %2$d अंकांचा फोन नंबर टाका.</string>
+    <string name="error_phone_invalid">%1$s ते %2$s अंकांचा फोन नंबर टाका.</string>
     <string name="error_secure_storage">सुरक्षित स्टोरेज सध्या काम करत नाही. काहीही जतन झाले नाही. नंतर पुन्हा प्रयत्न करा.</string>
     <string name="profile_clear">प्रोफाइल हटवा</string>
     <string name="profile_clear_message">तुमचे नाव आणि संपर्क तपशील या फोनवरून पुसले जातील.</string>
@@ -174,19 +171,19 @@
     <string name="action_import">आयात करा</string>
     <string name="detail_save_pdf">PDF म्हणून जतन करा</string>
     <string name="detail_share_pdf">PDF म्हणून शेअर करा</string>
-    <string name="export_done">निर्यात झाले. याद्या: %1$d, वस्तू: %2$d.</string>
+    <string name="export_done">निर्यात झाले. याद्या: %1$s, वस्तू: %2$s.</string>
     <string name="export_nothing">निर्यात करण्यासाठी कोणतीही यादी नाही.</string>
     <string name="export_too_large">एका फाइलमध्ये निर्यात करण्यासाठी हे खूप जास्त आहे.</string>
-    <string name="import_done">आयात झाले. याद्या: %1$d, वस्तू: %2$d.</string>
-    <string name="import_error_invalid">या फाइलमध्ये आढळलेल्या समस्या: %1$d. काहीही आयात झाले नाही.</string>
+    <string name="import_done">आयात झाले. याद्या: %1$s, वस्तू: %2$s.</string>
+    <string name="import_error_invalid">या फाइलमध्ये आढळलेल्या समस्या: %1$s. काहीही आयात झाले नाही.</string>
     <string name="import_error_malformed">ही CheckList बॅकअप फाइल नाही.</string>
     <string name="import_error_newer_app">ही फाइल CheckList च्या नवीन आवृत्तीत बनवली आहे. आयात करण्यासाठी अ‍ॅप अपडेट करा.</string>
     <string name="import_error_nothing">या फाइलमध्ये कोणतीही यादी नाही.</string>
     <string name="import_error_too_large">ही फाइल आयात करण्यासाठी खूप मोठी आहे.</string>
     <string name="import_error_unreadable">ही फाइल वाचता आली नाही. ती पुन्हा निवडून पाहा.</string>
     <string name="import_error_unsupported">या फाइलच्या आवृत्तीला समर्थन नाही.</string>
-    <string name="import_preview_checklists">याद्या: %1$d</string>
-    <string name="import_preview_items">वस्तू: %1$d (पूर्ण: %2$d)</string>
+    <string name="import_preview_checklists">याद्या: %1$s</string>
+    <string name="import_preview_items">वस्तू: %1$s (पूर्ण: %2$s)</string>
     <string name="import_preview_new_categories">नवीन वर्ग: %1$s</string>
     <string name="import_preview_new_units">नवीन एकके: %1$s</string>
     <string name="import_preview_profile_skipped">या फाइलमधील प्रोफाइल आयात केली जात नाही.</string>
@@ -194,11 +191,11 @@
     <string name="import_preview_title">या याद्या आयात करायच्या?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">हा वैध CheckList फोटो बॅकअप नाही. काहीही आयात झाले नाही.</string>
-    <string name="import_preview_photos">फोटो: %1$d</string>
-    <string name="import_done_photos">आयात झाले. याद्या: %1$d, वस्तू: %2$d, फोटो: %3$d.</string>
-    <string name="import_done_photos_skipped">आयात झाले. याद्या: %1$d, वस्तू: %2$d, फोटो: %3$d. वगळलेले फोटो: %4$d.</string>
-    <string name="export_done_photos">निर्यात झाले. याद्या: %1$d, वस्तू: %2$d, फोटो: %3$d.</string>
-    <string name="export_done_photos_skipped">निर्यात झाले. याद्या: %1$d, वस्तू: %2$d, फोटो: %3$d. वगळलेले फोटो: %4$d.</string>
+    <string name="import_preview_photos">फोटो: %1$s</string>
+    <string name="import_done_photos">आयात झाले. याद्या: %1$s, वस्तू: %2$s, फोटो: %3$s.</string>
+    <string name="import_done_photos_skipped">आयात झाले. याद्या: %1$s, वस्तू: %2$s, फोटो: %3$s. वगळलेले फोटो: %4$s.</string>
+    <string name="export_done_photos">निर्यात झाले. याद्या: %1$s, वस्तू: %2$s, फोटो: %3$s.</string>
+    <string name="export_done_photos_skipped">निर्यात झाले. याद्या: %1$s, वस्तू: %2$s, फोटो: %3$s. वगळलेले फोटो: %4$s.</string>
     <string name="action_export">निर्यात करा</string>
     <string name="action_share">शेअर करा</string>
     <string name="export_include_photos">फोटो समाविष्ट करा</string>
@@ -206,37 +203,37 @@
     <string name="pdf_options_title">PDF पर्याय</string>
     <string name="pdf_include_photos_summary">प्रत्येक वस्तूखाली 3 पर्यंत लहान फोटो दाखवते. फाइल मोठी होते.</string>
     <string name="photos_section_title">फोटो (ऐच्छिक)</string>
-    <string name="photos_count">%2$d पैकी %1$d फोटो</string>
+    <string name="photos_count">%2$s पैकी %1$s फोटो</string>
     <string name="photos_add">फोटो जोडा</string>
     <string name="photos_take">फोटो काढा</string>
     <string name="photos_pick">गॅलरीतून निवडा</string>
-    <string name="photos_remove_cd">फोटो %1$d काढा</string>
-    <string name="photos_move_left_cd">फोटो %1$d डावीकडे हलवा</string>
-    <string name="photos_move_right_cd">फोटो %1$d उजवीकडे हलवा</string>
+    <string name="photos_remove_cd">फोटो %1$s काढा</string>
+    <string name="photos_move_left_cd">फोटो %1$s डावीकडे हलवा</string>
+    <string name="photos_move_right_cd">फोटो %1$s उजवीकडे हलवा</string>
     <string name="photos_processing">फोटो जोडला जात आहे</string>
     <string name="photos_add_failed">हा फोटो जोडता आला नाही. दुसरा वापरून पहा.</string>
-    <string name="photos_limit_reached">एका वस्तूसाठी फक्त %1$d फोटो जोडता येतात. जास्तीचे जोडले नाहीत.</string>
+    <string name="photos_limit_reached">एका वस्तूसाठी फक्त %1$s फोटो जोडता येतात. जास्तीचे जोडले नाहीत.</string>
     <string name="photo_missing">फोटो उपलब्ध नाही</string>
-    <string name="photo_cd">%3$s साठी फोटो %1$d / %2$d</string>
-    <string name="photo_cd_caption">%3$s साठी फोटो %1$d / %2$d. कॅप्शन: %4$s</string>
+    <string name="photo_cd">%3$s साठी फोटो %1$s / %2$s</string>
+    <string name="photo_cd_caption">%3$s साठी फोटो %1$s / %2$s. कॅप्शन: %4$s</string>
     <string name="photo_view_action">फोटो पहा</string>
     <string name="photo_viewer_title">%1$s चे फोटो</string>
-    <string name="photo_viewer_position">फोटो %1$d / %2$d</string>
+    <string name="photo_viewer_position">फोटो %1$s / %2$s</string>
     <string name="photo_viewer_previous">मागील फोटो</string>
     <string name="photo_viewer_next">पुढील फोटो</string>
     <string name="photo_viewer_close">बंद करा</string>
     <string name="photo_viewer_delete">फोटो हटवा</string>
     <string name="photo_viewer_zoom_in">झूम इन करा</string>
     <string name="photo_viewer_zoom_out">झूम आउट करा</string>
-    <string name="photos_more_badge">+%1$d</string>
+    <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">हा फोटो हटवायचा?</string>
     <string name="photo_delete_body">हे परत आणता येणार नाही.</string>
     <string name="photo_caption_label">कॅप्शन (ऐच्छिक)</string>
     <string name="settings_privacy_photos_title">फोटो तुमच्या फोनमध्येच राहतात</string>
     <string name="settings_privacy_photos_body">वस्तूंचे फोटो फक्त या फोनमध्ये जतन केले जातात. ते AI सहाय्यकाला कधीही पाठवले जात नाहीत, आणि चित्रातील स्थानाची माहिती काढून टाकली जाते. तुम्ही निर्यात केल्यास किंवा PDF मध्ये समाविष्ट केल्यासच फोटो फोनबाहेर जातात. या फोनवर Android बॅकअप चालू असल्यास, तुमच्या याद्यांसोबत फोटोंचाही बॅकअप घेतला जातो.</string>
     <plurals name="photos_view_cd">
-        <item quantity="one">%2$s साठी %1$d फोटो पहा</item>
-        <item quantity="other">%2$s साठी %1$d फोटो पहा</item>
+        <item quantity="one">%2$s साठी %1$s फोटो पहा</item>
+        <item quantity="other">%2$s साठी %1$s फोटो पहा</item>
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF जतन केली.</string>
@@ -263,7 +260,7 @@
     <string name="onboarding_page2_body">तुमच्या भाषेतील तयार वस्तू शोधा, टिक करा आणि 5 किलो सारखे प्रमाण निवडा.</string>
     <string name="onboarding_page3_title">टिक करा, शेअर करा आणि खाजगी ठेवा</string>
     <string name="onboarding_page3_body">खरेदी करताना वस्तूंवर टिक करा, यादी व्हॉट्सॲपवर पाठवा आणि इंटरनेटशिवाय वापरा.</string>
-    <string name="onboarding_page_position">पान %1$d / %2$d</string>
+    <string name="onboarding_page_position">पान %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">दिवाळी खरेदी</string>
     <string name="onboarding_demo_rice">तांदूळ</string>
     <string name="onboarding_demo_sugar">साखर</string>
@@ -284,8 +281,8 @@
     <string name="settings_show_tutorial">ट्यूटोरियल पुन्हा दाखवा</string>
     <string name="settings_show_tutorial_summary">CheckList कसे काम करते ते पहा</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">तुमची %1$d यादी सुरू आहे.</item>
-        <item quantity="other">तुमच्या %1$d याद्या सुरू आहेत.</item>
+        <item quantity="one">तुमची %1$s यादी सुरू आहे.</item>
+        <item quantity="other">तुमच्या %1$s याद्या सुरू आहेत.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI सहाय्यक (ऑफलाइन)</string>

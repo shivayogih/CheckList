@@ -60,8 +60,8 @@ class RoomPhotoRepositoryTest {
     private val root by lazy { File(temp.root, "item_photos") }
     private val store by lazy { FilePhotoStore(root, Dispatchers.Unconfined, SequentialIds("img")) }
     private val photos by lazy { RoomPhotoRepository(db, clock, ids) }
-    private val checklists by lazy { RoomChecklistRepository(db, clock, ids, store) }
-    private val catalog = RoomCatalogRepository(db, clock, ids)
+    private val checklists by lazy { RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined, store) }
+    private val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
     private val cleaner by lazy { StorePhotoFileCleaner(photos, store) }
 
     private lateinit var groceries: Category
@@ -290,7 +290,7 @@ class RoomPhotoRepositoryTest {
                 return store.copy(fileName)
             }
         }
-        val failing = RoomChecklistRepository(db, clock, ids, flaky)
+        val failing = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined, flaky)
 
         try {
             failing.duplicateChecklist(checklistId, "Copy")

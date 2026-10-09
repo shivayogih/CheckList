@@ -20,6 +20,7 @@ import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -39,8 +40,8 @@ class RoomChecklistRepositoryTest {
     private val clock = FakeClock(now = 10_000)
     private val ids = SequentialIds()
     private val db = inMemoryDatabase()
-    private val repository = RoomChecklistRepository(db, clock, ids, NoPhotoStore)
-    private val catalog = RoomCatalogRepository(db, clock, ids)
+    private val repository = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined)
+    private val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
 
     private lateinit var groceries: Category
     private lateinit var vegetables: Category
@@ -57,6 +58,21 @@ class RoomChecklistRepositoryTest {
 
     @After
     fun tearDown() = db.close()
+
+    @Test
+    fun hasChecklistsFollowsTheTableWithoutLoadingProgress() = runTest {
+        assertFalse(repository.observeHasChecklists().first())
+
+        val id = repository.createChecklist("Weekly shop", null, listOf(groceries.id))
+        assertTrue(repository.observeHasChecklists().first())
+
+        // An archived checklist still counts: Home only asks "is this the very first use?".
+        repository.setArchived(id, true)
+        assertTrue(repository.observeHasChecklists().first())
+
+        repository.deleteChecklist(id)
+        assertFalse(repository.observeHasChecklists().first())
+    }
 
     @Test
     fun createdChecklistHasSectionsInOrderWithLocalizedCategories() = runTest {

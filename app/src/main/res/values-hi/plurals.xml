@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="progress_items_done">
+        <item quantity="one">%2$s में से %1$s पूरी</item>
+        <item quantity="other">%2$s में से %1$s पूरी</item>
+    </plurals>
+    <plurals name="add_selected_items">
+        <item quantity="one">%1$s चीज़ जोड़ें</item>
+        <item quantity="other">%1$s चीज़ें जोड़ें</item>
+    </plurals>
+    <plurals name="add_selected_categories">
+        <item quantity="one">%1$s श्रेणी जोड़ें</item>
+        <item quantity="other">%1$s श्रेणियाँ जोड़ें</item>
+    </plurals>
+</resources>

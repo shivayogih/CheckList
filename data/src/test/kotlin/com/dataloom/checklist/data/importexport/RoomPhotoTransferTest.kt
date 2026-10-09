@@ -69,11 +69,11 @@ class RoomPhotoTransferTest {
         val root = File(temp.root, "$name-photos")
         val store = FilePhotoStore(root, Dispatchers.Unconfined, SequentialIds("$name-img"))
         val photos = RoomPhotoRepository(db, clock, ids)
-        val checklists = RoomChecklistRepository(db, clock, ids, store)
-        val catalog = RoomCatalogRepository(db, clock, ids)
+        val checklists = RoomChecklistRepository(db, clock, ids, Dispatchers.Unconfined, store)
+        val catalog = RoomCatalogRepository(db, clock, ids, Dispatchers.Unconfined)
         val codec = JsonTransferCodec()
-        val export = ExportChecklistsUseCase(checklists, catalog, codec, clock, store)
-        val preview = PreviewImportUseCase(checklists, catalog, codec, store)
+        val export = ExportChecklistsUseCase(checklists, catalog, codec, clock, Dispatchers.Unconfined, Dispatchers.Unconfined, store)
+        val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined, store)
         val apply = ApplyImportUseCase(checklists, catalog, RoomTransactionRunner(db), photos, store)
 
         init {

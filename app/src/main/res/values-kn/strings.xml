@@ -15,8 +15,7 @@
     <string name="language_title">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">ಪಟ್ಟಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="pdf_page_number">ಪುಟ %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
+    <string name="pdf_page_number">ಪುಟ %1$s / %2$s</string>
     <string name="pdf_prepared_by">ತಯಾರಿಸಿದವರು: %1$s</string>
     <string name="pdf_no_items">ಈ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -61,7 +60,6 @@
     <string name="add_items_search_label">ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ</string>
     <string name="add_items_title">%1$s ಗೆ ಸೇರಿಸಿ</string>
     <string name="add_items_type_to_search">ಹುಡುಕಲು ವಸ್ತುವಿನ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಿ.</string>
-    <string name="add_selected">ಆಯ್ಕೆಮಾಡಿದವನ್ನು ಸೇರಿಸಿ (%1$d)</string>
     <string name="category_create">ವರ್ಗ ರಚಿಸಿ</string>
     <string name="category_name_label">ವರ್ಗದ ಹೆಸರು</string>
     <string name="checklist_copy_title">%1$s (ನಕಲು)</string>
@@ -93,9 +91,9 @@
     <string name="error_quantity_not_number">ಅಂಕೆಗಳನ್ನು ಮಾತ್ರ ಬಳಸಿ, ಉದಾ. 2 ಅಥವಾ 2.5.</string>
     <string name="error_quantity_not_positive">ಪ್ರಮಾಣ ಸೊನ್ನೆಗಿಂತ ಹೆಚ್ಚಿರಬೇಕು.</string>
     <string name="error_quantity_too_precise">ಗರಿಷ್ಠ 3 ದಶಮಾಂಶ ಸ್ಥಾನಗಳನ್ನು ಬಳಸಿ, ಉದಾ. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">ಪಟ್ಟಿಗೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>
-    <string name="error_too_long">ಗರಿಷ್ಠ %1$d ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ.</string>
+    <string name="error_too_long">ಗರಿಷ್ಠ %1$s ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ.</string>
     <string name="error_unit_label_blank">ಘಟಕಕ್ಕೆ ಹೆಸರು ನಮೂದಿಸಿ.</string>
     <string name="error_unit_unknown">ಈ ಘಟಕ ಈಗ ಇಲ್ಲ. ಬೇರೆಯದನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="error_unit_without_quantity">ಈ ಘಟಕಕ್ಕೆ ಪ್ರಮಾಣ ನಮೂದಿಸಿ, ಅಥವಾ “ಘಟಕ ಇಲ್ಲ” ಆಯ್ಕೆಮಾಡಿ.</string>
@@ -120,7 +118,6 @@
     <string name="item_quantity_optional">ಪ್ರಮಾಣ (ಐಚ್ಛಿಕ)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s ಸಲಹೆಗಳಲ್ಲಿ ಉಳಿಸಿ</string>
-    <string name="progress_done">%2$d ರಲ್ಲಿ %1$d ಮುಗಿದಿದೆ</string>
     <string name="progress_no_items">ಇನ್ನೂ ಯಾವುದೇ ವಸ್ತುಗಳಿಲ್ಲ</string>
     <string name="search_clear">ಹುಡುಕಾಟ ತೆರವುಗೊಳಿಸಿ</string>
     <string name="sort_progress">ಪ್ರಗತಿ</string>
@@ -152,7 +149,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.</string>
     <string name="error_email_invalid">name@example.com ರೀತಿಯ ಇಮೇಲ್ ವಿಳಾಸ ನಮೂದಿಸಿ.</string>
-    <string name="error_phone_invalid">%1$d ರಿಂದ %2$d ಅಂಕಿಗಳ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.</string>
+    <string name="error_phone_invalid">%1$s ರಿಂದ %2$s ಅಂಕಿಗಳ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.</string>
     <string name="error_secure_storage">ಸುರಕ್ಷಿತ ಸಂಗ್ರಹಣೆ ಈಗ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ. ಏನನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="profile_clear">ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ</string>
     <string name="profile_clear_message">ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ಈ ಫೋನ್‌ನಿಂದ ಅಳಿಸಲಾಗುತ್ತದೆ.</string>
@@ -174,19 +171,19 @@
     <string name="action_import">ಆಮದು ಮಾಡಿ</string>
     <string name="detail_save_pdf">PDF ಆಗಿ ಉಳಿಸಿ</string>
     <string name="detail_share_pdf">PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="export_done">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
+    <string name="export_done">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s.</string>
     <string name="export_nothing">ರಫ್ತು ಮಾಡಲು ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
     <string name="export_too_large">ಒಂದೇ ಫೈಲ್‌ನಲ್ಲಿ ರಫ್ತು ಮಾಡಲು ಇದು ತುಂಬಾ ಹೆಚ್ಚು.</string>
-    <string name="import_done">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d.</string>
-    <string name="import_error_invalid">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಕಂಡ ಸಮಸ್ಯೆಗಳು: %1$d. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
+    <string name="import_done">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s.</string>
+    <string name="import_error_invalid">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಕಂಡ ಸಮಸ್ಯೆಗಳು: %1$s. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
     <string name="import_error_malformed">ಇದು CheckList ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅಲ್ಲ.</string>
     <string name="import_error_newer_app">ಈ ಫೈಲ್ CheckList ನ ಹೊಸ ಆವೃತ್ತಿಯಲ್ಲಿ ಮಾಡಲಾಗಿದೆ. ಆಮದು ಮಾಡಲು ಆ್ಯಪ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.</string>
     <string name="import_error_nothing">ಈ ಫೈಲ್‌ನಲ್ಲಿ ಯಾವುದೇ ಪಟ್ಟಿ ಇಲ್ಲ.</string>
     <string name="import_error_too_large">ಈ ಫೈಲ್ ಆಮದು ಮಾಡಲು ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ.</string>
     <string name="import_error_unreadable">ಈ ಫೈಲ್ ಓದಲು ಆಗಲಿಲ್ಲ. ಮತ್ತೆ ಆಯ್ಕೆಮಾಡಿ ನೋಡಿ.</string>
     <string name="import_error_unsupported">ಈ ಫೈಲ್ ಆವೃತ್ತಿಗೆ ಬೆಂಬಲವಿಲ್ಲ.</string>
-    <string name="import_preview_checklists">ಪಟ್ಟಿಗಳು: %1$d</string>
-    <string name="import_preview_items">ವಸ್ತುಗಳು: %1$d (ಮುಗಿದವು: %2$d)</string>
+    <string name="import_preview_checklists">ಪಟ್ಟಿಗಳು: %1$s</string>
+    <string name="import_preview_items">ವಸ್ತುಗಳು: %1$s (ಮುಗಿದವು: %2$s)</string>
     <string name="import_preview_new_categories">ಹೊಸ ವರ್ಗಗಳು: %1$s</string>
     <string name="import_preview_new_units">ಹೊಸ ಘಟಕಗಳು: %1$s</string>
     <string name="import_preview_profile_skipped">ಈ ಫೈಲ್‌ನಲ್ಲಿರುವ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಆಮದು ಮಾಡುವುದಿಲ್ಲ.</string>
@@ -194,11 +191,11 @@
     <string name="import_preview_title">ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೆ?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">ಇದು ಮಾನ್ಯ CheckList ಫೋಟೋ ಬ್ಯಾಕಪ್ ಅಲ್ಲ. ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ.</string>
-    <string name="import_preview_photos">ಫೋಟೋಗಳು: %1$d</string>
-    <string name="import_done_photos">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d, ಫೋಟೋಗಳು: %3$d.</string>
-    <string name="import_done_photos_skipped">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d, ಫೋಟೋಗಳು: %3$d. ಬಿಟ್ಟ ಫೋಟೋಗಳು: %4$d.</string>
-    <string name="export_done_photos">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d, ಫೋಟೋಗಳು: %3$d.</string>
-    <string name="export_done_photos_skipped">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$d, ವಸ್ತುಗಳು: %2$d, ಫೋಟೋಗಳು: %3$d. ಬಿಟ್ಟ ಫೋಟೋಗಳು: %4$d.</string>
+    <string name="import_preview_photos">ಫೋಟೋಗಳು: %1$s</string>
+    <string name="import_done_photos">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s, ಫೋಟೋಗಳು: %3$s.</string>
+    <string name="import_done_photos_skipped">ಆಮದು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s, ಫೋಟೋಗಳು: %3$s. ಬಿಟ್ಟ ಫೋಟೋಗಳು: %4$s.</string>
+    <string name="export_done_photos">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s, ಫೋಟೋಗಳು: %3$s.</string>
+    <string name="export_done_photos_skipped">ರಫ್ತು ಆಯಿತು. ಪಟ್ಟಿಗಳು: %1$s, ವಸ್ತುಗಳು: %2$s, ಫೋಟೋಗಳು: %3$s. ಬಿಟ್ಟ ಫೋಟೋಗಳು: %4$s.</string>
     <string name="action_export">ರಫ್ತು ಮಾಡಿ</string>
     <string name="action_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="export_include_photos">ಫೋಟೋಗಳನ್ನು ಸೇರಿಸಿ</string>
@@ -206,37 +203,37 @@
     <string name="pdf_options_title">PDF ಆಯ್ಕೆಗಳು</string>
     <string name="pdf_include_photos_summary">ಪ್ರತಿ ವಸ್ತುವಿನ ಕೆಳಗೆ 3 ಸಣ್ಣ ಫೋಟೋಗಳವರೆಗೆ ತೋರಿಸುತ್ತದೆ. ಫೈಲ್ ದೊಡ್ಡದಾಗುತ್ತದೆ.</string>
     <string name="photos_section_title">ಫೋಟೋಗಳು (ಐಚ್ಛಿಕ)</string>
-    <string name="photos_count">%2$d ರಲ್ಲಿ %1$d ಫೋಟೋಗಳು</string>
+    <string name="photos_count">%2$s ರಲ್ಲಿ %1$s ಫೋಟೋಗಳು</string>
     <string name="photos_add">ಫೋಟೋ ಸೇರಿಸಿ</string>
     <string name="photos_take">ಫೋಟೋ ತೆಗೆಯಿರಿ</string>
     <string name="photos_pick">ಗ್ಯಾಲರಿಯಿಂದ ಆರಿಸಿ</string>
-    <string name="photos_remove_cd">ಫೋಟೋ %1$d ತೆಗೆಯಿರಿ</string>
-    <string name="photos_move_left_cd">ಫೋಟೋ %1$d ಎಡಕ್ಕೆ ಸರಿಸಿ</string>
-    <string name="photos_move_right_cd">ಫೋಟೋ %1$d ಬಲಕ್ಕೆ ಸರಿಸಿ</string>
+    <string name="photos_remove_cd">ಫೋಟೋ %1$s ತೆಗೆಯಿರಿ</string>
+    <string name="photos_move_left_cd">ಫೋಟೋ %1$s ಎಡಕ್ಕೆ ಸರಿಸಿ</string>
+    <string name="photos_move_right_cd">ಫೋಟೋ %1$s ಬಲಕ್ಕೆ ಸರಿಸಿ</string>
     <string name="photos_processing">ಫೋಟೋ ಸೇರಿಸಲಾಗುತ್ತಿದೆ</string>
     <string name="photos_add_failed">ಈ ಫೋಟೋ ಸೇರಿಸಲಾಗಲಿಲ್ಲ. ಬೇರೊಂದನ್ನು ಪ್ರಯತ್ನಿಸಿ.</string>
-    <string name="photos_limit_reached">ಒಂದು ವಸ್ತುವಿಗೆ ಕೇವಲ %1$d ಫೋಟೋಗಳು ಸಾಧ್ಯ. ಹೆಚ್ಚುವರಿ ಫೋಟೋಗಳನ್ನು ಸೇರಿಸಿಲ್ಲ.</string>
+    <string name="photos_limit_reached">ಒಂದು ವಸ್ತುವಿಗೆ ಕೇವಲ %1$s ಫೋಟೋಗಳು ಸಾಧ್ಯ. ಹೆಚ್ಚುವರಿ ಫೋಟೋಗಳನ್ನು ಸೇರಿಸಿಲ್ಲ.</string>
     <string name="photo_missing">ಫೋಟೋ ಲಭ್ಯವಿಲ್ಲ</string>
-    <string name="photo_cd">%3$s ಗಾಗಿ ಫೋಟೋ %1$d / %2$d</string>
-    <string name="photo_cd_caption">%3$s ಗಾಗಿ ಫೋಟೋ %1$d / %2$d. ಶೀರ್ಷಿಕೆ: %4$s</string>
+    <string name="photo_cd">%3$s ಗಾಗಿ ಫೋಟೋ %1$s / %2$s</string>
+    <string name="photo_cd_caption">%3$s ಗಾಗಿ ಫೋಟೋ %1$s / %2$s. ಶೀರ್ಷಿಕೆ: %4$s</string>
     <string name="photo_view_action">ಫೋಟೋಗಳನ್ನು ನೋಡಿ</string>
     <string name="photo_viewer_title">%1$s ನ ಫೋಟೋಗಳು</string>
-    <string name="photo_viewer_position">ಫೋಟೋ %1$d / %2$d</string>
+    <string name="photo_viewer_position">ಫೋಟೋ %1$s / %2$s</string>
     <string name="photo_viewer_previous">ಹಿಂದಿನ ಫೋಟೋ</string>
     <string name="photo_viewer_next">ಮುಂದಿನ ಫೋಟೋ</string>
     <string name="photo_viewer_close">ಮುಚ್ಚಿ</string>
     <string name="photo_viewer_delete">ಫೋಟೋ ಅಳಿಸಿ</string>
     <string name="photo_viewer_zoom_in">ಜೂಮ್ ಇನ್</string>
     <string name="photo_viewer_zoom_out">ಜೂಮ್ ಔಟ್</string>
-    <string name="photos_more_badge">+%1$d</string>
+    <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">ಈ ಫೋಟೋ ಅಳಿಸಬೇಕೆ?</string>
     <string name="photo_delete_body">ಇದನ್ನು ಹಿಂದಕ್ಕೆ ಪಡೆಯಲಾಗದು.</string>
     <string name="photo_caption_label">ಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)</string>
     <string name="settings_privacy_photos_title">ಫೋಟೋಗಳು ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತವೆ</string>
     <string name="settings_privacy_photos_body">ವಸ್ತುಗಳ ಫೋಟೋಗಳನ್ನು ಈ ಫೋನ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ. ಅವುಗಳನ್ನು AI ಸಹಾಯಕಕ್ಕೆ ಎಂದಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ, ಮತ್ತು ಚಿತ್ರದೊಳಗಿನ ಸ್ಥಳದ ಮಾಹಿತಿಯನ್ನು ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ. ನೀವು ರಫ್ತು ಮಾಡಿದರೆ ಅಥವಾ PDF ನಲ್ಲಿ ಸೇರಿಸಿದರೆ ಮಾತ್ರ ಫೋಟೋಗಳು ಫೋನ್ ಬಿಟ್ಟು ಹೋಗುತ್ತವೆ. ಈ ಫೋನ್‌ನಲ್ಲಿ Android ಬ್ಯಾಕಪ್ ಆನ್ ಆಗಿದ್ದರೆ, ನಿಮ್ಮ ಪಟ್ಟಿಗಳ ಜೊತೆಗೆ ಫೋಟೋಗಳನ್ನೂ ಬ್ಯಾಕಪ್ ಮಾಡಲಾಗುತ್ತದೆ.</string>
     <plurals name="photos_view_cd">
-        <item quantity="one">%2$s ಗಾಗಿ %1$d ಫೋಟೋ ನೋಡಿ</item>
-        <item quantity="other">%2$s ಗಾಗಿ %1$d ಫೋಟೋಗಳನ್ನು ನೋಡಿ</item>
+        <item quantity="one">%2$s ಗಾಗಿ %1$s ಫೋಟೋ ನೋಡಿ</item>
+        <item quantity="other">%2$s ಗಾಗಿ %1$s ಫೋಟೋಗಳನ್ನು ನೋಡಿ</item>
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF ಉಳಿಸಲಾಗಿದೆ.</string>
@@ -263,7 +260,7 @@
     <string name="onboarding_page2_body">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಿದ್ಧ ವಸ್ತುಗಳನ್ನು ಹುಡುಕಿ, ಟಿಕ್ ಮಾಡಿ, 5 ಕೆ.ಜಿ.ಯಂತಹ ಪ್ರಮಾಣ ಆರಿಸಿ.</string>
     <string name="onboarding_page3_title">ಟಿಕ್ ಮಾಡಿ, ಹಂಚಿಕೊಳ್ಳಿ, ಖಾಸಗಿಯಾಗಿರಿ</string>
     <string name="onboarding_page3_body">ಶಾಪಿಂಗ್ ಮಾಡುವಾಗ ವಸ್ತುಗಳಿಗೆ ಟಿಕ್ ಮಾಡಿ, ಪಟ್ಟಿಯನ್ನು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಕಳುಹಿಸಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಬಳಸಿ.</string>
-    <string name="onboarding_page_position">%2$d ರಲ್ಲಿ %1$d ನೇ ಪುಟ</string>
+    <string name="onboarding_page_position">%2$s ರಲ್ಲಿ %1$s ನೇ ಪುಟ</string>
     <string name="onboarding_demo_list_title">ದೀಪಾವಳಿ ಖರೀದಿ</string>
     <string name="onboarding_demo_rice">ಅಕ್ಕಿ</string>
     <string name="onboarding_demo_sugar">ಸಕ್ಕರೆ</string>
@@ -284,8 +281,8 @@
     <string name="settings_show_tutorial">ಟ್ಯುಟೋರಿಯಲ್ ಮತ್ತೆ ತೋರಿಸಿ</string>
     <string name="settings_show_tutorial_summary">CheckList ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂದು ನೋಡಿ</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">ನೀವು %1$d ಪಟ್ಟಿಯನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
-        <item quantity="other">ನೀವು %1$d ಪಟ್ಟಿಗಳನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
+        <item quantity="one">ನೀವು %1$s ಪಟ್ಟಿಯನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
+        <item quantity="other">ನೀವು %1$s ಪಟ್ಟಿಗಳನ್ನು ಪ್ರಗತಿಯಲ್ಲಿ ಹೊಂದಿದ್ದೀರಿ.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI ಸಹಾಯಕ (ಆಫ್‌ಲೈನ್)</string>

@@ -12,6 +12,7 @@ import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.photo.SavePhotoResult
 import com.dataloom.checklist.domain.photo.StoredPhoto
 import com.dataloom.checklist.domain.repository.PhotoRepository
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.domain.validation.ValidationError
 import com.dataloom.checklist.domain.validation.optionalText
 import javax.inject.Inject
@@ -110,18 +111,17 @@ class ReorderItemPhotoUseCase @Inject constructor(private val photos: PhotoRepos
     }
 }
 
-/** Sets or clears the one-line caption. Line breaks become spaces; blank clears it. */
+/**
+ * Sets or clears the one-line caption. Text goes through [InputText] like every other text field:
+ * line breaks become spaces, control and bidirectional characters are dropped, blank clears it.
+ */
 class SetPhotoCaptionUseCase @Inject constructor(private val photos: PhotoRepository) {
     suspend operator fun invoke(photoId: PhotoId, caption: String?): DomainResult<Unit> {
-        val oneLine = caption?.replace(LINE_BREAKS, " ")
+        val oneLine = caption?.let { InputText.clean(it) }
         val (text, error) = optionalText(oneLine, PhotoLimits.CAPTION_MAX, ValidationError.CAPTION_TOO_LONG)
         if (error != null) return failure(DomainError.Invalid(listOf(error)))
         photos.setCaption(photoId, text)
         return success(Unit)
-    }
-
-    private companion object {
-        val LINE_BREAKS = Regex("[\\r\\n\\u2028\\u2029]+")
     }
 }
 

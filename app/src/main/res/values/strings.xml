@@ -16,8 +16,7 @@
     <string name="language_title">Choose language</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">Share checklist</string>
-    <string name="pdf_page_number">Page %1$d of %2$d</string>
-    <string name="pdf_progress">%1$d of %2$d done</string>
+    <string name="pdf_page_number">Page %1$s of %2$s</string>
     <string name="pdf_prepared_by">Prepared by %1$s</string>
     <string name="pdf_no_items">This checklist has no items.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -62,7 +61,6 @@
     <string name="add_items_search_label">Search items</string>
     <string name="add_items_title">Add to %1$s</string>
     <string name="add_items_type_to_search">Type the name of an item to search.</string>
-    <string name="add_selected">Add selected (%1$d)</string>
     <string name="category_create">Create category</string>
     <string name="category_name_label">Category name</string>
     <string name="checklist_copy_title">%1$s (copy)</string>
@@ -94,9 +92,9 @@
     <string name="error_quantity_not_number">Use digits only, like 2 or 2.5.</string>
     <string name="error_quantity_not_positive">The amount must be more than zero.</string>
     <string name="error_quantity_too_precise">Use at most 3 decimal places, like 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">Enter a name for the checklist.</string>
-    <string name="error_too_long">Use at most %1$d characters.</string>
+    <string name="error_too_long">Use at most %1$s characters.</string>
     <string name="error_unit_label_blank">Enter a name for the unit.</string>
     <string name="error_unit_unknown">This unit no longer exists. Choose another one.</string>
     <string name="error_unit_without_quantity">Enter an amount for this unit, or choose “No unit”.</string>
@@ -121,7 +119,6 @@
     <string name="item_quantity_optional">Amount (optional)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">Save to %1$s suggestions</string>
-    <string name="progress_done">%1$d of %2$d done</string>
     <string name="progress_no_items">No items yet</string>
     <string name="search_clear">Clear search</string>
     <string name="sort_progress">Progress</string>
@@ -153,7 +150,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">Enter your name.</string>
     <string name="error_email_invalid">Enter an email address like name@example.com.</string>
-    <string name="error_phone_invalid">Enter a phone number with %1$d to %2$d digits.</string>
+    <string name="error_phone_invalid">Enter a phone number with %1$s to %2$s digits.</string>
     <string name="error_secure_storage">Secure storage is not working right now. Nothing was saved. Try again later.</string>
     <string name="profile_clear">Delete profile</string>
     <string name="profile_clear_message">Your name and contact details will be erased from this phone.</string>
@@ -175,19 +172,19 @@
     <string name="action_import">Import</string>
     <string name="detail_save_pdf">Save as PDF</string>
     <string name="detail_share_pdf">Share as PDF</string>
-    <string name="export_done">Exported. Checklists: %1$d, items: %2$d.</string>
+    <string name="export_done">Exported. Checklists: %1$s, items: %2$s.</string>
     <string name="export_nothing">There are no checklists to export.</string>
     <string name="export_too_large">Too much to export in one file.</string>
-    <string name="import_done">Imported. Checklists: %1$d, items: %2$d.</string>
-    <string name="import_error_invalid">Problems found in this file: %1$d. Nothing was imported.</string>
+    <string name="import_done">Imported. Checklists: %1$s, items: %2$s.</string>
+    <string name="import_error_invalid">Problems found in this file: %1$s. Nothing was imported.</string>
     <string name="import_error_malformed">This is not a CheckList backup file.</string>
     <string name="import_error_newer_app">This file was made by a newer version of CheckList. Update the app to import it.</string>
     <string name="import_error_nothing">This file has no checklists.</string>
     <string name="import_error_too_large">This file is too large to import.</string>
     <string name="import_error_unreadable">This file could not be read. Try picking it again.</string>
     <string name="import_error_unsupported">This file version is not supported.</string>
-    <string name="import_preview_checklists">Checklists: %1$d</string>
-    <string name="import_preview_items">Items: %1$d (done: %2$d)</string>
+    <string name="import_preview_checklists">Checklists: %1$s</string>
+    <string name="import_preview_items">Items: %1$s (done: %2$s)</string>
     <string name="import_preview_new_categories">New categories: %1$s</string>
     <string name="import_preview_new_units">New units: %1$s</string>
     <string name="import_preview_profile_skipped">The profile in this file is not imported.</string>
@@ -195,11 +192,11 @@
     <string name="import_preview_title">Import these checklists?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">This is not a valid CheckList photo backup. Nothing was imported.</string>
-    <string name="import_preview_photos">Photos: %1$d</string>
-    <string name="import_done_photos">Imported. Checklists: %1$d, items: %2$d, photos: %3$d.</string>
-    <string name="import_done_photos_skipped">Imported. Checklists: %1$d, items: %2$d, photos: %3$d. Photos left out: %4$d.</string>
-    <string name="export_done_photos">Exported. Checklists: %1$d, items: %2$d, photos: %3$d.</string>
-    <string name="export_done_photos_skipped">Exported. Checklists: %1$d, items: %2$d, photos: %3$d. Photos left out: %4$d.</string>
+    <string name="import_preview_photos">Photos: %1$s</string>
+    <string name="import_done_photos">Imported. Checklists: %1$s, items: %2$s, photos: %3$s.</string>
+    <string name="import_done_photos_skipped">Imported. Checklists: %1$s, items: %2$s, photos: %3$s. Photos left out: %4$s.</string>
+    <string name="export_done_photos">Exported. Checklists: %1$s, items: %2$s, photos: %3$s.</string>
+    <string name="export_done_photos_skipped">Exported. Checklists: %1$s, items: %2$s, photos: %3$s. Photos left out: %4$s.</string>
     <string name="action_export">Export</string>
     <string name="action_share">Share</string>
     <string name="export_include_photos">Include photos</string>
@@ -207,37 +204,37 @@
     <string name="pdf_options_title">PDF options</string>
     <string name="pdf_include_photos_summary">Shows up to 3 small photos under each item. The file gets bigger.</string>
     <string name="photos_section_title">Photos (optional)</string>
-    <string name="photos_count">%1$d of %2$d photos</string>
+    <string name="photos_count">%1$s of %2$s photos</string>
     <string name="photos_add">Add photo</string>
     <string name="photos_take">Take photo</string>
     <string name="photos_pick">Choose from gallery</string>
-    <string name="photos_remove_cd">Remove photo %1$d</string>
-    <string name="photos_move_left_cd">Move photo %1$d left</string>
-    <string name="photos_move_right_cd">Move photo %1$d right</string>
+    <string name="photos_remove_cd">Remove photo %1$s</string>
+    <string name="photos_move_left_cd">Move photo %1$s left</string>
+    <string name="photos_move_right_cd">Move photo %1$s right</string>
     <string name="photos_processing">Adding photo</string>
     <string name="photos_add_failed">Couldn\'t add this photo. Try another one.</string>
-    <string name="photos_limit_reached">Only %1$d photos fit on one item. The extra ones were not added.</string>
+    <string name="photos_limit_reached">Only %1$s photos fit on one item. The extra ones were not added.</string>
     <string name="photo_missing">Photo not available</string>
-    <string name="photo_cd">Photo %1$d of %2$d for %3$s</string>
-    <string name="photo_cd_caption">Photo %1$d of %2$d for %3$s. Caption: %4$s</string>
+    <string name="photo_cd">Photo %1$s of %2$s for %3$s</string>
+    <string name="photo_cd_caption">Photo %1$s of %2$s for %3$s. Caption: %4$s</string>
     <string name="photo_view_action">View photos</string>
     <string name="photo_viewer_title">Photos of %1$s</string>
-    <string name="photo_viewer_position">Photo %1$d of %2$d</string>
+    <string name="photo_viewer_position">Photo %1$s of %2$s</string>
     <string name="photo_viewer_previous">Previous photo</string>
     <string name="photo_viewer_next">Next photo</string>
     <string name="photo_viewer_close">Close</string>
     <string name="photo_viewer_delete">Delete photo</string>
     <string name="photo_viewer_zoom_in">Zoom in</string>
     <string name="photo_viewer_zoom_out">Zoom out</string>
-    <string name="photos_more_badge">+%1$d</string>
+    <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">Delete this photo?</string>
     <string name="photo_delete_body">This cannot be undone.</string>
     <string name="photo_caption_label">Caption (optional)</string>
     <string name="settings_privacy_photos_title">Photos stay on your phone</string>
     <string name="settings_privacy_photos_body">Item photos are saved only on this phone. They are never sent to the AI assistant, and the location stored inside a picture is removed. Photos leave the phone only if you export them or include them in a PDF. If Android backup is turned on for this phone, photos are backed up along with your checklists.</string>
     <plurals name="photos_view_cd">
-        <item quantity="one">View %1$d photo for %2$s</item>
-        <item quantity="other">View %1$d photos for %2$s</item>
+        <item quantity="one">View %1$s photo for %2$s</item>
+        <item quantity="other">View %1$s photos for %2$s</item>
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF saved.</string>
@@ -263,7 +260,7 @@
     <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 KG.</string>
     <string name="onboarding_page3_title">Tick, share and stay private</string>
     <string name="onboarding_page3_body">Tick items while you shop, send the list on WhatsApp, and use it without internet.</string>
-    <string name="onboarding_page_position">Page %1$d of %2$d</string>
+    <string name="onboarding_page_position">Page %1$s of %2$s</string>
     <string name="onboarding_demo_list_title">Diwali Shopping</string>
     <string name="onboarding_demo_rice">Rice</string>
     <string name="onboarding_demo_sugar">Sugar</string>
@@ -284,8 +281,8 @@
     <string name="settings_show_tutorial">Show tutorial again</string>
     <string name="settings_show_tutorial_summary">See how CheckList works</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">You have %1$d list in progress.</item>
-        <item quantity="other">You have %1$d lists in progress.</item>
+        <item quantity="one">You have %1$s list in progress.</item>
+        <item quantity="other">You have %1$s lists in progress.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI assistant (offline)</string>

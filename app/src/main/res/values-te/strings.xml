@@ -15,8 +15,7 @@
     <string name="language_title">భాషను ఎంచుకోండి</string>
     <!-- Import/export and PDF (Phase 6) -->
     <string name="share_checklist_chooser_title">జాబితాను షేర్ చేయండి</string>
-    <string name="pdf_page_number">పేజీ %1$d / %2$d</string>
-    <string name="pdf_progress">%2$d లో %1$d పూర్తయ్యాయి</string>
+    <string name="pdf_page_number">పేజీ %1$s / %2$s</string>
     <string name="pdf_prepared_by">తయారు చేసినవారు: %1$s</string>
     <string name="pdf_no_items">ఈ జాబితాలో అంశాలు ఏవీ లేవు.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
@@ -61,7 +60,6 @@
     <string name="add_items_search_label">వస్తువులను వెతకండి</string>
     <string name="add_items_title">%1$s కు జోడించండి</string>
     <string name="add_items_type_to_search">వెతకడానికి వస్తువు పేరు టైప్ చేయండి.</string>
-    <string name="add_selected">ఎంచుకున్నవి జోడించండి (%1$d)</string>
     <string name="category_create">వర్గం సృష్టించండి</string>
     <string name="category_name_label">వర్గం పేరు</string>
     <string name="checklist_copy_title">%1$s (నకలు)</string>
@@ -93,9 +91,9 @@
     <string name="error_quantity_not_number">అంకెలు మాత్రమే ఉపయోగించండి, ఉదా. 2 లేదా 2.5.</string>
     <string name="error_quantity_not_positive">పరిమాణం సున్నా కంటే ఎక్కువగా ఉండాలి.</string>
     <string name="error_quantity_too_precise">గరిష్ఠంగా 3 దశాంశ స్థానాలు మాత్రమే ఉపయోగించండి, ఉదా. 2.125.</string>
-    <string name="input_counter">%1$d / %2$d</string>
+    <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">జాబితాకు పేరు నమోదు చేయండి.</string>
-    <string name="error_too_long">గరిష్టంగా %1$d అక్షరాలు వాడండి.</string>
+    <string name="error_too_long">గరిష్టంగా %1$s అక్షరాలు వాడండి.</string>
     <string name="error_unit_label_blank">కొలమానానికి పేరు నమోదు చేయండి.</string>
     <string name="error_unit_unknown">ఈ కొలమానం ఇప్పుడు లేదు. వేరొకటి ఎంచుకోండి.</string>
     <string name="error_unit_without_quantity">ఈ కొలమానానికి పరిమాణం నమోదు చేయండి, లేదా “కొలమానం లేదు” ఎంచుకోండి.</string>
@@ -120,7 +118,6 @@
     <string name="item_quantity_optional">పరిమాణం (ఐచ్ఛికం)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s సూచనలలో సేవ్ చేయండి</string>
-    <string name="progress_done">%2$d లో %1$d పూర్తయ్యాయి</string>
     <string name="progress_no_items">ఇంకా వస్తువులు లేవు</string>
     <string name="search_clear">వెతుకులాటను తుడిచివేయండి</string>
     <string name="sort_progress">పురోగతి</string>
@@ -152,7 +149,7 @@
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">మీ పేరును నమోదు చేయండి.</string>
     <string name="error_email_invalid">name@example.com లాంటి ఈమెయిల్ చిరునామాను నమోదు చేయండి.</string>
-    <string name="error_phone_invalid">%1$d నుండి %2$d అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
+    <string name="error_phone_invalid">%1$s నుండి %2$s అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
     <string name="error_secure_storage">సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు. ఏదీ సేవ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
     <string name="profile_clear">ప్రొఫైల్‌ను తొలగించండి</string>
     <string name="profile_clear_message">మీ పేరు మరియు సంప్రదింపు వివరాలు ఈ ఫోన్ నుండి తుడిచివేయబడతాయి.</string>
@@ -174,19 +171,19 @@
     <string name="action_import">దిగుమతి చేయండి</string>
     <string name="detail_save_pdf">PDFగా సేవ్ చేయండి</string>
     <string name="detail_share_pdf">PDFగా షేర్ చేయండి</string>
-    <string name="export_done">ఎగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
+    <string name="export_done">ఎగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s.</string>
     <string name="export_nothing">ఎగుమతి చేయడానికి జాబితాలు ఏవీ లేవు.</string>
     <string name="export_too_large">ఒకే ఫైల్‌లో ఎగుమతి చేయడానికి ఇది చాలా ఎక్కువ.</string>
-    <string name="import_done">దిగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d.</string>
-    <string name="import_error_invalid">ఈ ఫైల్‌లో కనిపించిన సమస్యలు: %1$d. ఏదీ దిగుమతి కాలేదు.</string>
+    <string name="import_done">దిగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s.</string>
+    <string name="import_error_invalid">ఈ ఫైల్‌లో కనిపించిన సమస్యలు: %1$s. ఏదీ దిగుమతి కాలేదు.</string>
     <string name="import_error_malformed">ఇది CheckList బ్యాకప్ ఫైల్ కాదు.</string>
     <string name="import_error_newer_app">ఈ ఫైల్ CheckList యొక్క కొత్త వెర్షన్‌లో తయారైంది. దిగుమతి చేయడానికి యాప్‌ను అప్‌డేట్ చేయండి.</string>
     <string name="import_error_nothing">ఈ ఫైల్‌లో జాబితాలు ఏవీ లేవు.</string>
     <string name="import_error_too_large">ఈ ఫైల్ దిగుమతి చేయడానికి చాలా పెద్దది.</string>
     <string name="import_error_unreadable">ఈ ఫైల్‌ను చదవడం సాధ్యం కాలేదు. మళ్లీ ఎంచుకుని చూడండి.</string>
     <string name="import_error_unsupported">ఈ ఫైల్ వెర్షన్‌కు మద్దతు లేదు.</string>
-    <string name="import_preview_checklists">జాబితాలు: %1$d</string>
-    <string name="import_preview_items">వస్తువులు: %1$d (పూర్తయినవి: %2$d)</string>
+    <string name="import_preview_checklists">జాబితాలు: %1$s</string>
+    <string name="import_preview_items">వస్తువులు: %1$s (పూర్తయినవి: %2$s)</string>
     <string name="import_preview_new_categories">కొత్త వర్గాలు: %1$s</string>
     <string name="import_preview_new_units">కొత్త యూనిట్లు: %1$s</string>
     <string name="import_preview_profile_skipped">ఈ ఫైల్‌లోని ప్రొఫైల్ దిగుమతి చేయబడదు.</string>
@@ -194,11 +191,11 @@
     <string name="import_preview_title">ఈ జాబితాలను దిగుమతి చేయాలా?</string>
     <!-- Item photos (CL-210 to CL-216). -->
     <string name="import_error_unsafe_archive">ఇది చెల్లుబాటు అయ్యే CheckList ఫోటో బ్యాకప్ కాదు. ఏదీ దిగుమతి కాలేదు.</string>
-    <string name="import_preview_photos">ఫోటోలు: %1$d</string>
-    <string name="import_done_photos">దిగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d, ఫోటోలు: %3$d.</string>
-    <string name="import_done_photos_skipped">దిగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d, ఫోటోలు: %3$d. వదిలేసిన ఫోటోలు: %4$d.</string>
-    <string name="export_done_photos">ఎగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d, ఫోటోలు: %3$d.</string>
-    <string name="export_done_photos_skipped">ఎగుమతి పూర్తయింది. జాబితాలు: %1$d, వస్తువులు: %2$d, ఫోటోలు: %3$d. వదిలేసిన ఫోటోలు: %4$d.</string>
+    <string name="import_preview_photos">ఫోటోలు: %1$s</string>
+    <string name="import_done_photos">దిగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s, ఫోటోలు: %3$s.</string>
+    <string name="import_done_photos_skipped">దిగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s, ఫోటోలు: %3$s. వదిలేసిన ఫోటోలు: %4$s.</string>
+    <string name="export_done_photos">ఎగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s, ఫోటోలు: %3$s.</string>
+    <string name="export_done_photos_skipped">ఎగుమతి పూర్తయింది. జాబితాలు: %1$s, వస్తువులు: %2$s, ఫోటోలు: %3$s. వదిలేసిన ఫోటోలు: %4$s.</string>
     <string name="action_export">ఎగుమతి చేయండి</string>
     <string name="action_share">షేర్ చేయండి</string>
     <string name="export_include_photos">ఫోటోలను చేర్చండి</string>
@@ -206,37 +203,37 @@
     <string name="pdf_options_title">PDF ఎంపికలు</string>
     <string name="pdf_include_photos_summary">ప్రతి వస్తువు కింద 3 చిన్న ఫోటోల వరకు చూపిస్తుంది. ఫైల్ పెద్దదవుతుంది.</string>
     <string name="photos_section_title">ఫోటోలు (ఐచ్ఛికం)</string>
-    <string name="photos_count">%2$dలో %1$d ఫోటోలు</string>
+    <string name="photos_count">%2$sలో %1$s ఫోటోలు</string>
     <string name="photos_add">ఫోటో జోడించండి</string>
     <string name="photos_take">ఫోటో తీయండి</string>
     <string name="photos_pick">గ్యాలరీ నుండి ఎంచుకోండి</string>
-    <string name="photos_remove_cd">ఫోటో %1$d ని తొలగించండి</string>
-    <string name="photos_move_left_cd">ఫోటో %1$d ని ఎడమకు జరపండి</string>
-    <string name="photos_move_right_cd">ఫోటో %1$d ని కుడికి జరపండి</string>
+    <string name="photos_remove_cd">ఫోటో %1$s ని తొలగించండి</string>
+    <string name="photos_move_left_cd">ఫోటో %1$s ని ఎడమకు జరపండి</string>
+    <string name="photos_move_right_cd">ఫోటో %1$s ని కుడికి జరపండి</string>
     <string name="photos_processing">ఫోటో జోడిస్తున్నాము</string>
     <string name="photos_add_failed">ఈ ఫోటోను జోడించలేకపోయాము. మరొకటి ప్రయత్నించండి.</string>
-    <string name="photos_limit_reached">ఒక వస్తువుకు %1$d ఫోటోలు మాత్రమే జోడించవచ్చు. అదనపువి జోడించలేదు.</string>
+    <string name="photos_limit_reached">ఒక వస్తువుకు %1$s ఫోటోలు మాత్రమే జోడించవచ్చు. అదనపువి జోడించలేదు.</string>
     <string name="photo_missing">ఫోటో అందుబాటులో లేదు</string>
-    <string name="photo_cd">%3$s కోసం ఫోటో %1$d / %2$d</string>
-    <string name="photo_cd_caption">%3$s కోసం ఫోటో %1$d / %2$d. శీర్షిక: %4$s</string>
+    <string name="photo_cd">%3$s కోసం ఫోటో %1$s / %2$s</string>
+    <string name="photo_cd_caption">%3$s కోసం ఫోటో %1$s / %2$s. శీర్షిక: %4$s</string>
     <string name="photo_view_action">ఫోటోలను చూడండి</string>
     <string name="photo_viewer_title">%1$s ఫోటోలు</string>
-    <string name="photo_viewer_position">ఫోటో %1$d / %2$d</string>
+    <string name="photo_viewer_position">ఫోటో %1$s / %2$s</string>
     <string name="photo_viewer_previous">మునుపటి ఫోటో</string>
     <string name="photo_viewer_next">తదుపరి ఫోటో</string>
     <string name="photo_viewer_close">మూసివేయండి</string>
     <string name="photo_viewer_delete">ఫోటోను తొలగించండి</string>
     <string name="photo_viewer_zoom_in">జూమ్ ఇన్</string>
     <string name="photo_viewer_zoom_out">జూమ్ అవుట్</string>
-    <string name="photos_more_badge">+%1$d</string>
+    <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">ఈ ఫోటోను తొలగించాలా?</string>
     <string name="photo_delete_body">ఇది తిరిగి పొందలేము.</string>
     <string name="photo_caption_label">శీర్షిక (ఐచ్ఛికం)</string>
     <string name="settings_privacy_photos_title">ఫోటోలు మీ ఫోన్‌లోనే ఉంటాయి</string>
     <string name="settings_privacy_photos_body">వస్తువుల ఫోటోలు ఈ ఫోన్‌లో మాత్రమే సేవ్ అవుతాయి. వాటిని AI సహాయకునికి ఎప్పుడూ పంపరు, చిత్రంలో ఉన్న స్థాన సమాచారం తొలగించబడుతుంది. మీరు ఎగుమతి చేస్తే లేదా PDFలో చేరిస్తే మాత్రమే ఫోటోలు ఫోన్ నుండి బయటకు వెళ్తాయి. ఈ ఫోన్‌లో Android బ్యాకప్ ఆన్‌లో ఉంటే, మీ జాబితాలతో పాటు ఫోటోలు కూడా బ్యాకప్ అవుతాయి.</string>
     <plurals name="photos_view_cd">
-        <item quantity="one">%2$s కోసం %1$d ఫోటోను చూడండి</item>
-        <item quantity="other">%2$s కోసం %1$d ఫోటోలను చూడండి</item>
+        <item quantity="one">%2$s కోసం %1$s ఫోటోను చూడండి</item>
+        <item quantity="other">%2$s కోసం %1$s ఫోటోలను చూడండి</item>
     </plurals>
     <!-- End of item photos. -->
     <string name="pdf_saved">PDF సేవ్ చేయబడింది.</string>
@@ -263,7 +260,7 @@
     <string name="onboarding_page2_body">మీ భాషలో సిద్ధంగా ఉన్న వస్తువులను వెతకండి, టిక్ చేయండి, 5 కిలోల వంటి పరిమాణం ఎంచుకోండి.</string>
     <string name="onboarding_page3_title">టిక్ చేయండి, షేర్ చేయండి, ప్రైవేట్‌గా ఉంచండి</string>
     <string name="onboarding_page3_body">షాపింగ్ చేస్తున్నప్పుడు వస్తువులను టిక్ చేయండి, జాబితాను వాట్సాప్‌లో పంపండి, ఇంటర్నెట్ లేకుండా వాడండి.</string>
-    <string name="onboarding_page_position">పేజీ %1$d / %2$d</string>
+    <string name="onboarding_page_position">పేజీ %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">దీపావళి షాపింగ్</string>
     <string name="onboarding_demo_rice">బియ్యం</string>
     <string name="onboarding_demo_sugar">పంచదార</string>
@@ -284,8 +281,8 @@
     <string name="settings_show_tutorial">ట్యుటోరియల్ మళ్లీ చూపించు</string>
     <string name="settings_show_tutorial_summary">CheckList ఎలా పనిచేస్తుందో చూడండి</string>
     <plurals name="home_greeting_in_progress">
-        <item quantity="one">మీకు %1$d జాబితా కొనసాగుతోంది.</item>
-        <item quantity="other">మీకు %1$d జాబితాలు కొనసాగుతున్నాయి.</item>
+        <item quantity="one">మీకు %1$s జాబితా కొనసాగుతోంది.</item>
+        <item quantity="other">మీకు %1$s జాబితాలు కొనసాగుతున్నాయి.</item>
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI సహాయకుడు (ఆఫ్‌లైన్)</string>

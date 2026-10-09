@@ -4,6 +4,7 @@ import android.content.Context
 import com.dataloom.checklist.data.photo.FilePhotoStore
 import com.dataloom.checklist.data.repository.RoomPhotoRepository
 import com.dataloom.checklist.domain.common.IdGenerator
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.photo.PhotoFileCleaner
 import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.photo.StorePhotoFileCleaner
@@ -15,15 +16,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import java.io.File
-import javax.inject.Qualifier
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-
-/** The dispatcher for blocking file and image work, injected so tests can replace it. */
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class IoDispatcher
 
 /** Item photos (CL-210): rows in Room, files in `filesDir/item_photos`. */
 @Module
@@ -39,10 +33,6 @@ abstract class PhotoModule {
 
     companion object {
         const val PHOTO_DIRECTORY = "item_photos"
-
-        @Provides
-        @IoDispatcher
-        fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
         @Provides
         @Singleton

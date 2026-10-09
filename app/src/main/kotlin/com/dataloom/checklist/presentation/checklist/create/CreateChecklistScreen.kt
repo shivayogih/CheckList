@@ -17,7 +17,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,6 +40,7 @@ import com.dataloom.checklist.presentation.category.NewCategoryDialog
 import com.dataloom.checklist.presentation.category.categoryOptions
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.fieldSupportingText
 import com.dataloom.checklist.presentation.components.inputLength
@@ -68,8 +68,8 @@ fun CreateChecklistScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.create_title)) },
+            AppTopBar(
+                title = stringResource(R.string.create_title),
                 navigationIcon = { BackButton(onBack) },
             )
         },

@@ -3,13 +3,14 @@ package com.dataloom.checklist.photos
 import android.content.Context
 import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.common.AppLog
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.usecase.SweepOrphanPhotosUseCase
 import com.dataloom.checklist.presentation.photos.clearCameraCache
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,10 +24,11 @@ class PhotoHousekeeping @Inject constructor(
     private val sweepOrphanPhotos: SweepOrphanPhotosUseCase,
     @param:ApplicationContext private val context: Context,
     @param:ApplicationScope private val scope: CoroutineScope,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
 ) {
     fun start() {
         scope.launch {
-            withContext(Dispatchers.IO) { clearCameraCache(context) }
+            withContext(io) { clearCameraCache(context) }
             val deleted = sweepOrphanPhotos()
             if (deleted > 0) AppLog.d(TAG) { "Deleted $deleted orphan photo files" }
         }

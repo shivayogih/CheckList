@@ -57,7 +57,14 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.photo.PhotoLimits
+import com.dataloom.checklist.domain.validation.InputText
+import com.dataloom.checklist.domain.validation.ValidationError
+import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.formatCount
+import com.dataloom.checklist.presentation.common.toUiText
 import com.dataloom.checklist.presentation.components.ConfirmDialog
+import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.inputLength
 
 private const val MIN_ZOOM = 1f
 private const val MAX_ZOOM = 5f
@@ -283,7 +290,7 @@ private fun ViewerControls(position: Int, count: Int, onPrevious: () -> Unit, on
             )
         }
         Text(
-            stringResource(R.string.photo_viewer_position, position + 1, count),
+            stringResource(R.string.photo_viewer_position, formatCount(position + 1), formatCount(count)),
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
@@ -302,14 +309,21 @@ private fun ViewerControls(position: Int, count: Int, onPrevious: () -> Unit, on
 @Composable
 private fun CaptionField(photo: PhotoUi, onCaption: (PhotoUi, String) -> Unit) {
     var text by remember(photo.id) { mutableStateOf(photo.caption.orEmpty()) }
-    val save by rememberUpdatedState { if (text != photo.caption.orEmpty()) onCaption(photo, text) }
+    val tooLong = text.inputLength() > PhotoLimits.CAPTION_MAX
+    // A caption over the limit shows the domain's error and is not saved until it is shortened.
+    val save by rememberUpdatedState {
+        if (!tooLong && InputText.normalize(text) != photo.caption.orEmpty()) onCaption(photo, text)
+    }
+    val errorText = if (tooLong) ValidationError.CAPTION_TOO_LONG.toUiText().asString() else null
     val focus = LocalFocusManager.current
     DisposableEffect(photo.id) { onDispose { save() } }
     OutlinedTextField(
         value = text,
-        onValueChange = { text = it.replace('\n', ' ').take(PhotoLimits.CAPTION_MAX) },
+        onValueChange = { text = InputText.forField(it, PhotoLimits.CAPTION_MAX) },
         label = { Text(stringResource(R.string.photo_caption_label)) },
         singleLine = true,
+        isError = tooLong,
+        supportingText = fieldSupportingText(errorText, text.inputLength(), PhotoLimits.CAPTION_MAX),
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Done,
@@ -329,7 +343,7 @@ private fun CaptionField(photo: PhotoUi, onCaption: (PhotoUi, String) -> Unit) {
 @Composable
 internal fun photoDescription(position: Int, count: Int, itemName: String, caption: String?): String =
     if (caption.isNullOrBlank()) {
-        stringResource(R.string.photo_cd, position + 1, count, itemName)
+        stringResource(R.string.photo_cd, formatCount(position + 1), formatCount(count), itemName)
     } else {
-        stringResource(R.string.photo_cd_caption, position + 1, count, itemName, caption)
+        stringResource(R.string.photo_cd_caption, formatCount(position + 1), formatCount(count), itemName, caption)
     }

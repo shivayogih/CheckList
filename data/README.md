@@ -5,6 +5,8 @@ later phases. Depends on `:domain`.
 
 - `local/entity`, `local/dao`, `local/database`: schema v1 (architecture section 5.3). Exported
   schemas live in `schemas/` and are committed; never use a destructive migration.
+  Migrations are listed in `DatabaseMigrations.ALL` (empty at v1); `DatabaseMigrationTest` fails
+  when a version has no migration and checks that v1 data survives every step.
 - `local/fts`: the multilingual item search index (section 6.6).
 - `seed`: `SeedLoader` applies `src/main/assets/seed/catalog.json` and `i18n/<locale>.json` on
   database creation and whenever the asset's `seedVersion` grows.

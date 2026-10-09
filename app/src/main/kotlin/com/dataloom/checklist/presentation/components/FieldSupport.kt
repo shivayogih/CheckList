@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.formatCount
 
 /**
  * Supporting text for a text field (CL-280): the [message] (an error, which TalkBack reads through the
@@ -26,7 +27,7 @@ fun fieldSupportingText(message: String?, length: Int, max: Int?): (@Composable 
             if (max != null) {
                 val colors = MaterialTheme.colorScheme
                 Text(
-                    stringResource(R.string.input_counter, length, max),
+                    stringResource(R.string.input_counter, formatCount(length), formatCount(max)),
                     style = MaterialTheme.typography.bodySmall,
                     color = if (length > max) colors.error else colors.onSurfaceVariant,
                     modifier = Modifier.clearAndSetSemantics { },

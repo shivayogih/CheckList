@@ -3,7 +3,10 @@ package com.dataloom.checklist.presentation.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,9 +14,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,7 +40,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,7 +52,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -60,7 +64,10 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistSort
+import com.dataloom.checklist.presentation.common.countText
+import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
@@ -135,8 +142,8 @@ private fun HomeContent(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.home_title)) },
+            AppTopBar(
+                title = stringResource(R.string.home_title),
                 actions = {
                     // A labelled text button, not a bare gear icon: clearer for first-time users.
                     TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.settings_title)) }
@@ -145,11 +152,13 @@ private fun HomeContent(
         },
         floatingActionButton = {
             if (!state.isFirstUse) {
-                ExtendedFloatingActionButton(
-                    onClick = onCreateChecklist,
-                    icon = { Icon(painterResource(R.drawable.ic_add), contentDescription = null) },
-                    text = { Text(stringResource(R.string.home_create_checklist)) },
-                )
+                // The content-slot overload: its label merges into the button, so TalkBack reads
+                // "Create checklist" (the icon/text overload left the button unlabelled in the audit).
+                ExtendedFloatingActionButton(onClick = onCreateChecklist) {
+                    Icon(painterResource(R.drawable.ic_add), contentDescription = null)
+                    Spacer(Modifier.width(12.dp))
+                    Text(stringResource(R.string.home_create_checklist))
+                }
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -165,13 +174,16 @@ private fun HomeContent(
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                item { SearchField(state.search, onAction) }
-                item { FilterAndSort(state.filter, state.sort, onAction) }
-                greeting?.let { item { GreetingCard(it) } }
-                if (!state.isLoading && state.checklists.isEmpty()) {
-                    item { EmptyResults(state) }
+                // Stable keys: the greeting card appearing must not shift the search field's identity.
+                item(key = "search", contentType = "search") { SearchField(state.search, onAction) }
+                item(key = "filter-sort", contentType = "filter-sort") {
+                    FilterAndSort(state.filter, state.sort, onAction)
                 }
-                items(state.checklists, key = { it.id.value }) { row ->
+                greeting?.let { item(key = "greeting", contentType = "greeting") { GreetingCard(it) } }
+                if (!state.isLoading && state.checklists.isEmpty()) {
+                    item(key = "empty", contentType = "empty") { EmptyResults(state) }
+                }
+                items(state.checklists, key = { it.id.value }, contentType = { "checklist" }) { row ->
                     ChecklistCard(row, onAction, onOpen = { onOpenChecklist(row.id) })
                 }
             }
@@ -205,7 +217,7 @@ private fun GreetingCard(greeting: GreetingUi) {
                 style = MaterialTheme.typography.headlineSmall,
             )
             Text(
-                text = pluralStringResource(R.plurals.home_greeting_in_progress, greeting.inProgress, greeting.inProgress),
+                text = countText(R.plurals.home_greeting_in_progress, greeting.inProgress),
                 style = MaterialTheme.typography.bodyLarge,
             )
         }
@@ -214,9 +226,18 @@ private fun GreetingCard(greeting: GreetingUi) {
 
 @Composable
 private fun FirstUse(onCreateChecklist: () -> Unit, modifier: Modifier = Modifier) {
+    // Scrolls when 200% text no longer fits the screen (the button was clipped in the audit), and
+    // stays vertically centred when it does fit.
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        FirstUseContent(onCreateChecklist, Modifier.verticalScroll(rememberScrollState()).heightIn(min = maxHeight))
+    }
+}
+
+@Composable
+private fun FirstUseContent(onCreateChecklist: () -> Unit, modifier: Modifier) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(horizontal = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -265,13 +286,16 @@ private fun SearchField(search: String, onAction: (HomeAction) -> Unit) {
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction: (HomeAction) -> Unit) {
     var sortMenuOpen by rememberSaveable { mutableStateOf(false) }
-    Row(
+    // A flow row, not a row: at 200% font the sort button wraps to its own line instead of squeezing.
+    FlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
         FilterChip(
             selected = filter == ChecklistFilter.ACTIVE,
@@ -361,7 +385,7 @@ private fun ChecklistCard(row: ChecklistRowUi, onAction: (HomeAction) -> Unit, o
                     text = if (row.totalItems == 0) {
                         stringResource(R.string.progress_no_items)
                     } else {
-                        stringResource(R.string.progress_done, row.completedItems, row.totalItems)
+                        progressText(row.completedItems, row.totalItems)
                     },
                     style = MaterialTheme.typography.bodyMedium,
                 )

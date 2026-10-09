@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
 import java.io.File
 import kotlin.math.max
-import kotlinx.coroutines.Dispatchers
+import java.util.concurrent.Executors
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 /**
@@ -35,6 +36,15 @@ internal object PhotoBitmaps {
     private const val CACHE_DIVISOR = 16
     private const val BYTES_PER_KIB = 1024
     private const val BYTES_PER_PIXEL = 4
+    private const val DECODER_THREADS = 2
+
+    /**
+     * Decoding runs on this small pool of daemon threads. Composables cannot take an injected
+     * dispatcher, and a pool of its own keeps thumbnail decoding from competing with database work.
+     */
+    private val decoder = Executors.newFixedThreadPool(DECODER_THREADS) { task ->
+        Thread(task, "photo-decoder").apply { isDaemon = true }
+    }.asCoroutineDispatcher()
 
     private val cache = object : LruCache<String, ImageBitmap>(
         (Runtime.getRuntime().maxMemory() / BYTES_PER_KIB / CACHE_DIVISOR).toInt(),
@@ -42,6 +52,8 @@ internal object PhotoBitmaps {
         override fun sizeOf(key: String, value: ImageBitmap): Int =
             value.width * value.height * BYTES_PER_PIXEL / BYTES_PER_KIB
     }
+
+    suspend fun loadAsync(file: File, maxEdgePx: Int): ImageBitmap? = withContext(decoder) { load(file, maxEdgePx) }
 
     fun cached(file: File, maxEdgePx: Int): ImageBitmap? = cache.get(key(file, maxEdgePx))
 
@@ -73,7 +85,7 @@ internal object PhotoBitmaps {
 @Composable
 fun rememberPhotoBitmap(file: File, maxEdgePx: Int): ImageBitmap? {
     val bitmap by produceState(PhotoBitmaps.cached(file, maxEdgePx), file, maxEdgePx) {
-        value = withContext(Dispatchers.IO) { PhotoBitmaps.load(file, maxEdgePx) }
+        value = PhotoBitmaps.loadAsync(file, maxEdgePx)
     }
     return bitmap
 }

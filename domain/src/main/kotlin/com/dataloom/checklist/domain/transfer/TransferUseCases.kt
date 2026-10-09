@@ -1,6 +1,8 @@
 package com.dataloom.checklist.domain.transfer
 
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.domain.common.DefaultDispatcher
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
@@ -28,7 +30,7 @@ import java.io.OutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
@@ -60,6 +62,8 @@ class ExportChecklistsUseCase @Inject constructor(
     private val catalog: CatalogRepository,
     private val codec: TransferCodec,
     private val clock: Clock,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
     private val photoStore: PhotoStore = NoPhotoStore,
 ) {
     suspend operator fun invoke(request: ExportRequest, sink: ExportSink): ExportResult {
@@ -72,12 +76,13 @@ class ExportChecklistsUseCase @Inject constructor(
         if (itemCount > TransferLimits.MAX_ITEMS) return ExportResult.TooLarge(TransferLimit.ITEMS, TransferLimits.MAX_ITEMS.toLong())
 
         val photos = if (request.includePhotos) PhotoCollector(photoStore) else null
-        val bytes = codec.encode(buildDocument(details, request, photos))
+        // Building and encoding a large export is CPU work: keep it off the caller's (often main) thread.
+        val bytes = withContext(default) { codec.encode(buildDocument(details, request, photos)) }
         if (bytes.size > TransferLimits.MAX_FILE_BYTES) {
             return ExportResult.TooLarge(TransferLimit.FILE_SIZE, TransferLimits.MAX_FILE_BYTES)
         }
         if (photos == null) {
-            withContext(Dispatchers.IO) { sink.openStream().use { it.write(bytes) } }
+            withContext(io) { sink.openStream().use { it.write(bytes) } }
             return ExportResult.Exported(details.size, itemCount, bytes.size)
         }
         if (photos.entries.size > TransferLimits.MAX_ARCHIVE_ENTRIES - 1) {
@@ -86,7 +91,7 @@ class ExportChecklistsUseCase @Inject constructor(
         if (bytes.size + photos.totalBytes > TransferLimits.MAX_ARCHIVE_BYTES) {
             return ExportResult.TooLarge(TransferLimit.ARCHIVE_SIZE, TransferLimits.MAX_ARCHIVE_BYTES)
         }
-        val written = withContext(Dispatchers.IO) { writeArchive(sink, bytes, photos.entries) }
+        val written = withContext(io) { writeArchive(sink, bytes, photos.entries) }
         return ExportResult.Exported(details.size, itemCount, written, photos.entries.size, photos.skipped)
     }
 
@@ -245,6 +250,8 @@ class PreviewImportUseCase @Inject constructor(
     private val checklists: ChecklistRepository,
     private val catalog: CatalogRepository,
     private val codec: TransferCodec,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
+    @param:DefaultDispatcher private val default: CoroutineDispatcher,
     private val photoStore: PhotoStore = NoPhotoStore,
 ) {
     suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult =
@@ -264,7 +271,7 @@ class PreviewImportUseCase @Inject constructor(
     }
 
     private suspend fun parse(bytes: ByteArray, archive: ImportArchive?, locale: String): ImportPreviewResult {
-        val decoded = withContext(Dispatchers.Default) { codec.decode(bytes) }
+        val decoded = withContext(default) { codec.decode(bytes) }
         if (decoded is DecodeResult.Rejected) return ImportPreviewResult.Rejected(decoded.rejection)
         val document = (decoded as DecodeResult.Decoded).document
         val invalid = ImportValidator.validate(document, archive?.photos?.keys)
@@ -306,7 +313,7 @@ class PreviewImportUseCase @Inject constructor(
      * Trusts neither the reported size nor the stream: JSON reading stops one byte past its limit,
      * and an archive is read by [ZipArchiveReader], which counts the bytes it really gets.
      */
-    private suspend fun read(source: ImportSource): ReadResult = withContext(Dispatchers.IO) {
+    private suspend fun read(source: ImportSource): ReadResult = withContext(io) {
         val reported = source.sizeBytes
         if (reported != null && reported > TransferLimits.MAX_ARCHIVE_BYTES) {
             return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)

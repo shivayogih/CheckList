@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.detail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.di.ApplicationScope
@@ -164,6 +165,7 @@ class ChecklistDetailViewModel @AssistedInject constructor(
     private val updateChecklist: UpdateChecklistUseCase,
     languageProvider: AppLanguageProvider,
     @param:ApplicationScope private val applicationScope: CoroutineScope,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
     private val photoStore: PhotoStore = NoPhotoStore,
 ) : ViewModel() {
 
@@ -182,7 +184,10 @@ class ChecklistDetailViewModel @AssistedInject constructor(
 
     /** Serializes delete commits, so a PDF export waits for a commit that is already running. */
     private val deleteCommits = Mutex()
-    private val rename = MutableStateFlow<RenameDialogUi?>(null)
+
+    // An open rename dialog and its text survive process death. Pending item deletions do not: they are
+    // committed when the screen closes, and a killed process simply keeps the items.
+    private val rename = MutableStateFlow(savedState.get<String>(KEY_RENAME)?.let { RenameDialogUi(title = it) })
     private val pendingSectionRemoval = MutableStateFlow<SectionUi?>(null)
     private val effects = Channel<ChecklistDetailEffect>(Channel.BUFFERED)
 
@@ -244,12 +249,14 @@ class ChecklistDetailViewModel @AssistedInject constructor(
                 pendingSectionRemoval.value = null
                 launchWrite { removeSection(section.id) }
             }
-            ChecklistDetailAction.StartRename -> rename.value = RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty())
+            ChecklistDetailAction.StartRename ->
+                setRename(RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty()))
             is ChecklistDetailAction.RenameChanged -> {
                 val title = InputText.forField(action.title, FieldLimits.TITLE_MAX)
-                rename.update { it?.copy(title = title, error = liveError(title, ChecklistValidator::validateTitle)) }
+                val error = liveError(title, ChecklistValidator::validateTitle)
+                setRename(rename.value?.copy(title = title, error = error))
             }
-            ChecklistDetailAction.DismissRename -> rename.value = null
+            ChecklistDetailAction.DismissRename -> setRename(null)
             ChecklistDetailAction.ConfirmRename -> confirmRename()
         }
     }
@@ -305,7 +312,7 @@ class ChecklistDetailViewModel @AssistedInject constructor(
         rename.value = dialog.copy(isSaving = true)
         launchWrite {
             when (val result = updateChecklist(id, dialog.title, detail.checklist.description)) {
-                is DomainResult.Success -> rename.value = null
+                is DomainResult.Success -> setRename(null)
                 is DomainResult.Failure -> {
                     val error = result.error
                     val message = if (error is DomainError.Invalid) {
@@ -317,6 +324,12 @@ class ChecklistDetailViewModel @AssistedInject constructor(
                 }
             }
         }
+    }
+
+    /** Shows, changes or closes the rename dialog and mirrors its text into saved state. */
+    private fun setRename(dialog: RenameDialogUi?) {
+        rename.value = dialog
+        savedState[KEY_RENAME] = dialog?.title
     }
 
     private fun currentDetail(): ChecklistDetail? = (detail.value as? Load.Loaded)?.detail
@@ -359,7 +372,8 @@ class ChecklistDetailViewModel @AssistedInject constructor(
         photos = photos.map { it.toUi(photoStore) },
     )
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
+        const val KEY_RENAME = "detail_rename_title"
     }
 }

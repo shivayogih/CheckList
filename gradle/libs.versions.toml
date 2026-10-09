@@ -27,9 +27,16 @@ tink = "1.23.0"
 # QR code in the PDF export (CL-168); zxing core 3.5.4 checked on Maven Central (latest stable,
 # released 2025-11-11, Apache-2.0, no runtime dependencies).
 zxing = "3.5.4"
+# Unit-test coverage (CL-175): JaCoCo 0.8.15 checked on Maven Central (released 2026-06-04, supports
+# Java 26 class files and the Kotlin/Compose bytecode filters). Used through AGP's built-in coverage
+# and Gradle's core jacoco plugin, so no third-party Gradle plugin is needed.
+jacoco = "0.8.15"
 # AI assistant toggles (CL-240); datastore 1.2.1 checked on the AndroidX release page: latest stable,
 # released 2026-03-11, needs Kotlin Gradle plugin 2.0 or newer.
 datastore = "1.2.1"
+# Installs the Baseline Profile on first launch (CL-294); 1.4.1 checked on the AndroidX release page
+# (latest stable, a plain AAR with no Kotlin or AGP coupling).
+profileinstaller = "1.4.1"
 
 # Reads the EXIF orientation of picked photos (CL-210); 1.4.2 is the latest stable on the AndroidX
 # release page (2025-12-03). It is the AndroidX copy of the platform class, which also reads PNG and WebP.
@@ -49,7 +56,8 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-# Compose UI tests on the JVM with Robolectric; versions come from the Compose BOM.
+# Compose UI tests on the JVM with Robolectric (CL-171). Versions come from the Compose BOM
+# (2026.09.00 maps Compose UI to 1.12.1, checked on the Compose UI release page).
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
@@ -58,6 +66,8 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+# Same version as Hilt (2.60.1 on Maven Central): HiltAndroidRule and HiltTestApplication for app tests.
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 androidx-hilt-lifecycle-viewmodel-compose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
 # room-ktx is not listed: since Room 2.7 its APIs (withTransaction, Flow) live in room-runtime.
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -72,6 +82,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

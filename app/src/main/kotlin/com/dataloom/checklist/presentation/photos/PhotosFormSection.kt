@@ -36,6 +36,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.formatCount
 
 private val TileSize = 96.dp
 
@@ -61,7 +62,7 @@ fun PhotosFormSection(
             modifier = Modifier.semantics { heading() },
         )
         Text(
-            stringResource(R.string.photos_count, photos.size, PhotoLimits.MAX_PER_ITEM),
+            stringResource(R.string.photos_count, formatCount(photos.size), formatCount(PhotoLimits.MAX_PER_ITEM)),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
@@ -97,19 +98,19 @@ private fun PhotoTile(
             IconButton(onClick = { onMove(-1) }, enabled = canMoveLeft) {
                 Icon(
                     painterResource(R.drawable.ic_chevron_left),
-                    contentDescription = stringResource(R.string.photos_move_left_cd, number),
+                    contentDescription = stringResource(R.string.photos_move_left_cd, formatCount(number)),
                 )
             }
             IconButton(onClick = onRemove) {
                 Icon(
                     painterResource(R.drawable.ic_close),
-                    contentDescription = stringResource(R.string.photos_remove_cd, number),
+                    contentDescription = stringResource(R.string.photos_remove_cd, formatCount(number)),
                 )
             }
             IconButton(onClick = { onMove(+1) }, enabled = canMoveRight) {
                 Icon(
                     painterResource(R.drawable.ic_chevron_right),
-                    contentDescription = stringResource(R.string.photos_move_right_cd, number),
+                    contentDescription = stringResource(R.string.photos_move_right_cd, formatCount(number)),
                 )
             }
         }
