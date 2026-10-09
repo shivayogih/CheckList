@@ -132,6 +132,11 @@ jobs:
       - name: Logging ban
         run: python tools/checks/logging_ban.py
 
+      # Database migrations (CL-320, docs/db-migrations.md): no destructive fallback, schemas 1..N with a
+      # migration per step, released schema files frozen, a new version needs fixtures and a history row.
+      - name: Database migration gate
+        run: python tools/checks/schema_gate.py --base origin/develop
+
       # The agents are rule-based ADK workflows: no API key needed. If the owner adds the optional
       # GEMINI_API_KEY secret, they also append an advisory AI summary (docs/ai-automation.md).
       - name: Translation consistency agent

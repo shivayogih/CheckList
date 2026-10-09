@@ -13,7 +13,7 @@ The local database design. **Status: Planned (Phase 2, CL-112 Room data layer, C
 | Seeded names live in translation tables, searched with FTS4 | Offline search in any of the 7 languages | 005 |
 | Checklist items are snapshots of master items | Editing the catalog never changes a saved list | 006 |
 | `exportSchema = true`, schemas committed under `data/schemas/`, a tested migration for every version | Never lose user data | |
-| **Never** call `fallbackToDestructiveMigration()` | Same | |
+| **Never** call `fallbackToDestructiveMigration()`; upgrades back the file up first and restore it on failure | Same; see [db-migrations.md](db-migrations.md) | |
 
 ## Entity relationships
 

@@ -55,4 +55,16 @@ class BackupRulesTest {
             assertTrue("$file must not exclude the app files folder", "file" !in domains)
         }
     }
+
+    @Test
+    fun `the database is backed up so a restored phone keeps its checklists and can be migrated`() {
+        // Only the keyset is excluded (security.md, db-migrations.md); the pre-migration copy sits in noBackupFilesDir.
+        listOf("data_extraction_rules.xml", "backup_rules.xml").forEach { file ->
+            val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(File(xmlDir, file))
+            val excludes = document.getElementsByTagName("exclude")
+            val domains = (0 until excludes.length).map { (excludes.item(it) as Element).getAttribute("domain") }
+            assertTrue("$file must not exclude the database", "database" !in domains)
+            assertTrue("$file may only exclude shared preferences", domains.all { it == "sharedpref" })
+        }
+    }
 }

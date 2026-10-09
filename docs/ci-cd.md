@@ -37,6 +37,7 @@ All build logic lives in Gradle tasks (and, later, `ci/scripts/`), so both syste
 | Gradle wrapper validation | `gradle/actions/wrapper-validation` | `gradle-wrapper.jar` is not an official Gradle release |
 | Secret scan (gitleaks) | gitleaks 8.30.1 CLI over the **whole history**, report redacted; SARIF uploaded as an artifact on failure | Any leak is found |
 | Static analysis (detekt) | `ci/scripts/detekt.sh` (see below); SARIF to GitHub code scanning, HTML report as an artifact | Any finding not in the baseline |
+| Database migration gate (CL-320) | `tools/checks/schema_gate.py --base origin/develop` (inside the job below) | A destructive Room call, a schema gap, `@Database(version)` without its schema or `Migration`, an edited or deleted released schema file, or a new schema version without fixtures and a history row in [db-migrations.md](db-migrations.md) |
 | Logging ban, CI agents and their tests | pytest for `tools/agents` and `tools/checks`; `tools/checks/logging_ban.py`; the translation, issue-sync and release-notes agents (reports in the job summary) | A test fails, direct logging is found, or an agent reports an error (warnings never fail) |
 
 ### `pr-checks`

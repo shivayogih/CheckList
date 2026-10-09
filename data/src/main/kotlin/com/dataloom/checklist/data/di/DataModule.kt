@@ -2,6 +2,7 @@ package com.dataloom.checklist.data.di
 
 import android.content.Context
 import com.dataloom.checklist.data.local.database.CheckListDatabase
+import com.dataloom.checklist.data.local.database.DatabaseHealth
 import com.dataloom.checklist.data.repository.RoomCatalogRepository
 import com.dataloom.checklist.data.repository.RoomChecklistRepository
 import com.dataloom.checklist.data.seed.AssetSeedSource
@@ -40,8 +41,11 @@ abstract class DataModule {
         /** One database per process: Room's invalidation tracking only works within one instance. */
         @Provides
         @Singleton
-        fun provideDatabase(@ApplicationContext context: Context, seedLoader: SeedLoader): CheckListDatabase =
-            CheckListDatabase.build(context, seedLoader)
+        fun provideDatabase(
+            @ApplicationContext context: Context,
+            seedLoader: SeedLoader,
+            health: DatabaseHealth,
+        ): CheckListDatabase = CheckListDatabase.build(context, seedLoader, health)
 
         @Provides
         fun provideClock(): Clock = Clock.SYSTEM
