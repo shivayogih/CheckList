@@ -352,4 +352,35 @@ class OnboardingViewModelTest {
 
         assertEquals(0, vm.uiState.value.tutorialPage)
     }
+
+    // CL-280: keyboard filters and the enabled state of Continue.
+
+    @Test
+    fun `phone and email are filtered and Continue is disabled while a field is invalid`() {
+        val vm = viewModel()
+        vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.SkipTutorial)
+        assertTrue(vm.uiState.value.canSubmitProfile)
+
+        vm.act(OnboardingAction.PhoneChanged("98a7#6*"), OnboardingAction.EmailChanged(" a@b.c o\n"))
+        assertEquals("9876", vm.uiState.value.phone)
+        assertEquals("a@b.co", vm.uiState.value.email)
+
+        vm.act(OnboardingAction.EmailChanged("kamala@example"))
+        assertEquals(UiText(R.string.error_email_invalid), vm.uiState.value.fieldErrors.email)
+        assertFalse(vm.uiState.value.canSubmitProfile)
+
+        vm.act(OnboardingAction.EmailChanged("kamala@example.com"), OnboardingAction.PhoneChanged("98450 12345"))
+        assertTrue(vm.uiState.value.canSubmitProfile)
+    }
+
+    @Test
+    fun `a name with control characters is cleaned and one of only spaces counts as blank`() {
+        val vm = viewModel()
+        vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.SkipTutorial)
+        vm.act(OnboardingAction.NameChanged("Ka\u202Emala\u0000"))
+        assertEquals("Kamala", vm.uiState.value.name)
+        vm.act(OnboardingAction.NameChanged("\u200B \t "))
+        assertTrue(vm.uiState.value.name.isBlank())
+        assertTrue(vm.uiState.value.canSubmitProfile)
+    }
 }

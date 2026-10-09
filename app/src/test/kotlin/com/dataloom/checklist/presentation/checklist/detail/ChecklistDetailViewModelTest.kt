@@ -1,6 +1,7 @@
 package com.dataloom.checklist.presentation.checklist.detail
 
 import androidx.lifecycle.SavedStateHandle
+import com.dataloom.checklist.domain.validation.FieldLimits
 import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
@@ -329,5 +330,26 @@ class ChecklistDetailViewModelTest {
             assertEquals(ChecklistDetailEffect.PdfReady(PdfExport.SHARE), awaitItem())
         }
         assertTrue(repo.item(sugar.id) != null)
+    }
+
+    @Test
+    fun `the rename dialog filters the title and enables Save only for a valid one`() = runTest {
+        seed()
+        val vm = viewModel()
+
+        vm.onAction(ChecklistDetailAction.StartRename)
+        assertTrue(vm.uiState.value.rename!!.canConfirm)
+
+        vm.onAction(ChecklistDetailAction.RenameChanged("   "))
+        assertEquals(UiText(R.string.error_title_blank), vm.uiState.value.rename?.error)
+        assertFalse(vm.uiState.value.rename!!.canConfirm)
+
+        vm.onAction(ChecklistDetailAction.RenameChanged("Di\u202Ewali\n2026"))
+        assertEquals("Diwali 2026", vm.uiState.value.rename?.title)
+        assertNull(vm.uiState.value.rename?.error)
+        assertTrue(vm.uiState.value.rename!!.canConfirm)
+
+        vm.onAction(ChecklistDetailAction.RenameChanged("t".repeat(FieldLimits.TITLE_MAX + 1)))
+        assertFalse(vm.uiState.value.rename!!.canConfirm)
     }
 }

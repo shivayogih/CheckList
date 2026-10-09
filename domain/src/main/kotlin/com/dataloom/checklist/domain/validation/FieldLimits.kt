@@ -30,21 +30,31 @@ object FieldLimits {
     /** Digits in a phone number; 15 is the E.164 maximum. */
     const val PHONE_DIGITS_MIN = 7
     const val PHONE_DIGITS_MAX = 15
+
+    /** Search boxes (checklists, master items): a query longer than this is never useful. */
+    const val SEARCH_MAX = 100
+
+    /** The AI command field; matches the assistant's own utterance limit. */
+    const val AI_COMMAND_MAX = 500
 }
 
 internal fun String.codePointLength(): Int = codePointCount(0, length)
 
-/** Trims and maps blank text to null: an empty description or note means "none". */
-internal fun String?.trimToNull(): String? = this?.trim()?.takeIf { it.isNotEmpty() }
+/**
+ * Cleans (see [InputText]) and trims, then maps blank text to null: an empty description or note
+ * means "none".
+ */
+internal fun String?.trimToNull(multiline: Boolean = false): String? =
+    this?.let { InputText.normalize(it, multiline) }?.takeIf { it.isNotEmpty() }
 
-/** Checks a required text field; returns the trimmed text and at most one error. */
+/** Checks a required single-line text field; returns the cleaned text and at most one error. */
 internal fun requiredText(
     raw: String,
     max: Int,
     blank: ValidationError,
     tooLong: ValidationError,
 ): Pair<String, ValidationError?> {
-    val text = raw.trim()
+    val text = InputText.normalize(raw)
     val error = when {
         text.isEmpty() -> blank
         text.codePointLength() > max -> tooLong
@@ -53,8 +63,8 @@ internal fun requiredText(
     return text to error
 }
 
-/** Checks an optional text field; blank becomes null. */
+/** Checks an optional multi-line text field; blank becomes null. */
 internal fun optionalText(raw: String?, max: Int, tooLong: ValidationError): Pair<String?, ValidationError?> {
-    val text = raw.trimToNull()
+    val text = raw.trimToNull(multiline = true)
     return text to if (text != null && text.codePointLength() > max) tooLong else null
 }

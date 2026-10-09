@@ -9,6 +9,7 @@
     <string name="settings_language">భాష</string>
     <string name="settings_language_system">సిస్టమ్ డిఫాల్ట్</string>
     <string name="settings_about">గురించి</string>
+    <string name="app_logo_description">చెక్‌లిస్ట్ లోగో</string>
     <string name="settings_version">వెర్షన్ %1$s</string>
     <string name="navigate_back">వెనుకకు</string>
     <string name="language_title">భాషను ఎంచుకోండి</string>
@@ -89,6 +90,10 @@
     <string name="error_not_found">ఇది ఇప్పుడు లేదు. దీన్ని తొలగించి ఉండవచ్చు.</string>
     <string name="error_quantity_invalid">2 లేదా 2.5 వంటి సంఖ్య నమోదు చేయండి (99999 వరకు).</string>
     <string name="error_quantity_whole">ఈ కొలమానానికి 2 వంటి పూర్ణ సంఖ్య కావాలి.</string>
+    <string name="error_quantity_not_number">అంకెలు మాత్రమే ఉపయోగించండి, ఉదా. 2 లేదా 2.5.</string>
+    <string name="error_quantity_not_positive">పరిమాణం సున్నా కంటే ఎక్కువగా ఉండాలి.</string>
+    <string name="error_quantity_too_precise">గరిష్ఠంగా 3 దశాంశ స్థానాలు మాత్రమే ఉపయోగించండి, ఉదా. 2.125.</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">జాబితాకు పేరు నమోదు చేయండి.</string>
     <string name="error_too_long">గరిష్టంగా %1$d అక్షరాలు వాడండి.</string>
     <string name="error_unit_label_blank">కొలమానానికి పేరు నమోదు చేయండి.</string>

@@ -2,6 +2,12 @@ package com.dataloom.checklist.presentation.settings.profile
 
 import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.validation.Field
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
+import com.dataloom.checklist.domain.validation.PhoneInput
+import com.dataloom.checklist.domain.validation.ProfileValidator
+import com.dataloom.checklist.domain.validation.ValidationError
+import com.dataloom.checklist.domain.validation.ValidationResult
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 
@@ -16,12 +22,36 @@ data class ProfileFieldErrors(
     val address: UiText? = null,
 )
 
-fun DomainError.Invalid.toProfileFieldErrors(): ProfileFieldErrors {
-    fun errorFor(field: Field) = errors.firstOrNull { it.field == field }?.toUiText()
+fun DomainError.Invalid.toProfileFieldErrors(): ProfileFieldErrors = errors.toProfileFieldErrors()
+
+fun List<ValidationError>.toProfileFieldErrors(): ProfileFieldErrors {
+    fun errorFor(field: Field) = firstOrNull { it.field == field }?.toUiText()
     return ProfileFieldErrors(
         name = errorFor(Field.DISPLAY_NAME),
         email = errorFor(Field.EMAIL),
         phone = errorFor(Field.PHONE),
         address = errorFor(Field.ADDRESS),
     )
+}
+
+/** True when no field has an error. */
+val ProfileFieldErrors.isClear: Boolean get() = name == null && email == null && phone == null && address == null
+
+/**
+ * The inline errors for what is typed now (CL-280): the same [ProfileValidator] that saving runs, so
+ * the message and the enabled state of Save or Continue agree with what saving would do. Every
+ * field is optional, so an empty form has no errors.
+ */
+fun liveProfileErrors(name: String, email: String, phone: String, address: String): ProfileFieldErrors =
+    when (val result = ProfileValidator.validate(name, email, phone, address)) {
+        is ValidationResult.Valid -> ProfileFieldErrors()
+        is ValidationResult.Invalid -> result.errors.toProfileFieldErrors()
+    }
+
+/** Keyboard filters for the profile fields: control and bidi characters never enter the form. */
+object ProfileTyping {
+    fun name(raw: String): String = InputText.forField(raw, FieldLimits.DISPLAY_NAME_MAX)
+    fun email(raw: String): String = InputText.forEmail(raw)
+    fun phone(raw: String): String = PhoneInput.sanitize(raw)
+    fun address(raw: String): String = InputText.forField(raw, FieldLimits.ADDRESS_MAX, multiline = true)
 }

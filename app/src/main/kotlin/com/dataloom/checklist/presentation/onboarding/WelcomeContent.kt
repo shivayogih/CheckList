@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.domain.localization.SupportedLanguages
+import com.dataloom.checklist.presentation.components.AppLogo
 import com.dataloom.checklist.presentation.components.BottomActionBar
 import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.theme.bannerContainer
@@ -78,7 +79,7 @@ fun WelcomeContent(
                 .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            AppMark()
+            AppLogo(size = 96.dp)
             Text(
                 text = stringResource(R.string.onboarding_welcome_title, stringResource(R.string.app_name)),
                 style = MaterialTheme.typography.headlineMedium,
@@ -121,25 +122,6 @@ fun WelcomeContent(
                 }
             }
         }
-    }
-}
-
-/** The app mark: a primary tile with a tick, drawn here so the screen needs no extra image. */
-@Composable
-private fun AppMark() {
-    Box(
-        modifier = Modifier
-            .size(80.dp)
-            .clip(RoundedCornerShape(24.dp))
-            .background(MaterialTheme.colorScheme.primary),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(
-            painter = painterResource(R.drawable.ic_check),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.size(44.dp),
-        )
     }
 }
 

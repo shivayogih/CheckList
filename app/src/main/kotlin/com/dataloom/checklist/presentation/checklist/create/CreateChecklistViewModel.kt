@@ -11,13 +11,18 @@ import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.IsChecklistTitleUsedUseCase
 import com.dataloom.checklist.domain.usecase.ObserveCategoriesUseCase
+import com.dataloom.checklist.domain.validation.ChecklistValidator
 import com.dataloom.checklist.domain.validation.Field
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.category.CategoryOptionUi
 import com.dataloom.checklist.presentation.category.NewCategoryDialogController
 import com.dataloom.checklist.presentation.category.NewCategoryDialogUi
 import com.dataloom.checklist.presentation.category.toOption
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.isAccepted
+import com.dataloom.checklist.presentation.common.liveError
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -53,6 +58,11 @@ data class CreateChecklistUiState(
     val isSaving: Boolean = false,
 ) {
     val selectedCount: Int get() = categories.count { it.selected }
+
+    /** Create is enabled only while title and description would be accepted (CL-280). */
+    val canCreate: Boolean
+        get() = !isSaving && isAccepted(title, ChecklistValidator::validateTitle) &&
+            isAccepted(description) { ChecklistValidator.validate("x", it) }
 }
 
 sealed interface CreateChecklistAction {
@@ -139,9 +149,19 @@ class CreateChecklistViewModel @Inject constructor(
 
     fun onAction(action: CreateChecklistAction) {
         when (action) {
-            is CreateChecklistAction.TitleChanged -> edit { it.copy(title = action.title, titleError = null) }
-            is CreateChecklistAction.DescriptionChanged ->
-                edit { it.copy(description = action.description, descriptionError = null) }
+            is CreateChecklistAction.TitleChanged -> {
+                val title = InputText.forField(action.title, FieldLimits.TITLE_MAX)
+                edit { it.copy(title = title, titleError = liveError(title, ChecklistValidator::validateTitle)) }
+            }
+            is CreateChecklistAction.DescriptionChanged -> {
+                val description = InputText.forField(action.description, FieldLimits.DESCRIPTION_MAX, multiline = true)
+                edit {
+                    it.copy(
+                        description = description,
+                        descriptionError = liveError(description) { text -> ChecklistValidator.validate("x", text) },
+                    )
+                }
+            }
             is CreateChecklistAction.ToggleCategory -> edit {
                 it.copy(selected = if (action.id in it.selected) it.selected - action.id else it.selected + action.id)
             }

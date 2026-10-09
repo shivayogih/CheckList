@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
@@ -266,7 +267,8 @@ private fun DetailContent(
             value = dialog.title,
             errorText = dialog.error?.asString(),
             confirmLabel = stringResource(R.string.action_save),
-            enabled = !dialog.isSaving,
+            enabled = dialog.canConfirm,
+            maxLength = FieldLimits.TITLE_MAX,
             onValueChange = { onAction(ChecklistDetailAction.RenameChanged(it)) },
             onConfirm = { onAction(ChecklistDetailAction.ConfirmRename) },
             onDismiss = { onAction(ChecklistDetailAction.DismissRename) },

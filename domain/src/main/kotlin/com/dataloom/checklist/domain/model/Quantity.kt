@@ -1,7 +1,7 @@
 package com.dataloom.checklist.domain.model
 
+import com.dataloom.checklist.domain.validation.QuantityInput
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * An exact, positive amount stored as thousandths ("milli-units", ADR-004), so 0.1 + 0.2 is
@@ -32,16 +32,11 @@ value class Quantity private constructor(val milli: Long) {
 
         /**
          * Parses user or file input such as "5", "2.5" or "2,5". Returns null when the text is not a
-         * number, is not positive, exceeds [MAX], or has more than three decimal places.
+         * number, is not positive, exceeds [MAX], or has more than three decimal places. Letters,
+         * signs and exponents ("1e5") are rejected; digits of any script are read ("१२" is 12).
+         * [com.dataloom.checklist.domain.validation.QuantityInput.parse] says why input was refused.
          */
-        fun parse(text: String): Quantity? {
-            val normalized = text.trim().replace(',', '.')
-            if (normalized.isEmpty()) return null
-            val value = normalized.toBigDecimalOrNull() ?: return null
-            if (value.signum() <= 0 || value > MAX) return null
-            if (value.stripTrailingZeros().scale() > SCALE) return null
-            return Quantity(value.setScale(SCALE, RoundingMode.UNNECESSARY).unscaledValue().longValueExact())
-        }
+        fun parse(text: String): Quantity? = QuantityInput.parseOrNull(text)
 
         fun of(whole: Int): Quantity = fromMilli(whole * FACTOR)
     }
