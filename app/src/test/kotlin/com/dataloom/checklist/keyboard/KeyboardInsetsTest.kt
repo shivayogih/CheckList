@@ -12,6 +12,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
@@ -31,6 +34,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performImeAction
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
@@ -160,6 +165,51 @@ class KeyboardInsetsTest {
         composeRule.onNodeWithTag("field-1").assertIsNotFocused()
     }
 
+    @Test
+    fun `a field scrolled into view when it gains focus keeps the keyboard open`() {
+        // CL-340: the scroll that reveals a focused field used to count as a finger drag and hid the keyboard.
+        val keyboard = CountingKeyboard()
+        val focus = FocusRequester()
+        composeRule.setContent {
+            CompositionLocalProvider(LocalSoftwareKeyboardController provides keyboard) {
+                Scaffold(modifier = Modifier.keyboardAwareScreen()) { padding ->
+                    Column(Modifier.padding(padding).scrollableForm()) {
+                        Box(Modifier.fillMaxWidth().height(1200.dp))
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            modifier = Modifier
+                                .testTag(FAR_FIELD)
+                                .focusRequester(focus)
+                                .bringIntoViewWhenFocused(),
+                        )
+                    }
+                }
+            }
+        }
+        composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
+
+        composeRule.runOnIdle { focus.requestFocus() }
+        composeRule.waitUntil(WAIT_MILLIS) {
+            runCatching { composeRule.onNodeWithTag(FAR_FIELD).assertIsDisplayed() }.isSuccess
+        }
+
+        composeRule.onNodeWithTag(FAR_FIELD).assertIsFocused()
+        composeRule.runOnIdle { assertEquals("keyboard hidden by a programmatic scroll", 0, keyboard.hides) }
+    }
+
+    @Test
+    fun `dragging the form with a finger hides the keyboard`() {
+        val keyboard = CountingKeyboard()
+        composeRule.setContent {
+            CompositionLocalProvider(LocalSoftwareKeyboardController provides keyboard) { Form(helper = true) }
+        }
+
+        composeRule.onNodeWithTag(FORM).performTouchInput { swipeUp() }
+
+        composeRule.runOnIdle { assertTrue("a finger drag should hide the keyboard", keyboard.hides > 0) }
+    }
+
     // ----------------------------------------------------------------------------------------
 
     /** A form like the app's: bottom action bar, empty space, then a scrolling column of [FIELD_COUNT] fields. */
@@ -199,4 +249,15 @@ class KeyboardInsetsTest {
         const val EMPTY_AREA = "empty-area"
         const val WAIT_MILLIS = 5_000L
     }
+}
+
+/** Counts hide() calls instead of talking to a real keyboard. */
+private class CountingKeyboard : SoftwareKeyboardController {
+    var hides = 0
+
+    override fun hide() {
+        hides++
+    }
+
+    override fun show() = Unit
 }

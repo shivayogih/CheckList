@@ -26,6 +26,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -82,17 +83,34 @@ fun Modifier.scrollableForm(): Modifier =
 fun Modifier.dismissKeyboardOnOutsideInteraction(): Modifier {
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
-    val hideOnScroll = remember(keyboard) {
+    // Programmatic scrolls (bringIntoView when a field gains focus or the keyboard opens) also reach
+    // the nested-scroll chain as UserInput, so the source alone cannot tell them from a finger drag.
+    // Hiding on those closed the keyboard the moment it opened (CL-340). Only a scroll made while a
+    // finger is on the screen hides it.
+    val touch = remember { TouchTracker() }
+    val hideOnScroll = remember(keyboard, touch) {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                if (source == NestedScrollSource.UserInput && available.y != 0f) keyboard?.hide()
+                if (touch.pressed && source == NestedScrollSource.UserInput && available.y != 0f) keyboard?.hide()
                 return Offset.Zero
             }
         }
     }
-    return nestedScroll(hideOnScroll).pointerInput(focusManager) {
+    return pointerInput(touch) {
+        awaitPointerEventScope {
+            while (true) {
+                val event = awaitPointerEvent(PointerEventPass.Initial)
+                touch.pressed = event.changes.any { it.pressed }
+            }
+        }
+    }.nestedScroll(hideOnScroll).pointerInput(focusManager) {
         detectTapGestures { focusManager.clearFocus() }
     }
+}
+
+/** Whether a finger is on the content; read by the nested-scroll connection, so not Compose state. */
+private class TouchTracker {
+    var pressed = false
 }
 
 /**
