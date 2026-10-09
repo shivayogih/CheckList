@@ -17,11 +17,14 @@ import kotlinx.coroutines.flow.map
 /** Light or dark colours; [SYSTEM] follows the phone. */
 enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
+private const val LARGE_SCALE = 1.15f
+private const val EXTRA_LARGE_SCALE = 1.3f
+
 /** The in-app text size step, applied on top of the phone's own font size. */
 enum class TextSize(val scale: Float) {
     NORMAL(1f),
-    LARGE(1.15f),
-    EXTRA_LARGE(1.3f),
+    LARGE(LARGE_SCALE),
+    EXTRA_LARGE(EXTRA_LARGE_SCALE),
 }
 
 /** How the app looks (CL-302): theme, text size and the 7:1 high-contrast palette. */
