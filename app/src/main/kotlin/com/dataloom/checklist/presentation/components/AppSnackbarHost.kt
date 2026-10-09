@@ -50,6 +50,7 @@ fun AppSnackbar(data: SnackbarData, modifier: Modifier = Modifier) {
         actionContentColor = colors.inversePrimary,
     ) { Text(data.visuals.message, style = MaterialTheme.typography.bodyLarge) }
 
+}
 /** A fixed [SnackbarData] for previews and screenshot tests. */
 internal class FakeSnackbarData(
     text: String,
