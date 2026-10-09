@@ -191,6 +191,12 @@
     <string name="import_preview_renamed">“%1$s” will be imported as “%2$s”.</string>
     <string name="import_preview_title">Import these checklists?</string>
     <string name="pdf_saved">PDF saved.</string>
+    <string name="pdf_open">Open</string>
+    <string name="pdf_open_no_app">No app on this phone can open PDF files.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">Every list, always with you.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">Export all checklists</string>
     <string name="settings_export_all_summary">Save a backup file (.json) that you can import later</string>
     <string name="settings_import">Import checklists</string>

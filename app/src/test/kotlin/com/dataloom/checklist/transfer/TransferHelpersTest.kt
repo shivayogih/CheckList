@@ -264,4 +264,28 @@ class TransferHelpersTest {
         val hindi = PdfPageLayout.exportedAt(clock.nowMillis(), ZoneOffset.UTC, Locale.forLanguageTag("hi"))
         assertNotEquals(utc, hindi)
     }
+
+    @Test
+    fun `serial numbers restart at 1 per category and use Western digits in every language`() {
+        assertEquals(listOf("1.", "2.", "3."), PdfPageLayout.serialLabels(3, Locale.UK))
+        assertEquals(emptyList<String>(), PdfPageLayout.serialLabels(0, Locale.UK))
+        listOf("kn", "hi", "ta", "te", "mr", "ml").forEach { tag ->
+            val labels = PdfPageLayout.serialLabels(12, Locale.forLanguageTag(tag))
+            assertEquals(tag, "1.", labels.first())
+            assertEquals(tag, "12.", labels.last())
+        }
+    }
+
+    @Test
+    fun `a category heading is never left alone at the bottom of a page`() {
+        val height = PdfPageLayout.content(storeLink = false).height
+        // An item nearly fills page 1, so the heading and its first item both go to page 2.
+        val blocks = listOf(Block(height - 20f), Block(15f, keepWithNext = true), Block(15f), Block(15f))
+        assertEquals(listOf(listOf(0), listOf(1, 2, 3)), PdfPageLayout.paginate(blocks, storeLink = false))
+    }
+
+    @Test
+    fun `the header is tall enough for the logo and the brand name with its tagline`() {
+        assertTrue(PdfPageLayout.header.height >= PdfPageLayout.BADGE_SIZE + 2f)
+    }
 }

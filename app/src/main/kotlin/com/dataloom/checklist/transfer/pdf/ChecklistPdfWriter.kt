@@ -8,12 +8,14 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.TextUtils
+import androidx.core.content.res.ResourcesCompat
 import com.dataloom.checklist.BuildConfig
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.common.Clock
@@ -82,6 +84,9 @@ class AndroidChecklistPdfWriter @Inject constructor(
         val branding = Branding(
             brand = brand,
             brandColor = resources.getColor(R.color.ic_launcher_background, null),
+            slogan = resources.getString(R.string.pdf_tagline),
+            // The production logo artwork (the same vector the app shows), drawn onto the PDF canvas.
+            logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_app_logo, null),
             tagline = resources.getString(R.string.pdf_powered_by, brand),
             exportedAt = resources.getString(
                 R.string.pdf_exported_at,
@@ -117,6 +122,10 @@ class AndroidChecklistPdfWriter @Inject constructor(
     private class Branding(
         val brand: String,
         val brandColor: Int,
+        /** "Every list, always with you." under the app name in the header. */
+        val slogan: String,
+        val logo: Drawable?,
+        /** "Powered by CheckList" in the footer. */
         val tagline: String,
         val exportedAt: String,
         val storeLabel: String,
@@ -145,44 +154,35 @@ class AndroidChecklistPdfWriter @Inject constructor(
     private fun drawHeader(canvas: Canvas, branding: Branding, title: String, locale: Locale) {
         val band = PdfPageLayout.header
         val left = PdfPageLayout.CONTENT_LEFT
-        val badgeTop = band.top + (band.height - PdfPageLayout.BADGE_SIZE) / 2
-        drawBadge(canvas, left, badgeTop, branding.brandColor)
+        val logoTop = band.top + (band.height - PdfPageLayout.BADGE_SIZE) / 2
+        branding.logo?.let {
+            val side = PdfPageLayout.BADGE_SIZE
+            it.setBounds(left.toInt(), logoTop.toInt(), (left + side).toInt(), (logoTop + side).toInt())
+            it.draw(canvas)
+        }
 
+        // App name with the tagline under it, to the right of the logo.
         val nameLeft = left + PdfPageLayout.BADGE_SIZE + BADGE_GAP
-        val nameWidth = paint(BRAND_SIZE, bold = true, locale = locale).measureText(branding.brand)
-        val name = singleLine(branding.brand, paint(BRAND_SIZE, bold = true, color = branding.brandColor, locale = locale), nameWidth + 1f)
-        drawCentredInBand(canvas, name, nameLeft, band)
+        val brandPaint = paint(BRAND_SIZE, bold = true, color = branding.brandColor, locale = locale)
+        val sloganPaint = paint(SLOGAN_SIZE, color = MUTED, locale = locale)
+        val columnWidth = minOf(
+            maxOf(brandPaint.measureText(branding.brand), sloganPaint.measureText(branding.slogan)) + 1f,
+            PdfPageLayout.CONTENT_WIDTH * PdfPageLayout.HEADER_TEXT_SHARE,
+        )
+        val name = singleLine(branding.brand, brandPaint, columnWidth)
+        val slogan = singleLine(branding.slogan, sloganPaint, columnWidth)
+        val stackTop = band.top + (band.height - name.height - slogan.height) / 2
+        drawCentredInBand(canvas, name, nameLeft, PdfPageLayout.Band(stackTop, stackTop + name.height))
+        val sloganTop = stackTop + name.height
+        drawCentredInBand(canvas, slogan, nameLeft, PdfPageLayout.Band(sloganTop, sloganTop + slogan.height))
 
-        val titleLeft = nameLeft + nameWidth + BADGE_GAP * 2
+        val titleLeft = nameLeft + columnWidth + BADGE_GAP * 2
         val titleWidth = PdfPageLayout.CONTENT_LEFT + PdfPageLayout.CONTENT_WIDTH - titleLeft
         if (titleWidth > 0f) {
             val running = singleLine(title, paint(SMALL_SIZE, color = MUTED, locale = locale), titleWidth, Layout.Alignment.ALIGN_OPPOSITE)
             drawCentredInBand(canvas, running, titleLeft, band)
         }
         canvas.drawLine(left, band.bottom, left + PdfPageLayout.CONTENT_WIDTH, band.bottom, RULE_PAINT)
-    }
-
-    /** The launcher icon, drawn: a white tick on a rounded square in the brand colour. */
-    private fun drawBadge(canvas: Canvas, x: Float, y: Float, color: Int) {
-        val size = PdfPageLayout.BADGE_SIZE
-        val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color }
-        canvas.drawRoundRect(RectF(x, y, x + size, y + size), size * 0.22f, size * 0.22f, fill)
-        // Same points as ic_launcher_foreground (M36,55 L49,68 L73,42), scaled from its 66dp safe zone.
-        fun px(v: Float) = x + (v - 21f) / 66f * size
-        fun py(v: Float) = y + (v - 21f) / 66f * size
-        val tick = Path().apply {
-            moveTo(px(36f), py(55f))
-            lineTo(px(49f), py(68f))
-            lineTo(px(73f), py(42f))
-        }
-        val stroke = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style = Paint.Style.STROKE
-            strokeWidth = size * 0.12f
-            strokeCap = Paint.Cap.ROUND
-            strokeJoin = Paint.Join.ROUND
-            this.color = Color.WHITE
-        }
-        canvas.drawPath(tick, stroke)
     }
 
     private fun drawFooter(canvas: Canvas, branding: Branding, pageNumber: String, locale: Locale) {
@@ -242,8 +242,19 @@ class AndroidChecklistPdfWriter @Inject constructor(
         detail.sections.forEach { section ->
             val items = section.items.filter { options.includeCompleted || !it.isCompleted }
             if (items.isEmpty()) return@forEach
-            add(TextBlock(layout(section.category.displayName, paint(HEADING_SIZE, bold = true, locale = appLocale), CONTENT_WIDTH), SECTION_GAP, RULE_GAP, rule = true, keepWithNext = true))
-            items.forEach { add(itemBlock(it, units)) }
+            // "Groceries (5)": the count is of the items printed in this section, in Western digits.
+            val heading = resources.getString(
+                R.string.pdf_category_heading,
+                section.category.displayName,
+                LocaleNumbers.formatCount(items.size, appLocale),
+            )
+            val headingLayout = layout(heading, paint(HEADING_SIZE, bold = true, locale = appLocale), CONTENT_WIDTH)
+            add(TextBlock(headingLayout, SECTION_GAP, RULE_GAP, rule = true, keepWithNext = true))
+            // Serial numbers restart at 1 in each category; the column is as wide as the longest label.
+            val serials = PdfPageLayout.serialLabels(items.size, appLocale)
+            val serialPaint = paint(ITEM_SIZE, color = MUTED, locale = appLocale)
+            val serialWidth = serials.maxOf { serialPaint.measureText(it) } + PdfPageLayout.SERIAL_GAP
+            items.forEachIndexed { index, item -> add(itemBlock(item, units, serials[index], serialWidth)) }
             printedItems += items.size
         }
         if (printedItems == 0) {
@@ -295,19 +306,20 @@ class AndroidChecklistPdfWriter @Inject constructor(
         return StackBlock(lines, LINE_GAP, after = HEADER_GAP)
     }
 
-    private fun itemBlock(item: ChecklistItem, units: UnitLabels): Block {
+    private fun itemBlock(item: ChecklistItem, units: UnitLabels, serial: String, serialWidth: Float): Block {
         val locale = Locale.forLanguageTag(item.displayNameLocale)
         val color = if (item.isCompleted) MUTED else INK
         val amount = item.quantity?.let { quantity ->
             listOfNotNull(quantity.toPlainString(), item.unit?.let(units::label)).joinToString(" ")
         }
         val name = if (amount == null) item.displayName else "${item.displayName}  ·  $amount"
-        val textWidth = CONTENT_WIDTH - CHECKBOX_COLUMN
+        val textWidth = CONTENT_WIDTH - serialWidth - CHECKBOX_COLUMN
         val lines = listOfNotNull(
             layout(name, paint(ITEM_SIZE, color = color, locale = locale), textWidth),
             item.notes?.let { layout(it, paint(SMALL_SIZE, color = MUTED, locale = locale), textWidth) },
         )
-        return ItemBlock(StackBlock(lines, LINE_GAP, after = ITEM_GAP), item.isCompleted)
+        val serialLayout = singleLine(serial, paint(ITEM_SIZE, color = MUTED, locale = Locale.ENGLISH), serialWidth)
+        return ItemBlock(StackBlock(lines, LINE_GAP, after = ITEM_GAP), item.isCompleted, serialLayout, serialWidth)
     }
 
     private fun paint(size: Float, bold: Boolean = false, color: Int = INK, locale: Locale): TextPaint =
@@ -382,10 +394,24 @@ class AndroidChecklistPdfWriter @Inject constructor(
         }
     }
 
-    private class ItemBlock(private val text: StackBlock, private val completed: Boolean) : Block {
+    private class ItemBlock(
+        private val text: StackBlock,
+        private val completed: Boolean,
+        private val serial: StaticLayout,
+        private val serialWidth: Float,
+    ) : Block {
         override val height: Float get() = text.height
 
         override fun draw(canvas: Canvas, x: Float, y: Float) {
+            // Serial number first, then the checkbox, then the name.
+            canvas.save()
+            canvas.translate(x, y + (text.firstLineHeight - serial.height) / 2)
+            serial.draw(canvas)
+            canvas.restore()
+            drawBoxAndText(canvas, x + serialWidth, y)
+        }
+
+        private fun drawBoxAndText(canvas: Canvas, x: Float, y: Float) {
             // Centre the box on the first line of the name, however tall the script's line is.
             val top = y + (text.firstLineHeight - CHECKBOX_SIZE) / 2
             canvas.drawRect(x, top, x + CHECKBOX_SIZE, top + CHECKBOX_SIZE, BOX_PAINT)
@@ -431,6 +457,7 @@ class AndroidChecklistPdfWriter @Inject constructor(
         const val BRAND_SIZE = 14f
         const val BADGE_GAP = 6f
         const val MEASURE_SIZE = 100f
+        const val SLOGAN_SIZE = 8.5f
         const val STORE_URL_SIZE = 9f
         const val FOOTER_COLUMN_GAP = 8f
         const val PROMO_LINE_GAP = 4f

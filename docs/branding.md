@@ -14,13 +14,15 @@ Supplied artwork lives in `/brand` of the project files (master SVG, adaptive la
 
 ## Flavor icons
 
-| Flavor | Background | Label | Source set |
-|---|---|---|---|
-| production | #087B4B (green) | none | `app/src/main` |
-| staging | #1971C2 (blue) | dark pill with "STG" | `app/src/staging/res` |
-| dev | #E8590C (orange) | dark pill with "DEV" | `app/src/dev/res` |
+Every flavor uses the production artwork and the production background (`launcher_background`, #087B4B green, defined once in `app/src/main`). The only difference is a small dark ribbon in the lower part of the foreground, drawn as vector artwork (not text):
 
-Each flavor overrides the colour `launcher_background`, the adaptive icon XMLs and the legacy PNGs (recoloured, with a label). The label is vector artwork, not text. `ic_launcher_background` (brand green) stays the same in every flavor because the PDF header uses it.
+| Flavor | Ribbon | Source set |
+|---|---|---|
+| production | none | `app/src/main` |
+| staging | dark pill with "STG" | `app/src/staging/res` |
+| dev | dark pill with "DEV" | `app/src/dev/res` |
+
+`dev` and `staging` override only the two adaptive icon XMLs (foreground = production foreground + ribbon, in `ic_launcher_foreground_flavor`). There are no per-flavor colours or per-flavor legacy PNGs; the legacy PNGs of `main` are used. The splash screen (Android 12+) uses the production foreground on `splash_background` in every flavor; there is no flavor-specific splash artwork.
 
 ## Where AppLogo is used
 
