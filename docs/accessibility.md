@@ -69,6 +69,9 @@ Copy guide for every string (English first; translators follow the same tone):
 | All screens with a top bar | Title was not a heading; at 200% long titles clipped in the single-line bar | `AppTopBar`: heading title, two lines and a taller bar above 130% font scale |
 | Dialogs (confirm, text input, unit picker, import preview) | Titles were not headings | `DialogTitle` marks them as headings |
 | Home | Filter chips and the sort button overflowed the row at 200% | `FlowRow` wraps them |
+| Home, first use | At 200% the Create checklist button was squeezed to 3px tall on a small screen | Content scrolls, and stays centred when it fits |
+| Home | The floating Create checklist button had no label in the merged semantics | Content-slot `ExtendedFloatingActionButton`, whose text merges into the button |
+| Add items | Clear search button in the field was 40dp at 200% | Explicit 48dp size |
 | Language | TalkBack read "ಕನ್ನಡ" etc. with the current language's voice | Each name carries its own `LocaleList` span |
 | Item editor | Unit error appeared silently | Polite live region |
 | Counts ("3 of 8 done", "Add 2 items") | Not pluralised; Marathi showed Devanagari digits | `<plurals>` and `LocaleNumbers` (see [localization.md](localization.md)) |
