@@ -40,7 +40,9 @@ import org.robolectric.annotation.GraphicsMode
  */
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(sdk = [34], qualifiers = "w412dp-h917dp-hdpi", application = Application::class)
+// The window is much taller than a phone on purpose: a scene at 200 % font in Malayalam is taller than 917 dp,
+// and a window clamps what is below its edge to zero height, which would hide real overflow from the assertions.
+@Config(sdk = [34], qualifiers = "w412dp-h4000dp-hdpi", application = Application::class)
 class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
 
     companion object {

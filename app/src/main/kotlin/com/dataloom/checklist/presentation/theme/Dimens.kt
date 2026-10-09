@@ -27,6 +27,7 @@ object Dimens {
     val StepperValueHeightCompact = 56.dp
     val StepperValueMinWidth = 120.dp
     val StepperValueMinWidthCompact = 72.dp
+    val StepperValueMaxWidth = 160.dp
     val EmptyStateArt = 150.dp
     val ProgressBar = 8.dp
     val ProgressBarLarge = 12.dp

@@ -1,9 +1,12 @@
 package com.dataloom.checklist.presentation.components
 
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -29,17 +32,23 @@ fun AppSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modifier)
 @Composable
 fun AppSnackbar(data: SnackbarData, modifier: Modifier = Modifier) {
     val colors = MaterialTheme.colorScheme
+    val actionLabel = data.visuals.actionLabel
     Snackbar(
-        snackbarData = data,
         modifier = modifier.padding(horizontal = 12.dp),
+        // The stock action button is 42 dp tall; this one keeps the 48 dp touch target.
+        action = actionLabel?.let { label ->
+            {
+                TextButton(
+                    onClick = { data.performAction() },
+                    modifier = Modifier.heightIn(min = Dimens.MinTouchTarget),
+                ) { Text(label, style = MaterialTheme.typography.labelLarge) }
+            }
+        },
         shape = RoundedCornerShape(Dimens.Corner8),
         containerColor = colors.inverseSurface,
         contentColor = colors.inverseOnSurface,
-        actionColor = colors.inversePrimary,
         actionContentColor = colors.inversePrimary,
-        dismissActionContentColor = colors.inverseOnSurface,
-    )
-}
+    ) { Text(data.visuals.message, style = MaterialTheme.typography.bodyLarge) }
 
 /** A fixed [SnackbarData] for previews and screenshot tests. */
 internal class FakeSnackbarData(

@@ -3,8 +3,6 @@ package com.dataloom.checklist.presentation.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,9 +23,7 @@ data class MenuAction(val label: String, val enabled: Boolean = true, val onClic
 fun OverflowMenu(contentDescription: String, actions: List<MenuAction>) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
-        IconButton(onClick = { expanded = true }) {
-            Icon(painterResource(R.drawable.ic_more_vert), contentDescription = contentDescription)
-        }
+        AppIconButton(painterResource(R.drawable.ic_more_vert), contentDescription, onClick = { expanded = true })
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             actions.forEach { action ->
                 DropdownMenuItem(

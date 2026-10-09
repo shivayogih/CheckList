@@ -78,8 +78,13 @@ fun QuantityStepper(
                 .copy(color = colors.onSurface, textAlign = TextAlign.Center),
             cursorBrush = SolidColor(colors.primary),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            // `weight(fill = false)`: the buttons are measured first and keep their size, the value box takes what is left.
             modifier = Modifier
-                .widthIn(min = if (compact) Dimens.StepperValueMinWidthCompact else Dimens.StepperValueMinWidth)
+                .weight(1f, fill = false)
+                .widthIn(
+                    min = if (compact) Dimens.StepperValueMinWidthCompact else Dimens.StepperValueMinWidth,
+                    max = Dimens.StepperValueMaxWidth,
+                )
                 .semantics {
                     contentDescription = valueDescription
                     if (isError && errorText != null) error(errorText)
@@ -87,6 +92,7 @@ fun QuantityStepper(
             decorationBox = { inner ->
                 Box(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .heightIn(min = if (compact) Dimens.StepperValueHeightCompact else Dimens.StepperValueHeight)
                         .widthIn(min = if (compact) Dimens.StepperValueMinWidthCompact else Dimens.StepperValueMinWidth)
                         .clip(RoundedCornerShape(Dimens.Corner14))
