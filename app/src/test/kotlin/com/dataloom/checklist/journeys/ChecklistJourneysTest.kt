@@ -134,14 +134,15 @@ class ChecklistJourneysTest {
         composeRule.awaitNode(hasText(title) and isHeading())
     }
 
-    /** J2: "Add item to Groceries" -> search -> tick the suggestion -> "Add 1 item". */
+    /** J2: "Add item to Groceries" -> search -> tick the suggestion -> its details open -> Save. */
     private fun addCatalogItem(name: String) {
         composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
             .performClick()
         composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
             .performTextInput(name)
         composeRule.awaitNode(hasText(name) and isToggleable()).performClick()
-        composeRule.awaitNode(hasText(plural(R.plurals.add_selected_items, 1, "1")) and hasClickAction()).performClick()
+        composeRule.awaitText(string(R.string.item_edit_title))
+        composeRule.awaitNode(hasText(string(R.string.action_save)) and hasClickAction()).performClick()
         composeRule.awaitNode(itemRow(name))
     }
 

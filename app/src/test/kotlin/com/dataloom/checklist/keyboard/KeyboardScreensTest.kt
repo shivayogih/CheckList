@@ -108,14 +108,13 @@ class KeyboardScreensTest {
     }
 
     @Test
-    fun `add items keeps the action above the keyboard and the search field visible`() {
+    fun `add items keeps the search field above the keyboard`() {
         val (checklist, section) = seedChecklist()
         launchApp()
         navigate(AddItemsRoute(checklist.value, section.value))
         composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label))).performClick()
         composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
 
-        assertAboveKeyboard(button(plural(R.plurals.add_selected_items, 0, "0")))
         assertAboveKeyboard(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
         assertScrollable()
     }

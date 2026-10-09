@@ -145,6 +145,9 @@ fun CheckListNavHost(
                 onCreateCustom = { name ->
                     navController.navigate(ItemEditorRoute(route.checklistId, route.sectionId, initialName = name))
                 },
+                onOpenItem = { itemId ->
+                    navController.navigate(ItemEditorRoute(route.checklistId, route.sectionId, itemId.value))
+                },
             )
         }
         composable<ItemEditorRoute> { entry ->
