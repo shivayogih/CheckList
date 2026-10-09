@@ -127,7 +127,7 @@ class ChecklistJourneysTest {
     /** J1: Home (first use) -> Create checklist -> name + Groceries -> Create -> detail screen. */
     private fun createChecklist(title: String) {
         composeRule.awaitNode(hasText(string(R.string.home_create_checklist)) and hasClickAction()).performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.create_title_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.create_title_label)))
             .performTextInput(title)
         composeRule.awaitNode(hasText(GROCERIES) and isToggleable()).performClick()
         composeRule.awaitNode(hasText(string(R.string.action_create)) and hasClickAction()).performClick()
@@ -138,7 +138,7 @@ class ChecklistJourneysTest {
     private fun addCatalogItem(name: String) {
         composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
             .performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.add_items_search_label)))
             .performTextInput(name)
         composeRule.awaitNode(hasText(name) and isToggleable()).performClick()
         composeRule.awaitText(string(R.string.item_edit_title))
@@ -150,7 +150,7 @@ class ChecklistJourneysTest {
     private fun addCustomItem(name: String) {
         composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
             .performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.add_items_search_label)))
             .performTextInput(name)
         composeRule.awaitNode(hasText(string(R.string.add_items_create_named, name)) and hasClickAction())
             .performClick()

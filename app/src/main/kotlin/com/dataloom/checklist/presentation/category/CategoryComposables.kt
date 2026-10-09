@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,6 +33,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 
 /** Categories as a two-column grid of selectable tiles (J1 step 3), so long lists need less scrolling. */
@@ -96,16 +96,14 @@ private fun CategoryTile(option: CategoryOptionUi, onToggle: () -> Unit, modifie
 
 @Composable
 fun CreateCategoryButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    OutlinedButton(
+    OutlinedActionButton(
+        text = stringResource(R.string.category_create),
+        leadingIcon = painterResource(R.drawable.ic_add),
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 48.dp)
-            .padding(horizontal = 16.dp),
-    ) {
-        Icon(painterResource(R.drawable.ic_add), contentDescription = null)
-        Text(stringResource(R.string.category_create), modifier = Modifier.padding(start = 8.dp))
-    }
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth(),
+    )
 }
 
 @Composable

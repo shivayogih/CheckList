@@ -1,17 +1,15 @@
 package com.dataloom.checklist.presentation.checklist.create
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -24,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
@@ -39,14 +36,13 @@ import com.dataloom.checklist.presentation.category.CreateCategoryButton
 import com.dataloom.checklist.presentation.category.NewCategoryDialog
 import com.dataloom.checklist.presentation.category.categoryOptions
 import com.dataloom.checklist.presentation.common.asString
-import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
-import com.dataloom.checklist.presentation.components.fieldSupportingText
-import com.dataloom.checklist.presentation.components.inputLength
+import com.dataloom.checklist.presentation.components.FormField
+import com.dataloom.checklist.presentation.components.PrimaryButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,17 +75,15 @@ fun CreateChecklistScreen(
         },
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
-                Button(
+                PrimaryButton(
+                    text = stringResource(R.string.action_create),
                     onClick = { onAction(CreateChecklistAction.Create) },
                     enabled = state.canCreate,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(16.dp)
-                        .heightIn(min = 56.dp),
-                ) {
-                    Text(stringResource(R.string.action_create))
-                }
+                        .padding(16.dp),
+                )
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -101,23 +95,16 @@ fun CreateChecklistScreen(
                 .dismissKeyboardOnOutsideInteraction(),
         ) {
             item {
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     TitleField(state, onAction)
-                    OutlinedTextField(
+                    FormField(
+                        label = stringResource(R.string.create_description_label),
                         value = state.description,
                         onValueChange = { onAction(CreateChecklistAction.DescriptionChanged(it)) },
-                        label = { Text(stringResource(R.string.create_description_label)) },
-                        isError = state.descriptionError != null,
-                        supportingText = fieldSupportingText(
-                            state.descriptionError?.asString(),
-                            state.description.inputLength(),
-                            FieldLimits.DESCRIPTION_MAX,
-                        ),
+                        errorText = state.descriptionError?.asString(),
+                        multiLine = true,
+                        maxLength = FieldLimits.DESCRIPTION_MAX,
                         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp)
-                            .bringIntoViewWhenFocused(),
                     )
                 }
             }
@@ -153,26 +140,16 @@ fun CreateChecklistScreen(
 
 @Composable
 private fun TitleField(state: CreateChecklistUiState, onAction: (CreateChecklistAction) -> Unit) {
-    val errorText = state.titleError?.asString()
-    val hint = when {
-        errorText != null -> errorText
-        state.titleAlreadyUsed -> stringResource(R.string.create_title_already_used)
-        else -> null
-    }
-    OutlinedTextField(
+    FormField(
+        label = stringResource(R.string.create_title_label),
         value = state.title,
         onValueChange = { onAction(CreateChecklistAction.TitleChanged(it)) },
-        label = { Text(stringResource(R.string.create_title_label)) },
-        singleLine = true,
-        isError = errorText != null,
-        supportingText = fieldSupportingText(hint, state.title.inputLength(), FieldLimits.TITLE_MAX),
+        errorText = state.titleError?.asString(),
+        helperText = if (state.titleAlreadyUsed) stringResource(R.string.create_title_already_used) else null,
+        maxLength = FieldLimits.TITLE_MAX,
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Next,
         ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .bringIntoViewWhenFocused()
-            .semantics { if (errorText != null) error(errorText) },
     )
 }

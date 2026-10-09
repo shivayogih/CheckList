@@ -10,14 +10,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -40,6 +38,8 @@ import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.unitLabel
 import com.dataloom.checklist.presentation.components.CheckRow
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
+import com.dataloom.checklist.presentation.components.PrimaryButton
 
 /**
  * The command field on the checklist detail screen, with progress and the last result. Shown only while
@@ -66,13 +66,15 @@ fun AiCommandPanel(state: AiCommandUiState, onAction: (AiCommandAction) -> Unit,
                 enabled = !state.isWorking,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions(onSend = { onAction(AiCommandAction.Submit) }),
+                shape = MaterialTheme.shapes.small,
                 modifier = Modifier.weight(1f),
             )
-            Button(
+            PrimaryButton(
+                text = stringResource(R.string.ai_command_submit),
                 onClick = { onAction(AiCommandAction.Submit) },
                 enabled = state.canSubmit,
-                modifier = Modifier.heightIn(min = 48.dp),
-            ) { Text(stringResource(R.string.ai_command_submit)) }
+                compact = true,
+            )
         }
         if (state.isWorking) {
             LinearProgressIndicator(
@@ -158,22 +160,30 @@ fun AiReviewSheet(review: AiReviewUi, onAction: (AiCommandAction) -> Unit) {
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 )
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
-            ) {
-                OutlinedButton(onClick = { onAction(AiCommandAction.Cancel) }, modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.action_cancel))
-                }
-                Button(
-                    onClick = { onAction(AiCommandAction.Confirm) },
-                    enabled = review.canConfirm,
-                    modifier = Modifier.heightIn(min = 48.dp),
-                ) { Text(stringResource(R.string.ai_action_confirm)) }
-            }
+            ReviewButtons(canConfirm = review.canConfirm, onAction = onAction)
         }
+    }
+}
+
+@Composable
+private fun ReviewButtons(canConfirm: Boolean, onAction: (AiCommandAction) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
+    ) {
+        OutlinedActionButton(
+            text = stringResource(R.string.action_cancel),
+            onClick = { onAction(AiCommandAction.Cancel) },
+            compact = true,
+        )
+        PrimaryButton(
+            text = stringResource(R.string.ai_action_confirm),
+            onClick = { onAction(AiCommandAction.Confirm) },
+            enabled = canConfirm,
+            compact = true,
+        )
     }
 }
 

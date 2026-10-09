@@ -10,11 +10,9 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -34,7 +32,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
@@ -47,17 +44,16 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
-import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
+import com.dataloom.checklist.presentation.components.FormField
+import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.components.UnitButton
 import com.dataloom.checklist.presentation.components.UnitPickerDialog
-import com.dataloom.checklist.presentation.components.fieldSupportingText
-import com.dataloom.checklist.presentation.components.inputLength
 import com.dataloom.checklist.presentation.photos.PhotoAction
 import com.dataloom.checklist.presentation.photos.PhotoFormState
 import com.dataloom.checklist.presentation.photos.PhotoSourceSheet
@@ -111,17 +107,15 @@ fun ItemEditorScreen(
         },
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
-                Button(
+                PrimaryButton(
+                    text = stringResource(if (state.isEditing) R.string.action_save else R.string.detail_add_item),
                     onClick = { onAction(ItemEditorAction.Save) },
                     enabled = state.canSave,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(16.dp)
-                        .heightIn(min = 56.dp),
-                ) {
-                    Text(stringResource(if (state.isEditing) R.string.action_save else R.string.detail_add_item))
-                }
+                        .padding(16.dp),
+                )
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -134,7 +128,7 @@ fun ItemEditorScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            FormField(
+            EditorField(
                 value = state.name,
                 onValueChange = { onAction(ItemEditorAction.NameChanged(it)) },
                 label = stringResource(R.string.item_name_label),
@@ -142,7 +136,7 @@ fun ItemEditorScreen(
                 maxLength = FieldLimits.ITEM_NAME_MAX,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
             )
-            FormField(
+            EditorField(
                 value = state.quantityText,
                 onValueChange = { onAction(ItemEditorAction.QuantityChanged(it)) },
                 label = stringResource(R.string.item_quantity_optional),
@@ -159,7 +153,7 @@ fun ItemEditorScreen(
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                 )
             }
-            FormField(
+            EditorField(
                 value = state.notes,
                 onValueChange = { onAction(ItemEditorAction.NotesChanged(it)) },
                 label = stringResource(R.string.item_notes_label),
@@ -225,7 +219,7 @@ fun ItemEditorScreen(
 }
 
 @Composable
-private fun FormField(
+private fun EditorField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -235,21 +229,16 @@ private fun FormField(
     maxLength: Int? = null,
     singleLine: Boolean = true,
 ) {
-    val errorText = error?.asString()
-    val below = errorText ?: supporting
-    OutlinedTextField(
+    // The mockups' field: label above a rounded box (components/FormField.kt).
+    FormField(
+        label = label,
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
-        singleLine = singleLine,
-        minLines = if (singleLine) 1 else 2,
-        isError = errorText != null,
-        supportingText = fieldSupportingText(below, value.inputLength(), maxLength),
+        errorText = error?.asString(),
+        helperText = supporting,
+        multiLine = !singleLine,
+        maxLength = maxLength,
         keyboardOptions = keyboardOptions,
-        modifier = Modifier
-            .fillMaxWidth()
-            .bringIntoViewWhenFocused()
-            .semantics { if (errorText != null) error(errorText) },
     )
 }
 

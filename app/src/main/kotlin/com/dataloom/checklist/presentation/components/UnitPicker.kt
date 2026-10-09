@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -10,6 +11,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -26,12 +28,19 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.presentation.common.unitLabel
+import com.dataloom.checklist.presentation.theme.Dimens
 
 /** Shows the chosen unit ("kg" or "No unit") and opens the picker. */
 @Composable
 fun UnitButton(unit: UnitDef?, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val label = unit?.let { unitLabel(it) } ?: stringResource(R.string.unit_none)
-    OutlinedButton(onClick = onClick, modifier = modifier.heightIn(min = 56.dp)) {
+    // Drawn like the form fields around it: 12 dp corners and a 2 dp outline.
+    OutlinedButton(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.small,
+        border = BorderStroke(Dimens.Border2, MaterialTheme.colorScheme.outline),
+        modifier = modifier.heightIn(min = 56.dp),
+    ) {
         Text(stringResource(R.string.unit_button, label))
         Icon(painterResource(R.drawable.ic_arrow_drop_down), contentDescription = null)
     }

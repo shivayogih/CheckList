@@ -18,9 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -29,10 +27,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -57,7 +53,6 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -70,13 +65,14 @@ import com.dataloom.checklist.presentation.common.countText
 import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.progressText
-import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppIconButton
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
+import com.dataloom.checklist.presentation.components.PrimaryButton
+import com.dataloom.checklist.presentation.components.SearchField
 import kotlinx.coroutines.launch
 
 @Composable
@@ -183,7 +179,7 @@ private fun HomeContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 // Stable keys: the greeting card appearing must not shift the search field's identity.
-                item(key = "search", contentType = "search") { SearchField(state.search, onAction) }
+                item(key = "search", contentType = "search") { HomeSearch(state.search, onAction) }
                 item(key = "filter-sort", contentType = "filter-sort") {
                     FilterAndSort(state.filter, state.sort, onAction)
                 }
@@ -261,37 +257,21 @@ private fun FirstUseContent(onCreateChecklist: () -> Unit, modifier: Modifier) {
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
-        Button(
+        PrimaryButton(
+            text = stringResource(R.string.home_create_checklist),
             onClick = onCreateChecklist,
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 56.dp),
-        ) {
-            Text(stringResource(R.string.home_create_checklist))
-        }
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
 @Composable
-private fun SearchField(search: String, onAction: (HomeAction) -> Unit) {
-    OutlinedTextField(
+private fun HomeSearch(search: String, onAction: (HomeAction) -> Unit) {
+    SearchField(
         value = search,
         onValueChange = { onAction(HomeAction.SearchChanged(it)) },
-        label = { Text(stringResource(R.string.home_search_label)) },
-        singleLine = true,
-        leadingIcon = { Icon(painterResource(R.drawable.ic_search), contentDescription = null) },
-        trailingIcon = if (search.isEmpty()) {
-            null
-        } else {
-            {
-                IconButton(onClick = { onAction(HomeAction.SearchChanged("")) }) {
-                    Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))
-                }
-            }
-        },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = rememberDismissKeyboardActions(),
-        modifier = Modifier.fillMaxWidth(),
+        placeholder = stringResource(R.string.home_search_label),
+        clearContentDescription = stringResource(R.string.search_clear),
     )
 }
 

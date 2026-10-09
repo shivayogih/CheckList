@@ -147,7 +147,7 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
         val (checklist, section) = seedChecklist()
         launchApp()
         navigate(AddItemsRoute(checklist.value, section.value))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.add_items_search_label)))
             .performTextInput("Sugar")
         composeRule.awaitNode(hasText("Sugar") and isToggleable()).performClick()
         composeRule.awaitText(string(R.string.item_quantity_optional))

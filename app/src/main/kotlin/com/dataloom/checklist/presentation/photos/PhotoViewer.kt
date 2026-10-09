@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
@@ -63,6 +62,7 @@ import com.dataloom.checklist.presentation.common.toUiText
 import com.dataloom.checklist.presentation.components.AppIconButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.FormField
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
 import com.dataloom.checklist.presentation.components.inputLength
 
 private const val MIN_ZOOM = 1f
@@ -159,14 +159,13 @@ internal fun PhotoViewerContent(
             )
             // One instance per photo, so a caption typed for one is saved when the next is shown.
             key(photo.id) { CaptionField(photo, onCaption) }
-            OutlinedButton(
+            OutlinedActionButton(
+                text = stringResource(R.string.photo_viewer_delete),
                 onClick = onDelete,
-                // Padding first, so the 56 dp minimum is the size of the button itself.
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .fillMaxWidth()
-                    .heightIn(min = 56.dp),
-            ) { Text(stringResource(R.string.photo_viewer_delete)) }
+                    .fillMaxWidth(),
+            )
         }
     }
 }
