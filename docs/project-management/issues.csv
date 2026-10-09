@@ -110,3 +110,4 @@ CL-306,Open action after saving a PDF,"Saved snackbar offers Open (ACTION_VIEW, 
 CL-307,PDF header with logo and tagline,"Production logo, app name and translated tagline in the PDF header",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
 CL-308,PDF serial numbers per category,"Items numbered 1, 2, 3 restarting in each category",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
 CL-309,PDF category item counts,"Category heading shows its item count, for example Groceries (5)",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
+CL-330,Strings audit in all seven languages,"One word per concept in each language, punctuation, button names in hints, shorter labels, glossary and TerminologyTest",Task,Medium,IN_REVIEW,,feature/CL-330-strings-audit,,,,,,2026-10-09,2026-10-09,1.0.0
