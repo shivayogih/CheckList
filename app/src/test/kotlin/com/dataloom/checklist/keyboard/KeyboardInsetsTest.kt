@@ -143,21 +143,21 @@ class KeyboardInsetsTest {
     @Test
     fun `tapping empty space clears focus`() {
         composeRule.setContent { Form(helper = true) }
-        composeRule.onNodeWithTag("field-0").performClick().assertIsFocused()
+        composeRule.onNodeWithTag("field-1").performClick().assertIsFocused()
 
         composeRule.onNodeWithTag(EMPTY_AREA).performClick()
 
-        composeRule.onNodeWithTag("field-0").assertIsNotFocused()
+        composeRule.onNodeWithTag("field-1").assertIsNotFocused()
     }
 
     @Test
     fun `the search key closes the keyboard and clears focus`() {
         composeRule.setContent { Form(helper = true) }
-        composeRule.onNodeWithTag("field-0").performClick().assertIsFocused()
+        composeRule.onNodeWithTag("field-1").performClick().assertIsFocused()
 
-        composeRule.onNodeWithTag("field-0").performImeAction()
+        composeRule.onNodeWithTag("field-1").performImeAction()
 
-        composeRule.onNodeWithTag("field-0").assertIsNotFocused()
+        composeRule.onNodeWithTag("field-1").assertIsNotFocused()
     }
 
     // ----------------------------------------------------------------------------------------
