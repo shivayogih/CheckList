@@ -30,7 +30,7 @@ tools/seed/validate_seed.py   validator, run in CI ("Validate seed catalog" step
 | `seedVersion` | Positive integer. Bump it whenever any seed file changes so existing installs re-run the upsert. |
 | `units` | Exactly the 12 `BuiltInUnits` (Units.kt), same `allowsDecimal`, `sortOrder` and order. |
 | `categories[].key` | Canonical key, lowercase snake_case, unique. |
-| `categories[].icon` | One emoji. Prefer emoji without a variation selector (`🧳`, not `✈️`). |
+| `categories[].icon` | One emoji. Prefer emoji without a variation selector (`🎒`, not `✈️`). |
 | `categories[].sortOrder` | Steps of 10, in display order. |
 | `items[].key` | Canonical key, lowercase snake_case, unique across the **whole** catalog. |
 | `items[].category` | A key from `categories`. Each item belongs to exactly one category. |
