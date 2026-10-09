@@ -208,7 +208,8 @@ fun ChecklistDetailScreen(
         }
     }
 
-    DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
+    val moreActions = reminderActions + pdfActions
+    DetailContent(state, snackbarHostState, onAction, navigation, moreActions, aiState, aiViewModel::onAction)
 
     pdfOptionsFor?.let { export ->
         PdfOptionsDialog(
@@ -232,7 +233,7 @@ private fun DetailContent(
     snackbarHostState: SnackbarHostState,
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
-    pdfActions: List<MenuAction>,
+    moreActions: List<MenuAction>,
     aiState: AiCommandUiState,
     onAiAction: (AiCommandAction) -> Unit,
 ) {
@@ -250,7 +251,7 @@ private fun DetailContent(
                         actions = listOf(
                             MenuAction(stringResource(R.string.detail_rename)) { onAction(ChecklistDetailAction.StartRename) },
                             MenuAction(stringResource(R.string.add_categories_title), onClick = navigation.onAddCategories),
-                        ) + reminderActions + pdfActions,
+                        ) + moreActions,
                     )
                 },
             )
