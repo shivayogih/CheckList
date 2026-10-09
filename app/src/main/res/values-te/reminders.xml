@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List reminders (CL-350). -->
+    <string name="reminders_title">రిమైండర్‌లు</string>
+    <string name="settings_reminders_summary">జాబితా రిమైండర్‌లను చూడండి, మార్చండి లేదా తొలగించండి</string>
+    <string name="reminder_set">రిమైండర్ సెట్ చేయండి</string>
+    <string name="reminder_add">రిమైండర్ జోడించండి</string>
+    <string name="reminder_new_title">కొత్త రిమైండర్</string>
+    <string name="reminder_edit_title">రిమైండర్ మార్చండి</string>
+    <string name="reminder_for_list">%1$s జాబితా కోసం</string>
+    <string name="reminder_date_button">తేదీ: %1$s</string>
+    <string name="reminder_time_button">సమయం: %1$s</string>
+    <string name="reminder_pick_date">తేదీ ఎంచుకోండి</string>
+    <string name="reminder_pick_time">సమయం ఎంచుకోండి</string>
+    <string name="reminder_in_past">ఇప్పటి తర్వాతి సమయాన్ని ఎంచుకోండి.</string>
+    <string name="reminder_choose_list">జాబితాను ఎంచుకోండి</string>
+    <string name="reminders_empty_title">రిమైండర్‌లు లేవు</string>
+    <string name="reminders_empty_body">ఒక జాబితాను తెరిచి “రిమైండర్ సెట్ చేయండి” ఎంచుకోండి, లేదా కింద ఉన్న “రిమైండర్ జోడించండి” నొక్కండి.</string>
+    <string name="reminders_no_lists">ముందుగా ఒక జాబితాను సృష్టించి, ఆపై దానికి రిమైండర్ జోడించండి.</string>
+    <string name="reminder_saved">రిమైండర్ సెట్ అయింది: %1$s</string>
+    <string name="reminder_deleted">రిమైండర్ తొలగించబడింది</string>
+    <string name="reminder_edit_named">%1$s జాబితా రిమైండర్ మార్చండి</string>
+    <string name="reminder_delete_named">%1$s జాబితా రిమైండర్ తొలగించండి</string>
+    <string name="reminder_notifications_off">CheckList నోటిఫికేషన్‌లు ఆఫ్‌లో ఉన్నాయి, కాబట్టి రిమైండర్‌లు కనిపించవు. ఫోన్ సెట్టింగ్‌లలో వాటిని ఆన్ చేయండి.</string>
+    <string name="reminder_channel_name">జాబితా రిమైండర్‌లు</string>
+    <string name="reminder_channel_description">మీ జాబితాలకు మీరు సెట్ చేసిన రిమైండర్‌లు</string>
+    <string name="reminder_notification_title">రిమైండర్: %1$s</string>
+    <string name="reminder_notification_body">జాబితాను తెరవడానికి నొక్కండి.</string>
+    <string name="action_ok">సరే</string>
+</resources>

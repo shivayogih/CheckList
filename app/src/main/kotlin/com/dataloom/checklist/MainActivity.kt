@@ -1,5 +1,6 @@
 package com.dataloom.checklist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,11 +17,13 @@ import com.dataloom.checklist.data.local.database.DatabaseHealth
 import com.dataloom.checklist.data.local.database.DatabaseState
 import com.dataloom.checklist.localization.AppCompatLanguageProvider
 import com.dataloom.checklist.navigation.CheckListNavHost
+import com.dataloom.checklist.navigation.ChecklistOpenRequest
 import com.dataloom.checklist.onboarding.StartViewModel
 import com.dataloom.checklist.presentation.common.DatabaseProblemScreen
 import com.dataloom.checklist.presentation.components.BrandSplash
 import com.dataloom.checklist.presentation.settings.AppearanceViewModel
 import com.dataloom.checklist.presentation.theme.CheckListTheme
+import com.dataloom.checklist.reminder.ReminderNotifications
 import com.dataloom.checklist.settings.ThemeMode
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -45,11 +48,16 @@ class MainActivity : AppCompatActivity() {
     private val startViewModel: StartViewModel by viewModels()
     private val appearanceViewModel: AppearanceViewModel by viewModels()
 
+    /** A checklist to open, from a tapped reminder notification (CL-350). */
+    private var openChecklist by mutableStateOf<ChecklistOpenRequest?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // A language change recreates the activity; ViewModels on the back stack then see the new language.
         languageProvider.refresh()
+        // After a recreation the same intent is still here; its checklist was already opened.
+        if (savedInstanceState == null) openChecklist = intent.checklistOpenRequest()
         setContent {
             val appearance by appearanceViewModel.appearance.collectAsStateWithLifecycle()
             val dark = when (appearance.themeMode) {
@@ -79,11 +87,24 @@ class MainActivity : AppCompatActivity() {
                     !splashDone -> BrandSplash()
                     failed != null -> DatabaseProblemScreen(failed.failure, onClose = ::finishAffinity)
                     destination == null -> BrandSplash()
-                    else -> CheckListNavHost(destination)
+                    else -> CheckListNavHost(
+                        start = destination,
+                        openChecklist = openChecklist,
+                        onChecklistOpened = { openChecklist = null },
+                    )
                 }
             }
         }
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        intent.checklistOpenRequest()?.let { openChecklist = it }
+    }
+
+    private fun Intent.checklistOpenRequest(): ChecklistOpenRequest? =
+        getStringExtra(ReminderNotifications.EXTRA_CHECKLIST_ID)?.let(::ChecklistOpenRequest)
 
     private companion object {
         const val SPLASH_MILLIS = 900L

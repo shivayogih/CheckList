@@ -58,6 +58,7 @@ fun SettingsScreen(
     onOpenLanguage: () -> Unit,
     onOpenProfile: () -> Unit,
     onShowTutorial: () -> Unit,
+    onOpenReminders: () -> Unit,
     transferViewModel: TransferViewModel = hiltViewModel(),
     aiSettingsViewModel: AiSettingsViewModel = hiltViewModel(),
     appearanceViewModel: AppearanceViewModel = hiltViewModel(),
@@ -128,6 +129,12 @@ fun SettingsScreen(
                     icon = painterResource(R.drawable.ic_contrast),
                     checked = appearance.highContrast,
                     onCheckedChange = appearanceViewModel::setHighContrast,
+                )
+                SettingsRow(
+                    title = stringResource(R.string.reminders_title),
+                    icon = painterResource(R.drawable.ic_alarm),
+                    value = stringResource(R.string.settings_reminders_summary),
+                    onClick = onOpenReminders,
                 )
                 SettingsRow(
                     title = stringResource(R.string.settings_profile),
