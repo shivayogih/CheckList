@@ -54,17 +54,13 @@ import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.components.UnitButton
 import com.dataloom.checklist.presentation.components.UnitPickerDialog
-<<<<<<< HEAD
-import com.dataloom.checklist.presentation.components.optionalText
+import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.inputLength
 import com.dataloom.checklist.presentation.photos.PhotoAction
 import com.dataloom.checklist.presentation.photos.PhotoFormState
 import com.dataloom.checklist.presentation.photos.PhotoSourceSheet
 import com.dataloom.checklist.presentation.photos.PhotosFormSection
 import com.dataloom.checklist.presentation.photos.rememberPhotoAdder
-=======
-import com.dataloom.checklist.presentation.components.fieldSupportingText
-import com.dataloom.checklist.presentation.components.inputLength
->>>>>>> origin/develop
 
 /** [onSaved] returns to the checklist, also when the form was opened from "Add item". */
 @OptIn(ExperimentalMaterial3Api::class)
