@@ -24,6 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
@@ -40,6 +43,9 @@ import com.dataloom.checklist.presentation.theme.Dimens
  * [errorText] under the box with an error icon, so the error is never colour alone. [helperText]
  * (15 sp) shows under the box when there is no error.
  *
+ * [maxLength] adds a "length / max" counter on the end under the box (hidden from TalkBack: the limit is also
+ * in the "too long" error); it only displays, the caller still enforces the limit (CL-280).
+ *
  * The label is an extra accessibility name for the field, and the error text is exposed as the field's
  * `error` semantics so TalkBack announces it.
  */
@@ -54,6 +60,7 @@ fun FormField(
     errorText: String? = null,
     multiLine: Boolean = false,
     enabled: Boolean = true,
+    maxLength: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
@@ -108,32 +115,54 @@ fun FormField(
                 }
             },
         )
-        if (errorText != null) {
-            Row(
-                modifier = Modifier.padding(start = 4.dp, top = 6.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalAlignment = Alignment.Top,
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_error),
-                    contentDescription = null,
-                    tint = colors.error,
-                    modifier = Modifier.padding(top = 2.dp).size(18.dp),
-                )
-                Text(
-                    text = errorText,
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
-                    color = colors.error,
-                )
-            }
-        } else if (helperText != null) {
+        FormFieldMessage(errorText, helperText)
+        FormFieldCounter(value, maxLength)
+    }
+}
+
+@Composable
+private fun FormFieldMessage(errorText: String?, helperText: String?) {
+    val colors = MaterialTheme.colorScheme
+    if (errorText != null) {
+        Row(
+            modifier = Modifier.padding(start = 4.dp, top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.Top,
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_error),
+                contentDescription = null,
+                tint = colors.error,
+                modifier = Modifier.padding(top = 2.dp).size(18.dp),
+            )
             Text(
-                text = helperText,
-                style = MaterialTheme.typography.bodySmall,
-                color = colors.onSurfaceVariant,
-                modifier = Modifier.padding(start = 4.dp, top = 6.dp),
+                text = errorText,
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+                color = colors.error,
             )
         }
+    } else if (helperText != null) {
+        Text(
+            text = helperText,
+            style = MaterialTheme.typography.bodySmall,
+            color = colors.onSurfaceVariant,
+            modifier = Modifier.padding(start = 4.dp, top = 6.dp),
+        )
+    }
+}
+
+@Composable
+private fun FormFieldCounter(value: String, maxLength: Int?) {
+    val colors = MaterialTheme.colorScheme
+    if (maxLength != null) {
+        val length = value.inputLength()
+        Text(
+            text = stringResource(R.string.input_counter, length, maxLength),
+            style = MaterialTheme.typography.bodySmall,
+            color = if (length > maxLength) colors.error else colors.onSurfaceVariant,
+            textAlign = TextAlign.End,
+            modifier = Modifier.fillMaxWidth().padding(end = 4.dp, top = 4.dp).clearAndSetSemantics { },
+        )
     }
 }
 

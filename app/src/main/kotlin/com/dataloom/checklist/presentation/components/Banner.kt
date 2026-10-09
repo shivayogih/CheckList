@@ -22,9 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
 import com.dataloom.checklist.presentation.theme.bannerContainer
 
-/** How a [Banner] looks: calm information, or a problem. */
-enum class BannerVariant { Info, Error }
-
 /**
  * A calm information strip (UI-SPEC section 3): 12 dp corners, a tinted primary background and a
  * leading icon. [BannerVariant.Error] uses the error container instead (for example the profile reset

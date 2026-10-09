@@ -10,19 +10,22 @@ How CheckList protects user data and the project's secrets. To report a vulnerab
 | No signing configuration in Git; release builds are unsigned locally and in CI | Implemented (Phase 1) |
 | R8 minification and resource shrinking on `release` | Implemented (Phase 1) |
 | Only the launcher activity is exported | Implemented (Phase 1) |
-| GitHub Actions workflow with `permissions: contents: read` | Implemented (Phase 1) |
+| GitHub Actions least privilege: `permissions: {}` per workflow, minimal per-job permissions, `persist-credentials: false` | Implemented (Phase 1; per job since Phase 8, CL-184) |
+| Actions pinned to full commit SHAs; downloaded tools (gitleaks, detekt) verified by SHA-256; Python packages pinned | Implemented (Phase 8, CL-184) |
+| Gradle wrapper validation on every push | Implemented (Phase 8, CL-184) |
 | Dependabot updates, CODEOWNERS, private vulnerability reporting policy | Implemented (Phase 8 groundwork, CL-180) |
 | Profile encryption with Tink and Android Keystore (AES-256-GCM, associated data per row and column) | Implemented (Phase 5, CL-151, CL-152) |
 | Key-loss and tamper handling: erase, report, never crash | Implemented (Phase 5, CL-152) |
 | Backup and device-transfer rules that exclude the profile keyset | Implemented (Phase 5, CL-153) |
 | Profile data minimization (every field optional: name, email, phone, address; no locations) and redacted `toString()` | Implemented (Phase 5, CL-150; optional fields and address in CL-250) |
-| Release-safe logging wrapper; lint ban on `Log.*` and `println` | Planned (deferred from Phase 5 to the Phase 8 static-analysis work) |
+| Release-safe logging wrapper (`AppLog`); ban on `Log.*`, `println`, `print`, `System.out/err` | Implemented (Phase 8, CL-183) |
 | Import limits and validation (size, counts, string caps, strict JSON, control-character stripping, all-or-nothing transaction) | Implemented (Phase 6, CL-160) |
 | Share via FileProvider with temporary read grants; share files in `cacheDir/exports` only | Implemented (Phase 6, CL-160) |
-| gitleaks and secret scanning in `pr-checks`; push protection | Planned (Phase 8) |
+| gitleaks over the whole history on every push (`Quality` workflow) | Implemented (Phase 8, CL-184) |
+| GitHub secret scanning and push protection | Repository settings (owner) |
 | Signing and Play credentials in Bitrise protected storage | Planned (Phase 9) |
 | HTTPS-only network config, App Check | Planned (Phase 10) |
-| Redaction before CI AI agents see diffs or logs | Planned (Phase 11) |
+| Redaction before an optional CI model step sees a report (`enrich.redact`) | Implemented (Phase 11, CL-225); reused for diffs and logs when the review and failure agents arrive |
 
 ## Threat model in one paragraph
 
@@ -84,7 +87,8 @@ Erasing only deletes the row if it still holds the exact ciphertext that failed,
 
 ## Code and logs
 
-- One logging wrapper, a no-op in release builds; lint bans `Log.*` and `println` elsewhere (planned, deferred to Phase 8). The profile code logs nothing.
+- **One logging wrapper, a no-op in release builds (implemented, CL-183).** `AppLog` (`:domain`, `domain/common/AppLog.kt`) does nothing until a sink is installed, and only debug builds install one: `CheckListApplication` calls `AppLog.install(AndroidLogSink)` when `BuildConfig.DEBUG` is true. Messages are lambdas, so in release the text is never even built. `AndroidLogSink` (`:app`, `logging/`) is the only file that may use `android.util.Log`.
+- **Enforced in CI:** detekt's `ForbiddenImport` rejects `import android.util.Log`, and `tools/checks/logging_ban.py` rejects `android.util.Log`, `Log.d/i/w/e/v/wtf/println`, `println`/`print`, `System.out`/`System.err` and `printStackTrace()` in every non-test source set of `app`, `data`, `domain` and `ai` (comments and strings are ignored). Android Lint custom checks were not needed: these two checks are free, fast and run without the Android SDK. The profile code logs nothing; never log personal data, checklist contents or AI prompts, even in debug.
 - `UserProfile.toString()` prints `***` (implemented, Phase 5). This replaces the planned `@Sensitive` value class: one redacted type is simpler for screens and gives the same protection.
 - AI prompts and responses are never logged in release builds.
 - `debuggable=false` for release; exported components limited to the launcher activity (and a non-exported `FileProvider`).
@@ -96,16 +100,26 @@ Erasing only deletes the row if it still holds the exact ciphertext that failed,
 | Upload keystore and passwords | Bitrise Code Signing & Files | No |
 | Play service account JSON | Bitrise file storage | No |
 | Firebase App Distribution credentials | Bitrise secret | No |
-| Gemini key for CI AI agents | GitHub Actions secret | Same-repository PRs only; fork PRs never receive secrets |
+| Gemini key for the optional CI AI summary (`GEMINI_API_KEY`, opt-in, not created yet) | GitHub Actions secret, passed only to the agent steps that use it | Same-repository pushes only; fork PRs never receive secrets |
 
 - **Play App Signing:** Google holds the app signing key. We hold only the upload key, which can be reset through Play support if lost and revoked if leaked.
 - Local release builds read signing values from environment variables only. No signing config is committed.
 - `.gitignore` blocks `local.properties`, `*.jks`, `*.keystore`, `*.p12`, `*.pem`, `keystore.properties`, `google-services.json`, `service-account*.json` and `.env`. The app's Firebase config files contain identifiers, not secrets, but production ones stay out of Git anyway.
 - The repository is **public**: never commit anything you would not show an interviewer.
+- **gitleaks** (8.30.1 CLI, default rules) scans the whole Git history on every push, with redacted output. If it ever reports a real secret: revoke or rotate the secret first, then remove it from history; a false positive goes into a `.gitleaksignore` entry (the finding's fingerprint) with a comment, reviewed in the PR.
+
+## CI supply chain
+
+- Every GitHub Action is pinned to a full commit SHA with its version in a comment; Dependabot updates both.
+- Workflows default to `permissions: {}`; each job requests only what it needs (`contents: read`; `security-events: write` only for the detekt SARIF upload; `pull-requests: read` only for the issue-sync lookup). No job can push, comment or merge.
+- Checkouts use `persist-credentials: false`, so later steps cannot reuse the token by accident.
+- The Gradle wrapper jar is validated on every push.
+- Tools downloaded at run time (detekt from Maven Central, gitleaks from its GitHub release) are checked against a pinned SHA-256 before they run.
+- PR-controlled values (branch name, title) reach scripts only through environment variables, never through `${{ }}` inside a `run:` script.
 
 ## AI and secrets
 
-Never give passwords, API keys, tokens, keystore data or Bitrise/GitHub secrets to any AI tool. CI AI agents receive diffs and logs only after a redaction pass. AI review is advisory: it cannot approve, merge, push or change branch protection.
+Never give passwords, API keys, tokens, keystore data or Bitrise/GitHub secrets to any AI tool. The CI agents are rule-based and send nothing anywhere; only the opt-in AI summary sends a report to Gemini, after the redaction pass in `tools/agents/checklist_agents/enrich.py` (tested in `test_workflows_and_cli.py`). Future agents that read diffs and logs use the same pass. AI review is advisory: it cannot approve, merge, push or change branch protection.
 
 ## Security review checklist (every PR)
 

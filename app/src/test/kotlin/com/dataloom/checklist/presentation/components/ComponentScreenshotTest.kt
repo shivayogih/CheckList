@@ -66,7 +66,11 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             CheckListTopBar(
                 title = s.t("My checklists", "ನನ್ನ ಪಟ್ಟಿಗಳು", "என் பட்டியல்கள்"),
-                actions = { TopBarIconButton(painterResource(R.drawable.ic_settings), s.t("Settings", "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", "அமைப்புகள்"), {}) },
+                actions = { TopBarIconButton(
+                    painterResource(R.drawable.ic_settings),
+                    s.t("Settings", "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", "அமைப்புகள்"),
+                    {},
+                ) },
             )
             CheckListTopBar(
                 title = s.t("Add to Groceries", "ದಿನಸಿಗೆ ಸೇರಿಸಿ", "மளிகையில் சேர்"),
@@ -125,7 +129,11 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
             )
             ChecklistCard(
                 title = s.t("Exam Day", "ಪರೀಕ್ಷೆಯ ದಿನ", "தேர்வு நாள்"),
-                description = s.t("10th standard board exam", "10ನೇ ತರಗತಿ ಬೋರ್ಡ್ ಪರೀಕ್ಷೆ", "10ஆம் வகுப்பு வாரியத் தேர்வு"),
+                description = s.t(
+                    "10th standard board exam",
+                    "10ನೇ ತರಗತಿ ಬೋರ್ಡ್ ಪರೀಕ್ಷೆ",
+                    "10ஆம் வகுப்பு வாரியத் தேர்வு",
+                ),
                 progress = 1f,
                 doneText = s.t("All 5 done", "ಎಲ್ಲಾ 5 ಮುಗಿದಿದೆ", "5 உம் முடிந்தது"),
                 complete = true,
@@ -183,7 +191,11 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
             )
             CategoryHeader(
                 emoji = "🎁",
-                name = s.t("Gifts and sweets for relatives", "ಸಂಬಂಧಿಕರಿಗೆ ಉಡುಗೊರೆ ಮತ್ತು ಸಿಹಿ", "உறவினர்களுக்கான பரிசுகளும் இனிப்புகளும்"),
+                name = s.t(
+                    "Gifts and sweets for relatives",
+                    "ಸಂಬಂಧಿಕರಿಗೆ ಉಡುಗೊರೆ ಮತ್ತು ಸಿಹಿ",
+                    "உறவினர்களுக்கான பரிசுகளும் இனிப்புகளும்",
+                ),
                 progressText = s.t("0 of 3 done", "3 ರಲ್ಲಿ 0 ಮುಗಿದಿದೆ", "3 இல் 0 முடிந்தது"),
                 moveUpLabel = s.t("Move up", "ಮೇಲಕ್ಕೆ ಸರಿಸಿ", "மேலே நகர்த்து"),
                 moveDownLabel = s.t("Move down", "ಕೆಳಕ್ಕೆ ಸರಿಸಿ", "கீழே நகர்த்து"),
@@ -242,7 +254,12 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
     @Test
     fun selectableRow() = shoot("selectable_row") { s ->
         Column {
-            SelectableRow(s.t("Groceries", "ದಿನಸಿ", "மளிகைப் பொருட்கள்"), checked = true, onCheckedChange = {}, lead = "🛒")
+            SelectableRow(
+                s.t("Groceries", "ದಿನಸಿ", "மளிகைப் பொருட்கள்"),
+                checked = true,
+                onCheckedChange = {},
+                lead = "🛒",
+            )
             SelectableRow(
                 s.t("Rice", "ಅಕ್ಕಿ", "அரிசி"),
                 checked = true,
@@ -326,7 +343,12 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
             )
             TextActionButton(s.t("Skip for now", "ಈಗ ಬೇಡ", "இப்போது தவிர்"), onClick = {})
             DangerButton(s.t("Delete", "ಅಳಿಸಿ", "நீக்கு"), onClick = {}, compact = true)
-            PrimaryButton(s.t("Create", "ರಚಿಸಿ", "உருவாக்கு"), onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth())
+            PrimaryButton(
+                s.t("Create", "ರಚಿಸಿ", "உருவாக்கு"),
+                onClick = {},
+                enabled = false,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 
@@ -342,7 +364,11 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
                 )
             }
             BottomActionBarRow {
-                OutlinedActionButton(s.t("Cancel", "ರದ್ದುಮಾಡಿ", "ரத்து செய்"), onClick = {}, modifier = Modifier.weight(1f))
+                OutlinedActionButton(
+                    s.t("Cancel", "ರದ್ದುಮಾಡಿ", "ரத்து செய்"),
+                    onClick = {},
+                    modifier = Modifier.weight(1f),
+                )
                 PrimaryButton(s.t("Import", "ಆಮದು ಮಾಡಿ", "இறக்குமதி"), onClick = {}, modifier = Modifier.weight(1f))
             }
         }
@@ -366,7 +392,11 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
                 more,
                 compact = true,
                 isError = true,
-                errorText = s.t("Pieces must be a whole number", "ತುಣುಕುಗಳು ಪೂರ್ಣ ಸಂಖ್ಯೆಯಾಗಿರಬೇಕು", "எண்ணிக்கை முழு எண்ணாக இருக்க வேண்டும்"),
+                errorText = s.t(
+                    "Pieces must be a whole number",
+                    "ತುಣುಕುಗಳು ಪೂರ್ಣ ಸಂಖ್ಯೆಯಾಗಿರಬೇಕು",
+                    "எண்ணிக்கை முழு எண்ணாக இருக்க வேண்டும்",
+                ),
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -376,7 +406,12 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
     fun chips() = shoot("chips") { s ->
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             ChipFlow {
-                SelectableChip(s.t("Shopping", "ಶಾಪಿಂಗ್", "ஷாப்பிங்"), selected = true, onClick = {}, leadingEmoji = "🛒")
+                SelectableChip(
+                    s.t("Shopping", "ಶಾಪಿಂಗ್", "ஷாப்பிங்"),
+                    selected = true,
+                    onClick = {},
+                    leadingEmoji = "🛒",
+                )
                 SelectableChip(s.t("Travel", "ಪ್ರಯಾಣ", "பயணம்"), selected = false, onClick = {}, leadingEmoji = "✈️")
                 SelectableChip(s.t("Exam", "ಪರೀಕ್ಷೆ", "தேர்வு"), selected = false, onClick = {})
                 SelectableChip(
@@ -408,8 +443,16 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
                 "ஷாப்பிங், பயணம், தேர்வு அல்லது வேறு எதற்கும் உங்கள் முதல் பட்டியலை உருவாக்குங்கள்.",
             ),
         ) {
-            PrimaryButton(s.t("Create checklist", "ಪಟ್ಟಿ ರಚಿಸಿ", "பட்டியலை உருவாக்கு"), onClick = {}, modifier = Modifier.fillMaxWidth())
-            OutlinedActionButton(s.t("Create with AI", "AI ಬಳಸಿ ರಚಿಸಿ", "AI மூலம் உருவாக்கு"), onClick = {}, modifier = Modifier.fillMaxWidth())
+            PrimaryButton(
+                s.t("Create checklist", "ಪಟ್ಟಿ ರಚಿಸಿ", "பட்டியலை உருவாக்கு"),
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
+            )
+            OutlinedActionButton(
+                s.t("Create with AI", "AI ಬಳಸಿ ರಚಿಸಿ", "AI மூலம் உருவாக்கு"),
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 

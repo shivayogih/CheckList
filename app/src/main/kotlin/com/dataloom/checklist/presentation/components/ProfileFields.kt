@@ -57,7 +57,10 @@ fun ProfileFields(
             onValueChange = { onValuesChange(values.copy(name = it)) },
             helperText = labels.nameHelper,
             errorText = errors.name,
-            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next),
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.Words,
+                imeAction = ImeAction.Next,
+            ),
         )
         FormField(
             label = labels.phone,
@@ -97,7 +100,12 @@ private fun ProfileFieldsPreview() {
         ProfileFields(
             values = ProfileFieldValues(name = "Kamala Hiremath", phone = "+91 98450 12345", email = "kamala@example"),
             onValuesChange = {},
-            labels = ProfileFieldLabels(name = "Name", phone = "Phone", email = "Email", nameHelper = "Optional. Shown on PDFs only if you choose."),
+            labels = ProfileFieldLabels(
+                name = "Name",
+                phone = "Phone",
+                email = "Email",
+                nameHelper = "Optional. Shown on PDFs only if you choose.",
+            ),
             errors = ProfileFieldErrors(email = "Enter a valid email like name@example.com"),
         )
     }

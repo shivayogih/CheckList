@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.resolve
@@ -53,7 +54,8 @@ import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.components.UnitButton
 import com.dataloom.checklist.presentation.components.UnitPickerDialog
-import com.dataloom.checklist.presentation.components.optionalText
+import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.inputLength
 
 /** [onSaved] returns to the checklist, also when the form was opened from "Add item". */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,7 +108,7 @@ fun ItemEditorScreen(
             Surface(tonalElevation = 3.dp) {
                 Button(
                     onClick = { onAction(ItemEditorAction.Save) },
-                    enabled = !state.isSaving && !state.isLoading,
+                    enabled = state.canSave,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
@@ -133,6 +135,7 @@ fun ItemEditorScreen(
                 onValueChange = { onAction(ItemEditorAction.NameChanged(it)) },
                 label = stringResource(R.string.item_name_label),
                 error = state.nameError,
+                maxLength = FieldLimits.ITEM_NAME_MAX,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
             )
             FormField(
@@ -150,6 +153,7 @@ fun ItemEditorScreen(
                 onValueChange = { onAction(ItemEditorAction.NotesChanged(it)) },
                 label = stringResource(R.string.item_notes_label),
                 error = state.notesError,
+                maxLength = FieldLimits.NOTES_MAX,
                 singleLine = false,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
             )
@@ -184,7 +188,8 @@ fun ItemEditorScreen(
             value = dialog.label,
             errorText = dialog.error?.asString(),
             confirmLabel = stringResource(R.string.action_create),
-            enabled = !dialog.isSaving,
+            enabled = dialog.canConfirm,
+            maxLength = FieldLimits.UNIT_LABEL_MAX,
             onValueChange = { onAction(ItemEditorAction.NewUnitLabelChanged(it)) },
             onConfirm = { onAction(ItemEditorAction.ConfirmNewUnit) },
             onDismiss = { onAction(ItemEditorAction.DismissNewUnit) },
@@ -215,6 +220,7 @@ private fun FormField(
     error: UiText?,
     keyboardOptions: KeyboardOptions,
     supporting: String? = null,
+    maxLength: Int? = null,
     singleLine: Boolean = true,
 ) {
     val errorText = error?.asString()
@@ -226,7 +232,7 @@ private fun FormField(
         singleLine = singleLine,
         minLines = if (singleLine) 1 else 2,
         isError = errorText != null,
-        supportingText = optionalText(below),
+        supportingText = fieldSupportingText(below, value.inputLength(), maxLength),
         keyboardOptions = keyboardOptions,
         modifier = Modifier
             .fillMaxWidth()

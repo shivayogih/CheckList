@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.presentation.theme.CheckListText
 import com.dataloom.checklist.presentation.theme.Dimens
 
+private const val DISABLED_ALPHA = 0.55f
+
 /**
  * A row you tick in a list of choices (categories, items, checklists to export), UI-SPEC section 3.
  * At least 64 dp tall; an optional emoji lead (26 sp, decorative), the [label] at 18 sp, an optional
@@ -48,7 +50,7 @@ fun SelectableRow(
     showDivider: Boolean = true,
 ) {
     val colors = MaterialTheme.colorScheme
-    Column(modifier = modifier.fillMaxWidth().alpha(if (enabled) 1f else 0.55f)) {
+    Column(modifier = modifier.fillMaxWidth().alpha(if (enabled) 1f else DISABLED_ALPHA)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

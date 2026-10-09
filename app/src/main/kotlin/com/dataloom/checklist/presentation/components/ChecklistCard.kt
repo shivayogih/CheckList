@@ -81,37 +81,43 @@ fun ChecklistCard(
                     )
                 }
                 AppProgressBar(progress = progress)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Row(
-                        modifier = Modifier.weight(1f, fill = false),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    ) {
-                        if (complete) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_check_circle),
-                                contentDescription = null,
-                                tint = colors.primary,
-                                modifier = Modifier.size(20.dp),
-                            )
-                        }
-                        Text(doneText, style = CheckListText.progressLabel, color = colors.onSurface)
-                    }
-                    if (dateText != null) {
-                        Text(
-                            text = dateText,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = colors.onSurfaceVariant,
-                            textAlign = TextAlign.End,
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                }
+                ChecklistCardFooter(doneText, dateText, complete)
             }
+        }
+    }
+}
+
+@Composable
+private fun ChecklistCardFooter(doneText: String, dateText: String?, complete: Boolean) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Row(
+            modifier = Modifier.weight(1f, fill = false),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            if (complete) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_check_circle),
+                    contentDescription = null,
+                    tint = colors.primary,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+            Text(doneText, style = CheckListText.progressLabel, color = colors.onSurface)
+        }
+        if (dateText != null) {
+            Text(
+                text = dateText,
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant,
+                textAlign = TextAlign.End,
+                modifier = Modifier.weight(1f),
+            )
         }
     }
 }

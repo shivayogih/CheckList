@@ -96,7 +96,7 @@ fun AddItemsScreen(
             Surface(tonalElevation = 3.dp) {
                 Button(
                     onClick = { onAction(AddItemsAction.AddSelected) },
-                    enabled = !state.isSaving && state.selectedCount > 0,
+                    enabled = state.canAddSelected,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
@@ -114,8 +114,8 @@ fun AddItemsScreen(
                 .fillMaxSize()
                 .padding(padding),
         ) {
-            item { SearchBar(state, onAction) }
-            items(state.rows, key = { it.id.value }) { row ->
+            item(key = "search", contentType = "search") { SearchBar(state, onAction) }
+            items(state.rows, key = { it.id.value }, contentType = { "option" }) { row ->
                 ItemOption(
                     row = row,
                     unit = state.units.firstOrNull { it.code == row.unit },
@@ -124,7 +124,7 @@ fun AddItemsScreen(
                 )
             }
             if (state.rows.isEmpty()) {
-                item {
+                item(key = "hint", contentType = "hint") {
                     Text(
                         stringResource(if (state.query.isBlank()) R.string.add_items_type_to_search else R.string.add_items_no_match),
                         style = MaterialTheme.typography.bodyLarge,

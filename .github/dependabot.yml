@@ -30,3 +30,11 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+
+  # CI agents (tools/agents/requirements.txt: google-adk, pytest). Exact pins, updated here.
+  - package-ecosystem: "pip"
+    directory: "/tools/agents"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 2

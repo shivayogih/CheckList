@@ -79,29 +79,35 @@ fun ProgressCard(
                 )
             }
             if (hideCompleted != null) {
-                Row(
-                    modifier = Modifier
-                        .padding(top = 4.dp)
-                        .fillMaxWidth()
-                        .heightIn(min = Dimens.MinTouchTarget)
-                        .toggleable(
-                            value = hideCompleted,
-                            role = Role.Switch,
-                            onValueChange = onHideCompletedChange,
-                        ),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Text(
-                        text = hideCompletedLabel,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = colors.onSurface,
-                        modifier = Modifier.weight(1f).padding(vertical = 8.dp),
-                    )
-                    AppSwitch(checked = hideCompleted, onCheckedChange = null)
-                }
+                HideCompletedRow(hideCompleted, onHideCompletedChange, hideCompletedLabel)
             }
         }
+    }
+}
+
+@Composable
+private fun HideCompletedRow(checked: Boolean, onCheckedChange: (Boolean) -> Unit, label: String) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        modifier = Modifier
+            .padding(top = 4.dp)
+            .fillMaxWidth()
+            .heightIn(min = Dimens.MinTouchTarget)
+            .toggleable(
+                value = checked,
+                role = Role.Switch,
+                onValueChange = onCheckedChange,
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyLarge,
+            color = colors.onSurface,
+            modifier = Modifier.weight(1f).padding(vertical = 8.dp),
+        )
+        AppSwitch(checked = checked, onCheckedChange = null)
     }
 }
 

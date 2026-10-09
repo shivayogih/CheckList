@@ -30,6 +30,9 @@ zxing = "3.5.4"
 # AI assistant toggles (CL-240); datastore 1.2.1 checked on the AndroidX release page: latest stable,
 # released 2026-03-11, needs Kotlin Gradle plugin 2.0 or newer.
 datastore = "1.2.1"
+# Installs the Baseline Profile on first launch (CL-294); 1.4.1 checked on the AndroidX release page
+# (latest stable, a plain AAR with no Kotlin or AGP coupling).
+profileinstaller = "1.4.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +73,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

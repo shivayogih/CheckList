@@ -41,8 +41,11 @@ internal fun ComposeTestRule.assertNoTextOverflow() {
             // Measured from the lines themselves: `didOverflowWidth` / `didOverflowHeight` also report a text that
             // fits (they compare the paragraph with its rounded box), so they cannot be used as a failure signal.
             val boxWidth = layout.size.width.toFloat()
-            val widest = (0 until layout.lineCount).maxOfOrNull { layout.getLineRight(it) - layout.getLineLeft(it) } ?: 0f
-            if (widest > boxWidth + 1f) problems += "text wider than its box (${widest} > $boxWidth px): ${describe(node)}"
+            val widest = (0 until layout.lineCount)
+                .maxOfOrNull { layout.getLineRight(it) - layout.getLineLeft(it) } ?: 0f
+            if (widest > boxWidth + 1f) {
+                problems += "text wider than its box ($widest > $boxWidth px): ${describe(node)}"
+            }
             val ellipsized = (0 until layout.lineCount).any { layout.isLineEllipsized(it) }
             if (ellipsized) problems += "text is ellipsized: ${describe(node)}"
             if (layout.multiParagraph.didExceedMaxLines) problems += "text is cut by its line limit: ${describe(node)}"
@@ -82,8 +85,11 @@ internal fun ComposeTestRule.assertTouchTargetsAtLeast(min: Dp = 48.dp) {
         // One pixel of rounding is not a failure.
         if (width + 1f < minPx || height + 1f < minPx) {
             val b = node.boundsInRoot
-            val parent = node.parent?.let { "${it.size.width / density.density} x ${it.size.height / density.density} dp at ${b.left / density.density},${b.top / density.density}" }
-            problems += "touch target too small (${width / density.density} x ${height / density.density} dp, parent $parent): ${describe(node)}"
+            val d = density.density
+            val parent = node.parent?.let {
+                "${it.size.width / d} x ${it.size.height / d} dp at ${b.left / d},${b.top / d}"
+            }
+            problems += "touch target too small (${width / d} x ${height / d} dp, parent $parent): ${describe(node)}"
         }
     }
     check(problems.isEmpty()) { "Touch targets under $min:\n" + problems.distinct().joinToString("\n") { " - $it" } }

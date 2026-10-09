@@ -110,7 +110,17 @@ fun SearchField(
 @Composable
 private fun SearchFieldPreview() {
     PreviewSurface {
-        SearchField(value = "", onValueChange = {}, placeholder = "Search checklists", clearContentDescription = "Clear search")
-        SearchField(value = "ri", onValueChange = {}, placeholder = "Search items", clearContentDescription = "Clear search")
+        SearchField(
+            value = "",
+            onValueChange = {},
+            placeholder = "Search checklists",
+            clearContentDescription = "Clear search",
+        )
+        SearchField(
+            value = "ri",
+            onValueChange = {},
+            placeholder = "Search items",
+            clearContentDescription = "Clear search",
+        )
     }
 }

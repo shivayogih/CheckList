@@ -9,6 +9,7 @@
     <string name="settings_language">மொழி</string>
     <string name="settings_language_system">சிஸ்டம் இயல்புநிலை</string>
     <string name="settings_about">பற்றி</string>
+    <string name="app_logo_description">செக்லிஸ்ட் லோகோ</string>
     <string name="settings_version">பதிப்பு %1$s</string>
     <string name="navigate_back">பின்செல்</string>
     <string name="language_title">மொழியைத் தேர்ந்தெடுக்கவும்</string>
@@ -89,6 +90,10 @@
     <string name="error_not_found">இது இப்போது இல்லை. இது நீக்கப்பட்டிருக்கலாம்.</string>
     <string name="error_quantity_invalid">2 அல்லது 2.5 போன்ற எண்ணை உள்ளிடவும் (99999 வரை).</string>
     <string name="error_quantity_whole">இந்த அலகுக்கு 2 போன்ற முழு எண் தேவை.</string>
+    <string name="error_quantity_not_number">இலக்கங்களை மட்டும் பயன்படுத்தவும், எ.கா. 2 அல்லது 2.5.</string>
+    <string name="error_quantity_not_positive">அளவு பூஜ்ஜியத்தை விட அதிகமாக இருக்க வேண்டும்.</string>
+    <string name="error_quantity_too_precise">அதிகபட்சம் 3 தசம இடங்களை மட்டும் பயன்படுத்தவும், எ.கா. 2.125.</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">பட்டியலுக்கு ஒரு பெயரை உள்ளிடவும்.</string>
     <string name="error_too_long">அதிகபட்சம் %1$d எழுத்துகளைப் பயன்படுத்தவும்.</string>
     <string name="error_unit_label_blank">அலகுக்கு ஒரு பெயரை உள்ளிடவும்.</string>

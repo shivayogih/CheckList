@@ -123,6 +123,17 @@ android {
     }
 }
 
+// Compose compiler: domain models are immutable but live in a module without the Compose compiler, so
+// they are declared stable here (app/compose-stability.conf). Stability and skippability reports are
+// written only on request, because they slow the build: ./gradlew :app:assembleDevRelease -PcomposeReports
+composeCompiler {
+    stabilityConfigurationFiles.add(layout.projectDirectory.file("compose-stability.conf"))
+    if (providers.gradleProperty("composeReports").isPresent) {
+        reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+        metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+    }
+}
+
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
@@ -139,6 +150,8 @@ dependencies {
     implementation(libs.zxing.core)
     // Settings toggles for the AI assistant (CL-240).
     implementation(libs.androidx.datastore.preferences)
+    // Compiles app/src/main/baseline-prof.txt into the install so the startup path is pre-compiled (CL-294).
+    implementation(libs.androidx.profileinstaller)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

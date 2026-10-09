@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.ai
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.R
@@ -17,6 +18,8 @@ import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.settings.AiPreferences
@@ -102,6 +105,7 @@ class AiCommandViewModel @AssistedInject constructor(
     preferences: AiPreferences,
     private val languageProvider: AppLanguageProvider,
     @param:ApplicationScope private val applicationScope: CoroutineScope,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -110,7 +114,9 @@ class AiCommandViewModel @AssistedInject constructor(
     }
 
     private val id = ChecklistId(checklistId)
-    private val state = MutableStateFlow(AiCommandUiState())
+    // The typed command survives process death. The review sheet and the plan behind it do not: nothing
+    // has been written at that point, and a plan must never run from restored state the user did not see.
+    private val state = MutableStateFlow(AiCommandUiState(command = savedState.get<String>(KEY_COMMAND).orEmpty()))
 
     /** The plan behind [AiCommandUiState.review]; dropped on Cancel so it can never run later. */
     private var proposed: ReviewedPlan? = null
@@ -119,11 +125,16 @@ class AiCommandViewModel @AssistedInject constructor(
         preferences.settings.map { it.enabled }.distinctUntilChanged(),
         state,
     ) { enabled, current -> current.copy(isAvailable = enabled) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), AiCommandUiState())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), state.value)
 
     fun onAction(action: AiCommandAction) {
         when (action) {
-            is AiCommandAction.CommandChanged -> state.update { it.copy(command = action.text) }
+            is AiCommandAction.CommandChanged -> {
+                // Control and bidi characters never reach the parser; the length is the assistant's own limit.
+                val text = InputText.forField(action.text, FieldLimits.AI_COMMAND_MAX, multiline = true)
+                savedState[KEY_COMMAND] = text
+                state.update { it.copy(command = text) }
+            }
             AiCommandAction.Submit -> submit()
             is AiCommandAction.ToggleStep -> state.update { current ->
                 val review = current.review ?: return@update current
@@ -201,8 +212,9 @@ class AiCommandViewModel @AssistedInject constructor(
     private suspend fun execute(plan: ConfirmedPlan) {
         val report = guarded { AiResult.Success(applicationScope.async { assistant.execute(plan) }.await()) }
         when (report) {
-            is AiResult.Success -> state.update {
-                it.copy(isWorking = false, command = "", message = report.value.toMessage())
+            is AiResult.Success -> {
+                savedState[KEY_COMMAND] = ""
+                state.update { it.copy(isWorking = false, command = "", message = report.value.toMessage()) }
             }
             else -> finish(problem(UiText(R.string.error_generic)))
         }
@@ -222,8 +234,9 @@ class AiCommandViewModel @AssistedInject constructor(
             AiResult.Error(failure)
         }
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
+        const val KEY_COMMAND = "ai_command"
     }
 }
 

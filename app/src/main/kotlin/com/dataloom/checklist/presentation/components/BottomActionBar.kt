@@ -41,7 +41,10 @@ fun BottomActionBar(modifier: Modifier = Modifier, content: @Composable ColumnSc
     }
 }
 
-/** Like [BottomActionBar] but the buttons sit next to each other and share the width. Give each `Modifier.weight(1f)`. */
+/**
+ * Like [BottomActionBar] but the buttons sit next to each other and share the width.
+ * Give each `Modifier.weight(1f)`.
+ */
 @Composable
 fun BottomActionBarRow(modifier: Modifier = Modifier, content: @Composable RowScope.() -> Unit) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {

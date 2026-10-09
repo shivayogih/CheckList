@@ -80,7 +80,12 @@ fun SettingsRow(
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             if (icon != null) {
-                Icon(icon, contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(Dimens.SettingsIcon))
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    tint = colors.onSurfaceVariant,
+                    modifier = Modifier.size(Dimens.SettingsIcon),
+                )
             }
             RowText(title, value, Modifier.weight(1f))
             if (trailing != null) {
@@ -123,7 +128,12 @@ fun SettingsSwitchRow(
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             if (icon != null) {
-                Icon(icon, contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(Dimens.SettingsIcon))
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    tint = colors.onSurfaceVariant,
+                    modifier = Modifier.size(Dimens.SettingsIcon),
+                )
             }
             RowText(title, subtitle, Modifier.weight(1f))
             AppSwitch(checked = checked, onCheckedChange = null)
@@ -192,7 +202,10 @@ fun OptionCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(Dimens.Corner14),
         color = if (selected) colors.bannerContainer else colors.background,
-        border = BorderStroke(if (selected) Dimens.Border3 else Dimens.Border2, if (selected) colors.primary else colors.outlineVariant),
+        border = BorderStroke(
+            width = if (selected) Dimens.Border3 else Dimens.Border2,
+            color = if (selected) colors.primary else colors.outlineVariant,
+        ),
     ) {
         Row(
             modifier = Modifier
@@ -204,7 +217,12 @@ fun OptionCard(
             horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             if (icon != null) {
-                Icon(icon, contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(Dimens.SettingsIcon))
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    tint = colors.onSurfaceVariant,
+                    modifier = Modifier.size(Dimens.SettingsIcon),
+                )
             }
             RowText(title, subtitle, Modifier.weight(1f))
             AppRadio(selected = selected, onClick = null)
@@ -234,9 +252,20 @@ private fun SettingsRowsPreview() {
         SectionHeader("General")
         SettingsRow("Language", icon = painterResource(R.drawable.ic_translate), value = "System default", onClick = {})
         SettingsRow("Text size", icon = painterResource(R.drawable.ic_format_size), value = "Large", onClick = {})
-        SettingsSwitchRow("High contrast", checked = false, onCheckedChange = {}, icon = painterResource(R.drawable.ic_contrast))
+        SettingsSwitchRow(
+            "High contrast",
+            checked = false,
+            onCheckedChange = {},
+            icon = painterResource(R.drawable.ic_contrast),
+        )
         RadioRow("English", selected = true, onSelect = {}, subtitle = "English")
         RadioRow("Kannada", selected = false, onSelect = {}, subtitle = "Kannada")
-        OptionCard("Backup file (.json)", selected = true, onSelect = {}, subtitle = "Move to another phone", icon = painterResource(R.drawable.ic_data_object))
+        OptionCard(
+            "Backup file (.json)",
+            selected = true,
+            onSelect = {},
+            subtitle = "Move to another phone",
+            icon = painterResource(R.drawable.ic_data_object),
+        )
     }
 }

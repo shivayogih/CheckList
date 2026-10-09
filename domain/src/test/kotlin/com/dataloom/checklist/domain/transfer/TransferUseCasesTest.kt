@@ -20,6 +20,7 @@ import com.dataloom.checklist.domain.transfer.TransferFixtures.checklist
 import com.dataloom.checklist.domain.transfer.TransferFixtures.document
 import com.dataloom.checklist.domain.transfer.TransferFixtures.item
 import com.dataloom.checklist.domain.validation.ValidationError
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -37,8 +38,10 @@ class TransferUseCasesTest {
         val transactions = DirectTransactionRunner()
         val groceries: Category = catalog.seedCategory("groceries", "Groceries")
         val vegetables: Category = catalog.seedCategory("vegetables", "Vegetables")
-        val export = ExportChecklistsUseCase(checklists, catalog, codec, Clock { 1_791_432_000_000L })
-        val preview = PreviewImportUseCase(checklists, catalog, codec)
+        val export = ExportChecklistsUseCase(
+            checklists, catalog, codec, Clock { 1_791_432_000_000L }, Dispatchers.Unconfined, Dispatchers.Unconfined,
+        )
+        val preview = PreviewImportUseCase(checklists, catalog, codec, Dispatchers.Unconfined, Dispatchers.Unconfined)
         val apply = ApplyImportUseCase(checklists, catalog, transactions)
 
         suspend fun previewOf(document: TransferDocument): ImportPreviewResult = preview(BytesSource(codec.bytesFor(document)), "en")

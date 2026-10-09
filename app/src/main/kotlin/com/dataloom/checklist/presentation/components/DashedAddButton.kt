@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
 import com.dataloom.checklist.presentation.theme.Dimens
 
+private const val DASH_LENGTH_PX = 14f
+private const val DASH_GAP_PX = 10f
+
 /**
  * The "+ Add item to Groceries" button (UI-SPEC section 3): at least 56 dp tall, a 2 dp **dashed**
  * `outlineVariant` border with 12 dp corners, primary text and a + icon. Used for add item, create
@@ -50,7 +53,10 @@ fun DashedAddButton(text: String, onClick: () -> Unit, modifier: Modifier = Modi
                     topLeft = androidx.compose.ui.geometry.Offset(stroke / 2, stroke / 2),
                     size = Size(size.width - stroke, size.height - stroke),
                     cornerRadius = CornerRadius(Dimens.Corner12.toPx()),
-                    style = Stroke(width = stroke, pathEffect = PathEffect.dashPathEffect(floatArrayOf(14f, 10f))),
+                    style = Stroke(
+                        width = stroke,
+                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(DASH_LENGTH_PX, DASH_GAP_PX)),
+                    ),
                 )
             }
             .padding(horizontal = 12.dp, vertical = 8.dp),

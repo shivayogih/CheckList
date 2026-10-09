@@ -1,20 +1,26 @@
 package com.dataloom.checklist.presentation.home
 
+import androidx.lifecycle.SavedStateHandle
+import com.dataloom.checklist.domain.validation.FieldLimits
 import app.cash.turbine.test
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.model.ChecklistSort
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.usecase.ArchiveChecklistUseCase
 import com.dataloom.checklist.domain.usecase.DeleteChecklistUseCase
 import com.dataloom.checklist.domain.usecase.DuplicateChecklistUseCase
 import com.dataloom.checklist.domain.usecase.ObserveChecklistsUseCase
+import com.dataloom.checklist.domain.usecase.ObserveHasChecklistsUseCase
 import com.dataloom.checklist.domain.usecase.UnarchiveChecklistUseCase
 import com.dataloom.checklist.testing.FakeCatalogRepository
 import com.dataloom.checklist.testing.FakeChecklistRepository
 import com.dataloom.checklist.testing.MainDispatcherRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -23,6 +29,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
     @get:Rule
@@ -32,12 +39,14 @@ class HomeViewModelTest {
     private val repo = FakeChecklistRepository(catalog)
     private val groceries = catalog.seedCategory("groceries", "Groceries")
 
-    private fun viewModel() = HomeViewModel(
+    private fun viewModel(handle: SavedStateHandle = SavedStateHandle()) = HomeViewModel(
         ObserveChecklistsUseCase(repo),
         DuplicateChecklistUseCase(repo),
         ArchiveChecklistUseCase(repo),
         UnarchiveChecklistUseCase(repo),
         DeleteChecklistUseCase(repo),
+        ObserveHasChecklistsUseCase(repo),
+        handle,
     )
 
     /** Keeps the WhileSubscribed state flow running, as the screen does. */
@@ -88,8 +97,64 @@ class HomeViewModelTest {
         assertEquals(listOf("Exam day"), vm.uiState.value.checklists.map { it.title })
 
         vm.onAction(HomeAction.SearchChanged("goa "))
-        assertTrue(vm.uiState.value.checklists.isEmpty())
+        // The text shows at once; the database is asked after the debounce.
         assertEquals("goa ", vm.uiState.value.search)
+        advanceTimeBy(HomeViewModel.SEARCH_DEBOUNCE_MS + 1)
+        assertTrue(vm.uiState.value.checklists.isEmpty())
+    }
+
+    @Test
+    fun `typing queries the database once after the pause, not per keystroke`() = runTest {
+        repo.createChecklist("Goa Trip", null, emptyList())
+        repo.createChecklist("Exam day", null, emptyList())
+        val vm = started(viewModel())
+
+        "exam".forEachIndexed { i, _ ->
+            vm.onAction(HomeAction.SearchChanged("exam".take(i + 1)))
+            advanceTimeBy(HomeViewModel.SEARCH_DEBOUNCE_MS / 5)
+        }
+        // Still inside the debounce window: the old, unfiltered list is showing.
+        assertEquals(2, vm.uiState.value.checklists.size)
+
+        advanceTimeBy(HomeViewModel.SEARCH_DEBOUNCE_MS)
+        assertEquals(listOf("Exam day"), vm.uiState.value.checklists.map { it.title })
+    }
+
+    @Test
+    fun `clearing the search applies at once`() = runTest {
+        repo.createChecklist("Goa Trip", null, emptyList())
+        val vm = started(viewModel(SavedStateHandle(mapOf(HomeViewModel.KEY_SEARCH to "zzz"))))
+        advanceTimeBy(HomeViewModel.SEARCH_DEBOUNCE_MS + 1)
+        assertTrue(vm.uiState.value.checklists.isEmpty())
+
+        vm.onAction(HomeAction.SearchChanged(""))
+        advanceTimeBy(1)
+
+        assertEquals(1, vm.uiState.value.checklists.size)
+    }
+
+    @Test
+    fun `search, sort and filter are restored from saved state after process death`() = runTest {
+        repo.createChecklist("Goa Trip", null, emptyList())
+        val handle = SavedStateHandle()
+        val before = started(viewModel(handle))
+        before.onAction(HomeAction.SearchChanged("goa"))
+        before.onAction(HomeAction.SortChanged(ChecklistSort.TITLE))
+        before.onAction(HomeAction.FilterChanged(ChecklistFilter.ALL))
+
+        // A new ViewModel built from the same saved state, as after the system recreated the process.
+        val after = viewModel(handle)
+
+        assertEquals("goa", after.uiState.value.search)
+        assertEquals(ChecklistSort.TITLE, after.uiState.value.sort)
+        assertEquals(ChecklistFilter.ALL, after.uiState.value.filter)
+    }
+
+    @Test
+    fun `an unknown saved sort falls back to the default instead of crashing`() = runTest {
+        val vm = viewModel(SavedStateHandle(mapOf(HomeViewModel.KEY_SORT to "NOT_A_SORT")))
+
+        assertEquals(ChecklistSort.RECENT, vm.uiState.value.sort)
     }
 
     @Test
@@ -164,5 +229,14 @@ class HomeViewModelTest {
             assertTrue(awaitItem() is HomeEffect.Error)
         }
         assertEquals(1, repo.checklistCount())
+    }
+
+    @Test
+    fun `search text is cleaned and capped`() = runTest {
+        val vm = started(viewModel())
+        vm.onAction(HomeAction.SearchChanged("go\u202Ea\u0000"))
+        assertEquals("goa", vm.uiState.value.search)
+        vm.onAction(HomeAction.SearchChanged("x".repeat(1_000)))
+        assertEquals(FieldLimits.SEARCH_MAX, vm.uiState.value.search.length)
     }
 }

@@ -10,6 +10,7 @@
     <string name="settings_language">Language</string>
     <string name="settings_language_system">System default</string>
     <string name="settings_about">About</string>
+    <string name="app_logo_description">CheckList logo</string>
     <string name="settings_version">Version %1$s</string>
     <string name="navigate_back">Back</string>
     <string name="language_title">Choose language</string>
@@ -90,6 +91,10 @@
     <string name="error_not_found">This no longer exists. It may have been deleted.</string>
     <string name="error_quantity_invalid">Enter a number like 2 or 2.5 (up to 99999).</string>
     <string name="error_quantity_whole">This unit needs a whole number, like 2.</string>
+    <string name="error_quantity_not_number">Use digits only, like 2 or 2.5.</string>
+    <string name="error_quantity_not_positive">The amount must be more than zero.</string>
+    <string name="error_quantity_too_precise">Use at most 3 decimal places, like 2.125.</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">Enter a name for the checklist.</string>
     <string name="error_too_long">Use at most %1$d characters.</string>
     <string name="error_unit_label_blank">Enter a name for the unit.</string>

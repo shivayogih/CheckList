@@ -50,7 +50,8 @@ internal object TestFonts {
                 .setSystemFallback("sans-serif")
                 .build()
         } catch (t: Throwable) {
-            System.err.println("TestFonts: could not build the fallback typeface (${t::class.java.simpleName}: ${t.message})")
+            val reason = "${t::class.java.simpleName}: ${t.message}"
+            System.err.println("TestFonts: could not build the fallback typeface ($reason)")
             null
         }
     }

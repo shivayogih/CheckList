@@ -27,6 +27,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,6 +65,11 @@ fun QuantityStepper(
     val colors = MaterialTheme.colorScheme
     val buttonSize = if (compact) Dimens.StepperButtonCompact else Dimens.StepperButton
     val borderColor = if (isError) colors.error else colors.primary
+    val valueStyle = if (compact) {
+        MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+    } else {
+        CheckListText.stepperValue
+    }
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -74,11 +80,10 @@ fun QuantityStepper(
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
-            textStyle = (if (compact) MaterialTheme.typography.titleLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold) else CheckListText.stepperValue)
-                .copy(color = colors.onSurface, textAlign = TextAlign.Center),
+            textStyle = valueStyle.copy(color = colors.onSurface, textAlign = TextAlign.Center),
             cursorBrush = SolidColor(colors.primary),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            // `weight(fill = false)`: the buttons are measured first and keep their size, the value box takes what is left.
+            // `weight(fill = false)`: the buttons are measured first and keep their size; the box takes the rest.
             modifier = Modifier
                 .weight(1f, fill = false)
                 .widthIn(

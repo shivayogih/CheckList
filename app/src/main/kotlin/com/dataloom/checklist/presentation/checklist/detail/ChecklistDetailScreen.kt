@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
@@ -98,7 +99,38 @@ fun ChecklistDetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
-    val onAction = viewModel::onAction
+    val onAction = remember(viewModel) { viewModel::onAction }
+
+    // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
+    TransferEffects(transferViewModel, snackbarHostState)
+    val transferState by transferViewModel.state.collectAsStateWithLifecycle()
+    // Recomputed only when the sections change, not on every recomposition (rename dialog, snackbar...).
+    val customUnitLabels = remember(state.sections) {
+        state.sections
+            .flatMap { section -> section.items.mapNotNull { it.unit } }
+            .filter { it.customLabel != null }
+            .associate { it.code to it.customLabel.orEmpty() }
+    }
+    val unitLabels = rememberUnitLabels(customUnitLabels)
+    val id = remember(checklistId) { ChecklistId(checklistId) }
+    val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
+        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+    }
+    // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
+    val pdfActions = listOf(
+        MenuAction(stringResource(R.string.detail_share_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SHARE))
+        },
+        MenuAction(stringResource(R.string.detail_save_pdf), enabled = !transferState.busy) {
+            onAction(ChecklistDetailAction.ExportPdf(PdfExport.SAVE))
+        },
+    )
+    val exportPdf by rememberUpdatedState { export: PdfExport ->
+        when (export) {
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
+            PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
+        }
+    }
 
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
     TransferEffects(transferViewModel, snackbarHostState)
@@ -204,16 +236,22 @@ private fun DetailContent(
             contentPadding = PaddingValues(bottom = 24.dp),
         ) {
             if (!state.isLoading) {
-                item { ProgressHeader(state) }
+                item(key = "progress", contentType = "progress") { ProgressHeader(state) }
+            }
+            // Only while the assistant is on in Settings; the screen works the same without it.
+            if (!state.isLoading && aiState.isAvailable) {
+                item(key = "ai-command", contentType = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             // Only while the assistant is on in Settings; the screen works the same without it.
             if (!state.isLoading && aiState.isAvailable) {
                 item(key = "ai-command") { AiCommandPanel(aiState, onAiAction) }
             }
             state.sections.forEach { section ->
-                item(key = "header-${section.id.value}") { SectionHeader(section, onAction) }
+                item(key = "header-${section.id.value}", contentType = "section-header") {
+                    SectionHeader(section, onAction)
+                }
                 if (section.items.isEmpty()) {
-                    item(key = "empty-${section.id.value}") {
+                    item(key = "empty-${section.id.value}", contentType = "section-empty") {
                         Text(
                             stringResource(R.string.detail_section_empty),
                             style = MaterialTheme.typography.bodyMedium,
@@ -222,20 +260,22 @@ private fun DetailContent(
                         )
                     }
                 }
-                items(section.items, key = { it.id.value }) { item ->
+                items(section.items, key = { it.id.value }, contentType = { "item" }) { item ->
                     ItemRow(
                         item = item,
                         onAction = onAction,
                         onEdit = { navigation.onEditItem(section.id, item.id) },
                     )
                 }
-                item(key = "add-${section.id.value}") {
+                item(key = "add-${section.id.value}", contentType = "add-item") {
                     AddItemButton(section.name) { navigation.onAddItem(section.id) }
                     HorizontalDivider()
                 }
             }
             if (!state.isLoading) {
-                item { AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories) }
+                item(key = "footer", contentType = "footer") {
+                    AddCategoriesFooter(state.sections.isEmpty(), navigation.onAddCategories)
+                }
             }
         }
     }
@@ -259,7 +299,8 @@ private fun DetailContent(
             value = dialog.title,
             errorText = dialog.error?.asString(),
             confirmLabel = stringResource(R.string.action_save),
-            enabled = !dialog.isSaving,
+            enabled = dialog.canConfirm,
+            maxLength = FieldLimits.TITLE_MAX,
             onValueChange = { onAction(ChecklistDetailAction.RenameChanged(it)) },
             onConfirm = { onAction(ChecklistDetailAction.ConfirmRename) },
             onDismiss = { onAction(ChecklistDetailAction.DismissRename) },

@@ -92,47 +92,7 @@ fun ItemRow(
                     color = if (checked) colors.onSurfaceVariant else colors.onSurface,
                     textDecoration = if (checked) TextDecoration.LineThrough else null,
                 )
-                if (unitText != null || checked) {
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                        itemVerticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        if (unitText != null) UnitChip(unitText, done = checked)
-                        if (checked && completedLabel.isNotEmpty()) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(3.dp),
-                            ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_task_alt),
-                                    contentDescription = null,
-                                    tint = colors.primary,
-                                    modifier = Modifier.size(18.dp),
-                                )
-                                Text(
-                                    text = completedLabel,
-                                    style = CheckListText.unitChip,
-                                    color = colors.primary,
-                                )
-                            }
-                        }
-                    }
-                }
-                if (note != null) {
-                    Row(
-                        verticalAlignment = Alignment.Top,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_sticky_note),
-                            contentDescription = null,
-                            tint = colors.onSurfaceVariant,
-                            modifier = Modifier.padding(top = 3.dp).size(18.dp),
-                        )
-                        Text(note, style = MaterialTheme.typography.bodyMedium, color = colors.onSurfaceVariant)
-                    }
-                }
+                ItemRowDetails(unitText, checked, completedLabel, note)
             }
             if (trailingThumbnail != null) trailingThumbnail()
         }
@@ -143,11 +103,70 @@ fun ItemRow(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ItemRowDetails(
+    unitText: String?,
+    checked: Boolean,
+    completedLabel: String,
+    note: String?,
+) {
+    val colors = MaterialTheme.colorScheme
+    if (unitText != null || checked) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            itemVerticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (unitText != null) UnitChip(unitText, done = checked)
+            if (checked && completedLabel.isNotEmpty()) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(3.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_task_alt),
+                        contentDescription = null,
+                        tint = colors.primary,
+                        modifier = Modifier.size(18.dp),
+                    )
+                    Text(
+                        text = completedLabel,
+                        style = CheckListText.unitChip,
+                        color = colors.primary,
+                    )
+                }
+            }
+        }
+    }
+    if (note != null) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_sticky_note),
+                contentDescription = null,
+                tint = colors.onSurfaceVariant,
+                modifier = Modifier.padding(top = 3.dp).size(18.dp),
+            )
+            Text(note, style = MaterialTheme.typography.bodyMedium, color = colors.onSurfaceVariant)
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun ItemRowPreview() {
     PreviewSurface {
-        ItemRow(name = "Rice", checked = false, onCheckedChange = {}, unitText = "5 KG", completedLabel = "Completed", menu = { PreviewMenu("Rice") })
+        ItemRow(
+            name = "Rice",
+            checked = false,
+            onCheckedChange = {},
+            unitText = "5 KG",
+            completedLabel = "Completed",
+            menu = { PreviewMenu("Rice") },
+        )
         ItemRow(
             name = "Sugar",
             checked = true,

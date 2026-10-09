@@ -59,7 +59,11 @@ class ComponentSemanticsTest {
                     unitText = "5 KG",
                     completedLabel = "Completed",
                     accessibilityLabel = "Rice, 5 kilograms, not completed",
-                    menu = { AppIconButton(androidx.compose.ui.res.painterResource(com.dataloom.checklist.R.drawable.ic_more_vert), "More options for Rice", { menuTaps++ }) },
+                    menu = { AppIconButton(
+                        androidx.compose.ui.res.painterResource(com.dataloom.checklist.R.drawable.ic_more_vert),
+                        "More options for Rice",
+                        { menuTaps++ },
+                    ) },
                 )
             }
         }
@@ -75,7 +79,13 @@ class ComponentSemanticsTest {
     fun `ticked item row shows the completed label`() {
         compose.setContent {
             PreviewSurface {
-                ItemRow(name = "Sugar", checked = true, onCheckedChange = {}, unitText = "2 KG", completedLabel = "Completed")
+                ItemRow(
+                    name = "Sugar",
+                    checked = true,
+                    onCheckedChange = {},
+                    unitText = "2 KG",
+                    completedLabel = "Completed",
+                )
             }
         }
         compose.onNodeWithText("Completed", substring = true, useUnmergedTree = true).assertExists()
@@ -154,7 +164,11 @@ class ComponentSemanticsTest {
         var taps = 0
         compose.setContent {
             PreviewSurface {
-                AppIconButton(androidx.compose.ui.res.painterResource(com.dataloom.checklist.R.drawable.ic_share), "Share", { taps++ })
+                AppIconButton(
+                    androidx.compose.ui.res.painterResource(com.dataloom.checklist.R.drawable.ic_share),
+                    "Share",
+                    { taps++ },
+                )
             }
         }
         compose.onNode(hasContentDescription("Share")).assertIsEnabled().performClick()

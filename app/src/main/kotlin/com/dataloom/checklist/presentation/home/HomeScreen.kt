@@ -165,13 +165,16 @@ private fun HomeContent(
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                item { SearchField(state.search, onAction) }
-                item { FilterAndSort(state.filter, state.sort, onAction) }
-                greeting?.let { item { GreetingCard(it) } }
-                if (!state.isLoading && state.checklists.isEmpty()) {
-                    item { EmptyResults(state) }
+                // Stable keys: the greeting card appearing must not shift the search field's identity.
+                item(key = "search", contentType = "search") { SearchField(state.search, onAction) }
+                item(key = "filter-sort", contentType = "filter-sort") {
+                    FilterAndSort(state.filter, state.sort, onAction)
                 }
-                items(state.checklists, key = { it.id.value }) { row ->
+                greeting?.let { item(key = "greeting", contentType = "greeting") { GreetingCard(it) } }
+                if (!state.isLoading && state.checklists.isEmpty()) {
+                    item(key = "empty", contentType = "empty") { EmptyResults(state) }
+                }
+                items(state.checklists, key = { it.id.value }, contentType = { "checklist" }) { row ->
                     ChecklistCard(row, onAction, onOpen = { onOpenChecklist(row.id) })
                 }
             }

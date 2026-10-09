@@ -193,6 +193,11 @@ private fun ChipsPreview() {
             UnitChip("5 KG")
             UnitChip("2 KG", done = true)
         }
-        SegmentedChoice(listOf("Active", "Archived"), selectedIndex = 0, onSelect = {}, modifier = Modifier.padding(top = 12.dp))
+        SegmentedChoice(
+            listOf("Active", "Archived"),
+            selectedIndex = 0,
+            onSelect = {},
+            modifier = Modifier.padding(top = 12.dp),
+        )
     }
 }

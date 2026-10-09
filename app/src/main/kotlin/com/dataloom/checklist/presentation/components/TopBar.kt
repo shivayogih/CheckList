@@ -112,7 +112,10 @@ fun TopBarCloseButton(contentDescription: String, onClick: () -> Unit, modifier:
     TopBarIconButton(painterResource(R.drawable.ic_close), contentDescription, onClick, modifier)
 }
 
-/** A text action such as "Save" at the end of the bar; keep text only where an icon would be ambiguous: 18 sp SemiBold in the primary colour, 48 dp tall. */
+/**
+ * A text action such as "Save" at the end of the bar; keep text only where an icon would be ambiguous.
+ * 18 sp SemiBold in the primary colour, 48 dp tall.
+ */
 @Composable
 fun TopBarTextAction(
     text: String,

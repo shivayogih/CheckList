@@ -110,7 +110,10 @@ internal fun ConfirmDialogContent(
     }
 }
 
-/** A one-field form in a dialog (rename a checklist, create a category). [errorText] shows under the field. */
+/**
+ * A one-field form in a dialog (rename a checklist, create a category). [errorText] shows under the field;
+ * [enabled] is the confirm button (false while the value would be refused); [maxLength] adds a counter.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextInputDialog(
@@ -123,6 +126,7 @@ fun TextInputDialog(
     onValueChange: (String) -> Unit,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
+    maxLength: Int? = null,
     extraContent: @Composable () -> Unit = {},
 ) {
     BasicAlertDialog(onDismissRequest = onDismiss) {
@@ -139,6 +143,7 @@ fun TextInputDialog(
                     value = value,
                     onValueChange = onValueChange,
                     errorText = errorText,
+                    maxLength = maxLength,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences,
                         imeAction = ImeAction.Done,

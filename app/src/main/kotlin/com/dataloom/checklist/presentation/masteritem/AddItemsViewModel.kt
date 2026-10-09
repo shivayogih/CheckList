@@ -1,13 +1,12 @@
 package com.dataloom.checklist.presentation.masteritem
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.MasterItem
 import com.dataloom.checklist.domain.model.MasterItemId
-import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
@@ -18,8 +17,13 @@ import com.dataloom.checklist.domain.usecase.MasterItemSelection
 import com.dataloom.checklist.domain.usecase.ObserveChecklistDetailUseCase
 import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
 import com.dataloom.checklist.domain.usecase.SearchMasterItemsUseCase
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
+import com.dataloom.checklist.domain.validation.QuantityInput
+import com.dataloom.checklist.domain.validation.QuantityParse
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.quantityFieldError
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -68,6 +72,9 @@ data class AddItemsUiState(
 ) {
     val selectedCount: Int get() = rows.count { it.selected }
 
+    /** "Add selected" is offered when something is picked and no picked amount is unreadable (CL-280). */
+    val canAddSelected: Boolean get() = !isSaving && selectedCount > 0 && rows.none { it.selected && it.error != null }
+
     /** Offer "Create new item" when the typed name is not an exact suggestion (journey J2). */
     val canCreateCustom: Boolean
         get() = query.isNotBlank() && rows.none { it.name.equals(query.trim(), ignoreCase = true) }
@@ -108,6 +115,7 @@ class AddItemsViewModel @AssistedInject constructor(
     private val searchMasterItems: SearchMasterItemsUseCase,
     private val addMasterItems: AddMasterItemsToSectionUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -119,8 +127,10 @@ class AddItemsViewModel @AssistedInject constructor(
 
     private val checklist = ChecklistId(checklistId)
     private val section = SectionId(sectionId)
-    private val query = MutableStateFlow("")
-    private val allCategories = MutableStateFlow(false)
+    // The search text and the "all categories" switch survive process death. The picked rows (with their
+    // amounts) are rebuilt from search results and stay in memory only: they hold full catalog items.
+    private val query = MutableStateFlow(savedState.get<String>(KEY_QUERY).orEmpty())
+    private val allCategories = MutableStateFlow(savedState.get<Boolean>(KEY_ALL_CATEGORIES) ?: false)
     private val drafts = MutableStateFlow<Map<MasterItemId, Draft>>(linkedMapOf())
     private val isSaving = MutableStateFlow(false)
     private val effects = Channel<AddItemsEffect>(Channel.BUFFERED)
@@ -174,11 +184,24 @@ class AddItemsViewModel @AssistedInject constructor(
 
     fun onAction(action: AddItemsAction) {
         when (action) {
-            is AddItemsAction.QueryChanged -> query.value = action.query
-            is AddItemsAction.AllCategoriesChanged -> allCategories.value = action.enabled
+            is AddItemsAction.QueryChanged -> {
+                val text = InputText.forTyping(action.query, FieldLimits.SEARCH_MAX)
+                query.value = text
+                savedState[KEY_QUERY] = text
+            }
+            is AddItemsAction.AllCategoriesChanged -> {
+                allCategories.value = action.enabled
+                savedState[KEY_ALL_CATEGORIES] = action.enabled
+            }
             is AddItemsAction.ToggleItem -> toggle(action.id)
-            is AddItemsAction.QuantityChanged -> editDraft(action.id) { it.copy(quantityText = action.text, error = null) }
-            is AddItemsAction.UnitChanged -> editDraft(action.id) { it.copy(unit = action.unit, error = null) }
+            is AddItemsAction.QuantityChanged -> {
+                // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
+                val text = QuantityInput.sanitize(action.text)
+                editDraft(action.id) { it.copy(quantityText = text, error = quantityFieldError(text)) }
+            }
+            is AddItemsAction.UnitChanged -> editDraft(action.id) {
+                it.copy(unit = action.unit, error = quantityFieldError(it.quantityText))
+            }
             AddItemsAction.AddSelected -> addSelected()
         }
     }
@@ -204,17 +227,19 @@ class AddItemsViewModel @AssistedInject constructor(
         val picks = drafts.value.values.toList()
         if (picks.isEmpty()) return
 
-        val parsed = picks.associate { draft -> draft.item.id to draft.quantityText.trim().takeIf { it.isNotEmpty() }?.let { Quantity.parse(it) } }
-        val unreadable = picks.filter { it.quantityText.isNotBlank() && parsed[it.item.id] == null }.map { it.item.id }.toSet()
+        val parsed = picks.associate { draft -> draft.item.id to QuantityInput.parse(draft.quantityText) }
+        val unreadable = picks.filter { parsed[it.item.id] is QuantityParse.Invalid }.map { it.item.id }.toSet()
         if (unreadable.isNotEmpty()) {
             drafts.update { current ->
-                current.mapValues { (id, draft) -> if (id in unreadable) draft.copy(error = UiText(R.string.error_quantity_invalid)) else draft }
+                current.mapValues { (id, draft) ->
+                    if (id in unreadable) draft.copy(error = quantityFieldError(draft.quantityText)) else draft
+                }
             }
             return
         }
 
         val selections = picks.map { draft ->
-            val quantity = parsed[draft.item.id]
+            val quantity = (parsed[draft.item.id] as? QuantityParse.Valid)?.quantity
             MasterItemSelection(draft.item, quantity, unit = draft.unit.takeIf { quantity != null })
         }
         isSaving.value = true
@@ -242,8 +267,10 @@ class AddItemsViewModel @AssistedInject constructor(
 
     private fun Draft.toRow() = MasterItemRowUi(item.id, item.displayName, selected = true, quantityText, unit, error)
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
         const val SEARCH_DEBOUNCE_MS = 150L
+        const val KEY_QUERY = "add_items_query"
+        const val KEY_ALL_CATEGORIES = "add_items_all_categories"
     }
 }

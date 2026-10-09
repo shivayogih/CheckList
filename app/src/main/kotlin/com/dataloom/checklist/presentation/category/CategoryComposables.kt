@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.CategoryId
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.components.CheckRow
 import com.dataloom.checklist.presentation.components.TextInputDialog
@@ -58,7 +59,8 @@ fun NewCategoryDialog(
         value = state.name,
         errorText = state.error?.asString(),
         confirmLabel = stringResource(R.string.action_create),
-        enabled = !state.isSaving,
+        enabled = state.canConfirm,
+        maxLength = FieldLimits.CATEGORY_NAME_MAX,
         onValueChange = onNameChange,
         onConfirm = onConfirm,
         onDismiss = onDismiss,

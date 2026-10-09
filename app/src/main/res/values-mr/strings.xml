@@ -9,6 +9,7 @@
     <string name="settings_language">भाषा</string>
     <string name="settings_language_system">सिस्टम डीफॉल्ट</string>
     <string name="settings_about">माहिती</string>
+    <string name="app_logo_description">चेकलिस्ट लोगो</string>
     <string name="settings_version">आवृत्ती %1$s</string>
     <string name="navigate_back">मागे</string>
     <string name="language_title">भाषा निवडा</string>
@@ -89,6 +90,10 @@
     <string name="error_not_found">हे आता अस्तित्वात नाही. कदाचित ते हटवले गेले आहे.</string>
     <string name="error_quantity_invalid">2 किंवा 2.5 सारखी संख्या लिहा (99999 पर्यंत).</string>
     <string name="error_quantity_whole">या एककासाठी 2 सारखी पूर्ण संख्या हवी.</string>
+    <string name="error_quantity_not_number">फक्त अंक वापरा, उदा. 2 किंवा 2.5.</string>
+    <string name="error_quantity_not_positive">प्रमाण शून्यापेक्षा जास्त असले पाहिजे.</string>
+    <string name="error_quantity_too_precise">जास्तीत जास्त 3 दशांश स्थाने वापरा, उदा. 2.125.</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">यादीचे नाव लिहा.</string>
     <string name="error_too_long">जास्तीत जास्त %1$d अक्षरे वापरा.</string>
     <string name="error_unit_label_blank">एककाचे नाव लिहा.</string>

@@ -12,6 +12,12 @@ import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.testing.FakeProfileRepository
 import com.dataloom.checklist.testing.MainDispatcherRule
+import com.dataloom.checklist.testing.keepCollecting
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -20,6 +26,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModelTest {
 
     @get:Rule
@@ -27,12 +34,40 @@ class ProfileViewModelTest {
 
     private val repo = FakeProfileRepository()
 
-    private fun viewModel() = ProfileViewModel(
-        observeProfile = ObserveProfileUseCase(repo),
-        saveProfile = SaveProfileUseCase(repo),
-        clearProfile = ClearProfileUseCase(repo),
-        acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
-    )
+    /** The screen is on show for the whole test, so the (lifecycle-bound) store observation runs. */
+    private fun TestScope.viewModel(): ProfileViewModel {
+        val vm = ProfileViewModel(
+            observeProfile = ObserveProfileUseCase(repo),
+            saveProfile = SaveProfileUseCase(repo),
+            clearProfile = ClearProfileUseCase(repo),
+            acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
+        )
+        keepCollecting(vm.uiState)
+        return vm
+    }
+
+    @Test
+    fun `the store is not observed while no screen shows the profile, and typed text survives a pause`() = runTest {
+        val vm = ProfileViewModel(
+            observeProfile = ObserveProfileUseCase(repo),
+            saveProfile = SaveProfileUseCase(repo),
+            clearProfile = ClearProfileUseCase(repo),
+            acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
+        )
+        assertEquals(0, repo.state.subscriptionCount.value)
+
+        val screen = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} }
+        assertEquals(1, repo.state.subscriptionCount.value)
+        vm.onAction(ProfileAction.NameChanged("Asha"))
+
+        // Rotation: the screen collects again within the grace period; a long pause stops the observation.
+        screen.cancel()
+        advanceTimeBy(5_001)
+        assertEquals(0, repo.state.subscriptionCount.value)
+
+        keepCollecting(vm.uiState)
+        assertEquals("Asha", vm.uiState.value.name)
+    }
 
     @Test
     fun `a stored profile fills the form`() = runTest {
@@ -191,5 +226,53 @@ class ProfileViewModelTest {
         assertEquals("", vm.uiState.value.name)
         assertEquals("", vm.uiState.value.phone)
         assertFalse(vm.uiState.value.showClearConfirm)
+    }
+
+    // CL-280: keyboard filters, live errors and the enabled state of Save.
+
+    @Test
+    fun `phone letters and symbols cannot be typed and Indic digits become ASCII`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.PhoneChanged("98a7#6*"))
+        assertEquals("9876", vm.uiState.value.phone)
+        vm.onAction(ProfileAction.PhoneChanged("+\u096F\u096E 98-ab"))
+        assertEquals("+98 98-", vm.uiState.value.phone)
+        vm.onAction(ProfileAction.PhoneChanged("9".repeat(80)))
+        assertEquals(FieldLimits.PHONE_MAX, vm.uiState.value.phone.length)
+    }
+
+    @Test
+    fun `email spaces and control characters are removed as they are typed`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.EmailChanged(" a sha@exa\u200Bmple.com\n"))
+        assertEquals("asha@example.com", vm.uiState.value.email)
+        assertNull(vm.uiState.value.emailError)
+    }
+
+    @Test
+    fun `an invalid value is flagged while typing and Save is disabled until it is fixed`() = runTest {
+        val vm = viewModel()
+        assertTrue(vm.uiState.value.canSave) // every field is optional, an empty form is valid
+
+        vm.onAction(ProfileAction.EmailChanged("not-an-email"))
+        assertEquals(UiText(R.string.error_email_invalid), vm.uiState.value.emailError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ProfileAction.PhoneChanged("12"))
+        val digits = listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)
+        assertEquals(UiText(R.string.error_phone_invalid, digits), vm.uiState.value.phoneError)
+
+        vm.onAction(ProfileAction.EmailChanged("asha@example.com"))
+        vm.onAction(ProfileAction.PhoneChanged("98450 12345"))
+        assertTrue(vm.uiState.value.canSave)
+    }
+
+    @Test
+    fun `a name of only spaces or invisible characters is treated as empty`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.NameChanged("   \u200B  "))
+        assertNull(vm.uiState.value.nameError)
+        vm.onAction(ProfileAction.Save)
+        assertEquals(null, (repo.state.value as? ProfileState.Available)?.profile?.displayName)
     }
 }
