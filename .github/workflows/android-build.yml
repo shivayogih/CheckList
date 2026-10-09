@@ -66,7 +66,7 @@ jobs:
       # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
       - name: Record screenshots
         if: always()
-        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' -Proborazzi.test.record=true
+        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' --tests '*ItemPhotosScreenshotTest*' --tests '*PdfPhotosPageScreenshotTest*' -Proborazzi.test.record=true
 
       - name: Upload screenshots
         if: always()

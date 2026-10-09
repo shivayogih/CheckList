@@ -19,7 +19,10 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -33,6 +36,7 @@ import com.dataloom.checklist.localization.AppLocales
 import com.dataloom.checklist.presentation.components.AppLogo
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
+import com.dataloom.checklist.presentation.transfer.ExportOptionsDialog
 import com.dataloom.checklist.presentation.transfer.ImportPreviewDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
 import com.dataloom.checklist.transfer.TransferDocuments
@@ -56,8 +60,12 @@ fun SettingsScreen(
     val aiState by aiSettingsViewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     TransferEffects(transferViewModel, snackbarHostState)
+    var showExportOptions by rememberSaveable { mutableStateOf(false) }
     val exportLauncher = rememberLauncherForActivityResult(TransferDocuments.createJson()) { uri ->
         if (uri != null) transferViewModel.exportTo(uri)
+    }
+    val exportZipLauncher = rememberLauncherForActivityResult(TransferDocuments.createZip()) { uri ->
+        if (uri != null) transferViewModel.exportTo(uri, includePhotos = true)
     }
     val importLauncher = rememberLauncherForActivityResult(TransferDocuments.openDocument()) { uri ->
         if (uri != null) transferViewModel.previewImport(uri)
@@ -101,7 +109,7 @@ fun SettingsScreen(
                     .clickable(
                         enabled = !transferState.busy,
                         role = Role.Button,
-                        onClick = { exportLauncher.launch(TransferDocuments.exportFileName()) },
+                        onClick = { showExportOptions = true },
                     ),
             )
             ListItem(
@@ -114,6 +122,12 @@ fun SettingsScreen(
                         role = Role.Button,
                         onClick = { importLauncher.launch(TransferDocuments.OPEN_MIME_TYPES) },
                     ),
+            )
+            // Where item photos live and when they leave the phone (CL-215).
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_privacy_photos_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_privacy_photos_body)) },
+                modifier = Modifier.heightIn(min = 64.dp),
             )
             HorizontalDivider()
             SwitchRow(
@@ -145,6 +159,20 @@ fun SettingsScreen(
                     .clickable(role = Role.Button, onClick = onShowTutorial),
             )
         }
+    }
+
+    if (showExportOptions) {
+        ExportOptionsDialog(
+            onExport = { includePhotos ->
+                showExportOptions = false
+                if (includePhotos) {
+                    exportZipLauncher.launch(TransferDocuments.exportZipFileName())
+                } else {
+                    exportLauncher.launch(TransferDocuments.exportFileName())
+                }
+            },
+            onDismiss = { showExportOptions = false },
+        )
     }
 
     transferState.preview?.let { preview ->

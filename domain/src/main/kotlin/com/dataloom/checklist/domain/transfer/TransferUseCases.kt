@@ -10,10 +10,25 @@ import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.ChecklistQuery
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.model.ItemPhoto
+import com.dataloom.checklist.domain.photo.ImageSource
+import com.dataloom.checklist.domain.photo.NoPhotoStore
+import com.dataloom.checklist.domain.photo.PhotoStore
+import com.dataloom.checklist.domain.photo.StagePhotoResult
+import com.dataloom.checklist.domain.photo.StagedPhoto
+import com.dataloom.checklist.domain.repository.NoPhotoRepository
+import com.dataloom.checklist.domain.repository.PhotoRepository
 import com.dataloom.checklist.domain.repository.CatalogRepository
 import com.dataloom.checklist.domain.repository.ChecklistRepository
+import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FilterOutputStream
 import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.first
@@ -30,6 +45,11 @@ data class ExportRequest(
     val checklistIds: List<ChecklistId>? = null,
     val locale: String,
     val appVersion: String,
+    /**
+     * Write a zip archive with `checklists.json` (formatVersion 2) and the item photos instead of
+     * the plain JSON file. Photos whose file is missing or over the per-photo limit are left out.
+     */
+    val includePhotos: Boolean = false,
 )
 
 /**
@@ -44,6 +64,7 @@ class ExportChecklistsUseCase @Inject constructor(
     private val clock: Clock,
     @param:IoDispatcher private val io: CoroutineDispatcher,
     @param:DefaultDispatcher private val default: CoroutineDispatcher,
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) {
     suspend operator fun invoke(request: ExportRequest, sink: ExportSink): ExportResult {
         val details = loadDetails(request)
@@ -54,13 +75,81 @@ class ExportChecklistsUseCase @Inject constructor(
         }
         if (itemCount > TransferLimits.MAX_ITEMS) return ExportResult.TooLarge(TransferLimit.ITEMS, TransferLimits.MAX_ITEMS.toLong())
 
+        val photos = if (request.includePhotos) PhotoCollector(photoStore) else null
         // Building and encoding a large export is CPU work: keep it off the caller's (often main) thread.
-        val bytes = withContext(default) { codec.encode(buildDocument(details, request)) }
+        val bytes = withContext(default) { codec.encode(buildDocument(details, request, photos)) }
         if (bytes.size > TransferLimits.MAX_FILE_BYTES) {
             return ExportResult.TooLarge(TransferLimit.FILE_SIZE, TransferLimits.MAX_FILE_BYTES)
         }
-        withContext(io) { sink.openStream().use { it.write(bytes) } }
-        return ExportResult.Exported(details.size, itemCount, bytes.size)
+        if (photos == null) {
+            withContext(io) { sink.openStream().use { it.write(bytes) } }
+            return ExportResult.Exported(details.size, itemCount, bytes.size)
+        }
+        if (photos.entries.size > TransferLimits.MAX_ARCHIVE_ENTRIES - 1) {
+            return ExportResult.TooLarge(TransferLimit.PHOTOS, (TransferLimits.MAX_ARCHIVE_ENTRIES - 1).toLong())
+        }
+        if (bytes.size + photos.totalBytes > TransferLimits.MAX_ARCHIVE_BYTES) {
+            return ExportResult.TooLarge(TransferLimit.ARCHIVE_SIZE, TransferLimits.MAX_ARCHIVE_BYTES)
+        }
+        val written = withContext(io) { writeArchive(sink, bytes, photos.entries) }
+        return ExportResult.Exported(details.size, itemCount, written, photos.entries.size, photos.skipped)
+    }
+
+    /** Streams the zip to the sink; photos are copied one at a time, never held in memory together. */
+    private fun writeArchive(sink: ExportSink, json: ByteArray, photos: List<ExportedPhoto>): Int {
+        val counter = CountingOutputStream(sink.openStream())
+        val time = clock.nowMillis()
+        ZipOutputStream(counter).use { zip ->
+            zip.putNextEntry(ZipEntry(TransferFormat.ARCHIVE_JSON_ENTRY).also { it.time = time })
+            zip.write(json)
+            zip.closeEntry()
+            photos.forEach { photo ->
+                zip.putNextEntry(ZipEntry(photo.entryName).also { it.time = time })
+                val input = photoStore.open(photo.fileName) ?: throw IOException("Photo file disappeared during export")
+                input.use { it.copyTo(zip) }
+                zip.closeEntry()
+            }
+        }
+        return counter.count.coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+    }
+
+    private class CountingOutputStream(out: OutputStream) : FilterOutputStream(out) {
+        var count = 0L
+            private set
+
+        override fun write(b: Int) {
+            out.write(b)
+            count++
+        }
+
+        override fun write(b: ByteArray, off: Int, len: Int) {
+            out.write(b, off, len)
+            count += len
+        }
+    }
+
+    internal class ExportedPhoto(val entryName: String, val fileName: String)
+
+    /** Decides which photos travel: those with an intact file within the per-photo limit. */
+    internal class PhotoCollector(private val store: PhotoStore) {
+        val entries = ArrayList<ExportedPhoto>()
+        var totalBytes = 0L
+            private set
+        var skipped = 0
+            private set
+
+        suspend fun add(photo: ItemPhoto): TransferPhoto? {
+            val size = store.byteSize(photo.fileName) ?: -1L
+            if (size <= 0 || size > TransferLimits.MAX_PHOTO_BYTES) {
+                skipped++
+                return null
+            }
+            val number = entries.size + 1
+            val entryName = "${TransferFormat.ARCHIVE_PHOTO_DIRECTORY}p$number.jpg"
+            entries += ExportedPhoto(entryName, photo.fileName)
+            totalBytes += size
+            return TransferPhoto(ref = "p$number", file = entryName, caption = photo.caption)
+        }
     }
 
     private suspend fun loadDetails(request: ExportRequest): List<ChecklistDetail> {
@@ -69,7 +158,19 @@ class ExportChecklistsUseCase @Inject constructor(
         return ids.mapNotNull { checklists.observeChecklist(it, request.locale).first() }
     }
 
-    internal suspend fun buildDocument(details: List<ChecklistDetail>, request: ExportRequest): TransferDocument {
+    private fun metadata(request: ExportRequest) = TransferMetadata(
+        app = TransferFormat.APP_NAME,
+        appVersion = request.appVersion,
+        exportedAt = TransferText.timestamp(clock.nowMillis()),
+        locale = request.locale,
+        includesProfile = false,
+    )
+
+    internal suspend fun buildDocument(
+        details: List<ChecklistDetail>,
+        request: ExportRequest,
+        photos: PhotoCollector? = null,
+    ): TransferDocument {
         val categoryRefs = LinkedHashMap<String, TransferCategory>()
         val unitRefs = LinkedHashMap<UnitCode, TransferUnit>()
         val items = ArrayList<TransferItem>()
@@ -111,6 +212,7 @@ class ExportChecklistsUseCase @Inject constructor(
                         notes = item.notes,
                         completed = item.isCompleted,
                         position = position,
+                        photos = if (photos == null) emptyList() else item.photos.mapNotNull { photos.add(it) },
                     )
                 }
                 TransferSection(sectionRef, categoryRef, order = sectionIndex)
@@ -125,15 +227,9 @@ class ExportChecklistsUseCase @Inject constructor(
             )
         }
         return TransferDocument(
-            formatVersion = TransferFormat.FORMAT_VERSION,
+            formatVersion = if (photos != null) TransferFormat.FORMAT_VERSION else TransferFormat.JSON_FORMAT_VERSION,
             schemaVersion = TransferFormat.SCHEMA_VERSION,
-            metadata = TransferMetadata(
-                app = TransferFormat.APP_NAME,
-                appVersion = request.appVersion,
-                exportedAt = TransferText.timestamp(clock.nowMillis()),
-                locale = request.locale,
-                includesProfile = false,
-            ),
+            metadata = metadata(request),
             units = unitRefs.values.toList(),
             categories = categoryRefs.values.toList(),
             checklists = exported,
@@ -146,7 +242,9 @@ class ExportChecklistsUseCase @Inject constructor(
 /**
  * Reads, parses and validates a picked file and matches it against the database, without
  * writing anything (section 20.2). The result is either a preview for the confirmation screen or
- * a typed rejection.
+ * a typed rejection. The file is either plain JSON (at most 10 MB) or a photo archive (a zip,
+ * recognised by its first bytes, at most 100 MB); an archive's photos wait in a scratch directory
+ * until [ApplyImportUseCase] runs or [ValidatedImport.discard] is called.
  */
 class PreviewImportUseCase @Inject constructor(
     private val checklists: ChecklistRepository,
@@ -154,66 +252,83 @@ class PreviewImportUseCase @Inject constructor(
     private val codec: TransferCodec,
     @param:IoDispatcher private val io: CoroutineDispatcher,
     @param:DefaultDispatcher private val default: CoroutineDispatcher,
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) {
-    suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult {
-        val bytes = when (val read = readBounded(source)) {
-            is ReadResult.Bytes -> read.bytes
-            is ReadResult.Failed -> return ImportPreviewResult.Rejected(read.rejection)
+    suspend operator fun invoke(source: ImportSource, locale: String): ImportPreviewResult =
+        when (val read = read(source)) {
+            is ReadResult.Failed -> ImportPreviewResult.Rejected(read.rejection)
+            is ReadResult.Json -> preview(read.bytes, null, locale)
+            is ReadResult.Archive -> preview(read.json, read.archive, locale)
         }
-        val document = when (val decoded = withContext(default) { codec.decode(bytes) }) {
-            is DecodeResult.Rejected -> return ImportPreviewResult.Rejected(decoded.rejection)
-            is DecodeResult.Decoded -> decoded.document
+
+    /** Anything but a ready preview removes the archive's scratch directory; a ready one keeps it for the import. */
+    private suspend fun preview(bytes: ByteArray, archive: ImportArchive?, locale: String): ImportPreviewResult {
+        val result = parse(bytes, archive, locale)
+        if (result !is ImportPreviewResult.Ready && archive != null) {
+            photoStore.deleteScratchDirectory(archive.directory)
         }
-        ImportValidator.validate(document)?.let { return ImportPreviewResult.Rejected(it) }
-        val validated = ValidatedImport(document)
+        return result
+    }
+
+    private suspend fun parse(bytes: ByteArray, archive: ImportArchive?, locale: String): ImportPreviewResult {
+        val decoded = withContext(default) { codec.decode(bytes) }
+        if (decoded is DecodeResult.Rejected) return ImportPreviewResult.Rejected(decoded.rejection)
+        val document = (decoded as DecodeResult.Decoded).document
+        val invalid = ImportValidator.validate(document, archive?.photos?.keys)
+        if (invalid != null) return ImportPreviewResult.Rejected(invalid)
 
         return when (val outcome = ImportPlanner(checklists, catalog).plan(document, locale)) {
             is ImportPlanner.Outcome.Rejected -> ImportPreviewResult.Rejected(outcome.rejection)
-            is ImportPlanner.Outcome.Planned -> {
-                val plan = outcome.plan
-                ImportPreviewResult.Ready(
-                    ImportPreview(
-                        checklistCount = plan.checklists.size,
-                        itemCount = plan.itemCount,
-                        completedItemCount = plan.completedItemCount,
-                        newCategories = plan.newCategories.map { it.name },
-                        matchedCategoryCount = plan.matchedCategoryCount,
-                        newUnits = plan.newUnits.map { it.label },
-                        matchedUnitCount = plan.matchedUnitCount,
-                        renamedChecklists = plan.renames,
-                        profileSkipped = document.profilePresent,
-                        sourceLocale = document.metadata.locale,
-                        exportedAt = document.metadata.exportedAt,
-                        validated = validated,
-                    ),
-                )
-            }
+            is ImportPlanner.Outcome.Planned -> ImportPreviewResult.Ready(
+                previewOf(document, outcome.plan, ValidatedImport(document, archive, photoStore)),
+            )
         }
     }
 
+    private fun previewOf(document: TransferDocument, plan: ImportPlan, validated: ValidatedImport) = ImportPreview(
+        checklistCount = plan.checklists.size,
+        itemCount = plan.itemCount,
+        completedItemCount = plan.completedItemCount,
+        newCategories = plan.newCategories.map { it.name },
+        matchedCategoryCount = plan.matchedCategoryCount,
+        newUnits = plan.newUnits.map { it.label },
+        matchedUnitCount = plan.matchedUnitCount,
+        renamedChecklists = plan.renames,
+        profileSkipped = document.profilePresent,
+        sourceLocale = document.metadata.locale,
+        exportedAt = document.metadata.exportedAt,
+        validated = validated,
+        photoCount = plan.photoCount,
+    )
+
     private sealed interface ReadResult {
-        class Bytes(val bytes: ByteArray) : ReadResult
+        class Json(val bytes: ByteArray) : ReadResult
+
+        class Archive(val json: ByteArray, val archive: ImportArchive) : ReadResult
 
         class Failed(val rejection: ImportRejection) : ReadResult
     }
 
-    /** Trusts neither the reported size nor the stream: reading stops one byte past the limit. */
-    private suspend fun readBounded(source: ImportSource): ReadResult = withContext(io) {
+    /**
+     * Trusts neither the reported size nor the stream: JSON reading stops one byte past its limit,
+     * and an archive is read by [ZipArchiveReader], which counts the bytes it really gets.
+     */
+    private suspend fun read(source: ImportSource): ReadResult = withContext(io) {
         val reported = source.sizeBytes
-        if (reported != null && reported > TransferLimits.MAX_FILE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
+        if (reported != null && reported > TransferLimits.MAX_ARCHIVE_BYTES) {
+            return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
+        }
         try {
-            source.openStream().use { input ->
-                val out = ByteArrayOutputStream()
-                val buffer = ByteArray(BUFFER_SIZE)
-                var total = 0L
-                while (true) {
-                    val read = input.read(buffer)
-                    if (read < 0) break
-                    total += read
-                    if (total > TransferLimits.MAX_FILE_BYTES) return@withContext ReadResult.Failed(ImportRejection.FileTooLarge)
-                    out.write(buffer, 0, read)
+            BufferedInputStream(source.openStream()).use { input ->
+                if (startsLikeZip(input)) {
+                    readArchive(input)
+                } else {
+                    if (reported != null && reported > TransferLimits.MAX_FILE_BYTES) {
+                        ReadResult.Failed(ImportRejection.FileTooLarge)
+                    } else {
+                        readJson(input)
+                    }
                 }
-                ReadResult.Bytes(out.toByteArray())
             }
         } catch (_: IOException) {
             ReadResult.Failed(ImportRejection.Unreadable)
@@ -222,8 +337,49 @@ class PreviewImportUseCase @Inject constructor(
         }
     }
 
+    private fun startsLikeZip(input: BufferedInputStream): Boolean {
+        input.mark(ZIP_SIGNATURE.size)
+        val head = ByteArray(ZIP_SIGNATURE.size)
+        var read = 0
+        while (read < head.size) {
+            val n = input.read(head, read, head.size - read)
+            if (n < 0) break
+            read += n
+        }
+        input.reset()
+        return read == head.size && head.contentEquals(ZIP_SIGNATURE)
+    }
+
+    private fun readJson(input: InputStream): ReadResult {
+        val out = ByteArrayOutputStream()
+        val buffer = ByteArray(BUFFER_SIZE)
+        var total = 0L
+        while (true) {
+            val read = input.read(buffer)
+            if (read < 0) break
+            total += read
+            if (total > TransferLimits.MAX_FILE_BYTES) return ReadResult.Failed(ImportRejection.FileTooLarge)
+            out.write(buffer, 0, read)
+        }
+        return ReadResult.Json(out.toByteArray())
+    }
+
+    private suspend fun readArchive(input: InputStream): ReadResult {
+        val scratch = photoStore.newScratchDirectory()
+        return when (val result = ZipArchiveReader.read(input, scratch)) {
+            is ArchiveReadResult.Read -> ReadResult.Archive(result.json, result.archive)
+            is ArchiveReadResult.Rejected -> {
+                photoStore.deleteScratchDirectory(scratch)
+                ReadResult.Failed(result.rejection)
+            }
+        }
+    }
+
     private companion object {
         const val BUFFER_SIZE = 64 * 1024
+
+        /** The letters P and K, then 0x03 0x04: the start of a zip file. */
+        val ZIP_SIGNATURE = byteArrayOf(0x50, 0x4B, 0x03, 0x04)
     }
 }
 
@@ -233,18 +389,39 @@ class PreviewImportUseCase @Inject constructor(
  * overwrites. Matching is redone against the current data first, so anything created since the
  * preview is reused rather than duplicated. If any write fails, the transaction rolls back and
  * nothing is imported.
+ *
+ * Photos of an archive are re-encoded into the store's staging area first (so even a hostile image
+ * ends up as a clean, resized JPEG without metadata), their rows are written inside the same
+ * transaction, and the staged files are moved into place only after the transaction committed. A
+ * failure discards the staged files. A photo that cannot be decoded is left out and counted in
+ * [ImportSummary.skippedPhotoCount]; the rest of the import goes ahead.
  */
 class ApplyImportUseCase @Inject constructor(
     private val checklists: ChecklistRepository,
     private val catalog: CatalogRepository,
     private val transactions: TransactionRunner,
+    private val photos: PhotoRepository = NoPhotoRepository,
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) {
     suspend operator fun invoke(validated: ValidatedImport, locale: String): ImportResult {
         val plan = when (val outcome = ImportPlanner(checklists, catalog).plan(validated.document, locale)) {
-            is ImportPlanner.Outcome.Rejected -> return ImportResult.Rejected(outcome.rejection)
+            is ImportPlanner.Outcome.Rejected -> {
+                validated.discard()
+                return ImportResult.Rejected(outcome.rejection)
+            }
             is ImportPlanner.Outcome.Planned -> outcome.plan
         }
-        val ids = transactions.inTransaction { write(plan) }
+        val staging = stagePhotos(plan, validated.archive)
+        val ids = try {
+            transactions.inTransaction { write(plan, staging) }
+        } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+            // Any failure, even cancellation, must not leave staged files behind. The raw photos
+            // stay in the scratch directory until the caller retries or dismisses.
+            staging.all.forEach { photoStore.discard(it.staged) }
+            throw e
+        }
+        staging.all.forEach { photoStore.commit(it.staged) }
+        validated.discard()
         return ImportResult.Imported(
             ImportSummary(
                 checklistIds = ids,
@@ -252,11 +429,43 @@ class ApplyImportUseCase @Inject constructor(
                 newCategoryCount = plan.newCategories.size,
                 newUnitCount = plan.newUnits.size,
                 renamedChecklists = plan.renames,
+                photoCount = staging.all.size,
+                skippedPhotoCount = staging.skipped,
             ),
         )
     }
 
-    private suspend fun write(plan: ImportPlan): List<ChecklistId> {
+    private class StagedImportPhoto(val staged: StagedPhoto, val caption: String?)
+
+    /** Keyed by identity: the same [PlannedItem] instances are used for staging and for writing. */
+    private class Staging(val byItem: Map<PlannedItem, List<StagedImportPhoto>>, val skipped: Int) {
+        val all: List<StagedImportPhoto> get() = byItem.values.flatten()
+    }
+
+    private suspend fun stagePhotos(plan: ImportPlan, archive: ImportArchive?): Staging {
+        val byItem = java.util.IdentityHashMap<PlannedItem, List<StagedImportPhoto>>()
+        var skipped = 0
+        val items = plan.checklists.flatMap { list -> list.sections.flatMap { it.items } }
+            .filter { it.photos.isNotEmpty() }
+        for (item in items) {
+            val staged = ArrayList<StagedImportPhoto>()
+            for (photo in item.photos) {
+                val file = archive?.photos?.get(photo.key)
+                val result = if (file == null) null else photoStore.stage(fileSource(file))
+                if (result is StagePhotoResult.Staged) {
+                    staged += StagedImportPhoto(result.staged, photo.caption)
+                } else {
+                    skipped++
+                }
+            }
+            if (staged.isNotEmpty()) byItem[item] = staged
+        }
+        return Staging(byItem, skipped)
+    }
+
+    private fun fileSource(file: File) = ImageSource { file.inputStream() }
+
+    private suspend fun write(plan: ImportPlan, staging: Staging): List<ChecklistId> {
         val unitCodes = plan.newUnits.map { catalog.createCustomUnit(it.label, it.allowsDecimal) }
         val categoryIds = plan.newCategories.map { catalog.createCategory(it.name, it.icon) }
         return plan.checklists.map { checklist ->
@@ -290,10 +499,17 @@ class ApplyImportUseCase @Inject constructor(
                     },
                 )
                 markCompleted(section.items.zip(itemIds).filter { it.first.completed }.map { it.second })
+                section.items.zip(itemIds).forEach { (item, itemId) -> writePhotos(itemId, staging.byItem[item]) }
             }
             if (checklist.archived) checklists.setArchived(id, archived = true)
             id
         }
+    }
+
+    private suspend fun writePhotos(itemId: ChecklistItemId, staged: List<StagedImportPhoto>?) {
+        if (staged.isNullOrEmpty()) return
+        val rows = photos.addPhotos(itemId, staged.map { it.staged.photo })
+        rows.zip(staged).forEach { (row, photo) -> photo.caption?.let { photos.setCaption(row.id, it) } }
     }
 
     private suspend fun markCompleted(ids: List<ChecklistItemId>) {

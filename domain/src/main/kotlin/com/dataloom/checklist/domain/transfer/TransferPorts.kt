@@ -71,9 +71,29 @@ object TransferLimits {
     const val MAX_LOCALE = 35
     const val MAX_ICON = 32
 
+    /** Photo archive (zip): bytes read, summed over all entries, never from header sizes. */
+    const val MAX_ARCHIVE_BYTES: Long = 100L * 1024 * 1024
+
+    /** One photo entry; exported photos are about 300 KB, so this is generous. */
+    const val MAX_PHOTO_BYTES: Long = 5L * 1024 * 1024
+
+    /** Entries in an archive: [checklists.json] plus photos. */
+    const val MAX_ARCHIVE_ENTRIES = 2_000
+
     /** At most this many issues are kept in a rejection; the total is still counted. */
     const val MAX_REPORTED_ISSUES = 50
 }
 
 /** Which limit a file broke. */
-enum class TransferLimit { FILE_SIZE, CHECKLISTS, ITEMS, CATEGORIES, UNITS, SECTIONS, TEXT_LENGTH }
+enum class TransferLimit {
+    FILE_SIZE,
+    CHECKLISTS,
+    ITEMS,
+    CATEGORIES,
+    UNITS,
+    SECTIONS,
+    TEXT_LENGTH,
+    ARCHIVE_SIZE,
+    PHOTO_SIZE,
+    PHOTOS,
+}

@@ -73,6 +73,8 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.room.runtime)
+    // EXIF orientation of picked photos (the image pipeline in data/photo).
+    implementation(libs.androidx.exifinterface)
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

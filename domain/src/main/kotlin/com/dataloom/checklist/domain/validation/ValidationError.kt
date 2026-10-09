@@ -1,7 +1,7 @@
 package com.dataloom.checklist.domain.validation
 
 /** The form field an error belongs to, so a screen can show the message under the right input. */
-enum class Field { TITLE, DESCRIPTION, ITEM_NAME, NOTES, QUANTITY, UNIT, CATEGORY_NAME, UNIT_LABEL, POSITION, DISPLAY_NAME, EMAIL, PHONE, ADDRESS }
+enum class Field { TITLE, DESCRIPTION, ITEM_NAME, NOTES, QUANTITY, UNIT, CATEGORY_NAME, UNIT_LABEL, POSITION, DISPLAY_NAME, EMAIL, PHONE, ADDRESS, CAPTION }
 
 /**
  * Typed validation failures. The domain never produces user-visible text: the UI maps each code to a
@@ -50,6 +50,9 @@ enum class ValidationError(val field: Field) {
 
     /** Characters other than digits, separators and a leading "+", too long, or not 7 to 15 digits. */
     PHONE_INVALID(Field.PHONE),
+
+    /** Photo caption over [com.dataloom.checklist.domain.photo.PhotoLimits.CAPTION_MAX] characters (CL-211). */
+    CAPTION_TOO_LONG(Field.CAPTION),
 
     /** Longer than [FieldLimits.ADDRESS_MAX] (CL-250). */
     ADDRESS_TOO_LONG(Field.ADDRESS),

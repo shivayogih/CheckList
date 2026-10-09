@@ -104,3 +104,14 @@ Deferred (needs a device or emulator): a `:baselineprofile` Macrobenchmark modul
 - `AddCategoriesViewModel` sends `ChecklistGone` from inside a `combine` transform (a side effect in a pure operator); move it to an `onEach` on the detail flow.
 - `HomeGreetingViewModel` and `HomeViewModel` both run the ACTIVE summaries query; share one flow if Home recomposition profiling shows it matters.
 - Hilt graph test, and macrobenchmark / baseline profile generation, when a device lab exists.
+
+## 9. Item photos (CL-210 to CL-216): how they follow these rules
+
+- Dispatchers: `FilePhotoStore`, the camera-cache clean-up and the orphan sweep take `@IoDispatcher`; the export, preview and
+  import use cases use the injected `io` and `default`. The one exception is `PhotoBitmaps` (thumbnail decoding in a
+  composable), which cannot receive an injected dispatcher and owns a pool of two daemon threads instead.
+- Start-up: `PhotoHousekeeping.start()` only launches a coroutine in the application scope; nothing runs on the main thread.
+- State: photos picked in the item form are files in the photo store, not form text. They are not restored after process
+  death (the form's own fields are); the files are removed by the orphan sweep at the next start (older than one hour).
+- Compose: `java.io.File` is declared stable in `compose-stability.conf` (a `PhotoUi` holds two of them).
+- Counts in photo strings are passed as `formatCount(...)` text, never `%d`.

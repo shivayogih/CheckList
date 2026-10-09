@@ -30,9 +30,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -71,10 +74,13 @@ import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.TextInputDialog
+import com.dataloom.checklist.presentation.photos.ItemPhotoSlot
+import com.dataloom.checklist.presentation.transfer.PdfOptionsDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
 import com.dataloom.checklist.presentation.transfer.rememberUnitLabels
 import com.dataloom.checklist.transfer.TransferDocuments
 import com.dataloom.checklist.transfer.TransferViewModel
+import com.dataloom.checklist.transfer.pdf.PdfOptions
 import kotlinx.coroutines.launch
 
 /** Navigation out of the detail screen. */
@@ -116,8 +122,11 @@ fun ChecklistDetailScreen(
     }
     val unitLabels = rememberUnitLabels(customUnitLabels)
     val id = remember(checklistId) { ChecklistId(checklistId) }
+    // Asked only when the checklist has photos: the PDF is bigger with them (CL-214).
+    var includePdfPhotos by rememberSaveable { mutableStateOf(false) }
+    var pdfOptionsFor by rememberSaveable { mutableStateOf<PdfExport?>(null) }
     val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, unitLabels = unitLabels)
+        if (uri != null) transferViewModel.savePdfTo(uri, id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
     }
     // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
     val pdfActions = listOf(
@@ -130,7 +139,7 @@ fun ChecklistDetailScreen(
     )
     val exportPdf by rememberUpdatedState { export: PdfExport ->
         when (export) {
-            PdfExport.SHARE -> transferViewModel.sharePdf(id, unitLabels = unitLabels)
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
             PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
         }
     }
@@ -163,7 +172,7 @@ fun ChecklistDetailScreen(
                 is ChecklistDetailEffect.PdfReady -> {
                     // The deletion is final now; its Undo snackbar would offer something it cannot do.
                     snackbarHostState.currentSnackbarData?.dismiss()
-                    exportPdf(effect.export)
+                    if (state.hasPhotos) pdfOptionsFor = effect.export else exportPdf(effect.export)
                 }
                 is ChecklistDetailEffect.Error -> scope.launch {
                     snackbarHostState.showSnackbar(effect.message.resolve(resources))
@@ -173,6 +182,20 @@ fun ChecklistDetailScreen(
     }
 
     DetailContent(state, snackbarHostState, onAction, navigation, pdfActions, aiState, aiViewModel::onAction)
+
+    pdfOptionsFor?.let { export ->
+        PdfOptionsDialog(
+            confirmLabel = stringResource(
+                if (export == PdfExport.SHARE) R.string.detail_share_pdf else R.string.detail_save_pdf,
+            ),
+            onConfirm = { includePhotos ->
+                includePdfPhotos = includePhotos
+                pdfOptionsFor = null
+                exportPdf(export)
+            },
+            onDismiss = { pdfOptionsFor = null },
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -186,6 +209,8 @@ private fun DetailContent(
     aiState: AiCommandUiState,
     onAiAction: (AiCommandAction) -> Unit,
 ) {
+    // The item whose photos are open in the viewer (id only, so it survives rotation).
+    var viewerItemId by rememberSaveable { mutableStateOf<String?>(null) }
     Scaffold(
         modifier = Modifier.keyboardAwareScreen(),
         topBar = {
@@ -238,6 +263,7 @@ private fun DetailContent(
                         item = item,
                         onAction = onAction,
                         onEdit = { navigation.onEditItem(section.id, item.id) },
+                        onViewPhotos = { viewerItemId = item.id.value },
                     )
                 }
                 item(key = "add-${section.id.value}", contentType = "add-item") {
@@ -252,6 +278,8 @@ private fun DetailContent(
             }
         }
     }
+
+    viewerItemId?.let { id -> ItemPhotoViewerHost(id, state.sections, onClose = { viewerItemId = null }) }
 
     aiState.review?.takeIf { aiState.isAvailable }?.let { review -> AiReviewSheet(review, onAiAction) }
 
@@ -338,13 +366,19 @@ private fun SectionHeader(section: SectionUi, onAction: (ChecklistDetailAction) 
 }
 
 @Composable
-private fun ItemRow(item: ItemUi, onAction: (ChecklistDetailAction) -> Unit, onEdit: () -> Unit) {
+internal fun ItemRow(
+    item: ItemUi,
+    onAction: (ChecklistDetailAction) -> Unit,
+    onEdit: () -> Unit,
+    onViewPhotos: () -> Unit,
+) {
     val state = stringResource(if (item.isCompleted) R.string.state_completed else R.string.state_not_completed)
     val quantity = quantityText(item.quantity, item.unit)
     val editLabel = stringResource(R.string.action_edit)
     val moveUpLabel = stringResource(R.string.action_move_up)
     val moveDownLabel = stringResource(R.string.action_move_down)
     val deleteLabel = stringResource(R.string.action_delete)
+    val viewPhotosLabel = stringResource(R.string.photo_view_action)
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             modifier = Modifier
@@ -361,6 +395,7 @@ private fun ItemRow(item: ItemUi, onAction: (ChecklistDetailAction) -> Unit, onE
                     // TalkBack's actions menu offers what the visible "⋮" menu offers, without gestures.
                     customActions = buildList {
                         add(accessibilityAction(editLabel, onEdit))
+                        if (item.photos.isNotEmpty()) add(accessibilityAction(viewPhotosLabel, onViewPhotos))
                         if (item.canMoveUp) add(accessibilityAction(moveUpLabel) { onAction(ChecklistDetailAction.MoveItemUp(item.id)) })
                         if (item.canMoveDown) {
                             add(accessibilityAction(moveDownLabel) { onAction(ChecklistDetailAction.MoveItemDown(item.id)) })
@@ -386,6 +421,7 @@ private fun ItemRow(item: ItemUi, onAction: (ChecklistDetailAction) -> Unit, onE
                 }
             }
         }
+        ItemPhotoSlot(item.photos, item.name, onOpen = onViewPhotos)
         OverflowMenu(
             contentDescription = stringResource(R.string.item_more_options, item.name),
             actions = listOf(

@@ -31,7 +31,7 @@ object TransferFixtures {
             TransferItem("i2", "s1", displayName = "Oil", displayNameLocale = "en", quantity = "1.5", unit = "LITRE", completed = true, position = 1),
             TransferItem("i3", "s2", displayName = "Flowers", displayNameLocale = "en", quantity = "2", unit = "u1", notes = "Marigold"),
         ),
-        formatVersion: Int = TransferFormat.FORMAT_VERSION,
+        formatVersion: Int = TransferFormat.JSON_FORMAT_VERSION,
         schemaVersion: Int = TransferFormat.SCHEMA_VERSION,
     ) = TransferDocument(formatVersion, schemaVersion, metadata, units, categories, checklists, items)
 

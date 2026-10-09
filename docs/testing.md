@@ -33,6 +33,14 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | `ScreenAccessibilityTest` | `:app`, Robolectric, font scale 1 and 2 (CL-174) | Every screen: labels, 48dp targets, a heading, checkbox state, no clipped text ([accessibility.md](accessibility.md#audit-results-phase-4)) |
 | `ThemeContrastTest` | `:app` (CL-144) | WCAG AA contrast of the light and dark schemes |
 | `StringFormatTest`, `LocaleNumbersTest` | `:app` (CL-142) | Plural forms, placeholder parity, positional `%N$s`, escaped `%`; Western digits in all 7 languages |
+| `PhotoUseCasesTest`, `PhotoArchiveTest`, `PhotoTransferTest` | `:domain` (CL-210, CL-213) | Photo limit of 3, skipped and failed counts, attach, reorder, caption, orphan sweep, delete cleanup; hostile zips (path traversal, oversize, wrong type, duplicates, 4 photos on one item) are refused with nothing written; export and import round trip |
+| `FilePhotoStoreTest`, `RoomPhotoRepositoryTest`, `ItemPhotoMigrationTest`, `RoomPhotoTransferTest` | `:data`, Robolectric (CL-210, CL-213) | Real JPEG decode and re-encode, EXIF GPS removed, orientation applied, thumbnails, copy and delete, cascade delete, migration 1 to 2 against the committed `2.json`, zip export and import on two in-memory phones |
+| `ItemEditorViewModelTest` (photos) | `:app` (CL-212) | Photos of a new item wait in the store and are attached on save; the 4th is cut off with a message; unreadable pictures give the friendly message; move and remove; edit mode writes at once |
+| `ItemPhotosUiTest` | `:app`, Robolectric + Compose (CL-216) | Item row with 0, 1 and 3 photos, the "+2" badge, row tap still toggles, "View photos" accessibility action; form add, remove, move and limit; viewer previous/next and the delete confirmation |
+| `ItemPhotosScreenshotTest`, `PdfPhotosPageScreenshotTest` | `:app`, Roborazzi with the shared harness (CL-216) | The item row, the photos form section and the viewer in all 15 `ScreenshotVariant`s (themes, 200% font, 7 languages) with the no-clipped-text and 48 dp assertions; a PDF page with photos drawn to a bitmap. Goldens are recorded by the CI step "Record screenshots" (artifact `screenshots`, folder `app/src/test/screenshots`) |
+| `PhotoManifestTest` | `:app`, Robolectric (CL-212) | The merged manifest has no `CAMERA`, `READ_MEDIA_IMAGES`, `READ_EXTERNAL_STORAGE` or other media permission; the IMAGE_CAPTURE query and the Photo Picker service are declared; the FileProvider shares cache folders only |
+| `ContextPhotosTest` | `:ai` (CL-215) | An item with photos gives the AI the same context as one without; no photo name, id or caption in it; no photo property or source in the AI layer |
+| `StringResourcesTest` (photo strings) | `:app` | Every photo string and plural keeps the placeholders of the English text in all six translations |
 
 ## Strategy by layer
 

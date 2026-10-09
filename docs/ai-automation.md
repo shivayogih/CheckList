@@ -86,7 +86,7 @@ Vocabulary lives in data, not code: `ai/src/main/resources/com/dataloom/checklis
 
 ### What is sent (context minimization)
 
-`ChecklistContext` holds only: checklist title, section category keys and names, item canonical keys or names, quantities, units and completion, the locale and the allowed unit codes. Database IDs are replaced by per-request refs (`s1`, `i3`) mapped back on the device by `ContextSnapshot`; notes and user-item keys (which embed IDs) are never included. `ContextSnapshotTest` asserts this. Prompts and responses must not be logged in release builds.
+`ChecklistContext` holds only: checklist title, section category keys and names, item canonical keys or names, quantities, units and completion, the locale and the allowed unit codes. Database IDs are replaced by per-request refs (`s1`, `i3`) mapped back on the device by `ContextSnapshot`; notes and user-item keys (which embed IDs) are never included. `ContextSnapshotTest` asserts this. Prompts and responses must not be logged in release builds. **Photos are never part of the context** (CL-215): `ItemContext` has no photo field, `ContextSnapshot.of` ignores `ChecklistItem.photos`, and `ContextPhotosTest` fails if a photo file name, id or caption shows up in the context, if a context type gains a photo property, or if any source file of `:ai` mentions photos.
 
 ### Wiring
 

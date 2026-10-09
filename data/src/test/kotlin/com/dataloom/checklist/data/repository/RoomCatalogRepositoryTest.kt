@@ -1,5 +1,6 @@
 package com.dataloom.checklist.data.repository
 
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import android.database.sqlite.SQLiteConstraintException
 import app.cash.turbine.test
 import com.dataloom.checklist.data.FakeClock

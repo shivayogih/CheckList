@@ -2,10 +2,13 @@ package com.dataloom.checklist.transfer.pdf
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -23,6 +26,9 @@ import com.dataloom.checklist.transfer.StoreLink
 import com.dataloom.checklist.domain.model.ChecklistDetail
 import com.dataloom.checklist.domain.model.ChecklistItem
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.photo.NoPhotoStore
+import com.dataloom.checklist.domain.photo.PhotoLimits
+import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.presentation.common.LocaleNumbers
 import com.dataloom.checklist.transfer.LocalizedResources
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -36,6 +42,8 @@ data class PdfOptions(
     val includeCompleted: Boolean = true,
     /** Printed under the title when not null, e.g. the profile name the user chose to include. */
     val preparedBy: String? = null,
+    /** Draw up to 3 small photos under each item that has them. Off by default: it makes the file bigger. */
+    val includePhotos: Boolean = false,
 )
 
 /** Text for a unit code next to an amount ("kg", or a custom unit's label). */
@@ -74,9 +82,40 @@ interface ChecklistPdfWriter {
 class AndroidChecklistPdfWriter @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val clock: Clock,
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) : ChecklistPdfWriter {
 
     override fun write(detail: ChecklistDetail, options: PdfOptions, units: UnitLabels, out: OutputStream) {
+        val document = PdfDocument()
+        try {
+            var open: PdfDocument.Page? = null
+            drawPages(detail, options, units, object : PageSurface {
+                override fun start(pageNumber: Int, width: Int, height: Int): Canvas {
+                    val page = document.startPage(PdfDocument.PageInfo.Builder(width, height, pageNumber).create())
+                    open = page
+                    return page.canvas
+                }
+
+                override fun finish() {
+                    open?.let(document::finishPage)
+                    open = null
+                }
+            })
+            document.writeTo(out)
+        } finally {
+            document.close()
+        }
+    }
+
+    /** Where the pages are drawn: a [PdfDocument] when exporting, bitmaps in screenshot tests. */
+    internal interface PageSurface {
+        fun start(pageNumber: Int, width: Int, height: Int): Canvas
+
+        fun finish()
+    }
+
+    /** Draws every page of the checklist onto [surface]. All layout and drawing lives here. */
+    internal fun drawPages(detail: ChecklistDetail, options: PdfOptions, units: UnitLabels, surface: PageSurface) {
         val resources = LocalizedResources.of(context)
         val appLocale = resources.configuration.locales[0] ?: Locale.getDefault()
         // The brand name is never translated (app_name is translatable="false").
@@ -96,25 +135,43 @@ class AndroidChecklistPdfWriter @Inject constructor(
             // Null until PLAY_STORE_URL is set in app/build.gradle.kts: then no store line and no QR code.
             storeUrl = StoreLink.of(BuildConfig.PLAY_STORE_URL),
         )
-        val blocks = buildBlocks(detail, options, units, resources, appLocale) + lastPageBlock(branding, resources, appLocale)
+        val thumbnails = Thumbnails(photoStore, enabled = options.includePhotos)
+        val blocks = buildBlocks(detail, options, units, resources, appLocale, thumbnails) +
+            lastPageBlock(branding, resources, appLocale)
         val pages = PdfPageLayout.place(blocks.map { PdfPaginator.Block(it.height, it.keepWithNext) }, branding.storeLink)
-        val document = PdfDocument()
         try {
             pages.forEachIndexed { pageIndex, placements ->
-                val page = document.startPage(
-                    PdfDocument.PageInfo.Builder(PdfPageLayout.PAGE_WIDTH, PdfPageLayout.PAGE_HEIGHT, pageIndex + 1).create(),
-                )
-                val canvas = page.canvas
+                val canvas = surface.start(pageIndex + 1, PdfPageLayout.PAGE_WIDTH, PdfPageLayout.PAGE_HEIGHT)
                 // Watermark first so everything else sits on top of it.
                 drawWatermark(canvas, branding.brand, appLocale)
                 drawHeader(canvas, branding, detail.checklist.title, appLocale)
                 placements.forEach { blocks[it.index].draw(canvas, PdfPageLayout.CONTENT_LEFT, it.top) }
                 drawFooter(canvas, branding, pageNumber(resources, pageIndex + 1, pages.size, appLocale), appLocale)
-                document.finishPage(page)
+                surface.finish()
             }
-            document.writeTo(out)
         } finally {
-            document.close()
+            thumbnails.recycle()
+        }
+    }
+
+    /**
+     * The small photos of the items being printed, decoded from the 320 px thumbnail files at about
+     * twice the print size. Missing or unreadable files are left out. Free the bitmaps with [recycle].
+     */
+    private class Thumbnails(private val store: PhotoStore, private val enabled: Boolean) {
+        private val bitmaps = ArrayList<Bitmap>()
+
+        fun of(item: ChecklistItem): List<Bitmap> {
+            if (!enabled) return emptyList()
+            return item.photos.take(PhotoLimits.MAX_PER_ITEM).mapNotNull { photo ->
+                val options = BitmapFactory.Options().apply { inSampleSize = THUMBNAIL_SAMPLE }
+                BitmapFactory.decodeFile(store.thumbnailFile(photo.fileName).path, options)?.also { bitmaps += it }
+            }
+        }
+
+        fun recycle() {
+            bitmaps.forEach { it.recycle() }
+            bitmaps.clear()
         }
     }
 
@@ -236,6 +293,7 @@ class AndroidChecklistPdfWriter @Inject constructor(
         units: UnitLabels,
         resources: Resources,
         appLocale: Locale,
+        thumbnails: Thumbnails,
     ): List<Block> = buildList<Block> {
         add(headerBlock(detail, options, resources, appLocale))
         var printedItems = 0
@@ -254,7 +312,9 @@ class AndroidChecklistPdfWriter @Inject constructor(
             val serials = PdfPageLayout.serialLabels(items.size, appLocale)
             val serialPaint = paint(ITEM_SIZE, color = MUTED, locale = appLocale)
             val serialWidth = serials.maxOf { serialPaint.measureText(it) } + PdfPageLayout.SERIAL_GAP
-            items.forEachIndexed { index, item -> add(itemBlock(item, units, serials[index], serialWidth)) }
+            items.forEachIndexed { index, item ->
+                add(itemBlock(item, units, serials[index], serialWidth, thumbnails.of(item)))
+            }
             printedItems += items.size
         }
         if (printedItems == 0) {
@@ -306,7 +366,13 @@ class AndroidChecklistPdfWriter @Inject constructor(
         return StackBlock(lines, LINE_GAP, after = HEADER_GAP)
     }
 
-    private fun itemBlock(item: ChecklistItem, units: UnitLabels, serial: String, serialWidth: Float): Block {
+    private fun itemBlock(
+        item: ChecklistItem,
+        units: UnitLabels,
+        serial: String,
+        serialWidth: Float,
+        photos: List<Bitmap>,
+    ): Block {
         val locale = Locale.forLanguageTag(item.displayNameLocale)
         val color = if (item.isCompleted) MUTED else INK
         val amount = item.quantity?.let { quantity ->
@@ -319,7 +385,8 @@ class AndroidChecklistPdfWriter @Inject constructor(
             item.notes?.let { layout(it, paint(SMALL_SIZE, color = MUTED, locale = locale), textWidth) },
         )
         val serialLayout = singleLine(serial, paint(ITEM_SIZE, color = MUTED, locale = Locale.ENGLISH), serialWidth)
-        return ItemBlock(StackBlock(lines, LINE_GAP, after = ITEM_GAP), item.isCompleted, serialLayout, serialWidth)
+        val text = StackBlock(lines, LINE_GAP, after = ITEM_GAP)
+        return ItemBlock(text, item.isCompleted, serialLayout, serialWidth, photos)
     }
 
     private fun paint(size: Float, bold: Boolean = false, color: Int = INK, locale: Locale): TextPaint =
@@ -399,8 +466,10 @@ class AndroidChecklistPdfWriter @Inject constructor(
         private val completed: Boolean,
         private val serial: StaticLayout,
         private val serialWidth: Float,
+        private val photos: List<Bitmap> = emptyList(),
     ) : Block {
-        override val height: Float get() = text.height
+        // Item text and its photos are one block, so they are never split across two pages.
+        override val height: Float get() = text.height + if (photos.isEmpty()) 0f else PHOTO_GAP + PHOTO_SIZE
 
         override fun draw(canvas: Canvas, x: Float, y: Float) {
             // Serial number first, then the checkbox, then the name.
@@ -424,6 +493,22 @@ class AndroidChecklistPdfWriter @Inject constructor(
                 canvas.drawPath(tick, TICK_PAINT)
             }
             text.draw(canvas, x + CHECKBOX_COLUMN, y)
+            drawPhotos(canvas, x + CHECKBOX_COLUMN, y + text.height - ITEM_GAP + PHOTO_GAP)
+        }
+
+        /** Centre-cropped squares of [PHOTO_SIZE] points in a row under the item text. */
+        private fun drawPhotos(canvas: Canvas, x: Float, y: Float) {
+            photos.forEachIndexed { index, bitmap ->
+                val left = x + index * (PHOTO_SIZE + PHOTO_SPACING)
+                val side = minOf(bitmap.width, bitmap.height)
+                val source = Rect(
+                    (bitmap.width - side) / 2,
+                    (bitmap.height - side) / 2,
+                    (bitmap.width + side) / 2,
+                    (bitmap.height + side) / 2,
+                )
+                canvas.drawBitmap(bitmap, source, RectF(left, y, left + PHOTO_SIZE, y + PHOTO_SIZE), PHOTO_PAINT)
+            }
         }
     }
 
@@ -480,6 +565,14 @@ class AndroidChecklistPdfWriter @Inject constructor(
         const val CHECKBOX_SIZE = 13f
         const val CHECKBOX_COLUMN = 24f
 
+        // Photos under an item: about 60 pt squares (2.1 cm), at most 3 in a row.
+        const val PHOTO_SIZE = 60f
+        const val PHOTO_SPACING = 6f
+        const val PHOTO_GAP = 4f
+
+        /** 320 px thumbnails halved: 160 px for 60 pt is about 190 dpi, plenty for print and small files. */
+        const val THUMBNAIL_SAMPLE = 2
+
         const val INK = 0xFF1B1B1F.toInt()
         const val MUTED = 0xFF5F6368.toInt()
 
@@ -495,6 +588,7 @@ class AndroidChecklistPdfWriter @Inject constructor(
             strokeJoin = Paint.Join.ROUND
             color = INK
         }
+        val PHOTO_PAINT = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
         val RULE_PAINT = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             strokeWidth = 0.6f
             color = MUTED

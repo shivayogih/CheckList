@@ -42,6 +42,7 @@ user_profile (one row, encrypted blob)     item_search_fts (FTS4, derived)     s
 | `unit_def` | `code` (PK), `allows_decimal`, `is_custom`, `custom_label`, `sort_order` | Built-in codes (`BuiltInUnits` in `:domain`): KG, GRAM, LITRE, MILLILITRE, DOZEN, PIECE, PACK, BOX, BOTTLE, PAIR, METER, NOS; custom: `CUSTOM_<uuid>`. Labels come from string resources, never from this table |
 | `checklist_category` | `id`, `checklist_id` (CASCADE), `category_id` (RESTRICT), `display_order` | Unique `(checklist_id, category_id)`: a category appears once per checklist |
 | `checklist_item` | `id`, `checklist_category_id` (CASCADE), `master_item_id` (SET NULL), `canonical_key`, `display_name`, `display_name_locale`, `quantity_milli`, `unit_code`, `notes`, `is_completed`, `completed_at`, `position` | Index `(checklist_category_id, position)` |
+| `item_photo` | `id` (UUID), `checklist_item_id` (CASCADE), `file_name`, `width`, `height`, `byte_size`, `position`, `caption` (null, at most 80 characters), `created_at` | Added in schema v2 (CL-210). Index `(checklist_item_id, position)`. At most 3 rows per item (enforced in `:domain`). Only the description is in the database; the image is a file, see "Item photo files" |
 | `user_profile` | `id = 'me'`, `enc_payload` (AES-256-GCM blob), `key_alias`, `schema_version`, `updated_at` | Used since Phase 5 without a schema change (`ProfileDao`, `EncryptedProfileRepository`); see [security.md](security.md) |
 | `item_search_fts` | FTS4 `unicode61`: `ref_type`, `ref_id`, `category_id`, `locale`, `text` | Rebuilt for a row in the same transaction as its source |
 | `seed_meta` | `seed_version` | Drives catalog upgrades |
@@ -92,6 +93,31 @@ Run in `RoomDatabase.withTransaction {}` from repository methods: create a check
 3. Prefer `@AutoMigration`; write a manual `Migration` when Room cannot infer it (renames, data moves).
 4. Add a `MigrationTestHelper` test for N → N+1, and keep the 1 → latest test passing.
 5. Update this page.
+
+### Schema history
+
+| Version | Change | Migration | Test |
+|---|---|---|---|
+| 1 | First schema | none | `1.json` is the baseline of every migration test |
+| 2 (CL-210) | Adds `item_photo` and `index_item_photo_checklist_item_id_position`; nothing else | `DatabaseMigrations.MIGRATION_1_2` (creates the table and index only; no existing row is read or changed) | `ItemPhotoMigrationTest`: a version 1 database with data is migrated, every row survives, the result is validated against the committed `2.json`, and the photo cascade works |
+
+## Item photo files (CL-210)
+
+```text
+checklist_item 1───* item_photo  (ON DELETE CASCADE)
+filesDir/item_photos/<uuid>.jpg      full image, long edge at most 1600 px, JPEG quality 80
+filesDir/item_photos/<uuid>_t.jpg    thumbnail, long edge at most 320 px
+filesDir/item_photos/staging/        images being added or imported; moved into place after the row exists
+```
+
+- **Never store the picker's `content://` URI.** The image is copied into app-private storage at once: decoded with `inSampleSize` (after a bounds-only read that refuses more than 250 megapixels), rotated by its EXIF orientation, scaled and re-encoded. Re-encoding drops the EXIF block, so the GPS location never reaches the file.
+- **Rows and files are removed together.** Room cascades only delete rows. The delete use cases (`DeleteChecklistItemUseCase`, `RemoveSectionUseCase`, `DeleteChecklistUseCase`, `RemoveItemPhotoUseCase`) read the file names first, delete the rows in their transaction and delete the files after it committed. A crash in between leaves orphan files, never dangling rows.
+- **Orphan sweep.** `SweepOrphanPhotosUseCase` runs in the background at app start: files in `item_photos` without a row that are older than 1 hour are deleted (an add in progress has a fresh file and no row yet), and so are old staging leftovers.
+- **Backup.** `filesDir/item_photos` is part of the normal Auto Backup and device transfer (`data_extraction_rules.xml`, `backup_rules.xml` exclude only the profile keyset), so a restored database finds its photos again. Auto Backup has a 25 MB quota per app: past it Android skips the backup of the whole app data. Photos average about 300 KB, so roughly 80 photos fit besides the database. A restored row whose file is missing is shown as a "Photo not available" placeholder, never as a crash. Reasoning and the alternative that was rejected are in [security.md](security.md), "Item photos".
+- **Duplicate a checklist.** `RoomChecklistRepository.duplicateChecklist` copies every photo file to a new uuid and inserts new rows inside the same flow; if anything fails the copied files are removed again. A photo whose file is missing is left out of the copy.
+- **A missing or unreadable file is a normal state.** The UI shows a placeholder, the PDF skips the photo, export leaves it out.
+- **Backups.** `item_photos` is included in Android Auto Backup and device transfer, together with the database, so rows and files stay consistent after a restore. Only the profile keyset is excluded (see [security.md](security.md), "Backups"). A restore that brings rows without files (backup size limits) shows placeholders and the sweep never touches rows.
+- **Order** uses the same sparse positions as the rest of the schema (`SparseOrder`); the move-left and move-right buttons rewrite one row.
 
 ## Category deletion
 

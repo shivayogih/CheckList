@@ -13,6 +13,8 @@ import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
+import com.dataloom.checklist.domain.photo.NoPhotoStore
+import com.dataloom.checklist.domain.photo.PhotoStore
 import com.dataloom.checklist.domain.usecase.DeleteChecklistItemUseCase
 import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
@@ -32,6 +34,8 @@ import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.isAccepted
 import com.dataloom.checklist.presentation.common.liveError
 import com.dataloom.checklist.presentation.common.toUiText
+import com.dataloom.checklist.presentation.photos.PhotoUi
+import com.dataloom.checklist.presentation.photos.toUi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -64,6 +68,8 @@ data class ItemUi(
     val isCompleted: Boolean,
     val canMoveUp: Boolean,
     val canMoveDown: Boolean,
+    /** Up to 3 photos in display order; the row shows the first as a thumbnail. */
+    val photos: List<PhotoUi> = emptyList(),
 )
 
 data class SectionUi(
@@ -92,6 +98,9 @@ data class ChecklistDetailUiState(
     val pendingSectionRemoval: SectionUi? = null,
 ) {
     val progress: Float get() = if (totalItems == 0) 0f else completedItems.toFloat() / totalItems
+
+    /** True when any item has a photo, so the PDF export asks whether to include them. */
+    val hasPhotos: Boolean get() = sections.any { section -> section.items.any { it.photos.isNotEmpty() } }
 }
 
 /** The two PDF menu actions. */
@@ -157,6 +166,7 @@ class ChecklistDetailViewModel @AssistedInject constructor(
     languageProvider: AppLanguageProvider,
     @param:ApplicationScope private val applicationScope: CoroutineScope,
     private val savedState: SavedStateHandle = SavedStateHandle(),
+    private val photoStore: PhotoStore = NoPhotoStore,
 ) : ViewModel() {
 
     @AssistedFactory
@@ -359,6 +369,7 @@ class ChecklistDetailViewModel @AssistedInject constructor(
         isCompleted = isCompleted,
         canMoveUp = canMoveUp,
         canMoveDown = canMoveDown,
+        photos = photos.map { it.toUi(photoStore) },
     )
 
     internal companion object {

@@ -19,6 +19,7 @@ import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
+import com.dataloom.checklist.domain.photo.NoPhotoStore
 import com.dataloom.checklist.domain.repository.ChecklistRepository
 import com.dataloom.checklist.domain.transfer.ApplyImportUseCase
 import com.dataloom.checklist.domain.transfer.ChecklistRename
@@ -298,7 +299,7 @@ class RoomImportExportTest {
         assertEquals(ImportPreviewResult.Rejected(ImportRejection.FileTooLarge), phoneB.preview(BytesSource(padded, sizeBytes = null), "en"))
         val future = requireNotNull(javaClass.getResourceAsStream("/transfer/future-version.json")).use { it.readBytes() }
         assertEquals(
-            ImportPreviewResult.Rejected(ImportRejection.UnsupportedVersion(2, 3, requiresNewerApp = true)),
+            ImportPreviewResult.Rejected(ImportRejection.UnsupportedVersion(3, 3, requiresNewerApp = true)),
             phoneB.previewOf(future),
         )
         assertEquals(0, phoneB.count("checklist"))

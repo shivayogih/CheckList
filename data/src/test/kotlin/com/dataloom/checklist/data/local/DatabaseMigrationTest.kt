@@ -105,6 +105,26 @@ class DatabaseMigrationTest {
         }
     }
 
+    @Test
+    fun `migrating 1 to 2 adds an empty item_photo table and leaves every v1 row as it was`() {
+        createV1WithData()
+
+        helper.runMigrationsAndValidate(TEST_DB, 2, true, DatabaseMigrations.MIGRATION_1_2).use { db ->
+            assertEquals(2, db.version)
+            assertEquals(0L, db.count("item_photo"))
+            val indices = db.names("SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = 'item_photo'")
+            assertTrue(indices.toString(), "index_item_photo_checklist_item_id_position" in indices)
+            assertEquals(1L, db.count("checklist"))
+            assertEquals(1L, db.count("checklist_item"))
+            db.query("SELECT display_name, quantity_milli, unit_code FROM checklist_item WHERE id = 'item-1'").use {
+                assertTrue(it.moveToFirst())
+                assertEquals("Rice", it.getString(0))
+                assertEquals(2_500L, it.getLong(1))
+                assertEquals("KG", it.getString(2))
+            }
+        }
+    }
+
     /**
      * A small v1 data set written with raw SQL against the v1 columns. Keep it unchanged when the
      * schema moves on: it is what users of version 1 have on their phones.
@@ -136,6 +156,12 @@ class DatabaseMigrationTest {
             )
         }
     }
+
+    private fun SupportSQLiteDatabase.count(table: String): Long =
+        query("SELECT COUNT(*) FROM $table").use { cursor ->
+            cursor.moveToFirst()
+            cursor.getLong(0)
+        }
 
     private fun SupportSQLiteDatabase.names(sql: String): List<String> = query(sql).use { cursor ->
         buildList { while (cursor.moveToNext()) add(cursor.getString(0)) }

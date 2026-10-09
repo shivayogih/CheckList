@@ -41,7 +41,11 @@ internal data class PlannedItem(
     val unit: UnitTarget?,
     val notes: String?,
     val completed: Boolean,
+    val photos: List<PlannedPhoto> = emptyList(),
 )
+
+/** [key] is the lower-case archive path (`photos/p1.jpg`) of the raw image. */
+internal data class PlannedPhoto(val key: String, val caption: String?)
 
 internal data class PlannedSection(val category: CategoryTarget, val items: List<PlannedItem>)
 
@@ -62,6 +66,8 @@ internal data class ImportPlan(
     val checklists: List<PlannedChecklist>,
 ) {
     val itemCount: Int get() = checklists.sumOf { list -> list.sections.sumOf { it.items.size } }
+    val photoCount: Int
+        get() = checklists.sumOf { list -> list.sections.sumOf { s -> s.items.sumOf { it.photos.size } } }
     val completedItemCount: Int get() = checklists.sumOf { list -> list.sections.sumOf { s -> s.items.count { it.completed } } }
     val renames: List<ChecklistRename>
         get() = checklists.filter { it.title != it.originalTitle }.map { ChecklistRename(it.originalTitle, it.title) }
@@ -175,6 +181,11 @@ internal class ImportPlanner(
                 unit = resolved?.first,
                 notes = result.value.notes,
                 completed = item.completed,
+                photos = item.photos.mapNotNull { photo ->
+                    ArchivePaths.photoKey(photo.file)?.let {
+                        PlannedPhoto(it, photo.caption?.let(ImportValidator::captionText))
+                    }
+                },
             )
         }
     }

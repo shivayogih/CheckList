@@ -105,3 +105,34 @@ data class ChecklistItemEntity(
     @ColumnInfo(name = "created_at") val createdAt: Long,
     @ColumnInfo(name = "updated_at") val updatedAt: Long,
 )
+
+/**
+ * A photo attached to a checklist item (schema v2, CL-210). Only the description lives here; the
+ * image is a file in app-private storage named [fileName]. Rows go with their item (CASCADE), the
+ * files are deleted by the delete use cases and, as a safety net, by the orphan sweep.
+ */
+@Entity(
+    tableName = "item_photo",
+    foreignKeys = [
+        ForeignKey(
+            entity = ChecklistItemEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["checklist_item_id"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index(value = ["checklist_item_id", "position"])],
+)
+data class ItemPhotoEntity(
+    @PrimaryKey val id: String,
+    @ColumnInfo(name = "checklist_item_id") val checklistItemId: String,
+    @ColumnInfo(name = "file_name") val fileName: String,
+    val width: Int,
+    val height: Int,
+    @ColumnInfo(name = "byte_size") val byteSize: Long,
+    /** Sparse (steps of 1000) so a move rewrites one row. */
+    val position: Int,
+    /** At most 80 characters, enforced in :domain. */
+    val caption: String?,
+    @ColumnInfo(name = "created_at") val createdAt: Long,
+)
