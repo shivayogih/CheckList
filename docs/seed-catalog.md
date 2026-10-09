@@ -1,4 +1,6 @@
-# Seed catalog (CL-113)
+# Seed catalog (CL-113, CL-310)
+
+> **seedVersion 2 (CL-310)** replaces the starter list with the India master catalogue: 31 categories and 563 items in 7 languages. See [India master catalogue](#india-master-catalogue-seedversion-2) for the source, id scheme and upgrade rules. The older sections below still describe the file format.
 
 The default master catalog (units, categories and items) ships as JSON assets in `:data` and is loaded into Room by `SeedLoader` (architecture section 6.4). Display text lives only in the per-locale files; the catalog itself is language-neutral.
 
@@ -81,7 +83,61 @@ Removing or renaming a released key needs a data migration; prefer hiding the it
 
 `python3 tools/seed/validate_seed.py` (Python 3 standard library, no install) checks: JSON parses; `seedVersion` is a positive integer; units match `BuiltInUnits`; keys are snake_case and unique; every item's category exists; every `defaultUnit` is a `BuiltInUnits` code or `null`; every locale file has a name for every category and item and nothing extra; names and aliases are non-empty and trimmed. It exits non-zero with one line per problem.
 
-## Current contents (seedVersion 1)
+## India master catalogue (seedVersion 2)
+
+**Source**: `tools/seed/src_data/master_catalog_india.json` (schema 1.0.0, market India), plus the six translation files in `tools/seed/src_data/translations/`. `python3 tools/seed/build_india_catalog.py` generates `catalog.json`, `i18n/*.json`, `docs/catalog-translation-review.md` and `docs/catalog-templates-backlog.md`; CI runs it with `--check`, so the generated files can never drift from the source. Edit the source, regenerate, bump `SEED_VERSION` in the script.
+
+**Counts**: 31 categories (CAT001..CAT031), 563 catalogue items (ITM0001..ITM0563, all active) and 47 older items that have no catalogue equivalent (610 seed items; 40 older items were merged into catalogue items and keep their keys), 32 categories (31 from the catalogue plus the kept `pooja_items`), 13 units, 7 languages (en, kn, hi, ta, te, mr, ml). The catalogue's 68 tags and 15 checklist templates are not separate tables (see below).
+
+### Id scheme
+
+| Catalogue | Seed `key` (stable id) | Notes |
+|---|---|---|
+| `CATnnn` | `catnnn` (e.g. `cat004`), or the **old key** for the 12 categories that existed in seedVersion 1 (`groceries`, `vegetables`, `fruits`, `clothing`, `travel`, `documents`, `exam`, `medicines`, `toiletries`, `electronics`, `stationery`, `other`) | `catalogId` records the `CATnnn`. Old icons are kept. |
+| `ITMnnnn` | `itmnnnn` (e.g. `itm0003`), or the **old key** when the item is the same thing as a seedVersion 1 item (`rice`, `potato`, `milk`...) | `catalogId` records the `ITMnnnn`. Matching is by English name (see below); `ITEM_SYNONYMS` in the build script can force a merge. |
+| old item with no catalogue equivalent (`dal`, `spices`, `kumkum`...) | unchanged key | Stays in the catalogue, in its mapped category. Their translations are the seedVersion 1 ones. |
+| old item with the **same English name** as a catalogue item (`milk`, `onion`, `banana`...) | unchanged key | Merged: same row, so there is never a second "Milk" (name search and the AI parser need unique names). Same-category matches win, then any category (`milk` moves to Dairy & Eggs). The old default unit is kept (sugar stays kg). Synonyms are not merged: "Rice" and "Raw rice" are separate items. |
+| old categories `gifts`, `decorations` | unchanged key, listed in `retiredCategories` | Their items moved to Events & Celebrations (`cat029`); the category row is hidden once empty and never deleted. |
+| old category `pooja_items` | unchanged key, no `catalogId` | The master catalogue has no pooja category, so it stays as the 32nd category with its items. |
+
+Keys never change once released: `canonical_key` is what checklists, exports and search refer to.
+
+### Field mapping
+
+| Catalogue field | Stored as |
+|---|---|
+| `category_id`, `item_id` | `catalogId` (informational) and the key above |
+| `name` / `item_name` | English `i18n/en.json`; the other six from the translation files |
+| `subcategory` | `subcategory` in `catalog.json`; indexed as an English search keyword for every language (the model has no sub-grouping column) |
+| `tags` | `tags` in `catalog.json`; indexed as English search keywords (underscores become spaces). No tag table: tags only help search |
+| `default_unit` | `defaultUnit` via the unit map: kg KG, g GRAM, L LITRE, ml MILLILITRE, dozen DOZEN, pc PIECE, pack PACK, box BOX, bottle BOTTLE, pair PAIR, m METER, unit NOS, **bunch BUNCH (new)**, task = no unit (`null`, a task has no quantity) |
+| `allowed_units` | Not stored (no per-item allowed-unit model; the unit picker offers all units). Every `default_unit` is in `allowed_units` in the source |
+| `notes`, `is_user_editable` | Not stored (empty or always true) |
+| `is_active` | Items with `is_active: false` are not seeded. All 563 are active |
+| `units[]` | Only the unit used as a default and missing from the app was added: `BUNCH`. The other catalogue units (mg, can, jar, bag, roll, sheet, set, serving, hour, min, km, cm) are deferred; users can create custom units. Units carry no conversion factors in the app (quantities are milli-units of one unit) |
+| `checklist_templates` | No templates feature: kept as backlog CL-319 in [catalog-templates-backlog.md](catalog-templates-backlog.md) |
+| `measurement_guidance` | Not stored; guidance for the unit and quantity UX |
+
+English item names are added as aliases in the other six languages, so typing "basmati" finds the item in any language.
+
+### Upgrade rules (installed apps)
+
+`SeedLoader` runs when `seedVersion` in the asset is higher than `seed_meta`. It is versioned, idempotent and non-destructive:
+
+1. Units, categories and items are **upserted by key**. A found row is updated in place (same internal id), so master item references in checklists stay valid.
+2. Rows the user renamed (`custom_name`) or hid (`is_hidden`) are never touched. User-created categories, items and units are never touched.
+3. Nothing is deleted. Checklist items are snapshots (`display_name`, quantity, unit); the upgrade does not write to `checklist*` tables.
+4. Retired categories are hidden only when empty (no seed or custom items).
+5. Translations are seed-owned and refreshed; the search index is rebuilt in the same transaction. Re-running the same version, or clearing `seed_meta` and re-running, gives identical data.
+6. The work runs in one transaction inside Room's open callback on its background executor, never on the main thread (the existing warm-up). Queries stay per category (at most about 60 rows) or search with a limit of 50, so no paging is needed.
+
+Tests: `IndiaCatalogSeedTest` (upgrade from the real seedVersion 1 files with user data kept, idempotency, Kannada, English and tag search, all seven languages present or flagged) and `SeedLoaderTest`.
+
+### Translation review process
+
+All non-English names are machine-assisted drafts. `docs/catalog-translation-review.md` lists the names the translators were least sure of, per language, plus any `fallback` rows (English shown for lack of a translation). A reviewer edits `tools/seed/src_data/translations/<tag>.json`, removes the item from its `review` list, regenerates and bumps the seed version. An item whose name has no native script (ORS, LED) must be in the review list: a test enforces it.
+
+## Contents of seedVersion 1 (superseded)
 
 15 categories, 87 items: Groceries 10, Vegetables 9, Fruits 6, Clothing 7, Travel 8, Documents 6, Exam 8, Gifts 2, Pooja Items 7, Decorations 3, Medicines 6, Toiletries 6, Electronics 4, Stationery 5, Other 0.
 

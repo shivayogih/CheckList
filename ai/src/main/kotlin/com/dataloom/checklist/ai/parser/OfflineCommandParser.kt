@@ -129,8 +129,10 @@ class OfflineCommandParser @Inject constructor(
         command.nameVariants(name).forEachIndexed { index, candidate ->
             val query = TextNormalizer.normalize(candidate)
             for (language in command.languages) {
-                val hit = catalog.search(candidate, language).firstOrNull() ?: continue
-                if (accepts(hit, query, isVariant = index > 0, language)) return hit
+                // Several items can share a stem (a bigger catalogue has "பால்" and "பாலக் கீரை"): take the
+                // first hit that is clearly the same word, not only the first hit.
+                catalog.search(candidate, language).firstOrNull { accepts(it, query, isVariant = index > 0, language) }
+                    ?.let { return it }
             }
         }
         return null

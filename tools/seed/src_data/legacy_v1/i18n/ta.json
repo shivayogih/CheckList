@@ -1,0 +1,570 @@
+{
+  "locale": "ta",
+  "categories": {
+    "groceries": "மளிகை",
+    "vegetables": "காய்கறிகள்",
+    "fruits": "பழங்கள்",
+    "clothing": "உடைகள்",
+    "travel": "பயணம்",
+    "documents": "ஆவணங்கள்",
+    "exam": "தேர்வு",
+    "gifts": "பரிசுகள்",
+    "pooja_items": "பூஜை பொருட்கள்",
+    "decorations": "அலங்காரம்",
+    "medicines": "மருந்துகள்",
+    "toiletries": "குளியல் பொருட்கள்",
+    "electronics": "மின்னணு பொருட்கள்",
+    "stationery": "எழுதுபொருட்கள்",
+    "other": "மற்றவை"
+  },
+  "items": {
+    "rice": {
+      "name": "அரிசி",
+      "aliases": [
+        "arisi"
+      ]
+    },
+    "wheat": {
+      "name": "கோதுமை",
+      "aliases": [
+        "kothumai",
+        "gothumai"
+      ]
+    },
+    "sugar": {
+      "name": "சர்க்கரை",
+      "aliases": [
+        "sarkarai",
+        "chakkarai"
+      ]
+    },
+    "salt": {
+      "name": "உப்பு",
+      "aliases": [
+        "uppu"
+      ]
+    },
+    "dal": {
+      "name": "பருப்பு",
+      "aliases": [
+        "paruppu"
+      ]
+    },
+    "cooking_oil": {
+      "name": "சமையல் எண்ணெய்",
+      "aliases": [
+        "ennai",
+        "எண்ணெய்"
+      ]
+    },
+    "tea": {
+      "name": "டீ தூள்",
+      "aliases": [
+        "tea",
+        "theyilai",
+        "தேயிலை"
+      ]
+    },
+    "coffee": {
+      "name": "காபித் தூள்",
+      "aliases": [
+        "kaapi",
+        "coffee",
+        "காபி"
+      ]
+    },
+    "milk": {
+      "name": "பால்",
+      "aliases": [
+        "paal"
+      ]
+    },
+    "spices": {
+      "name": "மசாலா பொருட்கள்",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "potato": {
+      "name": "உருளைக்கிழங்கு",
+      "aliases": [
+        "urulaikizhangu",
+        "urulai"
+      ]
+    },
+    "onion": {
+      "name": "வெங்காயம்",
+      "aliases": [
+        "vengayam"
+      ]
+    },
+    "tomato": {
+      "name": "தக்காளி",
+      "aliases": [
+        "thakkali"
+      ]
+    },
+    "carrot": {
+      "name": "கேரட்",
+      "aliases": [
+        "carrot"
+      ]
+    },
+    "beans": {
+      "name": "பீன்ஸ்",
+      "aliases": [
+        "beans"
+      ]
+    },
+    "cabbage": {
+      "name": "முட்டைக்கோஸ்",
+      "aliases": [
+        "muttaikose",
+        "cabbage"
+      ]
+    },
+    "cauliflower": {
+      "name": "காலிஃபிளவர்",
+      "aliases": [
+        "cauliflower",
+        "gobi"
+      ]
+    },
+    "brinjal": {
+      "name": "கத்தரிக்காய்",
+      "aliases": [
+        "kathirikai"
+      ]
+    },
+    "spinach": {
+      "name": "பசலைக் கீரை",
+      "aliases": [
+        "keerai",
+        "pasalai"
+      ]
+    },
+    "apple": {
+      "name": "ஆப்பிள்",
+      "aliases": [
+        "apple"
+      ]
+    },
+    "banana": {
+      "name": "வாழைப்பழம்",
+      "aliases": [
+        "vazhaipazham"
+      ]
+    },
+    "orange": {
+      "name": "ஆரஞ்சு",
+      "aliases": [
+        "orange"
+      ]
+    },
+    "mango": {
+      "name": "மாம்பழம்",
+      "aliases": [
+        "mambazham"
+      ]
+    },
+    "grapes": {
+      "name": "திராட்சை",
+      "aliases": [
+        "thiratchai"
+      ]
+    },
+    "pomegranate": {
+      "name": "மாதுளை",
+      "aliases": [
+        "mathulai"
+      ]
+    },
+    "shirt": {
+      "name": "சட்டை",
+      "aliases": [
+        "sattai",
+        "shirt"
+      ]
+    },
+    "pants": {
+      "name": "பேண்ட்",
+      "aliases": [
+        "pant"
+      ]
+    },
+    "t_shirt": {
+      "name": "டி-சர்ட்",
+      "aliases": [
+        "tshirt"
+      ]
+    },
+    "saree": {
+      "name": "புடவை",
+      "aliases": [
+        "pudavai",
+        "saree"
+      ]
+    },
+    "dress": {
+      "name": "உடை",
+      "aliases": [
+        "udai",
+        "dress"
+      ]
+    },
+    "socks": {
+      "name": "காலுறை",
+      "aliases": [
+        "socks"
+      ]
+    },
+    "shoes": {
+      "name": "காலணிகள்",
+      "aliases": [
+        "shoes"
+      ]
+    },
+    "travel_passport": {
+      "name": "பாஸ்போர்ட்",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "tickets": {
+      "name": "டிக்கெட்",
+      "aliases": [
+        "ticket"
+      ]
+    },
+    "hotel_booking": {
+      "name": "ஹோட்டல் முன்பதிவு",
+      "aliases": [
+        "hotel"
+      ]
+    },
+    "clothes": {
+      "name": "துணிகள்",
+      "aliases": [
+        "thuni"
+      ]
+    },
+    "charger": {
+      "name": "சார்ஜர்",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "பவர் பேங்க்",
+      "aliases": [
+        "power bank"
+      ]
+    },
+    "travel_toiletries": {
+      "name": "குளியல் பொருட்கள்",
+      "aliases": []
+    },
+    "travel_medicines": {
+      "name": "மருந்துகள்",
+      "aliases": [
+        "marundhu"
+      ]
+    },
+    "aadhaar_card": {
+      "name": "ஆதார் அட்டை",
+      "aliases": [
+        "aadhaar",
+        "aadhar"
+      ]
+    },
+    "pan_card": {
+      "name": "பான் அட்டை",
+      "aliases": [
+        "pan"
+      ]
+    },
+    "passport": {
+      "name": "பாஸ்போர்ட்",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "driving_licence": {
+      "name": "ஓட்டுநர் உரிமம்",
+      "aliases": [
+        "driving licence",
+        "dl"
+      ]
+    },
+    "educational_certificates": {
+      "name": "கல்விச் சான்றிதழ்கள்",
+      "aliases": [
+        "certificates"
+      ]
+    },
+    "passport_photos": {
+      "name": "பாஸ்போர்ட் புகைப்படங்கள்",
+      "aliases": [
+        "photo"
+      ]
+    },
+    "hall_ticket": {
+      "name": "ஹால் டிக்கெட்",
+      "aliases": [
+        "hall ticket"
+      ]
+    },
+    "id_card": {
+      "name": "அடையாள அட்டை",
+      "aliases": [
+        "id card"
+      ]
+    },
+    "pen": {
+      "name": "பேனா",
+      "aliases": [
+        "pena",
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "பென்சில்",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "அழிப்பான்",
+      "aliases": [
+        "rubber",
+        "eraser"
+      ]
+    },
+    "calculator": {
+      "name": "கால்குலேட்டர்",
+      "aliases": [
+        "calculator"
+      ]
+    },
+    "books": {
+      "name": "புத்தகங்கள்",
+      "aliases": [
+        "puthagam"
+      ]
+    },
+    "notes": {
+      "name": "குறிப்புகள்",
+      "aliases": [
+        "notes"
+      ]
+    },
+    "sweets": {
+      "name": "இனிப்புகள்",
+      "aliases": [
+        "inippu",
+        "sweets"
+      ]
+    },
+    "greeting_card": {
+      "name": "வாழ்த்து அட்டை",
+      "aliases": [
+        "greeting card"
+      ]
+    },
+    "incense_sticks": {
+      "name": "ஊதுபத்தி",
+      "aliases": [
+        "oodhupathi",
+        "agarbatti"
+      ]
+    },
+    "camphor": {
+      "name": "கற்பூரம்",
+      "aliases": [
+        "karpooram"
+      ]
+    },
+    "kumkum": {
+      "name": "குங்குமம்",
+      "aliases": [
+        "kungumam"
+      ]
+    },
+    "turmeric": {
+      "name": "மஞ்சள்",
+      "aliases": [
+        "manjal"
+      ]
+    },
+    "flowers": {
+      "name": "பூக்கள்",
+      "aliases": [
+        "poo",
+        "pookal"
+      ]
+    },
+    "coconut": {
+      "name": "தேங்காய்",
+      "aliases": [
+        "thengai"
+      ]
+    },
+    "cotton_wicks": {
+      "name": "திரி",
+      "aliases": [
+        "thiri"
+      ]
+    },
+    "balloons": {
+      "name": "பலூன்கள்",
+      "aliases": [
+        "balloon"
+      ]
+    },
+    "rangoli_colours": {
+      "name": "கோலப் பொடி",
+      "aliases": [
+        "kolam",
+        "kola podi"
+      ]
+    },
+    "decorative_lights": {
+      "name": "அலங்கார விளக்குகள்",
+      "aliases": [
+        "serial lights"
+      ]
+    },
+    "fever_tablets": {
+      "name": "காய்ச்சல் மாத்திரை",
+      "aliases": [
+        "kaichal",
+        "paracetamol"
+      ]
+    },
+    "pain_balm": {
+      "name": "தைலம்",
+      "aliases": [
+        "thailam",
+        "balm"
+      ]
+    },
+    "bandage": {
+      "name": "பேண்டேஜ்",
+      "aliases": [
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "கிருமிநாசினி திரவம்",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS பொடி",
+      "aliases": [
+        "ors"
+      ]
+    },
+    "cough_syrup": {
+      "name": "இருமல் மருந்து",
+      "aliases": [
+        "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "சோப்பு",
+      "aliases": [
+        "soap"
+      ]
+    },
+    "toothpaste": {
+      "name": "பற்பசை",
+      "aliases": [
+        "toothpaste",
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "பல் துலக்கி",
+      "aliases": [
+        "brush"
+      ]
+    },
+    "shampoo": {
+      "name": "ஷாம்பு",
+      "aliases": [
+        "shampoo"
+      ]
+    },
+    "hair_oil": {
+      "name": "தலை எண்ணெய்",
+      "aliases": [
+        "ennai"
+      ]
+    },
+    "comb": {
+      "name": "சீப்பு",
+      "aliases": [
+        "seeppu"
+      ]
+    },
+    "batteries": {
+      "name": "பேட்டரிகள்",
+      "aliases": [
+        "battery"
+      ]
+    },
+    "light_bulb": {
+      "name": "பல்பு",
+      "aliases": [
+        "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "எக்ஸ்டென்ஷன் போர்டு",
+      "aliases": [
+        "extension"
+      ]
+    },
+    "earphones": {
+      "name": "இயர்போன்",
+      "aliases": [
+        "earphone"
+      ]
+    },
+    "notebook": {
+      "name": "நோட்டுப் புத்தகம்",
+      "aliases": [
+        "notebook",
+        "note"
+      ]
+    },
+    "scissors": {
+      "name": "கத்தரிக்கோல்",
+      "aliases": [
+        "kathirikol"
+      ]
+    },
+    "glue": {
+      "name": "பசை",
+      "aliases": [
+        "pasai",
+        "gum"
+      ]
+    },
+    "stapler": {
+      "name": "ஸ்டேப்ளர்",
+      "aliases": [
+        "stapler"
+      ]
+    },
+    "ruler": {
+      "name": "அளவுகோல்",
+      "aliases": [
+        "scale",
+        "ruler"
+      ]
+    }
+  }
+}

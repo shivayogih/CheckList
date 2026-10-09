@@ -94,13 +94,22 @@ def check_unique(where, keys, report):
     return seen
 
 
+def check_catalog_ids(where, ids, pattern, report):
+    """catalogId is optional, but when present it must match the master catalogue scheme and be unique."""
+    present = [i for i in ids if i is not None]
+    for i in present:
+        if not isinstance(i, str) or not re.fullmatch(pattern, i):
+            report.error(where, f"catalogId {i!r} must match {pattern}")
+    check_unique(f"{where} catalogId", [i for i in present if isinstance(i, str)], report)
+
+
 def validate_catalog(path, catalog, units, report):
     """Returns (category keys, item keys) declared in the catalog."""
     if not isinstance(catalog, dict):
         report.error(path, "top level must be an object")
         return set(), set()
 
-    allowed = {"seedVersion", "units", "categories", "items"}
+    allowed = {"seedVersion", "units", "categories", "items", "retiredCategories"}
     for extra in sorted(set(catalog) - allowed):
         report.error(path, f"unknown top-level field '{extra}'")
 
@@ -157,6 +166,14 @@ def validate_catalog(path, catalog, units, report):
         if not (isinstance(sort_order, int) and not isinstance(sort_order, bool)):
             report.error(where, f"sortOrder must be an integer, got {sort_order!r}")
     category_set = check_unique(f"{path} categories", category_keys, report)
+    check_catalog_ids(f"{path} categories", [c.get("catalogId") for c in categories if isinstance(c, dict)], r"CAT\d{3}", report)
+    retired = catalog.get("retiredCategories", [])
+    if not isinstance(retired, list) or any(not isinstance(k, str) for k in retired):
+        report.error(path, "'retiredCategories' must be a list of keys")
+    else:
+        for k in retired:
+            if k in category_set:
+                report.error(path, f"retired category '{k}' is still declared in categories")
 
     # Items.
     items = catalog.get("items")
@@ -179,10 +196,16 @@ def validate_catalog(path, catalog, units, report):
             report.error(where, f"category {item.get('category')!r} is not a declared category")
         if "defaultUnit" not in item:
             report.error(where, "defaultUnit is required (use null for no unit)")
+        tags = item.get("tags", [])
+        if not isinstance(tags, list) or any(not isinstance(t, str) or not t.strip() for t in tags):
+            report.error(where, "tags must be a list of non-empty strings")
+        if "subcategory" in item:
+            check_text(f"{where} subcategory", item.get("subcategory"), report)
         unit = item.get("defaultUnit")
         if unit is not None and unit not in units:
             report.error(where, f"defaultUnit {unit!r} is not a BuiltInUnits code")
     item_set = check_unique(f"{path} items", item_keys, report)
+    check_catalog_ids(f"{path} items", [i.get("catalogId") for i in items if isinstance(i, dict)], r"ITM\d{4}", report)
     return category_set, item_set
 
 

@@ -174,6 +174,6 @@ class ChecklistJourneysTest {
 
     private companion object {
         /** The seeded "groceries" category in English (data/src/main/assets/seed/i18n/en.json). */
-        const val GROCERIES = "Groceries"
+        const val GROCERIES = "Groceries & Staples"
     }
 }

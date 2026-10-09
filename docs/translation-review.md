@@ -15,9 +15,12 @@ Regenerate it whenever strings change (`--check` reports whether it is current).
 4. Report fixes as an issue or a pull request that edits `values-<tag>/strings.xml` or
    `plurals.xml`, then regenerate this file.
 
+Catalogue item and category names are reviewed separately in
+[catalog-translation-review.md](catalog-translation-review.md).
+
 Brand names marked `translatable="false"` (such as `app_name`) are not listed.
 
-## Strings (261 keys)
+## Strings (266 keys)
 
 | Key | English | Kannada (ಕನ್ನಡ) | Hindi (हिन्दी) | Tamil (தமிழ்) | Telugu (తెలుగు) | Marathi (मराठी) | Malayalam (മലയാളം) |
 |---|---|---|---|---|---|---|---|
@@ -144,6 +147,7 @@ Brand names marked `translatable="false"` (such as `app_name`) are not listed.
 | `unit_allows_decimal` | Allow decimals, like 1.5 | 1.5 ರಂತಹ ದಶಮಾಂಶಗಳನ್ನು ಅನುಮತಿಸಿ | 1.5 जैसे दशमलव की अनुमति दें | 1.5 போன்ற தசம எண்களை அனுமதி | 1.5 వంటి దశాంశాలను అనుమతించండి | 1.5 सारख्या दशांशांना परवानगी द्या | 1.5 പോലെയുള്ള ദശാംശങ്ങൾ അനുവദിക്കുക |
 | `unit_bottle` | bottle | ಬಾಟಲ್ | बोतल | பாட்டில் | సీసా | बाटली | കുപ്പി |
 | `unit_box` | box | ಬಾಕ್ಸ್ | डिब्बा | பெட்டி | పెట్టె | खोका | പെട്ടി |
+| `unit_bunch` | bunch | ಕಟ್ಟು | गुच्छा | கட்டு | కట్ట | जुडी | കെട്ട് |
 | `unit_button` | Unit: %1$s | ಘಟಕ: %1$s | इकाई: %1$s | அலகு: %1$s | కొలమానం: %1$s | एकक: %1$s | അളവ്: %1$s |
 | `unit_create` | New unit | ಹೊಸ ಘಟಕ | नई इकाई | புதிய அலகு | కొత్త కొలమానం | नवीन एकक | പുതിയ അളവ് |
 | `unit_dozen` | dozen | ಡಜನ್ | दर्जन | டஜன் | డజను | डझन | ഡസൻ |
@@ -200,6 +204,10 @@ Brand names marked `translatable="false"` (such as `app_name`) are not listed.
 | `import_preview_renamed` | “%1$s” will be imported as “%2$s”. | “%1$s” ಅನ್ನು “%2$s” ಆಗಿ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ. | “%1$s” को “%2$s” के रूप में आयात किया जाएगा। | “%1$s” என்பது “%2$s” என இறக்குமதி செய்யப்படும். | “%1$s” అనేది “%2$s”గా దిగుమతి అవుతుంది. | “%1$s” हे “%2$s” म्हणून आयात होईल. | “%1$s” എന്നത് “%2$s” ആയി ഇംപോർട്ട് ചെയ്യും. |
 | `import_preview_title` | Import these checklists? | ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೆ? | ये सूचियाँ आयात करें? | இந்தப் பட்டியல்களை இறக்குமதி செய்யவா? | ఈ జాబితాలను దిగుమతి చేయాలా? | या याद्या आयात करायच्या? | ഈ ലിസ്റ്റുകൾ ഇംപോർട്ട് ചെയ്യണോ? |
 | `pdf_saved` | PDF saved. | PDF ಉಳಿಸಲಾಗಿದೆ. | PDF सहेजी गई। | PDF சேமிக்கப்பட்டது. | PDF సేవ్ చేయబడింది. | PDF जतन केली. | PDF സംരക്ഷിച്ചു. |
+| `pdf_open` | Open | ತೆರೆಯಿರಿ | खोलें | திற | తెరవండి | उघडा | തുറക്കുക |
+| `pdf_open_no_app` | No app on this phone can open PDF files. | PDF ಫೈಲ್‌ಗಳನ್ನು ತೆರೆಯಬಲ್ಲ ಆ್ಯಪ್ ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಲ್ಲ. | इस फ़ोन पर PDF फ़ाइलें खोलने वाला कोई ऐप नहीं है। | PDF கோப்புகளைத் திறக்கக்கூடிய ஆப்ஸ் இந்த ஃபோனில் இல்லை. | PDF ఫైళ్లను తెరవగల యాప్ ఈ ఫోన్‌లో లేదు. | PDF फाइल उघडू शकेल असे कोणतेही अ‍ॅप या फोनवर नाही. | PDF ഫയലുകൾ തുറക്കാൻ കഴിയുന്ന ആപ്പ് ഈ ഫോണിൽ ഇല്ല. |
+| `pdf_tagline` | Every list, always with you. | ಪ್ರತಿ ಪಟ್ಟಿ, ಯಾವಾಗಲೂ ನಿಮ್ಮೊಂದಿಗೆ. | हर सूची, हमेशा आपके साथ। | ஒவ்வொரு பட்டியலும், எப்போதும் உங்களுடன். | ప్రతి జాబితా, ఎల్లప్పుడూ మీతో. | प्रत्येक यादी, नेहमी तुमच्यासोबत. | ഓരോ ലിസ്റ്റും, എപ്പോഴും നിങ്ങളോടൊപ്പം. |
+| `pdf_category_heading` | %1$s (%2$s) | %1$s (%2$s) | %1$s (%2$s) | %1$s (%2$s) | %1$s (%2$s) | %1$s (%2$s) | %1$s (%2$s) |
 | `settings_export_all` | Export all checklists | ಎಲ್ಲಾ ಪಟ್ಟಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ | सभी सूचियाँ निर्यात करें | எல்லா பட்டியல்களையும் ஏற்றுமதி செய் | అన్ని జాబితాలను ఎగుమతి చేయండి | सर्व याद्या निर्यात करा | എല്ലാ ലിസ്റ്റുകളും എക്സ്പോർട്ട് ചെയ്യുക |
 | `settings_export_all_summary` | Save a backup file (.json) that you can import later | ನಂತರ ಆಮದು ಮಾಡಬಹುದಾದ ಬ್ಯಾಕಪ್ ಫೈಲ್ (.json) ಉಳಿಸಿ | बैकअप फ़ाइल (.json) सहेजें जिसे बाद में आयात कर सकें | பின்னர் இறக்குமதி செய்யக்கூடிய காப்புக் கோப்பை (.json) சேமிக்கவும் | తర్వాత దిగుమతి చేయగల బ్యాకప్ ఫైల్ (.json) సేవ్ చేయండి | नंतर आयात करता येईल अशी बॅकअप फाइल (.json) जतन करा | പിന്നീട് ഇംപോർട്ട് ചെയ്യാവുന്ന ബാക്കപ്പ് ഫയൽ (.json) സംരക്ഷിക്കുക |
 | `settings_import` | Import checklists | ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಿ | सूचियाँ आयात करें | பட்டியல்களை இறக்குமதி செய் | జాబితాలను దిగుమతి చేయండి | याद्या आयात करा | ലിസ്റ്റുകൾ ഇംപോർട്ട് ചെയ്യുക |
