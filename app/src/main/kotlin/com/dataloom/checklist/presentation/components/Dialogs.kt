@@ -2,7 +2,10 @@ package com.dataloom.checklist.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -17,6 +20,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.ResizeDialogForKeyboard
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 
 /**
  * Confirmation for a destructive action, with explicit verbs ("Delete" / "Cancel") rather than
@@ -61,7 +66,9 @@ fun TextInputDialog(
         onDismissRequest = onDismiss,
         title = { DialogTitle(title) },
         text = {
-            Column {
+            // Scrolls when the keyboard, a landscape screen or 200% text leaves too little room.
+            ResizeDialogForKeyboard()
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 OutlinedTextField(
                     value = value,
                     onValueChange = onValueChange,
@@ -73,8 +80,10 @@ fun TextInputDialog(
                         capitalization = KeyboardCapitalization.Sentences,
                         imeAction = ImeAction.Done,
                     ),
+                    keyboardActions = KeyboardActions(onDone = { if (enabled) onConfirm() }),
                     modifier = Modifier
                         .fillMaxWidth()
+                        .bringIntoViewWhenFocused()
                         .semantics { if (errorText != null) error(errorText) },
                 )
                 extraContent()

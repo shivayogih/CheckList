@@ -50,16 +50,18 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
-import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.ai.AiCommandAction
 import com.dataloom.checklist.presentation.ai.AiCommandPanel
 import com.dataloom.checklist.presentation.ai.AiCommandUiState
 import com.dataloom.checklist.presentation.ai.AiCommandViewModel
 import com.dataloom.checklist.presentation.ai.AiReviewSheet
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.quantityText
 import com.dataloom.checklist.presentation.common.resolve
@@ -185,6 +187,7 @@ private fun DetailContent(
     onAiAction: (AiCommandAction) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = state.title,
@@ -205,7 +208,8 @@ private fun DetailContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .dismissKeyboardOnOutsideInteraction(),
             contentPadding = PaddingValues(bottom = 24.dp),
         ) {
             if (!state.isLoading) {

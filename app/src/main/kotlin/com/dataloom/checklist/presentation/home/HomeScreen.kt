@@ -65,7 +65,10 @@ import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistSort
 import com.dataloom.checklist.presentation.common.countText
+import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.progressText
+import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
@@ -141,6 +144,7 @@ private fun HomeContent(
     onOpenChecklist: (ChecklistId) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = stringResource(R.string.home_title),
@@ -169,7 +173,8 @@ private fun HomeContent(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    .padding(padding)
+                    .dismissKeyboardOnOutsideInteraction(),
                 // Room below the last card so the floating button never covers its menu.
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -282,6 +287,7 @@ private fun SearchField(search: String, onAction: (HomeAction) -> Unit) {
             }
         },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = rememberDismissKeyboardActions(),
         modifier = Modifier.fillMaxWidth(),
     )
 }
