@@ -385,7 +385,8 @@ class AndroidChecklistPdfWriter @Inject constructor(
             item.notes?.let { layout(it, paint(SMALL_SIZE, color = MUTED, locale = locale), textWidth) },
         )
         val serialLayout = singleLine(serial, paint(ITEM_SIZE, color = MUTED, locale = Locale.ENGLISH), serialWidth)
-        return ItemBlock(StackBlock(lines, LINE_GAP, after = ITEM_GAP), item.isCompleted, serialLayout, serialWidth, photos)
+        val text = StackBlock(lines, LINE_GAP, after = ITEM_GAP)
+        return ItemBlock(text, item.isCompleted, serialLayout, serialWidth, photos)
     }
 
     private fun paint(size: Float, bold: Boolean = false, color: Int = INK, locale: Locale): TextPaint =
