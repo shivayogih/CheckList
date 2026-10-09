@@ -26,14 +26,15 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.theme.Dimens
 
@@ -76,7 +77,7 @@ fun FormField(
     }
     val borderWidth = if (hasError || focused) Dimens.Border3 else Dimens.Border2
     val shape = RoundedCornerShape(Dimens.Corner12)
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth().bringIntoViewWhenFocused()) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelMedium,

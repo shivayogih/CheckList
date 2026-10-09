@@ -26,6 +26,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
 import com.dataloom.checklist.presentation.common.countText
+import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
@@ -54,6 +56,7 @@ fun AddCategoriesScreen(
     }
 
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = stringResource(R.string.add_categories_title),
@@ -80,7 +83,8 @@ fun AddCategoriesScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .dismissKeyboardOnOutsideInteraction(),
         ) {
             if (!state.isLoading && state.categories.isEmpty()) {
                 item {

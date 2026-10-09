@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.ResizeDialogForKeyboard
 import com.dataloom.checklist.presentation.theme.Dimens
 
 /**
@@ -47,7 +51,11 @@ fun DialogSurface(
         color = MaterialTheme.colorScheme.surfaceContainer,
         tonalElevation = 0.dp,
     ) {
-        Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        // Scrolls when the keyboard, a landscape screen or 200% text leaves too little room.
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState()).padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
@@ -130,6 +138,7 @@ fun TextInputDialog(
     extraContent: @Composable () -> Unit = {},
 ) {
     BasicAlertDialog(onDismissRequest = onDismiss) {
+        ResizeDialogForKeyboard()
         DialogSurface(
             title = title,
             actions = {
@@ -148,6 +157,7 @@ fun TextInputDialog(
                         capitalization = KeyboardCapitalization.Sentences,
                         imeAction = ImeAction.Done,
                     ),
+                    keyboardActions = KeyboardActions(onDone = { if (enabled) onConfirm() }),
                 )
                 extraContent()
             }

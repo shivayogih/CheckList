@@ -37,6 +37,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.unitLabel
 import com.dataloom.checklist.presentation.components.CheckRow
 
@@ -50,6 +51,7 @@ fun AiCommandPanel(state: AiCommandUiState, onAction: (AiCommandAction) -> Unit,
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .bringIntoViewWhenFocused()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {

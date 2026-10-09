@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +23,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dataloom.checklist.presentation.common.keyboardAwareSheet
 import com.dataloom.checklist.presentation.theme.Dimens
 
 private val SheetShape = RoundedCornerShape(topStart = Dimens.Corner28, topEnd = Dimens.Corner28)
@@ -31,7 +31,8 @@ private val SheetShape = RoundedCornerShape(topStart = Dimens.Corner28, topEnd =
 /**
  * A modal bottom sheet in the look of the mockups (UI-SPEC section 3): `surfaceContainer`, 28 dp top
  * corners, a 40 x 4 dp handle, 20 dp side padding and a 24 sp SemiBold [title]. Buttons and fields go in
- * [content]. The sheet scrolls with the keyboard (it is padded for the IME and the navigation bar).
+ * [content]. The sheet is padded for the IME and the navigation bar; content taller than the sheet must
+ * scroll itself.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +61,7 @@ internal fun SheetBody(title: String, content: @Composable ColumnScope.() -> Uni
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .navigationBarsPadding()
+            .keyboardAwareSheet()
             .padding(start = 20.dp, end = 20.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {

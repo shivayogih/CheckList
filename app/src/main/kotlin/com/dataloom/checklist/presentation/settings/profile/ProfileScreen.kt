@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,7 +41,10 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
@@ -71,6 +72,7 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
     }
 
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = stringResource(R.string.profile_title),
@@ -83,7 +85,7 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .verticalScroll(rememberScrollState())
+                .scrollableForm()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -216,6 +218,7 @@ private fun ProfileField(
         keyboardOptions = keyboardOptions,
         modifier = Modifier
             .fillMaxWidth()
+            .bringIntoViewWhenFocused()
             .semantics { if (errorText != null) error(errorText) },
     )
 }
