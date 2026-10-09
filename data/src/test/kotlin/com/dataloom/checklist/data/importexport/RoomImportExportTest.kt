@@ -196,7 +196,7 @@ class RoomImportExportTest {
         val details = summary.checklistIds.map { phoneB.detail(it, locale = "hi") }
         val diwali = details.single { it.checklist.title == "Diwali Shopping" }
         assertEquals(phoneB.category("groceries").id, diwali.sections.first().category.id)
-        assertEquals("किराना", diwali.sections.first().category.displayName)
+        assertEquals("किराना और राशन", diwali.sections.first().category.displayName)
         assertTrue(details.single { it.checklist.title == "Goa Trip" }.checklist.isArchived)
     }
 

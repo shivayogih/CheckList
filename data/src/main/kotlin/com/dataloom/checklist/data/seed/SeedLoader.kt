@@ -54,6 +54,7 @@ class SeedLoader @Inject constructor(
         upsertUnits(db, catalog.units)
         val categoryIds = upsertCategories(db, catalog.categories, now)
         upsertItems(db, catalog.items, categoryIds, now)
+        hideRetiredCategories(db, catalog.retiredCategories, now)
         upsertTranslations(db, catalog, translations)
         rebuildSearchIndex(db)
         db.execSQL(
@@ -156,6 +157,10 @@ class SeedLoader @Inject constructor(
     private fun upsertTranslations(db: SupportSQLiteDatabase, catalog: SeedCatalog, translations: List<SeedTranslations>) {
         val categoryKeys = catalog.categories.mapTo(HashSet()) { it.key }
         val itemKeys = catalog.items.mapTo(HashSet()) { it.key }
+        // Subcategory and tags are English keywords searchable in every language.
+        val searchTerms = catalog.items.associate { item ->
+            item.key to (listOfNotNull(item.subcategory) + item.tags.map { it.replace('_', ' ') })
+        }
         translations.forEach { file ->
             val locale = file.locale.trim().lowercase()
             file.categories.filterKeys { it in categoryKeys }.forEach { (key, name) ->
@@ -165,12 +170,15 @@ class SeedLoader @Inject constructor(
                 )
             }
             file.items.filterKeys { it in itemKeys }.forEach { (key, value) ->
-                val aliases = value.aliases.map { it.trim() }.filter { it.isNotEmpty() }
+                val name = value.name.trim()
+                val aliases = (value.aliases + searchTerms[key].orEmpty()).map { it.trim() }
+                    .filter { it.isNotEmpty() && !it.equals(name, ignoreCase = true) }
+                    .distinctBy { it.lowercase() }
                     .takeIf { it.isNotEmpty() }
                     ?.joinToString(MasterItemTranslationEntity.ALIAS_SEPARATOR)
                 db.execSQL(
                     "INSERT OR REPLACE INTO master_item_translation (canonical_key, locale, name, aliases) VALUES (?, ?, ?, ?)",
-                    arrayOf<Any?>(key, locale, value.name.trim(), aliases),
+                    arrayOf<Any?>(key, locale, name, aliases),
                 )
             }
         }
@@ -221,4 +229,18 @@ class SeedLoader @Inject constructor(
     private fun Cursor.getStringOrNull(index: Int): String? = if (isNull(index)) null else getString(index)
 
     private fun Boolean.toInt(): Int = if (this) 1 else 0
+}
+
+/** Merged-away categories disappear from pickers once empty; their rows stay for old references. */
+private fun hideRetiredCategories(db: SupportSQLiteDatabase, keys: List<String>, now: Long) {
+    keys.forEach { key ->
+        db.execSQL(
+            """
+            UPDATE category SET is_hidden = 1, updated_at = ?
+            WHERE canonical_key = ? AND is_custom = 0 AND custom_name IS NULL AND is_hidden = 0
+              AND NOT EXISTS (SELECT 1 FROM master_item WHERE master_item.category_id = category.id)
+            """.trimIndent(),
+            arrayOf<Any?>(now, key),
+        )
+    }
 }

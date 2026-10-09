@@ -211,6 +211,6 @@ class KeyboardScreensTest {
     private companion object {
         const val KEYBOARD_PX = 200
         const val TOLERANCE_DP = 1f
-        const val GROCERIES = "Groceries"
+        const val GROCERIES = "Groceries & Staples"
     }
 }

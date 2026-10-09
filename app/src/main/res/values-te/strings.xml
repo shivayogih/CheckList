@@ -130,6 +130,7 @@
     <string name="unit_allows_decimal">1.5 వంటి దశాంశాలను అనుమతించండి</string>
     <string name="unit_bottle">సీసా</string>
     <string name="unit_box">పెట్టె</string>
+    <string name="unit_bunch">కట్ట</string>
     <string name="unit_button">కొలమానం: %1$s</string>
     <string name="unit_create">కొత్త కొలమానం</string>
     <string name="unit_dozen">డజను</string>

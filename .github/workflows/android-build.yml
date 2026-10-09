@@ -37,7 +37,9 @@ jobs:
 
       # Seed catalog rules (CL-113): keys, categories, unit codes and all 7 locale files.
       - name: Validate seed catalog
-        run: python3 tools/seed/validate_seed.py
+        run: |
+          python3 tools/seed/validate_seed.py
+          python3 tools/seed/build_india_catalog.py --check
 
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest

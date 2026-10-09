@@ -77,7 +77,7 @@ class PlanValidatorTest {
     fun `unknown units are rejected, never created`() = runTest {
         assertEquals(listOf(ToolProblem.UnknownUnit), problems(call("addChecklistItem", "name" to "rice", "quantity" to "2", "unit" to "TONNE")))
         assertEquals(listOf(ToolProblem.UnknownUnit), problems(call("addChecklistItem", "name" to "rice", "quantity" to "2", "unit" to "kg")))
-        assertEquals(12, harness.catalog.observeUnitsNow().size)
+        assertEquals(13, harness.catalog.observeUnitsNow().size)
     }
 
     @Test

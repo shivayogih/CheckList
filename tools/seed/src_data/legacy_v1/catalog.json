@@ -1,0 +1,579 @@
+{
+  "seedVersion": 1,
+  "units": [
+    {
+      "code": "KG",
+      "allowsDecimal": true,
+      "sortOrder": 10
+    },
+    {
+      "code": "GRAM",
+      "allowsDecimal": true,
+      "sortOrder": 20
+    },
+    {
+      "code": "LITRE",
+      "allowsDecimal": true,
+      "sortOrder": 30
+    },
+    {
+      "code": "MILLILITRE",
+      "allowsDecimal": true,
+      "sortOrder": 40
+    },
+    {
+      "code": "DOZEN",
+      "allowsDecimal": false,
+      "sortOrder": 50
+    },
+    {
+      "code": "PIECE",
+      "allowsDecimal": false,
+      "sortOrder": 60
+    },
+    {
+      "code": "PACK",
+      "allowsDecimal": false,
+      "sortOrder": 70
+    },
+    {
+      "code": "BOX",
+      "allowsDecimal": false,
+      "sortOrder": 80
+    },
+    {
+      "code": "BOTTLE",
+      "allowsDecimal": false,
+      "sortOrder": 90
+    },
+    {
+      "code": "PAIR",
+      "allowsDecimal": false,
+      "sortOrder": 100
+    },
+    {
+      "code": "METER",
+      "allowsDecimal": true,
+      "sortOrder": 110
+    },
+    {
+      "code": "NOS",
+      "allowsDecimal": false,
+      "sortOrder": 120
+    }
+  ],
+  "categories": [
+    {
+      "key": "groceries",
+      "icon": "🛒",
+      "sortOrder": 10
+    },
+    {
+      "key": "vegetables",
+      "icon": "🥕",
+      "sortOrder": 20
+    },
+    {
+      "key": "fruits",
+      "icon": "🍎",
+      "sortOrder": 30
+    },
+    {
+      "key": "clothing",
+      "icon": "👕",
+      "sortOrder": 40
+    },
+    {
+      "key": "travel",
+      "icon": "🎒",
+      "sortOrder": 50
+    },
+    {
+      "key": "documents",
+      "icon": "📄",
+      "sortOrder": 60
+    },
+    {
+      "key": "exam",
+      "icon": "📝",
+      "sortOrder": 70
+    },
+    {
+      "key": "gifts",
+      "icon": "🎁",
+      "sortOrder": 80
+    },
+    {
+      "key": "pooja_items",
+      "icon": "🔔",
+      "sortOrder": 90
+    },
+    {
+      "key": "decorations",
+      "icon": "🎉",
+      "sortOrder": 100
+    },
+    {
+      "key": "medicines",
+      "icon": "💊",
+      "sortOrder": 110
+    },
+    {
+      "key": "toiletries",
+      "icon": "🚿",
+      "sortOrder": 120
+    },
+    {
+      "key": "electronics",
+      "icon": "🔌",
+      "sortOrder": 130
+    },
+    {
+      "key": "stationery",
+      "icon": "📎",
+      "sortOrder": 140
+    },
+    {
+      "key": "other",
+      "icon": "📦",
+      "sortOrder": 150
+    }
+  ],
+  "items": [
+    {
+      "key": "rice",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "wheat",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "sugar",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "salt",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "dal",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "cooking_oil",
+      "category": "groceries",
+      "defaultUnit": "LITRE"
+    },
+    {
+      "key": "tea",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "coffee",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "milk",
+      "category": "groceries",
+      "defaultUnit": "LITRE"
+    },
+    {
+      "key": "spices",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "potato",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "onion",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "tomato",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "carrot",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "beans",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "cabbage",
+      "category": "vegetables",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "cauliflower",
+      "category": "vegetables",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "brinjal",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "spinach",
+      "category": "vegetables",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "apple",
+      "category": "fruits",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "banana",
+      "category": "fruits",
+      "defaultUnit": "DOZEN"
+    },
+    {
+      "key": "orange",
+      "category": "fruits",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "mango",
+      "category": "fruits",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "grapes",
+      "category": "fruits",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "pomegranate",
+      "category": "fruits",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "pants",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "t_shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "saree",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "dress",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "socks",
+      "category": "clothing",
+      "defaultUnit": "PAIR"
+    },
+    {
+      "key": "shoes",
+      "category": "clothing",
+      "defaultUnit": "PAIR"
+    },
+    {
+      "key": "travel_passport",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "tickets",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "hotel_booking",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "clothes",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "charger",
+      "category": "travel",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "power_bank",
+      "category": "travel",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "travel_toiletries",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "travel_medicines",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "aadhaar_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "pan_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "passport",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "driving_licence",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "educational_certificates",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "passport_photos",
+      "category": "documents",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "hall_ticket",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "id_card",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "pen",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "pencil",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "eraser",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "calculator",
+      "category": "exam",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "books",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "notes",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "sweets",
+      "category": "gifts",
+      "defaultUnit": "BOX"
+    },
+    {
+      "key": "greeting_card",
+      "category": "gifts",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "incense_sticks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "camphor",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "kumkum",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "turmeric",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "flowers",
+      "category": "pooja_items",
+      "defaultUnit": null
+    },
+    {
+      "key": "coconut",
+      "category": "pooja_items",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "cotton_wicks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "balloons",
+      "category": "decorations",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "rangoli_colours",
+      "category": "decorations",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "decorative_lights",
+      "category": "decorations",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "fever_tablets",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "pain_balm",
+      "category": "medicines",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "bandage",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "antiseptic_liquid",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "ors",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "cough_syrup",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "soap",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "toothpaste",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "toothbrush",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "shampoo",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "hair_oil",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "comb",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "batteries",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "light_bulb",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "extension_board",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "earphones",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "notebook",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "scissors",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "glue",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "stapler",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "ruler",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    }
+  ]
+}
