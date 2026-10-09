@@ -72,3 +72,21 @@ For example Bengali, Gujarati, Punjabi, Odia, Assamese or Urdu:
 4. Screenshot tests for the new locale. Urdu is right-to-left: the `ar-XB` pseudo-locale catches RTL problems early.
 
 No business logic changes.
+
+## Glossary
+
+One word per concept in each language (CL-330 strings audit). `TerminologyTest` fails when a replaced variant comes back.
+
+| Concept | kn | hi | ta | te | mr | ml |
+|---|---|---|---|---|---|---|
+| list / checklist | ಪಟ್ಟಿ | सूची | பட்டியல் | జాబితా | यादी | ലിസ്റ്റ് |
+| item | ವಸ್ತು | आइटम | பொருள் | వస్తువు | वस्तू | ഇനം |
+| category | ವರ್ಗ | श्रेणी | வகை | వర్గం | वर्ग | വിഭാഗം |
+| unit | ಘಟಕ | इकाई | அலகு | కొలమానం | एकक | യൂണിറ്റ് |
+| amount | ಪ್ರಮಾಣ | मात्रा | அளவு | పరిమాణం | प्रमाण | അളവ് |
+| import | ಆಮದು | आयात | இறக்குமதி | దిగుమతి | आयात | ഇംപോർട്ട് |
+| export | ರಫ್ತು | निर्यात | ஏற்றுமதி | ఎగుమతి | निर्यात | എക്സ്പോർട്ട് |
+| optional | ಐಚ್ಛಿಕ | वैकल्पिक | விருப்பம் | ఐచ్ఛికం | ऐच्छिक | ഐച്ഛികം |
+| phone | ಫೋನ್ | फ़ोन | ஃபோன் | ఫోన్ | फोन | ഫോൺ |
+
+The app name stays "CheckList" and "WhatsApp" and "Google Play" stay in Latin script. Buttons in Telugu use the polite form (-ండి); Tamil buttons use the short form (சேர், நீக்கு), as Android does.
