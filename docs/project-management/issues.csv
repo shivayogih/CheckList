@@ -100,3 +100,8 @@ CL-225,Add optional AI summary for agent reports,Opt-in GEMINI_API_KEY secret ad
 CL-187,Apply branch and tag rulesets,Owner applies the develop/main/release rulesets and tag protection in GitHub settings with the required checks from docs/ci-cd.md,Task,High,BACKLOG,,,,,,,,2026-10-08,2026-10-08,1.0.0
 CL-226,Add AI review agent,Advisory PR review with an ADK LLM agent; needs the opt-in GEMINI_API_KEY secret,CI/CD,Low,BACKLOG,,,,,,,,2026-10-08,2026-10-08,1.0.0
 CL-227,Add CI failure analysis agent,"Trimmed, redacted failure logs to CI_FAILURE_REPORT.md; needs the opt-in GEMINI_API_KEY secret",CI/CD,Low,BACKLOG,,,,,,,,2026-10-08,2026-10-08,1.0.0
+CL-305,Flavor launcher icons use the production artwork,"Dev and staging use the production icon and background; only a DEV/STG ribbon differs; production logo splash in all flavors",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
+CL-306,Open action after saving a PDF,"Saved snackbar offers Open (ACTION_VIEW, read grant, translated no-app message)",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
+CL-307,PDF header with logo and tagline,"Production logo, app name and translated tagline in the PDF header",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
+CL-308,PDF serial numbers per category,"Items numbered 1, 2, 3 restarting in each category",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0
+CL-309,PDF category item counts,"Category heading shows its item count, for example Groceries (5)",Feature,Medium,IN_PROGRESS,,feature/CL-305-pdf-and-icons,,,,,,2026-10-09,2026-10-09,1.0.0

@@ -190,6 +190,12 @@
     <string name="import_preview_renamed">“%1$s” എന്നത് “%2$s” ആയി ഇംപോർട്ട് ചെയ്യും.</string>
     <string name="import_preview_title">ഈ ലിസ്റ്റുകൾ ഇംപോർട്ട് ചെയ്യണോ?</string>
     <string name="pdf_saved">PDF സംരക്ഷിച്ചു.</string>
+    <string name="pdf_open">തുറക്കുക</string>
+    <string name="pdf_open_no_app">PDF ഫയലുകൾ തുറക്കാൻ കഴിയുന്ന ആപ്പ് ഈ ഫോണിൽ ഇല്ല.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">ഓരോ ലിസ്റ്റും, എപ്പോഴും നിങ്ങളോടൊപ്പം.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">എല്ലാ ലിസ്റ്റുകളും എക്സ്പോർട്ട് ചെയ്യുക</string>
     <string name="settings_export_all_summary">പിന്നീട് ഇംപോർട്ട് ചെയ്യാവുന്ന ബാക്കപ്പ് ഫയൽ (.json) സംരക്ഷിക്കുക</string>
     <string name="settings_import">ലിസ്റ്റുകൾ ഇംപോർട്ട് ചെയ്യുക</string>

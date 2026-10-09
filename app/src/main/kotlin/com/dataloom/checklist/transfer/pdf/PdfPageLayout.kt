@@ -1,5 +1,6 @@
 package com.dataloom.checklist.transfer.pdf
 
+import com.dataloom.checklist.presentation.common.LocaleNumbers
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -14,8 +15,8 @@ import kotlin.math.sin
 
 /**
  * Page geometry of the PDF export (section 20.4), kept pure so placement is unit tested without a
- * device. Every page has, top to bottom: a branded header band (tick badge, app name, checklist
- * title), the content area, and a footer band (tagline, export time, page number, and, only when a
+ * device. Every page has, top to bottom: a branded header band (app logo, app name with the tagline
+ * under it, checklist title), the content area, and a footer band (tagline, export time, page number, and, only when a
  * store link is configured, a second row with the Google Play line). A faint diagonal watermark is
  * drawn first, under everything else. Units are PDF points (1/72 inch); A4.
  *
@@ -46,7 +47,7 @@ object PdfPageLayout {
     const val CONTENT_LEFT = MARGIN
     const val CONTENT_WIDTH = PAGE_WIDTH - 2 * MARGIN
 
-    const val HEADER_HEIGHT = 28f
+    const val HEADER_HEIGHT = 36f
     const val HEADER_GAP = 14f
 
     /** Space between the footer rule and the first footer row. */
@@ -54,8 +55,8 @@ object PdfPageLayout {
     const val FOOTER_ROW_HEIGHT = 15f
     const val FOOTER_GAP = 14f
 
-    /** Side of the drawn tick badge in the header. */
-    const val BADGE_SIZE = 20f
+    /** Side of the app logo in the header. */
+    const val BADGE_SIZE = 28f
 
     /** Side of the QR code in the "Get CheckList" box: about 3 cm, comfortably scannable on paper. */
     const val PROMO_QR_SIZE = 84f
@@ -78,6 +79,19 @@ object PdfPageLayout {
 
     /** Upper bound so a short brand name is not drawn absurdly large. */
     const val WATERMARK_MAX_SIZE = 120f
+
+    /** Share of the content width the brand name and tagline column may take in the header. */
+    const val HEADER_TEXT_SHARE = 0.55f
+
+    /** Space between the serial number and the checkbox. */
+    const val SERIAL_GAP = 4f
+
+    /**
+     * Serial numbers "1.", "2.", ... for the [count] items of one category, in Western digits.
+     * Numbering restarts at 1 in every category.
+     */
+    fun serialLabels(count: Int, locale: Locale): List<String> =
+        (1..count).map { LocaleNumbers.formatCount(it, locale) + "." }
 
     val header = Band(MARGIN, MARGIN + HEADER_HEIGHT)
 
