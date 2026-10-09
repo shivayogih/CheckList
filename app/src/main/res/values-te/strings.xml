@@ -9,6 +9,7 @@
     <string name="settings_language">భాష</string>
     <string name="settings_language_system">సిస్టమ్ డిఫాల్ట్</string>
     <string name="settings_about">గురించి</string>
+    <string name="app_logo_description">చెక్‌లిస్ట్ లోగో</string>
     <string name="settings_version">వెర్షన్ %1$s</string>
     <string name="navigate_back">వెనుకకు</string>
     <string name="language_title">భాషను ఎంచుకోండి</string>

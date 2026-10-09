@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full CheckList logo (rounded green square, tick, progress arc, rays) for in-app use; the drop shadows of the master SVG are omitted. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <path android:pathData="M250,32 H774 A218,218 0 0 1 992,250 V774 A218,218 0 0 1 774,992 H250 A218,218 0 0 1 32,774 V250 A218,218 0 0 1 250,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="32"
+                android:endX="992"
+                android:endY="992"
+                android:type="linear">
+                <item android:color="#079E5B" android:offset="0" />
+                <item android:color="#006B43" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M250,150 C420,70 720,95 850,230"
+        android:strokeColor="#1F57E889"
+        android:strokeWidth="26"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M718,695 A300,300 0 1 1 754,512"
+        android:strokeWidth="74"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="156"
+                android:startY="248"
+                android:endX="756"
+                android:endY="848"
+                android:type="linear">
+                <item android:color="#73FF9A" android:offset="0" />
+                <item android:color="#20D96D" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M292,514 L440,662 L735,342"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="96"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <group
+        android:pivotX="773"
+        android:pivotY="267"
+        android:rotation="15">
+        <path android:fillColor="#FFD84D" android:pathData="M754,234 a19,19 0 0 1 38,0 v66 a19,19 0 0 1 -38,0 z" />
+    </group>
+    <group
+        android:pivotX="846"
+        android:pivotY="342"
+        android:rotation="45">
+        <path android:fillColor="#FFD84D" android:pathData="M827,309 a19,19 0 0 1 38,0 v66 a19,19 0 0 1 -38,0 z" />
+    </group>
+    <path android:fillColor="#FFD84D" android:pathData="M850,418 a19,19 0 0 1 38,0 v50 a19,19 0 0 1 -38,0 z" />
+</vector>

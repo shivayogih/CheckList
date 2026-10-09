@@ -9,6 +9,7 @@
     <string name="settings_language">மொழி</string>
     <string name="settings_language_system">சிஸ்டம் இயல்புநிலை</string>
     <string name="settings_about">பற்றி</string>
+    <string name="app_logo_description">செக்லிஸ்ட் லோகோ</string>
     <string name="settings_version">பதிப்பு %1$s</string>
     <string name="navigate_back">பின்செல்</string>
     <string name="language_title">மொழியைத் தேர்ந்தெடுக்கவும்</string>
