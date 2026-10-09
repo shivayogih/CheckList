@@ -11,6 +11,7 @@ import com.dataloom.checklist.domain.model.ChecklistItemUpdate
 import com.dataloom.checklist.domain.model.ChecklistQuery
 import com.dataloom.checklist.domain.model.ChecklistSection
 import com.dataloom.checklist.domain.model.ChecklistSummary
+import com.dataloom.checklist.domain.model.ItemPhoto
 import com.dataloom.checklist.domain.model.NewChecklistItem
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.repository.ChecklistRepository
@@ -50,6 +51,9 @@ class FakeChecklistRepository(
     fun checklistCount(): Int = state.value.size
 
     fun detail(id: ChecklistId): ChecklistDetail? = state.value.firstOrNull { it.checklist.id == id }?.toDetail()
+
+    /** Gives an item photo rows, as the Room detail query would. */
+    fun setPhotos(itemId: ChecklistItemId, photos: List<ItemPhoto>) = editItem(itemId) { it.copy(photos = photos) }
 
     fun item(id: ChecklistItemId): ChecklistItem? =
         state.value.flatMap { it.sections }.flatMap { it.items }.firstOrNull { it.id == id }

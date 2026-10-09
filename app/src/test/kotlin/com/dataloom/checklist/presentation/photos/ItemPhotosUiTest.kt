@@ -3,9 +3,11 @@ package com.dataloom.checklist.presentation.photos
 import android.content.Context
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -144,7 +146,7 @@ class ItemPhotosUiTest {
     @Test
     fun `a photo being processed shows a progress tile and still counts as taking a slot`() {
         showForm(photos = 1, processing = 2)
-        compose.onNodeWithContentDescription(context.getString(R.string.photos_processing)).assertExists()
+        compose.onAllNodesWithContentDescription(context.getString(R.string.photos_processing)).assertCountEquals(2)
         compose.onNodeWithText(context.getString(R.string.photos_add)).assertDoesNotExist()
     }
 

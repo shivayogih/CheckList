@@ -5,7 +5,9 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
+import com.dataloom.checklist.domain.model.ItemPhoto
 import com.dataloom.checklist.domain.model.NewChecklistItem
+import com.dataloom.checklist.domain.model.PhotoId
 import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.usecase.DeleteChecklistItemUseCase
@@ -21,6 +23,7 @@ import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.testing.FakeCatalogRepository
 import com.dataloom.checklist.testing.FakeChecklistRepository
 import com.dataloom.checklist.testing.FakeLanguageProvider
+import com.dataloom.checklist.testing.FakePhotoStore
 import com.dataloom.checklist.testing.MainDispatcherRule
 import com.dataloom.checklist.testing.keepCollecting
 import kotlinx.coroutines.CompletableDeferred
@@ -55,6 +58,8 @@ class ChecklistDetailViewModelTest {
         repo.addItems(fruitsSection, listOf(newItem("Apple")))
     }
 
+    private val photoStore = FakePhotoStore()
+
     private fun TestScope.viewModel(writes: ChecklistRepository = repo): ChecklistDetailViewModel {
         val vm = ChecklistDetailViewModel(
             checklistId = checklistId.value,
@@ -68,6 +73,7 @@ class ChecklistDetailViewModelTest {
             updateChecklist = UpdateChecklistUseCase(repo),
             languageProvider = FakeLanguageProvider(),
             applicationScope = backgroundScope,
+            photoStore = photoStore,
         )
         keepCollecting(vm.uiState)
         return vm
@@ -93,6 +99,28 @@ class ChecklistDetailViewModelTest {
         assertNull(vm.item("Sugar").unit)
         assertEquals(0, state.completedItems)
         assertEquals(4, state.totalItems)
+    }
+
+    @Test
+    fun `items carry their photos in order and the screen knows when any exist`() = runTest {
+        seed()
+        val rice = repo.detail(checklistId)!!.sections.first().items.first { it.displayName == "Rice" }
+        assertFalse(viewModel().uiState.value.hasPhotos)
+
+        repo.setPhotos(
+            rice.id,
+            listOf("a.jpg", "b.jpg").mapIndexed { index, name ->
+                ItemPhoto(PhotoId("p$index"), rice.id, name, 100, 50, 10L, (index + 1) * 1000, "Caption $index", 1L)
+            },
+        )
+        val vm = viewModel()
+
+        val photos = vm.item("Rice").photos
+        assertEquals(listOf("p0", "p1"), photos.map { it.id.value })
+        assertEquals(listOf("Caption 0", "Caption 1"), photos.map { it.caption })
+        assertEquals(photoStore.thumbnailFile("a.jpg"), photos.first().thumbnail)
+        assertTrue(vm.item("Sugar").photos.isEmpty())
+        assertTrue(vm.uiState.value.hasPhotos)
     }
 
     @Test
