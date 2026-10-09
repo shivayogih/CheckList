@@ -231,7 +231,8 @@ class AddItemsViewModel @AssistedInject constructor(
         val item = results.value.firstOrNull { it.id == id } ?: drafts.value[id]?.item ?: return
         isSaving.value = true
         viewModelScope.launch {
-            val result = addMasterItems(checklist, section, listOf(MasterItemSelection(item)), languageProvider.language.value)
+            val language = languageProvider.language.value
+            val result = addMasterItems(checklist, section, listOf(MasterItemSelection(item)), language)
             isSaving.value = false
             when (result) {
                 is DomainResult.Success -> {
