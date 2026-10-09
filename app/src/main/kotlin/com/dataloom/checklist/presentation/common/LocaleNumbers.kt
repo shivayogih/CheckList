@@ -49,8 +49,13 @@ object LocaleNumbers {
 /** The app language of this configuration (the per-app language when the user picked one). */
 fun Resources.appLocale(): Locale = configuration.locales[0] ?: Locale.getDefault()
 
+/**
+ * The app language for composables, read from [LocalConfiguration] so text recomposes when the
+ * language changes. An empty locale list (not seen in practice) falls back to English, the source
+ * language, rather than to the non-observable `Locale.getDefault()`.
+ */
 @Composable
-fun currentAppLocale(): Locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
+fun currentAppLocale(): Locale = LocalConfiguration.current.locales[0] ?: Locale.ENGLISH
 
 @Composable
 fun formatCount(count: Int): String = LocaleNumbers.formatCount(count, currentAppLocale())
