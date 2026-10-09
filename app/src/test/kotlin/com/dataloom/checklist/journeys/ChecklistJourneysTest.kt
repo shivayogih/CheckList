@@ -94,7 +94,7 @@ class ChecklistJourneysTest {
         composeRule.awaitNode(hasText(string(R.string.action_edit)) and hasClickAction()).performClick()
 
         composeRule.awaitText(string(R.string.item_edit_title))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.item_quantity_optional)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.item_quantity_optional)))
             .performTextReplacement("2.5")
         composeRule.awaitNode(hasText(string(R.string.unit_button, string(R.string.unit_none))) and hasClickAction())
             .performClick()
