@@ -78,7 +78,7 @@ fun ProfileSetupContent(state: OnboardingUiState, onAction: (OnboardingAction) -
                 PrimaryButton(
                     text = stringResource(R.string.onboarding_continue),
                     onClick = { onAction(OnboardingAction.SubmitProfile) },
-                    enabled = !state.isBusy,
+                    enabled = state.canSubmitProfile,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 TextActionButton(

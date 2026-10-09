@@ -87,7 +87,7 @@ Exactly one of `canonicalKey` (seeded category) or `customName` (user category).
 | `canonicalKey` | Optional; links the item to a seeded master item for ranking and AI |
 | `displayName` | 1-80 chars; the snapshot name, imported as is |
 | `displayNameLocale` | BCP-47 language of `displayName` |
-| `quantity` | Optional string; greater than 0, at most 99,999, at most 3 decimal places |
+| `quantity` | Optional string; greater than 0, at most 99,999, at most 3 decimal places; digits and one decimal separator only (no sign, exponent such as `1e5`, letters or grouping; CL-280) |
 | `unit` | Built-in code (`KG`, `GRAM`, `LITRE`, `MILLILITRE`, `DOZEN`, `PIECE`, `PACK`, `BOX`, `BOTTLE`, `PAIR`, `METER`, `NOS`) or a `ref` from `units`; whole-number units reject decimals |
 | `notes` | Up to 500 chars, or null |
 | `completed`, `position` | Completion state and order within the section |

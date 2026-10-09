@@ -4,7 +4,12 @@ import com.dataloom.checklist.domain.model.Category
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.usecase.CreateCategoryUseCase
 import com.dataloom.checklist.domain.usecase.DomainResult
+import com.dataloom.checklist.domain.validation.CategoryValidator
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.isAccepted
+import com.dataloom.checklist.presentation.common.liveError
 import com.dataloom.checklist.presentation.common.toUiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +31,10 @@ data class NewCategoryDialogUi(
     val name: String = "",
     val error: UiText? = null,
     val isSaving: Boolean = false,
-)
+) {
+    /** Create is enabled only for a name the domain would accept (CL-280). */
+    val canConfirm: Boolean get() = !isSaving && isAccepted(name, CategoryValidator::validateName)
+}
 
 /**
  * Drives the "Create category" dialog for every screen that picks categories (create checklist,
@@ -48,7 +56,8 @@ class NewCategoryDialogController(
     }
 
     fun onNameChanged(name: String) {
-        mutableState.update { it?.copy(name = name, error = null) }
+        val clean = InputText.forField(name, FieldLimits.CATEGORY_NAME_MAX)
+        mutableState.update { it?.copy(name = clean, error = liveError(clean, CategoryValidator::validateName)) }
     }
 
     /** Returns the new category's ID and closes the dialog, or keeps it open with an error. */

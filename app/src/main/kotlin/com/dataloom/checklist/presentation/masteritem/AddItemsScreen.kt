@@ -96,7 +96,7 @@ fun AddItemsScreen(
             Surface(tonalElevation = 3.dp) {
                 Button(
                     onClick = { onAction(AddItemsAction.AddSelected) },
-                    enabled = !state.isSaving && state.selectedCount > 0,
+                    enabled = state.canAddSelected,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
