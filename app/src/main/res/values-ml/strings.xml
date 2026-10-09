@@ -130,6 +130,7 @@
     <string name="unit_allows_decimal">1.5 പോലെയുള്ള ദശാംശങ്ങൾ അനുവദിക്കുക</string>
     <string name="unit_bottle">കുപ്പി</string>
     <string name="unit_box">പെട്ടി</string>
+    <string name="unit_bunch">കെട്ട്</string>
     <string name="unit_button">യൂണിറ്റ്: %1$s</string>
     <string name="unit_create">പുതിയ യൂണിറ്റ്</string>
     <string name="unit_dozen">ഡസൻ</string>

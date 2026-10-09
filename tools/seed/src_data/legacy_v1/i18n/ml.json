@@ -1,0 +1,564 @@
+{
+  "locale": "ml",
+  "categories": {
+    "groceries": "പലചരക്ക്",
+    "vegetables": "പച്ചക്കറികൾ",
+    "fruits": "പഴങ്ങൾ",
+    "clothing": "വസ്ത്രങ്ങൾ",
+    "travel": "യാത്ര",
+    "documents": "രേഖകൾ",
+    "exam": "പരീക്ഷ",
+    "gifts": "സമ്മാനങ്ങൾ",
+    "pooja_items": "പൂജാ സാധനങ്ങൾ",
+    "decorations": "അലങ്കാരം",
+    "medicines": "മരുന്നുകൾ",
+    "toiletries": "ശുചിത്വ സാധനങ്ങൾ",
+    "electronics": "ഇലക്ട്രോണിക്സ്",
+    "stationery": "സ്റ്റേഷനറി",
+    "other": "മറ്റുള്ളവ"
+  },
+  "items": {
+    "rice": {
+      "name": "അരി",
+      "aliases": [
+        "ari"
+      ]
+    },
+    "wheat": {
+      "name": "ഗോതമ്പ്",
+      "aliases": [
+        "gothambu"
+      ]
+    },
+    "sugar": {
+      "name": "പഞ്ചസാര",
+      "aliases": [
+        "panchasara"
+      ]
+    },
+    "salt": {
+      "name": "ഉപ്പ്",
+      "aliases": [
+        "uppu"
+      ]
+    },
+    "dal": {
+      "name": "പരിപ്പ്",
+      "aliases": [
+        "parippu"
+      ]
+    },
+    "cooking_oil": {
+      "name": "പാചക എണ്ണ",
+      "aliases": [
+        "enna",
+        "എണ്ണ"
+      ]
+    },
+    "tea": {
+      "name": "ചായപ്പൊടി",
+      "aliases": [
+        "chaya",
+        "chayapodi",
+        "ചായ"
+      ]
+    },
+    "coffee": {
+      "name": "കാപ്പിപ്പൊടി",
+      "aliases": [
+        "kappi",
+        "coffee",
+        "കാപ്പി"
+      ]
+    },
+    "milk": {
+      "name": "പാൽ",
+      "aliases": [
+        "paal"
+      ]
+    },
+    "spices": {
+      "name": "മസാലകൾ",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "potato": {
+      "name": "ഉരുളക്കിഴങ്ങ്",
+      "aliases": [
+        "urulakizhangu"
+      ]
+    },
+    "onion": {
+      "name": "ഉള്ളി",
+      "aliases": [
+        "ulli",
+        "savala"
+      ]
+    },
+    "tomato": {
+      "name": "തക്കാളി",
+      "aliases": [
+        "thakkali"
+      ]
+    },
+    "carrot": {
+      "name": "കാരറ്റ്",
+      "aliases": [
+        "carrot"
+      ]
+    },
+    "beans": {
+      "name": "ബീൻസ്",
+      "aliases": [
+        "beans"
+      ]
+    },
+    "cabbage": {
+      "name": "കാബേജ്",
+      "aliases": [
+        "cabbage"
+      ]
+    },
+    "cauliflower": {
+      "name": "കോളിഫ്ലവർ",
+      "aliases": [
+        "cauliflower",
+        "gobi"
+      ]
+    },
+    "brinjal": {
+      "name": "വഴുതനങ്ങ",
+      "aliases": [
+        "vazhuthananga"
+      ]
+    },
+    "spinach": {
+      "name": "ചീര",
+      "aliases": [
+        "cheera",
+        "palak"
+      ]
+    },
+    "apple": {
+      "name": "ആപ്പിൾ",
+      "aliases": [
+        "apple"
+      ]
+    },
+    "banana": {
+      "name": "വാഴപ്പഴം",
+      "aliases": [
+        "pazham",
+        "vazhapazham"
+      ]
+    },
+    "orange": {
+      "name": "ഓറഞ്ച്",
+      "aliases": [
+        "orange"
+      ]
+    },
+    "mango": {
+      "name": "മാമ്പഴം",
+      "aliases": [
+        "mambazham",
+        "manga"
+      ]
+    },
+    "grapes": {
+      "name": "മുന്തിരി",
+      "aliases": [
+        "munthiri"
+      ]
+    },
+    "pomegranate": {
+      "name": "മാതളനാരങ്ങ",
+      "aliases": [
+        "mathalam",
+        "mathalanaranga"
+      ]
+    },
+    "shirt": {
+      "name": "ഷർട്ട്",
+      "aliases": [
+        "shirt"
+      ]
+    },
+    "pants": {
+      "name": "പാന്റ്സ്",
+      "aliases": [
+        "pant"
+      ]
+    },
+    "t_shirt": {
+      "name": "ടി-ഷർട്ട്",
+      "aliases": [
+        "tshirt"
+      ]
+    },
+    "saree": {
+      "name": "സാരി",
+      "aliases": [
+        "saree"
+      ]
+    },
+    "dress": {
+      "name": "ഉടുപ്പ്",
+      "aliases": [
+        "uduppu",
+        "dress"
+      ]
+    },
+    "socks": {
+      "name": "സോക്സ്",
+      "aliases": [
+        "socks"
+      ]
+    },
+    "shoes": {
+      "name": "ഷൂസ്",
+      "aliases": [
+        "shoes"
+      ]
+    },
+    "travel_passport": {
+      "name": "പാസ്പോർട്ട്",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "tickets": {
+      "name": "ടിക്കറ്റ്",
+      "aliases": [
+        "ticket"
+      ]
+    },
+    "hotel_booking": {
+      "name": "ഹോട്ടൽ ബുക്കിംഗ്",
+      "aliases": [
+        "hotel"
+      ]
+    },
+    "clothes": {
+      "name": "വസ്ത്രങ്ങൾ",
+      "aliases": [
+        "dress"
+      ]
+    },
+    "charger": {
+      "name": "ചാർജർ",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "പവർ ബാങ്ക്",
+      "aliases": [
+        "power bank"
+      ]
+    },
+    "travel_toiletries": {
+      "name": "ശുചിത്വ സാധനങ്ങൾ",
+      "aliases": []
+    },
+    "travel_medicines": {
+      "name": "മരുന്നുകൾ",
+      "aliases": [
+        "marunnu"
+      ]
+    },
+    "aadhaar_card": {
+      "name": "ആധാർ കാർഡ്",
+      "aliases": [
+        "aadhaar",
+        "aadhar"
+      ]
+    },
+    "pan_card": {
+      "name": "പാൻ കാർഡ്",
+      "aliases": [
+        "pan"
+      ]
+    },
+    "passport": {
+      "name": "പാസ്പോർട്ട്",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "driving_licence": {
+      "name": "ഡ്രൈവിംഗ് ലൈസൻസ്",
+      "aliases": [
+        "dl",
+        "licence"
+      ]
+    },
+    "educational_certificates": {
+      "name": "വിദ്യാഭ്യാസ സർട്ടിഫിക്കറ്റുകൾ",
+      "aliases": [
+        "certificates"
+      ]
+    },
+    "passport_photos": {
+      "name": "പാസ്പോർട്ട് ഫോട്ടോകൾ",
+      "aliases": [
+        "photo"
+      ]
+    },
+    "hall_ticket": {
+      "name": "ഹാൾ ടിക്കറ്റ്",
+      "aliases": [
+        "hall ticket"
+      ]
+    },
+    "id_card": {
+      "name": "തിരിച്ചറിയൽ കാർഡ്",
+      "aliases": [
+        "id card"
+      ]
+    },
+    "pen": {
+      "name": "പേന",
+      "aliases": [
+        "pena",
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "പെൻസിൽ",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "റബ്ബർ",
+      "aliases": [
+        "rubber",
+        "eraser"
+      ]
+    },
+    "calculator": {
+      "name": "കാൽക്കുലേറ്റർ",
+      "aliases": [
+        "calculator"
+      ]
+    },
+    "books": {
+      "name": "പുസ്തകങ്ങൾ",
+      "aliases": [
+        "pusthakam"
+      ]
+    },
+    "notes": {
+      "name": "നോട്ട്സ്",
+      "aliases": [
+        "notes"
+      ]
+    },
+    "sweets": {
+      "name": "മധുരപലഹാരങ്ങൾ",
+      "aliases": [
+        "sweets",
+        "madhuram"
+      ]
+    },
+    "greeting_card": {
+      "name": "ആശംസാ കാർഡ്",
+      "aliases": [
+        "greeting card"
+      ]
+    },
+    "incense_sticks": {
+      "name": "ചന്ദനത്തിരി",
+      "aliases": [
+        "chandanathiri",
+        "agarbatti"
+      ]
+    },
+    "camphor": {
+      "name": "കർപ്പൂരം",
+      "aliases": [
+        "karpooram"
+      ]
+    },
+    "kumkum": {
+      "name": "കുങ്കുമം",
+      "aliases": [
+        "kumkumam"
+      ]
+    },
+    "turmeric": {
+      "name": "മഞ്ഞൾ",
+      "aliases": [
+        "manjal"
+      ]
+    },
+    "flowers": {
+      "name": "പൂക്കൾ",
+      "aliases": [
+        "pookkal",
+        "poo"
+      ]
+    },
+    "coconut": {
+      "name": "തേങ്ങ",
+      "aliases": [
+        "thenga"
+      ]
+    },
+    "cotton_wicks": {
+      "name": "തിരി",
+      "aliases": [
+        "thiri"
+      ]
+    },
+    "balloons": {
+      "name": "ബലൂണുകൾ",
+      "aliases": [
+        "balloon"
+      ]
+    },
+    "rangoli_colours": {
+      "name": "രംഗോലി നിറങ്ങൾ",
+      "aliases": [
+        "rangoli"
+      ]
+    },
+    "decorative_lights": {
+      "name": "അലങ്കാര വിളക്കുകൾ",
+      "aliases": [
+        "serial lights"
+      ]
+    },
+    "fever_tablets": {
+      "name": "പനി ഗുളിക",
+      "aliases": [
+        "pani",
+        "paracetamol"
+      ]
+    },
+    "pain_balm": {
+      "name": "വേദന ബാം",
+      "aliases": [
+        "balm"
+      ]
+    },
+    "bandage": {
+      "name": "ബാൻഡേജ്",
+      "aliases": [
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "ആന്റിസെപ്റ്റിക് ലായനി",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS പൊടി",
+      "aliases": [
+        "ors"
+      ]
+    },
+    "cough_syrup": {
+      "name": "ചുമ മരുന്ന്",
+      "aliases": [
+        "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "സോപ്പ്",
+      "aliases": [
+        "soap"
+      ]
+    },
+    "toothpaste": {
+      "name": "ടൂത്ത് പേസ്റ്റ്",
+      "aliases": [
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "ടൂത്ത് ബ്രഷ്",
+      "aliases": [
+        "brush"
+      ]
+    },
+    "shampoo": {
+      "name": "ഷാംപൂ",
+      "aliases": [
+        "shampoo"
+      ]
+    },
+    "hair_oil": {
+      "name": "ഹെയർ ഓയിൽ",
+      "aliases": [
+        "enna"
+      ]
+    },
+    "comb": {
+      "name": "ചീപ്പ്",
+      "aliases": [
+        "cheeppu"
+      ]
+    },
+    "batteries": {
+      "name": "ബാറ്ററികൾ",
+      "aliases": [
+        "battery"
+      ]
+    },
+    "light_bulb": {
+      "name": "ബൾബ്",
+      "aliases": [
+        "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "എക്സ്റ്റൻഷൻ ബോർഡ്",
+      "aliases": [
+        "extension"
+      ]
+    },
+    "earphones": {
+      "name": "ഇയർഫോൺ",
+      "aliases": [
+        "earphone"
+      ]
+    },
+    "notebook": {
+      "name": "നോട്ട്ബുക്ക്",
+      "aliases": [
+        "notebook"
+      ]
+    },
+    "scissors": {
+      "name": "കത്രിക",
+      "aliases": [
+        "kathrika"
+      ]
+    },
+    "glue": {
+      "name": "പശ",
+      "aliases": [
+        "pasha",
+        "gum"
+      ]
+    },
+    "stapler": {
+      "name": "സ്റ്റാപ്ലർ",
+      "aliases": [
+        "stapler"
+      ]
+    },
+    "ruler": {
+      "name": "സ്കെയിൽ",
+      "aliases": [
+        "scale",
+        "ruler"
+      ]
+    }
+  }
+}

@@ -38,7 +38,10 @@ object BuiltInUnits {
     val METER = UnitDef(UnitCode("METER"), allowsDecimal = true, sortOrder = 110)
     val NOS = UnitDef(UnitCode("NOS"), allowsDecimal = false, sortOrder = 120)
 
-    val all: List<UnitDef> = listOf(KG, GRAM, LITRE, MILLILITRE, DOZEN, PIECE, PACK, BOX, BOTTLE, PAIR, METER, NOS)
+    val BUNCH = UnitDef(UnitCode("BUNCH"), allowsDecimal = false, sortOrder = 130)
+
+    val all: List<UnitDef> =
+        listOf(KG, GRAM, LITRE, MILLILITRE, DOZEN, PIECE, PACK, BOX, BOTTLE, PAIR, METER, NOS, BUNCH)
 
     fun byCode(code: UnitCode): UnitDef? = all.firstOrNull { it.code == code }
 }

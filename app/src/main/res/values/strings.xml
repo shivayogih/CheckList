@@ -131,6 +131,7 @@
     <string name="unit_allows_decimal">Allow decimals, like 1.5</string>
     <string name="unit_bottle">bottle</string>
     <string name="unit_box">box</string>
+    <string name="unit_bunch">bunch</string>
     <string name="unit_button">Unit: %1$s</string>
     <string name="unit_create">New unit</string>
     <string name="unit_dozen">dozen</string>

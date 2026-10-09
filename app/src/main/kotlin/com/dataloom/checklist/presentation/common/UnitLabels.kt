@@ -12,22 +12,24 @@ import com.dataloom.checklist.domain.model.UnitDef
  * Built-in unit labels come from string resources keyed by unit code (section 9.3), so they are
  * translated; custom units show the label the user typed.
  */
+private val BUILT_IN_UNIT_LABELS: Map<String, Int> = mapOf(
+    "KG" to R.string.unit_kg,
+    "GRAM" to R.string.unit_gram,
+    "LITRE" to R.string.unit_litre,
+    "MILLILITRE" to R.string.unit_millilitre,
+    "DOZEN" to R.string.unit_dozen,
+    "PIECE" to R.string.unit_piece,
+    "PACK" to R.string.unit_pack,
+    "BOX" to R.string.unit_box,
+    "BOTTLE" to R.string.unit_bottle,
+    "PAIR" to R.string.unit_pair,
+    "METER" to R.string.unit_meter,
+    "NOS" to R.string.unit_nos,
+    "BUNCH" to R.string.unit_bunch,
+)
+
 @StringRes
-fun builtInUnitLabel(code: UnitCode): Int? = when (code.value) {
-    "KG" -> R.string.unit_kg
-    "GRAM" -> R.string.unit_gram
-    "LITRE" -> R.string.unit_litre
-    "MILLILITRE" -> R.string.unit_millilitre
-    "DOZEN" -> R.string.unit_dozen
-    "PIECE" -> R.string.unit_piece
-    "PACK" -> R.string.unit_pack
-    "BOX" -> R.string.unit_box
-    "BOTTLE" -> R.string.unit_bottle
-    "PAIR" -> R.string.unit_pair
-    "METER" -> R.string.unit_meter
-    "NOS" -> R.string.unit_nos
-    else -> null
-}
+fun builtInUnitLabel(code: UnitCode): Int? = BUILT_IN_UNIT_LABELS[code.value]
 
 /** Label for a unit; an unknown built-in code falls back to the code itself rather than crashing. */
 @Composable

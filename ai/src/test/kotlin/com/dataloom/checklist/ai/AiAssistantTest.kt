@@ -55,7 +55,7 @@ class AiAssistantTest {
         assertTrue(report.succeeded)
         val items = harness.itemNames(list)
         assertEquals(listOf("Rice", "Milk", "Ghee", "Sugar", "Dal"), items["groceries"])
-        assertEquals(listOf("eggs"), items["other"])
+        assertEquals(listOf("Chicken eggs"), items["cat005"])
         val sugar = harness.checklists.detailNow(list)!!.sections.flatMap { it.items }.first { it.displayName == "Sugar" }
         assertEquals(Quantity.of(2), sugar.quantity)
         assertEquals(BuiltInUnits.KG.code, sugar.unit)
@@ -191,7 +191,8 @@ class AiAssistantTest {
 
         val report = harness.assistant.execute(harness.assistant.confirm(plan))
         val created = harness.itemNames(report.createdChecklistId!!)
-        assertEquals(listOf("Rice", "Dal", "Milk"), created["groceries"])
+        assertEquals(listOf("Rice", "Dal"), created["groceries"])
+        assertEquals(listOf("Milk"), created["cat005"])
     }
 
     @Test

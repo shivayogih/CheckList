@@ -130,6 +130,7 @@
     <string name="unit_allows_decimal">1.5 போன்ற தசம எண்களை அனுமதி</string>
     <string name="unit_bottle">பாட்டில்</string>
     <string name="unit_box">பெட்டி</string>
+    <string name="unit_bunch">கட்டு</string>
     <string name="unit_button">அலகு: %1$s</string>
     <string name="unit_create">புதிய அலகு</string>
     <string name="unit_dozen">டஜன்</string>

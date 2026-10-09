@@ -15,9 +15,12 @@ Regenerate it whenever strings change (`--check` reports whether it is current).
 4. Report fixes as an issue or a pull request that edits `values-<tag>/strings.xml` or
    `plurals.xml`, then regenerate this file.
 
+Catalogue item and category names are reviewed separately in
+[catalog-translation-review.md](catalog-translation-review.md).
+
 Brand names marked `translatable="false"` (such as `app_name`) are not listed.
 
-## Strings (308 keys)
+## Strings (309 keys)
 
 | Key | English | Kannada (ಕನ್ನಡ) | Hindi (हिन्दी) | Tamil (தமிழ்) | Telugu (తెలుగు) | Marathi (मराठी) | Malayalam (മലയാളം) |
 |---|---|---|---|---|---|---|---|
@@ -144,6 +147,7 @@ Brand names marked `translatable="false"` (such as `app_name`) are not listed.
 | `unit_allows_decimal` | Allow decimals, like 1.5 | 1.5 ರಂತಹ ದಶಮಾಂಶಗಳನ್ನು ಅನುಮತಿಸಿ | 1.5 जैसे दशमलव की अनुमति दें | 1.5 போன்ற தசம எண்களை அனுமதி | 1.5 వంటి దశాంశాలను అనుమతించండి | 1.5 सारख्या दशांशांना परवानगी द्या | 1.5 പോലെയുള്ള ദശാംശങ്ങൾ അനുവദിക്കുക |
 | `unit_bottle` | bottle | ಬಾಟಲ್ | बोतल | பாட்டில் | సీసా | बाटली | കുപ്പി |
 | `unit_box` | box | ಬಾಕ್ಸ್ | डिब्बा | பெட்டி | పెట్టె | खोका | പെട്ടി |
+| `unit_bunch` | bunch | ಕಟ್ಟು | गुच्छा | கட்டு | కట్ట | जुडी | കെട്ട് |
 | `unit_button` | Unit: %1$s | ಘಟಕ: %1$s | इकाई: %1$s | அலகு: %1$s | కొలమానం: %1$s | एकक: %1$s | യൂണിറ്റ്: %1$s |
 | `unit_create` | New unit | ಹೊಸ ಘಟಕ | नई इकाई | புதிய அலகு | కొత్త కొలమానం | नवीन एकक | പുതിയ യൂണിറ്റ് |
 | `unit_dozen` | dozen | ಡಜನ್ | दर्जन | டஜன் | డజను | डझन | ഡസൻ |

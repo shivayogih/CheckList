@@ -26,7 +26,7 @@ class OfflineCommandParserTest {
 
     private val harness = AiTestHarness()
 
-    /** Compact form of a call: "add rice 2 KG", "add ?eggs 1 DOZEN" (no catalog match), "completeItem i2". */
+    /** Compact form of a call: "add rice 2 KG", "add itm0156 1 DOZEN" (no catalog match), "completeItem i2". */
     private fun ToolCall.describe(): String {
         val args = arguments
         return when (name) {
@@ -67,7 +67,7 @@ class OfflineCommandParserTest {
         golden(
             "en",
             list,
-            "2 kg rice, 1 dozen eggs and milk" to listOf("add rice 2 KG", "add ?eggs 1 DOZEN", "add milk"),
+            "2 kg rice, 1 dozen eggs and milk" to listOf("add rice 2 KG", "add itm0156 1 DOZEN", "add milk"),
             "5 kg rice" to listOf("add rice 5 KG"),
             "1½ kg onions" to listOf("add onion 1.5 KG"),
             "two litres of milk and a dozen bananas" to listOf("add milk 2 LITRE", "add banana 1 DOZEN"),
@@ -187,7 +187,7 @@ class OfflineCommandParserTest {
             "pa" to listOf("add ?pa"),
             // "eggplant" (brinjal) starts with "egg", but eggs are not brinjal.
             "1 egg" to listOf("add ?egg 1"),
-            "6 eggs" to listOf("add ?eggs 6"),
+            "6 eggs" to listOf("add itm0156 6"),
             // Whole aliases still work.
             "2 kg aloo" to listOf("add potato 2 KG"),
             "1 litre oil" to listOf("add cooking_oil 1 LITRE"),

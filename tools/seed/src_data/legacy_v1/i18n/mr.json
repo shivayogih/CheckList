@@ -1,0 +1,569 @@
+{
+  "locale": "mr",
+  "categories": {
+    "groceries": "किराणा",
+    "vegetables": "भाज्या",
+    "fruits": "फळे",
+    "clothing": "कपडे",
+    "travel": "प्रवास",
+    "documents": "कागदपत्रे",
+    "exam": "परीक्षा",
+    "gifts": "भेटवस्तू",
+    "pooja_items": "पूजा साहित्य",
+    "decorations": "सजावट",
+    "medicines": "औषधे",
+    "toiletries": "अंघोळीचे साहित्य",
+    "electronics": "इलेक्ट्रॉनिक्स",
+    "stationery": "स्टेशनरी",
+    "other": "इतर"
+  },
+  "items": {
+    "rice": {
+      "name": "तांदूळ",
+      "aliases": [
+        "tandul"
+      ]
+    },
+    "wheat": {
+      "name": "गहू",
+      "aliases": [
+        "gahu"
+      ]
+    },
+    "sugar": {
+      "name": "साखर",
+      "aliases": [
+        "sakhar"
+      ]
+    },
+    "salt": {
+      "name": "मीठ",
+      "aliases": [
+        "meeth"
+      ]
+    },
+    "dal": {
+      "name": "डाळ",
+      "aliases": [
+        "dal",
+        "daal"
+      ]
+    },
+    "cooking_oil": {
+      "name": "खाद्यतेल",
+      "aliases": [
+        "tel",
+        "तेल"
+      ]
+    },
+    "tea": {
+      "name": "चहा पावडर",
+      "aliases": [
+        "chaha",
+        "चहा"
+      ]
+    },
+    "coffee": {
+      "name": "कॉफी",
+      "aliases": [
+        "coffee"
+      ]
+    },
+    "milk": {
+      "name": "दूध",
+      "aliases": [
+        "doodh",
+        "dudh"
+      ]
+    },
+    "spices": {
+      "name": "मसाले",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "potato": {
+      "name": "बटाटा",
+      "aliases": [
+        "batata"
+      ]
+    },
+    "onion": {
+      "name": "कांदा",
+      "aliases": [
+        "kanda"
+      ]
+    },
+    "tomato": {
+      "name": "टोमॅटो",
+      "aliases": [
+        "tomato"
+      ]
+    },
+    "carrot": {
+      "name": "गाजर",
+      "aliases": [
+        "gajar"
+      ]
+    },
+    "beans": {
+      "name": "फरसबी",
+      "aliases": [
+        "farasbi",
+        "beans"
+      ]
+    },
+    "cabbage": {
+      "name": "कोबी",
+      "aliases": [
+        "kobi"
+      ]
+    },
+    "cauliflower": {
+      "name": "फ्लॉवर",
+      "aliases": [
+        "flower",
+        "phulkobi"
+      ]
+    },
+    "brinjal": {
+      "name": "वांगी",
+      "aliases": [
+        "vangi"
+      ]
+    },
+    "spinach": {
+      "name": "पालक",
+      "aliases": [
+        "palak"
+      ]
+    },
+    "apple": {
+      "name": "सफरचंद",
+      "aliases": [
+        "safarchand",
+        "apple"
+      ]
+    },
+    "banana": {
+      "name": "केळी",
+      "aliases": [
+        "keli"
+      ]
+    },
+    "orange": {
+      "name": "संत्री",
+      "aliases": [
+        "santri"
+      ]
+    },
+    "mango": {
+      "name": "आंबा",
+      "aliases": [
+        "amba"
+      ]
+    },
+    "grapes": {
+      "name": "द्राक्षे",
+      "aliases": [
+        "draksha"
+      ]
+    },
+    "pomegranate": {
+      "name": "डाळिंब",
+      "aliases": [
+        "dalimb"
+      ]
+    },
+    "shirt": {
+      "name": "शर्ट",
+      "aliases": [
+        "shirt"
+      ]
+    },
+    "pants": {
+      "name": "पँट",
+      "aliases": [
+        "pant"
+      ]
+    },
+    "t_shirt": {
+      "name": "टी-शर्ट",
+      "aliases": [
+        "tshirt"
+      ]
+    },
+    "saree": {
+      "name": "साडी",
+      "aliases": [
+        "sadi",
+        "saree"
+      ]
+    },
+    "dress": {
+      "name": "ड्रेस",
+      "aliases": [
+        "dress",
+        "frock"
+      ]
+    },
+    "socks": {
+      "name": "पायमोजे",
+      "aliases": [
+        "socks"
+      ]
+    },
+    "shoes": {
+      "name": "बूट",
+      "aliases": [
+        "boot",
+        "shoes"
+      ]
+    },
+    "travel_passport": {
+      "name": "पासपोर्ट",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "tickets": {
+      "name": "तिकिटे",
+      "aliases": [
+        "ticket"
+      ]
+    },
+    "hotel_booking": {
+      "name": "हॉटेल बुकिंग",
+      "aliases": [
+        "hotel"
+      ]
+    },
+    "clothes": {
+      "name": "कपडे",
+      "aliases": [
+        "kapde"
+      ]
+    },
+    "charger": {
+      "name": "चार्जर",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "पॉवर बँक",
+      "aliases": [
+        "power bank"
+      ]
+    },
+    "travel_toiletries": {
+      "name": "अंघोळीचे साहित्य",
+      "aliases": []
+    },
+    "travel_medicines": {
+      "name": "औषधे",
+      "aliases": [
+        "aushadh"
+      ]
+    },
+    "aadhaar_card": {
+      "name": "आधार कार्ड",
+      "aliases": [
+        "aadhaar",
+        "aadhar"
+      ]
+    },
+    "pan_card": {
+      "name": "पॅन कार्ड",
+      "aliases": [
+        "pan"
+      ]
+    },
+    "passport": {
+      "name": "पासपोर्ट",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "driving_licence": {
+      "name": "वाहन परवाना",
+      "aliases": [
+        "driving licence",
+        "dl"
+      ]
+    },
+    "educational_certificates": {
+      "name": "शैक्षणिक प्रमाणपत्रे",
+      "aliases": [
+        "marksheet",
+        "certificates"
+      ]
+    },
+    "passport_photos": {
+      "name": "पासपोर्ट फोटो",
+      "aliases": [
+        "photo"
+      ]
+    },
+    "hall_ticket": {
+      "name": "प्रवेशपत्र",
+      "aliases": [
+        "hall ticket",
+        "admit card"
+      ]
+    },
+    "id_card": {
+      "name": "ओळखपत्र",
+      "aliases": [
+        "id card"
+      ]
+    },
+    "pen": {
+      "name": "पेन",
+      "aliases": [
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "पेन्सिल",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "खोडरबर",
+      "aliases": [
+        "rubber",
+        "eraser"
+      ]
+    },
+    "calculator": {
+      "name": "कॅल्क्युलेटर",
+      "aliases": [
+        "calculator"
+      ]
+    },
+    "books": {
+      "name": "पुस्तके",
+      "aliases": [
+        "pustak"
+      ]
+    },
+    "notes": {
+      "name": "नोट्स",
+      "aliases": [
+        "notes"
+      ]
+    },
+    "sweets": {
+      "name": "मिठाई",
+      "aliases": [
+        "mithai",
+        "sweets"
+      ]
+    },
+    "greeting_card": {
+      "name": "शुभेच्छा पत्र",
+      "aliases": [
+        "greeting card"
+      ]
+    },
+    "incense_sticks": {
+      "name": "उदबत्ती",
+      "aliases": [
+        "udbatti",
+        "agarbatti"
+      ]
+    },
+    "camphor": {
+      "name": "कापूर",
+      "aliases": [
+        "kapur"
+      ]
+    },
+    "kumkum": {
+      "name": "कुंकू",
+      "aliases": [
+        "kunku"
+      ]
+    },
+    "turmeric": {
+      "name": "हळद",
+      "aliases": [
+        "halad"
+      ]
+    },
+    "flowers": {
+      "name": "फुले",
+      "aliases": [
+        "phule"
+      ]
+    },
+    "coconut": {
+      "name": "नारळ",
+      "aliases": [
+        "naral"
+      ]
+    },
+    "cotton_wicks": {
+      "name": "वाती",
+      "aliases": [
+        "vaati",
+        "vati"
+      ]
+    },
+    "balloons": {
+      "name": "फुगे",
+      "aliases": [
+        "fuge",
+        "balloon"
+      ]
+    },
+    "rangoli_colours": {
+      "name": "रांगोळी रंग",
+      "aliases": [
+        "rangoli"
+      ]
+    },
+    "decorative_lights": {
+      "name": "सजावटी दिवे",
+      "aliases": [
+        "lighting",
+        "serial lights"
+      ]
+    },
+    "fever_tablets": {
+      "name": "तापाच्या गोळ्या",
+      "aliases": [
+        "taap",
+        "paracetamol"
+      ]
+    },
+    "pain_balm": {
+      "name": "बाम",
+      "aliases": [
+        "baam",
+        "balm"
+      ]
+    },
+    "bandage": {
+      "name": "पट्टी",
+      "aliases": [
+        "patti",
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "जंतुनाशक द्रव",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS पावडर",
+      "aliases": [
+        "ors"
+      ]
+    },
+    "cough_syrup": {
+      "name": "खोकल्याचे औषध",
+      "aliases": [
+        "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "साबण",
+      "aliases": [
+        "saban"
+      ]
+    },
+    "toothpaste": {
+      "name": "टूथपेस्ट",
+      "aliases": [
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "टूथब्रश",
+      "aliases": [
+        "brush"
+      ]
+    },
+    "shampoo": {
+      "name": "शॅम्पू",
+      "aliases": [
+        "shampoo"
+      ]
+    },
+    "hair_oil": {
+      "name": "केसांचे तेल",
+      "aliases": [
+        "tel"
+      ]
+    },
+    "comb": {
+      "name": "कंगवा",
+      "aliases": [
+        "kangva"
+      ]
+    },
+    "batteries": {
+      "name": "बॅटरी",
+      "aliases": [
+        "battery",
+        "cell"
+      ]
+    },
+    "light_bulb": {
+      "name": "बल्ब",
+      "aliases": [
+        "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "एक्स्टेंशन बोर्ड",
+      "aliases": [
+        "extension"
+      ]
+    },
+    "earphones": {
+      "name": "इअरफोन",
+      "aliases": [
+        "earphone"
+      ]
+    },
+    "notebook": {
+      "name": "वही",
+      "aliases": [
+        "vahi",
+        "notebook"
+      ]
+    },
+    "scissors": {
+      "name": "कात्री",
+      "aliases": [
+        "katri"
+      ]
+    },
+    "glue": {
+      "name": "डिंक",
+      "aliases": [
+        "dink",
+        "gum"
+      ]
+    },
+    "stapler": {
+      "name": "स्टेपलर",
+      "aliases": [
+        "stapler"
+      ]
+    },
+    "ruler": {
+      "name": "पट्टी",
+      "aliases": [
+        "scale",
+        "ruler"
+      ]
+    }
+  }
+}

@@ -130,6 +130,7 @@
     <string name="unit_allows_decimal">1.5 सारख्या दशांशांना परवानगी द्या</string>
     <string name="unit_bottle">बाटली</string>
     <string name="unit_box">खोका</string>
+    <string name="unit_bunch">जुडी</string>
     <string name="unit_button">एकक: %1$s</string>
     <string name="unit_create">नवीन एकक</string>
     <string name="unit_dozen">डझन</string>
