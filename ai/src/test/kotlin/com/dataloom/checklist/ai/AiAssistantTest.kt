@@ -191,7 +191,8 @@ class AiAssistantTest {
 
         val report = harness.assistant.execute(harness.assistant.confirm(plan))
         val created = harness.itemNames(report.createdChecklistId!!)
-        assertEquals(listOf("Rice", "Dal", "Milk"), created["groceries"])
+        assertEquals(listOf("Rice", "Dal"), created["groceries"])
+        assertEquals(listOf("Milk"), created["cat005"])
     }
 
     @Test

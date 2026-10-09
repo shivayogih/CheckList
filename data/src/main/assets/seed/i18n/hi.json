@@ -1694,8 +1694,9 @@
       ]
     },
     "shampoo": {
-      "name": "शैंपू",
+      "name": "शैम्पू",
       "aliases": [
+        "शैंपू",
         "shampoo"
       ]
     },
@@ -2562,8 +2563,9 @@
       ]
     },
     "stapler": {
-      "name": "स्टैपलर",
+      "name": "स्टेपलर",
       "aliases": [
+        "स्टैपलर",
         "stapler"
       ]
     },
@@ -2677,8 +2679,9 @@
       ]
     },
     "earphones": {
-      "name": "ईयरफ़ोन",
+      "name": "इयरफ़ोन",
       "aliases": [
+        "ईयरफ़ोन",
         "earphone",
         "Earphones"
       ]
@@ -2829,8 +2832,9 @@
       ]
     },
     "shirt": {
-      "name": "शर्ट",
+      "name": "कमीज़",
       "aliases": [
+        "शर्ट",
         "kameez",
         "shirt"
       ]
@@ -3056,8 +3060,9 @@
       ]
     },
     "hall_ticket": {
-      "name": "हॉल टिकट",
+      "name": "प्रवेश पत्र",
       "aliases": [
+        "हॉल टिकट",
         "admit card",
         "hall ticket"
       ]
@@ -3323,8 +3328,9 @@
       ]
     },
     "greeting_card": {
-      "name": "ग्रीटिंग कार्ड",
+      "name": "बधाई कार्ड",
       "aliases": [
+        "ग्रीटिंग कार्ड",
         "greeting card"
       ]
     },

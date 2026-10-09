@@ -334,8 +334,9 @@
       ]
     },
     "potato": {
-      "name": "బంగాళదుంప",
+      "name": "బంగాళాదుంప",
       "aliases": [
+        "బంగాళదుంప",
         "bangaladumpa",
         "aloo",
         "Potato"
@@ -1700,8 +1701,9 @@
       ]
     },
     "hair_oil": {
-      "name": "తల నూనె",
+      "name": "తలనూనె",
       "aliases": [
+        "తల నూనె",
         "nune",
         "Hair oil"
       ]
@@ -2183,8 +2185,9 @@
       ]
     },
     "extension_board": {
-      "name": "ఎక్స్టెన్షన్ బోర్డ్",
+      "name": "ఎక్స్టెన్షన్ బోర్డు",
       "aliases": [
+        "ఎక్స్టెన్షన్ బోర్డ్",
         "extension",
         "Extension board"
       ]
@@ -2202,8 +2205,9 @@
       ]
     },
     "glue": {
-      "name": "గమ్",
+      "name": "జిగురు",
       "aliases": [
+        "గమ్",
         "jiguru",
         "gum",
         "Glue"
@@ -2480,8 +2484,9 @@
       ]
     },
     "notebook": {
-      "name": "నోట్ బుక్",
+      "name": "నోటు పుస్తకం",
       "aliases": [
+        "నోట్ బుక్",
         "notebook"
       ]
     },
@@ -2553,8 +2558,9 @@
       ]
     },
     "stapler": {
-      "name": "స్టెప్లర్",
+      "name": "స్టేప్లర్",
       "aliases": [
+        "స్టెప్లర్",
         "stapler"
       ]
     },
@@ -2668,8 +2674,9 @@
       ]
     },
     "earphones": {
-      "name": "ఇయర్ ఫోన్స్",
+      "name": "ఇయర్ ఫోన్లు",
       "aliases": [
+        "ఇయర్ ఫోన్స్",
         "earphone",
         "Earphones"
       ]
@@ -2820,8 +2827,9 @@
       ]
     },
     "shirt": {
-      "name": "షర్ట్",
+      "name": "చొక్కా",
       "aliases": [
+        "షర్ట్",
         "chokka",
         "shirt"
       ]
@@ -2845,8 +2853,9 @@
       ]
     },
     "socks": {
-      "name": "సాక్స్",
+      "name": "సాక్సులు",
       "aliases": [
+        "సాక్స్",
         "socks"
       ]
     },
@@ -2911,8 +2920,9 @@
       ]
     },
     "shoes": {
-      "name": "షూస్",
+      "name": "బూట్లు",
       "aliases": [
+        "షూస్",
         "shoes",
         "boots"
       ]
@@ -3076,8 +3086,9 @@
       ]
     },
     "calculator": {
-      "name": "కాలిక్యులేటర్",
+      "name": "క్యాలిక్యులేటర్",
       "aliases": [
+        "కాలిక్యులేటర్",
         "calculator"
       ]
     },
@@ -3311,8 +3322,9 @@
       ]
     },
     "greeting_card": {
-      "name": "గ్రీటింగ్ కార్డ్",
+      "name": "శుభాకాంక్షల కార్డు",
       "aliases": [
+        "గ్రీటింగ్ కార్డ్",
         "greeting card"
       ]
     },

@@ -157,6 +157,8 @@ def build():
         items.append(entry)
     for li, cat_id in legacy_extra:
         items.append({"key": li["key"], "category": cat_key[cat_id], "defaultUnit": li["defaultUnit"]})
+    # Released items first: when two names are identical in one language, search ties go to the older item.
+    items.sort(key=lambda i: 0 if i["key"] in legacy_aliases else 1)
     catalog = {
         "seedVersion": SEED_VERSION, "units": units, "categories": categories, "items": items,
         "retiredCategories": sorted(RETIRED),
@@ -190,7 +192,10 @@ def build():
                 review[loc].append((iid, en_names[iid], name, "fallback: no translation yet, English shown"))
             aliases = []
             if key in legacy_aliases:
-                aliases += legacy_i18n[loc]["items"][key]["aliases"]
+                # Released item: its reviewed seedVersion 1 name stays; the catalogue name becomes an alias.
+                old = legacy_i18n[loc]["items"][key]
+                aliases += [name] + old["aliases"]
+                name = old["name"]
             if loc != "en":
                 aliases.append(en_names[iid])
             seen, out = {name.casefold()}, []

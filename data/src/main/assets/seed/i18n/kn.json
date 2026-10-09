@@ -1700,8 +1700,9 @@
       ]
     },
     "hair_oil": {
-      "name": "ಕೂದಲೆಣ್ಣೆ",
+      "name": "ಕೂದಲಿನ ಎಣ್ಣೆ",
       "aliases": [
+        "ಕೂದಲೆಣ್ಣೆ",
         "enne",
         "Hair oil"
       ]
@@ -1714,8 +1715,9 @@
       ]
     },
     "toothbrush": {
-      "name": "ಟೂತ್ ಬ್ರಷ್",
+      "name": "ಹಲ್ಲುಜ್ಜುವ ಬ್ರಷ್",
       "aliases": [
+        "ಟೂತ್ ಬ್ರಷ್",
         "brush",
         "Toothbrush"
       ]
@@ -2183,8 +2185,9 @@
       ]
     },
     "extension_board": {
-      "name": "ಎಕ್ಸ್ಟೆನ್ಶನ್ ಬೋರ್ಡ್",
+      "name": "ಎಕ್ಸ್ಟೆನ್ಷನ್ ಬೋರ್ಡ್",
       "aliases": [
+        "ಎಕ್ಸ್ಟೆನ್ಶನ್ ಬೋರ್ಡ್",
         "extension",
         "Extension board"
       ]
@@ -2202,8 +2205,9 @@
       ]
     },
     "glue": {
-      "name": "ಗಮ್",
+      "name": "ಅಂಟು",
       "aliases": [
+        "ಗಮ್",
         "antu",
         "gum",
         "Glue"
@@ -2480,14 +2484,16 @@
       ]
     },
     "notebook": {
-      "name": "ನೋಟ್ ಬುಕ್",
+      "name": "ನೋಟ್ ಪುಸ್ತಕ",
       "aliases": [
+        "ನೋಟ್ ಬುಕ್",
         "notebook"
       ]
     },
     "pen": {
-      "name": "ಪೆನ್",
+      "name": "ಪೆನ್ನು",
       "aliases": [
+        "ಪೆನ್",
         "pen"
       ]
     },
@@ -2911,8 +2917,9 @@
       ]
     },
     "shoes": {
-      "name": "ಶೂಸ್",
+      "name": "ಶೂಗಳು",
       "aliases": [
+        "ಶೂಸ್",
         "shoes",
         "boot"
       ]
@@ -3299,8 +3306,9 @@
       ]
     },
     "balloons": {
-      "name": "ಬಲೂನ್",
+      "name": "ಬಲೂನುಗಳು",
       "aliases": [
+        "ಬಲೂನ್",
         "balloon",
         "Balloons"
       ]
@@ -3312,8 +3320,9 @@
       ]
     },
     "greeting_card": {
-      "name": "ಗ್ರೀಟಿಂಗ್ ಕಾರ್ಡ್",
+      "name": "ಶುಭಾಶಯ ಪತ್ರ",
       "aliases": [
+        "ಗ್ರೀಟಿಂಗ್ ಕಾರ್ಡ್",
         "greeting card"
       ]
     },

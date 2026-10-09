@@ -339,8 +339,9 @@
       ]
     },
     "onion": {
-      "name": "സവാള",
+      "name": "ഉള്ളി",
       "aliases": [
+        "സവാള",
         "ulli",
         "savala",
         "Onion"
@@ -602,8 +603,9 @@
       ]
     },
     "banana": {
-      "name": "പഴം",
+      "name": "വാഴപ്പഴം",
       "aliases": [
+        "പഴം",
         "pazham",
         "vazhapazham",
         "Banana"
@@ -622,8 +624,9 @@
       ]
     },
     "pomegranate": {
-      "name": "മാതളം",
+      "name": "മാതളനാരങ്ങ",
       "aliases": [
+        "മാതളം",
         "mathalam",
         "mathalanaranga",
         "Pomegranate"
@@ -1696,15 +1699,17 @@
       ]
     },
     "hair_oil": {
-      "name": "തലയെണ്ണ",
+      "name": "ഹെയർ ഓയിൽ",
       "aliases": [
+        "തലയെണ്ണ",
         "enna",
         "Hair oil"
       ]
     },
     "toothpaste": {
-      "name": "ടൂത്ത്പേസ്റ്റ്",
+      "name": "ടൂത്ത് പേസ്റ്റ്",
       "aliases": [
+        "ടൂത്ത്പേസ്റ്റ്",
         "paste",
         "Toothpaste"
       ]
@@ -3293,8 +3298,9 @@
       ]
     },
     "balloons": {
-      "name": "ബലൂൺ",
+      "name": "ബലൂണുകൾ",
       "aliases": [
+        "ബലൂൺ",
         "balloon",
         "Balloons"
       ]
@@ -3306,8 +3312,9 @@
       ]
     },
     "greeting_card": {
-      "name": "ഗ്രീറ്റിംഗ് കാർഡ്",
+      "name": "ആശംസാ കാർഡ്",
       "aliases": [
+        "ഗ്രീറ്റിംഗ് കാർഡ്",
         "greeting card"
       ]
     },

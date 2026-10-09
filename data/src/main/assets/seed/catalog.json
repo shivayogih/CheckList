@@ -262,6 +262,694 @@
   ],
   "items": [
     {
+      "key": "sugar",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0035",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "salt",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0037",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "potato",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0050",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "onion",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0051",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "tomato",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0052",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "carrot",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0053",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "cabbage",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0071",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "cauliflower",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0072",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "coconut",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0087",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "apple",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0093",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "banana",
+      "category": "fruits",
+      "defaultUnit": "DOZEN",
+      "catalogId": "ITM0094",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "orange",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0095",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "pomegranate",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0097",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "grapes",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0102",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "mango",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0104",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "milk",
+      "category": "cat005",
+      "defaultUnit": "LITRE",
+      "catalogId": "ITM0146",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "shampoo",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE",
+      "catalogId": "ITM0273",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "hair_oil",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE",
+      "catalogId": "ITM0275",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "toothpaste",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0276",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "toothbrush",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0277",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "extension_board",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0355",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "glue",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0358",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "notebook",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0404",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "pen",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0405",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "pencil",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0406",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "eraser",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0407",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "stapler",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0416",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "scissors",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0420",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "power_bank",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0434",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "earphones",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0435",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "t_shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0459",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0460",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "socks",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0464",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "shoes",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0475",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "passport",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0481",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "driving_licence",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0482",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "hall_ticket",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0497",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "calculator",
+      "category": "exam",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0502",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "balloons",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0539",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "greeting_card",
+      "category": "cat029",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0541",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "rice",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "wheat",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "dal",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "cooking_oil",
+      "category": "groceries",
+      "defaultUnit": "LITRE"
+    },
+    {
+      "key": "tea",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "coffee",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "spices",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "beans",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "brinjal",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "spinach",
+      "category": "vegetables",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "pants",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "saree",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "dress",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "travel_passport",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "tickets",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "hotel_booking",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "clothes",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "charger",
+      "category": "travel",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "travel_toiletries",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "travel_medicines",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "aadhaar_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "pan_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "educational_certificates",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "passport_photos",
+      "category": "documents",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "id_card",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "books",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "notes",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "sweets",
+      "category": "cat029",
+      "defaultUnit": "BOX"
+    },
+    {
+      "key": "incense_sticks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "camphor",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "kumkum",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "turmeric",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "flowers",
+      "category": "pooja_items",
+      "defaultUnit": null
+    },
+    {
+      "key": "cotton_wicks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "rangoli_colours",
+      "category": "cat029",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "decorative_lights",
+      "category": "cat029",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "fever_tablets",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "pain_balm",
+      "category": "medicines",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "bandage",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "antiseptic_liquid",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "ors",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "cough_syrup",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "soap",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "comb",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "batteries",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "light_bulb",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "ruler",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
       "key": "itm0001",
       "category": "groceries",
       "defaultUnit": "KG",
@@ -670,32 +1358,10 @@
       ]
     },
     {
-      "key": "sugar",
-      "category": "groceries",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0035",
-      "subcategory": "Other staples",
-      "tags": [
-        "pantry",
-        "staple"
-      ]
-    },
-    {
       "key": "itm0036",
       "category": "groceries",
       "defaultUnit": "GRAM",
       "catalogId": "ITM0036",
-      "subcategory": "Other staples",
-      "tags": [
-        "pantry",
-        "staple"
-      ]
-    },
-    {
-      "key": "salt",
-      "category": "groceries",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0037",
       "subcategory": "Other staples",
       "tags": [
         "pantry",
@@ -832,54 +1498,6 @@
       "tags": [
         "pantry",
         "staple"
-      ]
-    },
-    {
-      "key": "potato",
-      "category": "vegetables",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0050",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "onion",
-      "category": "vegetables",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0051",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "tomato",
-      "category": "vegetables",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0052",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "carrot",
-      "category": "vegetables",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0053",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
       ]
     },
     {
@@ -1087,30 +1705,6 @@
       ]
     },
     {
-      "key": "cabbage",
-      "category": "vegetables",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0071",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "cauliflower",
-      "category": "vegetables",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0072",
-      "subcategory": "Everyday vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
       "key": "itm0073",
       "category": "vegetables",
       "defaultUnit": "KG",
@@ -1279,18 +1873,6 @@
       ]
     },
     {
-      "key": "coconut",
-      "category": "vegetables",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0087",
-      "subcategory": "By-piece vegetables",
-      "tags": [
-        "fresh",
-        "vegetable",
-        "vegetarian"
-      ]
-    },
-    {
       "key": "itm0088",
       "category": "vegetables",
       "defaultUnit": "PIECE",
@@ -1351,58 +1933,10 @@
       ]
     },
     {
-      "key": "apple",
-      "category": "fruits",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0093",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "banana",
-      "category": "fruits",
-      "defaultUnit": "DOZEN",
-      "catalogId": "ITM0094",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "orange",
-      "category": "fruits",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0095",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
       "key": "itm0096",
       "category": "fruits",
       "defaultUnit": "KG",
       "catalogId": "ITM0096",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "pomegranate",
-      "category": "fruits",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0097",
       "subcategory": "Common fruits",
       "tags": [
         "fresh",
@@ -1459,34 +1993,10 @@
       ]
     },
     {
-      "key": "grapes",
-      "category": "fruits",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0102",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
       "key": "itm0103",
       "category": "fruits",
       "defaultUnit": "KG",
       "catalogId": "ITM0103",
-      "subcategory": "Common fruits",
-      "tags": [
-        "fresh",
-        "fruit",
-        "vegetarian"
-      ]
-    },
-    {
-      "key": "mango",
-      "category": "fruits",
-      "defaultUnit": "KG",
-      "catalogId": "ITM0104",
       "subcategory": "Common fruits",
       "tags": [
         "fresh",
@@ -1984,17 +2494,6 @@
         "fresh",
         "herb",
         "vegetarian"
-      ]
-    },
-    {
-      "key": "milk",
-      "category": "cat005",
-      "defaultUnit": "LITRE",
-      "catalogId": "ITM0146",
-      "subcategory": "Milk & dairy",
-      "tags": [
-        "chilled",
-        "dairy"
       ]
     },
     {
@@ -3397,54 +3896,10 @@
       ]
     },
     {
-      "key": "shampoo",
-      "category": "toiletries",
-      "defaultUnit": "BOTTLE",
-      "catalogId": "ITM0273",
-      "subcategory": "Bath & body",
-      "tags": [
-        "personal-care",
-        "hygiene"
-      ]
-    },
-    {
       "key": "itm0274",
       "category": "toiletries",
       "defaultUnit": "PACK",
       "catalogId": "ITM0274",
-      "subcategory": "Bath & body",
-      "tags": [
-        "personal-care",
-        "hygiene"
-      ]
-    },
-    {
-      "key": "hair_oil",
-      "category": "toiletries",
-      "defaultUnit": "BOTTLE",
-      "catalogId": "ITM0275",
-      "subcategory": "Bath & body",
-      "tags": [
-        "personal-care",
-        "hygiene"
-      ]
-    },
-    {
-      "key": "toothpaste",
-      "category": "toiletries",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0276",
-      "subcategory": "Bath & body",
-      "tags": [
-        "personal-care",
-        "hygiene"
-      ]
-    },
-    {
-      "key": "toothbrush",
-      "category": "toiletries",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0277",
       "subcategory": "Bath & body",
       "tags": [
         "personal-care",
@@ -4299,17 +4754,6 @@
       ]
     },
     {
-      "key": "extension_board",
-      "category": "cat016",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0355",
-      "subcategory": "Home maintenance",
-      "tags": [
-        "maintenance",
-        "home"
-      ]
-    },
-    {
       "key": "itm0356",
       "category": "cat016",
       "defaultUnit": "PIECE",
@@ -4325,17 +4769,6 @@
       "category": "cat016",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0357",
-      "subcategory": "Home maintenance",
-      "tags": [
-        "maintenance",
-        "home"
-      ]
-    },
-    {
-      "key": "glue",
-      "category": "cat016",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0358",
       "subcategory": "Home maintenance",
       "tags": [
         "maintenance",
@@ -4838,50 +5271,6 @@
       ]
     },
     {
-      "key": "notebook",
-      "category": "stationery",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0404",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
-      "key": "pen",
-      "category": "stationery",
-      "defaultUnit": "NOS",
-      "catalogId": "ITM0405",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
-      "key": "pencil",
-      "category": "stationery",
-      "defaultUnit": "NOS",
-      "catalogId": "ITM0406",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
-      "key": "eraser",
-      "category": "stationery",
-      "defaultUnit": "NOS",
-      "catalogId": "ITM0407",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
       "key": "itm0408",
       "category": "stationery",
       "defaultUnit": "PIECE",
@@ -4970,17 +5359,6 @@
       ]
     },
     {
-      "key": "stapler",
-      "category": "stationery",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0416",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
       "key": "itm0417",
       "category": "stationery",
       "defaultUnit": "PIECE",
@@ -5007,17 +5385,6 @@
       "category": "stationery",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0419",
-      "subcategory": "Stationery",
-      "tags": [
-        "office",
-        "stationery"
-      ]
-    },
-    {
-      "key": "scissors",
-      "category": "stationery",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0420",
       "subcategory": "Stationery",
       "tags": [
         "office",
@@ -5161,28 +5528,6 @@
       "category": "electronics",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0433",
-      "subcategory": "Electronics",
-      "tags": [
-        "electronics",
-        "accessory"
-      ]
-    },
-    {
-      "key": "power_bank",
-      "category": "electronics",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0434",
-      "subcategory": "Electronics",
-      "tags": [
-        "electronics",
-        "accessory"
-      ]
-    },
-    {
-      "key": "earphones",
-      "category": "electronics",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0435",
       "subcategory": "Electronics",
       "tags": [
         "electronics",
@@ -5443,28 +5788,6 @@
       ]
     },
     {
-      "key": "t_shirt",
-      "category": "clothing",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0459",
-      "subcategory": "Clothing",
-      "tags": [
-        "clothing",
-        "personal"
-      ]
-    },
-    {
-      "key": "shirt",
-      "category": "clothing",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0460",
-      "subcategory": "Clothing",
-      "tags": [
-        "clothing",
-        "personal"
-      ]
-    },
-    {
       "key": "itm0461",
       "category": "clothing",
       "defaultUnit": "PIECE",
@@ -5491,17 +5814,6 @@
       "category": "clothing",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0463",
-      "subcategory": "Clothing",
-      "tags": [
-        "clothing",
-        "personal"
-      ]
-    },
-    {
-      "key": "socks",
-      "category": "clothing",
-      "defaultUnit": "PAIR",
-      "catalogId": "ITM0464",
       "subcategory": "Clothing",
       "tags": [
         "clothing",
@@ -5619,17 +5931,6 @@
       ]
     },
     {
-      "key": "shoes",
-      "category": "clothing",
-      "defaultUnit": "PAIR",
-      "catalogId": "ITM0475",
-      "subcategory": "Footwear",
-      "tags": [
-        "clothing",
-        "footwear"
-      ]
-    },
-    {
       "key": "itm0476",
       "category": "clothing",
       "defaultUnit": "PAIR",
@@ -5678,28 +5979,6 @@
       "category": "documents",
       "defaultUnit": null,
       "catalogId": "ITM0480",
-      "subcategory": "Documents & admin",
-      "tags": [
-        "document",
-        "admin"
-      ]
-    },
-    {
-      "key": "passport",
-      "category": "documents",
-      "defaultUnit": null,
-      "catalogId": "ITM0481",
-      "subcategory": "Documents & admin",
-      "tags": [
-        "document",
-        "admin"
-      ]
-    },
-    {
-      "key": "driving_licence",
-      "category": "documents",
-      "defaultUnit": null,
-      "catalogId": "ITM0482",
       "subcategory": "Documents & admin",
       "tags": [
         "document",
@@ -5861,17 +6140,6 @@
       ]
     },
     {
-      "key": "hall_ticket",
-      "category": "exam",
-      "defaultUnit": null,
-      "catalogId": "ITM0497",
-      "subcategory": "Study & exams",
-      "tags": [
-        "study",
-        "exam"
-      ]
-    },
-    {
       "key": "itm0498",
       "category": "exam",
       "defaultUnit": null,
@@ -5909,17 +6177,6 @@
       "category": "exam",
       "defaultUnit": null,
       "catalogId": "ITM0501",
-      "subcategory": "Study & exams",
-      "tags": [
-        "study",
-        "exam"
-      ]
-    },
-    {
-      "key": "calculator",
-      "category": "exam",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0502",
       "subcategory": "Study & exams",
       "tags": [
         "study",
@@ -6323,32 +6580,10 @@
       ]
     },
     {
-      "key": "balloons",
-      "category": "cat029",
-      "defaultUnit": "PACK",
-      "catalogId": "ITM0539",
-      "subcategory": "Celebrations",
-      "tags": [
-        "event",
-        "celebration"
-      ]
-    },
-    {
       "key": "itm0540",
       "category": "cat029",
       "defaultUnit": "PACK",
       "catalogId": "ITM0540",
-      "subcategory": "Celebrations",
-      "tags": [
-        "event",
-        "celebration"
-      ]
-    },
-    {
-      "key": "greeting_card",
-      "category": "cat029",
-      "defaultUnit": "PIECE",
-      "catalogId": "ITM0541",
       "subcategory": "Celebrations",
       "tags": [
         "event",
@@ -6596,241 +6831,6 @@
         "custom",
         "user-created"
       ]
-    },
-    {
-      "key": "rice",
-      "category": "groceries",
-      "defaultUnit": "KG"
-    },
-    {
-      "key": "wheat",
-      "category": "groceries",
-      "defaultUnit": "KG"
-    },
-    {
-      "key": "dal",
-      "category": "groceries",
-      "defaultUnit": "KG"
-    },
-    {
-      "key": "cooking_oil",
-      "category": "groceries",
-      "defaultUnit": "LITRE"
-    },
-    {
-      "key": "tea",
-      "category": "groceries",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "coffee",
-      "category": "groceries",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "spices",
-      "category": "groceries",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "beans",
-      "category": "vegetables",
-      "defaultUnit": "KG"
-    },
-    {
-      "key": "brinjal",
-      "category": "vegetables",
-      "defaultUnit": "KG"
-    },
-    {
-      "key": "spinach",
-      "category": "vegetables",
-      "defaultUnit": "NOS"
-    },
-    {
-      "key": "pants",
-      "category": "clothing",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "saree",
-      "category": "clothing",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "dress",
-      "category": "clothing",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "travel_passport",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "tickets",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "hotel_booking",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "clothes",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "charger",
-      "category": "travel",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "travel_toiletries",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "travel_medicines",
-      "category": "travel",
-      "defaultUnit": null
-    },
-    {
-      "key": "aadhaar_card",
-      "category": "documents",
-      "defaultUnit": null
-    },
-    {
-      "key": "pan_card",
-      "category": "documents",
-      "defaultUnit": null
-    },
-    {
-      "key": "educational_certificates",
-      "category": "documents",
-      "defaultUnit": null
-    },
-    {
-      "key": "passport_photos",
-      "category": "documents",
-      "defaultUnit": "NOS"
-    },
-    {
-      "key": "id_card",
-      "category": "exam",
-      "defaultUnit": null
-    },
-    {
-      "key": "books",
-      "category": "exam",
-      "defaultUnit": "NOS"
-    },
-    {
-      "key": "notes",
-      "category": "exam",
-      "defaultUnit": null
-    },
-    {
-      "key": "sweets",
-      "category": "cat029",
-      "defaultUnit": "BOX"
-    },
-    {
-      "key": "incense_sticks",
-      "category": "pooja_items",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "camphor",
-      "category": "pooja_items",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "kumkum",
-      "category": "pooja_items",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "turmeric",
-      "category": "pooja_items",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "flowers",
-      "category": "pooja_items",
-      "defaultUnit": null
-    },
-    {
-      "key": "cotton_wicks",
-      "category": "pooja_items",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "rangoli_colours",
-      "category": "cat029",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "decorative_lights",
-      "category": "cat029",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "fever_tablets",
-      "category": "medicines",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "pain_balm",
-      "category": "medicines",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "bandage",
-      "category": "medicines",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "antiseptic_liquid",
-      "category": "medicines",
-      "defaultUnit": "BOTTLE"
-    },
-    {
-      "key": "ors",
-      "category": "medicines",
-      "defaultUnit": "PACK"
-    },
-    {
-      "key": "cough_syrup",
-      "category": "medicines",
-      "defaultUnit": "BOTTLE"
-    },
-    {
-      "key": "soap",
-      "category": "toiletries",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "comb",
-      "category": "toiletries",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "batteries",
-      "category": "electronics",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "light_bulb",
-      "category": "electronics",
-      "defaultUnit": "PIECE"
-    },
-    {
-      "key": "ruler",
-      "category": "stationery",
-      "defaultUnit": "PIECE"
     }
   ],
   "retiredCategories": [

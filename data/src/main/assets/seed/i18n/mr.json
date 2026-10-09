@@ -1685,8 +1685,9 @@
       ]
     },
     "shampoo": {
-      "name": "शाम्पू",
+      "name": "शॅम्पू",
       "aliases": [
+        "शाम्पू",
         "shampoo"
       ]
     },
@@ -2180,8 +2181,9 @@
       ]
     },
     "extension_board": {
-      "name": "एक्सटेंशन बोर्ड",
+      "name": "एक्स्टेंशन बोर्ड",
       "aliases": [
+        "एक्सटेंशन बोर्ड",
         "extension",
         "Extension board"
       ]
@@ -2842,8 +2844,9 @@
       ]
     },
     "socks": {
-      "name": "मोजे",
+      "name": "पायमोजे",
       "aliases": [
+        "मोजे",
         "socks"
       ]
     },
@@ -2951,8 +2954,9 @@
       ]
     },
     "driving_licence": {
-      "name": "ड्रायव्हिंग लायसन्स",
+      "name": "वाहन परवाना",
       "aliases": [
+        "ड्रायव्हिंग लायसन्स",
         "driving licence",
         "dl"
       ]
@@ -3042,8 +3046,9 @@
       ]
     },
     "hall_ticket": {
-      "name": "हॉल तिकीट",
+      "name": "प्रवेशपत्र",
       "aliases": [
+        "हॉल तिकीट",
         "hall ticket",
         "admit card"
       ]
@@ -3309,8 +3314,9 @@
       ]
     },
     "greeting_card": {
-      "name": "ग्रीटिंग कार्ड",
+      "name": "शुभेच्छा पत्र",
       "aliases": [
+        "ग्रीटिंग कार्ड",
         "greeting card"
       ]
     },

@@ -1136,7 +1136,7 @@
       "aliases": []
     },
     "hair_oil": {
-      "name": "Hair oil",
+      "name": "Hair Oil",
       "aliases": []
     },
     "toothpaste": {
@@ -1460,7 +1460,7 @@
       "aliases": []
     },
     "extension_board": {
-      "name": "Extension board",
+      "name": "Extension Board",
       "aliases": [
         "spike guard",
         "multi plug"
@@ -1783,7 +1783,7 @@
       "aliases": []
     },
     "power_bank": {
-      "name": "Power bank",
+      "name": "Power Bank",
       "aliases": []
     },
     "earphones": {
@@ -1885,7 +1885,7 @@
       "aliases": []
     },
     "t_shirt": {
-      "name": "T-shirt",
+      "name": "T-Shirt",
       "aliases": [
         "tshirt",
         "tee"
@@ -1980,7 +1980,7 @@
       "aliases": []
     },
     "driving_licence": {
-      "name": "Driving licence",
+      "name": "Driving Licence",
       "aliases": [
         "driving license",
         "dl",
@@ -2045,7 +2045,7 @@
       "aliases": []
     },
     "hall_ticket": {
-      "name": "Hall ticket",
+      "name": "Hall Ticket",
       "aliases": [
         "admit card"
       ]
@@ -2223,7 +2223,7 @@
       "aliases": []
     },
     "greeting_card": {
-      "name": "Greeting card",
+      "name": "Greeting Card",
       "aliases": []
     },
     "itm0542": {

@@ -1695,22 +1695,25 @@
       ]
     },
     "hair_oil": {
-      "name": "தலைக்கு எண்ணெய்",
+      "name": "தலை எண்ணெய்",
       "aliases": [
+        "தலைக்கு எண்ணெய்",
         "ennai",
         "Hair oil"
       ]
     },
     "toothpaste": {
-      "name": "டூத்பேஸ்ட்",
+      "name": "பற்பசை",
       "aliases": [
+        "டூத்பேஸ்ட்",
         "toothpaste",
         "paste"
       ]
     },
     "toothbrush": {
-      "name": "டூத்பிரஷ்",
+      "name": "பல் துலக்கி",
       "aliases": [
+        "டூத்பிரஷ்",
         "brush",
         "Toothbrush"
       ]
@@ -2495,8 +2498,9 @@
       ]
     },
     "eraser": {
-      "name": "ரப்பர்",
+      "name": "அழிப்பான்",
       "aliases": [
+        "ரப்பர்",
         "rubber",
         "eraser"
       ]
@@ -2810,8 +2814,9 @@
       ]
     },
     "t_shirt": {
-      "name": "டி-ஷர்ட்",
+      "name": "டி-சர்ட்",
       "aliases": [
+        "டி-ஷர்ட்",
         "tshirt",
         "T-shirt"
       ]
@@ -2842,8 +2847,9 @@
       ]
     },
     "socks": {
-      "name": "சாக்ஸ்",
+      "name": "காலுறை",
       "aliases": [
+        "சாக்ஸ்",
         "socks"
       ]
     },
@@ -2908,8 +2914,9 @@
       ]
     },
     "shoes": {
-      "name": "ஷூ",
+      "name": "காலணிகள்",
       "aliases": [
+        "ஷூ",
         "shoes"
       ]
     },
@@ -3293,8 +3300,9 @@
       ]
     },
     "balloons": {
-      "name": "பலூன்",
+      "name": "பலூன்கள்",
       "aliases": [
+        "பலூன்",
         "balloon",
         "Balloons"
       ]
