@@ -9,6 +9,7 @@
     <string name="settings_language">ഭാഷ</string>
     <string name="settings_language_system">സിസ്റ്റം ഡിഫോൾട്ട്</string>
     <string name="settings_about">കുറിച്ച്</string>
+    <string name="app_logo_description">ചെക്ക്‌ലിസ്റ്റ് ലോഗോ</string>
     <string name="settings_version">പതിപ്പ് %1$s</string>
     <string name="navigate_back">തിരികെ</string>
     <string name="language_title">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
@@ -87,6 +88,10 @@
     <string name="error_not_found">ഇത് ഇപ്പോൾ നിലവിലില്ല. ഇത് ഇല്ലാതാക്കിയിരിക്കാം.</string>
     <string name="error_quantity_invalid">2 അല്ലെങ്കിൽ 2.5 പോലെയുള്ള ഒരു സംഖ്യ നൽകുക (99999 വരെ).</string>
     <string name="error_quantity_whole">ഈ അളവിന് 2 പോലെയുള്ള പൂർണ്ണസംഖ്യ വേണം.</string>
+    <string name="error_quantity_not_number">അക്കങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2 അല്ലെങ്കിൽ 2.5.</string>
+    <string name="error_quantity_not_positive">അളവ് പൂജ്യത്തേക്കാൾ കൂടുതലായിരിക്കണം.</string>
+    <string name="error_quantity_too_precise">പരമാവധി 3 ദശാംശ സ്ഥാനങ്ങൾ മാത്രം ഉപയോഗിക്കുക, ഉദാ. 2.125.</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">പട്ടികയ്ക്ക് ഒരു പേര് നൽകുക.</string>
     <string name="error_too_long">പരമാവധി %1$s അക്ഷരങ്ങൾ ഉപയോഗിക്കുക.</string>
     <string name="error_unit_label_blank">അളവിന് ഒരു പേര് നൽകുക.</string>

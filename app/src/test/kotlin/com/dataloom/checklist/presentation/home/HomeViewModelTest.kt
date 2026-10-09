@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.home
 
+import com.dataloom.checklist.domain.validation.FieldLimits
 import app.cash.turbine.test
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
@@ -164,5 +165,14 @@ class HomeViewModelTest {
             assertTrue(awaitItem() is HomeEffect.Error)
         }
         assertEquals(1, repo.checklistCount())
+    }
+
+    @Test
+    fun `search text is cleaned and capped`() = runTest {
+        val vm = started(viewModel())
+        vm.onAction(HomeAction.SearchChanged("go\u202Ea\u0000"))
+        assertEquals("goa", vm.uiState.value.search)
+        vm.onAction(HomeAction.SearchChanged("x".repeat(1_000)))
+        assertEquals(FieldLimits.SEARCH_MAX, vm.uiState.value.search.length)
     }
 }

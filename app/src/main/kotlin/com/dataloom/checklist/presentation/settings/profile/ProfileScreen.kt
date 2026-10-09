@@ -40,13 +40,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
-import com.dataloom.checklist.presentation.components.optionalText
+import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.inputLength
 
 /** Settings > Your profile: optional name and contact details, kept encrypted on this phone. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -101,6 +103,7 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
                 onValueChange = { onAction(ProfileAction.NameChanged(it)) },
                 label = stringResource(R.string.profile_name),
                 error = state.nameError,
+                maxLength = FieldLimits.DISPLAY_NAME_MAX,
                 enabled = state.canEdit,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next),
             )
@@ -125,6 +128,7 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
                 onValueChange = { onAction(ProfileAction.AddressChanged(it)) },
                 label = stringResource(R.string.profile_address),
                 error = state.addressError,
+                maxLength = FieldLimits.ADDRESS_MAX,
                 enabled = state.canEdit,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences,
@@ -135,7 +139,7 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
 
             Button(
                 onClick = { onAction(ProfileAction.Save) },
-                enabled = state.canEdit && !state.isSaving,
+                enabled = state.canSave,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
             ) {
                 Text(stringResource(R.string.action_save))
@@ -196,6 +200,7 @@ private fun ProfileField(
     error: UiText?,
     enabled: Boolean,
     keyboardOptions: KeyboardOptions,
+    maxLength: Int? = null,
     singleLine: Boolean = true,
 ) {
     val errorText = error?.asString()
@@ -207,7 +212,7 @@ private fun ProfileField(
         minLines = if (singleLine) 1 else 3,
         enabled = enabled,
         isError = errorText != null,
-        supportingText = optionalText(errorText),
+        supportingText = fieldSupportingText(errorText, value.inputLength(), maxLength),
         keyboardOptions = keyboardOptions,
         modifier = Modifier
             .fillMaxWidth()

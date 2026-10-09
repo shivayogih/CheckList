@@ -9,6 +9,7 @@
     <string name="settings_language">भाषा</string>
     <string name="settings_language_system">सिस्टम डिफ़ॉल्ट</string>
     <string name="settings_about">ऐप के बारे में</string>
+    <string name="app_logo_description">चेकलिस्ट लोगो</string>
     <string name="settings_version">संस्करण %1$s</string>
     <string name="navigate_back">वापस</string>
     <string name="language_title">भाषा चुनें</string>
@@ -87,6 +88,10 @@
     <string name="error_not_found">यह अब मौजूद नहीं है। शायद इसे हटा दिया गया है।</string>
     <string name="error_quantity_invalid">2 या 2.5 जैसी संख्या लिखें (99999 तक)।</string>
     <string name="error_quantity_whole">इस इकाई के लिए 2 जैसी पूरी संख्या चाहिए।</string>
+    <string name="error_quantity_not_number">केवल अंक लिखें, जैसे 2 या 2.5।</string>
+    <string name="error_quantity_not_positive">मात्रा शून्य से अधिक होनी चाहिए।</string>
+    <string name="error_quantity_too_precise">अधिकतम 3 दशमलव स्थान लिखें, जैसे 2.125।</string>
+    <string name="input_counter">%1$d / %2$d</string>
     <string name="error_title_blank">सूची का नाम लिखें।</string>
     <string name="error_too_long">ज़्यादा से ज़्यादा %1$s अक्षर लिखें।</string>
     <string name="error_unit_label_blank">इकाई का नाम लिखें।</string>

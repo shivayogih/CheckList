@@ -30,6 +30,7 @@ import com.dataloom.checklist.BuildConfig
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.localization.LanguagePreference
 import com.dataloom.checklist.localization.AppLocales
+import com.dataloom.checklist.presentation.components.AppLogo
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.transfer.ImportPreviewDialog
@@ -133,6 +134,7 @@ fun SettingsScreen(
             ListItem(
                 headlineContent = { Text(stringResource(R.string.settings_about)) },
                 supportingContent = { Text(stringResource(R.string.settings_version, BuildConfig.VERSION_NAME)) },
+                leadingContent = { AppLogo(size = 56.dp) },
                 modifier = Modifier.heightIn(min = 64.dp),
             )
             ListItem(

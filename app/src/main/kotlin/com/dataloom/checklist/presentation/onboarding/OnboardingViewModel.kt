@@ -10,6 +10,9 @@ import com.dataloom.checklist.onboarding.OnboardingStore
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 import com.dataloom.checklist.presentation.settings.profile.ProfileFieldErrors
+import com.dataloom.checklist.presentation.settings.profile.ProfileTyping
+import com.dataloom.checklist.presentation.settings.profile.isClear
+import com.dataloom.checklist.presentation.settings.profile.liveProfileErrors
 import com.dataloom.checklist.presentation.settings.profile.toProfileFieldErrors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
@@ -47,6 +50,9 @@ data class OnboardingUiState(
     val isBusy: Boolean = false,
 ) {
     val isLastPage: Boolean get() = tutorialPage >= TUTORIAL_PAGE_COUNT - 1
+
+    /** Continue on profile setup is enabled only while every typed field would be accepted (CL-280). */
+    val canSubmitProfile: Boolean get() = !isBusy && fieldErrors.isClear
 
     /** Whether system Back (and the arrow, where drawn) moves inside the flow instead of leaving it. */
     val canStepBack: Boolean
@@ -130,11 +136,13 @@ class OnboardingViewModel @Inject constructor(
                 go(OnboardingStep.TUTORIAL, action.page.coerceIn(0, TUTORIAL_PAGE_COUNT - 1))
             OnboardingAction.SkipTutorial -> leaveTutorial()
             OnboardingAction.Back -> stepBack()
-            is OnboardingAction.NameChanged -> edit { it.copy(name = action.value, fieldErrors = it.fieldErrors.copy(name = null)) }
-            is OnboardingAction.EmailChanged -> edit { it.copy(email = action.value, fieldErrors = it.fieldErrors.copy(email = null)) }
-            is OnboardingAction.PhoneChanged -> edit { it.copy(phone = action.value, fieldErrors = it.fieldErrors.copy(phone = null)) }
+            is OnboardingAction.NameChanged -> edit { it.copy(name = ProfileTyping.name(action.value)).revalidated() }
+            is OnboardingAction.EmailChanged ->
+                edit { it.copy(email = ProfileTyping.email(action.value)).revalidated() }
+            is OnboardingAction.PhoneChanged ->
+                edit { it.copy(phone = ProfileTyping.phone(action.value)).revalidated() }
             is OnboardingAction.AddressChanged ->
-                edit { it.copy(address = action.value, fieldErrors = it.fieldErrors.copy(address = null)) }
+                edit { it.copy(address = ProfileTyping.address(action.value)).revalidated() }
             OnboardingAction.ToggleMore -> state.update { it.copy(moreExpanded = !it.moreExpanded) }
             OnboardingAction.SubmitProfile -> submitProfile()
             OnboardingAction.SkipProfile -> finish()
@@ -162,6 +170,10 @@ class OnboardingViewModel @Inject constructor(
         state.update { it.copy(step = step, tutorialPage = page) }
         persist()
     }
+
+    /** Shows the validator's verdict for what is typed now, next to each field (CL-280). */
+    private fun OnboardingUiState.revalidated(): OnboardingUiState =
+        copy(fieldErrors = liveProfileErrors(name, email, phone, address))
 
     private fun edit(change: (OnboardingUiState) -> OnboardingUiState) {
         state.update { change(it).copy(saveError = null) }
