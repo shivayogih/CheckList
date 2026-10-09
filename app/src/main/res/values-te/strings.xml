@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">చదవడానికి సులభమైన ముదురు రంగులు</string>
     <string name="text_size_preview">ప్రివ్యూ</string>
     <string name="text_size_preview_item">బియ్యం</string>
+    <string name="db_problem_close">యాప్‌ను మూసివేయండి</string>
+    <string name="db_migration_failed_title">మీ జాబితాలు సురక్షితంగా ఉన్నాయి</string>
+    <string name="db_migration_failed_body">మీ జాబితాలను సేవ్ చేసే విధానాన్ని CheckList అప్‌డేట్ చేయలేకపోయింది, కాబట్టి అప్‌డేట్‌కు ముందు సేవ్ చేసిన కాపీని తిరిగి ఉంచింది. ఏదీ పోలేదు. యాప్‌ను మూసివేసి మళ్లీ తెరవండి. ఇది మళ్లీ మళ్లీ జరిగితే, యాప్ తదుపరి అప్‌డేట్‌ను ఇన్‌స్టాల్ చేయండి.</string>
+    <string name="db_newer_title">CheckList తాజా వెర్షన్‌ను ఇన్‌స్టాల్ చేయండి</string>
+    <string name="db_newer_body">మీ జాబితాలను CheckList కొత్త వెర్షన్ సేవ్ చేసింది. వాటిలో మార్పు చేయలేదు. వాటిని మళ్లీ చూడటానికి తాజా వెర్షన్‌ను ఇన్‌స్టాల్ చేయండి.</string>
+    <string name="db_open_failed_title">CheckList మీ జాబితాలను తెరవలేకపోయింది</string>
+    <string name="db_open_failed_body">ఏదీ తొలగించబడలేదు. యాప్‌ను మూసివేసి మళ్లీ తెరవండి. ఇది మళ్లీ మళ్లీ జరిగితే, మీ ఫోన్‌ను రీస్టార్ట్ చేయండి.</string>
 </resources>

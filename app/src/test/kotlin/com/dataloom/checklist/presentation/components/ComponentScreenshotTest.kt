@@ -17,6 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.data.local.database.DatabaseFailure
+import com.dataloom.checklist.presentation.common.DatabaseProblemScreen
 import com.dataloom.checklist.testing.screenshot.Sample
 import com.dataloom.checklist.testing.screenshot.ScreenshotVariant
 import com.dataloom.checklist.testing.screenshot.assertNoTextOverflow
@@ -597,5 +599,13 @@ class ComponentScreenshotTest(private val variant: ScreenshotVariant) {
             AppProgressBar(progress = 1f, height = 12.dp)
             Text("42%", style = MaterialTheme.typography.bodyMedium)
         }
+    }
+
+    @Test
+    fun databaseProblem() = shoot("database_problem") {
+        DatabaseProblemScreen(
+            failure = DatabaseFailure.MigrationFailed(fromVersion = 1, toVersion = 2, restoredBackup = true),
+            onClose = {},
+        )
     }
 }

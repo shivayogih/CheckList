@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">படிக்க எளிதான அடர் நிறங்கள்</string>
     <string name="text_size_preview">முன்னோட்டம்</string>
     <string name="text_size_preview_item">அரிசி</string>
+    <string name="db_problem_close">ஆப்பை மூடு</string>
+    <string name="db_migration_failed_title">உங்கள் பட்டியல்கள் பாதுகாப்பாக உள்ளன</string>
+    <string name="db_migration_failed_body">உங்கள் பட்டியல்களைச் சேமிக்கும் முறையை CheckList-ஆல் புதுப்பிக்க முடியவில்லை, எனவே புதுப்பிப்புக்கு முன் சேமித்த நகலை மீண்டும் வைத்தது. எதுவும் இழக்கப்படவில்லை. ஆப்பை மூடி மீண்டும் திறக்கவும். இது தொடர்ந்தால், ஆப்பின் அடுத்த புதுப்பிப்பை நிறுவவும்.</string>
+    <string name="db_newer_title">CheckList-இன் புதிய பதிப்பை நிறுவவும்</string>
+    <string name="db_newer_body">உங்கள் பட்டியல்கள் CheckList-இன் புதிய பதிப்பால் சேமிக்கப்பட்டன. அவை மாற்றப்படவில்லை. அவற்றை மீண்டும் பார்க்க புதிய பதிப்பை நிறுவவும்.</string>
+    <string name="db_open_failed_title">CheckList-ஆல் உங்கள் பட்டியல்களைத் திறக்க முடியவில்லை</string>
+    <string name="db_open_failed_body">எதுவும் நீக்கப்படவில்லை. ஆப்பை மூடி மீண்டும் திறக்கவும். இது தொடர்ந்தால், உங்கள் ஃபோனை மறுதொடக்கம் செய்யவும்.</string>
 </resources>
