@@ -5,14 +5,23 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.localization.AppCompatLanguageProvider
 import com.dataloom.checklist.navigation.CheckListNavHost
 import com.dataloom.checklist.onboarding.StartViewModel
+import com.dataloom.checklist.presentation.components.BrandSplash
+import com.dataloom.checklist.presentation.settings.AppearanceViewModel
 import com.dataloom.checklist.presentation.theme.CheckListTheme
+import com.dataloom.checklist.settings.ThemeMode
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 /**
  * Single activity hosting the Compose UI.
@@ -28,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var languageProvider: AppCompatLanguageProvider
 
     private val startViewModel: StartViewModel by viewModels()
+    private val appearanceViewModel: AppearanceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -35,11 +45,32 @@ class MainActivity : AppCompatActivity() {
         // A language change recreates the activity; ViewModels on the back stack then see the new language.
         languageProvider.refresh()
         setContent {
-            CheckListTheme {
-                // Only the themed background shows for the few milliseconds the first-run flag takes.
+            val appearance by appearanceViewModel.appearance.collectAsStateWithLifecycle()
+            val dark = when (appearance.themeMode) {
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                ThemeMode.LIGHT -> false
+                ThemeMode.DARK -> true
+            }
+            CheckListTheme(
+                darkTheme = dark,
+                highContrast = appearance.highContrast,
+                textScale = appearance.textSize.scale,
+            ) {
+                // The brand splash (logo, name, tagline) shows on a cold start only; a recreation (rotation,
+                // language change) restores straight into the app.
+                var splashDone by rememberSaveable { mutableStateOf(savedInstanceState != null) }
+                LaunchedEffect(Unit) {
+                    delay(SPLASH_MILLIS)
+                    splashDone = true
+                }
                 val start by startViewModel.start.collectAsStateWithLifecycle()
-                start?.let { CheckListNavHost(it) }
+                val destination = start
+                if (destination == null || !splashDone) BrandSplash() else CheckListNavHost(destination)
             }
         }
+    }
+
+    private companion object {
+        const val SPLASH_MILLIS = 900L
     }
 }

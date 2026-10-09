@@ -326,4 +326,19 @@
     <string name="ai_empty_command">எதைச் சேர்க்க அல்லது மாற்ற வேண்டும் என்று எழுதுங்கள், எ.கா. “2 கிலோ அரிசி”.</string>
     <string name="ai_too_long">ஒரு கட்டளைக்கு இது மிக நீளம். சுருக்கமாக எழுதிப் பாருங்கள்.</string>
     <string name="ai_nothing_selected">எதுவும் தேர்ந்தெடுக்கப்படவில்லை, அதனால் எதுவும் மாறவில்லை.</string>
+    <string name="settings_section_general">பொது</string>
+    <string name="settings_section_data">உங்கள் தரவு</string>
+    <string name="settings_section_ai">AI உதவியாளர்</string>
+    <string name="settings_theme">தீம்</string>
+    <string name="theme_system">ஃபோனைப் போல</string>
+    <string name="theme_light">வெளிர்</string>
+    <string name="theme_dark">இருண்ட</string>
+    <string name="settings_text_size">எழுத்து அளவு</string>
+    <string name="text_size_normal">சாதாரணம்</string>
+    <string name="text_size_large">பெரியது</string>
+    <string name="text_size_extra_large">மிகப் பெரியது</string>
+    <string name="settings_high_contrast">அதிக மாறுபாடு</string>
+    <string name="settings_high_contrast_summary">படிக்க எளிதான அடர் நிறங்கள்</string>
+    <string name="text_size_preview">முன்னோட்டம்</string>
+    <string name="text_size_preview_item">அரிசி</string>
 </resources>

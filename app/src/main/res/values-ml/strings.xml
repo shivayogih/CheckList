@@ -326,4 +326,19 @@
     <string name="ai_empty_command">എന്ത് ചേർക്കണം അല്ലെങ്കിൽ മാറ്റണം എന്ന് എഴുതുക, ഉദാ. “2 കിലോ അരി”.</string>
     <string name="ai_too_long">ഒരു നിർദ്ദേശത്തിന് ഇത് വളരെ നീളമാണ്. ചെറുതാക്കി നോക്കുക.</string>
     <string name="ai_nothing_selected">ഒന്നും തിരഞ്ഞെടുത്തില്ല, അതിനാൽ ഒന്നും മാറിയില്ല.</string>
+    <string name="settings_section_general">പൊതുവായവ</string>
+    <string name="settings_section_data">നിങ്ങളുടെ ഡാറ്റ</string>
+    <string name="settings_section_ai">AI സഹായി</string>
+    <string name="settings_theme">തീം</string>
+    <string name="theme_system">ഫോണിലേതുപോലെ</string>
+    <string name="theme_light">ഇളം</string>
+    <string name="theme_dark">ഇരുണ്ട</string>
+    <string name="settings_text_size">അക്ഷര വലുപ്പം</string>
+    <string name="text_size_normal">സാധാരണ</string>
+    <string name="text_size_large">വലുത്</string>
+    <string name="text_size_extra_large">വളരെ വലുത്</string>
+    <string name="settings_high_contrast">ഉയർന്ന കോൺട്രാസ്റ്റ്</string>
+    <string name="settings_high_contrast_summary">വായിക്കാൻ എളുപ്പമുള്ള കടും നിറങ്ങൾ</string>
+    <string name="text_size_preview">പ്രിവ്യൂ</string>
+    <string name="text_size_preview_item">അരി</string>
 </resources>

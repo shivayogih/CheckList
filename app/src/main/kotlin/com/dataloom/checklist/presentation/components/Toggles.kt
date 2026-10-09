@@ -51,7 +51,7 @@ fun AppCheckbox(
                 .clip(RoundedCornerShape(Dimens.Corner8))
                 .background(if (checked) colors.primary else colors.background)
                 .border(
-                    Dimens.Border3,
+                    Dimens.Border2,
                     if (checked) colors.primary else colors.outline,
                     RoundedCornerShape(Dimens.Corner8),
                 ),

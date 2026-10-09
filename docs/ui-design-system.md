@@ -15,37 +15,63 @@ such as Kannada, Tamil and Malayalam clip with tighter lines); line height is ne
 
 | Token | Size / line height (sp) | Weight | Used for |
 | --- | --- | --- | --- |
-| displayLarge / Medium / Small | 28/36, 26/34, 24/32 | Bold | rare, large numbers |
-| headlineLarge | 26/34 | Bold | |
-| headlineMedium | 24/32 | Bold | onboarding titles |
-| headlineSmall | 22/30 | SemiBold | |
-| titleLarge | 20/28 | SemiBold | top bar title, dialog and sheet titles |
-| titleMedium | 18/26 | SemiBold | checklist card title |
-| titleSmall | 16/24 | SemiBold | |
-| bodyLarge | 16/24 | Regular | body text, field text |
-| bodyMedium | 14/22 | Regular | secondary text, descriptions |
+| displayLarge / Medium / Small | 26/34, 24/32, 22/30 | Bold | rare, large numbers |
+| headlineLarge | 22/30 | Bold | |
+| headlineMedium | 20/28 | Bold | onboarding titles, screen headlines |
+| headlineSmall | 18/26 | SemiBold | splash app name |
+| titleLarge | 18/26 | SemiBold | top bar title, dialog and sheet titles |
+| titleMedium | 16/24 | SemiBold | checklist card title |
+| titleSmall | 14/22 | SemiBold | |
+| bodyLarge | 15/22 | Regular | body text, field text |
+| bodyMedium | 14/21 | Regular | secondary text, descriptions |
 | bodySmall | 12/18 | Regular | helper text, errors, dates |
-| labelLarge | 15/22 | SemiBold | buttons |
-| labelMedium | 13/18 | SemiBold | field labels |
+| labelLarge | 14/20 | SemiBold | buttons |
+| labelMedium | 12/18 | SemiBold | field labels |
 | labelSmall | 12/16 | SemiBold | |
 
 Styles from the mockups without a Material slot (`CheckListText`):
 
 | Token | Size / line height (sp) | Weight |
 | --- | --- | --- |
-| bigCount ("5 of 12 done") | 20/28 | Bold |
-| percent ("42%") | 26/34 | Bold |
-| stepperValue | 26/34 | Bold |
-| progressLabel | 14/20 | SemiBold |
-| unitChip | 13/18 | SemiBold |
-| chip | 14/20 | Medium |
-| sectionHeader | 14/20 | Bold |
-| categoryName | 18/26 | Bold |
-| rowTitle | 16/24 | Medium |
-| subtitle | 13/18 | Regular |
-| emojiSmall / emojiLarge | 18/26, 24/32 | Regular |
+| bigCount ("5 of 12 done") | 18/26 | Bold |
+| percent ("42%") | 22/30 | Bold |
+| stepperValue | 22/30 | Bold |
+| progressLabel | 13/18 | SemiBold |
+| unitChip | 12/16 | SemiBold |
+| chip | 13/18 | Medium |
+| sectionHeader | 13/18 | Bold |
+| categoryName | 16/24 | Bold |
+| rowTitle | 15/22 | Medium |
+| subtitle | 12/18 | Regular |
+| emojiSmall / emojiLarge | 16/24, 22/30 | Regular |
 
-Some component KDoc still quotes the larger sizes of the first mockup-based spec; this table is the source of truth.
+The scale was made smaller in CL-301 (body 14, titles 16 to 18, headline 20) after the user found the first
+one too large on every screen. Some component KDoc still quotes older sizes; this table is the source of truth.
+
+## Compact sizes (CL-301)
+
+Buttons and search field 48 dp, top bar 56 dp, rows 56 dp (item rows 60 dp), text fields 56 dp, chips 36 dp
+drawn inside a 48 dp touch box, checkbox 26 dp, stepper 56 dp (48 dp compact). All are minimums (`heightIn`),
+so large text still grows them. `Dimens` holds every value.
+
+## Settings
+
+Settings is a grouped list: a `SectionHeader` (General, Your data, AI assistant, About) above a rounded
+`SettingsGroup` card on `surfaceContainer`. Each `SettingsRow` / `SettingsSwitchRow` leads with its icon on a
+40 dp `primaryContainer` tile; the last row of a group passes `showDivider = false`.
+
+General holds Language, Theme (follow the phone / light / dark), Text size (normal 1.0, large 1.15, extra large
+1.3, on top of the phone's font size, with a live preview) and High contrast (the 7:1 palette). They are stored by
+`AppearancePreferences` (CL-302) and applied in `MainActivity` through `CheckListTheme`.
+
+## Launcher icon and splash
+
+* The adaptive foreground is the production artwork scaled to 70 % and moved so the ring's centre sits on the
+  canvas centre (the 48 dp keyline), so it is centred in every launcher mask. Dev and staging use the same art
+  plus a ribbon layer only.
+* Splash: Android 12+ shows the foreground on `splash_background` (deep brand green `#005234`, never white);
+  then `BrandSplash` shows the production logo, the app name and the tagline for 900 ms on a cold start only
+  (rotation and language changes skip it). Every flavour shows the production logo.
 
 ## Touch targets and layout
 

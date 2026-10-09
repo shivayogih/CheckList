@@ -8,31 +8,34 @@ import androidx.compose.ui.unit.dp
 object Dimens {
     // Touch targets and bars.
     val MinTouchTarget = 48.dp
-    val ButtonHeight = 56.dp
-    val SearchFieldHeight = 56.dp
-    val TopBarHeight = 68.dp
-    val RowMinHeight = 64.dp
-    val ItemRowMinHeight = 72.dp
-    val FieldHeight = 60.dp
-    val FieldMultiLineHeight = 100.dp
-    val ChipHeight = 44.dp
-    val UnitChipHeight = 30.dp
-    val CheckboxSize = 32.dp
-    val RadioSize = 28.dp
+    val ButtonHeight = 48.dp
+    val SearchFieldHeight = 48.dp
+    val TopBarHeight = 56.dp
+    val RowMinHeight = 56.dp
+    val ItemRowMinHeight = 60.dp
+    val FieldHeight = 56.dp
+    val FieldMultiLineHeight = 96.dp
+    val ChipHeight = 36.dp
+    val UnitChipHeight = 26.dp
+    val CheckboxSize = 26.dp
+    val RadioSize = 24.dp
     val SwitchWidth = 56.dp
     val SwitchHeight = 32.dp
-    val StepperButton = 64.dp
-    val StepperButtonCompact = 52.dp
-    val StepperValueHeight = 64.dp
-    val StepperValueHeightCompact = 56.dp
+    val StepperButton = 56.dp
+    val StepperButtonCompact = 48.dp
+    val StepperValueHeight = 56.dp
+    val StepperValueHeightCompact = 48.dp
     val StepperValueMinWidth = 120.dp
     val StepperValueMinWidthCompact = 72.dp
     val StepperValueMaxWidth = 160.dp
-    val EmptyStateArt = 150.dp
+    val EmptyStateArt = 120.dp
     val ProgressBar = 8.dp
     val ProgressBarLarge = 12.dp
-    val SettingsIcon = 26.dp
+    val SettingsIcon = 22.dp
     val Icon = 24.dp
+    val SettingsIconTile = 40.dp
+    val SplashLogo = 112.dp
+    val SettingsAboutLogo = 48.dp
 
     // Corners.
     val Corner8 = 8.dp
