@@ -42,7 +42,7 @@ import com.dataloom.checklist.presentation.theme.Dimens
  * SemiBold), a box at least 60 dp tall (100 dp when [multiLine]) with a 2 dp outline and 12 dp corners.
  * Focus raises the border to 3 dp primary. An error turns the label and a 3 dp border red and shows the
  * [errorText] under the box with an error icon, so the error is never colour alone. [helperText]
- * (15 sp) shows under the box when there is no error.
+ * (12 sp) shows under the box when there is no error.
  *
  * [maxLength] adds a "length / max" counter on the end under the box (hidden from TalkBack: the limit is also
  * in the "too long" error); it only displays, the caller still enforces the limit (CL-280).

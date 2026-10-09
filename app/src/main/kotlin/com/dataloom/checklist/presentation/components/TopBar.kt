@@ -37,8 +37,8 @@ import com.dataloom.checklist.presentation.theme.CheckListText
 import com.dataloom.checklist.presentation.theme.Dimens
 
 /**
- * The top app bar of the mockups (UI-SPEC section 3): at least 68 dp tall, a 24 sp SemiBold title and an
- * optional 15 sp subtitle. The title and the subtitle **wrap** to as many lines as they need and the
+ * The top app bar of the mockups (UI-SPEC section 3): at least 68 dp tall, a 20 sp SemiBold title and an
+ * optional 13 sp subtitle. The title and the subtitle **wrap** to as many lines as they need and the
  * bar grows with them, so a long Tamil or Kannada title is never clipped or cut with "...".
  *
  * [navigationIcon] and [actions] are slots for [TopBarIconButton] and [TopBarTextAction]; each is at

@@ -98,7 +98,7 @@ fun ChipFlow(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
 }
 
 /**
- * The small unit label next to an item name ("5 KG"): 30 dp tall, 8 dp corners, 15 sp SemiBold. [done]
+ * The small unit label next to an item name ("5 KG"): 30 dp tall, 8 dp corners, 13 sp SemiBold. [done]
  * switches to the grey variant for a ticked item. It is not interactive and merges into its row.
  */
 @Composable

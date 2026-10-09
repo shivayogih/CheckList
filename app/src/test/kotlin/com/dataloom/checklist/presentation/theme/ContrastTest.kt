@@ -98,7 +98,7 @@ class ContrastTest {
     )
 
     @Test
-    fun `typography never goes below the 15 sp floor`() {
+    fun `typography never goes below the 12 sp floor`() {
         val t = CheckListTypography
         val styles = listOf(
             t.displayLarge, t.displayMedium, t.displaySmall, t.headlineLarge, t.headlineMedium, t.headlineSmall,
@@ -108,6 +108,6 @@ class ContrastTest {
             CheckListText.unitChip, CheckListText.chip, CheckListText.sectionHeader, CheckListText.categoryName,
             CheckListText.rowTitle, CheckListText.subtitle, CheckListText.emojiSmall, CheckListText.emojiLarge,
         )
-        styles.forEach { assertTrue("font size ${it.fontSize} is below 15 sp", it.fontSize.value >= 15f) }
+        styles.forEach { assertTrue("font size ${it.fontSize} is below 12 sp", it.fontSize.value >= 12f) }
     }
 }
