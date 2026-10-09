@@ -186,7 +186,7 @@ class ItemEditorViewModelTest {
         val handle = SavedStateHandle()
         val first = viewModel(itemId = id, handle = handle)
         first.onAction(ItemEditorAction.NameChanged("Brown rice"))
-        first.onAction(ItemEditorAction.QuantityChanged("2,5"))
+        first.onAction(ItemEditorAction.QuantityChanged("2.5"))
         first.onAction(ItemEditorAction.UnitChanged(BuiltInUnits.GRAM.code))
 
         val second = viewModel(itemId = id, handle = handle)
@@ -194,7 +194,7 @@ class ItemEditorViewModelTest {
         val restored = second.uiState.value
         assertFalse(restored.isLoading)
         assertEquals("Brown rice", restored.name)
-        assertEquals("2,5", restored.quantityText)
+        assertEquals("2.5", restored.quantityText)
         assertEquals(BuiltInUnits.GRAM.code, restored.unit)
         assertEquals("Basmati", repo.item(id)!!.notes) // nothing was saved to the database
     }
