@@ -12,6 +12,12 @@ import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.testing.FakeProfileRepository
 import com.dataloom.checklist.testing.MainDispatcherRule
+import com.dataloom.checklist.testing.keepCollecting
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -20,6 +26,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModelTest {
 
     @get:Rule
@@ -27,12 +34,40 @@ class ProfileViewModelTest {
 
     private val repo = FakeProfileRepository()
 
-    private fun viewModel() = ProfileViewModel(
-        observeProfile = ObserveProfileUseCase(repo),
-        saveProfile = SaveProfileUseCase(repo),
-        clearProfile = ClearProfileUseCase(repo),
-        acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
-    )
+    /** The screen is on show for the whole test, so the (lifecycle-bound) store observation runs. */
+    private fun TestScope.viewModel(): ProfileViewModel {
+        val vm = ProfileViewModel(
+            observeProfile = ObserveProfileUseCase(repo),
+            saveProfile = SaveProfileUseCase(repo),
+            clearProfile = ClearProfileUseCase(repo),
+            acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
+        )
+        keepCollecting(vm.uiState)
+        return vm
+    }
+
+    @Test
+    fun `the store is not observed while no screen shows the profile, and typed text survives a pause`() = runTest {
+        val vm = ProfileViewModel(
+            observeProfile = ObserveProfileUseCase(repo),
+            saveProfile = SaveProfileUseCase(repo),
+            clearProfile = ClearProfileUseCase(repo),
+            acknowledgeProfileReset = AcknowledgeProfileResetUseCase(repo),
+        )
+        assertEquals(0, repo.state.subscriptionCount.value)
+
+        val screen = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} }
+        assertEquals(1, repo.state.subscriptionCount.value)
+        vm.onAction(ProfileAction.NameChanged("Asha"))
+
+        // Rotation: the screen collects again within the grace period; a long pause stops the observation.
+        screen.cancel()
+        advanceTimeBy(5_001)
+        assertEquals(0, repo.state.subscriptionCount.value)
+
+        keepCollecting(vm.uiState)
+        assertEquals("Asha", vm.uiState.value.name)
+    }
 
     @Test
     fun `a stored profile fills the form`() = runTest {

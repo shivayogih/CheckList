@@ -1,0 +1,39 @@
+# Baseline Profile for the start-up path (CL-294): launcher activity, first-run check, navigation,
+# Home and the database that feeds it. AGP packages this file into the release build and
+# androidx.profileinstaller compiles it ahead of time on first launch, so these methods do not run
+# interpreted during start-up.
+#
+# Written by hand from the code path, NOT recorded on a device: no device or emulator is available in
+# CI. Treat it as a starting point and replace it with a generated profile (Macrobenchmark
+# BaselineProfileRule) once a device lab is available; see docs/performance-and-state.md.
+# Libraries (Compose, Navigation, Lifecycle, Room) ship their own profiles, which AGP merges in.
+
+# Process and activity start
+HSPLcom/dataloom/checklist/CheckListApplication;->**(**)**
+HSPLcom/dataloom/checklist/MainActivity;->**(**)**
+HSPLcom/dataloom/checklist/Hilt_**;->**(**)**
+
+# First-run flag and the destination decision
+HSPLcom/dataloom/checklist/onboarding/**;->**(**)**
+HSPLcom/dataloom/checklist/localization/**;->**(**)**
+
+# Theme, navigation graph and the Home screen with its ViewModel
+HSPLcom/dataloom/checklist/presentation/theme/**;->**(**)**
+HSPLcom/dataloom/checklist/navigation/**;->**(**)**
+HSPLcom/dataloom/checklist/presentation/home/**;->**(**)**
+HSPLcom/dataloom/checklist/presentation/components/**;->**(**)**
+HSPLcom/dataloom/checklist/presentation/common/**;->**(**)**
+
+# Data behind Home: database open, seed check, checklist queries and mapping
+HSPLcom/dataloom/checklist/data/local/**;->**(**)**
+HSPLcom/dataloom/checklist/data/repository/RoomChecklistRepository;->**(**)**
+HSPLcom/dataloom/checklist/data/mapper/**;->**(**)**
+HSPLcom/dataloom/checklist/data/seed/SeedLoader;->**(**)**
+HSPLcom/dataloom/checklist/domain/usecase/Observe**;->**(**)**
+HSPLcom/dataloom/checklist/domain/model/**;->**(**)**
+
+# Load these classes at start-up instead of on first use
+Lcom/dataloom/checklist/CheckListApplication;
+Lcom/dataloom/checklist/MainActivity;
+Lcom/dataloom/checklist/presentation/home/HomeViewModel;
+Lcom/dataloom/checklist/presentation/home/HomeScreenKt;

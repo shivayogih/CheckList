@@ -81,8 +81,13 @@ class KeysetProfileAeadProvider(
 
     private var cached: Aead? = null
 
-    /** Registry-backed configuration with the AEAD key types registered; the non-deprecated Tink APIs take it explicitly. */
-    private val tinkConfig: Configuration = run {
+    /**
+     * Registry-backed configuration with the AEAD key types registered; the non-deprecated Tink APIs
+     * take it explicitly. Lazy on purpose: registering Tink's key managers is measurable work, and this
+     * provider is constructed on whichever thread first injects the repository (a ViewModel, on main).
+     * The first use is inside [existingAead]/[getOrCreateAead], which the repository calls on its I/O dispatcher.
+     */
+    private val tinkConfig: Configuration by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         AeadConfig.register()
         RegistryConfiguration.get()
     }

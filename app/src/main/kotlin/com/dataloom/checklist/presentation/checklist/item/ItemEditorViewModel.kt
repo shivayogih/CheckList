@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.item
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.ChecklistId
@@ -43,6 +44,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 data class NewUnitDialogUi(
@@ -130,6 +132,7 @@ class ItemEditorViewModel @AssistedInject constructor(
     private val updateItem: UpdateChecklistItemUseCase,
     private val createCustomUnit: CreateCustomUnitUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -145,7 +148,26 @@ class ItemEditorViewModel @AssistedInject constructor(
     private val checklist = ChecklistId(checklistId)
     private val section = SectionId(sectionId)
     private val item = itemId?.let(::ChecklistItemId)
-    private val form = MutableStateFlow(ItemEditorUiState(isEditing = item != null, name = initialName))
+    /**
+     * True once the user has typed. Typed text is kept in [SavedStateHandle] so it survives process
+     * death (an item name, amount and note are not the encrypted profile). A restored form must not be
+     * overwritten by the stored item when [load] finishes.
+     */
+    private val restoredEdits = savedState.get<Boolean>(KEY_DIRTY) == true
+    private val form = MutableStateFlow(
+        if (restoredEdits) {
+            ItemEditorUiState(
+                isEditing = item != null,
+                name = savedState.get<String>(KEY_NAME).orEmpty(),
+                quantityText = savedState.get<String>(KEY_QUANTITY).orEmpty(),
+                unit = savedState.get<String>(KEY_UNIT)?.let(::UnitCode),
+                notes = savedState.get<String>(KEY_NOTES).orEmpty(),
+                saveToSuggestions = savedState.get<Boolean>(KEY_SAVE_TO_SUGGESTIONS) ?: false,
+            )
+        } else {
+            ItemEditorUiState(isEditing = item != null, name = initialName)
+        },
+    )
     private val effects = Channel<ItemEditorEffect>(Channel.BUFFERED)
 
     val effect: Flow<ItemEditorEffect> = effects.receiveAsFlow()
@@ -165,6 +187,11 @@ class ItemEditorViewModel @AssistedInject constructor(
             return
         }
         if (item == null) {
+            form.update { it.copy(isLoading = false, sectionName = target.category.displayName) }
+            return
+        }
+        if (restoredEdits) {
+            // The user's unsaved edits win over the stored item.
             form.update { it.copy(isLoading = false, sectionName = target.category.displayName) }
             return
         }
@@ -190,21 +217,21 @@ class ItemEditorViewModel @AssistedInject constructor(
             is ItemEditorAction.NameChanged -> {
                 val name = InputText.forField(action.name, FieldLimits.ITEM_NAME_MAX)
                 val error = liveError(name) { v -> ItemValidator.validate(v, null, null, null) }
-                form.update { it.copy(name = name, nameError = error) }
+                edit { it.copy(name = name, nameError = error) }
             }
             is ItemEditorAction.QuantityChanged -> {
                 // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
                 val text = QuantityInput.sanitize(action.text)
-                form.update { it.copy(quantityText = text, quantityError = quantityFieldError(text), unitError = null) }
+                edit { it.copy(quantityText = text, quantityError = quantityFieldError(text), unitError = null) }
             }
             is ItemEditorAction.UnitChanged ->
-                form.update { it.copy(unit = action.unit, unitError = null, quantityError = null) }
+                edit { it.copy(unit = action.unit, unitError = null, quantityError = null) }
             is ItemEditorAction.NotesChanged -> {
                 val notes = InputText.forField(action.notes, FieldLimits.NOTES_MAX, multiline = true)
                 val error = liveError(notes) { v -> ItemValidator.validate("x", null, null, v) }
-                form.update { it.copy(notes = notes, notesError = error) }
+                edit { it.copy(notes = notes, notesError = error) }
             }
-            is ItemEditorAction.SaveToSuggestionsChanged -> form.update { it.copy(saveToSuggestions = action.enabled) }
+            is ItemEditorAction.SaveToSuggestionsChanged -> edit { it.copy(saveToSuggestions = action.enabled) }
             ItemEditorAction.OpenNewUnit -> form.update { it.copy(newUnit = NewUnitDialogUi()) }
             is ItemEditorAction.NewUnitLabelChanged ->
             {
@@ -220,6 +247,17 @@ class ItemEditorViewModel @AssistedInject constructor(
         }
     }
 
+    /** Applies a user edit and mirrors the typed fields into saved state. */
+    private fun edit(change: (ItemEditorUiState) -> ItemEditorUiState) {
+        val updated = form.updateAndGet(change)
+        savedState[KEY_DIRTY] = true
+        savedState[KEY_NAME] = updated.name
+        savedState[KEY_QUANTITY] = updated.quantityText
+        savedState[KEY_UNIT] = updated.unit?.value
+        savedState[KEY_NOTES] = updated.notes
+        savedState[KEY_SAVE_TO_SUGGESTIONS] = updated.saveToSuggestions
+    }
+
     private fun confirmNewUnit() {
         val dialog = form.value.newUnit ?: return
         if (dialog.isSaving) return
@@ -227,7 +265,7 @@ class ItemEditorViewModel @AssistedInject constructor(
         viewModelScope.launch {
             when (val result = createCustomUnit(dialog.label, dialog.allowsDecimal)) {
                 // The unit the user just created is the one they want for this item.
-                is DomainResult.Success -> form.update { it.copy(newUnit = null, unit = result.value, unitError = null) }
+                is DomainResult.Success -> edit { it.copy(newUnit = null, unit = result.value, unitError = null) }
                 is DomainResult.Failure ->
                     form.update { it.copy(newUnit = dialog.copy(isSaving = false, error = result.error.toUiText())) }
             }
@@ -294,7 +332,13 @@ class ItemEditorViewModel @AssistedInject constructor(
         }
     }
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
+        const val KEY_DIRTY = "item_editor_dirty"
+        const val KEY_NAME = "item_editor_name"
+        const val KEY_QUANTITY = "item_editor_quantity"
+        const val KEY_UNIT = "item_editor_unit"
+        const val KEY_NOTES = "item_editor_notes"
+        const val KEY_SAVE_TO_SUGGESTIONS = "item_editor_save_to_suggestions"
     }
 }

@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.masteritem
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.CategoryId
@@ -114,6 +115,7 @@ class AddItemsViewModel @AssistedInject constructor(
     private val searchMasterItems: SearchMasterItemsUseCase,
     private val addMasterItems: AddMasterItemsToSectionUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -125,8 +127,10 @@ class AddItemsViewModel @AssistedInject constructor(
 
     private val checklist = ChecklistId(checklistId)
     private val section = SectionId(sectionId)
-    private val query = MutableStateFlow("")
-    private val allCategories = MutableStateFlow(false)
+    // The search text and the "all categories" switch survive process death. The picked rows (with their
+    // amounts) are rebuilt from search results and stay in memory only: they hold full catalog items.
+    private val query = MutableStateFlow(savedState.get<String>(KEY_QUERY).orEmpty())
+    private val allCategories = MutableStateFlow(savedState.get<Boolean>(KEY_ALL_CATEGORIES) ?: false)
     private val drafts = MutableStateFlow<Map<MasterItemId, Draft>>(linkedMapOf())
     private val isSaving = MutableStateFlow(false)
     private val effects = Channel<AddItemsEffect>(Channel.BUFFERED)
@@ -180,8 +184,15 @@ class AddItemsViewModel @AssistedInject constructor(
 
     fun onAction(action: AddItemsAction) {
         when (action) {
-            is AddItemsAction.QueryChanged -> query.value = InputText.forTyping(action.query, FieldLimits.SEARCH_MAX)
-            is AddItemsAction.AllCategoriesChanged -> allCategories.value = action.enabled
+            is AddItemsAction.QueryChanged -> {
+                val text = InputText.forTyping(action.query, FieldLimits.SEARCH_MAX)
+                query.value = text
+                savedState[KEY_QUERY] = text
+            }
+            is AddItemsAction.AllCategoriesChanged -> {
+                allCategories.value = action.enabled
+                savedState[KEY_ALL_CATEGORIES] = action.enabled
+            }
             is AddItemsAction.ToggleItem -> toggle(action.id)
             is AddItemsAction.QuantityChanged -> {
                 // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
@@ -256,8 +267,10 @@ class AddItemsViewModel @AssistedInject constructor(
 
     private fun Draft.toRow() = MasterItemRowUi(item.id, item.displayName, selected = true, quantityText, unit, error)
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
         const val SEARCH_DEBOUNCE_MS = 150L
+        const val KEY_QUERY = "add_items_query"
+        const val KEY_ALL_CATEGORIES = "add_items_all_categories"
     }
 }

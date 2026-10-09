@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.category
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.CategoryId
@@ -26,7 +27,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 data class AddCategoriesUiState(
@@ -66,6 +67,7 @@ class AddCategoriesViewModel @AssistedInject constructor(
     private val addCategories: AddCategoriesToChecklistUseCase,
     createCategory: CreateCategoryUseCase,
     private val languageProvider: AppLanguageProvider,
+    private val savedState: SavedStateHandle = SavedStateHandle(),
 ) : ViewModel() {
 
     @AssistedFactory
@@ -74,7 +76,10 @@ class AddCategoriesViewModel @AssistedInject constructor(
     }
 
     private val id = ChecklistId(checklistId)
-    private val selected = MutableStateFlow<Set<CategoryId>>(emptySet())
+    // Ticked categories survive process death; categories that no longer exist are simply not shown.
+    private val selected = MutableStateFlow<Set<CategoryId>>(
+        savedState.get<ArrayList<String>>(KEY_SELECTED).orEmpty().mapTo(LinkedHashSet()) { CategoryId(it) },
+    )
     private val isSaving = MutableStateFlow(false)
     private val dialog = NewCategoryDialogController(createCategory) { languageProvider.language.value }
     private val effects = Channel<AddCategoriesEffect>(Channel.BUFFERED)
@@ -100,15 +105,20 @@ class AddCategoriesViewModel @AssistedInject constructor(
 
     fun onAction(action: AddCategoriesAction) {
         when (action) {
-            is AddCategoriesAction.ToggleCategory -> selected.update { if (action.id in it) it - action.id else it + action.id }
+            is AddCategoriesAction.ToggleCategory -> select { if (action.id in it) it - action.id else it + action.id }
             AddCategoriesAction.OpenNewCategory -> dialog.open()
             is AddCategoriesAction.NewCategoryNameChanged -> dialog.onNameChanged(action.name)
             AddCategoriesAction.DismissNewCategory -> dialog.dismiss()
             AddCategoriesAction.ConfirmNewCategory -> viewModelScope.launch {
-                dialog.confirm()?.let { newId -> selected.update { it + newId } }
+                dialog.confirm()?.let { newId -> select { it + newId } }
             }
             AddCategoriesAction.Save -> save()
         }
+    }
+
+    private fun select(change: (Set<CategoryId>) -> Set<CategoryId>) {
+        val updated = selected.updateAndGet(change)
+        savedState[KEY_SELECTED] = ArrayList(updated.map { it.value })
     }
 
     private fun save() {
@@ -129,7 +139,8 @@ class AddCategoriesViewModel @AssistedInject constructor(
         }
     }
 
-    private companion object {
+    internal companion object {
         const val STOP_TIMEOUT_MS = 5_000L
+        const val KEY_SELECTED = "add_categories_selected"
     }
 }

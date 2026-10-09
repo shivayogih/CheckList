@@ -1,5 +1,6 @@
 package com.dataloom.checklist.presentation.checklist.create
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.usecase.CreateCategoryUseCase
@@ -32,13 +33,48 @@ class CreateChecklistViewModelTest {
     private val groceries = catalog.seedCategory("groceries", "Groceries")
     private val gifts = catalog.seedCategory("gifts", "Gifts")
 
-    private fun viewModel() = CreateChecklistViewModel(
+    private fun viewModel(handle: SavedStateHandle = SavedStateHandle()) = CreateChecklistViewModel(
         ObserveCategoriesUseCase(catalog),
         CreateChecklistUseCase(repo),
         IsChecklistTitleUsedUseCase(repo),
         CreateCategoryUseCase(catalog),
         FakeLanguageProvider(),
+        handle,
     )
+
+    @Test
+    fun `the typed title, description and ticked categories are restored after process death`() = runTest {
+        val handle = SavedStateHandle()
+        val first = viewModel(handle)
+        keepCollecting(first.uiState)
+        first.onAction(CreateChecklistAction.TitleChanged("Diwali"))
+        first.onAction(CreateChecklistAction.DescriptionChanged("Festival shopping"))
+        first.onAction(CreateChecklistAction.ToggleCategory(gifts.id))
+
+        val second = viewModel(handle)
+        keepCollecting(second.uiState)
+
+        val state = second.uiState.value
+        assertEquals("Diwali", state.title)
+        assertEquals("Festival shopping", state.description)
+        assertEquals(listOf("Gifts"), state.categories.filter { it.selected }.map { it.name })
+    }
+
+    @Test
+    fun `errors and the saving flag are not restored`() = runTest {
+        val handle = SavedStateHandle()
+        val first = viewModel(handle)
+        keepCollecting(first.uiState)
+        first.onAction(CreateChecklistAction.TitleChanged("   "))
+        first.onAction(CreateChecklistAction.Create)
+        assertEquals(UiText(R.string.error_title_blank), first.uiState.value.titleError)
+
+        val second = viewModel(handle)
+        keepCollecting(second.uiState)
+
+        assertNull(second.uiState.value.titleError)
+        assertFalse(second.uiState.value.isSaving)
+    }
 
     @Test
     fun `a blank title shows an error next to the field and creates nothing`() = runTest {

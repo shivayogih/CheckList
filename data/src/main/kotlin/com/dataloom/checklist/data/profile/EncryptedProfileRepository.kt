@@ -4,6 +4,7 @@ import com.dataloom.checklist.data.local.dao.ProfileDao
 import com.dataloom.checklist.data.local.database.CheckListDatabase
 import com.dataloom.checklist.data.local.entity.UserProfileEntity
 import com.dataloom.checklist.domain.common.Clock
+import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.model.ProfileState
 import com.dataloom.checklist.domain.model.UserProfile
 import com.dataloom.checklist.domain.repository.ProfileRepository
@@ -11,7 +12,6 @@ import com.google.crypto.tink.Aead
 import java.security.GeneralSecurityException
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -38,15 +38,12 @@ import kotlinx.serialization.SerializationException
  * Must be a singleton: the reset notice and the write lock live in memory. The notice is not
  * persisted, so if the process dies before the UI shows it, the user simply finds no profile.
  */
-class EncryptedProfileRepository internal constructor(
+class EncryptedProfileRepository @Inject constructor(
     db: CheckListDatabase,
     private val keys: ProfileAeadProvider,
     private val clock: Clock,
-    private val io: CoroutineDispatcher,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
 ) : ProfileRepository {
-
-    @Inject
-    constructor(db: CheckListDatabase, keys: ProfileAeadProvider, clock: Clock) : this(db, keys, clock, Dispatchers.IO)
 
     private val dao: ProfileDao = db.profileDao()
     private val writeLock = Mutex()

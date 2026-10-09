@@ -15,6 +15,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -48,17 +49,20 @@ fun UnitPickerDialog(
     onDismiss: () -> Unit,
     onCreateUnit: (() -> Unit)? = null,
 ) {
+    val sortedUnits = remember(units) { units.sortedBy { it.sortOrder } }
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { DialogTitle(stringResource(R.string.unit_picker_title)) },
         text = {
             LazyColumn(modifier = Modifier.selectableGroup()) {
-                item { UnitOption(stringResource(R.string.unit_none), selected == null) { onSelect(null) } }
-                items(units.sortedBy { it.sortOrder }, key = { it.code.value }) { unit ->
+                item(key = "none", contentType = "option") {
+                    UnitOption(stringResource(R.string.unit_none), selected == null) { onSelect(null) }
+                }
+                items(sortedUnits, key = { it.code.value }, contentType = { "option" }) { unit ->
                     UnitOption(unitLabel(unit), unit.code == selected) { onSelect(unit.code) }
                 }
                 if (onCreateUnit != null) {
-                    item {
+                    item(key = "create", contentType = "create") {
                         TextButton(onClick = onCreateUnit, modifier = Modifier.heightIn(min = 48.dp)) {
                             Icon(painterResource(R.drawable.ic_add), contentDescription = null)
                             Text(stringResource(R.string.unit_create), modifier = Modifier.padding(start = 8.dp))
