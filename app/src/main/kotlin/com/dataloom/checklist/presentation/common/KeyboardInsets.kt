@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.isImeVisible
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
@@ -54,6 +55,12 @@ private const val IME_SETTLE_MILLIS = 300L
  * Do not also add imePadding() to the bottom bar or the content.
  */
 fun Modifier.keyboardAwareScreen(): Modifier = imePadding()
+
+/**
+ * For the content of a `ModalBottomSheet` (it lives in its own window, outside the Scaffold): clear of the
+ * navigation bar and lifted above the keyboard, nothing padded twice. Use on the sheet's root column.
+ */
+fun Modifier.keyboardAwareSheet(): Modifier = navigationBarsPadding().imePadding()
 
 /**
  * A column that scrolls and gives up the keyboard when the user taps outside a field or drags the

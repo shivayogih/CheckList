@@ -30,9 +30,10 @@ All in `presentation/common/KeyboardInsets.kt`. Screens use these and nothing el
 | `Modifier.dismissKeyboardOnOutsideInteraction()` | a `LazyColumn` or any scroll container | Dragging the content hides the keyboard (nested scroll, user input only). Tapping empty space clears focus. Taps on fields and buttons are unaffected because they consume the tap first. |
 | `Modifier.bringIntoViewWhenFocused()` | a text field, or a column holding a field and its helper text | Reveals the whole block (field, error text, counter) when it gains focus and again once the keyboard has finished opening (300 ms), because the viewport shrinks while the keyboard animates. |
 | `rememberDismissKeyboardActions()` | `keyboardActions` of search fields and last fields | Done, Search and Go close the keyboard and clear focus. Next already moves focus by default. |
+| `Modifier.keyboardAwareSheet()` | root column of a `ModalBottomSheet` | Sheets live in their own window, outside the Scaffold: navigation bar padding then IME padding. |
 | `ResizeDialogForKeyboard()` | inside a dialog's content | Sets the dialog window to `SOFT_INPUT_ADJUST_RESIZE` so it re-centres above the keyboard. |
 
-Shared components apply them already: `LabeledTextField` (bring into view), `TextInputDialog` (resize,
+Shared components apply them already: `FormField` (bring into view), `SearchField` (Search closes the keyboard), `BottomActionBar` (no inset of its own), `AppModalBottomSheet` (`keyboardAwareSheet()`), `TextInputDialog` (resize,
 scrollable content, bring into view, Done confirms when the button is enabled).
 
 ### Adding a new form screen
@@ -43,7 +44,7 @@ Scaffold(
     bottomBar = { /* BottomActionBar or Button with navigationBarsPadding(), no imePadding() */ },
 ) { padding ->
     Column(Modifier.fillMaxSize().padding(padding).scrollableForm().padding(16.dp)) {
-        LabeledTextField(...)            // or OutlinedTextField(... .bringIntoViewWhenFocused())
+        FormField(...)                   // or OutlinedTextField(... .bringIntoViewWhenFocused())
     }
 }
 ```

@@ -38,7 +38,7 @@ import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.Banner
 import com.dataloom.checklist.presentation.components.BottomActionBar
-import com.dataloom.checklist.presentation.components.LabeledTextField
+import com.dataloom.checklist.presentation.components.FormField
 import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.TextActionButton
 
@@ -119,19 +119,19 @@ fun ProfileSetupContent(state: OnboardingUiState, onAction: (OnboardingAction) -
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                 )
             }
-            LabeledTextField(
+            FormField(
                 label = stringResource(R.string.profile_name),
                 value = state.name,
                 onValueChange = { onAction(OnboardingAction.NameChanged(it)) },
-                helper = stringResource(R.string.onboarding_profile_name_hint),
-                error = state.fieldErrors.name?.asString(),
+                helperText = stringResource(R.string.onboarding_profile_name_hint),
+                errorText = state.fieldErrors.name?.asString(),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next),
             )
-            LabeledTextField(
+            FormField(
                 label = stringResource(R.string.profile_phone),
                 value = state.phone,
                 onValueChange = { onAction(OnboardingAction.PhoneChanged(it)) },
-                error = state.fieldErrors.phone?.asString(),
+                errorText = state.fieldErrors.phone?.asString(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Phone,
                     imeAction = if (state.moreExpanded) ImeAction.Next else ImeAction.Done,
@@ -154,20 +154,19 @@ fun ProfileSetupContent(state: OnboardingUiState, onAction: (OnboardingAction) -
             }
             AnimatedVisibility(visible = state.moreExpanded) {
                 Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    LabeledTextField(
+                    FormField(
                         label = stringResource(R.string.profile_email),
                         value = state.email,
                         onValueChange = { onAction(OnboardingAction.EmailChanged(it)) },
-                        error = state.fieldErrors.email?.asString(),
+                        errorText = state.fieldErrors.email?.asString(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
                     )
-                    LabeledTextField(
+                    FormField(
                         label = stringResource(R.string.profile_address),
                         value = state.address,
                         onValueChange = { onAction(OnboardingAction.AddressChanged(it)) },
-                        error = state.fieldErrors.address?.asString(),
-                        singleLine = false,
-                        minLines = 3,
+                        errorText = state.fieldErrors.address?.asString(),
+                        multiLine = true,
                         keyboardOptions = KeyboardOptions(
                             capitalization = KeyboardCapitalization.Sentences,
                             imeAction = ImeAction.Default,

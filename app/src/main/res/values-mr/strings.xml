@@ -190,6 +190,12 @@
     <string name="import_preview_renamed">“%1$s” हे “%2$s” म्हणून आयात होईल.</string>
     <string name="import_preview_title">या याद्या आयात करायच्या?</string>
     <string name="pdf_saved">PDF जतन केली.</string>
+    <string name="pdf_open">उघडा</string>
+    <string name="pdf_open_no_app">PDF फाइल उघडू शकेल असे कोणतेही अ‍ॅप या फोनवर नाही.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">प्रत्येक यादी, नेहमी तुमच्यासोबत.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">सर्व याद्या निर्यात करा</string>
     <string name="settings_export_all_summary">नंतर आयात करता येईल अशी बॅकअप फाइल (.json) जतन करा</string>
     <string name="settings_import">याद्या आयात करा</string>

@@ -190,6 +190,12 @@
     <string name="import_preview_renamed">“%1$s” ಅನ್ನು “%2$s” ಆಗಿ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ.</string>
     <string name="import_preview_title">ಈ ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಬೇಕೆ?</string>
     <string name="pdf_saved">PDF ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="pdf_open">ತೆರೆಯಿರಿ</string>
+    <string name="pdf_open_no_app">PDF ಫೈಲ್‌ಗಳನ್ನು ತೆರೆಯಬಲ್ಲ ಆ್ಯಪ್ ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಲ್ಲ.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">ಪ್ರತಿ ಪಟ್ಟಿ, ಯಾವಾಗಲೂ ನಿಮ್ಮೊಂದಿಗೆ.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">ಎಲ್ಲಾ ಪಟ್ಟಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ</string>
     <string name="settings_export_all_summary">ನಂತರ ಆಮದು ಮಾಡಬಹುದಾದ ಬ್ಯಾಕಪ್ ಫೈಲ್ (.json) ಉಳಿಸಿ</string>
     <string name="settings_import">ಪಟ್ಟಿಗಳನ್ನು ಆಮದು ಮಾಡಿ</string>

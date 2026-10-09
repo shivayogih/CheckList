@@ -190,6 +190,12 @@
     <string name="import_preview_renamed">“%1$s” అనేది “%2$s”గా దిగుమతి అవుతుంది.</string>
     <string name="import_preview_title">ఈ జాబితాలను దిగుమతి చేయాలా?</string>
     <string name="pdf_saved">PDF సేవ్ చేయబడింది.</string>
+    <string name="pdf_open">తెరవండి</string>
+    <string name="pdf_open_no_app">PDF ఫైళ్లను తెరవగల యాప్ ఈ ఫోన్‌లో లేదు.</string>
+    <!-- Printed in the PDF header under the app name. Native review wanted. -->
+    <string name="pdf_tagline">ప్రతి జాబితా, ఎల్లప్పుడూ మీతో.</string>
+    <!-- %1$s is the category name, %2$s the number of items in it (Western digits). -->
+    <string name="pdf_category_heading">%1$s (%2$s)</string>
     <string name="settings_export_all">అన్ని జాబితాలను ఎగుమతి చేయండి</string>
     <string name="settings_export_all_summary">తర్వాత దిగుమతి చేయగల బ్యాకప్ ఫైల్ (.json) సేవ్ చేయండి</string>
     <string name="settings_import">జాబితాలను దిగుమతి చేయండి</string>

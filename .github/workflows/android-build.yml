@@ -59,6 +59,21 @@ jobs:
             app/build/reports/coverage/
           if-no-files-found: ignore
 
+      # Screenshot goldens (CL-262), after the coverage steps because they re-run a slice of the unit tests: renders every shared component in 15 variants and, with record mode on,
+      # writes the PNGs. They are uploaded below, so a failed comparison can be reviewed and the goldens
+      # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
+      - name: Record screenshots
+        if: always()
+        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' -Proborazzi.test.record=true
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: screenshots
+          path: app/src/test/screenshots/
+          if-no-files-found: ignore
+
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.
       - name: Room schema is committed

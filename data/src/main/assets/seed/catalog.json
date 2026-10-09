@@ -85,7 +85,7 @@
     },
     {
       "key": "travel",
-      "icon": "🧳",
+      "icon": "🎒",
       "sortOrder": 50
     },
     {
@@ -105,7 +105,7 @@
     },
     {
       "key": "pooja_items",
-      "icon": "🪔",
+      "icon": "🔔",
       "sortOrder": 90
     },
     {
@@ -120,7 +120,7 @@
     },
     {
       "key": "toiletries",
-      "icon": "🧴",
+      "icon": "🚿",
       "sortOrder": 120
     },
     {
