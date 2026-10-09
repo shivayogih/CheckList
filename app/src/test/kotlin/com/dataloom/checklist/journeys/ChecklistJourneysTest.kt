@@ -13,6 +13,7 @@ import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.isToggleable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import com.dataloom.checklist.MainActivity
@@ -97,6 +98,7 @@ class ChecklistJourneysTest {
         composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.item_quantity_optional)))
             .performTextReplacement("2.5")
         composeRule.awaitNode(hasText(string(R.string.unit_button, string(R.string.unit_none))) and hasClickAction())
+            .performScrollTo()
             .performClick()
         composeRule.awaitText(string(R.string.unit_picker_title))
         composeRule.awaitNode(hasText(string(R.string.unit_kg)) and isSelectable()).performClick()
