@@ -14,10 +14,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +35,8 @@ import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.formatCount
+import com.dataloom.checklist.presentation.components.AppIconButton
+import com.dataloom.checklist.presentation.components.AppModalBottomSheet
 
 private val TileSize = 96.dp
 
@@ -95,24 +95,23 @@ private fun PhotoTile(
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         PhotoThumbnail(photo.thumbnail, Modifier.size(TileSize))
         Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.End) {
-            IconButton(onClick = { onMove(-1) }, enabled = canMoveLeft) {
-                Icon(
-                    painterResource(R.drawable.ic_chevron_left),
-                    contentDescription = stringResource(R.string.photos_move_left_cd, formatCount(number)),
-                )
-            }
-            IconButton(onClick = onRemove) {
-                Icon(
-                    painterResource(R.drawable.ic_close),
-                    contentDescription = stringResource(R.string.photos_remove_cd, formatCount(number)),
-                )
-            }
-            IconButton(onClick = { onMove(+1) }, enabled = canMoveRight) {
-                Icon(
-                    painterResource(R.drawable.ic_chevron_right),
-                    contentDescription = stringResource(R.string.photos_move_right_cd, formatCount(number)),
-                )
-            }
+            AppIconButton(
+                painterResource(R.drawable.ic_chevron_left),
+                stringResource(R.string.photos_move_left_cd, formatCount(number)),
+                onClick = { onMove(-1) },
+                enabled = canMoveLeft,
+            )
+            AppIconButton(
+                painterResource(R.drawable.ic_close),
+                stringResource(R.string.photos_remove_cd, formatCount(number)),
+                onClick = onRemove,
+            )
+            AppIconButton(
+                painterResource(R.drawable.ic_chevron_right),
+                stringResource(R.string.photos_move_right_cd, formatCount(number)),
+                onClick = { onMove(+1) },
+                enabled = canMoveRight,
+            )
         }
     }
 }
@@ -164,8 +163,8 @@ private fun AddPhotoTile(onAdd: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PhotoSourceSheet(onTake: (() -> Unit)?, onPick: () -> Unit, onDismiss: () -> Unit) {
-    ModalBottomSheet(onDismissRequest = onDismiss) {
-        Column(modifier = Modifier.padding(bottom = 16.dp)) {
+    AppModalBottomSheet(title = stringResource(R.string.photos_add), onDismissRequest = onDismiss) {
+        Column {
             if (onTake != null) SourceRow(stringResource(R.string.photos_take), onTake)
             SourceRow(stringResource(R.string.photos_pick), onPick)
         }

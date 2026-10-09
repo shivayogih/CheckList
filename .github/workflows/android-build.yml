@@ -40,7 +40,7 @@ jobs:
         run: python3 tools/seed/validate_seed.py
 
       - name: Unit tests
-        run: ./gradlew --stacktrace --continue :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
+        run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
       # Coverage of the unit tests above (CL-175): reuses their results, reports only, no threshold.
       - name: Coverage
@@ -59,19 +59,27 @@ jobs:
             app/build/reports/coverage/
           if-no-files-found: ignore
 
+      # Screenshot goldens (CL-262), after the coverage steps because they re-run a slice of the unit tests: renders every shared component in 15 variants and, with record mode on,
+      # writes the PNGs. They are uploaded below, so a failed comparison can be reviewed and the goldens
+      # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
+      - name: Record screenshots
+        if: always()
+        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' --tests '*ItemPhotosScreenshotTest*' --tests '*PdfPhotosPageScreenshotTest*' -Proborazzi.test.record=true
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: screenshots
+          path: app/src/test/screenshots/
+          if-no-files-found: ignore
+
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.
-      # `if: always()` so the generated schema is printed even when a test failed first.
       - name: Room schema is committed
-        if: always()
         run: |
           git status --porcelain -- data/schemas
-          if [ -n "$(git status --porcelain -- data/schemas)" ]; then
-            echo "::error::A Room schema differs from the committed one. Commit the file(s) printed below."
-            git add -N data/schemas
-            git --no-pager diff -- data/schemas
-            exit 1
-          fi
+          test -z "$(git status --porcelain -- data/schemas)"
 
       - name: Lint
         run: ./gradlew --stacktrace :app:lintDevDebug
@@ -87,15 +95,6 @@ jobs:
           path: |
             **/build/reports/
             **/build/test-results/
-          if-no-files-found: ignore
-
-      # PNGs recorded by the Roborazzi screenshot tests (item row, form, viewer, PDF page; light, dark, 200% font, Tamil).
-      - name: Upload screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: app/build/outputs/roborazzi/
           if-no-files-found: ignore
 
       - name: Upload APKs

@@ -16,11 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
@@ -62,8 +59,9 @@ import com.dataloom.checklist.domain.validation.ValidationError
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.common.toUiText
+import com.dataloom.checklist.presentation.components.AppIconButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
-import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.FormField
 import com.dataloom.checklist.presentation.components.inputLength
 
 private const val MIN_ZOOM = 1f
@@ -186,13 +184,12 @@ private fun ViewerTopBar(itemName: String, onClose: () -> Unit) {
                 .weight(1f)
                 .semantics { heading() },
         )
-        IconButton(onClick = onClose) {
-            Icon(
-                painterResource(R.drawable.ic_close),
-                contentDescription = stringResource(R.string.photo_viewer_close),
-                tint = Color.White,
-            )
-        }
+        AppIconButton(
+            painterResource(R.drawable.ic_close),
+            stringResource(R.string.photo_viewer_close),
+            onClick = onClose,
+            tint = Color.White,
+        )
     }
 }
 
@@ -256,20 +253,18 @@ private fun ZoomableImage(photo: PhotoUi, position: Int, count: Int, itemName: S
 @Composable
 private fun ZoomButtons(onZoomIn: () -> Unit, onZoomOut: () -> Unit, modifier: Modifier) {
     Row(modifier = modifier.padding(8.dp)) {
-        IconButton(onClick = onZoomOut) {
-            Icon(
-                painterResource(R.drawable.ic_zoom_out),
-                contentDescription = stringResource(R.string.photo_viewer_zoom_out),
-                tint = Color.White,
-            )
-        }
-        IconButton(onClick = onZoomIn) {
-            Icon(
-                painterResource(R.drawable.ic_zoom_in),
-                contentDescription = stringResource(R.string.photo_viewer_zoom_in),
-                tint = Color.White,
-            )
-        }
+        AppIconButton(
+            painterResource(R.drawable.ic_zoom_out),
+            stringResource(R.string.photo_viewer_zoom_out),
+            onClick = onZoomOut,
+            tint = Color.White,
+        )
+        AppIconButton(
+            painterResource(R.drawable.ic_zoom_in),
+            stringResource(R.string.photo_viewer_zoom_in),
+            onClick = onZoomIn,
+            tint = Color.White,
+        )
     }
 }
 
@@ -282,26 +277,26 @@ private fun ViewerControls(position: Int, count: Int, onPrevious: () -> Unit, on
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        IconButton(onClick = onPrevious, enabled = position > 0) {
-            Icon(
-                painterResource(R.drawable.ic_chevron_left),
-                contentDescription = stringResource(R.string.photo_viewer_previous),
-                tint = if (position > 0) Color.White else Color.Gray,
-            )
-        }
+        AppIconButton(
+            painterResource(R.drawable.ic_chevron_left),
+            stringResource(R.string.photo_viewer_previous),
+            onClick = onPrevious,
+            enabled = position > 0,
+            tint = Color.White,
+        )
         Text(
             stringResource(R.string.photo_viewer_position, formatCount(position + 1), formatCount(count)),
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
         )
-        IconButton(onClick = onNext, enabled = position < count - 1) {
-            Icon(
-                painterResource(R.drawable.ic_chevron_right),
-                contentDescription = stringResource(R.string.photo_viewer_next),
-                tint = if (position < count - 1) Color.White else Color.Gray,
-            )
-        }
+        AppIconButton(
+            painterResource(R.drawable.ic_chevron_right),
+            stringResource(R.string.photo_viewer_next),
+            onClick = onNext,
+            enabled = position < count - 1,
+            tint = Color.White,
+        )
     }
 }
 
@@ -317,13 +312,12 @@ private fun CaptionField(photo: PhotoUi, onCaption: (PhotoUi, String) -> Unit) {
     val errorText = if (tooLong) ValidationError.CAPTION_TOO_LONG.toUiText().asString() else null
     val focus = LocalFocusManager.current
     DisposableEffect(photo.id) { onDispose { save() } }
-    OutlinedTextField(
+    FormField(
+        label = stringResource(R.string.photo_caption_label),
         value = text,
         onValueChange = { text = InputText.forField(it, PhotoLimits.CAPTION_MAX) },
-        label = { Text(stringResource(R.string.photo_caption_label)) },
-        singleLine = true,
-        isError = tooLong,
-        supportingText = fieldSupportingText(errorText, text.inputLength(), PhotoLimits.CAPTION_MAX),
+        errorText = errorText,
+        maxLength = PhotoLimits.CAPTION_MAX,
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Done,
@@ -333,9 +327,8 @@ private fun CaptionField(photo: PhotoUi, onCaption: (PhotoUi, String) -> Unit) {
             focus.clearFocus()
         }),
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .onFocusChanged { if (!it.isFocused) save() },
+            .onFocusChanged { if (!it.hasFocus) save() },
     )
 }
 
