@@ -4,12 +4,12 @@
     <string name="home_title">నా జాబితాలు</string>
     <string name="home_empty_title">ఇంకా జాబితాలు లేవు</string>
     <string name="home_empty_body">షాపింగ్, ప్రయాణం, పరీక్ష లేదా దేనికైనా మీ మొదటి జాబితాను సృష్టించండి.</string>
-    <string name="home_create_checklist">జాబితాను సృష్టించండి</string>
+    <string name="home_create_checklist">జాబితా సృష్టించండి</string>
     <string name="settings_title">సెట్టింగ్‌లు</string>
     <string name="settings_language">భాష</string>
     <string name="settings_language_system">సిస్టమ్ డిఫాల్ట్</string>
-    <string name="settings_about">గురించి</string>
-    <string name="app_logo_description">చెక్‌లిస్ట్ లోగో</string>
+    <string name="settings_about">యాప్ గురించి</string>
+    <string name="app_logo_description">CheckList లోగో</string>
     <string name="settings_version">వెర్షన్ %1$s</string>
     <string name="navigate_back">వెనుకకు</string>
     <string name="language_title">భాషను ఎంచుకోండి</string>
@@ -17,7 +17,7 @@
     <string name="share_checklist_chooser_title">జాబితాను షేర్ చేయండి</string>
     <string name="pdf_page_number">పేజీ %1$s / %2$s</string>
     <string name="pdf_prepared_by">తయారు చేసినవారు: %1$s</string>
-    <string name="pdf_no_items">ఈ జాబితాలో అంశాలు ఏవీ లేవు.</string>
+    <string name="pdf_no_items">ఈ జాబితాలో వస్తువులు ఏవీ లేవు.</string>
     <!-- %1$s is the app name, which stays "CheckList" in every language. -->
     <string name="pdf_powered_by">%1$s ఆధారితం</string>
     <string name="pdf_exported_at">ఎగుమతి: %1$s</string>
@@ -25,14 +25,14 @@
     <string name="pdf_get_app">Google Play లో యాప్ పొందండి</string>
     <string name="pdf_promo_title">%1$s పొందండి</string>
     <string name="pdf_promo_scan">Google Play లో యాప్ పొందడానికి స్కాన్ చేయండి</string>
-    <string name="pdf_import_hint">ఈ జాబితాను యాప్‌లో ఉపయోగించడానికి, పంపినవారిని %1$s ఫైల్ (.json) అడిగి ఇంపోర్ట్ చేయండి.</string>
+    <string name="pdf_import_hint">ఈ జాబితాను యాప్‌లో ఉపయోగించడానికి, పంపినవారిని %1$s ఫైల్ (.json) అడిగి దిగుమతి చేయండి.</string>
     <!-- Sent with a shared .json export. %1$s is the app name "CheckList"; "Google Play" is not translated. -->
     <string name="share_export_subject">%1$s జాబితాలు</string>
     <string name="share_export_intro">ఇది ఒకటి లేదా అంతకంటే ఎక్కువ జాబితాలు ఉన్న %1$s ఫైల్.</string>
     <string name="share_export_get_app">Google Play లో %1$s పొందండి: %2$s</string>
-    <string name="share_export_steps_title">ఇంపోర్ట్ చేయడానికి:</string>
+    <string name="share_export_steps_title">దిగుమతి చేయడానికి:</string>
     <string name="share_export_step_install">1. %1$s ఇన్‌స్టాల్ చేయండి.</string>
-    <string name="share_export_step_open">2. యాప్ తెరవండి → సెట్టింగ్‌లు → ఇంపోర్ట్.</string>
+    <string name="share_export_step_open">2. యాప్ తెరవండి → సెట్టింగ్‌లు → దిగుమతి.</string>
     <string name="share_export_step_choose">3. ఈ ఫైల్‌ను ఎంచుకోండి.</string>
     <string name="share_export_step_confirm">4. ప్రివ్యూ చూసి నిర్ధారించండి.</string>
 
@@ -67,7 +67,7 @@
     <string name="create_categories_heading">వర్గాలు</string>
     <string name="create_categories_hint">సరిపోయేవాటిని ఎంచుకోండి. తర్వాత కూడా జోడించవచ్చు.</string>
     <string name="create_description_label">వివరణ (ఐచ్ఛికం)</string>
-    <string name="create_title">జాబితాను సృష్టించండి</string>
+    <string name="create_title">జాబితా సృష్టించండి</string>
     <string name="create_title_already_used">ఈ పేరుతో ఇప్పటికే ఒక జాబితా ఉంది. అయినా మీరు దీన్ని వాడవచ్చు.</string>
     <string name="create_title_label">జాబితా పేరు</string>
     <string name="delete_checklist_message">ఇది జాబితాను, దానిలోని అన్ని వస్తువులను తొలగిస్తుంది. దీన్ని వెనక్కి తీసుకోలేరు. పక్కన పెట్టడానికి మాత్రమే “ఆర్కైవ్ చేయండి” ఎంచుకోండి.</string>
@@ -83,7 +83,7 @@
     <string name="detail_section_options">%1$s కోసం ఎంపికలు</string>
     <string name="error_category_name_blank">వర్గానికి పేరు నమోదు చేయండి.</string>
     <string name="error_duplicate_name">ఈ పేరు ఇప్పటికే వాడుకలో ఉంది. వేరే పేరు ప్రయత్నించండి.</string>
-    <string name="error_generic">ఏదో పొరపాటు జరిగింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="error_generic">ఏదో పొరపాటు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="error_item_name_blank">వస్తువుకు పేరు నమోదు చేయండి.</string>
     <string name="error_not_found">ఇది ఇప్పుడు లేదు. దీన్ని తొలగించి ఉండవచ్చు.</string>
     <string name="error_quantity_invalid">2 లేదా 2.5 వంటి సంఖ్య నమోదు చేయండి (99999 వరకు).</string>
@@ -93,7 +93,7 @@
     <string name="error_quantity_too_precise">గరిష్ఠంగా 3 దశాంశ స్థానాలు మాత్రమే ఉపయోగించండి, ఉదా. 2.125.</string>
     <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">జాబితాకు పేరు నమోదు చేయండి.</string>
-    <string name="error_too_long">గరిష్టంగా %1$s అక్షరాలు వాడండి.</string>
+    <string name="error_too_long">గరిష్ఠంగా %1$s అక్షరాలు వాడండి.</string>
     <string name="error_unit_label_blank">కొలమానానికి పేరు నమోదు చేయండి.</string>
     <string name="error_unit_unknown">ఈ కొలమానం ఇప్పుడు లేదు. వేరొకటి ఎంచుకోండి.</string>
     <string name="error_unit_without_quantity">ఈ కొలమానానికి పరిమాణం నమోదు చేయండి, లేదా “కొలమానం లేదు” ఎంచుకోండి.</string>
@@ -107,7 +107,7 @@
     <string name="home_no_results">“%1$s” కు సరిపోయే జాబితాలు లేవు.</string>
     <string name="home_search_label">జాబితాలను వెతకండి</string>
     <string name="home_sort_button">క్రమం: %1$s</string>
-    <string name="home_unarchived_message">“%1$s” మళ్ళీ సక్రియంగా ఉంది</string>
+    <string name="home_unarchived_message">“%1$s” మళ్లీ సక్రియంగా ఉంది</string>
     <string name="item_already_on_list">“%1$s” ఇప్పటికే ఈ జాబితాలో ఉంది. దాని పరిమాణం మార్చండి.</string>
     <string name="item_edit_title">వస్తువును మార్చండి</string>
     <string name="item_more_options">%1$s కోసం మరిన్ని ఎంపికలు</string>
@@ -186,7 +186,7 @@
     <string name="import_preview_checklists">జాబితాలు: %1$s</string>
     <string name="import_preview_items">వస్తువులు: %1$s (పూర్తయినవి: %2$s)</string>
     <string name="import_preview_new_categories">కొత్త వర్గాలు: %1$s</string>
-    <string name="import_preview_new_units">కొత్త యూనిట్లు: %1$s</string>
+    <string name="import_preview_new_units">కొత్త కొలమానాలు: %1$s</string>
     <string name="import_preview_profile_skipped">ఈ ఫైల్‌లోని ప్రొఫైల్ దిగుమతి చేయబడదు.</string>
     <string name="import_preview_renamed">“%1$s” అనేది “%2$s”గా దిగుమతి అవుతుంది.</string>
     <string name="import_preview_title">ఈ జాబితాలను దిగుమతి చేయాలా?</string>
@@ -228,7 +228,7 @@
     <string name="photo_viewer_zoom_out">జూమ్ అవుట్</string>
     <string name="photos_more_badge">+%1$s</string>
     <string name="photo_delete_title">ఈ ఫోటోను తొలగించాలా?</string>
-    <string name="photo_delete_body">ఇది తిరిగి పొందలేము.</string>
+    <string name="photo_delete_body">దీన్ని వెనక్కి తీసుకోలేరు.</string>
     <string name="photo_caption_label">శీర్షిక (ఐచ్ఛికం)</string>
     <string name="settings_privacy_photos_title">ఫోటోలు మీ ఫోన్‌లోనే ఉంటాయి</string>
     <string name="settings_privacy_photos_body">వస్తువుల ఫోటోలు ఈ ఫోన్‌లో మాత్రమే సేవ్ అవుతాయి. వాటిని AI సహాయకునికి ఎప్పుడూ పంపరు, చిత్రంలో ఉన్న స్థాన సమాచారం తొలగించబడుతుంది. మీరు ఎగుమతి చేస్తే లేదా PDFలో చేరిస్తే మాత్రమే ఫోటోలు ఫోన్ నుండి బయటకు వెళ్తాయి. ఈ ఫోన్‌లో Android బ్యాకప్ ఆన్‌లో ఉంటే, మీ జాబితాలతో పాటు ఫోటోలు కూడా బ్యాకప్ అవుతాయి.</string>
@@ -254,19 +254,19 @@
     <!-- First-run flow, Home greeting, Show tutorial again (CL-250). -->
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
     <string name="onboarding_welcome_title">%1$s కు స్వాగతం</string>
-    <string name="onboarding_welcome_subtitle">మీ భాషను ఎంచుకోండి. దీన్ని తర్వాత సెట్టింగ్స్‌లో మార్చుకోవచ్చు.</string>
+    <string name="onboarding_welcome_subtitle">మీ భాషను ఎంచుకోండి. దీన్ని తర్వాత సెట్టింగ్‌లలో మార్చుకోవచ్చు.</string>
     <string name="onboarding_phone_language">ఫోన్ భాష</string>
     <string name="onboarding_continue">కొనసాగించండి</string>
-    <string name="onboarding_skip">దాటవేయి</string>
+    <string name="onboarding_skip">దాటవేయండి</string>
     <string name="onboarding_next">తదుపరి</string>
     <string name="onboarding_get_started">ప్రారంభించండి</string>
     <string name="onboarding_skip_for_now">ఇప్పుడు వద్దు</string>
-    <string name="onboarding_page1_title">దేనికైనా జాబితా చేయండి</string>
-    <string name="onboarding_page1_body">షాపింగ్, ప్రయాణం, పరీక్షలు, ఆసుపత్రి సందర్శనలు. కొన్ని ట్యాప్‌లలో చెక్‌లిస్ట్ సృష్టించండి.</string>
+    <string name="onboarding_page1_title">దేనికైనా జాబితా సృష్టించండి</string>
+    <string name="onboarding_page1_body">షాపింగ్, ప్రయాణం, పరీక్షలు, ఆసుపత్రి సందర్శనలు. కొన్ని ట్యాప్‌లలో జాబితా సృష్టించండి.</string>
     <string name="onboarding_page2_title">వస్తువులను ఎంచుకుని పరిమాణం పెట్టండి</string>
     <string name="onboarding_page2_body">మీ భాషలో సిద్ధంగా ఉన్న వస్తువులను వెతకండి, టిక్ చేయండి, 5 కిలోల వంటి పరిమాణం ఎంచుకోండి.</string>
     <string name="onboarding_page3_title">టిక్ చేయండి, షేర్ చేయండి, ప్రైవేట్‌గా ఉంచండి</string>
-    <string name="onboarding_page3_body">షాపింగ్ చేస్తున్నప్పుడు వస్తువులను టిక్ చేయండి, జాబితాను వాట్సాప్‌లో పంపండి, ఇంటర్నెట్ లేకుండా వాడండి.</string>
+    <string name="onboarding_page3_body">షాపింగ్ చేస్తున్నప్పుడు వస్తువులను టిక్ చేయండి, జాబితాను WhatsAppలో పంపండి, ఇంటర్నెట్ లేకుండా వాడండి.</string>
     <string name="onboarding_page_position">పేజీ %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">దీపావళి షాపింగ్</string>
     <string name="onboarding_demo_rice">బియ్యం</string>
@@ -281,11 +281,11 @@
     <string name="onboarding_profile_intro">మిమ్మల్ని పలకరించడానికి, మీరు షేర్ చేసే జాబితాలకు మీ పేరు జోడించడానికి. ఖాతా లేదా పాస్‌వర్డ్ అవసరం లేదు.</string>
     <string name="onboarding_profile_banner">ఈ ఫోన్‌లో మాత్రమే సేవ్ అవుతుంది, ఎన్‌క్రిప్షన్‌తో లాక్ చేయబడింది.</string>
     <string name="onboarding_profile_name_hint">ఐచ్ఛికం. మీరు ఎంచుకుంటేనే PDFలలో చూపబడుతుంది.</string>
-    <string name="onboarding_profile_more">ఇమెయిల్ మరియు చిరునామా జోడించండి</string>
-    <string name="onboarding_profile_less">ఇమెయిల్ మరియు చిరునామా దాచండి</string>
+    <string name="onboarding_profile_more">ఈమెయిల్ మరియు చిరునామా జోడించండి</string>
+    <string name="onboarding_profile_less">ఈమెయిల్ మరియు చిరునామా దాచండి</string>
     <string name="profile_address">చిరునామా (ఐచ్ఛికం)</string>
     <string name="home_greeting_title">నమస్తే, %1$s 🙏</string>
-    <string name="settings_show_tutorial">ట్యుటోరియల్ మళ్లీ చూపించు</string>
+    <string name="settings_show_tutorial">ట్యుటోరియల్ మళ్లీ చూపించండి</string>
     <string name="settings_show_tutorial_summary">CheckList ఎలా పనిచేస్తుందో చూడండి</string>
     <plurals name="home_greeting_in_progress">
         <item quantity="one">మీకు %1$s జాబితా కొనసాగుతోంది.</item>
@@ -293,36 +293,36 @@
     </plurals>
     <!-- AI assistant: Settings switches, command field and review sheet (CL-240). -->
     <string name="settings_ai_enabled">AI సహాయకుడు (ఆఫ్‌లైన్)</string>
-    <string name="settings_ai_enabled_summary">టైప్ చేసి అంశాలను జోడించండి లేదా మార్చండి, ఉదా. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు”. ఇది ఈ ఫోన్‌లోనే పనిచేస్తుంది; మీరు టైప్ చేసింది ఎక్కడికీ పంపబడదు.</string>
-    <string name="settings_ai_auto_add">అడగకుండా అంశాలను జోడించడానికి AIని అనుమతించు</string>
+    <string name="settings_ai_enabled_summary">టైప్ చేసి వస్తువులను జోడించండి లేదా మార్చండి, ఉదా. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు”. ఇది ఈ ఫోన్‌లోనే పనిచేస్తుంది; మీరు టైప్ చేసింది ఎక్కడికీ పంపబడదు.</string>
+    <string name="settings_ai_auto_add">అడగకుండా వస్తువులను జోడించడానికి AIని అనుమతించండి</string>
     <string name="settings_ai_auto_add_summary">ఒక సాధారణ మార్పుకు మాత్రమే. అంతకంటే పెద్దది ఎప్పుడూ ముందుగా మీకు చూపబడుతుంది.</string>
     <string name="ai_command_label">ఏమి జోడించాలో లేదా మార్చాలో సహాయకుడికి చెప్పండి</string>
     <string name="ai_command_hint">ఉదాహరణ: 2 కిలో బియ్యం మరియు 1 లీటర్ పాలు</string>
-    <string name="ai_command_submit">వెళ్ళు</string>
+    <string name="ai_command_submit">పంపండి</string>
     <string name="ai_working">మీ ఆదేశం చదవబడుతోంది</string>
     <string name="ai_message_dismiss">సరే</string>
     <string name="ai_review_title">ఏమి మారుతుందో చూడండి</string>
-    <string name="ai_review_hint">వద్దనుకున్న వాటి గుర్తు తీసివేయండి. నిర్ధారించు నొక్కే వరకు ఏదీ మారదు.</string>
+    <string name="ai_review_hint">వద్దనుకున్న వాటి గుర్తు తీసివేయండి. నిర్ధారించండి నొక్కే వరకు ఏదీ మారదు.</string>
     <string name="ai_review_not_understood">అర్థం కాలేదు: %1$s</string>
-    <string name="ai_action_confirm">నిర్ధారించు</string>
-    <string name="ai_step_add">%1$s జోడించు</string>
-    <string name="ai_step_add_category">%1$s వర్గాన్ని జోడించు</string>
-    <string name="ai_step_create_checklist">%1$s చెక్‌లిస్ట్ సృష్టించు</string>
-    <string name="ai_step_set_quantity">%1$s పరిమాణాన్ని మార్చు</string>
-    <string name="ai_step_set_unit">%1$s యూనిట్‌ను మార్చు</string>
-    <string name="ai_step_complete">%1$s పూర్తయినట్లు గుర్తించు</string>
-    <string name="ai_step_uncomplete">%1$s పూర్తి కాలేదని గుర్తించు</string>
-    <string name="ai_step_delete">%1$s తొలగించు</string>
-    <string name="ai_step_remove_section">%1$s మరియు దాని అంశాలను తీసివేయి</string>
+    <string name="ai_action_confirm">నిర్ధారించండి</string>
+    <string name="ai_step_add">%1$s జోడించండి</string>
+    <string name="ai_step_add_category">%1$s వర్గాన్ని జోడించండి</string>
+    <string name="ai_step_create_checklist">%1$s జాబితా సృష్టించండి</string>
+    <string name="ai_step_set_quantity">%1$s పరిమాణాన్ని మార్చండి</string>
+    <string name="ai_step_set_unit">%1$s కొలమానాన్ని మార్చండి</string>
+    <string name="ai_step_complete">%1$s పూర్తయినట్లు గుర్తించండి</string>
+    <string name="ai_step_uncomplete">%1$s పూర్తి కాలేదని గుర్తించండి</string>
+    <string name="ai_step_delete">%1$s తొలగించండి</string>
+    <string name="ai_step_remove_section">%1$s మరియు దాని వస్తువులను తీసివేయండి</string>
     <string name="ai_step_to_section">%1$s లోకి</string>
     <string name="ai_step_amount_to_section">%1$s, %2$s లోకి</string>
     <string name="ai_result_done">పూర్తయింది: %1$s.</string>
     <string name="ai_result_already">ఇప్పటికే జాబితాలో ఉంది: %1$s.</string>
     <string name="ai_result_failed">కాలేదు: %1$s.</string>
-    <string name="ai_unavailable_disabled">AI సహాయకుడు ఆఫ్‌లో ఉంది. సెట్టింగ్‌లలో ఆన్ చేయండి, లేదా అంశాలను మీరే జోడించండి.</string>
-    <string name="ai_unavailable_timeout">సహాయకుడు సమాధానం ఇవ్వడానికి చాలా సమయం తీసుకుంది. మళ్ళీ ప్రయత్నించండి, లేదా అంశాలను మీరే జోడించండి.</string>
-    <string name="ai_unavailable_other">సహాయకుడు ఇప్పుడు దీన్ని చేయలేదు. మీరు అంశాలను మీరే జోడించవచ్చు.</string>
-    <string name="ai_not_understood">క్షమించండి, అర్థం కాలేదు. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు” లాగా రాయండి, లేదా అంశాలను మీరే జోడించండి.</string>
+    <string name="ai_unavailable_disabled">AI సహాయకుడు ఆఫ్‌లో ఉంది. సెట్టింగ్‌లలో ఆన్ చేయండి, లేదా వస్తువులను మీరే జోడించండి.</string>
+    <string name="ai_unavailable_timeout">సహాయకుడు సమాధానం ఇవ్వడానికి చాలా సమయం తీసుకున్నాడు. మళ్లీ ప్రయత్నించండి, లేదా వస్తువులను మీరే జోడించండి.</string>
+    <string name="ai_unavailable_other">సహాయకుడు ఇప్పుడు దీన్ని చేయలేడు. మీరు వస్తువులను మీరే జోడించవచ్చు.</string>
+    <string name="ai_not_understood">క్షమించండి, అర్థం కాలేదు. “2 కిలో బియ్యం మరియు 1 లీటర్ పాలు” లాగా రాయండి, లేదా వస్తువులను మీరే జోడించండి.</string>
     <string name="ai_empty_command">ఏమి జోడించాలో లేదా మార్చాలో రాయండి, ఉదా. “2 కిలో బియ్యం”.</string>
     <string name="ai_too_long">ఒక ఆదేశానికి ఇది చాలా పొడవుగా ఉంది. చిన్నగా రాసి చూడండి.</string>
     <string name="ai_nothing_selected">ఏదీ ఎంచుకోలేదు, కాబట్టి ఏదీ మారలేదు.</string>

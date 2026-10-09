@@ -264,7 +264,7 @@
     <string name="onboarding_page1_title">Make a list for anything</string>
     <string name="onboarding_page1_body">Shopping, travel, exams, hospital visits. Create a checklist in a few taps.</string>
     <string name="onboarding_page2_title">Pick items and set how much</string>
-    <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 KG.</string>
+    <string name="onboarding_page2_body">Search ready-made items in your language, tick them, and choose a quantity like 5 kg.</string>
     <string name="onboarding_page3_title">Tick, share and stay private</string>
     <string name="onboarding_page3_body">Tick items while you shop, send the list on WhatsApp, and use it without internet.</string>
     <string name="onboarding_page_position">Page %1$s of %2$s</string>

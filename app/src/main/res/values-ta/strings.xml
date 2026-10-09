@@ -8,8 +8,8 @@
     <string name="settings_title">அமைப்புகள்</string>
     <string name="settings_language">மொழி</string>
     <string name="settings_language_system">சிஸ்டம் இயல்புநிலை</string>
-    <string name="settings_about">பற்றி</string>
-    <string name="app_logo_description">செக்லிஸ்ட் லோகோ</string>
+    <string name="settings_about">ஆப்ஸ் பற்றி</string>
+    <string name="app_logo_description">CheckList லோகோ</string>
     <string name="settings_version">பதிப்பு %1$s</string>
     <string name="navigate_back">பின்செல்</string>
     <string name="language_title">மொழியைத் தேர்ந்தெடுக்கவும்</string>
@@ -66,7 +66,7 @@
     <string name="checklist_more_options">%1$s க்கான மேலும் விருப்பங்கள்</string>
     <string name="create_categories_heading">வகைகள்</string>
     <string name="create_categories_hint">பொருத்தமானவற்றைத் தேர்ந்தெடுக்கவும். பிறகும் சேர்க்கலாம்.</string>
-    <string name="create_description_label">விளக்கம் (விருப்பத்திற்குரியது)</string>
+    <string name="create_description_label">விளக்கம் (விருப்பம்)</string>
     <string name="create_title">பட்டியலை உருவாக்கு</string>
     <string name="create_title_already_used">இந்தப் பெயரில் ஏற்கனவே ஒரு பட்டியல் உள்ளது. இருந்தாலும் இதைப் பயன்படுத்தலாம்.</string>
     <string name="create_title_label">பட்டியலின் பெயர்</string>
@@ -113,9 +113,9 @@
     <string name="item_more_options">%1$s க்கான மேலும் விருப்பங்கள்</string>
     <string name="item_name_label">பொருளின் பெயர்</string>
     <string name="item_new_title">%1$s இல் புதிய பொருள்</string>
-    <string name="item_notes_label">குறிப்புகள் (விருப்பத்திற்குரியது)</string>
+    <string name="item_notes_label">குறிப்புகள் (விருப்பம்)</string>
     <string name="item_quantity_hint">காற்புள்ளி அல்லது புள்ளியைப் பயன்படுத்தலாம்: 2,5 அல்லது 2.5</string>
-    <string name="item_quantity_optional">அளவு (விருப்பத்திற்குரியது)</string>
+    <string name="item_quantity_optional">அளவு (விருப்பம்)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">%1$s பரிந்துரைகளில் சேமி</string>
     <string name="progress_no_items">இன்னும் பொருட்கள் இல்லை</string>
@@ -156,10 +156,10 @@
     <string name="profile_clear_message">உங்கள் பெயரும் தொடர்பு விவரங்களும் இந்த ஃபோனிலிருந்து அழிக்கப்படும்.</string>
     <string name="profile_clear_title">உங்கள் சுயவிவரத்தை நீக்கவா?</string>
     <string name="profile_cleared">சுயவிவரம் நீக்கப்பட்டது.</string>
-    <string name="profile_email">மின்னஞ்சல் (விருப்பத்தேர்வு)</string>
+    <string name="profile_email">மின்னஞ்சல் (விருப்பம்)</string>
     <string name="profile_intro">விருப்பத்தேர்வு. நீங்கள் பகிரும் பட்டியல்களில் உங்கள் பெயரைச் சேர்க்கலாம். இங்குள்ள அனைத்தும் குறியாக்கம் செய்யப்பட்டு இந்த ஃபோனிலேயே இருக்கும், ஒருபோதும் பதிவேற்றப்படாது.</string>
     <string name="profile_name">உங்கள் பெயர்</string>
-    <string name="profile_phone">ஃபோன் (விருப்பத்தேர்வு)</string>
+    <string name="profile_phone">ஃபோன் (விருப்பம்)</string>
     <string name="profile_reset_dismiss">சரி</string>
     <string name="profile_reset_notice">சேமித்த உங்கள் சுயவிவரத்தை இந்த ஃபோனில் திறக்க முடியவில்லை, எனவே பாதுகாப்புக்காக அது அழிக்கப்பட்டது. மீண்டும் உள்ளிடவும்.</string>
     <string name="profile_saved">சுயவிவரம் சேமிக்கப்பட்டது.</string>
@@ -230,8 +230,8 @@
     <string name="photo_delete_title">இந்தப் புகைப்படத்தை நீக்கவா?</string>
     <string name="photo_delete_body">இதைத் திரும்பப் பெற முடியாது.</string>
     <string name="photo_caption_label">தலைப்பு (விருப்பம்)</string>
-    <string name="settings_privacy_photos_title">புகைப்படங்கள் உங்கள் தொலைபேசியிலேயே இருக்கும்</string>
-    <string name="settings_privacy_photos_body">பொருட்களின் புகைப்படங்கள் இந்தத் தொலைபேசியில் மட்டுமே சேமிக்கப்படும். அவை AI உதவியாளருக்கு ஒருபோதும் அனுப்பப்படாது, படத்திற்குள் உள்ள இருப்பிடத் தகவலும் நீக்கப்படும். நீங்கள் ஏற்றுமதி செய்தாலோ PDF-இல் சேர்த்தாலோ மட்டுமே புகைப்படங்கள் தொலைபேசியை விட்டுச் செல்லும். இந்தத் தொலைபேசியில் Android காப்புப் பிரதி இயக்கத்தில் இருந்தால், உங்கள் பட்டியல்களுடன் புகைப்படங்களும் காப்புப் பிரதி எடுக்கப்படும்.</string>
+    <string name="settings_privacy_photos_title">புகைப்படங்கள் உங்கள் ஃபோனிலேயே இருக்கும்</string>
+    <string name="settings_privacy_photos_body">பொருட்களின் புகைப்படங்கள் இந்த ஃபோனில் மட்டுமே சேமிக்கப்படும். அவை AI உதவியாளருக்கு ஒருபோதும் அனுப்பப்படாது, படத்திற்குள் உள்ள இருப்பிடத் தகவலும் நீக்கப்படும். நீங்கள் ஏற்றுமதி செய்தாலோ PDF-இல் சேர்த்தாலோ மட்டுமே புகைப்படங்கள் ஃபோனை விட்டுச் செல்லும். இந்த ஃபோனில் Android காப்புப் பிரதி இயக்கத்தில் இருந்தால், உங்கள் பட்டியல்களுடன் புகைப்படங்களும் காப்புப் பிரதி எடுக்கப்படும்.</string>
     <plurals name="photos_view_cd">
         <item quantity="one">%2$s க்கான %1$s புகைப்படத்தைப் பார்</item>
         <item quantity="other">%2$s க்கான %1$s புகைப்படங்களைப் பார்</item>
@@ -255,7 +255,7 @@
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
     <string name="onboarding_welcome_title">%1$s-க்கு வரவேற்கிறோம்</string>
     <string name="onboarding_welcome_subtitle">உங்கள் மொழியைத் தேர்ந்தெடுக்கவும். இதை பின்னர் அமைப்புகளில் மாற்றலாம்.</string>
-    <string name="onboarding_phone_language">தொலைபேசி மொழி</string>
+    <string name="onboarding_phone_language">ஃபோன் மொழி</string>
     <string name="onboarding_continue">தொடரவும்</string>
     <string name="onboarding_skip">தவிர்</string>
     <string name="onboarding_next">அடுத்து</string>
@@ -266,7 +266,7 @@
     <string name="onboarding_page2_title">பொருட்களைத் தேர்ந்து அளவை அமையுங்கள்</string>
     <string name="onboarding_page2_body">உங்கள் மொழியில் தயாராக உள்ள பொருட்களைத் தேடி, டிக் செய்து, 5 கிலோ போன்ற அளவைத் தேர்வு செய்யுங்கள்.</string>
     <string name="onboarding_page3_title">டிக் செய்யுங்கள், பகிருங்கள், தனிப்பட்டதாக வையுங்கள்</string>
-    <string name="onboarding_page3_body">ஷாப்பிங் செய்யும்போது பொருட்களை டிக் செய்து, பட்டியலை வாட்ஸ்அப்பில் அனுப்பி, இணையம் இல்லாமலும் பயன்படுத்துங்கள்.</string>
+    <string name="onboarding_page3_body">ஷாப்பிங் செய்யும்போது பொருட்களை டிக் செய்து, பட்டியலை WhatsApp-இல் அனுப்பி, இணையம் இல்லாமலும் பயன்படுத்துங்கள்.</string>
     <string name="onboarding_page_position">பக்கம் %1$s / %2$s</string>
     <string name="onboarding_demo_list_title">தீபாவளி ஷாப்பிங்</string>
     <string name="onboarding_demo_rice">அரிசி</string>
@@ -276,11 +276,11 @@
     <string name="onboarding_demo_search">அ</string>
     <string name="onboarding_demo_groceries">மளிகை</string>
     <string name="onboarding_demo_offline">இணையம் இல்லாமலும் வேலை செய்யும்</string>
-    <string name="onboarding_demo_private">உங்கள் தொலைபேசியிலேயே இருக்கும்</string>
+    <string name="onboarding_demo_private">உங்கள் ஃபோனிலேயே இருக்கும்</string>
     <string name="onboarding_profile_title">உங்களைப் பற்றிச் சொல்லுங்கள்</string>
     <string name="onboarding_profile_intro">உங்களை வரவேற்கவும், நீங்கள் பகிரும் பட்டியல்களில் உங்கள் பெயரைச் சேர்க்கவும். கணக்கு அல்லது கடவுச்சொல் தேவையில்லை.</string>
-    <string name="onboarding_profile_banner">இந்தத் தொலைபேசியில் மட்டும் சேமிக்கப்படும், குறியாக்கத்தால் பூட்டப்பட்டுள்ளது.</string>
-    <string name="onboarding_profile_name_hint">விருப்பத்திற்குரியது. நீங்கள் தேர்ந்தால் மட்டுமே PDF-களில் காட்டப்படும்.</string>
+    <string name="onboarding_profile_banner">இந்த ஃபோனில் மட்டும் சேமிக்கப்படும், குறியாக்கத்தால் பூட்டப்பட்டுள்ளது.</string>
+    <string name="onboarding_profile_name_hint">விருப்பத்தேர்வு. நீங்கள் தேர்ந்தால் மட்டுமே PDF-களில் காட்டப்படும்.</string>
     <string name="onboarding_profile_more">மின்னஞ்சல் மற்றும் முகவரியைச் சேர்</string>
     <string name="onboarding_profile_less">மின்னஞ்சல் மற்றும் முகவரியை மறை</string>
     <string name="profile_address">முகவரி (விருப்பம்)</string>
@@ -298,7 +298,7 @@
     <string name="settings_ai_auto_add_summary">ஒரு எளிய மாற்றத்திற்கு மட்டும். அதைவிடப் பெரியது எப்போதும் முதலில் உங்களுக்குக் காட்டப்படும்.</string>
     <string name="ai_command_label">எதைச் சேர்க்க அல்லது மாற்ற வேண்டும் என்று உதவியாளரிடம் சொல்லுங்கள்</string>
     <string name="ai_command_hint">எடுத்துக்காட்டு: 2 கிலோ அரிசி மற்றும் 1 லிட்டர் பால்</string>
-    <string name="ai_command_submit">செல்</string>
+    <string name="ai_command_submit">அனுப்பு</string>
     <string name="ai_working">உங்கள் கட்டளை படிக்கப்படுகிறது</string>
     <string name="ai_message_dismiss">சரி</string>
     <string name="ai_review_title">என்ன மாறும் என்று பாருங்கள்</string>
@@ -307,15 +307,15 @@
     <string name="ai_action_confirm">உறுதிசெய்</string>
     <string name="ai_step_add">%1$s சேர்</string>
     <string name="ai_step_add_category">%1$s வகையைச் சேர்</string>
-    <string name="ai_step_create_checklist">%1$s சரிபார்ப்புப் பட்டியலை உருவாக்கு</string>
+    <string name="ai_step_create_checklist">%1$s பட்டியலை உருவாக்கு</string>
     <string name="ai_step_set_quantity">%1$s அளவை மாற்று</string>
     <string name="ai_step_set_unit">%1$s அலகை மாற்று</string>
     <string name="ai_step_complete">%1$s முடிந்தது எனக் குறி</string>
     <string name="ai_step_uncomplete">%1$s முடியவில்லை எனக் குறி</string>
     <string name="ai_step_delete">%1$s நீக்கு</string>
     <string name="ai_step_remove_section">%1$s மற்றும் அதன் பொருட்களை அகற்று</string>
-    <string name="ai_step_to_section">%1$s பிரிவில்</string>
-    <string name="ai_step_amount_to_section">%1$s, %2$s பிரிவில்</string>
+    <string name="ai_step_to_section">%1$s வகையில்</string>
+    <string name="ai_step_amount_to_section">%1$s, %2$s வகையில்</string>
     <string name="ai_result_done">முடிந்தது: %1$s.</string>
     <string name="ai_result_already">ஏற்கனவே பட்டியலில் உள்ளது: %1$s.</string>
     <string name="ai_result_failed">செய்யப்படவில்லை: %1$s.</string>
