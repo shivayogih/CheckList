@@ -52,7 +52,7 @@ fun UnitPickerDialog(
     val sortedUnits = remember(units) { units.sortedBy { it.sortOrder } }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.unit_picker_title)) },
+        title = { DialogTitle(stringResource(R.string.unit_picker_title)) },
         text = {
             LazyColumn(modifier = Modifier.selectableGroup()) {
                 item(key = "none", contentType = "option") {

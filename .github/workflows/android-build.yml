@@ -42,6 +42,23 @@ jobs:
       - name: Unit tests
         run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
 
+      # Coverage of the unit tests above (CL-175): reuses their results, reports only, no threshold.
+      - name: Coverage
+        run: |
+          ./gradlew --stacktrace :domain:jacocoTestReport :data:createDebugUnitTestCoverageReport :app:createDevDebugUnitTestCoverageReport
+          python3 tools/ci/coverage_summary.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage
+          path: |
+            domain/build/reports/jacoco/
+            data/build/reports/coverage/
+            app/build/reports/coverage/
+          if-no-files-found: ignore
+
       # The build regenerates Room schemas into data/schemas; any difference means an entity changed
       # without its exported schema (and migration) being committed.
       - name: Room schema is committed

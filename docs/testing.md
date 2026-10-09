@@ -5,7 +5,8 @@ What we test, with which tools, and where it runs. Design reasoning: [phase0-arc
 ## Run the tests
 
 ```bash
-./gradlew :domain:test :app:testDevDebugUnitTest   # all unit tests today
+./gradlew :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest   # all unit tests
+./gradlew :domain:jacocoTestReport :data:createDebugUnitTestCoverageReport :app:createDevDebugUnitTestCoverageReport   # coverage
 ./gradlew :app:lintDevDebug                        # Android Lint (fails the build on errors)
 ```
 
@@ -25,6 +26,13 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | `EncryptedProfileRepositoryTest` | `:data`, Robolectric (Phase 5) | Save, observe, clear, key loss, tampering, restore without keys, temporary Keystore failure, newer payload version |
 | `DataStoreAiPreferencesTest` | `:app` (CL-240) | AI switches on a real Preferences DataStore file: off on a new install, kept across a restart, "add without asking" only with the assistant on |
 | `BackupRulesTest` | `:app` (Phase 5) | Cloud backup, device transfer and legacy Auto Backup all exclude the profile keyset |
+| `DatabaseMigrationTest` | `:data`, Robolectric (Phase 7, CL-173) | Schema v1 is created from the committed export, schemas are numbered without gaps, every version step has a migration in `DatabaseMigrations.ALL`, and v1 data survives migrating to the latest version |
+| `AppGraphTest` | `:app`, Robolectric + Hilt (CL-172) | The production Hilt graph builds and runs: singletons, `MainActivity`, every ViewModel including the assisted ones |
+| `ChecklistJourneysTest` | `:app`, Robolectric + Hilt + Compose (CL-171) | Create a checklist; add a catalog and a custom item; tick and see progress; edit quantity and unit; delete with Undo |
+| `LanguageJourneyTest` | `:app`, Robolectric SDK 32 (CL-171) | Settings → Language → ಕನ್ನಡ stores the app locale and the recreated UI is in Kannada |
+| `ScreenAccessibilityTest` | `:app`, Robolectric, font scale 1 and 2 (CL-174) | Every screen: labels, 48dp targets, a heading, checkbox state, no clipped text ([accessibility.md](accessibility.md#audit-results-phase-4)) |
+| `ThemeContrastTest` | `:app` (CL-144) | WCAG AA contrast of the light and dark schemes |
+| `StringFormatTest`, `LocaleNumbersTest` | `:app` (CL-142) | Plural forms, placeholder parity, positional `%N$s`, escaped `%`; Western digits in all 7 languages |
 
 ## Strategy by layer
 
@@ -33,13 +41,13 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 | Domain unit | JUnit 4, kotlinx-coroutines-test | Use cases, validators, quantity math, localizer fallback, confirmation policy, command validator | `pr-checks` | Started; use cases Planned (Phase 2, CL-111) |
 | ViewModel | JUnit, Turbine, fake repositories (`app/src/test/.../testing`) | State transitions, effects, empty and error states | `pr-checks` | In progress (Phase 3, CL-133, CL-135): Home, create, add categories, detail (including the PDF-after-delete race, CL-241), add items, item editor, profile; AI settings and the AI command → review → confirm/cancel flow over the real validator, gate and executor (CL-240) |
 | Room / DAO | Robolectric in-memory database; a small instrumented set | DAOs, foreign-key cascades, FTS, transactions, seed idempotency | `pr-checks` (Robolectric), Bitrise `staging` (instrumented) | Planned (Phase 2, CL-112) |
-| Migrations | `MigrationTestHelper` + committed schemas | Every N → N+1 and 1 → latest | `pr-checks` | Planned (Phase 7) |
+| Migrations | `MigrationTestHelper` + committed schemas (Robolectric, schemas added as unit-test assets through the AGP Variant API) | Every N → N+1 and 1 → latest | `pr-checks` | Scaffolding implemented for v1 (CL-173); add `MIGRATION_N_N+1` to `DatabaseMigrations.ALL` and a data check with each new version |
 | Repository | Fakes + Room | Offline behavior, error mapping, consistency after import | `pr-checks` | Planned (Phase 2-7) |
 | Import/export | Golden JSON files (`data/src/test/resources/transfer`), fakes, Robolectric Room | Valid, malformed, oversized, future version, hostile references and strings, conflicts, rollback, round trip | `pr-checks` | Implemented (Phase 6, CL-160) |
 | AI mapping | JUnit 4 over the real seed catalog and real use cases with in-memory fakes | Parser tables in 7 languages (native script and transliteration), quantity and unit edge cases, validator rejecting bad tool calls, nothing executes without confirmation | `pr-checks` (`:ai:testDebugUnitTest`) | Implemented for the offline parser (Phase 10, CL-208); recorded online responses Planned (CL-211) |
-| Compose UI | Compose test rule, Hilt test runner | Journeys J1-J6, navigation, quantity/unit, language switching | Bitrise `staging` (emulator), Robolectric smoke on PRs | Planned (Phase 7); Phase 3 covers J1-J3 logic through ViewModel tests |
+| Compose UI | Compose test rule on Robolectric (SDK 34), `HiltTestApplication`, `HiltComponentActivity` (debug) | Journeys J1-J2 and J4: create, add items, tick, quantity/unit, delete with Undo, Kannada | `pr-checks` (unit tests) | Implemented (Phase 7, CL-171); helpers in `app/src/test/.../testing/ui/` advance Robolectric's clock while waiting; emulator runs Planned |
 | Screenshot | Roborazzi | Key screens × 7 locales × 100% and 200% font × light and dark | `pr-checks` (diff report) | Planned (Phase 4, 7) |
-| Accessibility | Semantics assertions, automated accessibility checks | Labels, touch target size, contrast | `pr-checks`, `staging` | Planned (Phase 4, 7) |
+| Accessibility | `assertAccessible()` semantics checks, `ThemeContrastTest` | Labels, touch target size, headings, state, clipping at 200%, contrast | `pr-checks` | Implemented (Phase 4/7, CL-144, CL-174) |
 | Static analysis | Android Lint; detekt 2 (`ci/scripts/detekt.sh`); logging ban (`tools/checks/logging_ban.py`) | Code smells, forbidden logging | `Android build` (lint), `Quality` (detekt, logging ban) | Implemented (lint Phase 1; detekt and logging ban Phase 8, CL-182, CL-183). ktlint not adopted (see ci-cd.md) |
 | CI tooling (Python) | pytest | CI agents (`tools/agents/tests`) and checks (`tools/checks`) | `Quality` | Implemented (CL-224) |
 
@@ -54,7 +62,9 @@ Reports: `*/build/reports/tests/`, `app/build/reports/lint-results-devDebug.html
 
 ## Coverage
 
-Coverage is reported, not gated globally (a global gate encourages junk tests). Target: at least 80% line coverage for `:domain`. Reported in CI from Phase 7.
+Coverage is reported, not gated globally (a global gate encourages junk tests). Target: at least 80% line coverage for `:domain`.
+
+Implemented (CL-175) with JaCoCo 0.8.15: Gradle's `jacoco` plugin for `:domain` and AGP's built-in unit-test coverage (`enableUnitTestCoverage` on debug) for `:data` and `:app`, with Robolectric-loaded classes included. The CI `Coverage` step writes a per-module table to the run summary (`tools/ci/coverage_summary.py`) and uploads the XML and HTML reports as the `coverage` artifact. There is no failing threshold.
 
 ## Manual checks per release (Phase 4 onward)
 

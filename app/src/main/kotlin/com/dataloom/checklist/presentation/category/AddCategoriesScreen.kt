@@ -14,7 +14,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -26,7 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.countText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,8 +55,8 @@ fun AddCategoriesScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.add_categories_title)) },
+            AppTopBar(
+                title = stringResource(R.string.add_categories_title),
                 navigationIcon = { BackButton(onDone) },
             )
         },
@@ -70,7 +71,7 @@ fun AddCategoriesScreen(
                         .padding(16.dp)
                         .heightIn(min = 56.dp),
                 ) {
-                    Text(stringResource(R.string.add_selected, state.selectedCount))
+                    Text(countText(R.plurals.add_selected_categories, state.selectedCount))
                 }
             }
         },

@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.PrimaryButton
 
@@ -155,7 +156,11 @@ private fun TutorialPage(index: Int) {
  */
 @Composable
 private fun PageDots(current: Int) {
-    val description = stringResource(R.string.onboarding_page_position, current + 1, TUTORIAL_PAGE_COUNT)
+    val description = stringResource(
+        R.string.onboarding_page_position,
+        formatCount(current + 1),
+        formatCount(TUTORIAL_PAGE_COUNT),
+    )
     Row(
         modifier = Modifier.clearAndSetSemantics {
             contentDescription = description

@@ -27,7 +27,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -61,8 +60,10 @@ import com.dataloom.checklist.presentation.ai.AiCommandUiState
 import com.dataloom.checklist.presentation.ai.AiCommandViewModel
 import com.dataloom.checklist.presentation.ai.AiReviewSheet
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.quantityText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
@@ -185,8 +186,8 @@ private fun DetailContent(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(state.title) },
+            AppTopBar(
+                title = state.title,
                 navigationIcon = { BackButton(navigation.onBack) },
                 actions = {
                     OverflowMenu(
@@ -287,7 +288,7 @@ private fun ProgressHeader(state: ChecklistDetailUiState) {
             text = if (state.totalItems == 0) {
                 stringResource(R.string.progress_no_items)
             } else {
-                stringResource(R.string.progress_done, state.completedItems, state.totalItems)
+                progressText(state.completedItems, state.totalItems)
             },
             style = MaterialTheme.typography.titleMedium,
         )

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,7 +24,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,7 +46,9 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.MasterItemId
 import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.countText
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.CheckRow
 import com.dataloom.checklist.presentation.components.UnitButton
@@ -87,8 +89,8 @@ fun AddItemsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.add_items_title, state.sectionName)) },
+            AppTopBar(
+                title = stringResource(R.string.add_items_title, state.sectionName),
                 navigationIcon = { BackButton(onDone) },
             )
         },
@@ -103,7 +105,7 @@ fun AddItemsScreen(
                         .padding(16.dp)
                         .heightIn(min = 56.dp),
                 ) {
-                    Text(stringResource(R.string.add_selected, state.selectedCount))
+                    Text(countText(R.plurals.add_selected_items, state.selectedCount))
                 }
             }
         },
@@ -182,7 +184,12 @@ private fun SearchBar(state: AddItemsUiState, onAction: (AddItemsAction) -> Unit
                 null
             } else {
                 {
-                    IconButton(onClick = { onAction(AddItemsAction.QueryChanged("")) }) {
+                    // Explicit 48dp: inside the field the default 40dp button lost its touch
+                    // padding at 200% text.
+                    IconButton(
+                        onClick = { onAction(AddItemsAction.QueryChanged("")) },
+                        modifier = Modifier.size(48.dp),
+                    ) {
                         Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))
                     }
                 }

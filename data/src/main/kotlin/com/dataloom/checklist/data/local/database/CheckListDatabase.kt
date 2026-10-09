@@ -74,6 +74,7 @@ abstract class CheckListDatabase : RoomDatabase() {
 
         fun build(context: Context, seedLoader: SeedLoader): CheckListDatabase =
             Room.databaseBuilder(context, CheckListDatabase::class.java, NAME)
+                .addMigrations(*DatabaseMigrations.ALL)
                 .addCallback(CheckListDatabaseCallback(seedLoader))
                 .build()
     }
