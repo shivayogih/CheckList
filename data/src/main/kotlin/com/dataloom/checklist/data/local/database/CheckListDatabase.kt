@@ -28,6 +28,7 @@ import com.dataloom.checklist.data.local.entity.SeedMetaEntity
 import com.dataloom.checklist.data.local.entity.UnitDefEntity
 import com.dataloom.checklist.data.local.entity.UserProfileEntity
 import com.dataloom.checklist.data.seed.SeedLoader
+import java.io.File
 
 /**
  * The app's single source of truth (ADR-002). Schemas are exported to data/schemas and committed;
@@ -48,7 +49,7 @@ import com.dataloom.checklist.data.seed.SeedLoader
         SeedMetaEntity::class,
         ItemPhotoEntity::class,
     ],
-    version = 2,
+    version = 2, // keep equal to VERSION below; DatabaseMigrationPolicyTest and tools/checks/schema_gate.py check it
     exportSchema = true,
 )
 abstract class CheckListDatabase : RoomDatabase() {
@@ -78,11 +79,30 @@ abstract class CheckListDatabase : RoomDatabase() {
     companion object {
         const val NAME = "checklist.db"
 
-        fun build(context: Context, seedLoader: SeedLoader): CheckListDatabase =
+        /** Same number as `@Database(version)`; the open helper compares the file on disk with it. */
+        const val VERSION = 2
+
+        /**
+         * Builds the app database. Opening goes through [SafeOpenHelperFactory]: the file is backed up
+         * before an upgrade and restored if the upgrade fails, and the outcome is published in [health]
+         * (CL-320). There is no destructive fallback and there must never be one (DatabaseMigrationPolicyTest).
+         */
+        fun build(context: Context, seedLoader: SeedLoader, health: DatabaseHealth = DatabaseHealth()): CheckListDatabase =
             Room.databaseBuilder(context, CheckListDatabase::class.java, NAME)
+                .openHelperFactory(
+                    SafeOpenHelperFactory(
+                        databaseFile = context.getDatabasePath(NAME),
+                        backupDirectory = File(context.noBackupFilesDir, BACKUP_DIRECTORY),
+                        currentVersion = VERSION,
+                        health = health,
+                    ),
+                )
                 .addMigrations(*DatabaseMigrations.ALL)
                 .addCallback(CheckListDatabaseCallback(seedLoader))
                 .build()
+
+        /** Folder (inside the no-backup directory) that holds the pre-migration copy. */
+        const val BACKUP_DIRECTORY = "db-backups"
     }
 }
 
@@ -99,6 +119,8 @@ internal class CheckListDatabaseCallback(private val seedLoader: SeedLoader?) : 
     }
 
     override fun onOpen(db: SupportSQLiteDatabase) {
+        // Idempotent. A migration that rebuilds a table drops its triggers; this puts them back (CL-320).
+        SchemaTriggers.create(db)
         seedLoader?.seedIfNeeded(db)
     }
 }

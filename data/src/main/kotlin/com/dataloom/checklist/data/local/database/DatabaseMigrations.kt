@@ -5,7 +5,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
  * Every schema migration, oldest first. A destructive fallback is never used (ADR-002); each new
- * migration gets its data checks in `DatabaseMigrationTest` (data/src/test).
+ * migration gets its data in `MigrationFixtures` and is exercised by `MigrationStepTest` (data/src/test).
+ * Rules, the runtime backup/restore and the checklist for adding a step: docs/db-migrations.md.
  *
  * Version 1 to 2 (CL-210): adds item_photo and its index, nothing else. No row of any existing table
  * is read, rewritten or deleted. The SQL is the one in the exported schema data/schemas/.../2.json,
