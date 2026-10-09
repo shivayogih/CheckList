@@ -56,6 +56,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.photo.PhotoLimits
 import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.domain.validation.ValidationError
+import com.dataloom.checklist.presentation.common.ResizeDialogForKeyboard
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.formatCount
 import com.dataloom.checklist.presentation.common.toUiText
@@ -95,6 +96,8 @@ fun PhotoViewerDialog(
     val photo = photos[current]
 
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        // The caption field must stay above the keyboard (docs/ui-keyboard-and-insets.md): the photo shrinks instead.
+        ResizeDialogForKeyboard()
         PhotoViewerContent(
             itemName = itemName,
             photos = photos,
