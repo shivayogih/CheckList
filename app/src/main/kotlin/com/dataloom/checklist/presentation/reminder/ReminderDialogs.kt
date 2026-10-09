@@ -35,11 +35,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.currentAppLocale
 import com.dataloom.checklist.presentation.components.OutlinedActionButton
 import com.dataloom.checklist.reminder.ReminderNotifications
 import java.text.DateFormat
@@ -50,17 +51,12 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
-import java.util.Locale
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-/** The app language's locale, for dates and times. */
-@Composable
-private fun currentLocale(): Locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
-
 @Composable
 fun formatReminderTime(millis: Long): String =
-    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, currentLocale()).format(Date(millis))
+    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, currentAppLocale()).format(Date(millis))
 
 private fun Long.local(): ZonedDateTime = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault())
 
@@ -130,7 +126,7 @@ private fun ReminderTimeFields(
     onPickDate: () -> Unit,
     onPickTime: () -> Unit,
 ) {
-    val locale = currentLocale()
+    val locale = currentAppLocale()
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -250,6 +246,7 @@ fun ChooseListDialog(lists: List<ListChoiceUi>, onChosen: (ListChoiceUi) -> Unit
 @Composable
 fun ReminderEffects(effects: Flow<ReminderEffect>, snackbarHostState: SnackbarHostState) {
     val context = LocalContext.current
+    val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     val offMessage = stringResource(R.string.reminder_notifications_off)
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
@@ -259,7 +256,7 @@ fun ReminderEffects(effects: Flow<ReminderEffect>, snackbarHostState: SnackbarHo
     }
     val deleted = stringResource(R.string.reminder_deleted)
     val inPast = stringResource(R.string.reminder_in_past)
-    val locale = currentLocale()
+    val locale = currentAppLocale()
     LaunchedEffect(effects) {
         effects.collect { effect ->
             when (effect) {
@@ -268,7 +265,7 @@ fun ReminderEffects(effects: Flow<ReminderEffect>, snackbarHostState: SnackbarHo
                         .format(Date(effect.triggerAt))
                     when {
                         ReminderNotifications.canNotify(context) ->
-                            snackbarHostState.showSnackbar(context.getString(R.string.reminder_saved, whenText))
+                            snackbarHostState.showSnackbar(resources.getString(R.string.reminder_saved, whenText))
                         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                             permission.launch(Manifest.permission.POST_NOTIFICATIONS)
                         else -> snackbarHostState.showSnackbar(offMessage)
