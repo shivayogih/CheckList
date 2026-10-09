@@ -90,25 +90,28 @@ fun SearchField(
                     }
                     inner()
                 }
-                if (value.isNotEmpty()) {
-                    Box(
-                        modifier = Modifier
-                            .size(Dimens.MinTouchTarget)
-                            .clip(CircleShape)
-                            .clickable(role = Role.Button) { onValueChange("") },
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_close),
-                            contentDescription = clearContentDescription,
-                            tint = colors.onSurface,
-                            modifier = Modifier.size(Dimens.Icon),
-                        )
-                    }
-                }
+                if (value.isNotEmpty()) ClearButton(clearContentDescription) { onValueChange("") }
             }
         },
     )
+}
+
+@Composable
+private fun ClearButton(contentDescription: String, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(Dimens.MinTouchTarget)
+            .clip(CircleShape)
+            .clickable(role = Role.Button, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_close),
+            contentDescription = contentDescription,
+            tint = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(Dimens.Icon),
+        )
+    }
 }
 
 @Preview(showBackground = true)

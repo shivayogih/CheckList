@@ -31,7 +31,8 @@ private val SheetShape = RoundedCornerShape(topStart = Dimens.Corner28, topEnd =
 /**
  * A modal bottom sheet in the look of the mockups (UI-SPEC section 3): `surfaceContainer`, 28 dp top
  * corners, a 40 x 4 dp handle, 20 dp side padding and a 24 sp SemiBold [title]. Buttons and fields go in
- * [content]. The sheet scrolls with the keyboard (it is padded for the IME and the navigation bar; content taller than the sheet must scroll itself).
+ * [content]. The sheet is padded for the IME and the navigation bar; content taller than the sheet must
+ * scroll itself.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
