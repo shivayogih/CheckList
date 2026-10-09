@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,7 +47,10 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
@@ -97,6 +97,7 @@ fun ItemEditorScreen(
     }
 
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = if (state.isEditing) {
@@ -115,7 +116,6 @@ fun ItemEditorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .imePadding()
                         .padding(16.dp)
                         .heightIn(min = 56.dp),
                 ) {
@@ -129,7 +129,7 @@ fun ItemEditorScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .verticalScroll(rememberScrollState())
+                .scrollableForm()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -247,6 +247,7 @@ private fun FormField(
         keyboardOptions = keyboardOptions,
         modifier = Modifier
             .fillMaxWidth()
+            .bringIntoViewWhenFocused()
             .semantics { if (errorText != null) error(errorText) },
     )
 }

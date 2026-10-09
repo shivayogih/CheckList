@@ -39,6 +39,9 @@ import com.dataloom.checklist.presentation.category.CreateCategoryButton
 import com.dataloom.checklist.presentation.category.NewCategoryDialog
 import com.dataloom.checklist.presentation.category.categoryOptions
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
+import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
@@ -67,6 +70,7 @@ fun CreateChecklistScreen(
     }
 
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = stringResource(R.string.create_title),
@@ -93,7 +97,8 @@ fun CreateChecklistScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .dismissKeyboardOnOutsideInteraction(),
         ) {
             item {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -111,7 +116,8 @@ fun CreateChecklistScreen(
                         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .bringIntoViewWhenFocused(),
                     )
                 }
             }
@@ -166,6 +172,7 @@ private fun TitleField(state: CreateChecklistUiState, onAction: (CreateChecklist
         ),
         modifier = Modifier
             .fillMaxWidth()
+            .bringIntoViewWhenFocused()
             .semantics { if (errorText != null) error(errorText) },
     )
 }

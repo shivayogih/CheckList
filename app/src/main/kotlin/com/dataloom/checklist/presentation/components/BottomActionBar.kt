@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
@@ -21,14 +20,14 @@ import androidx.compose.ui.unit.dp
 /**
  * The bar at the bottom of a screen that holds one or two full-width buttons (UI-SPEC section 3):
  * background colour, a top divider and 16 dp padding. Put it in `Scaffold(bottomBar = ...)`. It keeps
- * clear of the navigation bar and the keyboard, so it is safe with edge-to-edge.
+ * clear of the navigation bar; the keyboard is handled once, by `Scaffold(modifier = Modifier.keyboardAwareScreen())`.
  *
  * Buttons stacked in a column; use [BottomActionBarRow] for two buttons side by side ("Cancel" and "Import").
  */
 @Composable
 fun BottomActionBar(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {
-        Column(modifier = Modifier.navigationBarsPadding().imePadding()) {
+        Column(modifier = Modifier.navigationBarsPadding()) {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Column(
                 modifier = Modifier
@@ -48,7 +47,7 @@ fun BottomActionBar(modifier: Modifier = Modifier, content: @Composable ColumnSc
 @Composable
 fun BottomActionBarRow(modifier: Modifier = Modifier, content: @Composable RowScope.() -> Unit) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {
-        Column(modifier = Modifier.navigationBarsPadding().imePadding()) {
+        Column(modifier = Modifier.navigationBarsPadding()) {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Row(
                 modifier = Modifier

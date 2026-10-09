@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataloom.checklist.R
+import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.theme.Dimens
 
 /**
@@ -47,6 +48,7 @@ fun SearchField(
     onSearch: (() -> Unit)? = null,
 ) {
     val colors = MaterialTheme.colorScheme
+    val dismiss = rememberDismissKeyboardActions()
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
@@ -54,7 +56,10 @@ fun SearchField(
         textStyle = MaterialTheme.typography.bodyLarge.copy(color = colors.onSurface),
         cursorBrush = SolidColor(colors.primary),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onSearch?.invoke() }),
+        keyboardActions = KeyboardActions(onSearch = {
+            dismiss.onSearch?.invoke(this)
+            onSearch?.invoke()
+        }),
         modifier = modifier
             .fillMaxWidth()
             .semantics { contentDescription = placeholder },
@@ -85,25 +90,28 @@ fun SearchField(
                     }
                     inner()
                 }
-                if (value.isNotEmpty()) {
-                    Box(
-                        modifier = Modifier
-                            .size(Dimens.MinTouchTarget)
-                            .clip(CircleShape)
-                            .clickable(role = Role.Button) { onValueChange("") },
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_close),
-                            contentDescription = clearContentDescription,
-                            tint = colors.onSurface,
-                            modifier = Modifier.size(Dimens.Icon),
-                        )
-                    }
-                }
+                if (value.isNotEmpty()) ClearButton(clearContentDescription) { onValueChange("") }
             }
         },
     )
+}
+
+@Composable
+private fun ClearButton(contentDescription: String, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(Dimens.MinTouchTarget)
+            .clip(CircleShape)
+            .clickable(role = Role.Button, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_close),
+            contentDescription = contentDescription,
+            tint = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.size(Dimens.Icon),
+        )
+    }
 }
 
 @Preview(showBackground = true)

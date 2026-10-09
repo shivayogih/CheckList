@@ -46,7 +46,11 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.MasterItemId
 import com.dataloom.checklist.domain.model.UnitDef
 import com.dataloom.checklist.presentation.common.asString
+import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.countText
+import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
+import com.dataloom.checklist.presentation.common.keyboardAwareScreen
+import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
@@ -88,6 +92,7 @@ fun AddItemsScreen(
     }
 
     Scaffold(
+        modifier = Modifier.keyboardAwareScreen(),
         topBar = {
             AppTopBar(
                 title = stringResource(R.string.add_items_title, state.sectionName),
@@ -114,7 +119,8 @@ fun AddItemsScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .dismissKeyboardOnOutsideInteraction(),
         ) {
             item(key = "search", contentType = "search") { SearchBar(state, onAction) }
             items(state.rows, key = { it.id.value }, contentType = { "option" }) { row ->
@@ -195,6 +201,7 @@ private fun SearchBar(state: AddItemsUiState, onAction: (AddItemsAction) -> Unit
                 }
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = rememberDismissKeyboardActions(),
             modifier = Modifier.fillMaxWidth(),
         )
         FilterChip(
@@ -244,9 +251,11 @@ private fun QuantityInputs(
             singleLine = true,
             isError = errorText != null,
             supportingText = optionalText(errorText),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Done),
+            keyboardActions = rememberDismissKeyboardActions(),
             modifier = Modifier
                 .fillMaxWidth()
+                .bringIntoViewWhenFocused()
                 .semantics { if (errorText != null) error(errorText) },
         )
         UnitButton(unit = unit, onClick = onPickUnit)
