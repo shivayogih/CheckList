@@ -34,7 +34,7 @@
     "other": "Custom / Other"
   },
   "items": {
-    "rice": {
+    "itm0001": {
       "name": "Raw rice",
       "aliases": []
     },
@@ -58,11 +58,9 @@
       "name": "Poha / avalakki",
       "aliases": []
     },
-    "wheat": {
+    "itm0007": {
       "name": "Wheat flour / atta",
-      "aliases": [
-        "gehun"
-      ]
+      "aliases": []
     },
     "itm0008": {
       "name": "Maida",
@@ -298,12 +296,9 @@
       "name": "Drumstick pods",
       "aliases": []
     },
-    "brinjal": {
+    "itm0066": {
       "name": "Brinjal / eggplant",
-      "aliases": [
-        "eggplant",
-        "aubergine"
-      ]
+      "aliases": []
     },
     "itm0067": {
       "name": "Ladies finger / okra",
@@ -559,11 +554,9 @@
       "name": "Jackfruit",
       "aliases": []
     },
-    "spinach": {
+    "itm0130": {
       "name": "Spinach / palak",
-      "aliases": [
-        "palak"
-      ]
+      "aliases": []
     },
     "itm0131": {
       "name": "Fenugreek leaves / methi",
@@ -625,7 +618,7 @@
       "name": "Oregano fresh",
       "aliases": []
     },
-    "milk": {
+    "itm0146": {
       "name": "Milk",
       "aliases": []
     },
@@ -1033,13 +1026,11 @@
       "name": "Coconut milk",
       "aliases": []
     },
-    "tea": {
+    "itm0248": {
       "name": "Tea powder",
-      "aliases": [
-        "chai"
-      ]
+      "aliases": []
     },
-    "coffee": {
+    "itm0249": {
       "name": "Coffee powder",
       "aliases": []
     },
@@ -1127,7 +1118,7 @@
       "name": "Soup packet",
       "aliases": []
     },
-    "soap": {
+    "itm0271": {
       "name": "Bath soap",
       "aliases": []
     },
@@ -1211,7 +1202,7 @@
       "name": "Cotton buds",
       "aliases": []
     },
-    "comb": {
+    "itm0291": {
       "name": "Hair comb",
       "aliases": []
     },
@@ -1467,12 +1458,9 @@
       "name": "Batteries AAA",
       "aliases": []
     },
-    "extension_board": {
+    "itm0355": {
       "name": "Extension board",
-      "aliases": [
-        "spike guard",
-        "multi plug"
-      ]
+      "aliases": []
     },
     "itm0356": {
       "name": "Electrical tape",
@@ -1518,7 +1506,7 @@
       "name": "Cockroach bait",
       "aliases": []
     },
-    "bandage": {
+    "itm0367": {
       "name": "Adhesive bandages",
       "aliases": []
     },
@@ -1534,11 +1522,9 @@
       "name": "Cotton roll",
       "aliases": []
     },
-    "antiseptic_liquid": {
+    "itm0371": {
       "name": "Antiseptic solution",
-      "aliases": [
-        "antiseptic"
-      ]
+      "aliases": []
     },
     "itm0372": {
       "name": "Digital thermometer",
@@ -1560,11 +1546,9 @@
       "name": "Disposable medical gloves",
       "aliases": []
     },
-    "ors": {
+    "itm0377": {
       "name": "ORS sachets",
-      "aliases": [
-        "oral rehydration salts"
-      ]
+      "aliases": []
     },
     "itm0378": {
       "name": "Baby diapers",
@@ -1674,19 +1658,17 @@
       "name": "Notebook",
       "aliases": []
     },
-    "pen": {
+    "itm0405": {
       "name": "Pen",
       "aliases": []
     },
-    "pencil": {
+    "itm0406": {
       "name": "Pencil",
       "aliases": []
     },
-    "eraser": {
+    "itm0407": {
       "name": "Eraser",
-      "aliases": [
-        "rubber"
-      ]
+      "aliases": []
     },
     "itm0408": {
       "name": "Sharpener",
@@ -1788,11 +1770,11 @@
       "name": "USB-C cable",
       "aliases": []
     },
-    "charger": {
+    "itm0433": {
       "name": "Phone charger",
       "aliases": []
     },
-    "power_bank": {
+    "itm0434": {
       "name": "Power bank",
       "aliases": []
     },
@@ -1905,7 +1887,7 @@
       "name": "Shirt",
       "aliases": []
     },
-    "pants": {
+    "itm0461": {
       "name": "Trousers",
       "aliases": []
     },
@@ -2248,11 +2230,9 @@
       "name": "Party cups",
       "aliases": []
     },
-    "decorative_lights": {
+    "itm0545": {
       "name": "String lights",
-      "aliases": [
-        "serial lights"
-      ]
+      "aliases": []
     },
     "itm0546": {
       "name": "Decorations",
@@ -2326,6 +2306,16 @@
       "name": "Custom item",
       "aliases": []
     },
+    "rice": {
+      "name": "Rice",
+      "aliases": []
+    },
+    "wheat": {
+      "name": "Wheat",
+      "aliases": [
+        "gehun"
+      ]
+    },
     "dal": {
       "name": "Dal",
       "aliases": [
@@ -2340,6 +2330,23 @@
         "oil"
       ]
     },
+    "tea": {
+      "name": "Tea",
+      "aliases": [
+        "tea powder",
+        "chai"
+      ]
+    },
+    "coffee": {
+      "name": "Coffee",
+      "aliases": [
+        "coffee powder"
+      ]
+    },
+    "milk": {
+      "name": "Milk",
+      "aliases": []
+    },
     "spices": {
       "name": "Spices",
       "aliases": [
@@ -2351,6 +2358,25 @@
       "aliases": [
         "french beans",
         "green beans"
+      ]
+    },
+    "brinjal": {
+      "name": "Brinjal",
+      "aliases": [
+        "eggplant",
+        "aubergine"
+      ]
+    },
+    "spinach": {
+      "name": "Spinach",
+      "aliases": [
+        "palak"
+      ]
+    },
+    "pants": {
+      "name": "Pants",
+      "aliases": [
+        "trousers"
       ]
     },
     "saree": {
@@ -2379,6 +2405,14 @@
     },
     "clothes": {
       "name": "Clothes",
+      "aliases": []
+    },
+    "charger": {
+      "name": "Charger",
+      "aliases": []
+    },
+    "power_bank": {
+      "name": "Power Bank",
       "aliases": []
     },
     "travel_toiletries": {
@@ -2422,6 +2456,20 @@
       "name": "ID Card",
       "aliases": [
         "identity card"
+      ]
+    },
+    "pen": {
+      "name": "Pen",
+      "aliases": []
+    },
+    "pencil": {
+      "name": "Pencil",
+      "aliases": []
+    },
+    "eraser": {
+      "name": "Eraser",
+      "aliases": [
+        "rubber"
       ]
     },
     "books": {
@@ -2484,6 +2532,13 @@
         "rangoli"
       ]
     },
+    "decorative_lights": {
+      "name": "Decorative Lights",
+      "aliases": [
+        "serial lights",
+        "string lights"
+      ]
+    },
     "fever_tablets": {
       "name": "Fever Tablets",
       "aliases": [
@@ -2496,8 +2551,32 @@
         "balm"
       ]
     },
+    "bandage": {
+      "name": "Bandage",
+      "aliases": []
+    },
+    "antiseptic_liquid": {
+      "name": "Antiseptic Liquid",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS",
+      "aliases": [
+        "oral rehydration salts"
+      ]
+    },
     "cough_syrup": {
       "name": "Cough Syrup",
+      "aliases": []
+    },
+    "soap": {
+      "name": "Soap",
+      "aliases": []
+    },
+    "comb": {
+      "name": "Comb",
       "aliases": []
     },
     "batteries": {
@@ -2510,6 +2589,13 @@
       "name": "Light Bulb",
       "aliases": [
         "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "Extension Board",
+      "aliases": [
+        "spike guard",
+        "multi plug"
       ]
     },
     "glue": {

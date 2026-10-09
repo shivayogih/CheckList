@@ -34,11 +34,9 @@
     "other": "अन्य"
   },
   "items": {
-    "rice": {
+    "itm0001": {
       "name": "कच्चा चावल",
       "aliases": [
-        "chawal",
-        "chaval",
         "Raw rice"
       ]
     },
@@ -72,12 +70,9 @@
         "Poha / avalakki"
       ]
     },
-    "wheat": {
+    "itm0007": {
       "name": "गेहूं का आटा",
       "aliases": [
-        "gehun",
-        "gehu",
-        "गेहूं",
         "Wheat flour / atta"
       ]
     },
@@ -440,10 +435,9 @@
         "Drumstick pods"
       ]
     },
-    "brinjal": {
+    "itm0066": {
       "name": "बैंगन",
       "aliases": [
-        "baingan",
         "Brinjal / eggplant"
       ]
     },
@@ -837,10 +831,9 @@
         "Jackfruit"
       ]
     },
-    "spinach": {
+    "itm0130": {
       "name": "पालक",
       "aliases": [
-        "palak",
         "Spinach / palak"
       ]
     },
@@ -934,11 +927,9 @@
         "Oregano fresh"
       ]
     },
-    "milk": {
+    "itm0146": {
       "name": "दूध",
       "aliases": [
-        "doodh",
-        "dudh",
         "Milk"
       ]
     },
@@ -1548,20 +1539,15 @@
         "Coconut milk"
       ]
     },
-    "tea": {
+    "itm0248": {
       "name": "चायपत्ती",
       "aliases": [
-        "chai",
-        "chai patti",
-        "चाय",
         "Tea powder"
       ]
     },
-    "coffee": {
+    "itm0249": {
       "name": "कॉफ़ी पाउडर",
       "aliases": [
-        "coffee",
-        "कॉफी",
         "Coffee powder"
       ]
     },
@@ -1691,10 +1677,9 @@
         "Soup packet"
       ]
     },
-    "soap": {
+    "itm0271": {
       "name": "नहाने का साबुन",
       "aliases": [
-        "sabun",
         "Bath soap"
       ]
     },
@@ -1816,10 +1801,9 @@
         "Cotton buds"
       ]
     },
-    "comb": {
+    "itm0291": {
       "name": "कंघी",
       "aliases": [
-        "kanghi",
         "Hair comb"
       ]
     },
@@ -2201,10 +2185,9 @@
         "Batteries AAA"
       ]
     },
-    "extension_board": {
+    "itm0355": {
       "name": "एक्सटेंशन बोर्ड",
       "aliases": [
-        "extension",
         "Extension board"
       ]
     },
@@ -2274,11 +2257,9 @@
         "Cockroach bait"
       ]
     },
-    "bandage": {
+    "itm0367": {
       "name": "बैंड-एड",
       "aliases": [
-        "patti",
-        "bandage",
         "Adhesive bandages"
       ]
     },
@@ -2300,10 +2281,9 @@
         "Cotton roll"
       ]
     },
-    "antiseptic_liquid": {
+    "itm0371": {
       "name": "एंटीसेप्टिक लिक्विड",
       "aliases": [
-        "antiseptic",
         "Antiseptic solution"
       ]
     },
@@ -2337,10 +2317,9 @@
         "Disposable medical gloves"
       ]
     },
-    "ors": {
+    "itm0377": {
       "name": "ओआरएस पैकेट",
       "aliases": [
-        "ors",
         "ORS sachets"
       ]
     },
@@ -2507,24 +2486,22 @@
         "notebook"
       ]
     },
-    "pen": {
+    "itm0405": {
       "name": "पेन",
       "aliases": [
-        "pen",
-        "kalam"
+        "Pen"
       ]
     },
-    "pencil": {
+    "itm0406": {
       "name": "पेंसिल",
       "aliases": [
-        "pencil"
+        "Pencil"
       ]
     },
-    "eraser": {
+    "itm0407": {
       "name": "रबड़",
       "aliases": [
-        "rubber",
-        "eraser"
+        "Eraser"
       ]
     },
     "itm0408": {
@@ -2678,17 +2655,16 @@
         "USB-C cable"
       ]
     },
-    "charger": {
+    "itm0433": {
       "name": "फ़ोन चार्जर",
       "aliases": [
-        "charger",
         "Phone charger"
       ]
     },
-    "power_bank": {
+    "itm0434": {
       "name": "पावर बैंक",
       "aliases": [
-        "power bank"
+        "Power bank"
       ]
     },
     "earphones": {
@@ -2850,11 +2826,9 @@
         "shirt"
       ]
     },
-    "pants": {
+    "itm0461": {
       "name": "पैंट",
       "aliases": [
-        "pant",
-        "patloon",
         "Trousers"
       ]
     },
@@ -3363,11 +3337,9 @@
         "Party cups"
       ]
     },
-    "decorative_lights": {
+    "itm0545": {
       "name": "लाइट की झालर",
       "aliases": [
-        "jhalar",
-        "serial lights",
         "String lights"
       ]
     },
@@ -3479,6 +3451,21 @@
         "Custom item"
       ]
     },
+    "rice": {
+      "name": "चावल",
+      "aliases": [
+        "chawal",
+        "chaval"
+      ]
+    },
+    "wheat": {
+      "name": "गेहूँ",
+      "aliases": [
+        "gehun",
+        "gehu",
+        "गेहूं"
+      ]
+    },
     "dal": {
       "name": "दाल",
       "aliases": [
@@ -3493,6 +3480,28 @@
         "तेल"
       ]
     },
+    "tea": {
+      "name": "चाय पत्ती",
+      "aliases": [
+        "chai",
+        "chai patti",
+        "चाय"
+      ]
+    },
+    "coffee": {
+      "name": "कॉफ़ी",
+      "aliases": [
+        "coffee",
+        "कॉफी"
+      ]
+    },
+    "milk": {
+      "name": "दूध",
+      "aliases": [
+        "doodh",
+        "dudh"
+      ]
+    },
     "spices": {
       "name": "मसाले",
       "aliases": [
@@ -3504,6 +3513,25 @@
       "aliases": [
         "beans",
         "phali"
+      ]
+    },
+    "brinjal": {
+      "name": "बैंगन",
+      "aliases": [
+        "baingan"
+      ]
+    },
+    "spinach": {
+      "name": "पालक",
+      "aliases": [
+        "palak"
+      ]
+    },
+    "pants": {
+      "name": "पैंट",
+      "aliases": [
+        "pant",
+        "patloon"
       ]
     },
     "saree": {
@@ -3542,6 +3570,18 @@
       "name": "कपड़े",
       "aliases": [
         "kapde"
+      ]
+    },
+    "charger": {
+      "name": "चार्जर",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "पावर बैंक",
+      "aliases": [
+        "power bank"
       ]
     },
     "travel_toiletries": {
@@ -3585,6 +3625,26 @@
       "name": "पहचान पत्र",
       "aliases": [
         "id card"
+      ]
+    },
+    "pen": {
+      "name": "पेन",
+      "aliases": [
+        "pen",
+        "kalam"
+      ]
+    },
+    "pencil": {
+      "name": "पेंसिल",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "रबड़",
+      "aliases": [
+        "rubber",
+        "eraser"
       ]
     },
     "books": {
@@ -3659,6 +3719,13 @@
         "rangoli"
       ]
     },
+    "decorative_lights": {
+      "name": "सजावटी लाइट",
+      "aliases": [
+        "jhalar",
+        "serial lights"
+      ]
+    },
     "fever_tablets": {
       "name": "बुखार की गोली",
       "aliases": [
@@ -3673,10 +3740,41 @@
         "balm"
       ]
     },
+    "bandage": {
+      "name": "पट्टी",
+      "aliases": [
+        "patti",
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "एंटीसेप्टिक लिक्विड",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS घोल",
+      "aliases": [
+        "ors"
+      ]
+    },
     "cough_syrup": {
       "name": "खांसी की दवा",
       "aliases": [
         "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "साबुन",
+      "aliases": [
+        "sabun"
+      ]
+    },
+    "comb": {
+      "name": "कंघी",
+      "aliases": [
+        "kanghi"
       ]
     },
     "batteries": {
@@ -3690,6 +3788,12 @@
       "name": "बल्ब",
       "aliases": [
         "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "एक्सटेंशन बोर्ड",
+      "aliases": [
+        "extension"
       ]
     },
     "glue": {

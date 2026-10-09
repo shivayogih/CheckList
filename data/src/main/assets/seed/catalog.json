@@ -257,7 +257,7 @@
   ],
   "items": [
     {
-      "key": "rice",
+      "key": "itm0001",
       "category": "groceries",
       "defaultUnit": "KG",
       "catalogId": "ITM0001",
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "key": "wheat",
+      "key": "itm0007",
       "category": "groceries",
       "defaultUnit": "KG",
       "catalogId": "ITM0007",
@@ -1022,7 +1022,7 @@
       ]
     },
     {
-      "key": "brinjal",
+      "key": "itm0066",
       "category": "vegetables",
       "defaultUnit": "KG",
       "catalogId": "ITM0066",
@@ -1790,7 +1790,7 @@
       ]
     },
     {
-      "key": "spinach",
+      "key": "itm0130",
       "category": "cat004",
       "defaultUnit": "BUNCH",
       "catalogId": "ITM0130",
@@ -1982,7 +1982,7 @@
       ]
     },
     {
-      "key": "milk",
+      "key": "itm0146",
       "category": "cat005",
       "defaultUnit": "MILLILITRE",
       "catalogId": "ITM0146",
@@ -3117,7 +3117,7 @@
       ]
     },
     {
-      "key": "tea",
+      "key": "itm0248",
       "category": "cat010",
       "defaultUnit": "PACK",
       "catalogId": "ITM0248",
@@ -3128,7 +3128,7 @@
       ]
     },
     {
-      "key": "coffee",
+      "key": "itm0249",
       "category": "cat010",
       "defaultUnit": "PACK",
       "catalogId": "ITM0249",
@@ -3370,7 +3370,7 @@
       ]
     },
     {
-      "key": "soap",
+      "key": "itm0271",
       "category": "toiletries",
       "defaultUnit": "PACK",
       "catalogId": "ITM0271",
@@ -3590,7 +3590,7 @@
       ]
     },
     {
-      "key": "comb",
+      "key": "itm0291",
       "category": "toiletries",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0291",
@@ -4294,7 +4294,7 @@
       ]
     },
     {
-      "key": "extension_board",
+      "key": "itm0355",
       "category": "cat016",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0355",
@@ -4426,7 +4426,7 @@
       ]
     },
     {
-      "key": "bandage",
+      "key": "itm0367",
       "category": "medicines",
       "defaultUnit": "PACK",
       "catalogId": "ITM0367",
@@ -4470,7 +4470,7 @@
       ]
     },
     {
-      "key": "antiseptic_liquid",
+      "key": "itm0371",
       "category": "medicines",
       "defaultUnit": "PACK",
       "catalogId": "ITM0371",
@@ -4536,7 +4536,7 @@
       ]
     },
     {
-      "key": "ors",
+      "key": "itm0377",
       "category": "medicines",
       "defaultUnit": "PACK",
       "catalogId": "ITM0377",
@@ -4844,7 +4844,7 @@
       ]
     },
     {
-      "key": "pen",
+      "key": "itm0405",
       "category": "stationery",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0405",
@@ -4855,7 +4855,7 @@
       ]
     },
     {
-      "key": "pencil",
+      "key": "itm0406",
       "category": "stationery",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0406",
@@ -4866,7 +4866,7 @@
       ]
     },
     {
-      "key": "eraser",
+      "key": "itm0407",
       "category": "stationery",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0407",
@@ -5152,7 +5152,7 @@
       ]
     },
     {
-      "key": "charger",
+      "key": "itm0433",
       "category": "electronics",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0433",
@@ -5163,7 +5163,7 @@
       ]
     },
     {
-      "key": "power_bank",
+      "key": "itm0434",
       "category": "electronics",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0434",
@@ -5460,7 +5460,7 @@
       ]
     },
     {
-      "key": "pants",
+      "key": "itm0461",
       "category": "clothing",
       "defaultUnit": "PIECE",
       "catalogId": "ITM0461",
@@ -6384,7 +6384,7 @@
       ]
     },
     {
-      "key": "decorative_lights",
+      "key": "itm0545",
       "category": "cat029",
       "defaultUnit": "PACK",
       "catalogId": "ITM0545",
@@ -6593,12 +6593,37 @@
       ]
     },
     {
+      "key": "rice",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "wheat",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
       "key": "dal",
       "category": "groceries",
       "defaultUnit": "KG"
     },
     {
       "key": "cooking_oil",
+      "category": "groceries",
+      "defaultUnit": "LITRE"
+    },
+    {
+      "key": "tea",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "coffee",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "milk",
       "category": "groceries",
       "defaultUnit": "LITRE"
     },
@@ -6611,6 +6636,21 @@
       "key": "beans",
       "category": "vegetables",
       "defaultUnit": "KG"
+    },
+    {
+      "key": "brinjal",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "spinach",
+      "category": "vegetables",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "pants",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
     },
     {
       "key": "saree",
@@ -6641,6 +6681,16 @@
       "key": "clothes",
       "category": "travel",
       "defaultUnit": null
+    },
+    {
+      "key": "charger",
+      "category": "travel",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "power_bank",
+      "category": "travel",
+      "defaultUnit": "PIECE"
     },
     {
       "key": "travel_toiletries",
@@ -6676,6 +6726,21 @@
       "key": "id_card",
       "category": "exam",
       "defaultUnit": null
+    },
+    {
+      "key": "pen",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "pencil",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "eraser",
+      "category": "exam",
+      "defaultUnit": "NOS"
     },
     {
       "key": "books",
@@ -6733,6 +6798,11 @@
       "defaultUnit": "PACK"
     },
     {
+      "key": "decorative_lights",
+      "category": "cat029",
+      "defaultUnit": "PIECE"
+    },
+    {
       "key": "fever_tablets",
       "category": "medicines",
       "defaultUnit": "PACK"
@@ -6743,9 +6813,34 @@
       "defaultUnit": "PIECE"
     },
     {
+      "key": "bandage",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "antiseptic_liquid",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "ors",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
       "key": "cough_syrup",
       "category": "medicines",
       "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "soap",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "comb",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
     },
     {
       "key": "batteries",
@@ -6754,6 +6849,11 @@
     },
     {
       "key": "light_bulb",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "extension_board",
       "category": "electronics",
       "defaultUnit": "PIECE"
     },

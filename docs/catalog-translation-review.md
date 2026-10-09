@@ -9,7 +9,7 @@ edit in the source file so the next regeneration keeps it.
 Every name is a machine-assisted draft. The lists below are the ones the translator was
 least sure of, plus any `fallback` rows where English is shown for lack of a translation.
 
-Catalogue: 31 categories, 598 seed items, 7 languages.
+Catalogue: 31 categories, 618 seed items, 7 languages.
 
 ## How to review
 

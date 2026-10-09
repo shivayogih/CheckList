@@ -34,10 +34,9 @@
     "other": "കസ്റ്റം / മറ്റുള്ളവ"
   },
   "items": {
-    "rice": {
+    "itm0001": {
       "name": "പച്ചരി",
       "aliases": [
-        "ari",
         "Raw rice"
       ]
     },
@@ -71,10 +70,9 @@
         "Poha / avalakki"
       ]
     },
-    "wheat": {
+    "itm0007": {
       "name": "ഗോതമ്പ് പൊടി",
       "aliases": [
-        "gothambu",
         "Wheat flour / atta"
       ]
     },
@@ -432,10 +430,9 @@
         "Drumstick pods"
       ]
     },
-    "brinjal": {
+    "itm0066": {
       "name": "വഴുതനങ്ങ",
       "aliases": [
-        "vazhuthananga",
         "Brinjal / eggplant"
       ]
     },
@@ -825,11 +822,9 @@
         "Jackfruit"
       ]
     },
-    "spinach": {
+    "itm0130": {
       "name": "പാലക് ചീര",
       "aliases": [
-        "cheera",
-        "palak",
         "Spinach / palak"
       ]
     },
@@ -923,10 +918,9 @@
         "Oregano fresh"
       ]
     },
-    "milk": {
+    "itm0146": {
       "name": "പാൽ",
       "aliases": [
-        "paal",
         "Milk"
       ]
     },
@@ -1536,21 +1530,15 @@
         "Coconut milk"
       ]
     },
-    "tea": {
+    "itm0248": {
       "name": "ചായപ്പൊടി",
       "aliases": [
-        "chaya",
-        "chayapodi",
-        "ചായ",
         "Tea powder"
       ]
     },
-    "coffee": {
+    "itm0249": {
       "name": "കാപ്പിപ്പൊടി",
       "aliases": [
-        "kappi",
-        "coffee",
-        "കാപ്പി",
         "Coffee powder"
       ]
     },
@@ -1680,10 +1668,9 @@
         "Soup packet"
       ]
     },
-    "soap": {
+    "itm0271": {
       "name": "കുളി സോപ്പ്",
       "aliases": [
-        "soap",
         "Bath soap"
       ]
     },
@@ -1804,10 +1791,9 @@
         "Cotton buds"
       ]
     },
-    "comb": {
+    "itm0291": {
       "name": "ചീപ്പ്",
       "aliases": [
-        "cheeppu",
         "Hair comb"
       ]
     },
@@ -2189,10 +2175,9 @@
         "Batteries AAA"
       ]
     },
-    "extension_board": {
+    "itm0355": {
       "name": "എക്സ്റ്റൻഷൻ ബോർഡ്",
       "aliases": [
-        "extension",
         "Extension board"
       ]
     },
@@ -2262,10 +2247,9 @@
         "Cockroach bait"
       ]
     },
-    "bandage": {
+    "itm0367": {
       "name": "ബാൻഡ് എയ്ഡ്",
       "aliases": [
-        "bandage",
         "Adhesive bandages"
       ]
     },
@@ -2287,10 +2271,9 @@
         "Cotton roll"
       ]
     },
-    "antiseptic_liquid": {
+    "itm0371": {
       "name": "ആന്റിസെപ്റ്റിക് ലായനി",
       "aliases": [
-        "antiseptic",
         "Antiseptic solution"
       ]
     },
@@ -2324,10 +2307,9 @@
         "Disposable medical gloves"
       ]
     },
-    "ors": {
+    "itm0377": {
       "name": "ഒആർഎസ് പാക്കറ്റ്",
       "aliases": [
-        "ors",
         "ORS sachets"
       ]
     },
@@ -2493,24 +2475,22 @@
         "notebook"
       ]
     },
-    "pen": {
+    "itm0405": {
       "name": "പേന",
       "aliases": [
-        "pena",
-        "pen"
+        "Pen"
       ]
     },
-    "pencil": {
+    "itm0406": {
       "name": "പെൻസിൽ",
       "aliases": [
-        "pencil"
+        "Pencil"
       ]
     },
-    "eraser": {
+    "itm0407": {
       "name": "റബ്ബർ",
       "aliases": [
-        "rubber",
-        "eraser"
+        "Eraser"
       ]
     },
     "itm0408": {
@@ -2664,17 +2644,16 @@
         "USB-C cable"
       ]
     },
-    "charger": {
+    "itm0433": {
       "name": "ഫോൺ ചാർജർ",
       "aliases": [
-        "charger",
         "Phone charger"
       ]
     },
-    "power_bank": {
+    "itm0434": {
       "name": "പവർ ബാങ്ക്",
       "aliases": [
-        "power bank"
+        "Power bank"
       ]
     },
     "earphones": {
@@ -2835,10 +2814,9 @@
         "shirt"
       ]
     },
-    "pants": {
+    "itm0461": {
       "name": "പാന്റ്സ്",
       "aliases": [
-        "pant",
         "Trousers"
       ]
     },
@@ -3343,10 +3321,9 @@
         "Party cups"
       ]
     },
-    "decorative_lights": {
+    "itm0545": {
       "name": "സീരിയൽ ലൈറ്റ്",
       "aliases": [
-        "serial lights",
         "String lights"
       ]
     },
@@ -3458,6 +3435,18 @@
         "Custom item"
       ]
     },
+    "rice": {
+      "name": "അരി",
+      "aliases": [
+        "ari"
+      ]
+    },
+    "wheat": {
+      "name": "ഗോതമ്പ്",
+      "aliases": [
+        "gothambu"
+      ]
+    },
     "dal": {
       "name": "പരിപ്പ്",
       "aliases": [
@@ -3471,6 +3460,28 @@
         "എണ്ണ"
       ]
     },
+    "tea": {
+      "name": "ചായപ്പൊടി",
+      "aliases": [
+        "chaya",
+        "chayapodi",
+        "ചായ"
+      ]
+    },
+    "coffee": {
+      "name": "കാപ്പിപ്പൊടി",
+      "aliases": [
+        "kappi",
+        "coffee",
+        "കാപ്പി"
+      ]
+    },
+    "milk": {
+      "name": "പാൽ",
+      "aliases": [
+        "paal"
+      ]
+    },
     "spices": {
       "name": "മസാലകൾ",
       "aliases": [
@@ -3481,6 +3492,25 @@
       "name": "ബീൻസ്",
       "aliases": [
         "beans"
+      ]
+    },
+    "brinjal": {
+      "name": "വഴുതനങ്ങ",
+      "aliases": [
+        "vazhuthananga"
+      ]
+    },
+    "spinach": {
+      "name": "ചീര",
+      "aliases": [
+        "cheera",
+        "palak"
+      ]
+    },
+    "pants": {
+      "name": "പാന്റ്സ്",
+      "aliases": [
+        "pant"
       ]
     },
     "saree": {
@@ -3518,6 +3548,18 @@
       "name": "വസ്ത്രങ്ങൾ",
       "aliases": [
         "dress"
+      ]
+    },
+    "charger": {
+      "name": "ചാർജർ",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "പവർ ബാങ്ക്",
+      "aliases": [
+        "power bank"
       ]
     },
     "travel_toiletries": {
@@ -3559,6 +3601,26 @@
       "name": "തിരിച്ചറിയൽ കാർഡ്",
       "aliases": [
         "id card"
+      ]
+    },
+    "pen": {
+      "name": "പേന",
+      "aliases": [
+        "pena",
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "പെൻസിൽ",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "റബ്ബർ",
+      "aliases": [
+        "rubber",
+        "eraser"
       ]
     },
     "books": {
@@ -3630,6 +3692,12 @@
         "rangoli"
       ]
     },
+    "decorative_lights": {
+      "name": "അലങ്കാര വിളക്കുകൾ",
+      "aliases": [
+        "serial lights"
+      ]
+    },
     "fever_tablets": {
       "name": "പനി ഗുളിക",
       "aliases": [
@@ -3643,10 +3711,40 @@
         "balm"
       ]
     },
+    "bandage": {
+      "name": "ബാൻഡേജ്",
+      "aliases": [
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "ആന്റിസെപ്റ്റിക് ലായനി",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS പൊടി",
+      "aliases": [
+        "ors"
+      ]
+    },
     "cough_syrup": {
       "name": "ചുമ മരുന്ന്",
       "aliases": [
         "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "സോപ്പ്",
+      "aliases": [
+        "soap"
+      ]
+    },
+    "comb": {
+      "name": "ചീപ്പ്",
+      "aliases": [
+        "cheeppu"
       ]
     },
     "batteries": {
@@ -3659,6 +3757,12 @@
       "name": "ബൾബ്",
       "aliases": [
         "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "എക്സ്റ്റൻഷൻ ബോർഡ്",
+      "aliases": [
+        "extension"
       ]
     },
     "glue": {

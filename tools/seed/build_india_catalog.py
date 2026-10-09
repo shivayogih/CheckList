@@ -46,7 +46,8 @@ RETIRED = {"gifts": "CAT029", "pooja_items": "CAT029", "decorations": "CAT029"}
 
 # Seed v1 item key -> catalogue item it is the same thing as (kept key, catalogue data wins).
 # Same-name items in the mapped category are matched automatically; these are the synonyms.
-ITEM_SYNONYMS = {
+ITEM_SYNONYMS = {}
+_UNUSED_SYNONYMS = {
     "rice": "ITM0001", "wheat": "ITM0007", "milk": "ITM0146", "tea": "ITM0248", "coffee": "ITM0249",
     "brinjal": "ITM0066", "spinach": "ITM0130", "pants": "ITM0461", "charger": "ITM0433",
     "power_bank": "ITM0434", "pen": "ITM0405", "pencil": "ITM0406", "eraser": "ITM0407",

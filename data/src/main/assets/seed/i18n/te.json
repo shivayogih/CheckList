@@ -34,10 +34,9 @@
     "other": "కస్టమ్ / ఇతరాలు"
   },
   "items": {
-    "rice": {
+    "itm0001": {
       "name": "బియ్యం",
       "aliases": [
-        "biyyam",
         "Raw rice"
       ]
     },
@@ -71,10 +70,9 @@
         "Poha / avalakki"
       ]
     },
-    "wheat": {
+    "itm0007": {
       "name": "గోధుమ పిండి",
       "aliases": [
-        "godhumalu",
         "Wheat flour / atta"
       ]
     },
@@ -435,10 +433,9 @@
         "Drumstick pods"
       ]
     },
-    "brinjal": {
+    "itm0066": {
       "name": "వంకాయ",
       "aliases": [
-        "vankaya",
         "Brinjal / eggplant"
       ]
     },
@@ -829,11 +826,9 @@
         "Jackfruit"
       ]
     },
-    "spinach": {
+    "itm0130": {
       "name": "పాలకూర",
       "aliases": [
-        "palakura",
-        "palak",
         "Spinach / palak"
       ]
     },
@@ -927,10 +922,9 @@
         "Oregano fresh"
       ]
     },
-    "milk": {
+    "itm0146": {
       "name": "పాలు",
       "aliases": [
-        "paalu",
         "Milk"
       ]
     },
@@ -1540,20 +1534,15 @@
         "Coconut milk"
       ]
     },
-    "tea": {
+    "itm0248": {
       "name": "టీ పొడి",
       "aliases": [
-        "tea",
-        "tea podi",
         "Tea powder"
       ]
     },
-    "coffee": {
+    "itm0249": {
       "name": "కాఫీ పొడి",
       "aliases": [
-        "coffee",
-        "kaafi",
-        "కాఫీ",
         "Coffee powder"
       ]
     },
@@ -1683,10 +1672,9 @@
         "Soup packet"
       ]
     },
-    "soap": {
+    "itm0271": {
       "name": "స్నానం సబ్బు",
       "aliases": [
-        "sabbu",
         "Bath soap"
       ]
     },
@@ -1807,10 +1795,9 @@
         "Cotton buds"
       ]
     },
-    "comb": {
+    "itm0291": {
       "name": "దువ్వెన",
       "aliases": [
-        "duvvena",
         "Hair comb"
       ]
     },
@@ -2192,10 +2179,9 @@
         "Batteries AAA"
       ]
     },
-    "extension_board": {
+    "itm0355": {
       "name": "ఎక్స్టెన్షన్ బోర్డ్",
       "aliases": [
-        "extension",
         "Extension board"
       ]
     },
@@ -2265,11 +2251,9 @@
         "Cockroach bait"
       ]
     },
-    "bandage": {
+    "itm0367": {
       "name": "బ్యాండ్ ఎయిడ్",
       "aliases": [
-        "kattu",
-        "bandage",
         "Adhesive bandages"
       ]
     },
@@ -2291,10 +2275,9 @@
         "Cotton roll"
       ]
     },
-    "antiseptic_liquid": {
+    "itm0371": {
       "name": "యాంటిసెప్టిక్ లిక్విడ్",
       "aliases": [
-        "antiseptic",
         "Antiseptic solution"
       ]
     },
@@ -2328,10 +2311,9 @@
         "Disposable medical gloves"
       ]
     },
-    "ors": {
+    "itm0377": {
       "name": "ఓఆర్ఎస్ ప్యాకెట్లు",
       "aliases": [
-        "ors",
         "ORS sachets"
       ]
     },
@@ -2497,23 +2479,22 @@
         "notebook"
       ]
     },
-    "pen": {
+    "itm0405": {
       "name": "పెన్ను",
       "aliases": [
-        "pen"
+        "Pen"
       ]
     },
-    "pencil": {
+    "itm0406": {
       "name": "పెన్సిల్",
       "aliases": [
-        "pencil"
+        "Pencil"
       ]
     },
-    "eraser": {
+    "itm0407": {
       "name": "రబ్బరు",
       "aliases": [
-        "rubber",
-        "eraser"
+        "Eraser"
       ]
     },
     "itm0408": {
@@ -2667,17 +2648,16 @@
         "USB-C cable"
       ]
     },
-    "charger": {
+    "itm0433": {
       "name": "ఫోన్ ఛార్జర్",
       "aliases": [
-        "charger",
         "Phone charger"
       ]
     },
-    "power_bank": {
+    "itm0434": {
       "name": "పవర్ బ్యాంక్",
       "aliases": [
-        "power bank"
+        "Power bank"
       ]
     },
     "earphones": {
@@ -2839,10 +2819,9 @@
         "shirt"
       ]
     },
-    "pants": {
+    "itm0461": {
       "name": "ప్యాంటు",
       "aliases": [
-        "pant",
         "Trousers"
       ]
     },
@@ -3348,10 +3327,9 @@
         "Party cups"
       ]
     },
-    "decorative_lights": {
+    "itm0545": {
       "name": "సీరియల్ లైట్లు",
       "aliases": [
-        "serial lights",
         "String lights"
       ]
     },
@@ -3463,6 +3441,18 @@
         "Custom item"
       ]
     },
+    "rice": {
+      "name": "బియ్యం",
+      "aliases": [
+        "biyyam"
+      ]
+    },
+    "wheat": {
+      "name": "గోధుమలు",
+      "aliases": [
+        "godhumalu"
+      ]
+    },
     "dal": {
       "name": "పప్పు",
       "aliases": [
@@ -3476,6 +3466,27 @@
         "నూనె"
       ]
     },
+    "tea": {
+      "name": "టీ పొడి",
+      "aliases": [
+        "tea",
+        "tea podi"
+      ]
+    },
+    "coffee": {
+      "name": "కాఫీ పొడి",
+      "aliases": [
+        "coffee",
+        "kaafi",
+        "కాఫీ"
+      ]
+    },
+    "milk": {
+      "name": "పాలు",
+      "aliases": [
+        "paalu"
+      ]
+    },
     "spices": {
       "name": "మసాలా దినుసులు",
       "aliases": [
@@ -3486,6 +3497,25 @@
       "name": "బీన్స్",
       "aliases": [
         "beans"
+      ]
+    },
+    "brinjal": {
+      "name": "వంకాయ",
+      "aliases": [
+        "vankaya"
+      ]
+    },
+    "spinach": {
+      "name": "పాలకూర",
+      "aliases": [
+        "palakura",
+        "palak"
+      ]
+    },
+    "pants": {
+      "name": "ప్యాంటు",
+      "aliases": [
+        "pant"
       ]
     },
     "saree": {
@@ -3524,6 +3554,18 @@
       "name": "బట్టలు",
       "aliases": [
         "battalu"
+      ]
+    },
+    "charger": {
+      "name": "ఛార్జర్",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "power_bank": {
+      "name": "పవర్ బ్యాంక్",
+      "aliases": [
+        "power bank"
       ]
     },
     "travel_toiletries": {
@@ -3566,6 +3608,25 @@
       "name": "గుర్తింపు కార్డు",
       "aliases": [
         "id card"
+      ]
+    },
+    "pen": {
+      "name": "పెన్ను",
+      "aliases": [
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "పెన్సిల్",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "రబ్బరు",
+      "aliases": [
+        "rubber",
+        "eraser"
       ]
     },
     "books": {
@@ -3637,6 +3698,12 @@
         "rangoli"
       ]
     },
+    "decorative_lights": {
+      "name": "అలంకరణ దీపాలు",
+      "aliases": [
+        "serial lights"
+      ]
+    },
     "fever_tablets": {
       "name": "జ్వరం మాత్రలు",
       "aliases": [
@@ -3650,10 +3717,41 @@
         "balm"
       ]
     },
+    "bandage": {
+      "name": "కట్టు",
+      "aliases": [
+        "kattu",
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "యాంటిసెప్టిక్ ద్రావణం",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS పొడి",
+      "aliases": [
+        "ors"
+      ]
+    },
     "cough_syrup": {
       "name": "దగ్గు మందు",
       "aliases": [
         "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "సబ్బు",
+      "aliases": [
+        "sabbu"
+      ]
+    },
+    "comb": {
+      "name": "దువ్వెన",
+      "aliases": [
+        "duvvena"
       ]
     },
     "batteries": {
@@ -3666,6 +3764,12 @@
       "name": "బల్బు",
       "aliases": [
         "bulb"
+      ]
+    },
+    "extension_board": {
+      "name": "ఎక్స్టెన్షన్ బోర్డు",
+      "aliases": [
+        "extension"
       ]
     },
     "glue": {
