@@ -64,16 +64,6 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-// MigrationTestHelper reads the committed schemas as assets (CL-210; same approach as the quality pass,
-// CL-173). Added to the unit-test component only through the Variant API (AGP 9 no longer accepts the
-// legacy sourceSets cast), so the schemas never ship in an APK.
-androidComponents {
-    onVariants { variant ->
-        variant.hostTests[HostTestBuilder.UNIT_TEST_TYPE]?.sources?.assets
-            ?.addStaticSourceDirectory(layout.projectDirectory.dir("schemas").asFile.absolutePath)
-    }
-}
-
 // Exported schemas are committed: they are the baseline for migrations and MigrationTestHelper tests.
 room {
     schemaDirectory("$projectDir/schemas")
