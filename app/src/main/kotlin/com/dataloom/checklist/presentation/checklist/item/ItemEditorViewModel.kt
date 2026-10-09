@@ -89,6 +89,9 @@ data class ItemEditorUiState(
     /** The photos part of the form; see [PhotoFormState]. */
     val photoForm: PhotoFormState = PhotoFormState(),
 ) {
+    /** Saving, loading or still processing a photo (which would be lost). */
+    val isBusy: Boolean get() = isSaving || isLoading || photoForm.processing > 0
+
     val selectedUnit: UnitDef? get() = units.firstOrNull { it.code == unit }
 
     /**
@@ -97,7 +100,7 @@ data class ItemEditorUiState(
      * (a unit needs an amount; whole-number units) are answered by the domain when saving.
      */
     val canSave: Boolean
-        get() = !isSaving && !isLoading && photoForm.processing == 0 &&
+        get() = !isBusy &&
             isAccepted(name) { ItemValidator.validate(it, null, null, null) } &&
             quantityFieldError(quantityText) == null &&
             isAccepted(notes) { ItemValidator.validate("x", null, null, it) }
@@ -275,7 +278,7 @@ class ItemEditorViewModel @AssistedInject constructor(
     private fun save() {
         val current = form.value
         // Also false while a photo is still being processed: it would be lost.
-        if (current.isSaving || current.isLoading || current.photoForm.processing > 0) return
+        if (current.isBusy) return
         val quantity = when (val parsed = QuantityInput.parse(current.quantityText)) {
             QuantityParse.Empty -> null
             is QuantityParse.Valid -> parsed.quantity
