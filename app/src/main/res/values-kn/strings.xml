@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">ಓದಲು ಸುಲಭವಾದ ಗಾಢ ಬಣ್ಣಗಳು</string>
     <string name="text_size_preview">ಪೂರ್ವವೀಕ್ಷಣೆ</string>
     <string name="text_size_preview_item">ಅಕ್ಕಿ</string>
+    <string name="db_problem_close">ಆ್ಯಪ್ ಮುಚ್ಚಿ</string>
+    <string name="db_migration_failed_title">ನಿಮ್ಮ ಪಟ್ಟಿಗಳು ಸುರಕ್ಷಿತವಾಗಿವೆ</string>
+    <string name="db_migration_failed_body">ನಿಮ್ಮ ಪಟ್ಟಿಗಳನ್ನು ಉಳಿಸುವ ವಿಧಾನವನ್ನು CheckList ಅಪ್‌ಡೇಟ್ ಮಾಡಲು ಆಗಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಅಪ್‌ಡೇಟ್‌ಗಿಂತ ಮೊದಲು ಉಳಿಸಿದ ಪ್ರತಿಯನ್ನು ಮರಳಿ ಇರಿಸಿದೆ. ಏನೂ ಕಳೆದುಹೋಗಿಲ್ಲ. ಆ್ಯಪ್ ಮುಚ್ಚಿ ಮತ್ತೆ ತೆರೆಯಿರಿ. ಇದು ಮತ್ತೆ ಮತ್ತೆ ಆದರೆ, ಆ್ಯಪ್‌ನ ಮುಂದಿನ ಅಪ್‌ಡೇಟ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ.</string>
+    <string name="db_newer_title">CheckList ನ ಹೊಸ ಆವೃತ್ತಿಯನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ</string>
+    <string name="db_newer_body">ನಿಮ್ಮ ಪಟ್ಟಿಗಳನ್ನು CheckList ನ ಹೊಸ ಆವೃತ್ತಿ ಉಳಿಸಿದೆ. ಅವುಗಳನ್ನು ಬದಲಾಯಿಸಿಲ್ಲ. ಅವುಗಳನ್ನು ಮತ್ತೆ ನೋಡಲು ಹೊಸ ಆವೃತ್ತಿಯನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ.</string>
+    <string name="db_open_failed_title">CheckList ಗೆ ನಿಮ್ಮ ಪಟ್ಟಿಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ</string>
+    <string name="db_open_failed_body">ಏನನ್ನೂ ಅಳಿಸಿಲ್ಲ. ಆ್ಯಪ್ ಮುಚ್ಚಿ ಮತ್ತೆ ತೆರೆಯಿರಿ. ಇದು ಮತ್ತೆ ಮತ್ತೆ ಆದರೆ, ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ರೀಸ್ಟಾರ್ಟ್ ಮಾಡಿ.</string>
 </resources>

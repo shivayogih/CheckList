@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">पढ़ने में आसान, गहरे रंग</string>
     <string name="text_size_preview">पूर्वावलोकन</string>
     <string name="text_size_preview_item">चावल</string>
+    <string name="db_problem_close">ऐप बंद करें</string>
+    <string name="db_migration_failed_title">आपकी सूचियाँ सुरक्षित हैं</string>
+    <string name="db_migration_failed_body">CheckList आपकी सूचियों को सहेजने का तरीका अपडेट नहीं कर सका, इसलिए उसने अपडेट से पहले सहेजी गई कॉपी वापस लगा दी। कुछ भी नहीं खोया। ऐप बंद करके फिर से खोलें। अगर ऐसा बार-बार हो, तो ऐप का अगला अपडेट इंस्टॉल करें।</string>
+    <string name="db_newer_title">CheckList का नया संस्करण इंस्टॉल करें</string>
+    <string name="db_newer_body">आपकी सूचियाँ CheckList के नए संस्करण ने सहेजी थीं। उनमें कोई बदलाव नहीं हुआ है। उन्हें फिर से देखने के लिए नया संस्करण इंस्टॉल करें।</string>
+    <string name="db_open_failed_title">CheckList आपकी सूचियाँ नहीं खोल सका</string>
+    <string name="db_open_failed_body">कुछ भी हटाया नहीं गया। ऐप बंद करके फिर से खोलें। अगर ऐसा बार-बार हो, तो अपना फ़ोन रीस्टार्ट करें।</string>
 </resources>

@@ -12,9 +12,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dataloom.checklist.data.local.database.DatabaseHealth
+import com.dataloom.checklist.data.local.database.DatabaseState
 import com.dataloom.checklist.localization.AppCompatLanguageProvider
 import com.dataloom.checklist.navigation.CheckListNavHost
 import com.dataloom.checklist.onboarding.StartViewModel
+import com.dataloom.checklist.presentation.common.DatabaseProblemScreen
 import com.dataloom.checklist.presentation.components.BrandSplash
 import com.dataloom.checklist.presentation.settings.AppearanceViewModel
 import com.dataloom.checklist.presentation.theme.CheckListTheme
@@ -35,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var languageProvider: AppCompatLanguageProvider
+
+    @Inject
+    lateinit var databaseHealth: DatabaseHealth
 
     private val startViewModel: StartViewModel by viewModels()
     private val appearanceViewModel: AppearanceViewModel by viewModels()
@@ -65,7 +71,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 val start by startViewModel.start.collectAsStateWithLifecycle()
                 val destination = start
-                if (destination == null || !splashDone) BrandSplash() else CheckListNavHost(destination)
+                // The database is opened in the background at launch (DatabaseWarmUp). If that open failed,
+                // the app shows why instead of screens that would only hit the same error (CL-321).
+                val database by databaseHealth.state.collectAsStateWithLifecycle()
+                val failed = database as? DatabaseState.Failed
+                when {
+                    !splashDone -> BrandSplash()
+                    failed != null -> DatabaseProblemScreen(failed.failure, onClose = ::finishAffinity)
+                    destination == null -> BrandSplash()
+                    else -> CheckListNavHost(destination)
+                }
             }
         }
     }

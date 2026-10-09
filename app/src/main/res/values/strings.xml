@@ -343,4 +343,12 @@
     <string name="settings_high_contrast_summary">Stronger colours that are easier to read</string>
     <string name="text_size_preview">Preview</string>
     <string name="text_size_preview_item">Rice</string>
+    <!-- Database could not be opened after an update (CL-321). -->
+    <string name="db_problem_close">Close app</string>
+    <string name="db_migration_failed_title">Your lists are safe</string>
+    <string name="db_migration_failed_body">CheckList could not finish updating how your lists are stored, so it put back the copy saved before the update. Nothing was lost. Close the app and open it again. If this keeps happening, install the next app update.</string>
+    <string name="db_newer_title">Install the latest CheckList</string>
+    <string name="db_newer_body">Your lists were saved by a newer version of CheckList. They have not been changed. Install the latest version to see them again.</string>
+    <string name="db_open_failed_title">CheckList could not open your lists</string>
+    <string name="db_open_failed_body">Nothing was deleted. Close the app and open it again. If this keeps happening, restart your phone.</string>
 </resources>

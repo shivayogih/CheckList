@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">वाचायला सोपे, गडद रंग</string>
     <string name="text_size_preview">पूर्वावलोकन</string>
     <string name="text_size_preview_item">तांदूळ</string>
+    <string name="db_problem_close">ॲप बंद करा</string>
+    <string name="db_migration_failed_title">तुमच्या याद्या सुरक्षित आहेत</string>
+    <string name="db_migration_failed_body">CheckList तुमच्या याद्या जतन करण्याची पद्धत अपडेट करू शकले नाही, म्हणून अपडेटपूर्वी जतन केलेली प्रत परत ठेवली. काहीही हरवले नाही. ॲप बंद करून पुन्हा उघडा. असे वारंवार होत असल्यास, ॲपचे पुढील अपडेट इंस्टॉल करा.</string>
+    <string name="db_newer_title">CheckList ची नवीनतम आवृत्ती इंस्टॉल करा</string>
+    <string name="db_newer_body">तुमच्या याद्या CheckList च्या नवीन आवृत्तीने जतन केल्या होत्या. त्यांत कोणताही बदल झालेला नाही. त्या पुन्हा पाहण्यासाठी नवीनतम आवृत्ती इंस्टॉल करा.</string>
+    <string name="db_open_failed_title">CheckList तुमच्या याद्या उघडू शकले नाही</string>
+    <string name="db_open_failed_body">काहीही हटवले नाही. ॲप बंद करून पुन्हा उघडा. असे वारंवार होत असल्यास, तुमचा फोन रीस्टार्ट करा.</string>
 </resources>

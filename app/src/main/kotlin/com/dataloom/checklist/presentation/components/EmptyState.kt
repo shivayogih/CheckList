@@ -51,7 +51,7 @@ fun EmptyState(
                 .clearAndSetSemantics { },
             contentAlignment = Alignment.Center,
         ) {
-            Text(emoji, fontSize = 72.sp, lineHeight = 88.sp, textAlign = TextAlign.Center)
+            Text(emoji, fontSize = 56.sp, lineHeight = 68.sp, textAlign = TextAlign.Center)
         }
         Text(
             text = title,

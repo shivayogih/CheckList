@@ -29,7 +29,7 @@ How the Room database changes between app versions without ever losing a user's 
 5. **No crash loop.** The failure is remembered for the process: every later access throws the same `DatabaseOpenException` immediately instead of retrying and restoring again. `DatabaseHealth.state` (a `StateFlow` of `DatabaseState`) publishes `Ready(migratedFrom)` or `Failed(failure)` for the UI. The next launch tries again from the restored file, so an app update that fixes the migration succeeds without any user action.
 6. Everything is logged through `AppLog` (tag `DbMigration`, no personal data). If the backup itself cannot be made (storage full), the upgrade still runs inside its transaction and a warning is logged.
 
-Not done yet: a user-facing recovery screen for `DatabaseState.Failed` (it needs new localized strings and belongs with the UI work). Until then the failure is a typed exception on first database access plus the state flow.
+User-facing screen (CL-321): `MainActivity` watches `DatabaseHealth.state` and, on `Failed`, shows `DatabaseProblemScreen` instead of the app. It says in plain words that the lists are safe (migration failed and the pre-update copy was put back), that a newer version saved them (downgrade), or that nothing was deleted (other open failure), in all seven languages. Its only action closes the app, because the next launch retries the open.
 
 ## Adding a migration (checklist)
 

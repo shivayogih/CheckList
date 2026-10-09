@@ -341,4 +341,11 @@
     <string name="settings_high_contrast_summary">വായിക്കാൻ എളുപ്പമുള്ള കടും നിറങ്ങൾ</string>
     <string name="text_size_preview">പ്രിവ്യൂ</string>
     <string name="text_size_preview_item">അരി</string>
+    <string name="db_problem_close">ആപ്പ് അടയ്ക്കുക</string>
+    <string name="db_migration_failed_title">നിങ്ങളുടെ ലിസ്റ്റുകൾ സുരക്ഷിതമാണ്</string>
+    <string name="db_migration_failed_body">നിങ്ങളുടെ ലിസ്റ്റുകൾ സൂക്ഷിക്കുന്ന രീതി CheckList-ന് അപ്ഡേറ്റ് ചെയ്യാനായില്ല, അതിനാൽ അപ്ഡേറ്റിന് മുമ്പ് സൂക്ഷിച്ച പകർപ്പ് തിരികെ വെച്ചു. ഒന്നും നഷ്ടപ്പെട്ടിട്ടില്ല. ആപ്പ് അടച്ച് വീണ്ടും തുറക്കുക. ഇത് വീണ്ടും സംഭവിച്ചാൽ, ആപ്പിന്റെ അടുത്ത അപ്ഡേറ്റ് ഇൻസ്റ്റാൾ ചെയ്യുക.</string>
+    <string name="db_newer_title">CheckList-ന്റെ പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക</string>
+    <string name="db_newer_body">നിങ്ങളുടെ ലിസ്റ്റുകൾ CheckList-ന്റെ പുതിയ പതിപ്പാണ് സൂക്ഷിച്ചത്. അവയിൽ മാറ്റമൊന്നും വരുത്തിയിട്ടില്ല. അവ വീണ്ടും കാണാൻ പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക.</string>
+    <string name="db_open_failed_title">CheckList-ന് നിങ്ങളുടെ ലിസ്റ്റുകൾ തുറക്കാനായില്ല</string>
+    <string name="db_open_failed_body">ഒന്നും ഇല്ലാതാക്കിയിട്ടില്ല. ആപ്പ് അടച്ച് വീണ്ടും തുറക്കുക. ഇത് വീണ്ടും സംഭവിച്ചാൽ, നിങ്ങളുടെ ഫോൺ റീസ്റ്റാർട്ട് ചെയ്യുക.</string>
 </resources>
