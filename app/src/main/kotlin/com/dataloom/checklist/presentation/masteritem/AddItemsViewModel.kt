@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.CategoryId
 import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.MasterItem
 import com.dataloom.checklist.domain.model.MasterItemId
 import com.dataloom.checklist.domain.model.SectionId
@@ -84,6 +85,9 @@ sealed interface AddItemsAction {
     data class QueryChanged(val query: String) : AddItemsAction
     data class AllCategoriesChanged(val enabled: Boolean) : AddItemsAction
     data class ToggleItem(val id: MasterItemId) : AddItemsAction
+
+    /** Adds the suggestion to the section at once and opens its details (amount, unit, note, photos). */
+    data class PickItem(val id: MasterItemId) : AddItemsAction
     data class QuantityChanged(val id: MasterItemId, val text: String) : AddItemsAction
     data class UnitChanged(val id: MasterItemId, val unit: UnitCode?) : AddItemsAction
     data object AddSelected : AddItemsAction
@@ -91,6 +95,9 @@ sealed interface AddItemsAction {
 
 sealed interface AddItemsEffect {
     data class Added(val count: Int) : AddItemsEffect
+
+    /** [PickItem][AddItemsAction.PickItem] added the item; open its details form. */
+    data class OpenItem(val itemId: ChecklistItemId) : AddItemsEffect
 
     /** Some picks were already on the list; [names] were skipped, [addedCount] were added. */
     data class AlreadyOnList(val names: List<String>, val addedCount: Int) : AddItemsEffect
@@ -194,6 +201,7 @@ class AddItemsViewModel @AssistedInject constructor(
                 savedState[KEY_ALL_CATEGORIES] = action.enabled
             }
             is AddItemsAction.ToggleItem -> toggle(action.id)
+            is AddItemsAction.PickItem -> pick(action.id)
             is AddItemsAction.QuantityChanged -> {
                 // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
                 val text = QuantityInput.sanitize(action.text)
@@ -214,6 +222,28 @@ class AddItemsViewModel @AssistedInject constructor(
                 val item = results.value.firstOrNull { it.id == id } ?: return@update current
                 // The unit defaults to the item's usual unit (kg for rice); it is used only with an amount.
                 current + (id to Draft(item, quantityText = "", unit = item.defaultUnit))
+            }
+        }
+    }
+
+    private fun pick(id: MasterItemId) {
+        if (isSaving.value) return
+        val item = results.value.firstOrNull { it.id == id } ?: drafts.value[id]?.item ?: return
+        isSaving.value = true
+        viewModelScope.launch {
+            val result = addMasterItems(checklist, section, listOf(MasterItemSelection(item)), languageProvider.language.value)
+            isSaving.value = false
+            when (result) {
+                is DomainResult.Success -> {
+                    val added = result.value.addedItemIds.firstOrNull()
+                    val effect = if (added != null) {
+                        AddItemsEffect.OpenItem(added)
+                    } else {
+                        AddItemsEffect.AlreadyOnList(result.value.alreadyPresent.map { it.displayName }, addedCount = 0)
+                    }
+                    effects.send(effect)
+                }
+                is DomainResult.Failure -> effects.send(AddItemsEffect.Error(result.error.toUiText()))
             }
         }
     }

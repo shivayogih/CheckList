@@ -54,7 +54,9 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -70,6 +72,7 @@ import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.progressText
 import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.common.resolve
+import com.dataloom.checklist.presentation.components.AppIconButton
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
@@ -317,17 +320,29 @@ private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction
         )
         Spacer(Modifier.weight(1f))
         Box {
-            TextButton(onClick = { sortMenuOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
-                Icon(painterResource(R.drawable.ic_sort), contentDescription = null)
-                Text(
-                    text = stringResource(R.string.home_sort_button, stringResource(sort.labelRes())),
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-            }
+            AppIconButton(
+                icon = painterResource(R.drawable.ic_sort),
+                contentDescription = stringResource(R.string.home_sort_button, stringResource(sort.labelRes())),
+                onClick = { sortMenuOpen = true },
+            )
             DropdownMenu(expanded = sortMenuOpen, onDismissRequest = { sortMenuOpen = false }) {
                 ChecklistSort.entries.forEach { option ->
+                    val current = option == sort
+                    val color = if (current) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                     DropdownMenuItem(
-                        text = { Text(stringResource(option.labelRes())) },
+                        text = {
+                            Text(
+                                stringResource(option.labelRes()),
+                                color = color,
+                                fontWeight = if (current) FontWeight.SemiBold else FontWeight.Normal,
+                            )
+                        },
+                        trailingIcon = if (current) {
+                            { Icon(painterResource(R.drawable.ic_check), contentDescription = null, tint = color) }
+                        } else {
+                            null
+                        },
+                        modifier = Modifier.semantics { selected = current },
                         onClick = {
                             sortMenuOpen = false
                             onAction(HomeAction.SortChanged(option))
