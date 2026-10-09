@@ -19,6 +19,10 @@ internal val LightColors = lightColorScheme(
     onPrimary = Neutral99,
     primaryContainer = Green90,
     onPrimaryContainer = Green20,
+    secondary = Green40,
+    onSecondary = Neutral99,
+    secondaryContainer = Green90,
+    onSecondaryContainer = Green20,
     background = Neutral99,
     onBackground = Neutral10,
     surface = Neutral99,
@@ -44,14 +48,18 @@ internal val LightColors = lightColorScheme(
 
 internal val DarkColors = darkColorScheme(
     primary = Green80,
-    onPrimary = Green20,
-    primaryContainer = Green40,
+    onPrimary = GreenOnDark,
+    primaryContainer = GreenContainerDark,
     onPrimaryContainer = Green90,
+    secondary = Green80,
+    onSecondary = GreenOnDark,
+    secondaryContainer = GreenContainerDark,
+    onSecondaryContainer = Green90,
     background = Neutral6,
     onBackground = Neutral90,
     surface = Neutral6,
     onSurface = Neutral90,
-    surfaceVariant = Neutral10,
+    surfaceVariant = SurfaceContainerDark,
     onSurfaceVariant = OutlineVariant80,
     outline = Outline70,
     outlineVariant = OutlineVariant30,
@@ -131,7 +139,7 @@ internal val HighContrastDarkColors = darkColorScheme(
 /** Colours the Material scheme has no role for. Read them through [MaterialTheme.extendedColors]. */
 @Immutable
 data class ExtendedColors(
-    /** The tinted primary background of a banner (UI-SPEC section 3): #E3EFE4 light, #1E2B1F dark. */
+    /** The tinted primary background of a banner (UI-SPEC section 3): #E1F3E7 light, #17301F dark. */
     val bannerContainer: Color,
 )
 

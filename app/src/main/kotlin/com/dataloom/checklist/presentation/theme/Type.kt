@@ -7,9 +7,10 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.sp
 
 // Compact scale (body 16, secondary 12 to 14, titles 18 to 20): text sits neatly on the screen and the
-// user's system font size does the enlarging. Line height stays generous because tall Indic scripts (Kannada, Tamil, Malayalam) from clipping, and the line height is not trimmed
-// (LineHeightStyle.Trim.None) so the first and last line keep their full height. All sizes in sp,
-// so system font scaling still applies on top. Floor: 12 sp. The scale is recorded in docs/ui-design-system.md.
+// user's system font size does the enlarging. Line height stays generous because tall Indic scripts
+// (Kannada, Tamil, Malayalam) clip otherwise, and it is not trimmed (LineHeightStyle.Trim.None) so the
+// first and last line keep their full height. All sizes in sp, so system font scaling still applies on top.
+// Floor: 12 sp. The scale is recorded in docs/ui-design-system.md.
 // System fonts only: Android picks the right script font for each language.
 
 private val NoTrim = LineHeightStyle(
