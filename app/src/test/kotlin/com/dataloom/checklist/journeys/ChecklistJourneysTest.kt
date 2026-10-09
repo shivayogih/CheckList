@@ -13,6 +13,7 @@ import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.isToggleable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import com.dataloom.checklist.MainActivity
@@ -94,9 +95,10 @@ class ChecklistJourneysTest {
         composeRule.awaitNode(hasText(string(R.string.action_edit)) and hasClickAction()).performClick()
 
         composeRule.awaitText(string(R.string.item_edit_title))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.item_quantity_optional)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.item_quantity_optional)))
             .performTextReplacement("2.5")
         composeRule.awaitNode(hasText(string(R.string.unit_button, string(R.string.unit_none))) and hasClickAction())
+            .performScrollTo()
             .performClick()
         composeRule.awaitText(string(R.string.unit_picker_title))
         composeRule.awaitNode(hasText(string(R.string.unit_kg)) and isSelectable()).performClick()
@@ -127,7 +129,7 @@ class ChecklistJourneysTest {
     /** J1: Home (first use) -> Create checklist -> name + Groceries -> Create -> detail screen. */
     private fun createChecklist(title: String) {
         composeRule.awaitNode(hasText(string(R.string.home_create_checklist)) and hasClickAction()).performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.create_title_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.create_title_label)))
             .performTextInput(title)
         composeRule.awaitNode(hasText(GROCERIES) and isToggleable()).performClick()
         composeRule.awaitNode(hasText(string(R.string.action_create)) and hasClickAction()).performClick()
@@ -138,7 +140,7 @@ class ChecklistJourneysTest {
     private fun addCatalogItem(name: String) {
         composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
             .performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.add_items_search_label)))
             .performTextInput(name)
         composeRule.awaitNode(hasText(name) and isToggleable()).performClick()
         composeRule.awaitText(string(R.string.item_edit_title))
@@ -150,7 +152,7 @@ class ChecklistJourneysTest {
     private fun addCustomItem(name: String) {
         composeRule.awaitNode(hasText(string(R.string.detail_add_item_to, GROCERIES)) and hasClickAction())
             .performClick()
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        composeRule.awaitNode(hasSetTextAction() and hasContentDescription(string(R.string.add_items_search_label)))
             .performTextInput(name)
         composeRule.awaitNode(hasText(string(R.string.add_items_create_named, name)) and hasClickAction())
             .performClick()

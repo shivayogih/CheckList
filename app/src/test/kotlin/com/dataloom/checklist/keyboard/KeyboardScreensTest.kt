@@ -1,8 +1,13 @@
 package com.dataloom.checklist.keyboard
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -40,6 +45,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -53,6 +59,9 @@ import org.robolectric.RobolectricTestRunner
  * Every screen with a text field, rendered through the real NavHost with a simulated keyboard
  * (CL-300..304): its primary action sits above the keyboard, the form can scroll, and the field the
  * user types in is reachable. The audit table is in docs/ui-keyboard-and-insets.md.
+ *
+ * Every test also taps a field and checks that it keeps focus and that nothing asks the keyboard to hide
+ * once the keyboard has opened and the screen has re-laid out (CL-340: the keyboard closed itself).
  *
  * Robolectric delivers IME insets to Compose; it has no real keyboard, so animation, system window
  * panning and keyboard apps are not covered (an emulator check is listed in the doc).
@@ -75,6 +84,8 @@ class KeyboardScreensTest {
 
     private lateinit var navController: NavHostController
 
+    private val keyboard = CountingKeyboard()
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -84,13 +95,15 @@ class KeyboardScreensTest {
     fun `create checklist keeps Create above the keyboard and the form scrolls`() {
         launchApp()
         navigate(CreateChecklistRoute)
-        val title = composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.create_title_label)))
+        val title = composeRule.awaitNode(field(R.string.create_title_label))
         title.performClick()
         composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
 
         assertAboveKeyboard(button(string(R.string.action_create)))
-        assertAboveKeyboard(hasSetTextAction() and hasText(string(R.string.create_title_label)))
+        assertAboveKeyboard(field(R.string.create_title_label))
         assertScrollable()
+        assertKeyboardStaysOpen(field(R.string.create_title_label))
+        assertKeyboardStaysOpen(field(R.string.create_description_label))
     }
 
     @Test
@@ -104,7 +117,9 @@ class KeyboardScreensTest {
         assertAboveKeyboard(button(string(R.string.detail_add_item)))
         assertScrollable()
         // The last field of the form is reachable by scrolling and ends above the keyboard.
-        assertAboveKeyboard(hasSetTextAction() and hasText(string(R.string.item_notes_label)), scrollFirst = true)
+        assertAboveKeyboard(field(R.string.item_notes_label), scrollFirst = true)
+        assertKeyboardStaysOpen(field(R.string.item_name_label))
+        assertKeyboardStaysOpen(field(R.string.item_notes_label))
     }
 
     @Test
@@ -112,11 +127,12 @@ class KeyboardScreensTest {
         val (checklist, section) = seedChecklist()
         launchApp()
         navigate(AddItemsRoute(checklist.value, section.value))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.add_items_search_label))).performClick()
+        composeRule.awaitNode(field(R.string.add_items_search_label)).performClick()
         composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
 
-        assertAboveKeyboard(hasSetTextAction() and hasText(string(R.string.add_items_search_label)))
+        assertAboveKeyboard(field(R.string.add_items_search_label))
         assertScrollable()
+        assertKeyboardStaysOpen(field(R.string.add_items_search_label))
     }
 
     @Test
@@ -136,11 +152,12 @@ class KeyboardScreensTest {
         launchApp()
         navigate(ProfileRoute)
         composeRule.awaitText(string(R.string.profile_intro))
-        composeRule.awaitNode(hasSetTextAction() and hasText(string(R.string.profile_name))).performClick()
+        composeRule.awaitNode(field(R.string.profile_name)).performClick()
         composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
 
         assertScrollable()
         assertAboveKeyboard(button(string(R.string.action_save)), scrollFirst = true)
+        assertKeyboardStaysOpen(field(R.string.profile_name))
     }
 
     @Test
@@ -158,17 +175,21 @@ class KeyboardScreensTest {
     fun `home list scrolls and the search field is above the keyboard`() {
         seedChecklist()
         launchApp()
-        val search = hasSetTextAction() and hasText(string(R.string.home_search_label))
+        val search = field(R.string.home_search_label)
         composeRule.awaitNode(search).performClick()
         composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
 
         assertAboveKeyboard(search)
         assertScrollable()
+        assertKeyboardStaysOpen(search)
     }
 
     // ----------------------------------------------------------------------------------------
 
     private fun button(text: String): SemanticsMatcher = hasText(text) and hasClickAction()
+
+    /** A text field, found by its label (the mockup fields carry the label as their content description). */
+    private fun field(label: Int): SemanticsMatcher = hasSetTextAction() and hasContentDescription(string(label))
 
     /** Fails unless the first node matching [matcher] ends above the keyboard (scrolling to it first if asked). */
     private fun assertAboveKeyboard(matcher: SemanticsMatcher, scrollFirst: Boolean = false) {
@@ -180,6 +201,23 @@ class KeyboardScreensTest {
         assertTrue("node ends at $bottom dp but the keyboard starts at $limit dp", bottom <= limit + TOLERANCE_DP)
     }
 
+    /**
+     * Taps the field, opens the keyboard and lets the layout settle (bring-into-view scrolls included), then
+     * fails if the field lost focus or anything asked the keyboard to hide.
+     */
+    private fun assertKeyboardStaysOpen(matcher: SemanticsMatcher) {
+        composeRule.simulateKeyboard(composeRule.activity, 0)
+        keyboard.hides = 0
+        val field = composeRule.awaitNode(matcher)
+        field.performScrollTo().performClick()
+        composeRule.simulateKeyboard(composeRule.activity, KEYBOARD_PX)
+        composeRule.mainClock.advanceTimeBy(SETTLE_MILLIS)
+        composeRule.waitForIdle()
+
+        composeRule.onAllNodes(matcher).onFirst().assertIsFocused()
+        assertEquals("the keyboard was asked to hide", 0, keyboard.hides)
+    }
+
     private fun assertScrollable() {
         val scrollables = composeRule.onAllNodes(hasScrollAction()).fetchSemanticsNodes()
         assertTrue("the screen has no scrollable container", scrollables.isNotEmpty())
@@ -189,7 +227,9 @@ class KeyboardScreensTest {
         composeRule.setContent {
             CheckListTheme {
                 navController = rememberNavController()
-                CheckListNavHost(StartDestination.HOME, navController)
+                CompositionLocalProvider(LocalSoftwareKeyboardController provides keyboard) {
+                    CheckListNavHost(StartDestination.HOME, navController)
+                }
             }
         }
         composeRule.waitForIdle()
@@ -207,7 +247,19 @@ class KeyboardScreensTest {
         checklist to checklists.observeChecklist(checklist, "en").first()!!.sections.single().id
     }
 
+    /** Stands in for the soft keyboard: counts the requests to hide it. */
+    private class CountingKeyboard : SoftwareKeyboardController {
+        var hides = 0
+
+        override fun show() = Unit
+
+        override fun hide() {
+            hides++
+        }
+    }
+
     private companion object {
+        const val SETTLE_MILLIS = 1_000L
         const val KEYBOARD_PX = 200
         const val TOLERANCE_DP = 1f
         const val GROCERIES = "Groceries & Staples"

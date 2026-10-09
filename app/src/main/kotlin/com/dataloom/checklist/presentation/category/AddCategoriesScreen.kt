@@ -2,11 +2,9 @@ package com.dataloom.checklist.presentation.category
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,6 +29,7 @@ import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
+import com.dataloom.checklist.presentation.components.PrimaryButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,17 +64,15 @@ fun AddCategoriesScreen(
         },
         bottomBar = {
             Surface(tonalElevation = 3.dp) {
-                Button(
+                PrimaryButton(
+                    text = countText(R.plurals.add_selected_categories, state.selectedCount),
                     onClick = { onAction(AddCategoriesAction.Save) },
                     enabled = !state.isSaving && state.selectedCount > 0,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(16.dp)
-                        .heightIn(min = 56.dp),
-                ) {
-                    Text(countText(R.plurals.add_selected_categories, state.selectedCount))
-                }
+                        .padding(16.dp),
+                )
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },

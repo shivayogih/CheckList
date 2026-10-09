@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -72,7 +70,9 @@ import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
 import com.dataloom.checklist.presentation.components.OverflowMenu
+import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.photos.ItemPhotoSlot
 import com.dataloom.checklist.presentation.reminder.ReminderEffects
@@ -486,19 +486,18 @@ private fun AddCategoriesFooter(noSections: Boolean, onAddCategories: () -> Unit
     ) {
         if (noSections) {
             Text(stringResource(R.string.detail_no_sections), style = MaterialTheme.typography.bodyLarge)
-            Button(
+            PrimaryButton(
+                text = stringResource(R.string.add_categories_title),
                 onClick = onAddCategories,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 56.dp),
-            ) { Text(stringResource(R.string.add_categories_title)) }
+                modifier = Modifier.fillMaxWidth(),
+            )
         } else {
-            OutlinedButton(
+            OutlinedActionButton(
+                text = stringResource(R.string.add_categories_title),
+                leadingIcon = painterResource(R.drawable.ic_add),
                 onClick = onAddCategories,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 48.dp),
-            ) { Text(stringResource(R.string.add_categories_title)) }
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }

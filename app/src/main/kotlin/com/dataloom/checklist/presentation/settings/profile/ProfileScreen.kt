@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -28,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
@@ -41,15 +37,15 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.asString
-import com.dataloom.checklist.presentation.common.bringIntoViewWhenFocused
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
-import com.dataloom.checklist.presentation.components.fieldSupportingText
-import com.dataloom.checklist.presentation.components.inputLength
+import com.dataloom.checklist.presentation.components.FormField
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
+import com.dataloom.checklist.presentation.components.PrimaryButton
 
 /** Settings > Your profile: optional name and contact details, kept encrypted on this phone. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -139,20 +135,18 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
                 singleLine = false,
             )
 
-            Button(
+            PrimaryButton(
+                text = stringResource(R.string.action_save),
                 onClick = { onAction(ProfileAction.Save) },
                 enabled = state.canSave,
-                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
-            ) {
-                Text(stringResource(R.string.action_save))
-            }
+                modifier = Modifier.fillMaxWidth(),
+            )
             if (state.canClear) {
-                OutlinedButton(
+                OutlinedActionButton(
+                    text = stringResource(R.string.profile_clear),
                     onClick = { onAction(ProfileAction.RequestClear) },
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                ) {
-                    Text(stringResource(R.string.profile_clear))
-                }
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
         }
     }
@@ -205,20 +199,14 @@ private fun ProfileField(
     maxLength: Int? = null,
     singleLine: Boolean = true,
 ) {
-    val errorText = error?.asString()
-    OutlinedTextField(
+    FormField(
+        label = label,
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
-        singleLine = singleLine,
-        minLines = if (singleLine) 1 else 3,
+        errorText = error?.asString(),
+        multiLine = !singleLine,
         enabled = enabled,
-        isError = errorText != null,
-        supportingText = fieldSupportingText(errorText, value.inputLength(), maxLength),
+        maxLength = maxLength,
         keyboardOptions = keyboardOptions,
-        modifier = Modifier
-            .fillMaxWidth()
-            .bringIntoViewWhenFocused()
-            .semantics { if (errorText != null) error(errorText) },
     )
 }

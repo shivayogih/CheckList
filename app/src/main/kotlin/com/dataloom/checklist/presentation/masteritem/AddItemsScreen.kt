@@ -6,17 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -29,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,11 +30,12 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
-import com.dataloom.checklist.presentation.common.rememberDismissKeyboardActions
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.CheckRow
+import com.dataloom.checklist.presentation.components.OutlinedActionButton
+import com.dataloom.checklist.presentation.components.SearchField
 
 /**
  * Picking a suggestion adds it to the section and [onOpenItem] opens its details (amount, unit, note,
@@ -112,23 +106,18 @@ fun AddItemsScreen(
             }
             item {
                 val name = state.query.trim()
-                OutlinedButton(
+                OutlinedActionButton(
+                    text = if (state.canCreateCustom) {
+                        stringResource(R.string.add_items_create_named, name)
+                    } else {
+                        stringResource(R.string.add_items_create_own)
+                    },
+                    leadingIcon = painterResource(R.drawable.ic_add),
                     onClick = { onCreateCustom(if (state.canCreateCustom) name else "") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                        .heightIn(min = 48.dp),
-                ) {
-                    Icon(painterResource(R.drawable.ic_add), contentDescription = null)
-                    Text(
-                        text = if (state.canCreateCustom) {
-                            stringResource(R.string.add_items_create_named, name)
-                        } else {
-                            stringResource(R.string.add_items_create_own)
-                        },
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
+                        .padding(16.dp),
+                )
             }
         }
     }
@@ -137,29 +126,11 @@ fun AddItemsScreen(
 @Composable
 private fun SearchBar(state: AddItemsUiState, onAction: (AddItemsAction) -> Unit) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        OutlinedTextField(
+        SearchField(
             value = state.query,
             onValueChange = { onAction(AddItemsAction.QueryChanged(it)) },
-            label = { Text(stringResource(R.string.add_items_search_label)) },
-            singleLine = true,
-            leadingIcon = { Icon(painterResource(R.drawable.ic_search), contentDescription = null) },
-            trailingIcon = if (state.query.isEmpty()) {
-                null
-            } else {
-                {
-                    // Explicit 48dp: inside the field the default 40dp button lost its touch
-                    // padding at 200% text.
-                    IconButton(
-                        onClick = { onAction(AddItemsAction.QueryChanged("")) },
-                        modifier = Modifier.size(48.dp),
-                    ) {
-                        Icon(painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.search_clear))
-                    }
-                }
-            },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = rememberDismissKeyboardActions(),
-            modifier = Modifier.fillMaxWidth(),
+            placeholder = stringResource(R.string.add_items_search_label),
+            clearContentDescription = stringResource(R.string.search_clear),
         )
         FilterChip(
             selected = state.allCategories,
