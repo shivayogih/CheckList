@@ -339,6 +339,6 @@
     <string name="text_size_extra_large">ಅತಿ ದೊಡ್ಡದು</string>
     <string name="settings_high_contrast">ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್</string>
     <string name="settings_high_contrast_summary">ಓದಲು ಸುಲಭವಾದ ಗಾಢ ಬಣ್ಣಗಳು</string>
-    <string name="text_size_preview">ಮುನ್ನೋಟ</string>
+    <string name="text_size_preview">ಪೂರ್ವವೀಕ್ಷಣೆ</string>
     <string name="text_size_preview_item">ಅಕ್ಕಿ</string>
 </resources>

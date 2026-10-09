@@ -34,7 +34,7 @@
     <string name="share_export_step_install">1. %1$s इंस्टॉल करें।</string>
     <string name="share_export_step_open">2. ऐप खोलें → सेटिंग्स → आयात।</string>
     <string name="share_export_step_choose">3. यह फ़ाइल चुनें।</string>
-    <string name="share_export_step_confirm">4. झलक देखें और पुष्टि करें।</string>
+    <string name="share_export_step_confirm">4. पूर्वावलोकन देखें और पुष्टि करें।</string>
 
     <!-- Phase 3 core UI (CL-121 to CL-134). -->
     <string name="action_archive">संग्रहित करें</string>
