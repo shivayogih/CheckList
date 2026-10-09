@@ -224,7 +224,7 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
 
     companion object {
         const val TITLE = "Goa Trip"
-        const val GROCERIES = "Groceries"
+        const val GROCERIES = "Groceries & Staples"
         const val VEGETABLES = "Vegetables"
 
         @JvmStatic
