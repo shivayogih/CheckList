@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -140,8 +141,10 @@ private fun AddPhotoTile(onAdd: () -> Unit) {
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         color = MaterialTheme.colorScheme.surface,
+        // Grows with the text at large font sizes instead of cutting "Add photo" off.
         modifier = Modifier
-            .size(TileSize)
+            .width(TileSize)
+            .heightIn(min = TileSize)
             .clickable(role = Role.Button, onClick = onAdd),
     ) {
         Column(

@@ -158,10 +158,11 @@ internal fun PhotoViewerContent(
             key(photo.id) { CaptionField(photo, onCaption) }
             OutlinedButton(
                 onClick = onDelete,
+                // Padding first, so the 56 dp minimum is the size of the button itself.
                 modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .fillMaxWidth()
-                    .heightIn(min = 56.dp)
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .heightIn(min = 56.dp),
             ) { Text(stringResource(R.string.photo_viewer_delete)) }
         }
     }
