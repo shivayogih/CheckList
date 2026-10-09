@@ -8,7 +8,9 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.dataloom.checklist.ai.di.AiSettingsStore
 import com.dataloom.checklist.ai.policy.AiSettingsSource
 import com.dataloom.checklist.settings.AiPreferences
+import com.dataloom.checklist.settings.AppearancePreferences
 import com.dataloom.checklist.settings.DataStoreAiPreferences
+import com.dataloom.checklist.settings.DataStoreAppearancePreferences
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -27,6 +29,9 @@ abstract class SettingsModule {
 
     @Binds
     abstract fun bindAiPreferences(impl: DataStoreAiPreferences): AiPreferences
+
+    @Binds
+    abstract fun bindAppearancePreferences(impl: DataStoreAppearancePreferences): AppearancePreferences
 
     @Binds
     @AiSettingsStore

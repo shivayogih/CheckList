@@ -329,4 +329,16 @@
     <string name="settings_section_general">सामान्य</string>
     <string name="settings_section_data">आपका डेटा</string>
     <string name="settings_section_ai">AI सहायक</string>
+    <string name="settings_theme">थीम</string>
+    <string name="theme_system">फ़ोन के अनुसार</string>
+    <string name="theme_light">हल्की</string>
+    <string name="theme_dark">गहरी</string>
+    <string name="settings_text_size">अक्षरों का आकार</string>
+    <string name="text_size_normal">सामान्य</string>
+    <string name="text_size_large">बड़ा</string>
+    <string name="text_size_extra_large">बहुत बड़ा</string>
+    <string name="settings_high_contrast">हाई कंट्रास्ट</string>
+    <string name="settings_high_contrast_summary">पढ़ने में आसान, गहरे रंग</string>
+    <string name="text_size_preview">पूर्वावलोकन</string>
+    <string name="text_size_preview_item">चावल</string>
 </resources>

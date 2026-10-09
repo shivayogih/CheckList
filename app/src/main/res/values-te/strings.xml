@@ -329,4 +329,16 @@
     <string name="settings_section_general">సాధారణం</string>
     <string name="settings_section_data">మీ డేటా</string>
     <string name="settings_section_ai">AI సహాయకుడు</string>
+    <string name="settings_theme">థీమ్</string>
+    <string name="theme_system">ఫోన్ ప్రకారం</string>
+    <string name="theme_light">లేత</string>
+    <string name="theme_dark">ముదురు</string>
+    <string name="settings_text_size">అక్షరాల పరిమాణం</string>
+    <string name="text_size_normal">సాధారణం</string>
+    <string name="text_size_large">పెద్దది</string>
+    <string name="text_size_extra_large">చాలా పెద్దది</string>
+    <string name="settings_high_contrast">అధిక కాంట్రాస్ట్</string>
+    <string name="settings_high_contrast_summary">చదవడానికి సులభమైన ముదురు రంగులు</string>
+    <string name="text_size_preview">ప్రివ్యూ</string>
+    <string name="text_size_preview_item">బియ్యం</string>
 </resources>

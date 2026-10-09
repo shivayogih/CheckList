@@ -47,8 +47,9 @@ import com.dataloom.checklist.transfer.TransferDocuments
 import com.dataloom.checklist.transfer.TransferViewModel
 
 /**
- * Language, Your profile, export and import, the AI assistant switches, and About. Export and import go through the Storage
- * Access Framework: the user picks the file, so no storage permission is needed.
+ * Language, Theme, Text size, High contrast, Your profile, export and import, the AI assistant switches, and
+ * About. Export and import go through the Storage Access Framework: the user picks the file, so no storage
+ * permission is needed.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,12 +60,16 @@ fun SettingsScreen(
     onShowTutorial: () -> Unit,
     transferViewModel: TransferViewModel = hiltViewModel(),
     aiSettingsViewModel: AiSettingsViewModel = hiltViewModel(),
+    appearanceViewModel: AppearanceViewModel = hiltViewModel(),
 ) {
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
     val aiState by aiSettingsViewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     TransferEffects(transferViewModel, snackbarHostState)
+    val appearance by appearanceViewModel.appearance.collectAsStateWithLifecycle()
     var showExportOptions by rememberSaveable { mutableStateOf(false) }
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showTextSizeDialog by rememberSaveable { mutableStateOf(false) }
     val exportLauncher = rememberLauncherForActivityResult(TransferDocuments.createJson()) { uri ->
         if (uri != null) transferViewModel.exportTo(uri)
     }
@@ -104,6 +109,25 @@ fun SettingsScreen(
                     icon = painterResource(R.drawable.ic_translate),
                     value = languageSummary,
                     onClick = onOpenLanguage,
+                )
+                SettingsRow(
+                    title = stringResource(R.string.settings_theme),
+                    icon = painterResource(R.drawable.ic_dark_mode),
+                    value = appearance.themeMode.label(),
+                    onClick = { showThemeDialog = true },
+                )
+                SettingsRow(
+                    title = stringResource(R.string.settings_text_size),
+                    icon = painterResource(R.drawable.ic_format_size),
+                    value = appearance.textSize.label(),
+                    onClick = { showTextSizeDialog = true },
+                )
+                SettingsSwitchRow(
+                    title = stringResource(R.string.settings_high_contrast),
+                    subtitle = stringResource(R.string.settings_high_contrast_summary),
+                    icon = painterResource(R.drawable.ic_contrast),
+                    checked = appearance.highContrast,
+                    onCheckedChange = appearanceViewModel::setHighContrast,
                 )
                 SettingsRow(
                     title = stringResource(R.string.settings_profile),
@@ -203,6 +227,28 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+
+    if (showThemeDialog) {
+        ThemeDialog(
+            current = appearance.themeMode,
+            onSelect = { mode ->
+                showThemeDialog = false
+                appearanceViewModel.setThemeMode(mode)
+            },
+            onDismiss = { showThemeDialog = false },
+        )
+    }
+
+    if (showTextSizeDialog) {
+        TextSizeDialog(
+            current = appearance.textSize,
+            onSave = { size ->
+                showTextSizeDialog = false
+                appearanceViewModel.setTextSize(size)
+            },
+            onDismiss = { showTextSizeDialog = false },
+        )
     }
 
     if (showExportOptions) {

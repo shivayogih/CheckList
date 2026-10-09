@@ -329,4 +329,16 @@
     <string name="settings_section_general">பொது</string>
     <string name="settings_section_data">உங்கள் தரவு</string>
     <string name="settings_section_ai">AI உதவியாளர்</string>
+    <string name="settings_theme">தீம்</string>
+    <string name="theme_system">ஃபோனைப் போல</string>
+    <string name="theme_light">வெளிர்</string>
+    <string name="theme_dark">இருண்ட</string>
+    <string name="settings_text_size">எழுத்து அளவு</string>
+    <string name="text_size_normal">சாதாரணம்</string>
+    <string name="text_size_large">பெரியது</string>
+    <string name="text_size_extra_large">மிகப் பெரியது</string>
+    <string name="settings_high_contrast">அதிக மாறுபாடு</string>
+    <string name="settings_high_contrast_summary">படிக்க எளிதான அடர் நிறங்கள்</string>
+    <string name="text_size_preview">முன்னோட்டம்</string>
+    <string name="text_size_preview_item">அரிசி</string>
 </resources>

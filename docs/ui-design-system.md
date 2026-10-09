@@ -60,6 +60,10 @@ Settings is a grouped list: a `SectionHeader` (General, Your data, AI assistant,
 `SettingsGroup` card on `surfaceContainer`. Each `SettingsRow` / `SettingsSwitchRow` leads with its icon on a
 40 dp `primaryContainer` tile; the last row of a group passes `showDivider = false`.
 
+General holds Language, Theme (follow the phone / light / dark), Text size (normal 1.0, large 1.15, extra large
+1.3, on top of the phone's font size, with a live preview) and High contrast (the 7:1 palette). They are stored by
+`AppearancePreferences` (CL-302) and applied in `MainActivity` through `CheckListTheme`.
+
 ## Launcher icon and splash
 
 * The adaptive foreground is the production artwork scaled to 70 % and moved so the ring's centre sits on the

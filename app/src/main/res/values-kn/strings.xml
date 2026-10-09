@@ -329,4 +329,16 @@
     <string name="settings_section_general">ಸಾಮಾನ್ಯ</string>
     <string name="settings_section_data">ನಿಮ್ಮ ಡೇಟಾ</string>
     <string name="settings_section_ai">AI ಸಹಾಯಕ</string>
+    <string name="settings_theme">ಥೀಮ್</string>
+    <string name="theme_system">ಫೋನ್‌ನಂತೆ</string>
+    <string name="theme_light">ತಿಳಿ</string>
+    <string name="theme_dark">ಗಾಢ</string>
+    <string name="settings_text_size">ಅಕ್ಷರದ ಗಾತ್ರ</string>
+    <string name="text_size_normal">ಸಾಮಾನ್ಯ</string>
+    <string name="text_size_large">ದೊಡ್ಡದು</string>
+    <string name="text_size_extra_large">ಅತಿ ದೊಡ್ಡದು</string>
+    <string name="settings_high_contrast">ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್</string>
+    <string name="settings_high_contrast_summary">ಓದಲು ಸುಲಭವಾದ ಗಾಢ ಬಣ್ಣಗಳು</string>
+    <string name="text_size_preview">ಮುನ್ನೋಟ</string>
+    <string name="text_size_preview_item">ಅಕ್ಕಿ</string>
 </resources>
