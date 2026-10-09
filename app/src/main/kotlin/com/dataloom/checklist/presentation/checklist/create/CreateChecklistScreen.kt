@@ -35,13 +35,15 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.ChecklistId
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.category.CreateCategoryButton
 import com.dataloom.checklist.presentation.category.NewCategoryDialog
 import com.dataloom.checklist.presentation.category.categoryOptions
 import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.common.resolve
 import com.dataloom.checklist.presentation.components.BackButton
-import com.dataloom.checklist.presentation.components.optionalText
+import com.dataloom.checklist.presentation.components.fieldSupportingText
+import com.dataloom.checklist.presentation.components.inputLength
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,7 +77,7 @@ fun CreateChecklistScreen(
             Surface(tonalElevation = 3.dp) {
                 Button(
                     onClick = { onAction(CreateChecklistAction.Create) },
-                    enabled = !state.isSaving,
+                    enabled = state.canCreate,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
@@ -101,7 +103,11 @@ fun CreateChecklistScreen(
                         onValueChange = { onAction(CreateChecklistAction.DescriptionChanged(it)) },
                         label = { Text(stringResource(R.string.create_description_label)) },
                         isError = state.descriptionError != null,
-                        supportingText = optionalText(state.descriptionError?.asString()),
+                        supportingText = fieldSupportingText(
+                            state.descriptionError?.asString(),
+                            state.description.inputLength(),
+                            FieldLimits.DESCRIPTION_MAX,
+                        ),
                         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -153,7 +159,7 @@ private fun TitleField(state: CreateChecklistUiState, onAction: (CreateChecklist
         label = { Text(stringResource(R.string.create_title_label)) },
         singleLine = true,
         isError = errorText != null,
-        supportingText = optionalText(hint),
+        supportingText = fieldSupportingText(hint, state.title.inputLength(), FieldLimits.TITLE_MAX),
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Next,

@@ -24,9 +24,14 @@ import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
 import com.dataloom.checklist.domain.usecase.RemoveSectionUseCase
 import com.dataloom.checklist.domain.usecase.SetItemCompletedUseCase
 import com.dataloom.checklist.domain.usecase.UpdateChecklistUseCase
+import com.dataloom.checklist.domain.validation.ChecklistValidator
 import com.dataloom.checklist.domain.validation.Field
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.isAccepted
+import com.dataloom.checklist.presentation.common.liveError
 import com.dataloom.checklist.presentation.common.toUiText
 import com.dataloom.checklist.presentation.photos.PhotoUi
 import com.dataloom.checklist.presentation.photos.toUi
@@ -75,7 +80,10 @@ data class SectionUi(
     val canMoveDown: Boolean,
 )
 
-data class RenameDialogUi(val title: String, val error: UiText? = null, val isSaving: Boolean = false)
+data class RenameDialogUi(val title: String, val error: UiText? = null, val isSaving: Boolean = false) {
+    /** Save is offered only for a title the domain would accept (CL-280). */
+    val canConfirm: Boolean get() = !isSaving && isAccepted(title, ChecklistValidator::validateTitle)
+}
 
 data class ChecklistDetailUiState(
     val isLoading: Boolean = true,
@@ -237,7 +245,10 @@ class ChecklistDetailViewModel @AssistedInject constructor(
                 launchWrite { removeSection(section.id) }
             }
             ChecklistDetailAction.StartRename -> rename.value = RenameDialogUi(title = currentDetail()?.checklist?.title.orEmpty())
-            is ChecklistDetailAction.RenameChanged -> rename.update { it?.copy(title = action.title, error = null) }
+            is ChecklistDetailAction.RenameChanged -> {
+                val title = InputText.forField(action.title, FieldLimits.TITLE_MAX)
+                rename.update { it?.copy(title = title, error = liveError(title, ChecklistValidator::validateTitle)) }
+            }
             ChecklistDetailAction.DismissRename -> rename.value = null
             ChecklistDetailAction.ConfirmRename -> confirmRename()
         }

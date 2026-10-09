@@ -18,6 +18,7 @@ import com.dataloom.checklist.domain.usecase.ObserveUnitsUseCase
 import com.dataloom.checklist.domain.usecase.RemoveItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.ReorderItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.UpdateChecklistItemUseCase
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.photos.PhotoAction
 import com.dataloom.checklist.testing.FakeCatalogRepository
@@ -139,9 +140,11 @@ class ItemEditorViewModelTest {
         seed()
         val vm = viewModel()
 
-        vm.onAction(ItemEditorAction.QuantityChanged("abc"))
+        // Letters cannot be typed (see the filtering tests below); a zero amount is flagged at once and on save.
+        vm.onAction(ItemEditorAction.QuantityChanged("0"))
+        assertEquals(UiText(R.string.error_quantity_not_positive), vm.uiState.value.quantityError)
         vm.onAction(ItemEditorAction.Save)
-        assertEquals(UiText(R.string.error_quantity_invalid), vm.uiState.value.quantityError)
+        assertEquals(UiText(R.string.error_quantity_not_positive), vm.uiState.value.quantityError)
 
         vm.onAction(ItemEditorAction.QuantityChanged(""))
         vm.onAction(ItemEditorAction.UnitChanged(BuiltInUnits.KG.code))
@@ -311,5 +314,120 @@ class ItemEditorViewModelTest {
         vm.onAction(ItemEditorAction.Photos(PhotoAction.Remove(rows[1].fileName)))
         assertEquals(listOf(rows[0].fileName), photoRepo.photosOf(id)!!.map { it.fileName })
         assertTrue(rows[1].fileName !in photoStore.files.keys)
+    }
+
+    // CL-280: input filtering, live errors and the enabled state of the primary action.
+
+    @Test
+    fun `letters and symbols cannot be typed or pasted into the amount`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+        val cases = mapOf(
+            "12a" to "12",
+            "abc" to "",
+            "1e5" to "15",
+            "-3" to "3",
+            "+3" to "3",
+            "1,5" to "1.5",
+            "1.2.3" to "1.23",
+            "2 kg" to "2",
+            "\u0967\u0968" to "12", // Devanagari digits become 0-9
+            "\u0663" to "3", // Arabic-Indic digit
+            "9".repeat(50) to "99999",
+            "1.23456" to "1.234",
+        )
+        for ((typed, kept) in cases) {
+            vm.onAction(ItemEditorAction.QuantityChanged(typed))
+            assertEquals("typed '$typed'", kept, vm.uiState.value.quantityText)
+        }
+    }
+
+    @Test
+    fun `an amount that is zero or out of range shows its own message and disables the action`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+        assertTrue(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.QuantityChanged("0"))
+        assertEquals(UiText(R.string.error_quantity_not_positive), vm.uiState.value.quantityError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.QuantityChanged("99999.5"))
+        assertEquals(UiText(R.string.error_quantity_invalid), vm.uiState.value.quantityError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.QuantityChanged("2.5"))
+        assertNull(vm.uiState.value.quantityError)
+        assertTrue(vm.uiState.value.canSave)
+    }
+
+    @Test
+    fun `a blank name is flagged and the action stays disabled until a name is typed`() = runTest {
+        seed()
+        val vm = viewModel()
+        assertFalse(vm.uiState.value.canSave)
+        assertNull(vm.uiState.value.nameError) // nothing typed yet: no error, only a disabled action
+
+        vm.onAction(ItemEditorAction.NameChanged("   "))
+        assertEquals(UiText(R.string.error_item_name_blank), vm.uiState.value.nameError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.NameChanged("\u200B\u200B"))
+        assertEquals("", vm.uiState.value.name)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.NameChanged("Rice"))
+        assertNull(vm.uiState.value.nameError)
+        assertTrue(vm.uiState.value.canSave)
+    }
+
+    @Test
+    fun `control and bidi characters are removed from the name and notes`() = runTest {
+        seed()
+        val vm = viewModel()
+        vm.onAction(ItemEditorAction.NameChanged("Ri\u202Ece\u0000"))
+        vm.onAction(ItemEditorAction.NotesChanged("a\u202Eb\r\nc"))
+        assertEquals("Rice", vm.uiState.value.name)
+        assertEquals("ab\nc", vm.uiState.value.notes)
+    }
+
+    @Test
+    fun `text longer than the limit shows the too long error and disables the action`() = runTest {
+        seed()
+        val vm = viewModel()
+        vm.onAction(ItemEditorAction.NameChanged("n".repeat(500)))
+        assertEquals(FieldLimits.ITEM_NAME_MAX + 1, vm.uiState.value.name.length) // the field cannot grow without bound
+        assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.ITEM_NAME_MAX)), vm.uiState.value.nameError)
+        assertFalse(vm.uiState.value.canSave)
+
+        vm.onAction(ItemEditorAction.NameChanged("Rice"))
+        vm.onAction(ItemEditorAction.NotesChanged("n".repeat(FieldLimits.NOTES_MAX + 1)))
+        assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.NOTES_MAX)), vm.uiState.value.notesError)
+        assertFalse(vm.uiState.value.canSave)
+    }
+
+    @Test
+    fun `a new unit label is filtered, flagged when blank and confirmable only when valid`() = runTest {
+        seed()
+        val vm = viewModel()
+        vm.onAction(ItemEditorAction.OpenNewUnit)
+        assertFalse(vm.uiState.value.newUnit!!.canConfirm)
+
+        vm.onAction(ItemEditorAction.NewUnitLabelChanged("  "))
+        assertEquals(UiText(R.string.error_unit_label_blank), vm.uiState.value.newUnit!!.error)
+        assertFalse(vm.uiState.value.newUnit!!.canConfirm)
+
+        vm.onAction(ItemEditorAction.NewUnitLabelChanged("bu\u200Bnch"))
+        assertEquals("bunch", vm.uiState.value.newUnit!!.label)
+        assertTrue(vm.uiState.value.newUnit!!.canConfirm)
+    }
+
+    @Test
+    fun `an amount typed with Indic digits is saved as milli units`() = runTest {
+        seed()
+        val vm = viewModel(initialName = "Rice")
+        vm.onAction(ItemEditorAction.QuantityChanged("\u0967\u0968,\u096B"))
+        vm.onAction(ItemEditorAction.Save)
+        assertEquals(12_500L, items().single().quantity?.milli)
     }
 }

@@ -2,11 +2,9 @@ package com.dataloom.checklist.presentation.checklist.item
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dataloom.checklist.R
 import com.dataloom.checklist.di.ApplicationScope
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
-import com.dataloom.checklist.domain.model.Quantity
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.model.UnitCode
 import com.dataloom.checklist.domain.model.UnitDef
@@ -26,9 +24,18 @@ import com.dataloom.checklist.domain.usecase.RemoveItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.ReorderItemPhotoUseCase
 import com.dataloom.checklist.domain.usecase.UpdateChecklistItemUseCase
 import com.dataloom.checklist.domain.validation.Field
+import com.dataloom.checklist.domain.validation.FieldLimits
+import com.dataloom.checklist.domain.validation.InputText
+import com.dataloom.checklist.domain.validation.ItemValidator
+import com.dataloom.checklist.domain.validation.QuantityInput
+import com.dataloom.checklist.domain.validation.QuantityParse
+import com.dataloom.checklist.domain.validation.UnitValidator
 import com.dataloom.checklist.domain.validation.ValidationError
 import com.dataloom.checklist.localization.AppLanguageProvider
 import com.dataloom.checklist.presentation.common.UiText
+import com.dataloom.checklist.presentation.common.isAccepted
+import com.dataloom.checklist.presentation.common.liveError
+import com.dataloom.checklist.presentation.common.quantityFieldError
 import com.dataloom.checklist.presentation.common.toUiText
 import com.dataloom.checklist.presentation.photos.ItemPhotoDraft
 import com.dataloom.checklist.presentation.photos.PhotoAction
@@ -56,7 +63,10 @@ data class NewUnitDialogUi(
     val allowsDecimal: Boolean = false,
     val error: UiText? = null,
     val isSaving: Boolean = false,
-)
+) {
+    /** The dialog's Create button: a label that would be accepted (CL-280). */
+    val canConfirm: Boolean get() = !isSaving && isAccepted(label, UnitValidator::validateLabel)
+}
 
 data class ItemEditorUiState(
     val isEditing: Boolean = false,
@@ -79,9 +89,18 @@ data class ItemEditorUiState(
     /** The photos part of the form; see [PhotoFormState]. */
     val photoForm: PhotoFormState = PhotoFormState(),
 ) {
-    val canSave: Boolean get() = !isSaving && !isLoading && photoForm.processing == 0
-
     val selectedUnit: UnitDef? get() = units.firstOrNull { it.code == unit }
+
+    /**
+     * The primary action is enabled only while the form would be accepted (CL-280): a name, an
+     * amount that reads as a number and notes within the limit. Unit rules that depend on the amount
+     * (a unit needs an amount; whole-number units) are answered by the domain when saving.
+     */
+    val canSave: Boolean
+        get() = !isSaving && !isLoading && photoForm.processing == 0 &&
+            isAccepted(name) { ItemValidator.validate(it, null, null, null) } &&
+            quantityFieldError(quantityText) == null &&
+            isAccepted(notes) { ItemValidator.validate("x", null, null, it) }
 }
 
 sealed interface ItemEditorAction {
@@ -205,16 +224,31 @@ class ItemEditorViewModel @AssistedInject constructor(
 
     fun onAction(action: ItemEditorAction) {
         when (action) {
-            is ItemEditorAction.NameChanged -> form.update { it.copy(name = action.name, nameError = null) }
-            is ItemEditorAction.QuantityChanged ->
-                form.update { it.copy(quantityText = action.text, quantityError = null, unitError = null) }
+            is ItemEditorAction.NameChanged -> {
+                val name = InputText.forField(action.name, FieldLimits.ITEM_NAME_MAX)
+                val error = liveError(name) { v -> ItemValidator.validate(v, null, null, null) }
+                form.update { it.copy(name = name, nameError = error) }
+            }
+            is ItemEditorAction.QuantityChanged -> {
+                // Letters and symbols cannot be typed or pasted; digits of other scripts become 0-9.
+                val text = QuantityInput.sanitize(action.text)
+                form.update { it.copy(quantityText = text, quantityError = quantityFieldError(text), unitError = null) }
+            }
             is ItemEditorAction.UnitChanged ->
                 form.update { it.copy(unit = action.unit, unitError = null, quantityError = null) }
-            is ItemEditorAction.NotesChanged -> form.update { it.copy(notes = action.notes, notesError = null) }
+            is ItemEditorAction.NotesChanged -> {
+                val notes = InputText.forField(action.notes, FieldLimits.NOTES_MAX, multiline = true)
+                val error = liveError(notes) { v -> ItemValidator.validate("x", null, null, v) }
+                form.update { it.copy(notes = notes, notesError = error) }
+            }
             is ItemEditorAction.SaveToSuggestionsChanged -> form.update { it.copy(saveToSuggestions = action.enabled) }
             ItemEditorAction.OpenNewUnit -> form.update { it.copy(newUnit = NewUnitDialogUi()) }
             is ItemEditorAction.NewUnitLabelChanged ->
-                form.update { it.copy(newUnit = it.newUnit?.copy(label = action.label, error = null)) }
+            {
+                val label = InputText.forField(action.label, FieldLimits.UNIT_LABEL_MAX)
+                val error = liveError(label, UnitValidator::validateLabel)
+                form.update { it.copy(newUnit = it.newUnit?.copy(label = label, error = error)) }
+            }
             is ItemEditorAction.NewUnitDecimalChanged ->
                 form.update { it.copy(newUnit = it.newUnit?.copy(allowsDecimal = action.allowsDecimal)) }
             ItemEditorAction.DismissNewUnit -> form.update { it.copy(newUnit = null) }
@@ -240,13 +274,15 @@ class ItemEditorViewModel @AssistedInject constructor(
 
     private fun save() {
         val current = form.value
-        // A photo still being processed would be lost: the Save button waits for it.
+        // Also false while a photo is still being processed: it would be lost.
         if (!current.canSave) return
-        val quantityText = current.quantityText.trim()
-        val quantity = if (quantityText.isEmpty()) null else Quantity.parse(quantityText)
-        if (quantityText.isNotEmpty() && quantity == null) {
-            form.update { it.copy(quantityError = UiText(R.string.error_quantity_invalid)) }
-            return
+        val quantity = when (val parsed = QuantityInput.parse(current.quantityText)) {
+            QuantityParse.Empty -> null
+            is QuantityParse.Valid -> parsed.quantity
+            is QuantityParse.Invalid -> {
+                form.update { it.copy(quantityError = parsed.error.toUiText()) }
+                return
+            }
         }
         form.update { it.copy(isSaving = true) }
         viewModelScope.launch {

@@ -5,6 +5,7 @@ import com.dataloom.checklist.R
 import com.dataloom.checklist.domain.model.BuiltInUnits
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.Quantity
+import com.dataloom.checklist.domain.validation.FieldLimits
 import com.dataloom.checklist.domain.model.SectionId
 import com.dataloom.checklist.domain.usecase.AddMasterItemsToSectionUseCase
 import com.dataloom.checklist.domain.usecase.ObserveChecklistDetailUseCase
@@ -124,11 +125,13 @@ class AddItemsViewModelTest {
     fun `an unreadable amount is flagged on its row and nothing is added`() = runTest {
         val vm = viewModel()
         vm.onAction(AddItemsAction.ToggleItem(rice.id))
-        vm.onAction(AddItemsAction.QuantityChanged(rice.id, "two"))
+        vm.onAction(AddItemsAction.QuantityChanged(rice.id, "0"))
+        assertEquals(UiText(R.string.error_quantity_not_positive), vm.row("Rice").error)
+        assertFalse(vm.uiState.value.canAddSelected)
 
         vm.onAction(AddItemsAction.AddSelected)
 
-        assertEquals(UiText(R.string.error_quantity_invalid), vm.row("Rice").error)
+        assertEquals(UiText(R.string.error_quantity_not_positive), vm.row("Rice").error)
         assertTrue(repo.detail(checklistId)!!.sections.single().items.isEmpty())
 
         vm.onAction(AddItemsAction.QuantityChanged(rice.id, "2"))
@@ -175,5 +178,28 @@ class AddItemsViewModelTest {
         vm.onAction(AddItemsAction.QueryChanged("rice"))
         advanceUntilIdle()
         assertFalse(vm.uiState.value.canCreateCustom)
+    }
+
+    // CL-280: the amount and search filters.
+
+    @Test
+    fun `letters and symbols cannot be typed into a row amount`() = runTest {
+        val vm = viewModel()
+        vm.onAction(AddItemsAction.ToggleItem(rice.id))
+        val cases = mapOf("two" to "", "1e5" to "15", "-2" to "2", "2,5" to "2.5", "\u0967\u0968" to "12", "7kg" to "7")
+        for ((typed, kept) in cases) {
+            vm.onAction(AddItemsAction.QuantityChanged(rice.id, typed))
+            assertEquals("typed '$typed'", kept, vm.row("Rice").quantityText)
+        }
+        assertTrue(vm.uiState.value.canAddSelected)
+    }
+
+    @Test
+    fun `control and bidi characters are removed from the search text and its length is capped`() = runTest {
+        val vm = viewModel()
+        vm.onAction(AddItemsAction.QueryChanged("ri\u202Ece\u0000"))
+        assertEquals("rice", vm.uiState.value.query)
+        vm.onAction(AddItemsAction.QueryChanged("x".repeat(1_000)))
+        assertEquals(FieldLimits.SEARCH_MAX, vm.uiState.value.query.length)
     }
 }

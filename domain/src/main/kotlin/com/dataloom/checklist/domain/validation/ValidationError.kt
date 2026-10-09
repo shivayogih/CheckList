@@ -16,6 +16,15 @@ enum class ValidationError(val field: Field) {
     NOTES_TOO_LONG(Field.NOTES),
     QUANTITY_OUT_OF_RANGE(Field.QUANTITY),
 
+    /** CL-280: the amount contains letters, a sign, an exponent, a second separator or other symbols. */
+    QUANTITY_NOT_A_NUMBER(Field.QUANTITY),
+
+    /** CL-280: the amount is zero. (Negative signs are [QUANTITY_NOT_A_NUMBER].) */
+    QUANTITY_NOT_POSITIVE(Field.QUANTITY),
+
+    /** CL-280: more than three decimal places, which milli-units cannot hold. */
+    QUANTITY_TOO_PRECISE(Field.QUANTITY),
+
     /** The unit counts whole things (Piece, Dozen...) but the amount has a fraction. */
     QUANTITY_MUST_BE_WHOLE(Field.QUANTITY),
 

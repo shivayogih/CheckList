@@ -22,7 +22,7 @@ object ProfileValidator {
         address: String? = null,
     ): ValidationResult<UserProfile> {
         val (cleanName, nameError) = optionalText(
-            displayName?.collapseWhitespace(),
+            displayName?.let { InputText.normalize(it) },
             FieldLimits.DISPLAY_NAME_MAX,
             ValidationError.DISPLAY_NAME_TOO_LONG,
         )
@@ -44,8 +44,8 @@ object ProfileValidator {
      * whitespace collapsed, blank lines dropped and other control characters removed.
      */
     private fun cleanAddress(raw: String): String =
-        raw.replace("\r\n", "\n").replace('\r', '\n').split('\n')
-            .map { line -> line.filterNot { it.isISOControl() && !it.isWhitespace() }.collapseWhitespace() }
+        InputText.normalize(raw, multiline = true).split('\n')
+            .map { line -> line.collapseWhitespace() }
             .filter { it.isNotEmpty() }
             .joinToString("\n")
 
@@ -71,7 +71,7 @@ object ProfileValidator {
 
     /** An optional leading "+", then digits and common separators; 7 to 15 digits (the E.164 maximum). */
     private fun phoneOf(raw: String?): Pair<String?, ValidationError?> {
-        val typed = raw?.collapseWhitespace().trimToNull() ?: return null to null
+        val typed = raw?.let { InputText.normalize(it) }.trimToNull() ?: return null to null
         if (typed.codePointLength() > FieldLimits.PHONE_MAX) return typed to ValidationError.PHONE_INVALID
         val phone = typed.map { c -> if (c.isDigit()) Character.forDigit(Character.digit(c, 10), 10) else c }
             .joinToString("")
