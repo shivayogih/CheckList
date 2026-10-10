@@ -7,12 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dataloom.checklist.ads.AdsGate
+import com.dataloom.checklist.ads.LocalAdsGate
 import com.dataloom.checklist.data.local.database.DatabaseHealth
 import com.dataloom.checklist.data.local.database.DatabaseState
 import com.dataloom.checklist.localization.AppCompatLanguageProvider
@@ -45,6 +48,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var databaseHealth: DatabaseHealth
 
+    @Inject
+    lateinit var adsGate: AdsGate
+
     private val startViewModel: StartViewModel by viewModels()
     private val appearanceViewModel: AppearanceViewModel by viewModels()
 
@@ -58,6 +64,8 @@ class MainActivity : AppCompatActivity() {
         languageProvider.refresh()
         // After a recreation the same intent is still here; its checklist was already opened.
         if (savedInstanceState == null) openChecklist = intent.checklistOpenRequest()
+        // Ads (CL-370): nothing happens in builds with ads off or in the first days after install.
+        adsGate.start(this)
         setContent {
             val appearance by appearanceViewModel.appearance.collectAsStateWithLifecycle()
             val dark = when (appearance.themeMode) {
@@ -87,11 +95,13 @@ class MainActivity : AppCompatActivity() {
                     !splashDone -> BrandSplash()
                     failed != null -> DatabaseProblemScreen(failed.failure, onClose = ::finishAffinity)
                     destination == null -> BrandSplash()
-                    else -> CheckListNavHost(
-                        start = destination,
-                        openChecklist = openChecklist,
-                        onChecklistOpened = { openChecklist = null },
-                    )
+                    else -> CompositionLocalProvider(LocalAdsGate provides adsGate) {
+                        CheckListNavHost(
+                            start = destination,
+                            openChecklist = openChecklist,
+                            onChecklistOpened = { openChecklist = null },
+                        )
+                    }
                 }
             }
         }

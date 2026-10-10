@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Merged only into flavors with ads switched on (CL-370). The ad SDK itself adds the INTERNET,
+     ACCESS_NETWORK_STATE and AD_ID permissions; flavors with ads off never get them. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!-- Test app ID in dev and staging; production's real ID comes from a CI secret (app/build.gradle.kts). -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${admobAppId}" />
+        <!-- Starts the SDK and loads ads off the main thread, so ads never slow the app down. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true" />
+    </application>
+
+</manifest>

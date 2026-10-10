@@ -48,10 +48,15 @@ import java.util.Locale
 
 /**
  * Shows the outcome of export, import and PDF actions as snackbars, and starts the Sharesheet.
- * Every screen that hosts a [TransferViewModel] calls this once.
+ * Every screen that hosts a [TransferViewModel] calls this once. [onPdfExported] runs after a PDF was
+ * handed to the Sharesheet (true) or saved (false); the checklist screen uses it for the ad rules (CL-370).
  */
 @Composable
-fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHostState) {
+fun TransferEffects(
+    viewModel: TransferViewModel,
+    snackbarHostState: SnackbarHostState,
+    onPdfExported: (afterShare: Boolean) -> Unit = {},
+) {
     val context = LocalContext.current
     val resources = LocalResources.current
     LaunchedEffect(viewModel) {
@@ -64,6 +69,7 @@ fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHos
                 is TransferEffect.Imported -> effect.summary.toUiText()
                 is TransferEffect.Share -> try {
                     context.startActivity(effect.intent)
+                    if (effect.isPdf) onPdfExported(true)
                     null
                 } catch (_: ActivityNotFoundException) {
                     UiText(R.string.share_no_app)
@@ -78,6 +84,7 @@ fun TransferEffects(viewModel: TransferViewModel, snackbarHostState: SnackbarHos
                             UiText(R.string.pdf_open_no_app)
                         }
                     }
+                    onPdfExported(false)
                     UiText(R.string.pdf_saved)
                 }
                 TransferEffect.ChecklistMissing -> UiText(R.string.error_not_found)

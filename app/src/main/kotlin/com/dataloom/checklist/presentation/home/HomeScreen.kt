@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.ads.BannerAdSlot
 import com.dataloom.checklist.domain.model.ChecklistFilter
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistSort
@@ -164,6 +165,8 @@ private fun HomeContent(
                 }
             }
         },
+        // Ads (CL-370): the only Home ad; takes no space when ads are off or not allowed yet.
+        bottomBar = { BannerAdSlot() },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
         if (state.isFirstUse) {

@@ -42,6 +42,11 @@ profileinstaller = "1.4.1"
 # release page (2025-12-03). It is the AndroidX copy of the platform class, which also reads PNG and WebP.
 exifinterface = "1.4.2"
 
+# Ads (CL-370), only in flavors with checklist.ads.<flavor>=true. play-services-ads 25.4.0 is the newest
+# entry in the AdMob Android release notes (2026-06-17, minSdk 23); UMP 4.0.0 (2025-10-31, minSdk 23).
+playServicesAds = "25.4.0"
+userMessagingPlatform = "4.0.0"
+
 [libraries]
 androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -82,6 +87,8 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+user-messaging-platform = { group = "com.google.android.ump", name = "user-messaging-platform", version.ref = "userMessagingPlatform" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
