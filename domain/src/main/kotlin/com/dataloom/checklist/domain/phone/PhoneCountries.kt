@@ -70,12 +70,17 @@ object PhoneCountries {
         return matches.firstOrNull { it.mainForDialCode } ?: matches.firstOrNull()
     }
 
+    /** One entry: "IN:91:10:10:0:1" is region, dial code, min and max digits, trunk "0", main country. */
     private fun parse(entry: String): PhoneCountry {
-        val (iso, code, min, max, trunk, main) = entry.split(':')
-        return PhoneCountry(iso, code.toInt(), min.toInt()..max.toInt(), trunk == "0", main == "1")
+        val field = entry.split(':').iterator()
+        return PhoneCountry(
+            iso = field.next(),
+            dialCode = field.next().toInt(),
+            nationalDigits = field.next().toInt()..field.next().toInt(),
+            trunkZero = field.next() == "0",
+            mainForDialCode = field.next() == "1",
+        )
     }
-
-    private operator fun <T> List<T>.component6(): T = get(5)
 
     private const val MAX_DIAL_CODE_DIGITS = 3
 

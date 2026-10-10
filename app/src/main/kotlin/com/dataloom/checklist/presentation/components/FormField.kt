@@ -1,13 +1,16 @@
 package com.dataloom.checklist.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -79,7 +82,6 @@ fun FormField(
         else -> colors.outline
     }
     val borderWidth = if (hasError || focused) Dimens.Border3 else Dimens.Border2
-    val shape = RoundedCornerShape(Dimens.Corner12)
     Column(modifier = modifier.fillMaxWidth().bringIntoViewWhenFocused()) {
         Text(
             text = label,
@@ -105,40 +107,57 @@ fun FormField(
                         if (errorText != null) error(errorText)
                     },
                 decorationBox = { inner ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = if (multiLine) Dimens.FieldMultiLineHeight else Dimens.FieldHeight)
-                            .border(borderWidth, borderColor, shape)
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        contentAlignment = if (multiLine) Alignment.TopStart else Alignment.CenterStart,
-                    ) {
-                        if (value.isEmpty() && placeholder != null) {
-                            Text(
-                                placeholder,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = colors.onSurfaceVariant,
-                            )
-                        }
-                        inner()
-                    }
+                    FieldBox(value.isEmpty(), placeholder, multiLine, BorderStroke(borderWidth, borderColor), inner)
                 },
             )
         }
-        if (leading == null) {
-            textField(Modifier.fillMaxWidth())
-        } else {
-            // A box beside the text box, such as the phone country button (CL-380); both grow together.
-            Row(
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                leading()
-                textField(Modifier.weight(1f))
-            }
-        }
+        WithLeading(leading, textField)
         FormFieldMessage(errorText, helperText)
         FormFieldCounter(value, maxLength)
+    }
+}
+
+/** The outlined box around the text, with the placeholder while it is empty. */
+@Composable
+private fun FieldBox(
+    empty: Boolean,
+    placeholder: String?,
+    multiLine: Boolean,
+    border: BorderStroke,
+    inner: @Composable () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = if (multiLine) Dimens.FieldMultiLineHeight else Dimens.FieldHeight)
+            .border(border, RoundedCornerShape(Dimens.Corner12))
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        contentAlignment = if (multiLine) Alignment.TopStart else Alignment.CenterStart,
+    ) {
+        if (empty && placeholder != null) {
+            Text(
+                text = placeholder,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        inner()
+    }
+}
+
+/** The text box alone, or after [leading] in one row (CL-380: the phone country button); both grow together. */
+@Composable
+private fun WithLeading(leading: (@Composable () -> Unit)?, textField: @Composable (Modifier) -> Unit) {
+    if (leading == null) {
+        textField(Modifier.fillMaxWidth())
+    } else {
+        Row(
+            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            leading()
+            textField(Modifier.weight(1f))
+        }
     }
 }
 
