@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">నా జాబితాలు</string>
-    <string name="home_empty_title">ఇంకా జాబితాలు లేవు</string>
     <string name="home_empty_body">షాపింగ్, ప్రయాణం, పరీక్ష లేదా దేనికైనా మీ మొదటి జాబితాను సృష్టించండి.</string>
     <string name="home_create_checklist">జాబితా సృష్టించండి</string>
     <string name="settings_title">సెట్టింగ్‌లు</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (నకలు)</string>
     <string name="checklist_more_options">%1$s కోసం మరిన్ని ఎంపికలు</string>
     <string name="create_categories_heading">వర్గాలు</string>
-    <string name="create_categories_hint">సరిపోయేవాటిని ఎంచుకోండి. తర్వాత కూడా జోడించవచ్చు.</string>
+    <string name="create_categories_hint">సరిపోయేవాటిని ఎంచుకోండి లేదా మీ సొంత వర్గం సృష్టించండి. తర్వాత కూడా జోడించవచ్చు.</string>
     <string name="create_description_label">వివరణ (ఐచ్ఛికం)</string>
     <string name="create_title">జాబితా సృష్టించండి</string>
     <string name="create_title_already_used">ఈ పేరుతో ఇప్పటికే ఒక జాబితా ఉంది. అయినా మీరు దీన్ని వాడవచ్చు.</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">జత</string>
     <string name="unit_picker_title">కొలమానం ఎంచుకోండి</string>
     <string name="unit_piece">ముక్క</string>
+    <string name="unit_kg_full">కిలోగ్రాము</string>
+    <string name="unit_gram_full">గ్రాము</string>
+    <string name="unit_litre_full">లీటరు</string>
+    <string name="unit_millilitre_full">మిల్లీలీటరు</string>
+    <string name="unit_dozen_full">12 ముక్కలు</string>
+    <string name="unit_piece_full">ముక్క</string>
+    <string name="unit_pack_full">ప్యాకెట్</string>
+    <string name="unit_box_full">పెట్టె</string>
+    <string name="unit_bottle_full">సీసా</string>
+    <string name="unit_pair_full">2 ముక్కలు</string>
+    <string name="unit_meter_full">మీటరు</string>
+    <string name="unit_nos_full">సంఖ్య</string>
+    <string name="unit_bunch_full">కట్ట</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">మీ పేరును నమోదు చేయండి.</string>
@@ -353,4 +365,15 @@
     <string name="db_newer_body">మీ జాబితాలను CheckList కొత్త వెర్షన్ సేవ్ చేసింది. వాటిలో మార్పు చేయలేదు. వాటిని మళ్లీ చూడటానికి తాజా వెర్షన్‌ను ఇన్‌స్టాల్ చేయండి.</string>
     <string name="db_open_failed_title">CheckList మీ జాబితాలను తెరవలేకపోయింది</string>
     <string name="db_open_failed_body">ఏదీ తొలగించబడలేదు. యాప్‌ను మూసివేసి మళ్లీ తెరవండి. ఇది మళ్లీ మళ్లీ జరిగితే, మీ ఫోన్‌ను రీస్టార్ట్ చేయండి.</string>
+    <string name="category_group_frequent">తరచుగా వాడినవి</string>
+    <string name="category_group_all">అన్ని వర్గాలు</string>
+    <string name="home_exit_title">CheckList మూసివేయాలా?</string>
+    <string name="home_exit_message">మీ జాబితాలు ఈ ఫోన్‌లో భద్రంగా ఉంటాయి.</string>
+    <string name="action_exit">మూసివేయండి</string>
+    <string name="home_welcome_title">CheckListకు స్వాగతం</string>
+    <string name="home_welcome_tip_categories">సిద్ధంగా ఉన్న వర్గాలు, వస్తువులు ఎంచుకోండి, లేదా మీవి జోడించండి.</string>
+    <string name="home_welcome_tip_reminders">మర్చిపోకుండా రిమైండర్లు సెట్ చేయండి.</string>
+    <string name="home_welcome_tip_share">ఏ జాబితానైనా PDFగా షేర్ చేయండి. అన్నీ ఆఫ్‌లైన్‌లో పనిచేస్తాయి.</string>
+    <string name="pdf_include_reminder">రిమైండర్‌ను చేర్చండి</string>
+    <string name="pdf_include_reminder_summary">శీర్షిక కింద రిమైండర్ తేదీ, సమయం చూపిస్తుంది.</string>
 </resources>

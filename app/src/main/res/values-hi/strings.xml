@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">मेरी सूचियाँ</string>
-    <string name="home_empty_title">अभी कोई सूची नहीं है</string>
     <string name="home_empty_body">खरीदारी, यात्रा, परीक्षा या किसी भी काम के लिए अपनी पहली सूची बनाएँ।</string>
     <string name="home_create_checklist">सूची बनाएँ</string>
     <string name="settings_title">सेटिंग्स</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (कॉपी)</string>
     <string name="checklist_more_options">%1$s के लिए और विकल्प</string>
     <string name="create_categories_heading">श्रेणियाँ</string>
-    <string name="create_categories_hint">जो भी सही लगें, चुनें। बाद में और जोड़ सकते हैं।</string>
+    <string name="create_categories_hint">जो भी सही लगें, चुनें या अपनी श्रेणी बनाएँ। बाद में और जोड़ सकते हैं।</string>
     <string name="create_description_label">विवरण (वैकल्पिक)</string>
     <string name="create_title">सूची बनाएँ</string>
     <string name="create_title_already_used">इस नाम की एक सूची पहले से है। फिर भी आप यह नाम रख सकते हैं।</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">जोड़ी</string>
     <string name="unit_picker_title">इकाई चुनें</string>
     <string name="unit_piece">पीस</string>
+    <string name="unit_kg_full">किलोग्राम</string>
+    <string name="unit_gram_full">ग्राम</string>
+    <string name="unit_litre_full">लीटर</string>
+    <string name="unit_millilitre_full">मिलीलीटर</string>
+    <string name="unit_dozen_full">12 नग</string>
+    <string name="unit_piece_full">पीस</string>
+    <string name="unit_pack_full">पैकेट</string>
+    <string name="unit_box_full">डिब्बा</string>
+    <string name="unit_bottle_full">बोतल</string>
+    <string name="unit_pair_full">2 नग</string>
+    <string name="unit_meter_full">मीटर</string>
+    <string name="unit_nos_full">संख्या</string>
+    <string name="unit_bunch_full">गुच्छा</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">अपना नाम दर्ज करें।</string>
@@ -353,4 +365,15 @@
     <string name="db_newer_body">आपकी सूचियाँ CheckList के नए संस्करण ने सहेजी थीं। उनमें कोई बदलाव नहीं हुआ है। उन्हें फिर से देखने के लिए नया संस्करण इंस्टॉल करें।</string>
     <string name="db_open_failed_title">CheckList आपकी सूचियाँ नहीं खोल सका</string>
     <string name="db_open_failed_body">कुछ भी हटाया नहीं गया। ऐप बंद करके फिर से खोलें। अगर ऐसा बार-बार हो, तो अपना फ़ोन रीस्टार्ट करें।</string>
+    <string name="category_group_frequent">अक्सर इस्तेमाल</string>
+    <string name="category_group_all">सभी श्रेणियाँ</string>
+    <string name="home_exit_title">CheckList बंद करें?</string>
+    <string name="home_exit_message">आपकी सूचियाँ इस फ़ोन में सुरक्षित रहेंगी।</string>
+    <string name="action_exit">बंद करें</string>
+    <string name="home_welcome_title">CheckList में आपका स्वागत है</string>
+    <string name="home_welcome_tip_categories">तैयार श्रेणियाँ और आइटम चुनें, या अपने जोड़ें।</string>
+    <string name="home_welcome_tip_reminders">रिमाइंडर सेट करें, ताकि कुछ न भूलें।</string>
+    <string name="home_welcome_tip_share">कोई भी सूची PDF के रूप में साझा करें। सब कुछ ऑफ़लाइन चलता है।</string>
+    <string name="pdf_include_reminder">रिमाइंडर शामिल करें</string>
+    <string name="pdf_include_reminder_summary">शीर्षक के नीचे रिमाइंडर की तारीख और समय दिखाता है।</string>
 </resources>

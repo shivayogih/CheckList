@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">ಜ್ಞಾಪನೆ: %1$s</string>
     <string name="reminder_notification_body">ಪಟ್ಟಿಯನ್ನು ತೆರೆಯಲು ಒತ್ತಿ.</string>
     <string name="action_ok">ಸರಿ</string>
+    <string name="reminder_quick_hour">1 ಗಂಟೆಯಲ್ಲಿ</string>
+    <string name="reminder_quick_evening">ಇಂದು ಸಂಜೆ</string>
+    <string name="reminder_quick_tomorrow">ನಾಳೆ ಬೆಳಿಗ್ಗೆ</string>
+    <string name="pdf_reminder">ಜ್ಞಾಪನೆ: %1$s</string>
 </resources>

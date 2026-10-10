@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">रिमाइंडर: %1$s</string>
     <string name="reminder_notification_body">सूची खोलने के लिए दबाएँ।</string>
     <string name="action_ok">ठीक है</string>
+    <string name="reminder_quick_hour">1 घंटे में</string>
+    <string name="reminder_quick_evening">आज शाम</string>
+    <string name="reminder_quick_tomorrow">कल सुबह</string>
+    <string name="pdf_reminder">रिमाइंडर: %1$s</string>
 </resources>

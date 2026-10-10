@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
@@ -68,7 +69,9 @@ class LanguageJourneyTest {
 
     @Test
     fun `choosing Kannada in Settings shows the app in Kannada`() {
-        composeRule.awaitNode(hasText(string(R.string.settings_title)) and hasClickAction()).performClick()
+        // Settings is an icon button on Home, found by its content description.
+        composeRule.awaitNode(hasContentDescription(string(R.string.settings_title)) and hasClickAction())
+            .performClick()
         composeRule.awaitNode(hasText(string(R.string.settings_language)) and hasClickAction()).performClick()
         composeRule.awaitNode(hasText(kannadaLanguage.nativeName) and hasClickAction()).performClick()
         composeRule.waitForIdle()

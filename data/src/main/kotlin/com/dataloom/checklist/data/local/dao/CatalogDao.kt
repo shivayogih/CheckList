@@ -25,7 +25,9 @@ interface CategoryDao {
 
     @Query(
         """
-        SELECT c.*, (SELECT COUNT(*) FROM checklist_category cc WHERE cc.category_id = c.id) AS usage_count
+        SELECT c.*,
+            (SELECT COUNT(*) FROM checklist_category cc WHERE cc.category_id = c.id) AS usage_count,
+            (SELECT MAX(cc.created_at) FROM checklist_category cc WHERE cc.category_id = c.id) AS last_used_at
         FROM category c
         WHERE :includeHidden OR c.is_hidden = 0
         """,

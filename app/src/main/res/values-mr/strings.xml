@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">माझ्या याद्या</string>
-    <string name="home_empty_title">अजून कोणतीही यादी नाही</string>
     <string name="home_empty_body">खरेदी, प्रवास, परीक्षा किंवा कशासाठीही तुमची पहिली यादी तयार करा.</string>
     <string name="home_create_checklist">यादी तयार करा</string>
     <string name="settings_title">सेटिंग्ज</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (प्रत)</string>
     <string name="checklist_more_options">%1$s साठी आणखी पर्याय</string>
     <string name="create_categories_heading">वर्ग</string>
-    <string name="create_categories_hint">योग्य वाटतील ते निवडा. नंतरही जोडता येतील.</string>
+    <string name="create_categories_hint">योग्य वाटतील ते निवडा किंवा स्वतःचा वर्ग तयार करा. नंतरही जोडता येतील.</string>
     <string name="create_description_label">वर्णन (ऐच्छिक)</string>
     <string name="create_title">यादी तयार करा</string>
     <string name="create_title_already_used">या नावाची यादी आधीच आहे. तरीही तुम्ही हे नाव वापरू शकता.</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">जोडी</string>
     <string name="unit_picker_title">एकक निवडा</string>
     <string name="unit_piece">पीस</string>
+    <string name="unit_kg_full">किलोग्रॅम</string>
+    <string name="unit_gram_full">ग्रॅम</string>
+    <string name="unit_litre_full">लिटर</string>
+    <string name="unit_millilitre_full">मिलिलिटर</string>
+    <string name="unit_dozen_full">12 नग</string>
+    <string name="unit_piece_full">पीस</string>
+    <string name="unit_pack_full">पाकीट</string>
+    <string name="unit_box_full">खोका</string>
+    <string name="unit_bottle_full">बाटली</string>
+    <string name="unit_pair_full">2 नग</string>
+    <string name="unit_meter_full">मीटर</string>
+    <string name="unit_nos_full">नग</string>
+    <string name="unit_bunch_full">जुडी</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">तुमचे नाव टाका.</string>
@@ -353,4 +365,15 @@
     <string name="db_newer_body">तुमच्या याद्या CheckList च्या नवीन आवृत्तीने जतन केल्या होत्या. त्यांत कोणताही बदल झालेला नाही. त्या पुन्हा पाहण्यासाठी नवीनतम आवृत्ती इंस्टॉल करा.</string>
     <string name="db_open_failed_title">CheckList तुमच्या याद्या उघडू शकले नाही</string>
     <string name="db_open_failed_body">काहीही हटवले नाही. ॲप बंद करून पुन्हा उघडा. असे वारंवार होत असल्यास, तुमचा फोन रीस्टार्ट करा.</string>
+    <string name="category_group_frequent">नेहमी वापरलेले</string>
+    <string name="category_group_all">सर्व वर्ग</string>
+    <string name="home_exit_title">CheckList बंद करायचे?</string>
+    <string name="home_exit_message">तुमच्या याद्या या फोनवर जतन राहतील.</string>
+    <string name="action_exit">बंद करा</string>
+    <string name="home_welcome_title">CheckList मध्ये स्वागत आहे</string>
+    <string name="home_welcome_tip_categories">तयार वर्ग आणि वस्तू निवडा, किंवा स्वतःच्या जोडा.</string>
+    <string name="home_welcome_tip_reminders">विसरू नये म्हणून स्मरणपत्रे सेट करा.</string>
+    <string name="home_welcome_tip_share">कोणतीही यादी PDF म्हणून शेअर करा. सर्व काही ऑफलाइन चालते.</string>
+    <string name="pdf_include_reminder">स्मरणपत्र समाविष्ट करा</string>
+    <string name="pdf_include_reminder_summary">शीर्षकाखाली स्मरणपत्राची तारीख आणि वेळ दाखवते.</string>
 </resources>

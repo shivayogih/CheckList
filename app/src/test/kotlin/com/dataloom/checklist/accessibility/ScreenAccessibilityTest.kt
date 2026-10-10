@@ -104,7 +104,7 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
     @Test
     fun `home on first use`() {
         launchApp()
-        composeRule.awaitText(string(R.string.home_empty_title))
+        composeRule.awaitText(string(R.string.home_welcome_title))
         composeRule.assertAccessible("Home, first use, $screen")
     }
 

@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">स्मरणपत्र: %1$s</string>
     <string name="reminder_notification_body">यादी उघडण्यासाठी दाबा.</string>
     <string name="action_ok">ठीक आहे</string>
+    <string name="reminder_quick_hour">1 तासात</string>
+    <string name="reminder_quick_evening">आज संध्याकाळी</string>
+    <string name="reminder_quick_tomorrow">उद्या सकाळी</string>
+    <string name="pdf_reminder">स्मरणपत्र: %1$s</string>
 </resources>

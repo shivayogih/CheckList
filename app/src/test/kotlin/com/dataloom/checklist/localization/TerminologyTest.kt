@@ -17,6 +17,7 @@ class TerminologyTest {
 
     /** Folder to the variants that must not appear, each with the glossary word to use instead. */
     private val replacedVariants = mapOf(
+        "values" to mapOf("amount" to "quantity", "Amount" to "Quantity"),
         "values-hi" to mapOf(
             "चीज़ें" to "आइटम", "वस्तु" to "आइटम", "इम्पोर्ट" to "आयात", "चेकलिस्ट" to "सूची",
             "शेयर" to "साझा", "पाएं" to "पाएँ", "सूचियां" to "सूचियाँ",

@@ -183,17 +183,50 @@ fun ExportOptionsDialog(onExport: (includePhotos: Boolean) -> Unit, onDismiss: (
 }
 
 /**
- * Shown before a PDF is shared or saved when the checklist has photos: "Include photos", off by
- * default. [confirmLabel] names the chosen action ("Share as PDF" or "Save as PDF").
+ * Shown before a PDF is shared or saved when the checklist has photos or a reminder. "Include photos"
+ * (off by default, it makes the file bigger) appears when [offerPhotos]; "Include reminder" (on by
+ * default) appears when the list has a reminder. [confirmLabel] names the chosen action ("Share as
+ * PDF" or "Save as PDF").
  */
 @Composable
-fun PdfOptionsDialog(confirmLabel: String, onConfirm: (includePhotos: Boolean) -> Unit, onDismiss: () -> Unit) {
-    IncludePhotosDialog(
-        title = stringResource(R.string.pdf_options_title),
-        summary = stringResource(R.string.pdf_include_photos_summary),
-        confirmLabel = confirmLabel,
-        onConfirm = onConfirm,
-        onDismiss = onDismiss,
+fun PdfOptionsDialog(
+    confirmLabel: String,
+    offerPhotos: Boolean,
+    offerReminder: Boolean,
+    onConfirm: (includePhotos: Boolean, includeReminder: Boolean) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var includePhotos by rememberSaveable { mutableStateOf(false) }
+    var includeReminder by rememberSaveable { mutableStateOf(true) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.pdf_options_title)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                if (offerPhotos) {
+                    OptionSwitchRow(
+                        title = stringResource(R.string.export_include_photos),
+                        summary = stringResource(R.string.pdf_include_photos_summary),
+                        checked = includePhotos,
+                        onChange = { includePhotos = it },
+                    )
+                }
+                if (offerReminder) {
+                    OptionSwitchRow(
+                        title = stringResource(R.string.pdf_include_reminder),
+                        summary = stringResource(R.string.pdf_include_reminder_summary),
+                        checked = includeReminder,
+                        onChange = { includeReminder = it },
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm(offerPhotos && includePhotos, offerReminder && includeReminder) }) {
+                Text(confirmLabel)
+            }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
 }
 
@@ -210,28 +243,38 @@ private fun IncludePhotosDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
-            Row(
-                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(
-                    value = includePhotos,
-                    role = Role.Switch,
-                    onValueChange = { includePhotos = it },
-                ),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(stringResource(R.string.export_include_photos), style = MaterialTheme.typography.bodyLarge)
-                    Text(
-                        summary,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                Switch(checked = includePhotos, onCheckedChange = null, modifier = Modifier.padding(start = 16.dp))
-            }
+            OptionSwitchRow(
+                title = stringResource(R.string.export_include_photos),
+                summary = summary,
+                checked = includePhotos,
+                onChange = { includePhotos = it },
+            )
         },
         confirmButton = { TextButton(onClick = { onConfirm(includePhotos) }) { Text(confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )
+}
+
+@Composable
+private fun OptionSwitchRow(title: String, summary: String, checked: Boolean, onChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(
+            value = checked,
+            role = Role.Switch,
+            onValueChange = onChange,
+        ),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                summary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Switch(checked = checked, onCheckedChange = null, modifier = Modifier.padding(start = 16.dp))
+    }
 }
 
 /**

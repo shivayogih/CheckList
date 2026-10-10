@@ -41,6 +41,8 @@ data class ChecklistSummaryRow(
 data class CategoryWithUsage(
     @Embedded val category: CategoryEntity,
     @ColumnInfo(name = "usage_count") val usageCount: Int,
+    /** When the category was last added to a checklist; null when never used. */
+    @ColumnInfo(name = "last_used_at") val lastUsedAt: Long?,
 )
 
 /** One FTS hit: the item and the normalized text of the row that matched. */

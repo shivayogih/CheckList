@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">நினைவூட்டல்: %1$s</string>
     <string name="reminder_notification_body">பட்டியலைத் திறக்கத் தட்டவும்.</string>
     <string name="action_ok">சரி</string>
+    <string name="reminder_quick_hour">1 மணி நேரத்தில்</string>
+    <string name="reminder_quick_evening">இன்று மாலை</string>
+    <string name="reminder_quick_tomorrow">நாளை காலை</string>
+    <string name="pdf_reminder">நினைவூட்டல்: %1$s</string>
 </resources>

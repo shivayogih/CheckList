@@ -13,6 +13,10 @@ data class Category(
     val iconKey: String,
     val isCustom: Boolean,
     val isHidden: Boolean,
+    /** Number of checklists using the category; filled only in category lists (CatalogRepository.observeCategories). */
+    val usageCount: Int = 0,
+    /** When it was last added to a checklist (epoch millis); null when never used. */
+    val lastUsedAt: Long? = null,
 )
 
 /**
