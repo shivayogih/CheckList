@@ -23,8 +23,8 @@ data class PhoneCountry(
 
     /** The flag as an emoji: the ISO letters as regional indicator symbols. */
     val flag: String
-        get() = iso.uppercase().joinToString("") { letter ->
-            Character.toChars(REGIONAL_INDICATOR_A + (letter - 'A')).concatToString()
+        get() = buildString {
+            iso.uppercase().forEach { letter -> appendCodePoint(REGIONAL_INDICATOR_A + (letter - 'A')) }
         }
 
     private companion object {
