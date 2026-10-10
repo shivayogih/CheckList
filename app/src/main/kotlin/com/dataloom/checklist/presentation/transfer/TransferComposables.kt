@@ -1,6 +1,7 @@
 package com.dataloom.checklist.presentation.transfer
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -67,13 +68,7 @@ fun TransferEffects(
                 is TransferEffect.Exported -> effect.result.toUiText()
                 is TransferEffect.ImportRejected -> effect.rejection.toUiText()
                 is TransferEffect.Imported -> effect.summary.toUiText()
-                is TransferEffect.Share -> try {
-                    context.startActivity(effect.intent)
-                    if (effect.isPdf) onPdfExported(true)
-                    null
-                } catch (_: ActivityNotFoundException) {
-                    UiText(R.string.share_no_app)
-                }
+                is TransferEffect.Share -> startShare(context, effect, onPdfExported)
                 is TransferEffect.PdfSaved -> {
                     action = UiText(R.string.pdf_open)
                     onAction = {
@@ -103,6 +98,16 @@ fun TransferEffects(
         }
     }
 }
+
+/** Opens the Sharesheet; returns the message to show when no app can take the file. */
+private fun startShare(context: Context, effect: TransferEffect.Share, onPdfExported: (afterShare: Boolean) -> Unit): UiText? =
+    try {
+        context.startActivity(effect.intent)
+        if (effect.isPdf) onPdfExported(true)
+        null
+    } catch (_: ActivityNotFoundException) {
+        UiText(R.string.share_no_app)
+    }
 
 /** "Import 2 checklists?" with what will be created; nothing is written until Import is tapped. */
 @Composable
