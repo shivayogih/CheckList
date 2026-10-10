@@ -151,6 +151,11 @@
     <string name="error_display_name_blank">നിങ്ങളുടെ പേര് നൽകുക.</string>
     <string name="error_email_invalid">name@example.com പോലുള്ള ഒരു ഇമെയിൽ വിലാസം നൽകുക.</string>
     <string name="error_phone_invalid">%1$s മുതൽ %2$s വരെ അക്കങ്ങളുള്ള ഫോൺ നമ്പർ നൽകുക.</string>
+    <string name="error_phone_digits_exact">%1$s അക്കങ്ങളുള്ള ഫോൺ നമ്പർ നൽകുക.</string>
+    <string name="profile_phone_country">രാജ്യം: %1$s, %2$s</string>
+    <string name="profile_country_title">രാജ്യം തിരഞ്ഞെടുക്കുക</string>
+    <string name="profile_country_search">രാജ്യമോ കോഡോ തിരയുക</string>
+    <string name="profile_country_none">രാജ്യമൊന്നും കണ്ടെത്തിയില്ല</string>
     <string name="error_secure_storage">സുരക്ഷിത സംഭരണം ഇപ്പോൾ പ്രവർത്തിക്കുന്നില്ല. ഒന്നും സംരക്ഷിച്ചില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="profile_clear">പ്രൊഫൈൽ ഇല്ലാതാക്കുക</string>
     <string name="profile_clear_message">നിങ്ങളുടെ പേരും ബന്ധപ്പെടാനുള്ള വിവരങ്ങളും ഈ ഫോണിൽ നിന്ന് മായ്‌ക്കും.</string>

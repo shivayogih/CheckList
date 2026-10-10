@@ -1,6 +1,7 @@
 package com.dataloom.checklist.data.profile
 
 import com.dataloom.checklist.domain.model.UserProfile
+import com.dataloom.checklist.domain.validation.ProfileValidator
 import com.google.crypto.tink.Aead
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -25,7 +26,7 @@ internal object ProfileCipher {
     private val json = Json { ignoreUnknownKeys = true }
 
     fun encrypt(aead: Aead, profile: UserProfile, rowId: String, keyAlias: String): ByteArray {
-        val payload = ProfilePayload(profile.displayName, profile.email, profile.phone, profile.address)
+        val payload = with(profile) { ProfilePayload(displayName, email, phone, address, phoneCountry) }
         val plaintext = json.encodeToString(ProfilePayload.serializer(), payload).toByteArray(Charsets.UTF_8)
         return aead.encrypt(plaintext, associatedData(rowId, PAYLOAD_VERSION, keyAlias))
     }
@@ -38,7 +39,12 @@ internal object ProfileCipher {
     fun decrypt(aead: Aead, ciphertext: ByteArray, rowId: String, payloadVersion: Int, keyAlias: String): UserProfile {
         val plaintext = aead.decrypt(ciphertext, associatedData(rowId, payloadVersion, keyAlias))
         val payload = json.decodeFromString(ProfilePayload.serializer(), plaintext.toString(Charsets.UTF_8))
-        return UserProfile(payload.displayName, payload.email, payload.phone, payload.address)
+        val (country, phone) = when {
+            payload.phone == null -> null to null
+            payload.phoneCountry == null -> ProfileValidator.splitLegacyPhone(payload.phone)
+            else -> payload.phoneCountry to payload.phone
+        }
+        return UserProfile(payload.displayName, payload.email, phone, payload.address, country)
     }
 
     fun associatedData(rowId: String, payloadVersion: Int, keyAlias: String): ByteArray =
@@ -59,6 +65,11 @@ internal data class ProfilePayload(
     @SerialName("e") val email: String? = null,
     @SerialName("p") val phone: String? = null,
     @SerialName("a") val address: String? = null,
+    /**
+     * Added in CL-380, additively like [address]: the phone's ISO country, with [phone] then holding
+     * national digits only. Payloads without it hold the whole typed number and are split on reading.
+     */
+    @SerialName("c") val phoneCountry: String? = null,
 ) {
     override fun toString(): String = "ProfilePayload(***)"
 }

@@ -152,6 +152,11 @@
     <string name="error_display_name_blank">Enter your name.</string>
     <string name="error_email_invalid">Enter an email address like name@example.com.</string>
     <string name="error_phone_invalid">Enter a phone number with %1$s to %2$s digits.</string>
+    <string name="error_phone_digits_exact">Enter a phone number with %1$s digits.</string>
+    <string name="profile_phone_country">Country: %1$s, %2$s</string>
+    <string name="profile_country_title">Choose country</string>
+    <string name="profile_country_search">Search country or code</string>
+    <string name="profile_country_none">No country found</string>
     <string name="error_secure_storage">Secure storage is not working right now. Nothing was saved. Try again later.</string>
     <string name="profile_clear">Delete profile</string>
     <string name="profile_clear_message">Your name and contact details will be erased from this phone.</string>

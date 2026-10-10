@@ -112,19 +112,30 @@ class KeysetProfileAeadProvider(
     }
 
     private fun unwrap(stored: String): Aead {
+        val config = tinkConfig
         val wrapped = try {
             Base64.getDecoder().decode(stored)
         } catch (e: IllegalArgumentException) {
             throw ProfileKeyException.KeyLost("stored keyset is corrupt", e)
         }
         if (!masterKey.exists()) throw ProfileKeyException.KeyLost("master key is missing")
-        return TinkProtoKeysetFormat.parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig).aead()
+        return TinkProtoKeysetFormat
+            .parseEncryptedKeyset(wrapped, masterKey.aead(), KEYSET_ASSOCIATED_DATA, config)
+            .aead()
     }
 
+    /**
+     * [tinkConfig] must be initialized before [KeysetHandle.generateNew]: generating a key needs the
+     * AEAD key creators that `AeadConfig.register()` installs. Reading the config only afterwards made
+     * every first save fail with "no key creator for this class was registered", which was reported
+     * as lost keys, retried, failed again and surfaced as "Secure storage is not working" (CL-380).
+     */
     private fun create(): Aead {
+        val config = tinkConfig
         if (!masterKey.exists()) masterKey.create()
         val keyset = KeysetHandle.generateNew(PredefinedAeadParameters.AES256_GCM)
-        val wrapped = TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA, tinkConfig)
+        val wrapped =
+            TinkProtoKeysetFormat.serializeEncryptedKeyset(keyset, masterKey.aead(), KEYSET_ASSOCIATED_DATA, config)
         val written = prefs.edit().putString(PREF_KEYSET, Base64.getEncoder().encodeToString(wrapped)).commit()
         if (!written) throw ProfileKeyException.Unavailable("could not store the keyset")
         return keyset.aead()

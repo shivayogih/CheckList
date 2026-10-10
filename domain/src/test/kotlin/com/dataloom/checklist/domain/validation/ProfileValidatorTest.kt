@@ -26,7 +26,7 @@ class ProfileValidatorTest {
     @Test
     fun `a profile without a name keeps its other fields`() {
         val result = ProfileValidator.validate("", "asha@example.com", "+91 98765 43210") as ValidationResult.Valid
-        assertEquals(UserProfile(null, "asha@example.com", "+91 98765 43210", null), result.value)
+        assertEquals(UserProfile(null, "asha@example.com", "9876543210", null, "IN"), result.value)
         assertFalse(result.value.isEmpty)
     }
 
@@ -92,7 +92,7 @@ class ProfileValidatorTest {
 
     @Test
     fun `common phone formats are accepted`() {
-        listOf("+91 98765 43210", "098765-43210", "(080) 2345 6789", "9876543").forEach {
+        listOf("+91 98765 43210", "098765-43210", "(080) 2345 6789", "98765 43210").forEach {
             assertTrue(it, ProfileValidator.validate("Asha", null, it) is ValidationResult.Valid)
         }
     }
@@ -100,7 +100,31 @@ class ProfileValidatorTest {
     @Test
     fun `indic digits are normalized to ascii and whitespace collapsed`() {
         val result = ProfileValidator.validate("Asha", null, " +९१  ९८७६५ ४३२१० ") as ValidationResult.Valid
-        assertEquals("+91 98765 43210", result.value.phone)
+        assertEquals("9876543210", result.value.phone)
+        assertEquals("IN", result.value.phoneCountry)
+    }
+
+    @Test
+    fun `phone length follows the chosen country and a trunk zero is dropped`() {
+        assertEquals(UserProfile(phone = "7911123456", phoneCountry = "GB"), phone("07911 123456", "GB").value())
+        assertEquals("SG", phone("8123 4567", "SG").value().phoneCountry)
+        assertEquals(listOf(ValidationError.PHONE_INVALID), errorsOf(phone("8123 4567", "IN")))
+        assertEquals(listOf(ValidationError.PHONE_INVALID), errorsOf(phone("98765432101", "IN")))
+    }
+
+    @Test
+    fun `a dial code typed in the number wins over the chosen country`() {
+        assertEquals(UserProfile(phone = "7911123456", phoneCountry = "GB"), phone("+44 7911 123456", "IN").value())
+        assertEquals(listOf(ValidationError.PHONE_INVALID), errorsOf(phone("+999 123456", null)))
+    }
+
+    @Test
+    fun `phones stored before the country field are split`() {
+        assertEquals("IN" to "9845012345", ProfileValidator.splitLegacyPhone("+91 98450 12345"))
+        assertEquals("US" to "2025550123", ProfileValidator.splitLegacyPhone("+1 (202) 555-0123"))
+        assertEquals("IN" to "9845012345", ProfileValidator.splitLegacyPhone("098450 12345"))
+        // No longer valid for India: the digits are kept so the user can fix them.
+        assertEquals("IN" to "9876543", ProfileValidator.splitLegacyPhone("9876543"))
     }
 
     @Test
@@ -128,4 +152,8 @@ class ProfileValidatorTest {
     }
 
     private fun errorsOf(result: ValidationResult<*>): List<ValidationError> = (result as ValidationResult.Invalid).errors
+
+    private fun phone(number: String, country: String?) = ProfileValidator.validate(null, null, number, null, country)
+
+    private fun ValidationResult<UserProfile>.value(): UserProfile = (this as ValidationResult.Valid).value
 }

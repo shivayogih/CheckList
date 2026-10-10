@@ -3,6 +3,7 @@ package com.dataloom.checklist.data.profile
 import com.dataloom.checklist.data.local.dao.ProfileDao
 import com.dataloom.checklist.data.local.database.CheckListDatabase
 import com.dataloom.checklist.data.local.entity.UserProfileEntity
+import com.dataloom.checklist.domain.common.AppLog
 import com.dataloom.checklist.domain.common.Clock
 import com.dataloom.checklist.domain.common.IoDispatcher
 import com.dataloom.checklist.domain.model.ProfileState
@@ -68,6 +69,7 @@ class EncryptedProfileRepository @Inject constructor(
             val payload = try {
                 ProfileCipher.encrypt(aead, profile, ROW_ID, keys.keyAlias)
             } catch (e: GeneralSecurityException) {
+                AppLog.e(TAG, e) { "Profile encryption failed" }
                 return@withLock false
             }
             dao.upsert(UserProfileEntity(ROW_ID, payload, keys.keyAlias, ProfileCipher.PAYLOAD_VERSION, clock.nowMillis()))
@@ -130,19 +132,41 @@ class EncryptedProfileRepository @Inject constructor(
         true
     }
 
-    /** Keys for a write. Lost keys are replaced (the old row is unreadable anyway). */
+    /**
+     * Keys for a write. Lost keys are replaced (the old row is unreadable anyway). A Keystore that
+     * fails in a maybe-temporary way gets one retry; if it still fails and there is no stored profile
+     * that a reset could destroy, the unusable key material is reset and created again, so a broken
+     * keyset never blocks the user from saving (CL-380). The cause is logged (debug builds only).
+     */
     private suspend fun writableAead(): Aead? = try {
         keys.getOrCreateAead()
     } catch (e: ProfileKeyException.KeyLost) {
-        dao.deleteAll()
-        keys.destroyKeys()
+        AppLog.w(TAG, e) { "Profile keys lost; resetting them" }
+        recreateKeys()
+    } catch (e: ProfileKeyException.Unavailable) {
+        AppLog.w(TAG, e) { "Profile keys unavailable; retrying once" }
         try {
             keys.getOrCreateAead()
+        } catch (retry: ProfileKeyException) {
+            if (dao.get(ROW_ID) == null) {
+                AppLog.w(TAG, retry) { "Profile keys still unavailable and no profile is stored; resetting them" }
+                recreateKeys()
+            } else {
+                AppLog.e(TAG, retry) { "Profile keys unavailable; the stored profile is kept" }
+                null
+            }
+        }
+    }
+
+    private suspend fun recreateKeys(): Aead? {
+        dao.deleteAll()
+        keys.destroyKeys()
+        return try {
+            keys.getOrCreateAead()
         } catch (e: ProfileKeyException) {
+            AppLog.e(TAG, e) { "Profile keys cannot be created" }
             null
         }
-    } catch (e: ProfileKeyException.Unavailable) {
-        null
     }
 
     private sealed interface Read {
@@ -154,5 +178,7 @@ class EncryptedProfileRepository @Inject constructor(
     companion object {
         /** The profile is a single row (section 5.3). */
         const val ROW_ID = "me"
+
+        private const val TAG = "ProfileStore"
     }
 }

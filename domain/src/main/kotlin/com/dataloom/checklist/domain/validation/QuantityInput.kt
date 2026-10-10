@@ -1,6 +1,7 @@
 package com.dataloom.checklist.domain.validation
 
 import com.dataloom.checklist.domain.model.Quantity
+import com.dataloom.checklist.domain.phone.PhoneCountries
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -140,5 +141,44 @@ object PhoneInput {
             if (out.length >= FieldLimits.PHONE_MAX) break
         }
         return out.toString()
+    }
+}
+
+/** What the phone field holds after a keystroke or a paste: the country and the national digits. */
+data class PhoneEntry(val countryIso: String, val digits: String)
+
+/**
+ * Keyboard filter for the phone number field next to the country button (CL-380). Only digits get in
+ * (any script, converted to ASCII); letters, spaces and symbols are dropped, typed or pasted. A pasted
+ * international number such as "+44 7911 123456" switches the country and keeps the national part. The
+ * digits are capped at the country's longest number (plus a leading trunk "0" where people write one).
+ */
+object PhoneNumberInput {
+
+    fun typed(raw: String, countryIso: String?): PhoneEntry {
+        var country = PhoneCountries.orDefault(countryIso)
+        var digits = asciiDigits(raw)
+        if (raw.trimStart().startsWith('+')) {
+            PhoneCountries.splitDialCode(digits)?.let { (pasted, national) ->
+                country = pasted
+                digits = national
+            }
+        }
+        return PhoneEntry(country.iso, digits.take(country.maxTypedDigits))
+    }
+
+    /** The digits kept when the user picks another country. */
+    fun forCountry(digits: String, countryIso: String): PhoneEntry {
+        val country = PhoneCountries.orDefault(countryIso)
+        return PhoneEntry(country.iso, asciiDigits(digits).take(country.maxTypedDigits))
+    }
+
+    private fun asciiDigits(raw: String): String = buildString {
+        for (ch in raw) {
+            if (ch.isDigit()) {
+                val digit = Character.digit(ch, RADIX)
+                if (digit >= 0) append('0' + digit)
+            }
+        }
     }
 }

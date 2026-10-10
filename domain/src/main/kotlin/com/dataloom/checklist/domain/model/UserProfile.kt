@@ -17,9 +17,15 @@ package com.dataloom.checklist.domain.model
 data class UserProfile(
     val displayName: String? = null,
     val email: String? = null,
+    /** National digits only, without the dial code or a trunk "0" (CL-380); see [phoneCountry]. */
     val phone: String? = null,
     /** Added in CL-250. Stored inside the same encrypted payload; older payloads simply lack it. */
     val address: String? = null,
+    /**
+     * ISO 3166 code of the phone's country, such as "IN" (CL-380). Set exactly when [phone] is.
+     * Payloads written before it existed held "+91 98450 12345" in [phone]; reading one splits it.
+     */
+    val phoneCountry: String? = null,
 ) {
     /** True when no field has a value; such a profile is never stored (see `SaveProfileUseCase`). */
     val isEmpty: Boolean get() = displayName == null && email == null && phone == null && address == null

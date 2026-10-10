@@ -151,6 +151,11 @@
     <string name="error_display_name_blank">अपना नाम दर्ज करें।</string>
     <string name="error_email_invalid">name@example.com जैसा ईमेल पता दर्ज करें।</string>
     <string name="error_phone_invalid">%1$s से %2$s अंकों का फ़ोन नंबर दर्ज करें।</string>
+    <string name="error_phone_digits_exact">%1$s अंकों का फ़ोन नंबर दर्ज करें।</string>
+    <string name="profile_phone_country">देश: %1$s, %2$s</string>
+    <string name="profile_country_title">देश चुनें</string>
+    <string name="profile_country_search">देश या कोड खोजें</string>
+    <string name="profile_country_none">कोई देश नहीं मिला</string>
     <string name="error_secure_storage">सुरक्षित स्टोरेज अभी काम नहीं कर रहा है। कुछ भी सहेजा नहीं गया। बाद में फिर कोशिश करें।</string>
     <string name="profile_clear">प्रोफ़ाइल हटाएँ</string>
     <string name="profile_clear_message">आपका नाम और संपर्क विवरण इस फ़ोन से मिटा दिए जाएँगे।</string>

@@ -25,6 +25,12 @@ class FakeMasterKey(override val alias: String = "test_master") : MasterKey {
 
     private var key: Aead? = null
     var failing = false
+
+    /** A Keystore entry that keeps failing like a temporary error until it is deleted and recreated. */
+    var brokenUntilDeleted = false
+
+    /** Throws a temporary Keystore error on this many calls, then works again. */
+    var transientFailures = 0
     var creations = 0
         private set
 
@@ -41,12 +47,14 @@ class FakeMasterKey(override val alias: String = "test_master") : MasterKey {
 
     override fun aead(): Aead {
         check()
+        if (brokenUntilDeleted) throw ProviderException("Keystore cannot use the key")
         return key ?: throw java.security.GeneralSecurityException("no key")
     }
 
     override fun delete() {
         check()
         key = null
+        brokenUntilDeleted = false
     }
 
     fun lose() {
@@ -58,6 +66,10 @@ class FakeMasterKey(override val alias: String = "test_master") : MasterKey {
     }
 
     private fun check() {
+        if (transientFailures > 0) {
+            transientFailures--
+            throw ProviderException("Keystore busy")
+        }
         if (failing) throw ProviderException("Keystore temporarily unavailable")
     }
 }

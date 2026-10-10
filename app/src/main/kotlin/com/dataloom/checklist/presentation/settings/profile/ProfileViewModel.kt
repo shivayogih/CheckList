@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dataloom.checklist.domain.model.ProfileState
 import com.dataloom.checklist.domain.model.UserProfile
+import com.dataloom.checklist.domain.phone.PhoneCountries
 import com.dataloom.checklist.domain.usecase.AcknowledgeProfileResetUseCase
 import com.dataloom.checklist.domain.usecase.ClearProfileUseCase
 import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.ObserveProfileUseCase
 import com.dataloom.checklist.domain.usecase.SaveProfileUseCase
+import com.dataloom.checklist.domain.validation.PhoneNumberInput
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,7 +36,10 @@ data class ProfileUiState(
     val nameError: UiText? = null,
     val email: String = "",
     val emailError: UiText? = null,
+    /** National digits only; the country is picked separately (CL-380). */
     val phone: String = "",
+    val phoneCountry: String = PhoneCountries.DEFAULT_ISO,
+    val countryPickerOpen: Boolean = false,
     val phoneError: UiText? = null,
     val address: String = "",
     val addressError: UiText? = null,
@@ -58,6 +63,9 @@ sealed interface ProfileAction {
     data class EmailChanged(val email: String) : ProfileAction
     data class PhoneChanged(val phone: String) : ProfileAction
     data class AddressChanged(val address: String) : ProfileAction
+    data object OpenCountryPicker : ProfileAction
+    data object CloseCountryPicker : ProfileAction
+    data class CountryChosen(val iso: String) : ProfileAction
     data object Save : ProfileAction
     data object AcknowledgeReset : ProfileAction
     data object RequestClear : ProfileAction
@@ -110,7 +118,16 @@ class ProfileViewModel @Inject constructor(
         when (action) {
             is ProfileAction.NameChanged -> edit { it.copy(name = ProfileTyping.name(action.name)).revalidated() }
             is ProfileAction.EmailChanged -> edit { it.copy(email = ProfileTyping.email(action.email)).revalidated() }
-            is ProfileAction.PhoneChanged -> edit { it.copy(phone = ProfileTyping.phone(action.phone)).revalidated() }
+            is ProfileAction.PhoneChanged -> edit {
+                val entry = ProfileTyping.phone(action.phone, it.phoneCountry)
+                it.copy(phone = entry.digits, phoneCountry = entry.countryIso).revalidated()
+            }
+            ProfileAction.OpenCountryPicker -> state.update { it.copy(countryPickerOpen = true) }
+            ProfileAction.CloseCountryPicker -> state.update { it.copy(countryPickerOpen = false) }
+            is ProfileAction.CountryChosen -> edit {
+                val entry = PhoneNumberInput.forCountry(it.phone, action.iso)
+                it.copy(phone = entry.digits, phoneCountry = entry.countryIso, countryPickerOpen = false).revalidated()
+            }
             is ProfileAction.AddressChanged ->
                 edit { it.copy(address = ProfileTyping.address(action.address)).revalidated() }
             ProfileAction.Save -> save()
@@ -144,7 +161,8 @@ class ProfileViewModel @Inject constructor(
         if (current.isSaving || !current.canEdit) return
         state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
-            when (val result = saveProfile(current.name, current.email, current.phone, current.address)) {
+            val result = saveProfile(current.name, current.email, current.phone, current.address, current.phoneCountry)
+            when (result) {
                 is DomainResult.Success -> {
                     edited = false
                     // Show the normalized values that were actually stored.
@@ -154,7 +172,7 @@ class ProfileViewModel @Inject constructor(
                 is DomainResult.Failure -> {
                     val error = result.error
                     if (error is DomainError.Invalid) {
-                        val errors = error.toProfileFieldErrors()
+                        val errors = error.toProfileFieldErrors(PhoneCountries.orDefault(current.phoneCountry))
                         state.update {
                             it.copy(
                                 isSaving = false,
@@ -189,7 +207,7 @@ class ProfileViewModel @Inject constructor(
 
     /** Shows the validator's verdict for what is typed now, next to each field. */
     private fun ProfileUiState.revalidated(): ProfileUiState {
-        val errors = liveProfileErrors(name, email, phone, address)
+        val errors = liveProfileErrors(name, email, phone, address, phoneCountry)
         return copy(
             nameError = errors.name,
             emailError = errors.email,
@@ -202,6 +220,7 @@ class ProfileViewModel @Inject constructor(
         name = profile?.displayName.orEmpty(),
         email = profile?.email.orEmpty(),
         phone = profile?.phone.orEmpty(),
+        phoneCountry = PhoneCountries.orDefault(profile?.phoneCountry).iso,
         address = profile?.address.orEmpty(),
         nameError = null,
         emailError = null,
