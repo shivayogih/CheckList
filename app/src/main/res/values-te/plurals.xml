@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="progress_items_done">
+        <item quantity="one">%2$s లో %1$s పూర్తయింది</item>
+        <item quantity="other">%2$s లో %1$s పూర్తయ్యాయి</item>
+    </plurals>
+    <plurals name="add_selected_items">
+        <item quantity="one">%1$s వస్తువును జోడించండి</item>
+        <item quantity="other">%1$s వస్తువులను జోడించండి</item>
+    </plurals>
+    <plurals name="add_selected_categories">
+        <item quantity="one">%1$s వర్గాన్ని జోడించండి</item>
+        <item quantity="other">%1$s వర్గాలను జోడించండి</item>
+    </plurals>
+</resources>

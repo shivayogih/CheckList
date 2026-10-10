@@ -1,0 +1,40 @@
+# Pull-request conventions (Phase 8, CL-185): commit subjects, PR title and branch name follow
+# docs/branching-strategy.md. Build, tests, lint, detekt, secret scan and the agents run on every
+# push in "Android build" and "Quality"; this workflow adds what only a PR knows.
+name: pr-checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited] # "edited": a renamed PR title is re-checked
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  conventions:
+    name: Commit and branch conventions
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0 # needs base..head to list the PR's commits
+          persist-credentials: false
+      # Values a PR author controls (branch name, title) go through env, never into the script text.
+      - name: Check commits, PR title and branch name
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          python3 tools/checks/conventions.py \
+            --base "$BASE_SHA" --head "$HEAD_SHA" --branch "$HEAD_BRANCH" \
+            --author "$PR_AUTHOR" --title "$PR_TITLE"

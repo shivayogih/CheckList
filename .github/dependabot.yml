@@ -1,0 +1,40 @@
+# Dependabot version updates (design section 15.3). PRs target the default branch (develop).
+# Groups keep the weekly PR count low: one PR per family instead of one per library.
+# A dependency joins the first group it matches, so the narrow "compose" group comes first.
+# Dependabot adds its own "dependencies" label. Its PRs must still pass the same required checks as any other PR before merging.
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      compose:
+        patterns:
+          - "androidx.compose*"
+      kotlin:
+        # Includes the Compose compiler plugin, which shares the Kotlin version.
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+      androidx:
+        # AndroidX libraries plus the Android Gradle Plugin.
+        patterns:
+          - "androidx.*"
+          - "com.android*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+
+  # CI agents (tools/agents/requirements.txt: google-adk, pytest). Exact pins, updated here.
+  - package-ecosystem: "pip"
+    directory: "/tools/agents"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 2

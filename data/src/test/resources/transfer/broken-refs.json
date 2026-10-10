@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "schemaVersion": 1,
+  "metadata": { "app": "CheckList", "appVersion": "1.0.0", "exportedAt": "2026-10-08T04:00:00Z", "locale": "en", "includesProfile": false },
+  "units": [ { "ref": "u1", "code": "CUSTOM", "label": "Bundle", "allowsDecimal": false } ],
+  "categories": [ { "ref": "c1", "canonicalKey": "groceries" }, { "ref": "c1", "customName": "Twice" } ],
+  "checklists": [
+    {
+      "ref": "k1", "title": "Broken", "archived": false,
+      "sections": [
+        { "ref": "s1", "categoryRef": "c9", "order": 0 },
+        { "ref": "s2", "categoryRef": "c1", "order": 1 },
+        { "ref": "s2", "categoryRef": "c1", "order": 2 }
+      ]
+    }
+  ],
+  "items": [
+    { "ref": "i1", "sectionRef": "s404", "displayName": "Ghost", "displayNameLocale": "en" },
+    { "ref": "i2", "sectionRef": "s2", "displayName": "Odd unit", "displayNameLocale": "en", "quantity": "1", "unit": "u7" },
+    { "ref": "i2", "sectionRef": "s2", "displayName": "Twin", "displayNameLocale": "en" }
+  ],
+  "profile": null
+}

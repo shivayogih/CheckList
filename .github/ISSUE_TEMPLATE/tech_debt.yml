@@ -1,0 +1,47 @@
+name: Technical debt
+description: Code, build or test work that keeps the project healthy but changes nothing for users.
+title: "[Tech debt] "
+labels: ["tech-debt"]
+body:
+  - type: textarea
+    id: current
+    attributes:
+      label: Current state
+      description: What is wrong or missing today? Link the files or code.
+    validations:
+      required: true
+  - type: textarea
+    id: cost
+    attributes:
+      label: Cost of leaving it
+      description: Slower builds, flaky tests, risk of bugs, blocked upgrade, and so on.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Build and Gradle
+        - Static analysis
+        - Tests
+        - Architecture and modules
+        - Database and migrations
+        - Dependencies
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: This change does not alter user-visible behavior
+        - label: Existing tests cover the code being changed, or the issue adds them

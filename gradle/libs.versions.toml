@@ -1,0 +1,96 @@
+# Single source of truth for dependency versions (verified against official release pages on 2026-10-08).
+[versions]
+agp = "9.4.0"
+kotlin = "2.4.20"
+coreKtx = "1.19.1"
+appcompat = "1.8.0"
+activityCompose = "1.13.0"
+lifecycle = "2.11.0"
+navigation = "2.10.2"
+composeBom = "2026.09.00"
+kotlinxSerialization = "1.11.0"
+junit = "4.13.2"
+coroutines = "1.11.0"
+ksp = "2.3.12"
+hilt = "2.60.1"
+androidxHilt = "1.4.0"
+room = "2.8.5"
+robolectric = "4.17"
+# Screenshot tests (CL-262). Roborazzi 1.76.0 is the latest release on Maven Central (2026-09-29); its Gradle
+# plugin is built with Gradle 9.5.1 and runs Compose screenshots on Robolectric 4.10+ (we use 4.17).
+roborazzi = "1.76.0"
+androidxTestCore = "1.7.0"
+javaxInject = "1"
+turbine = "1.2.1"
+# Profile encryption (CL-151); tink-android 1.23.0 checked on Maven Central, released 2026-07-09.
+tink = "1.23.0"
+# QR code in the PDF export (CL-168); zxing core 3.5.4 checked on Maven Central (latest stable,
+# released 2025-11-11, Apache-2.0, no runtime dependencies).
+zxing = "3.5.4"
+# Unit-test coverage (CL-175): JaCoCo 0.8.15 checked on Maven Central (released 2026-06-04, supports
+# Java 26 class files and the Kotlin/Compose bytecode filters). Used through AGP's built-in coverage
+# and Gradle's core jacoco plugin, so no third-party Gradle plugin is needed.
+jacoco = "0.8.15"
+# AI assistant toggles (CL-240); datastore 1.2.1 checked on the AndroidX release page: latest stable,
+# released 2026-03-11, needs Kotlin Gradle plugin 2.0 or newer.
+datastore = "1.2.1"
+# Installs the Baseline Profile on first launch (CL-294); 1.4.1 checked on the AndroidX release page
+# (latest stable, a plain AAR with no Kotlin or AGP coupling).
+profileinstaller = "1.4.1"
+
+# Reads the EXIF orientation of picked photos (CL-210); 1.4.2 is the latest stable on the AndroidX
+# release page (2025-12-03). It is the AndroidX copy of the platform class, which also reads PNG and WebP.
+exifinterface = "1.4.2"
+
+[libraries]
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+# Compose UI tests on the JVM with Robolectric (CL-171). Versions come from the Compose BOM
+# (2026.09.00 maps Compose UI to 1.12.1, checked on the Compose UI release page).
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+# Same version as Hilt (2.60.1 on Maven Central): HiltAndroidRule and HiltTestApplication for app tests.
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+androidx-hilt-lifecycle-viewmodel-compose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
+# room-ktx is not listed: since Room 2.7 its APIs (withTransaction, Flow) live in room-runtime.
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
+zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

@@ -1,0 +1,6840 @@
+{
+  "seedVersion": 3,
+  "units": [
+    {
+      "code": "KG",
+      "allowsDecimal": true,
+      "sortOrder": 10
+    },
+    {
+      "code": "GRAM",
+      "allowsDecimal": true,
+      "sortOrder": 20
+    },
+    {
+      "code": "LITRE",
+      "allowsDecimal": true,
+      "sortOrder": 30
+    },
+    {
+      "code": "MILLILITRE",
+      "allowsDecimal": true,
+      "sortOrder": 40
+    },
+    {
+      "code": "DOZEN",
+      "allowsDecimal": false,
+      "sortOrder": 50
+    },
+    {
+      "code": "PIECE",
+      "allowsDecimal": false,
+      "sortOrder": 60
+    },
+    {
+      "code": "PACK",
+      "allowsDecimal": false,
+      "sortOrder": 70
+    },
+    {
+      "code": "BOX",
+      "allowsDecimal": false,
+      "sortOrder": 80
+    },
+    {
+      "code": "BOTTLE",
+      "allowsDecimal": false,
+      "sortOrder": 90
+    },
+    {
+      "code": "PAIR",
+      "allowsDecimal": false,
+      "sortOrder": 100
+    },
+    {
+      "code": "METER",
+      "allowsDecimal": true,
+      "sortOrder": 110
+    },
+    {
+      "code": "NOS",
+      "allowsDecimal": false,
+      "sortOrder": 120
+    },
+    {
+      "code": "BUNCH",
+      "allowsDecimal": false,
+      "sortOrder": 130
+    }
+  ],
+  "categories": [
+    {
+      "key": "groceries",
+      "icon": "🛒",
+      "sortOrder": 10,
+      "catalogId": "CAT001"
+    },
+    {
+      "key": "vegetables",
+      "icon": "🥕",
+      "sortOrder": 20,
+      "catalogId": "CAT002"
+    },
+    {
+      "key": "fruits",
+      "icon": "🍎",
+      "sortOrder": 30,
+      "catalogId": "CAT003"
+    },
+    {
+      "key": "cat004",
+      "icon": "🌿",
+      "sortOrder": 40,
+      "catalogId": "CAT004"
+    },
+    {
+      "key": "cat005",
+      "icon": "🥛",
+      "sortOrder": 50,
+      "catalogId": "CAT005"
+    },
+    {
+      "key": "cat006",
+      "icon": "🍗",
+      "sortOrder": 60,
+      "catalogId": "CAT006"
+    },
+    {
+      "key": "cat007",
+      "icon": "🍞",
+      "sortOrder": 70,
+      "catalogId": "CAT007"
+    },
+    {
+      "key": "cat008",
+      "icon": "🍪",
+      "sortOrder": 80,
+      "catalogId": "CAT008"
+    },
+    {
+      "key": "cat009",
+      "icon": "🧂",
+      "sortOrder": 90,
+      "catalogId": "CAT009"
+    },
+    {
+      "key": "cat010",
+      "icon": "☕",
+      "sortOrder": 100,
+      "catalogId": "CAT010"
+    },
+    {
+      "key": "cat011",
+      "icon": "🧊",
+      "sortOrder": 110,
+      "catalogId": "CAT011"
+    },
+    {
+      "key": "toiletries",
+      "icon": "🚿",
+      "sortOrder": 120,
+      "catalogId": "CAT012"
+    },
+    {
+      "key": "cat013",
+      "icon": "🧺",
+      "sortOrder": 130,
+      "catalogId": "CAT013"
+    },
+    {
+      "key": "cat014",
+      "icon": "🧻",
+      "sortOrder": 140,
+      "catalogId": "CAT014"
+    },
+    {
+      "key": "cat015",
+      "icon": "🍽",
+      "sortOrder": 150,
+      "catalogId": "CAT015"
+    },
+    {
+      "key": "cat016",
+      "icon": "🔧",
+      "sortOrder": 160,
+      "catalogId": "CAT016"
+    },
+    {
+      "key": "medicines",
+      "icon": "💊",
+      "sortOrder": 170,
+      "catalogId": "CAT017"
+    },
+    {
+      "key": "cat018",
+      "icon": "🧸",
+      "sortOrder": 180,
+      "catalogId": "CAT018"
+    },
+    {
+      "key": "cat019",
+      "icon": "🐕",
+      "sortOrder": 190,
+      "catalogId": "CAT019"
+    },
+    {
+      "key": "stationery",
+      "icon": "📎",
+      "sortOrder": 200,
+      "catalogId": "CAT020"
+    },
+    {
+      "key": "electronics",
+      "icon": "🔌",
+      "sortOrder": 210,
+      "catalogId": "CAT021"
+    },
+    {
+      "key": "travel",
+      "icon": "🎒",
+      "sortOrder": 220,
+      "catalogId": "CAT022"
+    },
+    {
+      "key": "clothing",
+      "icon": "👕",
+      "sortOrder": 230,
+      "catalogId": "CAT023"
+    },
+    {
+      "key": "documents",
+      "icon": "📄",
+      "sortOrder": 240,
+      "catalogId": "CAT024"
+    },
+    {
+      "key": "exam",
+      "icon": "📝",
+      "sortOrder": 250,
+      "catalogId": "CAT025"
+    },
+    {
+      "key": "cat026",
+      "icon": "🏃",
+      "sortOrder": 260,
+      "catalogId": "CAT026"
+    },
+    {
+      "key": "cat027",
+      "icon": "🌱",
+      "sortOrder": 270,
+      "catalogId": "CAT027"
+    },
+    {
+      "key": "cat028",
+      "icon": "🚗",
+      "sortOrder": 280,
+      "catalogId": "CAT028"
+    },
+    {
+      "key": "cat029",
+      "icon": "🎉",
+      "sortOrder": 290,
+      "catalogId": "CAT029"
+    },
+    {
+      "key": "cat030",
+      "icon": "🗓",
+      "sortOrder": 300,
+      "catalogId": "CAT030"
+    },
+    {
+      "key": "other",
+      "icon": "📦",
+      "sortOrder": 310,
+      "catalogId": "CAT031"
+    },
+    {
+      "key": "pooja_items",
+      "icon": "🔔",
+      "sortOrder": 320
+    }
+  ],
+  "items": [
+    {
+      "key": "sugar",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0035",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "salt",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0037",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "potato",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0050",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "onion",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0051",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "tomato",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0052",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "carrot",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0053",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "cabbage",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0071",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "cauliflower",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0072",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "coconut",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0087",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "apple",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0093",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "banana",
+      "category": "fruits",
+      "defaultUnit": "DOZEN",
+      "catalogId": "ITM0094",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "orange",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0095",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "pomegranate",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0097",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "grapes",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0102",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "mango",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0104",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "milk",
+      "category": "cat005",
+      "defaultUnit": "LITRE",
+      "catalogId": "ITM0146",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "shampoo",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE",
+      "catalogId": "ITM0273",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "hair_oil",
+      "category": "toiletries",
+      "defaultUnit": "BOTTLE",
+      "catalogId": "ITM0275",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "toothpaste",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0276",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "toothbrush",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0277",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "extension_board",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0355",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "glue",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0358",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "notebook",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0404",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "pen",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0405",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "pencil",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0406",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "eraser",
+      "category": "stationery",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0407",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "stapler",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0416",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "scissors",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0420",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "power_bank",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0434",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "earphones",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0435",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "t_shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0459",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "shirt",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0460",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "socks",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0464",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "shoes",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0475",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "passport",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0481",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "driving_licence",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0482",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "hall_ticket",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0497",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "calculator",
+      "category": "exam",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0502",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "balloons",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0539",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "greeting_card",
+      "category": "cat029",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0541",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "rice",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "wheat",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "dal",
+      "category": "groceries",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "cooking_oil",
+      "category": "groceries",
+      "defaultUnit": "LITRE"
+    },
+    {
+      "key": "tea",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "coffee",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "spices",
+      "category": "groceries",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "beans",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "brinjal",
+      "category": "vegetables",
+      "defaultUnit": "KG"
+    },
+    {
+      "key": "spinach",
+      "category": "vegetables",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "pants",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "saree",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "dress",
+      "category": "clothing",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "travel_passport",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "tickets",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "hotel_booking",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "clothes",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "charger",
+      "category": "travel",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "travel_toiletries",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "travel_medicines",
+      "category": "travel",
+      "defaultUnit": null
+    },
+    {
+      "key": "aadhaar_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "pan_card",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "educational_certificates",
+      "category": "documents",
+      "defaultUnit": null
+    },
+    {
+      "key": "passport_photos",
+      "category": "documents",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "id_card",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "books",
+      "category": "exam",
+      "defaultUnit": "NOS"
+    },
+    {
+      "key": "notes",
+      "category": "exam",
+      "defaultUnit": null
+    },
+    {
+      "key": "sweets",
+      "category": "cat029",
+      "defaultUnit": "BOX"
+    },
+    {
+      "key": "incense_sticks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "camphor",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "kumkum",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "turmeric",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "flowers",
+      "category": "pooja_items",
+      "defaultUnit": null
+    },
+    {
+      "key": "cotton_wicks",
+      "category": "pooja_items",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "rangoli_colours",
+      "category": "cat029",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "decorative_lights",
+      "category": "cat029",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "fever_tablets",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "pain_balm",
+      "category": "medicines",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "bandage",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "antiseptic_liquid",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "ors",
+      "category": "medicines",
+      "defaultUnit": "PACK"
+    },
+    {
+      "key": "cough_syrup",
+      "category": "medicines",
+      "defaultUnit": "BOTTLE"
+    },
+    {
+      "key": "soap",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "comb",
+      "category": "toiletries",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "batteries",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "light_bulb",
+      "category": "electronics",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "ruler",
+      "category": "stationery",
+      "defaultUnit": "PIECE"
+    },
+    {
+      "key": "itm0001",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0001",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0002",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0002",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0003",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0003",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0004",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0004",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0005",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0005",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0006",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0006",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0007",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0007",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0008",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0008",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0009",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0009",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0010",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0010",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0011",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0011",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0012",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0012",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0013",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0013",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0014",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0014",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0015",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0015",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0016",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0016",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0017",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0017",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0018",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0018",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0019",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0019",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0020",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0020",
+      "subcategory": "Rice & grains",
+      "tags": [
+        "pantry",
+        "staple",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0021",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0021",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0022",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0022",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0023",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0023",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0024",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0024",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0025",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0025",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0026",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0026",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0027",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0027",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0028",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0028",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0029",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0029",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0030",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0030",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0031",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0031",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0032",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0032",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0033",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0033",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0034",
+      "category": "groceries",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0034",
+      "subcategory": "Pulses & legumes",
+      "tags": [
+        "pantry",
+        "protein",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0036",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0036",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0038",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0038",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0039",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0039",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0040",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0040",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0041",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0041",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0042",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0042",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0043",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0043",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0044",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0044",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0045",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0045",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0046",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0046",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0047",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0047",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0048",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0048",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0049",
+      "category": "groceries",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0049",
+      "subcategory": "Other staples",
+      "tags": [
+        "pantry",
+        "staple"
+      ]
+    },
+    {
+      "key": "itm0054",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0054",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0055",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0055",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0056",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0056",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0057",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0057",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0058",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0058",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0059",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0059",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0060",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0060",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0061",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0061",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0062",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0062",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0063",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0063",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0064",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0064",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0065",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0065",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0066",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0066",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0067",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0067",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0068",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0068",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0069",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0069",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0070",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0070",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0073",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0073",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0074",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0074",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0075",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0075",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0076",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0076",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0077",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0077",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0078",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0078",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0079",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0079",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0080",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0080",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0081",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0081",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0082",
+      "category": "vegetables",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0082",
+      "subcategory": "Everyday vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0083",
+      "category": "vegetables",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0083",
+      "subcategory": "Chilli & aromatics",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "aromatic"
+      ]
+    },
+    {
+      "key": "itm0084",
+      "category": "vegetables",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0084",
+      "subcategory": "Chilli & aromatics",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "aromatic"
+      ]
+    },
+    {
+      "key": "itm0085",
+      "category": "vegetables",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0085",
+      "subcategory": "Chilli & aromatics",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "aromatic"
+      ]
+    },
+    {
+      "key": "itm0086",
+      "category": "vegetables",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0086",
+      "subcategory": "Chilli & aromatics",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "aromatic"
+      ]
+    },
+    {
+      "key": "itm0088",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0088",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0089",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0089",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0090",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0090",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0091",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0091",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0092",
+      "category": "vegetables",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0092",
+      "subcategory": "By-piece vegetables",
+      "tags": [
+        "fresh",
+        "vegetable",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0096",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0096",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0098",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0098",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0099",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0099",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0100",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0100",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0101",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0101",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0103",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0103",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0105",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0105",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0106",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0106",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0107",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0107",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0108",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0108",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0109",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0109",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0110",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0110",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0111",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0111",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0112",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0112",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0113",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0113",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0114",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0114",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0115",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0115",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0116",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0116",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0117",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0117",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0118",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0118",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0119",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0119",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0120",
+      "category": "fruits",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0120",
+      "subcategory": "Common fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0121",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0121",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0122",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0122",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0123",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0123",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0124",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0124",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0125",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0125",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0126",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0126",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0127",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0127",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0128",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0128",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0129",
+      "category": "fruits",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0129",
+      "subcategory": "Usually counted fruits",
+      "tags": [
+        "fresh",
+        "fruit",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0130",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0130",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0131",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0131",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0132",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0132",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0133",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0133",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0134",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0134",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0135",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0135",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0136",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0136",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0137",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0137",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0138",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0138",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0139",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0139",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0140",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0140",
+      "subcategory": "Leafy greens",
+      "tags": [
+        "fresh",
+        "leafy",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0141",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0141",
+      "subcategory": "Fresh herbs",
+      "tags": [
+        "fresh",
+        "herb",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0142",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0142",
+      "subcategory": "Fresh herbs",
+      "tags": [
+        "fresh",
+        "herb",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0143",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0143",
+      "subcategory": "Fresh herbs",
+      "tags": [
+        "fresh",
+        "herb",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0144",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0144",
+      "subcategory": "Fresh herbs",
+      "tags": [
+        "fresh",
+        "herb",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0145",
+      "category": "cat004",
+      "defaultUnit": "BUNCH",
+      "catalogId": "ITM0145",
+      "subcategory": "Fresh herbs",
+      "tags": [
+        "fresh",
+        "herb",
+        "vegetarian"
+      ]
+    },
+    {
+      "key": "itm0147",
+      "category": "cat005",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0147",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0148",
+      "category": "cat005",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0148",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0149",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0149",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0150",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0150",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0151",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0151",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0152",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0152",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0153",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0153",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0154",
+      "category": "cat005",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0154",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0155",
+      "category": "cat005",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0155",
+      "subcategory": "Milk & dairy",
+      "tags": [
+        "chilled",
+        "dairy"
+      ]
+    },
+    {
+      "key": "itm0156",
+      "category": "cat005",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0156",
+      "subcategory": "Eggs",
+      "tags": [
+        "protein",
+        "egg"
+      ]
+    },
+    {
+      "key": "itm0157",
+      "category": "cat005",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0157",
+      "subcategory": "Eggs",
+      "tags": [
+        "protein",
+        "egg"
+      ]
+    },
+    {
+      "key": "itm0158",
+      "category": "cat005",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0158",
+      "subcategory": "Eggs",
+      "tags": [
+        "protein",
+        "egg"
+      ]
+    },
+    {
+      "key": "itm0159",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0159",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0160",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0160",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0161",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0161",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0162",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0162",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0163",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0163",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0164",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0164",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0165",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0165",
+      "subcategory": "Meat & poultry",
+      "tags": [
+        "non-vegetarian",
+        "protein",
+        "fresh"
+      ]
+    },
+    {
+      "key": "itm0166",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0166",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0167",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0167",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0168",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0168",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0169",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0169",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0170",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0170",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0171",
+      "category": "cat006",
+      "defaultUnit": "KG",
+      "catalogId": "ITM0171",
+      "subcategory": "Seafood",
+      "tags": [
+        "non-vegetarian",
+        "seafood",
+        "protein"
+      ]
+    },
+    {
+      "key": "itm0172",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0172",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0173",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0173",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0174",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0174",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0175",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0175",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0176",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0176",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0177",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0177",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0178",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0178",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0179",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0179",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0180",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0180",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0181",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0181",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0182",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0182",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0183",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0183",
+      "subcategory": "Bread & bakery",
+      "tags": [
+        "bakery",
+        "breakfast"
+      ]
+    },
+    {
+      "key": "itm0184",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0184",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0185",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0185",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0186",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0186",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0187",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0187",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0188",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0188",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0189",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0189",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0190",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0190",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0191",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0191",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0192",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0192",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0193",
+      "category": "cat007",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0193",
+      "subcategory": "Breakfast foods",
+      "tags": [
+        "breakfast",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0194",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0194",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0195",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0195",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0196",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0196",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0197",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0197",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0198",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0198",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0199",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0199",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0200",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0200",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0201",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0201",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0202",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0202",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0203",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0203",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0204",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0204",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0205",
+      "category": "cat008",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0205",
+      "subcategory": "Snacks",
+      "tags": [
+        "snack",
+        "treat"
+      ]
+    },
+    {
+      "key": "itm0206",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0206",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0207",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0207",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0208",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0208",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0209",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0209",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0210",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0210",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0211",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0211",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0212",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0212",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0213",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0213",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0214",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0214",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0215",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0215",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0216",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0216",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0217",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0217",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0218",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0218",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0219",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0219",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0220",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0220",
+      "subcategory": "Whole spices",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0221",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0221",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0222",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0222",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0223",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0223",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0224",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0224",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0225",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0225",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0226",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0226",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0227",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0227",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0228",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0228",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0229",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0229",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0230",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0230",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0231",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0231",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0232",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0232",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0233",
+      "category": "cat009",
+      "defaultUnit": "GRAM",
+      "catalogId": "ITM0233",
+      "subcategory": "Powder spices & mixes",
+      "tags": [
+        "spice",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0234",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0234",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0235",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0235",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0236",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0236",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0237",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0237",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0238",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0238",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0239",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0239",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0240",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0240",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0241",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0241",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0242",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0242",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0243",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0243",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0244",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0244",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0245",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0245",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0246",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0246",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0247",
+      "category": "cat009",
+      "defaultUnit": "MILLILITRE",
+      "catalogId": "ITM0247",
+      "subcategory": "Oils & sauces",
+      "tags": [
+        "cooking",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0248",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0248",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0249",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0249",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0250",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0250",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0251",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0251",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0252",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0252",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0253",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0253",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0254",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0254",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0255",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0255",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0256",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0256",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0257",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0257",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0258",
+      "category": "cat010",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0258",
+      "subcategory": "Hot & cold drinks",
+      "tags": [
+        "beverage",
+        "pantry"
+      ]
+    },
+    {
+      "key": "itm0259",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0259",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0260",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0260",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0261",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0261",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0262",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0262",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0263",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0263",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0264",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0264",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0265",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0265",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0266",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0266",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0267",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0267",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0268",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0268",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0269",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0269",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0270",
+      "category": "cat011",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0270",
+      "subcategory": "Frozen & ready foods",
+      "tags": [
+        "frozen",
+        "convenience"
+      ]
+    },
+    {
+      "key": "itm0271",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0271",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0272",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0272",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0274",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0274",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0278",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0278",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0279",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0279",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0280",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0280",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0281",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0281",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0282",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0282",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0283",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0283",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0284",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0284",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0285",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0285",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0286",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0286",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0287",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0287",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0288",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0288",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0289",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0289",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0290",
+      "category": "toiletries",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0290",
+      "subcategory": "Bath & body",
+      "tags": [
+        "personal-care",
+        "hygiene"
+      ]
+    },
+    {
+      "key": "itm0291",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0291",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0292",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0292",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0293",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0293",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0294",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0294",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0295",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0295",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0296",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0296",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0297",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0297",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0298",
+      "category": "toiletries",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0298",
+      "subcategory": "Hair & grooming",
+      "tags": [
+        "personal-care",
+        "grooming"
+      ]
+    },
+    {
+      "key": "itm0299",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0299",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0300",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0300",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0301",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0301",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0302",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0302",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0303",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0303",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0304",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0304",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0305",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0305",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0306",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0306",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0307",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0307",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0308",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0308",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0309",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0309",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0310",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0310",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0311",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0311",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0312",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0312",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0313",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0313",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0314",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0314",
+      "subcategory": "Cleaning",
+      "tags": [
+        "cleaning",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0315",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0315",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0316",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0316",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0317",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0317",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0318",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0318",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0319",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0319",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0320",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0320",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0321",
+      "category": "cat013",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0321",
+      "subcategory": "Laundry",
+      "tags": [
+        "laundry",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0322",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0322",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0323",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0323",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0324",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0324",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0325",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0325",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0326",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0326",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0327",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0327",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0328",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0328",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0329",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0329",
+      "subcategory": "Paper disposables",
+      "tags": [
+        "disposable",
+        "paper"
+      ]
+    },
+    {
+      "key": "itm0330",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0330",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0331",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0331",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0332",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0332",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0333",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0333",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0334",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0334",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0335",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0335",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0336",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0336",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0337",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0337",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0338",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0338",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0339",
+      "category": "cat014",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0339",
+      "subcategory": "Single-use & storage",
+      "tags": [
+        "disposable",
+        "storage"
+      ]
+    },
+    {
+      "key": "itm0340",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0340",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0341",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0341",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0342",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0342",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0343",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0343",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0344",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0344",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0345",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0345",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0346",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0346",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0347",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0347",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0348",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0348",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0349",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0349",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0350",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0350",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0351",
+      "category": "cat015",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0351",
+      "subcategory": "Kitchen supplies",
+      "tags": [
+        "kitchen",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0352",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0352",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0353",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0353",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0354",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0354",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0356",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0356",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0357",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0357",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0359",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0359",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0360",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0360",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0361",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0361",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0362",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0362",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0363",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0363",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0364",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0364",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0365",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0365",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0366",
+      "category": "cat016",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0366",
+      "subcategory": "Home maintenance",
+      "tags": [
+        "maintenance",
+        "home"
+      ]
+    },
+    {
+      "key": "itm0367",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0367",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0368",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0368",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0369",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0369",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0370",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0370",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0371",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0371",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0372",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0372",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0373",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0373",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0374",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0374",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0375",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0375",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0376",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0376",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0377",
+      "category": "medicines",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0377",
+      "subcategory": "First aid & health essentials",
+      "tags": [
+        "health",
+        "first-aid"
+      ]
+    },
+    {
+      "key": "itm0378",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0378",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0379",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0379",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0380",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0380",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0381",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0381",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0382",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0382",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0383",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0383",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0384",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0384",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0385",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0385",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0386",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0386",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0387",
+      "category": "cat018",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0387",
+      "subcategory": "Baby care",
+      "tags": [
+        "baby",
+        "family"
+      ]
+    },
+    {
+      "key": "itm0388",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0388",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0389",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0389",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0390",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0390",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0391",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0391",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0392",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0392",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0393",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0393",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0394",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0394",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0395",
+      "category": "cat018",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0395",
+      "subcategory": "Kids & school",
+      "tags": [
+        "kids",
+        "school"
+      ]
+    },
+    {
+      "key": "itm0396",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0396",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0397",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0397",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0398",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0398",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0399",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0399",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0400",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0400",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0401",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0401",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0402",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0402",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0403",
+      "category": "cat019",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0403",
+      "subcategory": "Pet care",
+      "tags": [
+        "pet",
+        "household"
+      ]
+    },
+    {
+      "key": "itm0408",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0408",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0409",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0409",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0410",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0410",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0411",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0411",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0412",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0412",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0413",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0413",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0414",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0414",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0415",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0415",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0417",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0417",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0418",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0418",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0419",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0419",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0421",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0421",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0422",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0422",
+      "subcategory": "Stationery",
+      "tags": [
+        "office",
+        "stationery"
+      ]
+    },
+    {
+      "key": "itm0423",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0423",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0424",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0424",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0425",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0425",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0426",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0426",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0427",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0427",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0428",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0428",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0429",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0429",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0430",
+      "category": "stationery",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0430",
+      "subcategory": "Office supplies",
+      "tags": [
+        "office",
+        "supplies"
+      ]
+    },
+    {
+      "key": "itm0431",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0431",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0432",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0432",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0433",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0433",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0436",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0436",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0437",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0437",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0438",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0438",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0439",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0439",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0440",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0440",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0441",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0441",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0442",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0442",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0443",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0443",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0444",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0444",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0445",
+      "category": "electronics",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0445",
+      "subcategory": "Electronics",
+      "tags": [
+        "electronics",
+        "accessory"
+      ]
+    },
+    {
+      "key": "itm0446",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0446",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0447",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0447",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0448",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0448",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0449",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0449",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0450",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0450",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0451",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0451",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0452",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0452",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0453",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0453",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0454",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0454",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0455",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0455",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0456",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0456",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0457",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0457",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0458",
+      "category": "travel",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0458",
+      "subcategory": "Travel",
+      "tags": [
+        "travel",
+        "packing"
+      ]
+    },
+    {
+      "key": "itm0461",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0461",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0462",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0462",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0463",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0463",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0465",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0465",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0466",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0466",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0467",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0467",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0468",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0468",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0469",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0469",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0470",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0470",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0471",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0471",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0472",
+      "category": "clothing",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0472",
+      "subcategory": "Clothing",
+      "tags": [
+        "clothing",
+        "personal"
+      ]
+    },
+    {
+      "key": "itm0473",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0473",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "itm0474",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0474",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "itm0476",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0476",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "itm0477",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0477",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "itm0478",
+      "category": "clothing",
+      "defaultUnit": "PAIR",
+      "catalogId": "ITM0478",
+      "subcategory": "Footwear",
+      "tags": [
+        "clothing",
+        "footwear"
+      ]
+    },
+    {
+      "key": "itm0479",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0479",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0480",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0480",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0483",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0483",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0484",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0484",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0485",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0485",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0486",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0486",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0487",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0487",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0488",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0488",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0489",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0489",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0490",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0490",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0491",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0491",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0492",
+      "category": "documents",
+      "defaultUnit": null,
+      "catalogId": "ITM0492",
+      "subcategory": "Documents & admin",
+      "tags": [
+        "document",
+        "admin"
+      ]
+    },
+    {
+      "key": "itm0493",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0493",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0494",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0494",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0495",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0495",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0496",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0496",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0498",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0498",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0499",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0499",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0500",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0500",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0501",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0501",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0503",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0503",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0504",
+      "category": "exam",
+      "defaultUnit": null,
+      "catalogId": "ITM0504",
+      "subcategory": "Study & exams",
+      "tags": [
+        "study",
+        "exam"
+      ]
+    },
+    {
+      "key": "itm0505",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0505",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0506",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0506",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0507",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0507",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0508",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0508",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0509",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0509",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0510",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0510",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0511",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0511",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0512",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0512",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0513",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0513",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0514",
+      "category": "cat026",
+      "defaultUnit": "PIECE",
+      "catalogId": "ITM0514",
+      "subcategory": "Fitness & sports",
+      "tags": [
+        "fitness",
+        "sports"
+      ]
+    },
+    {
+      "key": "itm0515",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0515",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0516",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0516",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0517",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0517",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0518",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0518",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0519",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0519",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0520",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0520",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0521",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0521",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0522",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0522",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0523",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0523",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0524",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0524",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0525",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0525",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0526",
+      "category": "cat027",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0526",
+      "subcategory": "Gardening & agriculture",
+      "tags": [
+        "garden",
+        "agriculture"
+      ]
+    },
+    {
+      "key": "itm0527",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0527",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0528",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0528",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0529",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0529",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0530",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0530",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0531",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0531",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0532",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0532",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0533",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0533",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0534",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0534",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0535",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0535",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0536",
+      "category": "cat028",
+      "defaultUnit": null,
+      "catalogId": "ITM0536",
+      "subcategory": "Vehicle & commute",
+      "tags": [
+        "vehicle",
+        "commute"
+      ]
+    },
+    {
+      "key": "itm0537",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0537",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0538",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0538",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0540",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0540",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0542",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0542",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0543",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0543",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0544",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0544",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0545",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0545",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0546",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0546",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0547",
+      "category": "cat029",
+      "defaultUnit": "PACK",
+      "catalogId": "ITM0547",
+      "subcategory": "Celebrations",
+      "tags": [
+        "event",
+        "celebration"
+      ]
+    },
+    {
+      "key": "itm0548",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0548",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0549",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0549",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0550",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0550",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0551",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0551",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0552",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0552",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0553",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0553",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0554",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0554",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0555",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0555",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0556",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0556",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0557",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0557",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0558",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0558",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0559",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0559",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0560",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0560",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0561",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0561",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0562",
+      "category": "cat030",
+      "defaultUnit": null,
+      "catalogId": "ITM0562",
+      "subcategory": "Digital & recurring tasks",
+      "tags": [
+        "digital",
+        "recurring"
+      ]
+    },
+    {
+      "key": "itm0563",
+      "category": "other",
+      "defaultUnit": "NOS",
+      "catalogId": "ITM0563",
+      "subcategory": "Custom",
+      "tags": [
+        "custom",
+        "user-created"
+      ]
+    }
+  ],
+  "retiredCategories": [
+    "decorations",
+    "gifts"
+  ]
+}

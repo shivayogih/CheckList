@@ -1,0 +1,60 @@
+{
+  "language": "ml",
+  "scripts": ["MALAYALAM"],
+  "numbers": {
+    "ഒന്ന്": "1", "ഒരു": "1", "രണ്ട്": "2", "മൂന്ന്": "3", "നാല്": "4", "അഞ്ച്": "5", "ആറ്": "6", "ഏഴ്": "7",
+    "എട്ട്": "8", "ഒമ്പത്": "9", "ഒൻപത്": "9", "പത്ത്": "10", "പന്ത്രണ്ട്": "12", "ഇരുപത്": "20",
+    "അര": "0.5", "ഒന്നര": "1.5", "രണ്ടര": "2.5",
+    "onnu": "1", "oru": "1", "randu": "2", "moonnu": "3", "munnu": "3", "naalu": "4", "nalu": "4", "anchu": "5",
+    "aaru": "6", "ezhu": "7", "ettu": "8", "ombathu": "9", "onpathu": "9", "pathu": "10", "ara": "0.5",
+    "onnara": "1.5", "randara": "2.5"
+  },
+  "units": {
+    "KG": ["കിലോ", "കി.ഗ്രാ"],
+    "GRAM": ["ഗ്രാം"],
+    "LITRE": ["ലിറ്റർ"],
+    "MILLILITRE": ["മില്ലി", "മി.ലി"],
+    "DOZEN": ["ഡസൻ"],
+    "PIECE": ["കഷണം", "പീസ്", "kashanam"],
+    "PACK": ["പാക്കറ്റ്", "പായ്ക്കറ്റ്"],
+    "BOX": ["പെട്ടി", "ബോക്സ്"],
+    "BOTTLE": ["കുപ്പി", "kuppi"],
+    "PAIR": ["ജോടി", "ജോഡി"],
+    "METER": ["മീറ്റർ"]
+  },
+  "separators": ["പിന്നെ", "കൂടാതെ", "pinne", "koodathe"],
+  "fillers": ["കുറച്ച്", "ദയവായി", "ലിസ്റ്റിൽ", "kurachu", "dayavayi"],
+  "nameSuffixes": ["യെ", "നെ", "കൾ"],
+  "andSuffixes": ["യും", "വും", "ും"],
+  "stemRepairs": {"ല": "ൽ", "ന": "ൻ", "ണ": "ൺ", "ര": "ർ", "ള": "ൾ"},
+  "titleConnectors": ["എന്ന", "enna"],
+  "intents": {
+    "ADD": {
+      "prefixes": [],
+      "suffixes": [
+        "ചേർക്കുക", "ചേർക്കൂ", "ചേർക്ക്", "വേണം", "വാങ്ങണം", "വാങ്ങിക്കണം", "ആഡ് ചെയ്യുക",
+        "cherkkuka", "venam", "vanganam", "add cheyyu", "add cheyyuka"
+      ]
+    },
+    "COMPLETE": {
+      "prefixes": [],
+      "suffixes": ["വാങ്ങി", "കിട്ടി", "കഴിഞ്ഞു", "വാങ്ങിച്ചു", "ആയി", "vangi", "kitti", "kazhinju", "aayi"]
+    },
+    "UNCOMPLETE": {
+      "prefixes": [],
+      "suffixes": ["കഴിഞ്ഞില്ല", "വാങ്ങിയില്ല", "ബാക്കി", "kazhinjilla", "vangiyilla", "baakki"]
+    },
+    "REMOVE": {
+      "prefixes": [],
+      "suffixes": ["മാറ്റുക", "മാറ്റൂ", "വേണ്ട", "നീക്കം ചെയ്യുക", "ഒഴിവാക്കുക", "mattuka", "venda", "ozhivakkuka"]
+    },
+    "UPDATE": {
+      "prefixes": [],
+      "suffixes": ["ആക്കുക", "ആക്കൂ", "ആക്ക്", "aakkuka", "aakku"]
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": ["പുതിയ ലിസ്റ്റ്", "puthiya list"],
+      "suffixes": ["ലിസ്റ്റ് ഉണ്ടാക്കുക", "ലിസ്റ്റ് ഉണ്ടാക്കൂ", "പട്ടിക ഉണ്ടാക്കുക", "list undakkuka"]
+    }
+  }
+}

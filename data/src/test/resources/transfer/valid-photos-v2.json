@@ -1,0 +1,19 @@
+{
+  "formatVersion": 2,
+  "schemaVersion": 1,
+  "metadata": { "app": "CheckList", "appVersion": "1.1.0", "exportedAt": "2026-10-08T04:00:00Z", "locale": "ta", "includesProfile": false },
+  "units": [],
+  "categories": [ { "ref": "c1", "canonicalKey": "groceries" } ],
+  "checklists": [ { "ref": "k1", "title": "வாராந்திர பட்டியல்", "sections": [ { "ref": "s1", "categoryRef": "c1", "order": 0 } ] } ],
+  "items": [
+    {
+      "ref": "i1", "sectionRef": "s1", "displayName": "அரிசி", "displayNameLocale": "ta",
+      "photos": [
+        { "ref": "p1", "file": "photos/p1.jpg", "caption": "கடையின் முன்பக்கம்" },
+        { "ref": "p2", "file": "photos/p2.jpg" }
+      ]
+    },
+    { "ref": "i2", "sectionRef": "s1", "displayName": "Salt", "displayNameLocale": "en", "photos": [] }
+  ],
+  "profile": null
+}

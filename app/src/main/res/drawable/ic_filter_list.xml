@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material Icons Rounded (Apache 2.0). Tinted by the Icon composable, so the fill colour is a placeholder. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:autoMirrored="false"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M11.02 18H12.98C13.55 18 14.02 17.53 14.02 17.02C14.02 16.45 13.55 15.98 12.98 15.98H11.02C10.45 15.98 9.98 16.45 9.98 17.02C9.98 17.53 10.45 18 11.02 18ZM3 6.98C3 7.55 3.47 8.02 3.98 8.02H20.02C20.53 8.02 21 7.55 21 6.98C21 6.47 20.53 6 20.02 6H3.98C3.47 6 3 6.47 3 6.98ZM6.98 12.98H17.02C17.53 12.98 18 12.56 18 12C18 11.44 17.53 11.02 17.02 11.02H6.98C6.47 11.02 6 11.44 6 12C6 12.56 6.47 12.98 6.98 12.98Z" />
+</vector>

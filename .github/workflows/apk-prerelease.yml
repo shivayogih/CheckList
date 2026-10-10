@@ -1,0 +1,23 @@
+name: Dev APK pre-release
+on:
+  push:
+    branches: [tmp/apk-release]
+env:
+  RUN_ID: "38030431013"
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download apks artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "${{ env.RUN_ID }}" -R "$GITHUB_REPOSITORY" -n apks -D apks
+      - name: Publish pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls -R apks
+          gh release create "dev-apk-${{ env.RUN_ID }}" -R "$GITHUB_REPOSITORY" --prerelease --target "$GITHUB_SHA" --title "Dev APK ${{ env.RUN_ID }}" --notes "Temporary test build" $(find apks -iname '*dev*.apk')

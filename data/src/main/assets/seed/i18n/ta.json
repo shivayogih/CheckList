@@ -1,0 +1,3752 @@
+{
+  "locale": "ta",
+  "categories": {
+    "groceries": "மளிகைப் பொருட்கள்",
+    "vegetables": "காய்கறிகள்",
+    "fruits": "பழங்கள்",
+    "cat004": "கீரை & மூலிகைகள்",
+    "cat005": "பால் & முட்டை",
+    "cat006": "இறைச்சி, கோழி & மீன்",
+    "cat007": "பேக்கரி & காலை உணவு",
+    "cat008": "நொறுக்குத் தீனி & இனிப்புகள்",
+    "cat009": "மசாலா, எண்ணெய் & சாஸ்",
+    "cat010": "பானங்கள்",
+    "cat011": "ஃப்ரோசன் & ரெடி-டு-குக்",
+    "toiletries": "தனிப்பட்ட பராமரிப்பு",
+    "cat013": "சுத்தம் & துணி துவைத்தல்",
+    "cat014": "தூக்கி எறியும் பொருட்கள்",
+    "cat015": "சமையலறை & சாப்பாட்டுப் பொருட்கள்",
+    "cat016": "வீட்டுப் பராமரிப்பு",
+    "medicines": "மருந்து & முதலுதவி",
+    "cat018": "குழந்தைகள் பொருட்கள்",
+    "cat019": "செல்லப்பிராணி பொருட்கள்",
+    "stationery": "அலுவலகம் & எழுதுபொருள்",
+    "electronics": "மின்னணு & உபகரணங்கள்",
+    "travel": "பயணம் & பேக்கிங்",
+    "clothing": "உடை & காலணி",
+    "documents": "ஆவணங்கள் & வேலைகள்",
+    "exam": "படிப்பு & தேர்வு",
+    "cat026": "உடற்பயிற்சி & விளையாட்டு",
+    "cat027": "தோட்டம் & விவசாயம்",
+    "cat028": "வாகனம் & பயணம்",
+    "cat029": "விழா & கொண்டாட்டம்",
+    "cat030": "டிஜிட்டல் & வழக்கமான வேலைகள்",
+    "other": "மற்றவை",
+    "pooja_items": "பூஜை பொருட்கள்"
+  },
+  "items": {
+    "itm0001": {
+      "name": "பச்சரிசி",
+      "aliases": [
+        "Raw rice"
+      ]
+    },
+    "itm0002": {
+      "name": "சோனா மசூரி அரிசி",
+      "aliases": [
+        "Sona masoori rice"
+      ]
+    },
+    "itm0003": {
+      "name": "பாஸ்மதி அரிசி",
+      "aliases": [
+        "Basmati rice"
+      ]
+    },
+    "itm0004": {
+      "name": "பிரவுன் ரைஸ்",
+      "aliases": [
+        "Brown rice"
+      ]
+    },
+    "itm0005": {
+      "name": "இட்லி அரிசி",
+      "aliases": [
+        "Idli rice"
+      ]
+    },
+    "itm0006": {
+      "name": "அவல்",
+      "aliases": [
+        "Poha / avalakki"
+      ]
+    },
+    "itm0007": {
+      "name": "கோதுமை மாவு",
+      "aliases": [
+        "Wheat flour / atta"
+      ]
+    },
+    "itm0008": {
+      "name": "மைதா",
+      "aliases": [
+        "Maida"
+      ]
+    },
+    "itm0009": {
+      "name": "ரவை",
+      "aliases": [
+        "Rava / sooji"
+      ]
+    },
+    "itm0010": {
+      "name": "கடலை மாவு",
+      "aliases": [
+        "Besan / gram flour"
+      ]
+    },
+    "itm0011": {
+      "name": "கேழ்வரகு மாவு",
+      "aliases": [
+        "Ragi flour"
+      ]
+    },
+    "itm0012": {
+      "name": "சோள மாவு",
+      "aliases": [
+        "Jowar flour"
+      ]
+    },
+    "itm0013": {
+      "name": "கம்பு மாவு",
+      "aliases": [
+        "Bajra flour"
+      ]
+    },
+    "itm0014": {
+      "name": "கார்ன்ஃப்ளார் மாவு",
+      "aliases": [
+        "Corn flour"
+      ]
+    },
+    "itm0015": {
+      "name": "உடைத்த கோதுமை",
+      "aliases": [
+        "Dalia / broken wheat"
+      ]
+    },
+    "itm0016": {
+      "name": "ஓட்ஸ்",
+      "aliases": [
+        "Oats"
+      ]
+    },
+    "itm0017": {
+      "name": "கினோவா",
+      "aliases": [
+        "Quinoa"
+      ]
+    },
+    "itm0018": {
+      "name": "ஜவ்வரிசி",
+      "aliases": [
+        "Sabudana"
+      ]
+    },
+    "itm0019": {
+      "name": "சேமியா",
+      "aliases": [
+        "Vermicelli / semiya"
+      ]
+    },
+    "itm0020": {
+      "name": "பொரி",
+      "aliases": [
+        "Puffed rice / mandakki"
+      ]
+    },
+    "itm0021": {
+      "name": "துவரம் பருப்பு",
+      "aliases": [
+        "Toor dal"
+      ]
+    },
+    "itm0022": {
+      "name": "பாசிப்பருப்பு",
+      "aliases": [
+        "Moong dal"
+      ]
+    },
+    "itm0023": {
+      "name": "உளுத்தம் பருப்பு",
+      "aliases": [
+        "Urad dal"
+      ]
+    },
+    "itm0024": {
+      "name": "கடலைப் பருப்பு",
+      "aliases": [
+        "Chana dal"
+      ]
+    },
+    "itm0025": {
+      "name": "மைசூர் பருப்பு",
+      "aliases": [
+        "Masoor dal"
+      ]
+    },
+    "itm0026": {
+      "name": "பாசிப்பயறு",
+      "aliases": [
+        "Whole green gram"
+      ]
+    },
+    "itm0027": {
+      "name": "கருப்பு கொண்டைக்கடலை",
+      "aliases": [
+        "Black chana"
+      ]
+    },
+    "itm0028": {
+      "name": "வெள்ளை கொண்டைக்கடலை",
+      "aliases": [
+        "Kabuli chana"
+      ]
+    },
+    "itm0029": {
+      "name": "ராஜ்மா",
+      "aliases": [
+        "Rajma"
+      ]
+    },
+    "itm0030": {
+      "name": "வெள்ளை பட்டாணி",
+      "aliases": [
+        "White peas"
+      ]
+    },
+    "itm0031": {
+      "name": "காய்ந்த பச்சை பட்டாணி",
+      "aliases": [
+        "Green peas dried"
+      ]
+    },
+    "itm0032": {
+      "name": "கொள்ளு",
+      "aliases": [
+        "Horse gram / hurali"
+      ]
+    },
+    "itm0033": {
+      "name": "காராமணி",
+      "aliases": [
+        "Cowpeas / alasande"
+      ]
+    },
+    "itm0034": {
+      "name": "சோயா உருண்டை",
+      "aliases": [
+        "Soy chunks"
+      ]
+    },
+    "sugar": {
+      "name": "சர்க்கரை",
+      "aliases": [
+        "sarkarai",
+        "chakkarai",
+        "Sugar"
+      ]
+    },
+    "itm0036": {
+      "name": "வெல்லம்",
+      "aliases": [
+        "Jaggery"
+      ]
+    },
+    "salt": {
+      "name": "உப்பு",
+      "aliases": [
+        "uppu",
+        "Salt"
+      ]
+    },
+    "itm0038": {
+      "name": "இந்துப்பு",
+      "aliases": [
+        "Rock salt"
+      ]
+    },
+    "itm0039": {
+      "name": "புளி",
+      "aliases": [
+        "Tamarind"
+      ]
+    },
+    "itm0040": {
+      "name": "கொப்பரைத் தேங்காய்",
+      "aliases": [
+        "Dry coconut"
+      ]
+    },
+    "itm0041": {
+      "name": "வேர்க்கடலை",
+      "aliases": [
+        "Peanuts"
+      ]
+    },
+    "itm0042": {
+      "name": "முந்திரி",
+      "aliases": [
+        "Cashews"
+      ]
+    },
+    "itm0043": {
+      "name": "பாதாம்",
+      "aliases": [
+        "Almonds"
+      ]
+    },
+    "itm0044": {
+      "name": "உலர் திராட்சை",
+      "aliases": [
+        "Raisins"
+      ]
+    },
+    "itm0045": {
+      "name": "பேரீச்சம்பழம்",
+      "aliases": [
+        "Dates"
+      ]
+    },
+    "itm0046": {
+      "name": "ஆளி விதை",
+      "aliases": [
+        "Flax seeds"
+      ]
+    },
+    "itm0047": {
+      "name": "சியா விதை",
+      "aliases": [
+        "Chia seeds"
+      ]
+    },
+    "itm0048": {
+      "name": "எள்",
+      "aliases": [
+        "Sesame seeds"
+      ]
+    },
+    "itm0049": {
+      "name": "சூரியகாந்தி விதை",
+      "aliases": [
+        "Sunflower seeds"
+      ]
+    },
+    "potato": {
+      "name": "உருளைக்கிழங்கு",
+      "aliases": [
+        "urulaikizhangu",
+        "urulai",
+        "Potato"
+      ]
+    },
+    "onion": {
+      "name": "வெங்காயம்",
+      "aliases": [
+        "vengayam",
+        "Onion"
+      ]
+    },
+    "tomato": {
+      "name": "தக்காளி",
+      "aliases": [
+        "thakkali",
+        "Tomato"
+      ]
+    },
+    "carrot": {
+      "name": "கேரட்",
+      "aliases": [
+        "carrot"
+      ]
+    },
+    "itm0054": {
+      "name": "பீட்ரூட்",
+      "aliases": [
+        "Beetroot"
+      ]
+    },
+    "itm0055": {
+      "name": "முள்ளங்கி",
+      "aliases": [
+        "Radish"
+      ]
+    },
+    "itm0056": {
+      "name": "சர்க்கரைவள்ளிக் கிழங்கு",
+      "aliases": [
+        "Sweet potato"
+      ]
+    },
+    "itm0057": {
+      "name": "வெள்ளரிக்காய்",
+      "aliases": [
+        "Cucumber"
+      ]
+    },
+    "itm0058": {
+      "name": "சுரைக்காய்",
+      "aliases": [
+        "Bottle gourd"
+      ]
+    },
+    "itm0059": {
+      "name": "பீர்க்கங்காய்",
+      "aliases": [
+        "Ridge gourd"
+      ]
+    },
+    "itm0060": {
+      "name": "புடலங்காய்",
+      "aliases": [
+        "Snake gourd"
+      ]
+    },
+    "itm0061": {
+      "name": "பாகற்காய்",
+      "aliases": [
+        "Bitter gourd"
+      ]
+    },
+    "itm0062": {
+      "name": "வெள்ளைப் பூசணிக்காய்",
+      "aliases": [
+        "Ash gourd"
+      ]
+    },
+    "itm0063": {
+      "name": "பரங்கிக்காய்",
+      "aliases": [
+        "Pumpkin"
+      ]
+    },
+    "itm0064": {
+      "name": "வாழைக்காய்",
+      "aliases": [
+        "Raw banana"
+      ]
+    },
+    "itm0065": {
+      "name": "முருங்கைக்காய்",
+      "aliases": [
+        "Drumstick pods"
+      ]
+    },
+    "itm0066": {
+      "name": "கத்திரிக்காய்",
+      "aliases": [
+        "Brinjal / eggplant"
+      ]
+    },
+    "itm0067": {
+      "name": "வெண்டைக்காய்",
+      "aliases": [
+        "Ladies finger / okra"
+      ]
+    },
+    "itm0068": {
+      "name": "பச்சை குடைமிளகாய்",
+      "aliases": [
+        "Green capsicum"
+      ]
+    },
+    "itm0069": {
+      "name": "சிவப்பு குடைமிளகாய்",
+      "aliases": [
+        "Red capsicum"
+      ]
+    },
+    "itm0070": {
+      "name": "மஞ்சள் குடைமிளகாய்",
+      "aliases": [
+        "Yellow capsicum"
+      ]
+    },
+    "cabbage": {
+      "name": "முட்டைக்கோஸ்",
+      "aliases": [
+        "muttaikose",
+        "cabbage"
+      ]
+    },
+    "cauliflower": {
+      "name": "காலிஃபிளவர்",
+      "aliases": [
+        "cauliflower",
+        "gobi"
+      ]
+    },
+    "itm0073": {
+      "name": "ப்ரோக்கோலி",
+      "aliases": [
+        "Broccoli"
+      ]
+    },
+    "itm0074": {
+      "name": "நூல்கோல்",
+      "aliases": [
+        "Knol-khol"
+      ]
+    },
+    "itm0075": {
+      "name": "சௌசௌ",
+      "aliases": [
+        "Chayote / chow chow"
+      ]
+    },
+    "itm0076": {
+      "name": "கோவைக்காய்",
+      "aliases": [
+        "Ivy gourd / tindora"
+      ]
+    },
+    "itm0077": {
+      "name": "கொத்தவரங்காய்",
+      "aliases": [
+        "Cluster beans"
+      ]
+    },
+    "itm0078": {
+      "name": "பீன்ஸ்",
+      "aliases": [
+        "French beans"
+      ]
+    },
+    "itm0079": {
+      "name": "அவரைக்காய்",
+      "aliases": [
+        "Broad beans / avarekalu"
+      ]
+    },
+    "itm0080": {
+      "name": "பச்சை பட்டாணி",
+      "aliases": [
+        "Green peas"
+      ]
+    },
+    "itm0081": {
+      "name": "ஸ்வீட் கார்ன்",
+      "aliases": [
+        "Sweet corn"
+      ]
+    },
+    "itm0082": {
+      "name": "காளான்",
+      "aliases": [
+        "Mushroom"
+      ]
+    },
+    "itm0083": {
+      "name": "பச்சை மிளகாய்",
+      "aliases": [
+        "Green chilli"
+      ]
+    },
+    "itm0084": {
+      "name": "இஞ்சி",
+      "aliases": [
+        "Ginger"
+      ]
+    },
+    "itm0085": {
+      "name": "பூண்டு",
+      "aliases": [
+        "Garlic"
+      ]
+    },
+    "itm0086": {
+      "name": "எலுமிச்சைப் புல்",
+      "aliases": [
+        "Lemon grass"
+      ]
+    },
+    "coconut": {
+      "name": "தேங்காய்",
+      "aliases": [
+        "thengai",
+        "Coconut"
+      ]
+    },
+    "itm0088": {
+      "name": "இளநீர்",
+      "aliases": [
+        "Tender coconut"
+      ]
+    },
+    "itm0089": {
+      "name": "எலுமிச்சை",
+      "aliases": [
+        "Lemon"
+      ]
+    },
+    "itm0090": {
+      "name": "மாங்காய்",
+      "aliases": [
+        "Raw mango"
+      ]
+    },
+    "itm0091": {
+      "name": "சோளக்கதிர்",
+      "aliases": [
+        "Corn on the cob"
+      ]
+    },
+    "itm0092": {
+      "name": "லெட்யூஸ்",
+      "aliases": [
+        "Lettuce head"
+      ]
+    },
+    "apple": {
+      "name": "ஆப்பிள்",
+      "aliases": [
+        "apple"
+      ]
+    },
+    "banana": {
+      "name": "வாழைப்பழம்",
+      "aliases": [
+        "vazhaipazham",
+        "Banana"
+      ]
+    },
+    "orange": {
+      "name": "ஆரஞ்சு",
+      "aliases": [
+        "orange"
+      ]
+    },
+    "itm0096": {
+      "name": "சாத்துக்குடி",
+      "aliases": [
+        "Sweet lime / mosambi"
+      ]
+    },
+    "pomegranate": {
+      "name": "மாதுளை",
+      "aliases": [
+        "mathulai",
+        "Pomegranate"
+      ]
+    },
+    "itm0098": {
+      "name": "பப்பாளி",
+      "aliases": [
+        "Papaya"
+      ]
+    },
+    "itm0099": {
+      "name": "தர்பூசணி",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    "itm0100": {
+      "name": "முலாம்பழம்",
+      "aliases": [
+        "Muskmelon"
+      ]
+    },
+    "itm0101": {
+      "name": "அன்னாசி",
+      "aliases": [
+        "Pineapple"
+      ]
+    },
+    "grapes": {
+      "name": "திராட்சை",
+      "aliases": [
+        "thiratchai",
+        "Grapes"
+      ]
+    },
+    "itm0103": {
+      "name": "கொய்யா",
+      "aliases": [
+        "Guava"
+      ]
+    },
+    "mango": {
+      "name": "மாம்பழம்",
+      "aliases": [
+        "mambazham",
+        "Mango"
+      ]
+    },
+    "itm0105": {
+      "name": "பேரிக்காய்",
+      "aliases": [
+        "Pear"
+      ]
+    },
+    "itm0106": {
+      "name": "பீச்",
+      "aliases": [
+        "Peach"
+      ]
+    },
+    "itm0107": {
+      "name": "பிளம்ஸ்",
+      "aliases": [
+        "Plum"
+      ]
+    },
+    "itm0108": {
+      "name": "கிவி",
+      "aliases": [
+        "Kiwi"
+      ]
+    },
+    "itm0109": {
+      "name": "ஸ்ட்ராபெரி",
+      "aliases": [
+        "Strawberry"
+      ]
+    },
+    "itm0110": {
+      "name": "புளூபெரி",
+      "aliases": [
+        "Blueberry"
+      ]
+    },
+    "itm0111": {
+      "name": "டிராகன் பழம்",
+      "aliases": [
+        "Dragon fruit"
+      ]
+    },
+    "itm0112": {
+      "name": "சப்போட்டா",
+      "aliases": [
+        "Chikoo / sapota"
+      ]
+    },
+    "itm0113": {
+      "name": "சீத்தாப்பழம்",
+      "aliases": [
+        "Custard apple"
+      ]
+    },
+    "itm0114": {
+      "name": "பலாப்பழம்",
+      "aliases": [
+        "Jackfruit"
+      ]
+    },
+    "itm0115": {
+      "name": "அவகாடோ",
+      "aliases": [
+        "Avocado"
+      ]
+    },
+    "itm0116": {
+      "name": "லிச்சி",
+      "aliases": [
+        "Litchi"
+      ]
+    },
+    "itm0117": {
+      "name": "நாவல்பழம்",
+      "aliases": [
+        "Jamun"
+      ]
+    },
+    "itm0118": {
+      "name": "நெல்லிக்காய்",
+      "aliases": [
+        "Amla"
+      ]
+    },
+    "itm0119": {
+      "name": "அத்திப்பழம்",
+      "aliases": [
+        "Fig"
+      ]
+    },
+    "itm0120": {
+      "name": "பச்சை பேரீச்சம்பழம்",
+      "aliases": [
+        "Dates fresh"
+      ]
+    },
+    "itm0121": {
+      "name": "வாழைப்பழம்",
+      "aliases": [
+        "Banana"
+      ]
+    },
+    "itm0122": {
+      "name": "தேங்காய்",
+      "aliases": [
+        "Coconut"
+      ]
+    },
+    "itm0123": {
+      "name": "இளநீர்",
+      "aliases": [
+        "Tender coconut"
+      ]
+    },
+    "itm0124": {
+      "name": "அன்னாசி",
+      "aliases": [
+        "Pineapple"
+      ]
+    },
+    "itm0125": {
+      "name": "தர்பூசணி",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    "itm0126": {
+      "name": "முலாம்பழம்",
+      "aliases": [
+        "Muskmelon"
+      ]
+    },
+    "itm0127": {
+      "name": "பப்பாளி",
+      "aliases": [
+        "Papaya"
+      ]
+    },
+    "itm0128": {
+      "name": "மாதுளை",
+      "aliases": [
+        "Pomegranate"
+      ]
+    },
+    "itm0129": {
+      "name": "பலாப்பழம்",
+      "aliases": [
+        "Jackfruit"
+      ]
+    },
+    "itm0130": {
+      "name": "பாலக் கீரை",
+      "aliases": [
+        "Spinach / palak"
+      ]
+    },
+    "itm0131": {
+      "name": "வெந்தயக் கீரை",
+      "aliases": [
+        "Fenugreek leaves / methi"
+      ]
+    },
+    "itm0132": {
+      "name": "தண்டுக்கீரை",
+      "aliases": [
+        "Amaranth leaves / dantina soppu"
+      ]
+    },
+    "itm0133": {
+      "name": "கொத்தமல்லி",
+      "aliases": [
+        "Coriander leaves"
+      ]
+    },
+    "itm0134": {
+      "name": "புதினா",
+      "aliases": [
+        "Mint leaves"
+      ]
+    },
+    "itm0135": {
+      "name": "கறிவேப்பிலை",
+      "aliases": [
+        "Curry leaves"
+      ]
+    },
+    "itm0136": {
+      "name": "சதகுப்பைக் கீரை",
+      "aliases": [
+        "Dill leaves / sabbasige soppu"
+      ]
+    },
+    "itm0137": {
+      "name": "வெங்காயத்தாள்",
+      "aliases": [
+        "Spring onion"
+      ]
+    },
+    "itm0138": {
+      "name": "லெட்யூஸ்",
+      "aliases": [
+        "Lettuce"
+      ]
+    },
+    "itm0139": {
+      "name": "முருங்கைக் கீரை",
+      "aliases": [
+        "Moringa leaves"
+      ]
+    },
+    "itm0140": {
+      "name": "பசலைக் கீரை",
+      "aliases": [
+        "Basale soppu / Malabar spinach"
+      ]
+    },
+    "itm0141": {
+      "name": "பேசில்",
+      "aliases": [
+        "Basil"
+      ]
+    },
+    "itm0142": {
+      "name": "பார்ஸ்லி",
+      "aliases": [
+        "Parsley"
+      ]
+    },
+    "itm0143": {
+      "name": "ரோஸ்மெரி",
+      "aliases": [
+        "Rosemary"
+      ]
+    },
+    "itm0144": {
+      "name": "தைம்",
+      "aliases": [
+        "Thyme"
+      ]
+    },
+    "itm0145": {
+      "name": "ஃப்ரெஷ் ஓரிகானோ",
+      "aliases": [
+        "Oregano fresh"
+      ]
+    },
+    "milk": {
+      "name": "பால்",
+      "aliases": [
+        "paal",
+        "Milk"
+      ]
+    },
+    "itm0147": {
+      "name": "தயிர்",
+      "aliases": [
+        "Curd / yogurt"
+      ]
+    },
+    "itm0148": {
+      "name": "மோர்",
+      "aliases": [
+        "Buttermilk"
+      ]
+    },
+    "itm0149": {
+      "name": "பனீர்",
+      "aliases": [
+        "Paneer"
+      ]
+    },
+    "itm0150": {
+      "name": "சீஸ்",
+      "aliases": [
+        "Cheese"
+      ]
+    },
+    "itm0151": {
+      "name": "வெண்ணெய்",
+      "aliases": [
+        "Butter"
+      ]
+    },
+    "itm0152": {
+      "name": "நெய்",
+      "aliases": [
+        "Ghee"
+      ]
+    },
+    "itm0153": {
+      "name": "க்ரீம்",
+      "aliases": [
+        "Cream"
+      ]
+    },
+    "itm0154": {
+      "name": "கண்டென்ஸ்டு மில்க்",
+      "aliases": [
+        "Condensed milk"
+      ]
+    },
+    "itm0155": {
+      "name": "பால் பவுடர்",
+      "aliases": [
+        "Milk powder"
+      ]
+    },
+    "itm0156": {
+      "name": "கோழி முட்டை",
+      "aliases": [
+        "Chicken eggs"
+      ]
+    },
+    "itm0157": {
+      "name": "நாட்டுக்கோழி முட்டை",
+      "aliases": [
+        "Country eggs"
+      ]
+    },
+    "itm0158": {
+      "name": "காடை முட்டை",
+      "aliases": [
+        "Quail eggs"
+      ]
+    },
+    "itm0159": {
+      "name": "சிக்கன்",
+      "aliases": [
+        "Chicken"
+      ]
+    },
+    "itm0160": {
+      "name": "சிக்கன் பிரெஸ்ட்",
+      "aliases": [
+        "Chicken breast"
+      ]
+    },
+    "itm0161": {
+      "name": "சிக்கன் லெக்",
+      "aliases": [
+        "Chicken legs"
+      ]
+    },
+    "itm0162": {
+      "name": "மட்டன்",
+      "aliases": [
+        "Mutton"
+      ]
+    },
+    "itm0163": {
+      "name": "ஆட்டுக்குட்டி இறைச்சி",
+      "aliases": [
+        "Lamb"
+      ]
+    },
+    "itm0164": {
+      "name": "பன்றி இறைச்சி",
+      "aliases": [
+        "Pork"
+      ]
+    },
+    "itm0165": {
+      "name": "வாத்து",
+      "aliases": [
+        "Duck"
+      ]
+    },
+    "itm0166": {
+      "name": "மீன்",
+      "aliases": [
+        "Fish"
+      ]
+    },
+    "itm0167": {
+      "name": "இறால்",
+      "aliases": [
+        "Prawns"
+      ]
+    },
+    "itm0168": {
+      "name": "நண்டு",
+      "aliases": [
+        "Crab"
+      ]
+    },
+    "itm0169": {
+      "name": "கணவாய்",
+      "aliases": [
+        "Squid"
+      ]
+    },
+    "itm0170": {
+      "name": "கிளிஞ்சல்",
+      "aliases": [
+        "Clams"
+      ]
+    },
+    "itm0171": {
+      "name": "கல்லுமக்காய்",
+      "aliases": [
+        "Mussels"
+      ]
+    },
+    "itm0172": {
+      "name": "பிரெட்",
+      "aliases": [
+        "Bread loaf"
+      ]
+    },
+    "itm0173": {
+      "name": "பிரவுன் பிரெட்",
+      "aliases": [
+        "Brown bread"
+      ]
+    },
+    "itm0174": {
+      "name": "மில்க் பிரெட்",
+      "aliases": [
+        "Milk bread"
+      ]
+    },
+    "itm0175": {
+      "name": "பர்கர் பன்",
+      "aliases": [
+        "Burger buns"
+      ]
+    },
+    "itm0176": {
+      "name": "பாவ் பன்",
+      "aliases": [
+        "Pav buns"
+      ]
+    },
+    "itm0177": {
+      "name": "பீட்சா பேஸ்",
+      "aliases": [
+        "Pizza base"
+      ]
+    },
+    "itm0178": {
+      "name": "டார்ட்டிலா / ராப்",
+      "aliases": [
+        "Tortilla / wraps"
+      ]
+    },
+    "itm0179": {
+      "name": "டின்னர் ரோல்",
+      "aliases": [
+        "Pav / dinner rolls"
+      ]
+    },
+    "itm0180": {
+      "name": "ரஸ்க்",
+      "aliases": [
+        "Rusk"
+      ]
+    },
+    "itm0181": {
+      "name": "பிஸ்கட்",
+      "aliases": [
+        "Cookies / biscuits"
+      ]
+    },
+    "itm0182": {
+      "name": "கேக்",
+      "aliases": [
+        "Cake"
+      ]
+    },
+    "itm0183": {
+      "name": "குரோசான்",
+      "aliases": [
+        "Croissants"
+      ]
+    },
+    "itm0184": {
+      "name": "கார்ன் ஃப்ளேக்ஸ்",
+      "aliases": [
+        "Corn flakes"
+      ]
+    },
+    "itm0185": {
+      "name": "மியூஸ்லி",
+      "aliases": [
+        "Muesli"
+      ]
+    },
+    "itm0186": {
+      "name": "கிரானோலா",
+      "aliases": [
+        "Granola"
+      ]
+    },
+    "itm0187": {
+      "name": "பீனட் பட்டர்",
+      "aliases": [
+        "Peanut butter"
+      ]
+    },
+    "itm0188": {
+      "name": "ஜாம்",
+      "aliases": [
+        "Jam"
+      ]
+    },
+    "itm0189": {
+      "name": "தேன்",
+      "aliases": [
+        "Honey"
+      ]
+    },
+    "itm0190": {
+      "name": "பான்கேக் மிக்ஸ்",
+      "aliases": [
+        "Pancake mix"
+      ]
+    },
+    "itm0191": {
+      "name": "தோசை மாவு",
+      "aliases": [
+        "Dosa batter"
+      ]
+    },
+    "itm0192": {
+      "name": "இட்லி மாவு",
+      "aliases": [
+        "Idli batter"
+      ]
+    },
+    "itm0193": {
+      "name": "சப்பாத்தி பாக்கெட்",
+      "aliases": [
+        "Chapati / roti pack"
+      ]
+    },
+    "itm0194": {
+      "name": "உருளைக்கிழங்கு சிப்ஸ்",
+      "aliases": [
+        "Potato chips"
+      ]
+    },
+    "itm0195": {
+      "name": "மிக்சர்",
+      "aliases": [
+        "Namkeen / mixture"
+      ]
+    },
+    "itm0196": {
+      "name": "சக்கலி",
+      "aliases": [
+        "Chakli"
+      ]
+    },
+    "itm0197": {
+      "name": "முறுக்கு",
+      "aliases": [
+        "Murukku"
+      ]
+    },
+    "itm0198": {
+      "name": "பாப்கார்ன்",
+      "aliases": [
+        "Popcorn"
+      ]
+    },
+    "itm0199": {
+      "name": "வறுகடலை",
+      "aliases": [
+        "Roasted chana"
+      ]
+    },
+    "itm0200": {
+      "name": "மக்கானா",
+      "aliases": [
+        "Makhana"
+      ]
+    },
+    "itm0201": {
+      "name": "சாக்லேட்",
+      "aliases": [
+        "Chocolate"
+      ]
+    },
+    "itm0202": {
+      "name": "மிட்டாய்",
+      "aliases": [
+        "Candy"
+      ]
+    },
+    "itm0203": {
+      "name": "ஐஸ்கிரீம்",
+      "aliases": [
+        "Ice cream"
+      ]
+    },
+    "itm0204": {
+      "name": "எனர்ஜி பார்",
+      "aliases": [
+        "Energy bar"
+      ]
+    },
+    "itm0205": {
+      "name": "ட்ரெயில் மிக்ஸ்",
+      "aliases": [
+        "Trail mix"
+      ]
+    },
+    "itm0206": {
+      "name": "சீரகம்",
+      "aliases": [
+        "Cumin seeds"
+      ]
+    },
+    "itm0207": {
+      "name": "கடுகு",
+      "aliases": [
+        "Mustard seeds"
+      ]
+    },
+    "itm0208": {
+      "name": "சோம்பு",
+      "aliases": [
+        "Fennel seeds"
+      ]
+    },
+    "itm0209": {
+      "name": "வெந்தயம்",
+      "aliases": [
+        "Fenugreek seeds"
+      ]
+    },
+    "itm0210": {
+      "name": "மல்லி",
+      "aliases": [
+        "Coriander seeds"
+      ]
+    },
+    "itm0211": {
+      "name": "மிளகு",
+      "aliases": [
+        "Black pepper"
+      ]
+    },
+    "itm0212": {
+      "name": "கிராம்பு",
+      "aliases": [
+        "Cloves"
+      ]
+    },
+    "itm0213": {
+      "name": "ஏலக்காய்",
+      "aliases": [
+        "Cardamom"
+      ]
+    },
+    "itm0214": {
+      "name": "பட்டை",
+      "aliases": [
+        "Cinnamon"
+      ]
+    },
+    "itm0215": {
+      "name": "பிரிஞ்சி இலை",
+      "aliases": [
+        "Bay leaf"
+      ]
+    },
+    "itm0216": {
+      "name": "அன்னாசிப்பூ",
+      "aliases": [
+        "Star anise"
+      ]
+    },
+    "itm0217": {
+      "name": "காய்ந்த மிளகாய்",
+      "aliases": [
+        "Dry red chilli"
+      ]
+    },
+    "itm0218": {
+      "name": "கசகசா",
+      "aliases": [
+        "Poppy seeds"
+      ]
+    },
+    "itm0219": {
+      "name": "ஓமம்",
+      "aliases": [
+        "Ajwain"
+      ]
+    },
+    "itm0220": {
+      "name": "பெருங்காயம்",
+      "aliases": [
+        "Asafoetida"
+      ]
+    },
+    "itm0221": {
+      "name": "மஞ்சள் தூள்",
+      "aliases": [
+        "Turmeric powder"
+      ]
+    },
+    "itm0222": {
+      "name": "மிளகாய்த் தூள்",
+      "aliases": [
+        "Red chilli powder"
+      ]
+    },
+    "itm0223": {
+      "name": "மல்லித் தூள்",
+      "aliases": [
+        "Coriander powder"
+      ]
+    },
+    "itm0224": {
+      "name": "சீரகத் தூள்",
+      "aliases": [
+        "Cumin powder"
+      ]
+    },
+    "itm0225": {
+      "name": "கரம் மசாலா",
+      "aliases": [
+        "Garam masala"
+      ]
+    },
+    "itm0226": {
+      "name": "சாம்பார் பொடி",
+      "aliases": [
+        "Sambar powder"
+      ]
+    },
+    "itm0227": {
+      "name": "ரசப் பொடி",
+      "aliases": [
+        "Rasam powder"
+      ]
+    },
+    "itm0228": {
+      "name": "பிசிபேளாபாத் பொடி",
+      "aliases": [
+        "Bisi bele bath powder"
+      ]
+    },
+    "itm0229": {
+      "name": "பாவ் பாஜி மசாலா",
+      "aliases": [
+        "Pav bhaji masala"
+      ]
+    },
+    "itm0230": {
+      "name": "சாட் மசாலா",
+      "aliases": [
+        "Chaat masala"
+      ]
+    },
+    "itm0231": {
+      "name": "மிளகுத் தூள்",
+      "aliases": [
+        "Pepper powder"
+      ]
+    },
+    "itm0232": {
+      "name": "சிக்கன் மசாலா",
+      "aliases": [
+        "Chicken masala"
+      ]
+    },
+    "itm0233": {
+      "name": "மீன் மசாலா",
+      "aliases": [
+        "Fish masala"
+      ]
+    },
+    "itm0234": {
+      "name": "சூரியகாந்தி எண்ணெய்",
+      "aliases": [
+        "Sunflower oil"
+      ]
+    },
+    "itm0235": {
+      "name": "கடலை எண்ணெய்",
+      "aliases": [
+        "Groundnut oil"
+      ]
+    },
+    "itm0236": {
+      "name": "தேங்காய் எண்ணெய்",
+      "aliases": [
+        "Coconut oil"
+      ]
+    },
+    "itm0237": {
+      "name": "ஆலிவ் எண்ணெய்",
+      "aliases": [
+        "Olive oil"
+      ]
+    },
+    "itm0238": {
+      "name": "கடுகு எண்ணெய்",
+      "aliases": [
+        "Mustard oil"
+      ]
+    },
+    "itm0239": {
+      "name": "நல்லெண்ணெய்",
+      "aliases": [
+        "Sesame oil"
+      ]
+    },
+    "itm0240": {
+      "name": "வினிகர்",
+      "aliases": [
+        "Vinegar"
+      ]
+    },
+    "itm0241": {
+      "name": "சோயா சாஸ்",
+      "aliases": [
+        "Soy sauce"
+      ]
+    },
+    "itm0242": {
+      "name": "தக்காளி கெட்சப்",
+      "aliases": [
+        "Tomato ketchup"
+      ]
+    },
+    "itm0243": {
+      "name": "சில்லி சாஸ்",
+      "aliases": [
+        "Chilli sauce"
+      ]
+    },
+    "itm0244": {
+      "name": "மயோனைஸ்",
+      "aliases": [
+        "Mayonnaise"
+      ]
+    },
+    "itm0245": {
+      "name": "மஸ்டர்டு சாஸ்",
+      "aliases": [
+        "Mustard sauce"
+      ]
+    },
+    "itm0246": {
+      "name": "ஊறுகாய்",
+      "aliases": [
+        "Pickle"
+      ]
+    },
+    "itm0247": {
+      "name": "தேங்காய்ப் பால்",
+      "aliases": [
+        "Coconut milk"
+      ]
+    },
+    "itm0248": {
+      "name": "டீத்தூள்",
+      "aliases": [
+        "Tea powder"
+      ]
+    },
+    "itm0249": {
+      "name": "காபித் தூள்",
+      "aliases": [
+        "Coffee powder"
+      ]
+    },
+    "itm0250": {
+      "name": "க்ரீன் டீ",
+      "aliases": [
+        "Green tea"
+      ]
+    },
+    "itm0251": {
+      "name": "கோகோ பவுடர்",
+      "aliases": [
+        "Cocoa powder"
+      ]
+    },
+    "itm0252": {
+      "name": "டிரிங்கிங் சாக்லேட்",
+      "aliases": [
+        "Drinking chocolate"
+      ]
+    },
+    "itm0253": {
+      "name": "குடிநீர் பாட்டில்",
+      "aliases": [
+        "Packaged drinking water"
+      ]
+    },
+    "itm0254": {
+      "name": "சோடா",
+      "aliases": [
+        "Soda water"
+      ]
+    },
+    "itm0255": {
+      "name": "பழச்சாறு",
+      "aliases": [
+        "Fruit juice"
+      ]
+    },
+    "itm0256": {
+      "name": "இளநீர் பாக்கெட்",
+      "aliases": [
+        "Coconut water pack"
+      ]
+    },
+    "itm0257": {
+      "name": "குளிர்பானம்",
+      "aliases": [
+        "Soft drink"
+      ]
+    },
+    "itm0258": {
+      "name": "எலக்ட்ரோலைட் பானம்",
+      "aliases": [
+        "Electrolyte drink"
+      ]
+    },
+    "itm0259": {
+      "name": "ஃப்ரோசன் பட்டாணி",
+      "aliases": [
+        "Frozen peas"
+      ]
+    },
+    "itm0260": {
+      "name": "ஃப்ரோசன் சோளம்",
+      "aliases": [
+        "Frozen corn"
+      ]
+    },
+    "itm0261": {
+      "name": "ஃப்ரோசன் கலவை காய்கறி",
+      "aliases": [
+        "Frozen mixed vegetables"
+      ]
+    },
+    "itm0262": {
+      "name": "ஃப்ரோசன் பரோட்டா",
+      "aliases": [
+        "Frozen paratha"
+      ]
+    },
+    "itm0263": {
+      "name": "ஃப்ரோசன் ஃப்ரைஸ்",
+      "aliases": [
+        "Frozen fries"
+      ]
+    },
+    "itm0264": {
+      "name": "ஃப்ரோசன் நகெட்ஸ்",
+      "aliases": [
+        "Frozen nuggets"
+      ]
+    },
+    "itm0265": {
+      "name": "ஃப்ரோசன் ஃபிஷ் ஃபிங்கர்",
+      "aliases": [
+        "Frozen fish fingers"
+      ]
+    },
+    "itm0266": {
+      "name": "ரெடி-டு-ஈட் உணவு",
+      "aliases": [
+        "Ready-to-eat meal"
+      ]
+    },
+    "itm0267": {
+      "name": "இன்ஸ்டன்ட் நூடுல்ஸ்",
+      "aliases": [
+        "Instant noodles"
+      ]
+    },
+    "itm0268": {
+      "name": "பாஸ்தா",
+      "aliases": [
+        "Pasta"
+      ]
+    },
+    "itm0269": {
+      "name": "பாஸ்தா சாஸ்",
+      "aliases": [
+        "Pasta sauce"
+      ]
+    },
+    "itm0270": {
+      "name": "சூப் பாக்கெட்",
+      "aliases": [
+        "Soup packet"
+      ]
+    },
+    "itm0271": {
+      "name": "குளியல் சோப்பு",
+      "aliases": [
+        "Bath soap"
+      ]
+    },
+    "itm0272": {
+      "name": "பாடி வாஷ்",
+      "aliases": [
+        "Body wash"
+      ]
+    },
+    "shampoo": {
+      "name": "ஷாம்பு",
+      "aliases": [
+        "shampoo"
+      ]
+    },
+    "itm0274": {
+      "name": "கண்டிஷனர்",
+      "aliases": [
+        "Conditioner"
+      ]
+    },
+    "hair_oil": {
+      "name": "தலை எண்ணெய்",
+      "aliases": [
+        "தலைக்கு எண்ணெய்",
+        "ennai",
+        "Hair oil"
+      ]
+    },
+    "toothpaste": {
+      "name": "பற்பசை",
+      "aliases": [
+        "டூத்பேஸ்ட்",
+        "toothpaste",
+        "paste"
+      ]
+    },
+    "toothbrush": {
+      "name": "பல் துலக்கி",
+      "aliases": [
+        "டூத்பிரஷ்",
+        "brush",
+        "Toothbrush"
+      ]
+    },
+    "itm0278": {
+      "name": "மவுத்வாஷ்",
+      "aliases": [
+        "Mouthwash"
+      ]
+    },
+    "itm0279": {
+      "name": "ஃபேஸ் வாஷ்",
+      "aliases": [
+        "Face wash"
+      ]
+    },
+    "itm0280": {
+      "name": "ஃபேஸ் க்ரீம்",
+      "aliases": [
+        "Face cream"
+      ]
+    },
+    "itm0281": {
+      "name": "மாய்ஸ்சரைசர்",
+      "aliases": [
+        "Moisturizer"
+      ]
+    },
+    "itm0282": {
+      "name": "சன்ஸ்க்ரீன்",
+      "aliases": [
+        "Sunscreen"
+      ]
+    },
+    "itm0283": {
+      "name": "டியோடரன்ட்",
+      "aliases": [
+        "Deodorant"
+      ]
+    },
+    "itm0284": {
+      "name": "ஷேவிங் க்ரீம்",
+      "aliases": [
+        "Shaving cream"
+      ]
+    },
+    "itm0285": {
+      "name": "ரேசர்",
+      "aliases": [
+        "Razor"
+      ]
+    },
+    "itm0286": {
+      "name": "சானிட்டரி நாப்கின்",
+      "aliases": [
+        "Sanitary pads"
+      ]
+    },
+    "itm0287": {
+      "name": "டாம்பன்",
+      "aliases": [
+        "Tampons"
+      ]
+    },
+    "itm0288": {
+      "name": "மென்ஸ்ட்ருவல் கப்",
+      "aliases": [
+        "Menstrual cup"
+      ]
+    },
+    "itm0289": {
+      "name": "ஃபேஸ் டிஷ்யூ",
+      "aliases": [
+        "Tissue for face"
+      ]
+    },
+    "itm0290": {
+      "name": "இயர் பட்ஸ்",
+      "aliases": [
+        "Cotton buds"
+      ]
+    },
+    "itm0291": {
+      "name": "சீப்பு",
+      "aliases": [
+        "Hair comb"
+      ]
+    },
+    "itm0292": {
+      "name": "ஹேர் பிரஷ்",
+      "aliases": [
+        "Hair brush"
+      ]
+    },
+    "itm0293": {
+      "name": "ஹேர் டை",
+      "aliases": [
+        "Hair colour"
+      ]
+    },
+    "itm0294": {
+      "name": "நகம் வெட்டி",
+      "aliases": [
+        "Nail cutter"
+      ]
+    },
+    "itm0295": {
+      "name": "நெயில் பாலிஷ் ரிமூவர்",
+      "aliases": [
+        "Nail polish remover"
+      ]
+    },
+    "itm0296": {
+      "name": "ஹேண்ட் க்ரீம்",
+      "aliases": [
+        "Hand cream"
+      ]
+    },
+    "itm0297": {
+      "name": "லிப் பாம்",
+      "aliases": [
+        "Lip balm"
+      ]
+    },
+    "itm0298": {
+      "name": "பெர்ஃப்யூம்",
+      "aliases": [
+        "Perfume"
+      ]
+    },
+    "itm0299": {
+      "name": "பாத்திரம் கழுவும் லிக்விட்",
+      "aliases": [
+        "Dishwashing liquid"
+      ]
+    },
+    "itm0300": {
+      "name": "பாத்திரம் கழுவும் சோப்பு",
+      "aliases": [
+        "Dishwashing bar"
+      ]
+    },
+    "itm0301": {
+      "name": "ஸ்க்ரப் பேட்",
+      "aliases": [
+        "Scrub pad"
+      ]
+    },
+    "itm0302": {
+      "name": "தரை கிளீனர்",
+      "aliases": [
+        "Floor cleaner"
+      ]
+    },
+    "itm0303": {
+      "name": "டாய்லெட் கிளீனர்",
+      "aliases": [
+        "Toilet cleaner"
+      ]
+    },
+    "itm0304": {
+      "name": "கண்ணாடி கிளீனர்",
+      "aliases": [
+        "Glass cleaner"
+      ]
+    },
+    "itm0305": {
+      "name": "கிருமிநாசினி",
+      "aliases": [
+        "Disinfectant"
+      ]
+    },
+    "itm0306": {
+      "name": "ப்ளீச்",
+      "aliases": [
+        "Bleach"
+      ]
+    },
+    "itm0307": {
+      "name": "குப்பைக் கவர்",
+      "aliases": [
+        "Garbage bin liner"
+      ]
+    },
+    "itm0308": {
+      "name": "துடைக்கும் துணி",
+      "aliases": [
+        "Cleaning cloth"
+      ]
+    },
+    "itm0309": {
+      "name": "மைக்ரோஃபைபர் துணி",
+      "aliases": [
+        "Microfiber cloth"
+      ]
+    },
+    "itm0310": {
+      "name": "ஸ்பாஞ்ச்",
+      "aliases": [
+        "Sponge"
+      ]
+    },
+    "itm0311": {
+      "name": "துடைப்பம்",
+      "aliases": [
+        "Broom"
+      ]
+    },
+    "itm0312": {
+      "name": "மாப் ரீஃபில்",
+      "aliases": [
+        "Mop refill"
+      ]
+    },
+    "itm0313": {
+      "name": "தூசி துடைப்பான்",
+      "aliases": [
+        "Duster"
+      ]
+    },
+    "itm0314": {
+      "name": "டிரைன் கிளீனர்",
+      "aliases": [
+        "Drain cleaner"
+      ]
+    },
+    "itm0315": {
+      "name": "சலவைத் தூள்",
+      "aliases": [
+        "Laundry detergent powder"
+      ]
+    },
+    "itm0316": {
+      "name": "லாண்ட்ரி லிக்விட்",
+      "aliases": [
+        "Laundry liquid"
+      ]
+    },
+    "itm0317": {
+      "name": "ஃபேப்ரிக் கண்டிஷனர்",
+      "aliases": [
+        "Fabric conditioner"
+      ]
+    },
+    "itm0318": {
+      "name": "கறை நீக்கி",
+      "aliases": [
+        "Stain remover"
+      ]
+    },
+    "itm0319": {
+      "name": "துணி துவைக்கும் பிரஷ்",
+      "aliases": [
+        "Laundry brush"
+      ]
+    },
+    "itm0320": {
+      "name": "துணி காயப்போடும் கயிறு",
+      "aliases": [
+        "Clothesline"
+      ]
+    },
+    "itm0321": {
+      "name": "துணி கிளிப்",
+      "aliases": [
+        "Cloth clips"
+      ]
+    },
+    "itm0322": {
+      "name": "டாய்லெட் பேப்பர் ரோல்",
+      "aliases": [
+        "Toilet paper roll"
+      ]
+    },
+    "itm0323": {
+      "name": "கிச்சன் டவல் ரோல்",
+      "aliases": [
+        "Kitchen paper towel roll"
+      ]
+    },
+    "itm0324": {
+      "name": "டிஷ்யூ பாக்ஸ்",
+      "aliases": [
+        "Facial tissue box"
+      ]
+    },
+    "itm0325": {
+      "name": "பேப்பர் நாப்கின்",
+      "aliases": [
+        "Paper napkins"
+      ]
+    },
+    "itm0326": {
+      "name": "பேப்பர் தட்டு",
+      "aliases": [
+        "Paper plates"
+      ]
+    },
+    "itm0327": {
+      "name": "பேப்பர் கப்",
+      "aliases": [
+        "Paper cups"
+      ]
+    },
+    "itm0328": {
+      "name": "பேப்பர் கிண்ணம்",
+      "aliases": [
+        "Paper bowls"
+      ]
+    },
+    "itm0329": {
+      "name": "பேப்பர் ஸ்ட்ரா",
+      "aliases": [
+        "Disposable paper straws"
+      ]
+    },
+    "itm0330": {
+      "name": "அலுமினியம் ஃபாயில் ரோல்",
+      "aliases": [
+        "Aluminium foil roll"
+      ]
+    },
+    "itm0331": {
+      "name": "கிளிங் ஃபிலிம் ரோல்",
+      "aliases": [
+        "Cling film roll"
+      ]
+    },
+    "itm0332": {
+      "name": "பார்ச்மென்ட் பேப்பர் ரோல்",
+      "aliases": [
+        "Parchment paper roll"
+      ]
+    },
+    "itm0333": {
+      "name": "ஜிப்-லாக் பைகள்",
+      "aliases": [
+        "Zip-lock bags"
+      ]
+    },
+    "itm0334": {
+      "name": "தூக்கி எறியும் கையுறை",
+      "aliases": [
+        "Disposable gloves"
+      ]
+    },
+    "itm0335": {
+      "name": "தூக்கி எறியும் மாஸ்க்",
+      "aliases": [
+        "Disposable masks"
+      ]
+    },
+    "itm0336": {
+      "name": "உணவு சேமிப்புப் பைகள்",
+      "aliases": [
+        "Food storage bags"
+      ]
+    },
+    "itm0337": {
+      "name": "தூக்கி எறியும் ஸ்பூன்",
+      "aliases": [
+        "Disposable spoons"
+      ]
+    },
+    "itm0338": {
+      "name": "தூக்கி எறியும் ஃபோர்க்",
+      "aliases": [
+        "Disposable forks"
+      ]
+    },
+    "itm0339": {
+      "name": "தூக்கி எறியும் டப்பா",
+      "aliases": [
+        "Disposable containers"
+      ]
+    },
+    "itm0340": {
+      "name": "பாத்திரம் தேய்க்கும் ஸ்பாஞ்ச்",
+      "aliases": [
+        "Dish sponge"
+      ]
+    },
+    "itm0341": {
+      "name": "ஸ்க்ரப் பிரஷ்",
+      "aliases": [
+        "Scrub brush"
+      ]
+    },
+    "itm0342": {
+      "name": "பாத்திர ஸ்டாண்ட்",
+      "aliases": [
+        "Dish rack"
+      ]
+    },
+    "itm0343": {
+      "name": "உணவு டப்பாக்கள்",
+      "aliases": [
+        "Food containers"
+      ]
+    },
+    "itm0344": {
+      "name": "தண்ணீர் பாட்டில்",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0345": {
+      "name": "லன்ச் பாக்ஸ்",
+      "aliases": [
+        "Lunch box"
+      ]
+    },
+    "itm0346": {
+      "name": "குப்பைத் தொட்டி",
+      "aliases": [
+        "Garbage bin"
+      ]
+    },
+    "itm0347": {
+      "name": "குப்பைப் பைகள்",
+      "aliases": [
+        "Garbage bags"
+      ]
+    },
+    "itm0348": {
+      "name": "பேக்கிங் பேப்பர்",
+      "aliases": [
+        "Baking paper"
+      ]
+    },
+    "itm0349": {
+      "name": "சமையல் நூல்",
+      "aliases": [
+        "Kitchen twine"
+      ]
+    },
+    "itm0350": {
+      "name": "தீப்பெட்டி",
+      "aliases": [
+        "Matchbox"
+      ]
+    },
+    "itm0351": {
+      "name": "கேஸ் லைட்டர்",
+      "aliases": [
+        "Gas lighter"
+      ]
+    },
+    "itm0352": {
+      "name": "எல்இடி பல்பு",
+      "aliases": [
+        "LED bulb"
+      ]
+    },
+    "itm0353": {
+      "name": "பேட்டரி AA",
+      "aliases": [
+        "Batteries AA"
+      ]
+    },
+    "itm0354": {
+      "name": "பேட்டரி AAA",
+      "aliases": [
+        "Batteries AAA"
+      ]
+    },
+    "extension_board": {
+      "name": "எக்ஸ்டென்ஷன் போர்டு",
+      "aliases": [
+        "extension",
+        "Extension board"
+      ]
+    },
+    "itm0356": {
+      "name": "எலக்ட்ரிக்கல் டேப்",
+      "aliases": [
+        "Electrical tape"
+      ]
+    },
+    "itm0357": {
+      "name": "ஒட்டும் டேப்",
+      "aliases": [
+        "Adhesive tape"
+      ]
+    },
+    "glue": {
+      "name": "பசை",
+      "aliases": [
+        "pasai",
+        "gum",
+        "Glue"
+      ]
+    },
+    "itm0359": {
+      "name": "சூப்பர் க்ளூ",
+      "aliases": [
+        "Super glue"
+      ]
+    },
+    "itm0360": {
+      "name": "திருகாணி",
+      "aliases": [
+        "Screws"
+      ]
+    },
+    "itm0361": {
+      "name": "சுவர் ஹூக்",
+      "aliases": [
+        "Wall hooks"
+      ]
+    },
+    "itm0362": {
+      "name": "டோர் ஸ்டாப்பர்",
+      "aliases": [
+        "Door stopper"
+      ]
+    },
+    "itm0363": {
+      "name": "பைப் டேப்",
+      "aliases": [
+        "Pipe tape"
+      ]
+    },
+    "itm0364": {
+      "name": "ஏர் ஃப்ரெஷ்னர்",
+      "aliases": [
+        "Air freshener"
+      ]
+    },
+    "itm0365": {
+      "name": "கொசு விரட்டி ரீஃபில்",
+      "aliases": [
+        "Mosquito repellent refill"
+      ]
+    },
+    "itm0366": {
+      "name": "கரப்பான் பூச்சி ஜெல்",
+      "aliases": [
+        "Cockroach bait"
+      ]
+    },
+    "itm0367": {
+      "name": "பேண்ட்-எய்ட்",
+      "aliases": [
+        "Adhesive bandages"
+      ]
+    },
+    "itm0368": {
+      "name": "ஸ்டெரைல் காஸ்",
+      "aliases": [
+        "Sterile gauze"
+      ]
+    },
+    "itm0369": {
+      "name": "மெடிக்கல் டேப்",
+      "aliases": [
+        "Medical tape"
+      ]
+    },
+    "itm0370": {
+      "name": "பஞ்சு ரோல்",
+      "aliases": [
+        "Cotton roll"
+      ]
+    },
+    "itm0371": {
+      "name": "ஆன்டிசெப்டிக் லிக்விட்",
+      "aliases": [
+        "Antiseptic solution"
+      ]
+    },
+    "itm0372": {
+      "name": "டிஜிட்டல் தெர்மாமீட்டர்",
+      "aliases": [
+        "Digital thermometer"
+      ]
+    },
+    "itm0373": {
+      "name": "வெந்நீர் பை",
+      "aliases": [
+        "Hot water bag"
+      ]
+    },
+    "itm0374": {
+      "name": "இன்ஸ்டன்ட் கோல்ட் பேக்",
+      "aliases": [
+        "Instant cold pack"
+      ]
+    },
+    "itm0375": {
+      "name": "ஹேண்ட் சானிடைசர்",
+      "aliases": [
+        "Hand sanitizer"
+      ]
+    },
+    "itm0376": {
+      "name": "மெடிக்கல் கையுறை",
+      "aliases": [
+        "Disposable medical gloves"
+      ]
+    },
+    "itm0377": {
+      "name": "ஓஆர்எஸ் பாக்கெட்",
+      "aliases": [
+        "ORS sachets"
+      ]
+    },
+    "itm0378": {
+      "name": "குழந்தை டயாப்பர்",
+      "aliases": [
+        "Baby diapers"
+      ]
+    },
+    "itm0379": {
+      "name": "பேபி வைப்ஸ்",
+      "aliases": [
+        "Baby wipes"
+      ]
+    },
+    "itm0380": {
+      "name": "பேபி வாஷ்",
+      "aliases": [
+        "Baby wash"
+      ]
+    },
+    "itm0381": {
+      "name": "பேபி ஷாம்பு",
+      "aliases": [
+        "Baby shampoo"
+      ]
+    },
+    "itm0382": {
+      "name": "பேபி லோஷன்",
+      "aliases": [
+        "Baby lotion"
+      ]
+    },
+    "itm0383": {
+      "name": "டயாப்பர் ராஷ் க்ரீம்",
+      "aliases": [
+        "Diaper rash cream"
+      ]
+    },
+    "itm0384": {
+      "name": "பேபி பவுடர்",
+      "aliases": [
+        "Baby powder"
+      ]
+    },
+    "itm0385": {
+      "name": "குழந்தை உணவு",
+      "aliases": [
+        "Baby food"
+      ]
+    },
+    "itm0386": {
+      "name": "பால் புட்டி",
+      "aliases": [
+        "Feeding bottle"
+      ]
+    },
+    "itm0387": {
+      "name": "புட்டி பிரஷ்",
+      "aliases": [
+        "Bottle cleaning brush"
+      ]
+    },
+    "itm0388": {
+      "name": "பள்ளி நோட்டுப் புத்தகங்கள்",
+      "aliases": [
+        "School notebooks"
+      ]
+    },
+    "itm0389": {
+      "name": "க்ரேயான்ஸ்",
+      "aliases": [
+        "Crayons"
+      ]
+    },
+    "itm0390": {
+      "name": "வண்ணப் பென்சில்கள்",
+      "aliases": [
+        "Colour pencils"
+      ]
+    },
+    "itm0391": {
+      "name": "பள்ளி லேபிள்",
+      "aliases": [
+        "School labels"
+      ]
+    },
+    "itm0392": {
+      "name": "லன்ச் பாக்ஸ்",
+      "aliases": [
+        "Lunch box"
+      ]
+    },
+    "itm0393": {
+      "name": "தண்ணீர் பாட்டில்",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0394": {
+      "name": "பள்ளி சாக்ஸ்",
+      "aliases": [
+        "School socks"
+      ]
+    },
+    "itm0395": {
+      "name": "பள்ளிச் சீருடை",
+      "aliases": [
+        "School uniform"
+      ]
+    },
+    "itm0396": {
+      "name": "செல்லப்பிராணி உணவு",
+      "aliases": [
+        "Pet food"
+      ]
+    },
+    "itm0397": {
+      "name": "கேட் லிட்டர்",
+      "aliases": [
+        "Cat litter"
+      ]
+    },
+    "itm0398": {
+      "name": "பெட் ஷாம்பு",
+      "aliases": [
+        "Pet shampoo"
+      ]
+    },
+    "itm0399": {
+      "name": "பெட் ட்ரீட்ஸ்",
+      "aliases": [
+        "Pet treats"
+      ]
+    },
+    "itm0400": {
+      "name": "கழிவுப் பைகள்",
+      "aliases": [
+        "Poop bags"
+      ]
+    },
+    "itm0401": {
+      "name": "பெட் பேட்",
+      "aliases": [
+        "Pet pads"
+      ]
+    },
+    "itm0402": {
+      "name": "பெட் பிரஷ்",
+      "aliases": [
+        "Pet brush"
+      ]
+    },
+    "itm0403": {
+      "name": "கால்நடை மருத்துவர் மருந்து",
+      "aliases": [
+        "Pet medication prescribed by vet"
+      ]
+    },
+    "notebook": {
+      "name": "நோட்டுப் புத்தகம்",
+      "aliases": [
+        "notebook",
+        "note"
+      ]
+    },
+    "pen": {
+      "name": "பேனா",
+      "aliases": [
+        "pena",
+        "pen"
+      ]
+    },
+    "pencil": {
+      "name": "பென்சில்",
+      "aliases": [
+        "pencil"
+      ]
+    },
+    "eraser": {
+      "name": "அழிப்பான்",
+      "aliases": [
+        "ரப்பர்",
+        "rubber",
+        "eraser"
+      ]
+    },
+    "itm0408": {
+      "name": "ஷார்ப்னர்",
+      "aliases": [
+        "Sharpener"
+      ]
+    },
+    "itm0409": {
+      "name": "ஹைலைட்டர்",
+      "aliases": [
+        "Highlighter"
+      ]
+    },
+    "itm0410": {
+      "name": "பெர்மனென்ட் மார்க்கர்",
+      "aliases": [
+        "Permanent marker"
+      ]
+    },
+    "itm0411": {
+      "name": "வொயிட்போர்டு மார்க்கர்",
+      "aliases": [
+        "Whiteboard marker"
+      ]
+    },
+    "itm0412": {
+      "name": "ஸ்டிக்கி நோட்ஸ்",
+      "aliases": [
+        "Sticky notes"
+      ]
+    },
+    "itm0413": {
+      "name": "பிரிண்டர் பேப்பர்",
+      "aliases": [
+        "Printer paper"
+      ]
+    },
+    "itm0414": {
+      "name": "ஃபைல் ஃபோல்டர்",
+      "aliases": [
+        "File folder"
+      ]
+    },
+    "itm0415": {
+      "name": "கவர்",
+      "aliases": [
+        "Envelope"
+      ]
+    },
+    "stapler": {
+      "name": "ஸ்டேப்ளர்",
+      "aliases": [
+        "stapler"
+      ]
+    },
+    "itm0417": {
+      "name": "ஸ்டேப்ளர் பின்",
+      "aliases": [
+        "Staples"
+      ]
+    },
+    "itm0418": {
+      "name": "பேப்பர் கிளிப்",
+      "aliases": [
+        "Paper clips"
+      ]
+    },
+    "itm0419": {
+      "name": "பைண்டர் கிளிப்",
+      "aliases": [
+        "Binder clips"
+      ]
+    },
+    "scissors": {
+      "name": "கத்தரிக்கோல்",
+      "aliases": [
+        "kathirikol",
+        "Scissors"
+      ]
+    },
+    "itm0421": {
+      "name": "க்ளூ ஸ்டிக்",
+      "aliases": [
+        "Glue stick"
+      ]
+    },
+    "itm0422": {
+      "name": "கரெக்ஷன் டேப்",
+      "aliases": [
+        "Correction tape"
+      ]
+    },
+    "itm0423": {
+      "name": "பிரிண்டர் இங்க் கார்ட்ரிட்ஜ்",
+      "aliases": [
+        "Printer ink cartridge"
+      ]
+    },
+    "itm0424": {
+      "name": "டோனர் கார்ட்ரிட்ஜ்",
+      "aliases": [
+        "Toner cartridge"
+      ]
+    },
+    "itm0425": {
+      "name": "ஐடி கார்டு ஹோல்டர்",
+      "aliases": [
+        "ID card holder"
+      ]
+    },
+    "itm0426": {
+      "name": "டெஸ்க் ஆர்கனைசர்",
+      "aliases": [
+        "Desk organizer"
+      ]
+    },
+    "itm0427": {
+      "name": "வொயிட்போர்டு",
+      "aliases": [
+        "Whiteboard"
+      ]
+    },
+    "itm0428": {
+      "name": "வொயிட்போர்டு டஸ்டர்",
+      "aliases": [
+        "Whiteboard duster"
+      ]
+    },
+    "itm0429": {
+      "name": "டைரி / பிளானர்",
+      "aliases": [
+        "Diary / planner"
+      ]
+    },
+    "itm0430": {
+      "name": "பேக்கிங் டேப்",
+      "aliases": [
+        "Packaging tape"
+      ]
+    },
+    "itm0431": {
+      "name": "யூஎஸ்பி கேபிள்",
+      "aliases": [
+        "USB cable"
+      ]
+    },
+    "itm0432": {
+      "name": "டைப்-சி கேபிள்",
+      "aliases": [
+        "USB-C cable"
+      ]
+    },
+    "itm0433": {
+      "name": "போன் சார்ஜர்",
+      "aliases": [
+        "Phone charger"
+      ]
+    },
+    "power_bank": {
+      "name": "பவர் பேங்க்",
+      "aliases": [
+        "power bank"
+      ]
+    },
+    "earphones": {
+      "name": "இயர்போன்",
+      "aliases": [
+        "earphone",
+        "Earphones"
+      ]
+    },
+    "itm0436": {
+      "name": "ஹெட்போன்",
+      "aliases": [
+        "Headphones"
+      ]
+    },
+    "itm0437": {
+      "name": "மவுஸ்",
+      "aliases": [
+        "Mouse"
+      ]
+    },
+    "itm0438": {
+      "name": "கீபோர்டு",
+      "aliases": [
+        "Keyboard"
+      ]
+    },
+    "itm0439": {
+      "name": "எச்டிஎம்ஐ கேபிள்",
+      "aliases": [
+        "HDMI cable"
+      ]
+    },
+    "itm0440": {
+      "name": "பென் டிரைவ்",
+      "aliases": [
+        "USB drive"
+      ]
+    },
+    "itm0441": {
+      "name": "மெமரி கார்டு",
+      "aliases": [
+        "Memory card"
+      ]
+    },
+    "itm0442": {
+      "name": "லேப்டாப் கவர்",
+      "aliases": [
+        "Laptop sleeve"
+      ]
+    },
+    "itm0443": {
+      "name": "ஸ்கிரீன் கார்டு",
+      "aliases": [
+        "Screen protector"
+      ]
+    },
+    "itm0444": {
+      "name": "போன் கவர்",
+      "aliases": [
+        "Phone case"
+      ]
+    },
+    "itm0445": {
+      "name": "வெப்கேம்",
+      "aliases": [
+        "Webcam"
+      ]
+    },
+    "itm0446": {
+      "name": "சூட்கேஸ்",
+      "aliases": [
+        "Suitcase"
+      ]
+    },
+    "itm0447": {
+      "name": "பயண பேக்பேக்",
+      "aliases": [
+        "Travel backpack"
+      ]
+    },
+    "itm0448": {
+      "name": "பேக்கிங் க்யூப்ஸ்",
+      "aliases": [
+        "Packing cubes"
+      ]
+    },
+    "itm0449": {
+      "name": "பயணத்துக்கான சிறிய பொருட்கள்",
+      "aliases": [
+        "Travel-size toiletries"
+      ]
+    },
+    "itm0450": {
+      "name": "டிராவல் அடாப்டர்",
+      "aliases": [
+        "Travel adapter"
+      ]
+    },
+    "itm0451": {
+      "name": "நெக் பில்லோ",
+      "aliases": [
+        "Neck pillow"
+      ]
+    },
+    "itm0452": {
+      "name": "ஐ மாஸ்க்",
+      "aliases": [
+        "Eye mask"
+      ]
+    },
+    "itm0453": {
+      "name": "பேக் பூட்டு",
+      "aliases": [
+        "Luggage lock"
+      ]
+    },
+    "itm0454": {
+      "name": "ரெயின் பொன்சோ",
+      "aliases": [
+        "Rain poncho"
+      ]
+    },
+    "itm0455": {
+      "name": "குடை",
+      "aliases": [
+        "Umbrella"
+      ]
+    },
+    "itm0456": {
+      "name": "மீண்டும் பயன்படுத்தும் பாட்டில்",
+      "aliases": [
+        "Reusable water bottle"
+      ]
+    },
+    "itm0457": {
+      "name": "முதலுதவிப் பெட்டி",
+      "aliases": [
+        "First-aid travel kit"
+      ]
+    },
+    "itm0458": {
+      "name": "சன்ஸ்க்ரீன் டிராவல் பேக்",
+      "aliases": [
+        "Sunscreen travel pack"
+      ]
+    },
+    "t_shirt": {
+      "name": "டி-சர்ட்",
+      "aliases": [
+        "டி-ஷர்ட்",
+        "tshirt",
+        "T-shirt"
+      ]
+    },
+    "shirt": {
+      "name": "சட்டை",
+      "aliases": [
+        "sattai",
+        "shirt"
+      ]
+    },
+    "itm0461": {
+      "name": "பேண்ட்",
+      "aliases": [
+        "Trousers"
+      ]
+    },
+    "itm0462": {
+      "name": "ஜீன்ஸ்",
+      "aliases": [
+        "Jeans"
+      ]
+    },
+    "itm0463": {
+      "name": "உள்ளாடைகள்",
+      "aliases": [
+        "Innerwear"
+      ]
+    },
+    "socks": {
+      "name": "காலுறை",
+      "aliases": [
+        "சாக்ஸ்",
+        "socks"
+      ]
+    },
+    "itm0465": {
+      "name": "இரவு உடை",
+      "aliases": [
+        "Nightwear"
+      ]
+    },
+    "itm0466": {
+      "name": "பாரம்பரிய உடை",
+      "aliases": [
+        "Traditional wear"
+      ]
+    },
+    "itm0467": {
+      "name": "ஜாக்கெட்",
+      "aliases": [
+        "Jacket"
+      ]
+    },
+    "itm0468": {
+      "name": "ரெயின்கோட்",
+      "aliases": [
+        "Raincoat"
+      ]
+    },
+    "itm0469": {
+      "name": "பெல்ட்",
+      "aliases": [
+        "Belt"
+      ]
+    },
+    "itm0470": {
+      "name": "தொப்பி",
+      "aliases": [
+        "Cap"
+      ]
+    },
+    "itm0471": {
+      "name": "ஸ்கார்ஃப்",
+      "aliases": [
+        "Scarf"
+      ]
+    },
+    "itm0472": {
+      "name": "கைக்குட்டை",
+      "aliases": [
+        "Handkerchief"
+      ]
+    },
+    "itm0473": {
+      "name": "தினசரி செருப்பு",
+      "aliases": [
+        "Daily slippers"
+      ]
+    },
+    "itm0474": {
+      "name": "சாண்டல்ஸ்",
+      "aliases": [
+        "Sandals"
+      ]
+    },
+    "shoes": {
+      "name": "காலணிகள்",
+      "aliases": [
+        "ஷூ",
+        "shoes"
+      ]
+    },
+    "itm0476": {
+      "name": "ஷூ பாலிஷ்",
+      "aliases": [
+        "Shoe polish"
+      ]
+    },
+    "itm0477": {
+      "name": "ஷூ பிரஷ்",
+      "aliases": [
+        "Shoe brush"
+      ]
+    },
+    "itm0478": {
+      "name": "ஷூ இன்சோல்",
+      "aliases": [
+        "Shoe insoles"
+      ]
+    },
+    "itm0479": {
+      "name": "ஆதார் வேலை",
+      "aliases": [
+        "Aadhaar-related task"
+      ]
+    },
+    "itm0480": {
+      "name": "பான் கார்டு வேலை",
+      "aliases": [
+        "PAN-related task"
+      ]
+    },
+    "passport": {
+      "name": "பாஸ்போர்ட்",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "driving_licence": {
+      "name": "ஓட்டுநர் உரிமம்",
+      "aliases": [
+        "driving licence",
+        "dl"
+      ]
+    },
+    "itm0483": {
+      "name": "வாகன காப்பீட்டு ஆவணம்",
+      "aliases": [
+        "Vehicle insurance document"
+      ]
+    },
+    "itm0484": {
+      "name": "மருத்துவக் காப்பீட்டுப் பாலிசி",
+      "aliases": [
+        "Health insurance policy"
+      ]
+    },
+    "itm0485": {
+      "name": "வங்கி அறிக்கை",
+      "aliases": [
+        "Bank statement"
+      ]
+    },
+    "itm0486": {
+      "name": "சம்பளச் சீட்டு",
+      "aliases": [
+        "Payslip"
+      ]
+    },
+    "itm0487": {
+      "name": "அனுபவச் சான்றிதழ்",
+      "aliases": [
+        "Experience letter"
+      ]
+    },
+    "itm0488": {
+      "name": "பணிவிடுவிப்புக் கடிதம்",
+      "aliases": [
+        "Relieving letter"
+      ]
+    },
+    "itm0489": {
+      "name": "வரி ஆவணம்",
+      "aliases": [
+        "Tax document"
+      ]
+    },
+    "itm0490": {
+      "name": "வாடகை ஒப்பந்தம்",
+      "aliases": [
+        "Rental agreement"
+      ]
+    },
+    "itm0491": {
+      "name": "வீட்டுக் கட்டண ரசீது",
+      "aliases": [
+        "Utility bill"
+      ]
+    },
+    "itm0492": {
+      "name": "வாரண்டி ரசீது",
+      "aliases": [
+        "Warranty receipt"
+      ]
+    },
+    "itm0493": {
+      "name": "பாடப்புத்தகங்கள்",
+      "aliases": [
+        "Textbooks"
+      ]
+    },
+    "itm0494": {
+      "name": "குறிப்பு புத்தகங்கள்",
+      "aliases": [
+        "Reference books"
+      ]
+    },
+    "itm0495": {
+      "name": "பயிற்சித் தாள்கள்",
+      "aliases": [
+        "Practice papers"
+      ]
+    },
+    "itm0496": {
+      "name": "தேர்வு விண்ணப்பம்",
+      "aliases": [
+        "Exam application"
+      ]
+    },
+    "hall_ticket": {
+      "name": "ஹால் டிக்கெட்",
+      "aliases": [
+        "hall ticket"
+      ]
+    },
+    "itm0498": {
+      "name": "தேர்வுக்கான அடையாளச் சான்று",
+      "aliases": [
+        "ID proof for exam"
+      ]
+    },
+    "itm0499": {
+      "name": "தேர்வுக்கான பேனாக்கள்",
+      "aliases": [
+        "Pens for exam"
+      ]
+    },
+    "itm0500": {
+      "name": "தேர்வுக்கான பென்சில்கள்",
+      "aliases": [
+        "Pencils for exam"
+      ]
+    },
+    "itm0501": {
+      "name": "ஜியோமெட்ரி பாக்ஸ்",
+      "aliases": [
+        "Geometry box"
+      ]
+    },
+    "calculator": {
+      "name": "கால்குலேட்டர்",
+      "aliases": [
+        "calculator"
+      ]
+    },
+    "itm0503": {
+      "name": "ஃப்ளாஷ் கார்டுகள்",
+      "aliases": [
+        "Flash cards"
+      ]
+    },
+    "itm0504": {
+      "name": "படிப்பு நேரப் பட்டியல்",
+      "aliases": [
+        "Study timetable"
+      ]
+    },
+    "itm0505": {
+      "name": "ஸ்போர்ட்ஸ் ஷூ",
+      "aliases": [
+        "Sports shoes"
+      ]
+    },
+    "itm0506": {
+      "name": "உடற்பயிற்சி உடைகள்",
+      "aliases": [
+        "Workout clothes"
+      ]
+    },
+    "itm0507": {
+      "name": "யோகா மேட்",
+      "aliases": [
+        "Yoga mat"
+      ]
+    },
+    "itm0508": {
+      "name": "ரெசிஸ்டன்ஸ் பேண்ட்",
+      "aliases": [
+        "Resistance bands"
+      ]
+    },
+    "itm0509": {
+      "name": "ஸ்கிப்பிங் கயிறு",
+      "aliases": [
+        "Skipping rope"
+      ]
+    },
+    "itm0510": {
+      "name": "தண்ணீர் பாட்டில்",
+      "aliases": [
+        "Water bottle"
+      ]
+    },
+    "itm0511": {
+      "name": "ஜிம் டவல்",
+      "aliases": [
+        "Gym towel"
+      ]
+    },
+    "itm0512": {
+      "name": "புரோட்டீன் ஷேக்கர்",
+      "aliases": [
+        "Protein shaker"
+      ]
+    },
+    "itm0513": {
+      "name": "விளையாட்டுப் பந்து",
+      "aliases": [
+        "Sports ball"
+      ]
+    },
+    "itm0514": {
+      "name": "ஸ்போர்ட்ஸ் சாக்ஸ்",
+      "aliases": [
+        "Sports socks"
+      ]
+    },
+    "itm0515": {
+      "name": "பாட்டிங் மிக்ஸ்",
+      "aliases": [
+        "Potting mix"
+      ]
+    },
+    "itm0516": {
+      "name": "உரம்",
+      "aliases": [
+        "Compost"
+      ]
+    },
+    "itm0517": {
+      "name": "கோகோபீட்",
+      "aliases": [
+        "Cocopeat"
+      ]
+    },
+    "itm0518": {
+      "name": "விதைகள்",
+      "aliases": [
+        "Seeds"
+      ]
+    },
+    "itm0519": {
+      "name": "நாற்றுத் தட்டு",
+      "aliases": [
+        "Seedling tray"
+      ]
+    },
+    "itm0520": {
+      "name": "பூந்தொட்டிகள்",
+      "aliases": [
+        "Plant pots"
+      ]
+    },
+    "itm0521": {
+      "name": "பூவாளி",
+      "aliases": [
+        "Watering can"
+      ]
+    },
+    "itm0522": {
+      "name": "தோட்டக் கையுறை",
+      "aliases": [
+        "Garden gloves"
+      ]
+    },
+    "itm0523": {
+      "name": "கிளை வெட்டும் கத்தரி",
+      "aliases": [
+        "Pruning shears"
+      ]
+    },
+    "itm0524": {
+      "name": "டிரிப் கனெக்டர்",
+      "aliases": [
+        "Drip connector"
+      ]
+    },
+    "itm0525": {
+      "name": "மூடாக்கு",
+      "aliases": [
+        "Mulch"
+      ]
+    },
+    "itm0526": {
+      "name": "செடி லேபிள்",
+      "aliases": [
+        "Plant labels"
+      ]
+    },
+    "itm0527": {
+      "name": "எரிபொருள்",
+      "aliases": [
+        "Fuel"
+      ]
+    },
+    "itm0528": {
+      "name": "என்ஜின் ஆயில்",
+      "aliases": [
+        "Engine oil"
+      ]
+    },
+    "itm0529": {
+      "name": "கூலன்ட்",
+      "aliases": [
+        "Coolant"
+      ]
+    },
+    "itm0530": {
+      "name": "வைப்பர் ஃப்ளூயிட்",
+      "aliases": [
+        "Wiper fluid"
+      ]
+    },
+    "itm0531": {
+      "name": "டயர் காற்றழுத்தச் சோதனை",
+      "aliases": [
+        "Tyre pressure check"
+      ]
+    },
+    "itm0532": {
+      "name": "பஞ்சர் கிட்",
+      "aliases": [
+        "Puncture kit"
+      ]
+    },
+    "itm0533": {
+      "name": "ஹெல்மெட்",
+      "aliases": [
+        "Helmet"
+      ]
+    },
+    "itm0534": {
+      "name": "ரிஃப்ளெக்டிவ் வெஸ்ட்",
+      "aliases": [
+        "Reflective vest"
+      ]
+    },
+    "itm0535": {
+      "name": "வாகனம் துடைக்கும் துணி",
+      "aliases": [
+        "Vehicle cleaning cloth"
+      ]
+    },
+    "itm0536": {
+      "name": "ஃபாஸ்டேக் ரீசார்ஜ்",
+      "aliases": [
+        "Fastag recharge"
+      ]
+    },
+    "itm0537": {
+      "name": "பிறந்தநாள் மெழுகுவர்த்தி",
+      "aliases": [
+        "Birthday candles"
+      ]
+    },
+    "itm0538": {
+      "name": "கேக் டாப்பர்",
+      "aliases": [
+        "Cake topper"
+      ]
+    },
+    "balloons": {
+      "name": "பலூன்கள்",
+      "aliases": [
+        "பலூன்",
+        "balloon",
+        "Balloons"
+      ]
+    },
+    "itm0540": {
+      "name": "கிஃப்ட் ராப்",
+      "aliases": [
+        "Gift wrap"
+      ]
+    },
+    "greeting_card": {
+      "name": "வாழ்த்து அட்டை",
+      "aliases": [
+        "greeting card"
+      ]
+    },
+    "itm0542": {
+      "name": "கிஃப்ட் பேக்",
+      "aliases": [
+        "Gift bag"
+      ]
+    },
+    "itm0543": {
+      "name": "பார்ட்டி தட்டு",
+      "aliases": [
+        "Party plates"
+      ]
+    },
+    "itm0544": {
+      "name": "பார்ட்டி கப்",
+      "aliases": [
+        "Party cups"
+      ]
+    },
+    "itm0545": {
+      "name": "ஸ்ட்ரிங் லைட்ஸ்",
+      "aliases": [
+        "String lights"
+      ]
+    },
+    "itm0546": {
+      "name": "அலங்காரப் பொருட்கள்",
+      "aliases": [
+        "Decorations"
+      ]
+    },
+    "itm0547": {
+      "name": "ரிட்டர்ன் கிஃப்ட்",
+      "aliases": [
+        "Return gifts"
+      ]
+    },
+    "itm0548": {
+      "name": "மின்கட்டணம் செலுத்து",
+      "aliases": [
+        "Pay electricity bill"
+      ]
+    },
+    "itm0549": {
+      "name": "தண்ணீர் கட்டணம் செலுத்து",
+      "aliases": [
+        "Pay water bill"
+      ]
+    },
+    "itm0550": {
+      "name": "இன்டர்நெட் கட்டணம் செலுத்து",
+      "aliases": [
+        "Pay internet bill"
+      ]
+    },
+    "itm0551": {
+      "name": "மொபைல் ரீசார்ஜ்",
+      "aliases": [
+        "Mobile recharge"
+      ]
+    },
+    "itm0552": {
+      "name": "போன் பேக்அப்",
+      "aliases": [
+        "Back up phone"
+      ]
+    },
+    "itm0553": {
+      "name": "லேப்டாப் பேக்அப்",
+      "aliases": [
+        "Back up laptop"
+      ]
+    },
+    "itm0554": {
+      "name": "ஆப்ஸ் அப்டேட்",
+      "aliases": [
+        "Update apps"
+      ]
+    },
+    "itm0555": {
+      "name": "டொமைன் புதுப்பி",
+      "aliases": [
+        "Renew domain"
+      ]
+    },
+    "itm0556": {
+      "name": "சந்தா புதுப்பி",
+      "aliases": [
+        "Renew subscription"
+      ]
+    },
+    "itm0557": {
+      "name": "பட்ஜெட் பார்",
+      "aliases": [
+        "Review budget"
+      ]
+    },
+    "itm0558": {
+      "name": "உடல்நலப் பரிசோதனை திட்டமிடு",
+      "aliases": [
+        "Schedule health check-up"
+      ]
+    },
+    "itm0559": {
+      "name": "காப்பீடு புதுப்பிப்பு பார்",
+      "aliases": [
+        "Check insurance renewal"
+      ]
+    },
+    "itm0560": {
+      "name": "மின்னஞ்சல் இன்பாக்ஸ் சுத்தம்",
+      "aliases": [
+        "Clean email inbox"
+      ]
+    },
+    "itm0561": {
+      "name": "பாஸ்வேர்டு மாற்று",
+      "aliases": [
+        "Change passwords"
+      ]
+    },
+    "itm0562": {
+      "name": "காலண்டர் பார்",
+      "aliases": [
+        "Review calendar"
+      ]
+    },
+    "itm0563": {
+      "name": "வேறு பொருள்",
+      "aliases": [
+        "Custom item"
+      ]
+    },
+    "rice": {
+      "name": "அரிசி",
+      "aliases": [
+        "arisi"
+      ]
+    },
+    "wheat": {
+      "name": "கோதுமை",
+      "aliases": [
+        "kothumai",
+        "gothumai"
+      ]
+    },
+    "dal": {
+      "name": "பருப்பு",
+      "aliases": [
+        "paruppu"
+      ]
+    },
+    "cooking_oil": {
+      "name": "சமையல் எண்ணெய்",
+      "aliases": [
+        "ennai",
+        "எண்ணெய்"
+      ]
+    },
+    "tea": {
+      "name": "டீ தூள்",
+      "aliases": [
+        "tea",
+        "theyilai",
+        "தேயிலை"
+      ]
+    },
+    "coffee": {
+      "name": "காபித் தூள்",
+      "aliases": [
+        "kaapi",
+        "coffee",
+        "காபி"
+      ]
+    },
+    "spices": {
+      "name": "மசாலா பொருட்கள்",
+      "aliases": [
+        "masala"
+      ]
+    },
+    "beans": {
+      "name": "பீன்ஸ்",
+      "aliases": [
+        "beans"
+      ]
+    },
+    "brinjal": {
+      "name": "கத்தரிக்காய்",
+      "aliases": [
+        "kathirikai"
+      ]
+    },
+    "spinach": {
+      "name": "பசலைக் கீரை",
+      "aliases": [
+        "keerai",
+        "pasalai"
+      ]
+    },
+    "pants": {
+      "name": "பேண்ட்",
+      "aliases": [
+        "pant"
+      ]
+    },
+    "saree": {
+      "name": "புடவை",
+      "aliases": [
+        "pudavai",
+        "saree"
+      ]
+    },
+    "dress": {
+      "name": "உடை",
+      "aliases": [
+        "udai",
+        "dress"
+      ]
+    },
+    "travel_passport": {
+      "name": "பாஸ்போர்ட்",
+      "aliases": [
+        "passport"
+      ]
+    },
+    "tickets": {
+      "name": "டிக்கெட்",
+      "aliases": [
+        "ticket"
+      ]
+    },
+    "hotel_booking": {
+      "name": "ஹோட்டல் முன்பதிவு",
+      "aliases": [
+        "hotel"
+      ]
+    },
+    "clothes": {
+      "name": "துணிகள்",
+      "aliases": [
+        "thuni"
+      ]
+    },
+    "charger": {
+      "name": "சார்ஜர்",
+      "aliases": [
+        "charger"
+      ]
+    },
+    "travel_toiletries": {
+      "name": "குளியல் பொருட்கள்",
+      "aliases": []
+    },
+    "travel_medicines": {
+      "name": "மருந்துகள்",
+      "aliases": [
+        "marundhu"
+      ]
+    },
+    "aadhaar_card": {
+      "name": "ஆதார் அட்டை",
+      "aliases": [
+        "aadhaar",
+        "aadhar"
+      ]
+    },
+    "pan_card": {
+      "name": "பான் அட்டை",
+      "aliases": [
+        "pan"
+      ]
+    },
+    "educational_certificates": {
+      "name": "கல்விச் சான்றிதழ்கள்",
+      "aliases": [
+        "certificates"
+      ]
+    },
+    "passport_photos": {
+      "name": "பாஸ்போர்ட் புகைப்படங்கள்",
+      "aliases": [
+        "photo"
+      ]
+    },
+    "id_card": {
+      "name": "அடையாள அட்டை",
+      "aliases": [
+        "id card"
+      ]
+    },
+    "books": {
+      "name": "புத்தகங்கள்",
+      "aliases": [
+        "puthagam"
+      ]
+    },
+    "notes": {
+      "name": "குறிப்புகள்",
+      "aliases": [
+        "notes"
+      ]
+    },
+    "sweets": {
+      "name": "இனிப்புகள்",
+      "aliases": [
+        "inippu",
+        "sweets"
+      ]
+    },
+    "incense_sticks": {
+      "name": "ஊதுபத்தி",
+      "aliases": [
+        "oodhupathi",
+        "agarbatti"
+      ]
+    },
+    "camphor": {
+      "name": "கற்பூரம்",
+      "aliases": [
+        "karpooram"
+      ]
+    },
+    "kumkum": {
+      "name": "குங்குமம்",
+      "aliases": [
+        "kungumam"
+      ]
+    },
+    "turmeric": {
+      "name": "மஞ்சள்",
+      "aliases": [
+        "manjal"
+      ]
+    },
+    "flowers": {
+      "name": "பூக்கள்",
+      "aliases": [
+        "poo",
+        "pookal"
+      ]
+    },
+    "cotton_wicks": {
+      "name": "திரி",
+      "aliases": [
+        "thiri"
+      ]
+    },
+    "rangoli_colours": {
+      "name": "கோலப் பொடி",
+      "aliases": [
+        "kolam",
+        "kola podi"
+      ]
+    },
+    "decorative_lights": {
+      "name": "அலங்கார விளக்குகள்",
+      "aliases": [
+        "serial lights"
+      ]
+    },
+    "fever_tablets": {
+      "name": "காய்ச்சல் மாத்திரை",
+      "aliases": [
+        "kaichal",
+        "paracetamol"
+      ]
+    },
+    "pain_balm": {
+      "name": "தைலம்",
+      "aliases": [
+        "thailam",
+        "balm"
+      ]
+    },
+    "bandage": {
+      "name": "பேண்டேஜ்",
+      "aliases": [
+        "bandage"
+      ]
+    },
+    "antiseptic_liquid": {
+      "name": "கிருமிநாசினி திரவம்",
+      "aliases": [
+        "antiseptic"
+      ]
+    },
+    "ors": {
+      "name": "ORS பொடி",
+      "aliases": [
+        "ors"
+      ]
+    },
+    "cough_syrup": {
+      "name": "இருமல் மருந்து",
+      "aliases": [
+        "cough syrup"
+      ]
+    },
+    "soap": {
+      "name": "சோப்பு",
+      "aliases": [
+        "soap"
+      ]
+    },
+    "comb": {
+      "name": "சீப்பு",
+      "aliases": [
+        "seeppu"
+      ]
+    },
+    "batteries": {
+      "name": "பேட்டரிகள்",
+      "aliases": [
+        "battery"
+      ]
+    },
+    "light_bulb": {
+      "name": "பல்பு",
+      "aliases": [
+        "bulb"
+      ]
+    },
+    "ruler": {
+      "name": "அளவுகோல்",
+      "aliases": [
+        "scale",
+        "ruler"
+      ]
+    }
+  }
+}

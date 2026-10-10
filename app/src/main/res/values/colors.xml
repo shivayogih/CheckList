@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand green of the supplied launcher icon background. -->
+    <color name="ic_launcher_background">#087B4B</color>
+    <!-- Adaptive icon background, the same on every build; dev and staging differ only by the ribbon. -->
+    <color name="launcher_background">#087B4B</color>
+    <!-- Deep brand green behind the system splash and the in-app BrandSplash (never white). -->
+    <color name="splash_background">#005234</color>
+</resources>

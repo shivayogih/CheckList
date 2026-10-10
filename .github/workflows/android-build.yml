@@ -1,0 +1,106 @@
+# Phase 1 build verification (CL-105): builds all three environments and runs unit tests and lint.
+# Static analysis, secret scan and the CI agents run next to it in quality.yml; PR conventions in pr-checks.yml.
+# Actions are pinned to full commit SHAs (version in the comment); Dependabot keeps them current.
+name: Android build
+
+# Every branch push is built, so feature branches get feedback before a PR exists;
+# the push run's status also shows on the branch's PR.
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # Caches Gradle dependencies and the wrapper; the key changes when build files or the catalog change.
+      - uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+
+      # Seed catalog rules (CL-113): keys, categories, unit codes and all 7 locale files.
+      - name: Validate seed catalog
+        run: |
+          python3 tools/seed/validate_seed.py
+          python3 tools/seed/build_india_catalog.py --check
+
+      - name: Unit tests
+        run: ./gradlew --stacktrace :domain:test :data:testDebugUnitTest :ai:testDebugUnitTest :app:testDevDebugUnitTest
+
+      # Coverage of the unit tests above (CL-175): reuses their results, reports only, no threshold.
+      - name: Coverage
+        run: |
+          ./gradlew --stacktrace :domain:jacocoTestReport :data:createDebugUnitTestCoverageReport :app:createDevDebugUnitTestCoverageReport
+          python3 tools/ci/coverage_summary.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage
+          path: |
+            domain/build/reports/jacoco/
+            data/build/reports/coverage/
+            app/build/reports/coverage/
+          if-no-files-found: ignore
+
+      # Screenshot goldens (CL-262), after the coverage steps because they re-run a slice of the unit tests: renders every shared component in 15 variants and, with record mode on,
+      # writes the PNGs. They are uploaded below, so a failed comparison can be reviewed and the goldens
+      # refreshed from the artifact (copy it over app/src/test/screenshots and commit).
+      - name: Record screenshots
+        if: always()
+        run: ./gradlew --stacktrace :app:testDevDebugUnitTest --tests '*ComponentScreenshotTest*' --tests '*ItemPhotosScreenshotTest*' --tests '*PdfPhotosPageScreenshotTest*' -Proborazzi.test.record=true
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: screenshots
+          path: app/src/test/screenshots/
+          if-no-files-found: ignore
+
+      # The build regenerates Room schemas into data/schemas; any difference means an entity changed
+      # without its exported schema (and migration) being committed.
+      - name: Room schema is committed
+        run: |
+          git status --porcelain -- data/schemas
+          test -z "$(git status --porcelain -- data/schemas)"
+
+      - name: Lint
+        run: ./gradlew --stacktrace :app:lintDevDebug
+
+      - name: Build dev, staging and production
+        run: ./gradlew --stacktrace :app:assembleDevDebug :app:assembleStagingRelease :app:assembleProductionRelease
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: reports
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          if-no-files-found: ignore
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: apks
+          path: app/build/outputs/apk/**/*.apk

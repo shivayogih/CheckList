@@ -1,0 +1,62 @@
+{
+  "language": "ta",
+  "scripts": ["TAMIL"],
+  "numbers": {
+    "ஒன்று": "1", "ஒரு": "1", "இரண்டு": "2", "ரெண்டு": "2", "மூன்று": "3", "மூணு": "3", "நான்கு": "4", "நாலு": "4",
+    "ஐந்து": "5", "அஞ்சு": "5", "ஆறு": "6", "ஏழு": "7", "எட்டு": "8", "ஒன்பது": "9", "பத்து": "10",
+    "பன்னிரண்டு": "12", "இருபது": "20", "அரை": "0.5", "ஒன்றரை": "1.5", "இரண்டரை": "2.5",
+    "onru": "1", "ondru": "1", "onnu": "1", "oru": "1", "irandu": "2", "rendu": "2", "moonru": "3", "moondru": "3",
+    "moonu": "3", "naangu": "4", "naalu": "4", "ainthu": "5", "anju": "5", "ezhu": "7", "ettu": "8",
+    "onbathu": "9", "pathu": "10", "arai": "0.5"
+  },
+  "units": {
+    "KG": ["கிலோ", "கி.கி"],
+    "GRAM": ["கிராம்"],
+    "LITRE": ["லிட்டர்", "லி"],
+    "MILLILITRE": ["மில்லி", "மி.லி"],
+    "DOZEN": ["டஜன்"],
+    "PIECE": ["துண்டு", "பீஸ்", "thundu"],
+    "PACK": ["பாக்கெட்", "பொட்டலம்", "pottalam"],
+    "BOX": ["பெட்டி", "டப்பா", "petti", "dabba"],
+    "BOTTLE": ["பாட்டில்"],
+    "PAIR": ["ஜோடி"],
+    "METER": ["மீட்டர்"]
+  },
+  "separators": ["மற்றும்", "matrum", "mattrum"],
+  "fillers": ["கொஞ்சம்", "தயவுசெய்து", "பட்டியலில்", "konjam", "pattiyalil"],
+  "nameSuffixes": ["யை", "வை", "ை", "கள்", "ai"],
+  "andSuffixes": ["யும்", "வும்", "ும்"],
+  "titleConnectors": ["என்ற", "endra"],
+  "intents": {
+    "ADD": {
+      "prefixes": [],
+      "suffixes": [
+        "சேர்", "சேர்க்கவும்", "சேர்த்து விடு", "வேண்டும்", "வேணும்", "வாங்கு", "வாங்கணும்", "வாங்க வேண்டும்", "ஆட் பண்ணு",
+        "serkavum", "venum", "vendum", "vaangu", "vanganum", "add pannu", "add pannunga"
+      ]
+    },
+    "COMPLETE": {
+      "prefixes": [],
+      "suffixes": [
+        "வாங்கியாச்சு", "வாங்கிவிட்டேன்", "ஆச்சு", "முடிந்தது", "முடிஞ்சது", "கிடைத்தது",
+        "vangiyachu", "vaangiyachu", "aachu", "mudinjathu", "mudinthathu"
+      ]
+    },
+    "UNCOMPLETE": {
+      "prefixes": [],
+      "suffixes": ["இன்னும் இல்லை", "ஆகவில்லை", "வாங்கவில்லை", "பாக்கி", "innum illai", "aagavillai", "vangavillai"]
+    },
+    "REMOVE": {
+      "prefixes": [],
+      "suffixes": ["நீக்கு", "நீக்கவும்", "வேண்டாம்", "neekku", "vendam", "venaam", "remove pannu"]
+    },
+    "UPDATE": {
+      "prefixes": [],
+      "suffixes": ["ஆக்கு", "ஆக மாற்று", "மாற்று", "மாத்து", "aakku", "aaka maatru", "maatru", "maathu"]
+    },
+    "CREATE_CHECKLIST": {
+      "prefixes": ["புதிய பட்டியல்", "puthiya pattiyal", "pudhu list", "puthu list"],
+      "suffixes": ["பட்டியல் உருவாக்கு", "பட்டியல் தயார் செய்", "லிஸ்ட் போடு", "pattiyal uruvakku", "list podu"]
+    }
+  }
+}
