@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Badge on a native ad row (CL-370); AdMob requires ads to be labelled. -->
+    <string name="ad_label">ಜಾಹೀರಾತು</string>
+</resources>

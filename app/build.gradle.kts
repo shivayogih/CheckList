@@ -38,6 +38,46 @@ val versionBuild = versionPart("VERSION_BUILD", 0..99)
 // "https://play.google.com/store/apps/details?id=com.dataloom.checklist".
 val playStoreUrl = ""
 
+// Ads (CL-370): one switch per flavor, checklist.ads.<flavor> in gradle.properties, overridable with
+// -Pchecklist.ads.<flavor>=true|false. A flavor with the switch off gets no ad SDK, no ad code, no
+// INTERNET permission and no ad slots at all (src/adsOff); a flavor with it on gets AdMob (src/adsOn).
+val adFlavors = listOf("dev", "staging", "production")
+
+fun adsEnabled(flavor: String): Boolean =
+    providers.gradleProperty("checklist.ads.$flavor").orNull?.toBooleanStrict() ?: false
+
+data class AdMobIds(val app: String, val banner: String, val native: String, val interstitial: String)
+
+// Google's published test IDs: they always fill and never pay, so tapping them is safe.
+val testAdMobIds = AdMobIds(
+    app = "ca-app-pub-3940256099942544~3347511713",
+    banner = "ca-app-pub-3940256099942544/9214589741",
+    native = "ca-app-pub-3940256099942544/2247696110",
+    interstitial = "ca-app-pub-3940256099942544/1033173712",
+)
+
+// Real IDs are never committed: production reads them from Gradle properties (checklist.admob.app,
+// .banner, .native, .interstitial) or the ADMOB_APP, ADMOB_BANNER, ADMOB_NATIVE, ADMOB_INTERSTITIAL
+// environment variables (CI secrets). Dev and staging always use the test IDs.
+fun adMobIds(flavor: String): AdMobIds {
+    if (flavor != "production") return testAdMobIds
+    fun real(name: String): String =
+        providers.gradleProperty("checklist.admob.$name").orNull
+            ?: providers.environmentVariable("ADMOB_${name.uppercase()}").orNull
+            ?: error("Ads are on for production but the AdMob $name ID is missing (checklist.admob.$name)")
+    return AdMobIds(real("app"), real("banner"), real("native"), real("interstitial"))
+}
+
+fun com.android.build.api.dsl.VariantDimension.adsConfig(flavor: String) {
+    val enabled = adsEnabled(flavor)
+    val ids = if (enabled) adMobIds(flavor) else AdMobIds("", "", "", "")
+    buildConfigField("boolean", "ADS_ENABLED", enabled.toString())
+    buildConfigField("String", "AD_UNIT_BANNER", "\"${ids.banner}\"")
+    buildConfigField("String", "AD_UNIT_NATIVE", "\"${ids.native}\"")
+    buildConfigField("String", "AD_UNIT_INTERSTITIAL", "\"${ids.interstitial}\"")
+    manifestPlaceholders["admobAppId"] = ids.app
+}
+
 android {
     namespace = "com.dataloom.checklist"
     compileSdk = 37
@@ -61,16 +101,19 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
             buildConfigField("String", "ENVIRONMENT", "\"dev\"")
+            adsConfig("dev")
         }
         create("staging") {
             dimension = "environment"
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
             buildConfigField("String", "ENVIRONMENT", "\"staging\"")
+            adsConfig("staging")
         }
         create("production") {
             dimension = "environment"
             buildConfigField("String", "ENVIRONMENT", "\"production\"")
+            adsConfig("production")
         }
     }
 
@@ -129,6 +172,19 @@ android {
     }
 }
 
+// Ads on or off per flavor (see adsConfig above): exactly one of src/adsOn and src/adsOff is compiled
+// into each variant, and only the "on" side brings the AdMob manifest entries.
+androidComponents {
+    onVariants { variant ->
+        val enabled = adsEnabled(variant.flavorName.orEmpty())
+        val side = layout.projectDirectory.dir(if (enabled) "src/adsOn" else "src/adsOff")
+        variant.sources.kotlin?.addStaticSourceDirectory(side.dir("kotlin").asFile.absolutePath)
+        if (enabled) {
+            variant.sources.manifests.addStaticManifestFile(side.file("AndroidManifest.xml").asFile.absolutePath)
+        }
+    }
+}
+
 jacoco {
     toolVersion = libs.versions.jacoco.get()
 }
@@ -176,6 +232,12 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     // Compiles app/src/main/baseline-prof.txt into the install so the startup path is pre-compiled (CL-294).
     implementation(libs.androidx.profileinstaller)
+
+    // AdMob and the consent form (CL-370), only for flavors whose ads switch is on.
+    adFlavors.filter(::adsEnabled).forEach { flavor ->
+        addProvider("${flavor}Implementation", libs.play.services.ads)
+        addProvider("${flavor}Implementation", libs.user.messaging.platform)
+    }
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

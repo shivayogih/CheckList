@@ -59,8 +59,8 @@ sealed interface TransferEffect {
 
     data class Imported(val summary: ImportSummary) : TransferEffect
 
-    /** Start this chooser intent from the activity (`context.startActivity(intent)`). */
-    data class Share(val intent: Intent) : TransferEffect
+    /** Start this chooser intent from the activity (`context.startActivity(intent)`). [isPdf]: a PDF export. */
+    data class Share(val intent: Intent, val isPdf: Boolean = false) : TransferEffect
 
     /** The PDF was written to [uri]; the snackbar offers "Open" ([TransferDocuments.openPdfIntent]). */
     data class PdfSaved(val uri: Uri) : TransferEffect
@@ -200,7 +200,7 @@ class TransferViewModel @Inject constructor(
         writePdf(detail, options, labels) { file.outputStream() }
         val title = detail.checklist.title
         val intent = withContext(io) { sharer.shareIntent(file, TransferDocuments.PDF_MIME_TYPE, title) }
-        _effects.send(TransferEffect.Share(intent))
+        _effects.send(TransferEffect.Share(intent, isPdf = true))
     }
 
     /** Saves the PDF to a document the user created with [TransferDocuments.createPdf]. */

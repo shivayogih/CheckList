@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.ads.AdPolicy
+import com.dataloom.checklist.ads.NativeAdSlot
+import com.dataloom.checklist.ads.rememberAdsVisible
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.presentation.common.dismissKeyboardOnOutsideInteraction
 import com.dataloom.checklist.presentation.common.keyboardAwareScreen
@@ -81,6 +84,8 @@ fun AddItemsScreen(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
+        // Ads (CL-370): a native row after every 15 suggestions, only while browsing with the keyboard closed.
+        val showNativeAds = rememberAdsVisible()
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -88,12 +93,22 @@ fun AddItemsScreen(
                 .dismissKeyboardOnOutsideInteraction(),
         ) {
             item(key = "search", contentType = "search") { SearchBar(state, onAction) }
-            items(state.rows, key = { it.id.value }, contentType = { "option" }) { row ->
+            val suggestion: @Composable (MasterItemRowUi) -> Unit = { row ->
                 CheckRow(
                     label = row.name,
                     checked = false,
                     onCheckedChange = { if (!state.isSaving) onAction(AddItemsAction.PickItem(row.id)) },
                 )
+            }
+            if (showNativeAds) {
+                state.rows.forEachIndexed { index, row ->
+                    item(key = row.id.value, contentType = "option") { suggestion(row) }
+                    if (AdPolicy.hasNativeAdAfter(index, state.rows.size)) {
+                        item(key = "native-ad-$index", contentType = "native-ad") { NativeAdSlot() }
+                    }
+                }
+            } else {
+                items(state.rows, key = { it.id.value }, contentType = { "option" }) { suggestion(it) }
             }
             if (state.rows.isEmpty()) {
                 item(key = "hint", contentType = "hint") {

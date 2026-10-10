@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dataloom.checklist.R
+import com.dataloom.checklist.ads.rememberPdfExportAd
 import com.dataloom.checklist.domain.model.ChecklistId
 import com.dataloom.checklist.domain.model.ChecklistItemId
 import com.dataloom.checklist.domain.model.SectionId
@@ -115,7 +116,8 @@ fun ChecklistDetailScreen(
     val onAction = remember(viewModel) { viewModel::onAction }
 
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
-    TransferEffects(transferViewModel, snackbarHostState)
+    // Ads (CL-370): after every third PDF export, never while items are being ticked.
+    TransferEffects(transferViewModel, snackbarHostState, onPdfExported = rememberPdfExportAd())
     // "Set reminder" (CL-350), offered on active checklists only: archiving removes a list's reminders.
     ReminderEffects(remindersViewModel.effects, snackbarHostState)
     val reminderLists by remindersViewModel.state.collectAsStateWithLifecycle()
