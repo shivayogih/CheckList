@@ -3,6 +3,7 @@ package com.dataloom.checklist.keyboard
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.getUnclippedBoundsInRoot
@@ -15,6 +16,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.dataloom.checklist.R
@@ -168,7 +170,8 @@ class KeyboardScreensTest {
         composeRule.awaitText(string(R.string.profile_intro))
         composeRule.awaitNode(hasContentDescription("+91", substring = true) and hasClickAction())
             .performScrollTo()
-            .performClick()
+            .performSemanticsAction(SemanticsActions.OnClick)
+        composeRule.awaitText(string(R.string.profile_country_title))
         val search = field(R.string.profile_country_search)
         composeRule.awaitNode(search)
         keyboard.hides = 0
