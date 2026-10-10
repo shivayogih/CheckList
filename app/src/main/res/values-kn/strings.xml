@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">ನನ್ನ ಪಟ್ಟಿಗಳು</string>
-    <string name="home_empty_title">ಇನ್ನೂ ಯಾವುದೇ ಪಟ್ಟಿಗಳಿಲ್ಲ</string>
     <string name="home_empty_body">ಶಾಪಿಂಗ್, ಪ್ರಯಾಣ, ಪರೀಕ್ಷೆ ಅಥವಾ ಯಾವುದಕ್ಕಾದರೂ ನಿಮ್ಮ ಮೊದಲ ಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ.</string>
     <string name="home_create_checklist">ಪಟ್ಟಿ ರಚಿಸಿ</string>
     <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (ನಕಲು)</string>
     <string name="checklist_more_options">%1$s ಗಾಗಿ ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು</string>
     <string name="create_categories_heading">ವರ್ಗಗಳು</string>
-    <string name="create_categories_hint">ಸೂಕ್ತವಾದವನ್ನು ಆಯ್ಕೆಮಾಡಿ. ನಂತರವೂ ಸೇರಿಸಬಹುದು.</string>
+    <string name="create_categories_hint">ಸೂಕ್ತವಾದವನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ನಿಮ್ಮದೇ ವರ್ಗ ರಚಿಸಿ. ನಂತರವೂ ಸೇರಿಸಬಹುದು.</string>
     <string name="create_description_label">ವಿವರಣೆ (ಐಚ್ಛಿಕ)</string>
     <string name="create_title">ಪಟ್ಟಿ ರಚಿಸಿ</string>
     <string name="create_title_already_used">ಈ ಹೆಸರಿನ ಪಟ್ಟಿ ಈಗಾಗಲೇ ಇದೆ. ಆದರೂ ನೀವು ಇದನ್ನು ಬಳಸಬಹುದು.</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">ಜೋಡಿ</string>
     <string name="unit_picker_title">ಘಟಕ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="unit_piece">ಪೀಸ್</string>
+    <string name="unit_kg_full">ಕಿಲೋಗ್ರಾಂ</string>
+    <string name="unit_gram_full">ಗ್ರಾಂ</string>
+    <string name="unit_litre_full">ಲೀಟರ್</string>
+    <string name="unit_millilitre_full">ಮಿಲಿಲೀಟರ್</string>
+    <string name="unit_dozen_full">12 ಪೀಸ್</string>
+    <string name="unit_piece_full">ಪೀಸ್</string>
+    <string name="unit_pack_full">ಪ್ಯಾಕೆಟ್</string>
+    <string name="unit_box_full">ಬಾಕ್ಸ್</string>
+    <string name="unit_bottle_full">ಬಾಟಲ್</string>
+    <string name="unit_pair_full">2 ಪೀಸ್</string>
+    <string name="unit_meter_full">ಮೀಟರ್</string>
+    <string name="unit_nos_full">ಸಂಖ್ಯೆ</string>
+    <string name="unit_bunch_full">ಕಟ್ಟು</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.</string>
@@ -348,4 +360,15 @@
     <string name="db_newer_body">ನಿಮ್ಮ ಪಟ್ಟಿಗಳನ್ನು CheckList ನ ಹೊಸ ಆವೃತ್ತಿ ಉಳಿಸಿದೆ. ಅವುಗಳನ್ನು ಬದಲಾಯಿಸಿಲ್ಲ. ಅವುಗಳನ್ನು ಮತ್ತೆ ನೋಡಲು ಹೊಸ ಆವೃತ್ತಿಯನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ.</string>
     <string name="db_open_failed_title">CheckList ಗೆ ನಿಮ್ಮ ಪಟ್ಟಿಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ</string>
     <string name="db_open_failed_body">ಏನನ್ನೂ ಅಳಿಸಿಲ್ಲ. ಆ್ಯಪ್ ಮುಚ್ಚಿ ಮತ್ತೆ ತೆರೆಯಿರಿ. ಇದು ಮತ್ತೆ ಮತ್ತೆ ಆದರೆ, ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ರೀಸ್ಟಾರ್ಟ್ ಮಾಡಿ.</string>
+    <string name="category_group_frequent">ಹೆಚ್ಚು ಬಳಸಿದವು</string>
+    <string name="category_group_all">ಎಲ್ಲಾ ವರ್ಗಗಳು</string>
+    <string name="home_exit_title">CheckList ಮುಚ್ಚಬೇಕೇ?</string>
+    <string name="home_exit_message">ನಿಮ್ಮ ಪಟ್ಟಿಗಳು ಈ ಫೋನ್‌ನಲ್ಲಿ ಉಳಿದಿರುತ್ತವೆ.</string>
+    <string name="action_exit">ಮುಚ್ಚಿ</string>
+    <string name="home_welcome_title">CheckList-ಗೆ ಸ್ವಾಗತ</string>
+    <string name="home_welcome_tip_categories">ಸಿದ್ಧ ವರ್ಗಗಳು ಮತ್ತು ವಸ್ತುಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ ನಿಮ್ಮದೇ ಸೇರಿಸಿ.</string>
+    <string name="home_welcome_tip_reminders">ಮರೆಯದಿರಲು ಜ್ಞಾಪನೆಗಳನ್ನು ಹೊಂದಿಸಿ.</string>
+    <string name="home_welcome_tip_share">ಯಾವುದೇ ಪಟ್ಟಿಯನ್ನು PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ. ಎಲ್ಲವೂ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
+    <string name="pdf_include_reminder">ಜ್ಞಾಪನೆಯನ್ನು ಸೇರಿಸಿ</string>
+    <string name="pdf_include_reminder_summary">ಶೀರ್ಷಿಕೆಯ ಕೆಳಗೆ ಜ್ಞಾಪನೆಯ ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ತೋರಿಸುತ್ತದೆ.</string>
 </resources>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">എന്റെ ലിസ്റ്റുകൾ</string>
-    <string name="home_empty_title">ഇതുവരെ ലിസ്റ്റുകളൊന്നുമില്ല</string>
     <string name="home_empty_body">ഷോപ്പിംഗ്, യാത്ര, പരീക്ഷ അല്ലെങ്കിൽ എന്തിനും നിങ്ങളുടെ ആദ്യ ലിസ്റ്റ് തയ്യാറാക്കൂ.</string>
     <string name="home_create_checklist">ലിസ്റ്റ് തയ്യാറാക്കുക</string>
     <string name="settings_title">ക്രമീകരണങ്ങൾ</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (പകർപ്പ്)</string>
     <string name="checklist_more_options">%1$s-നുള്ള കൂടുതൽ ഓപ്ഷനുകൾ</string>
     <string name="create_categories_heading">വിഭാഗങ്ങൾ</string>
-    <string name="create_categories_hint">യോജിച്ചവ തിരഞ്ഞെടുക്കുക. പിന്നീടും ചേർക്കാം.</string>
+    <string name="create_categories_hint">യോജിച്ചവ തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ സ്വന്തം വിഭാഗം തയ്യാറാക്കുക. പിന്നീടും ചേർക്കാം.</string>
     <string name="create_description_label">വിവരണം (ഐച്ഛികം)</string>
     <string name="create_title">ലിസ്റ്റ് തയ്യാറാക്കുക</string>
     <string name="create_title_already_used">ഈ പേരിൽ ഒരു ലിസ്റ്റ് ഇതിനകം ഉണ്ട്. എങ്കിലും ഇത് ഉപയോഗിക്കാം.</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">ജോടി</string>
     <string name="unit_picker_title">യൂണിറ്റ് തിരഞ്ഞെടുക്കുക</string>
     <string name="unit_piece">പീസ്</string>
+    <string name="unit_kg_full">കിലോഗ്രാം</string>
+    <string name="unit_gram_full">ഗ്രാം</string>
+    <string name="unit_litre_full">ലിറ്റർ</string>
+    <string name="unit_millilitre_full">മില്ലിലിറ്റർ</string>
+    <string name="unit_dozen_full">12 എണ്ണം</string>
+    <string name="unit_piece_full">പീസ്</string>
+    <string name="unit_pack_full">പാക്കറ്റ്</string>
+    <string name="unit_box_full">പെട്ടി</string>
+    <string name="unit_bottle_full">കുപ്പി</string>
+    <string name="unit_pair_full">2 എണ്ണം</string>
+    <string name="unit_meter_full">മീറ്റർ</string>
+    <string name="unit_nos_full">എണ്ണം</string>
+    <string name="unit_bunch_full">കെട്ട്</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">നിങ്ങളുടെ പേര് നൽകുക.</string>
@@ -348,4 +360,15 @@
     <string name="db_newer_body">നിങ്ങളുടെ ലിസ്റ്റുകൾ CheckList-ന്റെ പുതിയ പതിപ്പാണ് സൂക്ഷിച്ചത്. അവയിൽ മാറ്റമൊന്നും വരുത്തിയിട്ടില്ല. അവ വീണ്ടും കാണാൻ പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക.</string>
     <string name="db_open_failed_title">CheckList-ന് നിങ്ങളുടെ ലിസ്റ്റുകൾ തുറക്കാനായില്ല</string>
     <string name="db_open_failed_body">ഒന്നും ഇല്ലാതാക്കിയിട്ടില്ല. ആപ്പ് അടച്ച് വീണ്ടും തുറക്കുക. ഇത് വീണ്ടും സംഭവിച്ചാൽ, നിങ്ങളുടെ ഫോൺ റീസ്റ്റാർട്ട് ചെയ്യുക.</string>
+    <string name="category_group_frequent">പതിവായി ഉപയോഗിച്ചവ</string>
+    <string name="category_group_all">എല്ലാ വിഭാഗങ്ങളും</string>
+    <string name="home_exit_title">CheckList അടയ്ക്കണോ?</string>
+    <string name="home_exit_message">നിങ്ങളുടെ ലിസ്റ്റുകൾ ഈ ഫോണിൽ സേവ് ചെയ്തിരിക്കും.</string>
+    <string name="action_exit">അടയ്ക്കുക</string>
+    <string name="home_welcome_title">CheckList-ലേക്ക് സ്വാഗതം</string>
+    <string name="home_welcome_tip_categories">തയ്യാറായ വിഭാഗങ്ങളും ഇനങ്ങളും തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ സ്വന്തമായി ചേർക്കുക.</string>
+    <string name="home_welcome_tip_reminders">മറക്കാതിരിക്കാൻ ഓർമ്മപ്പെടുത്തലുകൾ സജ്ജമാക്കുക.</string>
+    <string name="home_welcome_tip_share">ഏത് ലിസ്റ്റും PDF ആയി പങ്കിടുക. എല്ലാം ഓഫ്‌ലൈനിൽ പ്രവർത്തിക്കും.</string>
+    <string name="pdf_include_reminder">ഓർമ്മപ്പെടുത്തൽ ഉൾപ്പെടുത്തുക</string>
+    <string name="pdf_include_reminder_summary">തലക്കെട്ടിന് താഴെ ഓർമ്മപ്പെടുത്തലിന്റെ തീയതിയും സമയവും കാണിക്കും.</string>
 </resources>

@@ -101,7 +101,9 @@ class ChecklistJourneysTest {
             .performScrollTo()
             .performClick()
         composeRule.awaitText(string(R.string.unit_picker_title))
-        composeRule.awaitNode(hasText(string(R.string.unit_kg)) and isSelectable()).performClick()
+        // The picker explains each short label: "kg (Kilogram)".
+        val kgOption = string(R.string.unit_with_full_name, string(R.string.unit_kg), string(R.string.unit_kg_full))
+        composeRule.awaitNode(hasText(kgOption) and isSelectable()).performClick()
         composeRule.awaitNode(hasText(string(R.string.action_save)) and hasClickAction()).performClick()
 
         composeRule.awaitText(string(R.string.item_quantity_with_unit, "2.5", string(R.string.unit_kg)))

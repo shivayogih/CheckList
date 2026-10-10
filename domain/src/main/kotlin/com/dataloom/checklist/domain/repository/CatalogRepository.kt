@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 /** Reusable categories, master items and units. [locale] resolves display names. */
 interface CatalogRepository {
 
-    /** Visible categories, most used first, then by display name. */
+    /** Visible categories, most used first, then most recently used, then by display name. */
     fun observeCategories(locale: String, includeHidden: Boolean = false): Flow<List<Category>>
 
     suspend fun getCategory(id: CategoryId, locale: String): Category?

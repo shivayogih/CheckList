@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Machine-assisted draft; needs native-speaker review before release (risk register, section 25.2). -->
-    <string name="home_title">என் பட்டியல்கள்</string>
-    <string name="home_empty_title">இன்னும் பட்டியல்கள் இல்லை</string>
     <string name="home_empty_body">ஷாப்பிங், பயணம், தேர்வு அல்லது எதற்கும் உங்கள் முதல் பட்டியலை உருவாக்குங்கள்.</string>
     <string name="home_create_checklist">பட்டியலை உருவாக்கு</string>
     <string name="settings_title">அமைப்புகள்</string>
@@ -65,7 +63,7 @@
     <string name="checklist_copy_title">%1$s (நகல்)</string>
     <string name="checklist_more_options">%1$s க்கான மேலும் விருப்பங்கள்</string>
     <string name="create_categories_heading">வகைகள்</string>
-    <string name="create_categories_hint">பொருத்தமானவற்றைத் தேர்ந்தெடுக்கவும். பிறகும் சேர்க்கலாம்.</string>
+    <string name="create_categories_hint">பொருத்தமானவற்றைத் தேர்ந்தெடுக்கவும் அல்லது உங்கள் சொந்த வகையை உருவாக்கவும். பிறகும் சேர்க்கலாம்.</string>
     <string name="create_description_label">விளக்கம் (விருப்பம்)</string>
     <string name="create_title">பட்டியலை உருவாக்கு</string>
     <string name="create_title_already_used">இந்தப் பெயரில் ஏற்கனவே ஒரு பட்டியல் உள்ளது. இருந்தாலும் இதைப் பயன்படுத்தலாம்.</string>
@@ -146,6 +144,20 @@
     <string name="unit_pair">ஜோடி</string>
     <string name="unit_picker_title">அலகைத் தேர்ந்தெடு</string>
     <string name="unit_piece">துண்டு</string>
+    <string name="unit_kg_full">கிலோகிராம்</string>
+    <string name="unit_gram_full">கிராம்</string>
+    <string name="unit_litre_full">லிட்டர்</string>
+    <string name="unit_millilitre_full">மில்லிலிட்டர்</string>
+    <string name="unit_dozen_full">12 துண்டு</string>
+    <string name="unit_piece_full">துண்டு</string>
+    <string name="unit_pack_full">பாக்கெட்</string>
+    <string name="unit_box_full">பெட்டி</string>
+    <string name="unit_bottle_full">பாட்டில்</string>
+    <string name="unit_pair_full">2 துண்டு</string>
+    <string name="unit_meter_full">மீட்டர்</string>
+    <string name="unit_nos_full">எண்ணிக்கை</string>
+    <string name="unit_bunch_full">கட்டு</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">உங்கள் பெயரை உள்ளிடவும்.</string>
@@ -348,4 +360,15 @@
     <string name="db_newer_body">உங்கள் பட்டியல்கள் CheckList-இன் புதிய பதிப்பால் சேமிக்கப்பட்டன. அவை மாற்றப்படவில்லை. அவற்றை மீண்டும் பார்க்க புதிய பதிப்பை நிறுவவும்.</string>
     <string name="db_open_failed_title">CheckList-ஆல் உங்கள் பட்டியல்களைத் திறக்க முடியவில்லை</string>
     <string name="db_open_failed_body">எதுவும் நீக்கப்படவில்லை. ஆப்பை மூடி மீண்டும் திறக்கவும். இது தொடர்ந்தால், உங்கள் ஃபோனை மறுதொடக்கம் செய்யவும்.</string>
+    <string name="category_group_frequent">அடிக்கடி பயன்படுத்தியவை</string>
+    <string name="category_group_all">எல்லா வகைகளும்</string>
+    <string name="home_exit_title">CheckList-ஐ மூடவா?</string>
+    <string name="home_exit_message">உங்கள் பட்டியல்கள் இந்த ஃபோனில் சேமிக்கப்பட்டிருக்கும்.</string>
+    <string name="action_exit">மூடு</string>
+    <string name="home_welcome_title">CheckList-க்கு வரவேற்கிறோம்</string>
+    <string name="home_welcome_tip_categories">தயாரான வகைகளையும் பொருட்களையும் தேர்ந்தெடுக்கவும், அல்லது உங்களுடையதைச் சேர்க்கவும்.</string>
+    <string name="home_welcome_tip_reminders">மறக்காமல் இருக்க நினைவூட்டல்களை அமைக்கவும்.</string>
+    <string name="home_welcome_tip_share">எந்தப் பட்டியலையும் PDF ஆகப் பகிரவும். எல்லாமே ஆஃப்லைனில் வேலை செய்யும்.</string>
+    <string name="pdf_include_reminder">நினைவூட்டலைச் சேர்</string>
+    <string name="pdf_include_reminder_summary">தலைப்பின் கீழ் நினைவூட்டலின் தேதியும் நேரமும் காட்டும்.</string>
 </resources>

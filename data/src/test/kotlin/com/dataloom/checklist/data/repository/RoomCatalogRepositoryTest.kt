@@ -80,6 +80,19 @@ class RoomCatalogRepositoryTest {
     }
 
     @Test
+    fun categoriesUsedEquallyOftenMostRecentlyUsedFirst() = runTest {
+        checklists.createChecklist("Week", null, listOf(vegetables))
+        clock.now += 60_000
+        checklists.createChecklist("Month", null, listOf(groceries))
+
+        val categories = catalog.observeCategories("en").first()
+
+        assertEquals(listOf("Groceries", "Vegetables", "Cooking essentials"), categories.map { it.displayName })
+        assertEquals(listOf(1, 1, 0), categories.map { it.usageCount })
+        assertNull(categories.last().lastUsedAt)
+    }
+
+    @Test
     fun hiddenCategoriesOnlyWhenRequested() = runTest {
         catalog.observeCategories("en").test {
             assertEquals(3, awaitItem().size)

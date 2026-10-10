@@ -52,12 +52,14 @@ class RoomCatalogRepository @Inject constructor(
         ) { rows, translations ->
             val index = translations.toIndex()
             val collator = DisplayNames.collator(locale)
-            rows.map { it.usageCount to it.category.toDomain(index, locale) }
+            rows.map { row ->
+                row.category.toDomain(index, locale).copy(usageCount = row.usageCount, lastUsedAt = row.lastUsedAt)
+            }
                 .sortedWith(
-                    compareByDescending<Pair<Int, Category>> { it.first }
-                        .thenComparator { a, b -> collator.compare(a.second.displayName, b.second.displayName) },
+                    compareByDescending<Category> { it.usageCount }
+                        .thenByDescending { it.lastUsedAt ?: 0L }
+                        .thenComparator { a, b -> collator.compare(a.displayName, b.displayName) },
                 )
-                .map { it.second }
         }.distinctUntilChanged().flowOn(default)
 
     override suspend fun getCategory(id: CategoryId, locale: String): Category? {

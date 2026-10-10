@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
@@ -86,13 +89,16 @@ fun AddItemsScreen(
     ) { padding ->
         // Ads (CL-370): a native row after every 15 suggestions, only while browsing with the keyboard closed.
         val showNativeAds = rememberAdsVisible()
-        LazyColumn(
+        // Suggestions fill as many columns as the width allows (two on most phones, more on tablets);
+        // search, ads, hints and the create button span the full width.
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = SuggestionMinWidth),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .dismissKeyboardOnOutsideInteraction(),
         ) {
-            item(key = "search", contentType = "search") { SearchBar(state, onAction) }
+            item(key = "search", contentType = "search", span = fullLine) { SearchBar(state, onAction) }
             val suggestion: @Composable (MasterItemRowUi) -> Unit = { row ->
                 CheckRow(
                     label = row.name,
@@ -104,14 +110,14 @@ fun AddItemsScreen(
                 state.rows.forEachIndexed { index, row ->
                     item(key = row.id.value, contentType = "option") { suggestion(row) }
                     if (AdPolicy.hasNativeAdAfter(index, state.rows.size)) {
-                        item(key = "native-ad-$index", contentType = "native-ad") { NativeAdSlot() }
+                        item(key = "native-ad-$index", contentType = "native-ad", span = fullLine) { NativeAdSlot() }
                     }
                 }
             } else {
                 items(state.rows, key = { it.id.value }, contentType = { "option" }) { suggestion(it) }
             }
             if (state.rows.isEmpty()) {
-                item(key = "hint", contentType = "hint") {
+                item(key = "hint", contentType = "hint", span = fullLine) {
                     Text(
                         stringResource(if (state.query.isBlank()) R.string.add_items_type_to_search else R.string.add_items_no_match),
                         style = MaterialTheme.typography.bodyLarge,
@@ -119,7 +125,7 @@ fun AddItemsScreen(
                     )
                 }
             }
-            item {
+            item(key = "create", contentType = "create", span = fullLine) {
                 val name = state.query.trim()
                 OutlinedActionButton(
                     text = if (state.canCreateCustom) {
@@ -137,6 +143,10 @@ fun AddItemsScreen(
         }
     }
 }
+
+private val SuggestionMinWidth = 160.dp
+
+private val fullLine: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(maxLineSpan) }
 
 @Composable
 private fun SearchBar(state: AddItemsUiState, onAction: (AddItemsAction) -> Unit) {

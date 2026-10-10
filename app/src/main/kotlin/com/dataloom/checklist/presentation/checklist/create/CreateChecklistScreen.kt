@@ -2,8 +2,10 @@ package com.dataloom.checklist.presentation.checklist.create
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -118,13 +120,15 @@ fun CreateChecklistScreen(
                     Text(stringResource(R.string.create_categories_hint), style = MaterialTheme.typography.bodyMedium)
                 }
             }
-            categoryOptions(state.categories) { onAction(CreateChecklistAction.ToggleCategory(it)) }
-            item {
+            // Above the tiles, so "Create category" is seen without scrolling and says own categories are possible.
+            item(key = "create-category") {
                 CreateCategoryButton(
                     onClick = { onAction(CreateChecklistAction.OpenNewCategory) },
-                    modifier = Modifier.padding(vertical = 16.dp),
+                    modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
+            categoryOptions(state.categories) { onAction(CreateChecklistAction.ToggleCategory(it)) }
+            item(key = "bottom-space") { Spacer(Modifier.height(16.dp)) }
         }
     }
 

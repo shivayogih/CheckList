@@ -44,6 +44,8 @@ data class PdfOptions(
     val preparedBy: String? = null,
     /** Draw up to 3 small photos under each item that has them. Off by default: it makes the file bigger. */
     val includePhotos: Boolean = false,
+    /** Printed under the title when not null: the list's reminder, already worded ("Reminder: 10 Oct, 6:00 PM"). */
+    val reminder: String? = null,
 )
 
 /** Text for a unit code next to an amount ("kg", or a custom unit's label). */
@@ -354,6 +356,9 @@ class AndroidChecklistPdfWriter @Inject constructor(
             detail.checklist.description?.let { add(layout(it, paint(BODY_SIZE, locale = appLocale), CONTENT_WIDTH)) }
             options.preparedBy?.takeIf { it.isNotBlank() }?.let {
                 add(layout(resources.getString(R.string.pdf_prepared_by, it), paint(SMALL_SIZE, color = MUTED, locale = appLocale), CONTENT_WIDTH))
+            }
+            options.reminder?.takeIf { it.isNotBlank() }?.let {
+                add(layout(it, paint(SMALL_SIZE, bold = true, locale = appLocale), CONTENT_WIDTH))
             }
             val progress = resources.getQuantityString(
                 R.plurals.progress_items_done,

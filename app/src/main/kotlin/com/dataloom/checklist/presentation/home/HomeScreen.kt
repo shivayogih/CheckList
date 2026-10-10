@@ -1,9 +1,11 @@
 package com.dataloom.checklist.presentation.home
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -14,28 +16,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -49,7 +51,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -72,7 +73,6 @@ import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
-import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.SearchField
 import kotlinx.coroutines.launch
 
@@ -121,6 +121,23 @@ fun HomeScreen(
         }
     }
 
+    // Back on Home would close the app at once; ask first (Home is the root of the back stack).
+    var confirmExit by rememberSaveable { mutableStateOf(false) }
+    BackHandler { confirmExit = true }
+    if (confirmExit) {
+        val activity = LocalActivity.current
+        ConfirmDialog(
+            title = stringResource(R.string.home_exit_title),
+            message = stringResource(R.string.home_exit_message),
+            confirmLabel = stringResource(R.string.action_exit),
+            onConfirm = {
+                confirmExit = false
+                activity?.finish()
+            },
+            onDismiss = { confirmExit = false },
+        )
+    }
+
     HomeContent(
         state = state,
         greeting = greeting,
@@ -145,15 +162,7 @@ private fun HomeContent(
 ) {
     Scaffold(
         modifier = Modifier.keyboardAwareScreen(),
-        topBar = {
-            AppTopBar(
-                title = stringResource(R.string.home_title),
-                actions = {
-                    // A labelled text button, not a bare gear icon: clearer for first-time users.
-                    TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.settings_title)) }
-                },
-            )
-        },
+        topBar = { HomeTopBar(onOpenSettings) },
         floatingActionButton = {
             if (!state.isFirstUse) {
                 // The content-slot overload: its label merges into the button, so TalkBack reads
@@ -208,6 +217,28 @@ private fun HomeContent(
     }
 }
 
+/** The app logo and name, and Settings as an icon only (01 mockup); TalkBack and the tooltip say "Settings". */
+@Composable
+private fun HomeTopBar(onOpenSettings: () -> Unit) {
+    AppTopBar(
+        title = stringResource(R.string.app_name),
+        titleIcon = {
+            Image(
+                painter = painterResource(R.drawable.ic_app_logo),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp),
+            )
+        },
+        actions = {
+            AppIconButton(
+                icon = painterResource(R.drawable.ic_settings),
+                contentDescription = stringResource(R.string.settings_title),
+                onClick = onOpenSettings,
+            )
+        },
+    )
+}
+
 /** 00g: shown only when the profile has a name. */
 @Composable
 private fun GreetingCard(greeting: GreetingUi) {
@@ -232,43 +263,6 @@ private fun GreetingCard(greeting: GreetingUi) {
 }
 
 @Composable
-private fun FirstUse(onCreateChecklist: () -> Unit, modifier: Modifier = Modifier) {
-    // Scrolls when 200% text no longer fits the screen (the button was clipped in the audit), and
-    // stays vertically centred when it does fit.
-    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
-        FirstUseContent(onCreateChecklist, Modifier.verticalScroll(rememberScrollState()).heightIn(min = maxHeight))
-    }
-}
-
-@Composable
-private fun FirstUseContent(onCreateChecklist: () -> Unit, modifier: Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(R.string.home_empty_title),
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.semantics { heading() },
-        )
-        Text(
-            text = stringResource(R.string.home_empty_body),
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-        )
-        PrimaryButton(
-            text = stringResource(R.string.home_create_checklist),
-            onClick = onCreateChecklist,
-            modifier = Modifier.fillMaxWidth(),
-        )
-    }
-}
-
-@Composable
 private fun HomeSearch(search: String, onAction: (HomeAction) -> Unit) {
     SearchField(
         value = search,
@@ -278,7 +272,7 @@ private fun HomeSearch(search: String, onAction: (HomeAction) -> Unit) {
     )
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction: (HomeAction) -> Unit) {
     var sortMenuOpen by rememberSaveable { mutableStateOf(false) }
@@ -289,18 +283,21 @@ private fun FilterAndSort(filter: ChecklistFilter, sort: ChecklistSort, onAction
         verticalArrangement = Arrangement.spacedBy(4.dp),
         itemVerticalAlignment = Alignment.CenterVertically,
     ) {
-        FilterChip(
-            selected = filter == ChecklistFilter.ACTIVE,
-            onClick = { onAction(HomeAction.FilterChanged(ChecklistFilter.ACTIVE)) },
-            label = { Text(stringResource(R.string.home_filter_active)) },
-            modifier = Modifier.heightIn(min = 48.dp),
-        )
-        FilterChip(
-            selected = filter == ChecklistFilter.ARCHIVED,
-            onClick = { onAction(HomeAction.FilterChanged(ChecklistFilter.ARCHIVED)) },
-            label = { Text(stringResource(R.string.home_filter_archived)) },
-            modifier = Modifier.heightIn(min = 48.dp),
-        )
+        // Active / Archived as one segmented button (01 mockup): the chosen side is filled and ticked.
+        SingleChoiceSegmentedButtonRow {
+            val options = listOf(
+                ChecklistFilter.ACTIVE to R.string.home_filter_active,
+                ChecklistFilter.ARCHIVED to R.string.home_filter_archived,
+            )
+            options.forEachIndexed { index, (option, label) ->
+                SegmentedButton(
+                    selected = filter == option,
+                    onClick = { onAction(HomeAction.FilterChanged(option)) },
+                    shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                    modifier = Modifier.heightIn(min = 48.dp),
+                ) { Text(stringResource(label)) }
+            }
+        }
         Spacer(Modifier.weight(1f))
         Box {
             AppIconButton(

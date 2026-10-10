@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
@@ -36,9 +37,43 @@ import com.dataloom.checklist.presentation.common.asString
 import com.dataloom.checklist.presentation.components.OutlinedActionButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 
-/** Categories as a two-column grid of selectable tiles (J1 step 3), so long lists need less scrolling. */
+/**
+ * Categories as a two-column grid of selectable tiles (J1 step 3), so long lists need less scrolling.
+ * Categories the user has used before come first under "Used often" (the repository orders them by
+ * use, then by when they were last used); the rest follow under "All categories".
+ */
 fun LazyListScope.categoryOptions(options: List<CategoryOptionUi>, onToggle: (CategoryId) -> Unit) {
-    items(options.chunked(2), key = { it.first().id.value }) { pair ->
+    val (frequent, others) = options.partition { it.frequent }
+    if (frequent.isEmpty()) {
+        categoryTiles(options, onToggle)
+        return
+    }
+    item(key = "group-frequent", contentType = "group") {
+        CategoryGroupHeading(stringResource(R.string.category_group_frequent))
+    }
+    categoryTiles(frequent, onToggle)
+    if (others.isNotEmpty()) {
+        item(key = "group-all", contentType = "group") {
+            CategoryGroupHeading(stringResource(R.string.category_group_all))
+        }
+        categoryTiles(others, onToggle)
+    }
+}
+
+@Composable
+private fun CategoryGroupHeading(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier
+            .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 4.dp)
+            .semantics { heading() },
+    )
+}
+
+private fun LazyListScope.categoryTiles(options: List<CategoryOptionUi>, onToggle: (CategoryId) -> Unit) {
+    items(options.chunked(2), key = { it.first().id.value }, contentType = { "tiles" }) { pair ->
         Row(
             modifier = Modifier
                 .fillMaxWidth()

@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">Reminder: %1$s</string>
     <string name="reminder_notification_body">Tap to open the checklist.</string>
     <string name="action_ok">OK</string>
+    <string name="reminder_quick_hour">In 1 hour</string>
+    <string name="reminder_quick_evening">This evening</string>
+    <string name="reminder_quick_tomorrow">Tomorrow morning</string>
+    <string name="pdf_reminder">Reminder: %1$s</string>
 </resources>

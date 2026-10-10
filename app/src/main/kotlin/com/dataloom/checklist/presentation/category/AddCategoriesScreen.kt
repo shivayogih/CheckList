@@ -1,7 +1,9 @@
 package com.dataloom.checklist.presentation.category
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -92,13 +94,15 @@ fun AddCategoriesScreen(
                     )
                 }
             }
-            categoryOptions(state.categories) { onAction(AddCategoriesAction.ToggleCategory(it)) }
-            item {
+            // First, so "Create category" is seen without scrolling the list.
+            item(key = "create-category") {
                 CreateCategoryButton(
                     onClick = { onAction(AddCategoriesAction.OpenNewCategory) },
                     modifier = Modifier.padding(vertical = 16.dp),
                 )
             }
+            categoryOptions(state.categories) { onAction(AddCategoriesAction.ToggleCategory(it)) }
+            item(key = "bottom-space") { Spacer(Modifier.height(16.dp)) }
         }
     }
 

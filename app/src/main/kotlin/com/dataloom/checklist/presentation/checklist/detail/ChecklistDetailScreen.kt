@@ -76,8 +76,6 @@ import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.TextInputDialog
 import com.dataloom.checklist.presentation.photos.ItemPhotoSlot
-import com.dataloom.checklist.presentation.reminder.ReminderEffects
-import com.dataloom.checklist.presentation.reminder.ReminderTimeDialog
 import com.dataloom.checklist.presentation.reminder.RemindersViewModel
 import com.dataloom.checklist.presentation.transfer.PdfOptionsDialog
 import com.dataloom.checklist.presentation.transfer.TransferEffects
@@ -118,24 +116,9 @@ fun ChecklistDetailScreen(
     // PDF share and save (section 20.4). Unit names follow the app language, as on screen.
     // Ads (CL-370): after every third PDF export, never while items are being ticked.
     TransferEffects(transferViewModel, snackbarHostState, onPdfExported = rememberPdfExportAd())
-    // "Set reminder" (CL-350), offered on active checklists only: archiving removes a list's reminders.
-    ReminderEffects(remindersViewModel.effects, snackbarHostState)
-    val reminderLists by remindersViewModel.state.collectAsStateWithLifecycle()
-    val canSetReminder = reminderLists.lists.any { it.id == checklistId }
-    var reminderTime by rememberSaveable { mutableStateOf<Long?>(null) }
-    reminderTime?.let { initial ->
-        ReminderTimeDialog(
-            title = stringResource(R.string.reminder_new_title),
-            listTitle = state.title,
-            initialTime = initial,
-            isInFuture = remindersViewModel::isInFuture,
-            onSave = { time ->
-                remindersViewModel.save(checklistId, time)
-                reminderTime = null
-            },
-            onDismiss = { reminderTime = null },
-        )
-    }
+    // Reminders (CL-350): shown and set on the checklist, and offered for its PDF.
+    val reminders = reminderControls(checklistId, state.title, remindersViewModel, snackbarHostState)
+    val pdfReminder = reminders.pdfText
     val transferState by transferViewModel.state.collectAsStateWithLifecycle()
     // Recomputed only when the sections change, not on every recomposition (rename dialog, snackbar...).
     val customUnitLabels = remember(state.sections) {
@@ -148,13 +131,17 @@ fun ChecklistDetailScreen(
     val id = remember(checklistId) { ChecklistId(checklistId) }
     // Asked only when the checklist has photos: the PDF is bigger with them (CL-214).
     var includePdfPhotos by rememberSaveable { mutableStateOf(false) }
+    var includePdfReminder by rememberSaveable { mutableStateOf(true) }
+    // Reads the choices when called, so a choice made in the options dialog applies at once.
+    fun pdfOptions() = pdfOptionsOf(includePdfPhotos, pdfReminder, includePdfReminder)
+    val hasPdfReminder by rememberUpdatedState(pdfReminder != null)
     var pdfOptionsFor by rememberSaveable { mutableStateOf<PdfExport?>(null) }
     val savePdfLauncher = rememberLauncherForActivityResult(TransferDocuments.createPdf()) { uri ->
-        if (uri != null) transferViewModel.savePdfTo(uri, id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
+        if (uri != null) transferViewModel.savePdfTo(uri, id, pdfOptions(), unitLabels)
     }
     // The menu asks the ViewModel first, which commits deletions still waiting for Undo (CL-241).
-    val reminderActions = if (canSetReminder) {
-        listOf(MenuAction(stringResource(R.string.reminder_set)) { reminderTime = remindersViewModel.suggestedTime() })
+    val reminderActions = if (reminders.canSet) {
+        listOf(MenuAction(stringResource(R.string.reminder_set), onClick = reminders.onSet))
     } else {
         emptyList()
     }
@@ -168,7 +155,7 @@ fun ChecklistDetailScreen(
     )
     val exportPdf by rememberUpdatedState { export: PdfExport ->
         when (export) {
-            PdfExport.SHARE -> transferViewModel.sharePdf(id, PdfOptions(includePhotos = includePdfPhotos), unitLabels)
+            PdfExport.SHARE -> transferViewModel.sharePdf(id, pdfOptions(), unitLabels)
             PdfExport.SAVE -> savePdfLauncher.launch(TransferDocuments.pdfFileName(state.title))
         }
     }
@@ -201,7 +188,11 @@ fun ChecklistDetailScreen(
                 is ChecklistDetailEffect.PdfReady -> {
                     // The deletion is final now; its Undo snackbar would offer something it cannot do.
                     snackbarHostState.currentSnackbarData?.dismiss()
-                    if (state.hasPhotos) pdfOptionsFor = effect.export else exportPdf(effect.export)
+                    if (asksPdfOptions(state.hasPhotos, hasPdfReminder)) {
+                        pdfOptionsFor = effect.export
+                    } else {
+                        exportPdf(effect.export)
+                    }
                 }
                 is ChecklistDetailEffect.Error -> scope.launch {
                     snackbarHostState.showSnackbar(effect.message.resolve(resources))
@@ -211,15 +202,20 @@ fun ChecklistDetailScreen(
     }
 
     val moreActions = reminderActions + pdfActions
-    DetailContent(state, snackbarHostState, onAction, navigation, moreActions, aiState, aiViewModel::onAction)
+    DetailContent(
+        state, snackbarHostState, onAction, navigation, moreActions, reminders, aiState, aiViewModel::onAction,
+    )
 
     pdfOptionsFor?.let { export ->
         PdfOptionsDialog(
             confirmLabel = stringResource(
                 if (export == PdfExport.SHARE) R.string.detail_share_pdf else R.string.detail_save_pdf,
             ),
-            onConfirm = { includePhotos ->
+            offerPhotos = state.hasPhotos,
+            offerReminder = pdfReminder != null,
+            onConfirm = { includePhotos, includeReminder ->
                 includePdfPhotos = includePhotos
+                includePdfReminder = includeReminder
                 pdfOptionsFor = null
                 exportPdf(export)
             },
@@ -227,6 +223,12 @@ fun ChecklistDetailScreen(
         )
     }
 }
+
+private fun pdfOptionsOf(includePhotos: Boolean, reminder: String?, includeReminder: Boolean) =
+    PdfOptions(includePhotos = includePhotos, reminder = if (includeReminder) reminder else null)
+
+/** The PDF options dialog is shown only when it has something to offer: photos or a reminder. */
+private fun asksPdfOptions(hasPhotos: Boolean, hasReminder: Boolean) = hasPhotos || hasReminder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -236,6 +238,7 @@ private fun DetailContent(
     onAction: (ChecklistDetailAction) -> Unit,
     navigation: ChecklistDetailNavigation,
     moreActions: List<MenuAction>,
+    reminders: DetailReminders,
     aiState: AiCommandUiState,
     onAiAction: (AiCommandAction) -> Unit,
 ) {
@@ -269,6 +272,10 @@ private fun DetailContent(
         ) {
             if (!state.isLoading) {
                 item(key = "progress", contentType = "progress") { ProgressHeader(state) }
+            }
+            // The list's reminders, or a "Set reminder" button, right on the checklist (CL-350).
+            if (!state.isLoading && (reminders.reminders.isNotEmpty() || reminders.canSet)) {
+                item(key = "reminders", contentType = "reminders") { ReminderSection(reminders, state.title) }
             }
             // Only while the assistant is on in Settings; the screen works the same without it.
             if (!state.isLoading && aiState.isAvailable) {

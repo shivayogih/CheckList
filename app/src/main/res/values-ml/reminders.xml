@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">ഓർമ്മപ്പെടുത്തൽ: %1$s</string>
     <string name="reminder_notification_body">ലിസ്റ്റ് തുറക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
     <string name="action_ok">ശരി</string>
+    <string name="reminder_quick_hour">1 മണിക്കൂറിൽ</string>
+    <string name="reminder_quick_evening">ഇന്ന് വൈകുന്നേരം</string>
+    <string name="reminder_quick_tomorrow">നാളെ രാവിലെ</string>
+    <string name="pdf_reminder">ഓർമ്മപ്പെടുത്തൽ: %1$s</string>
 </resources>

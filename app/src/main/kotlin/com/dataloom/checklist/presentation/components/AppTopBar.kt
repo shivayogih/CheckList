@@ -1,5 +1,7 @@
 package com.dataloom.checklist.presentation.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -7,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.heading
@@ -28,6 +31,8 @@ fun AppTopBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     roomyTitle: Boolean = false,
+    /** Drawn before the title, e.g. the app logo on Home. Decorative: the title text carries the meaning. */
+    titleIcon: (@Composable () -> Unit)? = null,
 ) {
     val density = LocalDensity.current
     // Titles built from a category name ("New item in Meat, Poultry & Seafood") get two lines at any
@@ -46,12 +51,15 @@ fun AppTopBar(
     }
     TopAppBar(
         title = {
-            Text(
-                text = title,
-                maxLines = lines,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.semantics { heading() },
-            )
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                titleIcon?.invoke()
+                Text(
+                    text = title,
+                    maxLines = lines,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.semantics { heading() },
+                )
+            }
         },
         navigationIcon = navigationIcon,
         actions = actions,

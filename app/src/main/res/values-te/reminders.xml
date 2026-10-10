@@ -27,4 +27,8 @@
     <string name="reminder_notification_title">రిమైండర్: %1$s</string>
     <string name="reminder_notification_body">జాబితాను తెరవడానికి నొక్కండి.</string>
     <string name="action_ok">సరే</string>
+    <string name="reminder_quick_hour">1 గంటలో</string>
+    <string name="reminder_quick_evening">ఈ సాయంత్రం</string>
+    <string name="reminder_quick_tomorrow">రేపు ఉదయం</string>
+    <string name="pdf_reminder">రిమైండర్: %1$s</string>
 </resources>

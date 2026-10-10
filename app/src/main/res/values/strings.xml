@@ -2,8 +2,6 @@
 <resources>
     <!-- English is the canonical language. Every key here must exist in all six values-* folders. -->
     <string name="app_name" translatable="false">CheckList</string>
-    <string name="home_title">My checklists</string>
-    <string name="home_empty_title">No checklists yet</string>
     <string name="home_empty_body">Create your first checklist for shopping, travel, exams or anything else.</string>
     <string name="home_create_checklist">Create checklist</string>
     <string name="settings_title">Settings</string>
@@ -66,7 +64,7 @@
     <string name="checklist_copy_title">%1$s (copy)</string>
     <string name="checklist_more_options">More options for %1$s</string>
     <string name="create_categories_heading">Categories</string>
-    <string name="create_categories_hint">Choose any that fit. You can add more later.</string>
+    <string name="create_categories_hint">Choose any that fit, or create your own. You can add more later.</string>
     <string name="create_description_label">Description (optional)</string>
     <string name="create_title">Create checklist</string>
     <string name="create_title_already_used">You already have a checklist with this name. You can still use it.</string>
@@ -90,14 +88,14 @@
     <string name="error_quantity_invalid">Enter a number like 2 or 2.5 (up to 99999).</string>
     <string name="error_quantity_whole">This unit needs a whole number, like 2.</string>
     <string name="error_quantity_not_number">Use digits only, like 2 or 2.5.</string>
-    <string name="error_quantity_not_positive">The amount must be more than zero.</string>
+    <string name="error_quantity_not_positive">The quantity must be more than zero.</string>
     <string name="error_quantity_too_precise">Use at most 3 decimal places, like 2.125.</string>
     <string name="input_counter">%1$s / %2$s</string>
     <string name="error_title_blank">Enter a name for the checklist.</string>
     <string name="error_too_long">Use at most %1$s characters.</string>
     <string name="error_unit_label_blank">Enter a name for the unit.</string>
     <string name="error_unit_unknown">This unit no longer exists. Choose another one.</string>
-    <string name="error_unit_without_quantity">Enter an amount for this unit, or choose “No unit”.</string>
+    <string name="error_unit_without_quantity">Enter a quantity for this unit, or choose “No unit”.</string>
     <string name="home_archived_message">Archived “%1$s”</string>
     <string name="home_deleted_message">Deleted “%1$s”</string>
     <string name="home_duplicated_message">Created “%1$s”</string>
@@ -109,14 +107,14 @@
     <string name="home_search_label">Search checklists</string>
     <string name="home_sort_button">Sort: %1$s</string>
     <string name="home_unarchived_message">“%1$s” is active again</string>
-    <string name="item_already_on_list">“%1$s” is already on this list. Change its amount instead.</string>
+    <string name="item_already_on_list">“%1$s” is already on this list. Change its quantity instead.</string>
     <string name="item_edit_title">Edit item</string>
     <string name="item_more_options">More options for %1$s</string>
     <string name="item_name_label">Item name</string>
     <string name="item_new_title">New item in %1$s</string>
     <string name="item_notes_label">Notes (optional)</string>
     <string name="item_quantity_hint">You can use a comma or a period: 2,5 or 2.5</string>
-    <string name="item_quantity_optional">Amount (optional)</string>
+    <string name="item_quantity_optional">Quantity (optional)</string>
     <string name="item_quantity_with_unit">%1$s %2$s</string>
     <string name="item_save_to_suggestions">Save to %1$s suggestions</string>
     <string name="progress_no_items">No items yet</string>
@@ -147,6 +145,20 @@
     <string name="unit_pair">pair</string>
     <string name="unit_picker_title">Choose unit</string>
     <string name="unit_piece">pcs</string>
+    <string name="unit_kg_full">Kilogram</string>
+    <string name="unit_gram_full">Gram</string>
+    <string name="unit_litre_full">Litre</string>
+    <string name="unit_millilitre_full">Millilitre</string>
+    <string name="unit_dozen_full">12 pieces</string>
+    <string name="unit_piece_full">Pieces</string>
+    <string name="unit_pack_full">Packet</string>
+    <string name="unit_box_full">Box</string>
+    <string name="unit_bottle_full">Bottle</string>
+    <string name="unit_pair_full">2 pieces</string>
+    <string name="unit_meter_full">Metre</string>
+    <string name="unit_nos_full">Numbers</string>
+    <string name="unit_bunch_full">Bunch</string>
+    <string name="unit_with_full_name">%1$s (%2$s)</string>
 
     <!-- Profile screen (CL-135). -->
     <string name="error_display_name_blank">Enter your name.</string>
@@ -308,7 +320,7 @@
     <string name="ai_step_add">Add %1$s</string>
     <string name="ai_step_add_category">Add the category %1$s</string>
     <string name="ai_step_create_checklist">Create the checklist %1$s</string>
-    <string name="ai_step_set_quantity">Change the amount of %1$s</string>
+    <string name="ai_step_set_quantity">Change the quantity of %1$s</string>
     <string name="ai_step_set_unit">Change the unit of %1$s</string>
     <string name="ai_step_complete">Mark %1$s as done</string>
     <string name="ai_step_uncomplete">Mark %1$s as not done</string>
@@ -351,4 +363,15 @@
     <string name="db_newer_body">Your lists were saved by a newer version of CheckList. They have not been changed. Install the latest version to see them again.</string>
     <string name="db_open_failed_title">CheckList could not open your lists</string>
     <string name="db_open_failed_body">Nothing was deleted. Close the app and open it again. If this keeps happening, restart your phone.</string>
+    <string name="category_group_frequent">Used often</string>
+    <string name="category_group_all">All categories</string>
+    <string name="home_exit_title">Close CheckList?</string>
+    <string name="home_exit_message">Your lists stay saved on this phone.</string>
+    <string name="action_exit">Close</string>
+    <string name="home_welcome_title">Welcome to CheckList</string>
+    <string name="home_welcome_tip_categories">Pick ready categories and items, or add your own.</string>
+    <string name="home_welcome_tip_reminders">Set reminders so you never forget.</string>
+    <string name="home_welcome_tip_share">Share any list as a PDF. Everything works offline.</string>
+    <string name="pdf_include_reminder">Include reminder</string>
+    <string name="pdf_include_reminder_summary">Prints the reminder date and time under the title.</string>
 </resources>

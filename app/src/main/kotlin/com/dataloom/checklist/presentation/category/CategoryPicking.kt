@@ -16,15 +16,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-/** One row of a category multi-select list. [icon] is an emoji (decorative). */
+/**
+ * One row of a category multi-select list. [icon] is an emoji (decorative). [frequent] marks a
+ * category the user has put in a checklist before, shown first under "Used often".
+ */
 data class CategoryOptionUi(
     val id: CategoryId,
     val name: String,
     val icon: String,
     val selected: Boolean,
+    val frequent: Boolean = false,
 )
 
-fun Category.toOption(selected: Boolean) = CategoryOptionUi(id, displayName, iconKey, selected)
+fun Category.toOption(selected: Boolean) =
+    CategoryOptionUi(id, displayName, iconKey, selected, frequent = usageCount > 0)
 
 /** The "Create category" dialog. */
 data class NewCategoryDialogUi(
