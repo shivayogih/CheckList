@@ -189,7 +189,7 @@ class OnboardingViewModelTest {
         vm.assertFinished { vm.onAction(OnboardingAction.SubmitProfile) }
 
         val saved = (repo.state.value as ProfileState.Available).profile
-        assertEquals(UserProfile("Kamala Hiremath", null, "+91 98450 12345", "12, 4th Cross\nHubballi"), saved)
+        assertEquals(UserProfile("Kamala Hiremath", null, "9845012345", "12, 4th Cross\nHubballi", "IN"), saved)
         assertTrue(store.flag.value)
     }
 
@@ -371,6 +371,29 @@ class OnboardingViewModelTest {
 
         vm.act(OnboardingAction.EmailChanged("kamala@example.com"), OnboardingAction.PhoneChanged("98450 12345"))
         assertTrue(vm.uiState.value.canSubmitProfile)
+    }
+
+    // CL-380: country and number are separate fields.
+
+    @Test
+    fun `the country picker opens, closes and keeps the typed digits`() = runTest {
+        val vm = viewModel()
+        vm.act(OnboardingAction.ContinueFromWelcome, OnboardingAction.SkipTutorial)
+        assertEquals("IN", vm.uiState.value.phoneCountry)
+        vm.act(OnboardingAction.PhoneChanged("7911 123456"), OnboardingAction.OpenCountryPicker)
+        assertTrue(vm.uiState.value.countryPickerOpen)
+        vm.act(OnboardingAction.CloseCountryPicker)
+        assertFalse(vm.uiState.value.countryPickerOpen)
+        assertEquals("IN", vm.uiState.value.phoneCountry)
+
+        vm.act(OnboardingAction.OpenCountryPicker, OnboardingAction.CountryChosen("GB"))
+        assertFalse(vm.uiState.value.countryPickerOpen)
+        assertEquals("GB", vm.uiState.value.phoneCountry)
+        assertEquals("7911123456", vm.uiState.value.phone)
+
+        vm.assertFinished { vm.onAction(OnboardingAction.SubmitProfile) }
+        val saved = (repo.state.value as ProfileState.Available).profile
+        assertEquals(UserProfile(phone = "7911123456", phoneCountry = "GB"), saved)
     }
 
     @Test

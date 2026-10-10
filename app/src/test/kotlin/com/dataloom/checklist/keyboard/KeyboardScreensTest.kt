@@ -158,6 +158,26 @@ class KeyboardScreensTest {
         assertScrollable()
         assertAboveKeyboard(button(string(R.string.action_save)), scrollFirst = true)
         assertKeyboardStaysOpen(field(R.string.profile_name))
+        assertKeyboardStaysOpen(field(R.string.profile_phone))
+    }
+
+    @Test
+    fun `country picker search keeps the keyboard open`() {
+        launchApp()
+        navigate(ProfileRoute)
+        composeRule.awaitText(string(R.string.profile_intro))
+        composeRule.awaitNode(hasContentDescription("+91", substring = true) and hasClickAction())
+            .performScrollTo()
+            .performClick()
+        val search = field(R.string.profile_country_search)
+        composeRule.awaitNode(search)
+        keyboard.hides = 0
+        composeRule.onAllNodes(search).onFirst().performClick()
+        composeRule.mainClock.advanceTimeBy(SETTLE_MILLIS)
+        composeRule.waitForIdle()
+
+        composeRule.onAllNodes(search).onFirst().assertIsFocused()
+        assertEquals("the keyboard was asked to hide", 0, keyboard.hides)
     }
 
     @Test

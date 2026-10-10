@@ -29,9 +29,9 @@ class EncryptedProfileRepositoryTest {
     private val master = FakeMasterKey()
     private var repository = newRepository()
 
-    private val asha = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210")
+    private val asha = UserProfile("Asha Rao", "asha@example.com", "9876543210", phoneCountry = "IN")
     private val ravi = UserProfile("Ravi")
-    private val withAddress = UserProfile("Kamala", null, "+91 98450 12345", "12, 4th Cross, Vidyanagar, Hubballi")
+    private val withAddress = UserProfile("Kamala", null, "9845012345", "12, 4th Cross, Vidyanagar, Hubballi", "IN")
 
     /** A new provider has no cached keyset, like the next app start. */
     private fun newRepository() =
@@ -56,7 +56,10 @@ class EncryptedProfileRepositoryTest {
         assertFalse(stored.contains("Hubballi"))
     }
 
-    /** CL-250: a row saved by an older app version has no address key and must still open. */
+    /**
+     * CL-250: a row saved by an older app version has no address key and must still open. CL-380: its
+     * phone held the whole "+91 ..." number, which now reads back as country and national digits.
+     */
     @Test
     fun profileStoredBeforeTheAddressExistedStillDecrypts() = runTest {
         repository.saveProfile(ravi) // creates the keys
@@ -252,5 +255,35 @@ class EncryptedProfileRepositoryTest {
 
         assertEquals(ProfileState.Unavailable, repository.observeProfile().first())
         assertNotNull(dao.get(EncryptedProfileRepository.ROW_ID))
+    }
+
+    // A Keystore problem never blocks the first save (CL-380)
+
+    @Test
+    fun firstSaveSurvivesAOneOffKeystoreError() = runTest {
+        master.transientFailures = 1
+
+        assertTrue(repository.saveProfile(asha))
+        assertEquals(ProfileState.Available(asha), repository.observeProfile().first())
+    }
+
+    @Test
+    fun unusableKeysWithNoStoredProfileAreResetSoTheSaveWorks() = runTest {
+        KeysetProfileAeadProvider(prefs, master).getOrCreateAead()
+        master.brokenUntilDeleted = true
+        restartApp()
+
+        assertTrue(repository.saveProfile(ravi))
+        assertEquals(2, master.creations)
+        restartApp()
+        assertEquals(ProfileState.Available(ravi), repository.observeProfile().first())
+    }
+
+    @Test
+    fun keystoreThatNeverWorksStillReportsTheFailure() = runTest {
+        master.failing = true
+
+        assertFalse(repository.saveProfile(asha))
+        assertNull(dao.get(EncryptedProfileRepository.ROW_ID))
     }
 }

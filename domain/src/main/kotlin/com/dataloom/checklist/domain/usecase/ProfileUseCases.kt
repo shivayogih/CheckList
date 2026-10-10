@@ -25,8 +25,9 @@ class SaveProfileUseCase @Inject constructor(private val profiles: ProfileReposi
         email: String?,
         phone: String?,
         address: String? = null,
+        phoneCountry: String? = null,
     ): DomainResult<UserProfile> {
-        val profile = when (val result = ProfileValidator.validate(displayName, email, phone, address)) {
+        val profile = when (val result = ProfileValidator.validate(displayName, email, phone, address, phoneCountry)) {
             is ValidationResult.Invalid -> return result.toFailure()
             is ValidationResult.Valid -> result.value
         }

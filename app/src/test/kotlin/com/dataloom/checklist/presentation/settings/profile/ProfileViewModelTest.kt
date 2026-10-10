@@ -118,10 +118,7 @@ class ProfileViewModelTest {
         assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.DISPLAY_NAME_MAX)), state.nameError)
         assertEquals(UiText(R.string.error_too_long, listOf(FieldLimits.ADDRESS_MAX)), state.addressError)
         assertEquals(UiText(R.string.error_email_invalid), state.emailError)
-        assertEquals(
-            UiText(R.string.error_phone_invalid, listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)),
-            state.phoneError,
-        )
+        assertEquals(UiText(R.string.error_phone_digits_exact, listOf(10)), state.phoneError)
         assertFalse(state.isSaving)
         assertEquals(0, repo.saveCalls)
 
@@ -233,12 +230,55 @@ class ProfileViewModelTest {
     @Test
     fun `phone letters and symbols cannot be typed and Indic digits become ASCII`() = runTest {
         val vm = viewModel()
-        vm.onAction(ProfileAction.PhoneChanged("98a7#6*"))
+        assertEquals("IN", vm.uiState.value.phoneCountry)
+        vm.onAction(ProfileAction.PhoneChanged("98a7#6* -"))
         assertEquals("9876", vm.uiState.value.phone)
-        vm.onAction(ProfileAction.PhoneChanged("+\u096F\u096E 98-ab"))
-        assertEquals("+98 98-", vm.uiState.value.phone)
+        vm.onAction(ProfileAction.PhoneChanged("\u096F\u096E 98-ab"))
+        assertEquals("9898", vm.uiState.value.phone)
         vm.onAction(ProfileAction.PhoneChanged("9".repeat(80)))
-        assertEquals(FieldLimits.PHONE_MAX, vm.uiState.value.phone.length)
+        assertEquals("9".repeat(11), vm.uiState.value.phone) // ten digits plus room for a leading 0
+    }
+
+    // CL-380: the country is a separate field.
+
+    @Test
+    fun `picking a country keeps the digits and checks the length for that country`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.PhoneChanged("81234567"))
+        assertEquals(UiText(R.string.error_phone_digits_exact, listOf(10)), vm.uiState.value.phoneError)
+
+        vm.onAction(ProfileAction.OpenCountryPicker)
+        assertTrue(vm.uiState.value.countryPickerOpen)
+        vm.onAction(ProfileAction.CountryChosen("SG"))
+
+        val state = vm.uiState.value
+        assertFalse(state.countryPickerOpen)
+        assertEquals("SG", state.phoneCountry)
+        assertEquals("81234567", state.phone)
+        assertNull(state.phoneError)
+        vm.effect.test {
+            vm.onAction(ProfileAction.Save)
+            assertEquals(ProfileEffect.Saved, awaitItem())
+        }
+        val saved = (repo.state.value as ProfileState.Available).profile
+        assertEquals(UserProfile(phone = "81234567", phoneCountry = "SG"), saved)
+    }
+
+    @Test
+    fun `a pasted international number switches the country`() = runTest {
+        val vm = viewModel()
+        vm.onAction(ProfileAction.PhoneChanged("+44 7911 123456"))
+        assertEquals("GB", vm.uiState.value.phoneCountry)
+        assertEquals("7911123456", vm.uiState.value.phone)
+        assertNull(vm.uiState.value.phoneError)
+    }
+
+    @Test
+    fun `a stored profile fills the country and the number`() = runTest {
+        repo.state.value = ProfileState.Available(UserProfile(phone = "7911123456", phoneCountry = "GB"))
+        val vm = viewModel()
+        assertEquals("GB", vm.uiState.value.phoneCountry)
+        assertEquals("7911123456", vm.uiState.value.phone)
     }
 
     @Test
@@ -259,8 +299,7 @@ class ProfileViewModelTest {
         assertFalse(vm.uiState.value.canSave)
 
         vm.onAction(ProfileAction.PhoneChanged("12"))
-        val digits = listOf(FieldLimits.PHONE_DIGITS_MIN, FieldLimits.PHONE_DIGITS_MAX)
-        assertEquals(UiText(R.string.error_phone_invalid, digits), vm.uiState.value.phoneError)
+        assertEquals(UiText(R.string.error_phone_digits_exact, listOf(10)), vm.uiState.value.phoneError)
 
         vm.onAction(ProfileAction.EmailChanged("asha@example.com"))
         vm.onAction(ProfileAction.PhoneChanged("98450 12345"))

@@ -151,6 +151,11 @@
     <string name="error_display_name_blank">तुमचे नाव टाका.</string>
     <string name="error_email_invalid">name@example.com सारखा ईमेल पत्ता टाका.</string>
     <string name="error_phone_invalid">%1$s ते %2$s अंकांचा फोन नंबर टाका.</string>
+    <string name="error_phone_digits_exact">%1$s अंकांचा फोन नंबर टाका.</string>
+    <string name="profile_phone_country">देश: %1$s, %2$s</string>
+    <string name="profile_country_title">देश निवडा</string>
+    <string name="profile_country_search">देश किंवा कोड शोधा</string>
+    <string name="profile_country_none">कोणताही देश सापडला नाही</string>
     <string name="error_secure_storage">सुरक्षित स्टोरेज सध्या काम करत नाही. काहीही जतन झाले नाही. नंतर पुन्हा प्रयत्न करा.</string>
     <string name="profile_clear">प्रोफाइल हटवा</string>
     <string name="profile_clear_message">तुमचे नाव आणि संपर्क तपशील या फोनवरून पुसले जातील.</string>

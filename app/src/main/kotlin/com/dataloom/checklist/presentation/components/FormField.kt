@@ -48,6 +48,8 @@ import com.dataloom.checklist.presentation.theme.Dimens
  * [maxLength] adds a "length / max" counter on the end under the box (hidden from TalkBack: the limit is also
  * in the "too long" error); it only displays, the caller still enforces the limit (CL-280).
  *
+ * [leading] puts a separate box before the text box in the same row, sharing the label and error.
+ *
  * The label is an extra accessibility name for the field, and the error text is exposed as the field's
  * `error` semantics so TalkBack announces it.
  */
@@ -65,6 +67,7 @@ fun FormField(
     maxLength: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    leading: (@Composable () -> Unit)? = null,
 ) {
     val colors = MaterialTheme.colorScheme
     val interactionSource = remember { MutableInteractionSource() }
@@ -84,39 +87,56 @@ fun FormField(
             color = if (hasError) colors.error else colors.onSurface,
             modifier = Modifier.padding(bottom = 6.dp),
         )
-        BasicTextField(
-            value = value,
-            onValueChange = onValueChange,
-            enabled = enabled,
-            singleLine = !multiLine,
-            minLines = if (multiLine) 3 else 1,
-            textStyle = MaterialTheme.typography.bodyLarge.copy(color = colors.onSurface),
-            cursorBrush = SolidColor(colors.primary),
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            interactionSource = interactionSource,
-            modifier = Modifier
-                .fillMaxWidth()
-                .semantics {
-                    contentDescription = label
-                    if (errorText != null) error(errorText)
-                },
-            decorationBox = { inner ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = if (multiLine) Dimens.FieldMultiLineHeight else Dimens.FieldHeight)
-                        .border(borderWidth, borderColor, shape)
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    contentAlignment = if (multiLine) Alignment.TopStart else Alignment.CenterStart,
-                ) {
-                    if (value.isEmpty() && placeholder != null) {
-                        Text(placeholder, style = MaterialTheme.typography.bodyLarge, color = colors.onSurfaceVariant)
+        val textField: @Composable (Modifier) -> Unit = { fieldModifier ->
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                enabled = enabled,
+                singleLine = !multiLine,
+                minLines = if (multiLine) 3 else 1,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(color = colors.onSurface),
+                cursorBrush = SolidColor(colors.primary),
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                interactionSource = interactionSource,
+                modifier = fieldModifier
+                    .semantics {
+                        contentDescription = label
+                        if (errorText != null) error(errorText)
+                    },
+                decorationBox = { inner ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = if (multiLine) Dimens.FieldMultiLineHeight else Dimens.FieldHeight)
+                            .border(borderWidth, borderColor, shape)
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        contentAlignment = if (multiLine) Alignment.TopStart else Alignment.CenterStart,
+                    ) {
+                        if (value.isEmpty() && placeholder != null) {
+                            Text(
+                                placeholder,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.onSurfaceVariant,
+                            )
+                        }
+                        inner()
                     }
-                    inner()
-                }
-            },
-        )
+                },
+            )
+        }
+        if (leading == null) {
+            textField(Modifier.fillMaxWidth())
+        } else {
+            // A box beside the text box, such as the phone country button (CL-380); both grow together.
+            Row(
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                leading()
+                textField(Modifier.weight(1f))
+            }
+        }
         FormFieldMessage(errorText, helperText)
         FormFieldCounter(value, maxLength)
     }

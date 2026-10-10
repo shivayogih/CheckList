@@ -151,6 +151,11 @@
     <string name="error_display_name_blank">మీ పేరును నమోదు చేయండి.</string>
     <string name="error_email_invalid">name@example.com లాంటి ఈమెయిల్ చిరునామాను నమోదు చేయండి.</string>
     <string name="error_phone_invalid">%1$s నుండి %2$s అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
+    <string name="error_phone_digits_exact">%1$s అంకెలు ఉన్న ఫోన్ నంబర్‌ను నమోదు చేయండి.</string>
+    <string name="profile_phone_country">దేశం: %1$s, %2$s</string>
+    <string name="profile_country_title">దేశాన్ని ఎంచుకోండి</string>
+    <string name="profile_country_search">దేశం లేదా కోడ్ కోసం వెతకండి</string>
+    <string name="profile_country_none">ఏ దేశమూ కనబడలేదు</string>
     <string name="error_secure_storage">సురక్షిత నిల్వ ప్రస్తుతం పని చేయడం లేదు. ఏదీ సేవ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
     <string name="profile_clear">ప్రొఫైల్‌ను తొలగించండి</string>
     <string name="profile_clear_message">మీ పేరు మరియు సంప్రదింపు వివరాలు ఈ ఫోన్ నుండి తుడిచివేయబడతాయి.</string>

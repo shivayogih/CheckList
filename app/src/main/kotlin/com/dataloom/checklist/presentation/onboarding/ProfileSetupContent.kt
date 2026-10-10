@@ -37,8 +37,10 @@ import com.dataloom.checklist.presentation.common.keyboardAwareScreen
 import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.Banner
+import com.dataloom.checklist.presentation.components.CountryPickerDialog
 import com.dataloom.checklist.presentation.components.BottomActionBar
 import com.dataloom.checklist.presentation.components.FormField
+import com.dataloom.checklist.presentation.components.PhoneNumberField
 import com.dataloom.checklist.presentation.components.PrimaryButton
 import com.dataloom.checklist.presentation.components.TextActionButton
 
@@ -127,15 +129,14 @@ fun ProfileSetupContent(state: OnboardingUiState, onAction: (OnboardingAction) -
                 errorText = state.fieldErrors.name?.asString(),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next),
             )
-            FormField(
+            PhoneNumberField(
                 label = stringResource(R.string.profile_phone),
-                value = state.phone,
-                onValueChange = { onAction(OnboardingAction.PhoneChanged(it)) },
+                countryIso = state.phoneCountry,
+                digits = state.phone,
+                onDigitsChange = { onAction(OnboardingAction.PhoneChanged(it)) },
+                onCountryClick = { onAction(OnboardingAction.OpenCountryPicker) },
                 errorText = state.fieldErrors.phone?.asString(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Phone,
-                    imeAction = if (state.moreExpanded) ImeAction.Next else ImeAction.Done,
-                ),
+                imeAction = if (state.moreExpanded) ImeAction.Next else ImeAction.Done,
             )
             TextButton(
                 onClick = { onAction(OnboardingAction.ToggleMore) },
@@ -175,5 +176,12 @@ fun ProfileSetupContent(state: OnboardingUiState, onAction: (OnboardingAction) -
                 }
             }
         }
+    }
+    if (state.countryPickerOpen) {
+        CountryPickerDialog(
+            selectedIso = state.phoneCountry,
+            onPick = { onAction(OnboardingAction.CountryChosen(it)) },
+            onDismiss = { onAction(OnboardingAction.CloseCountryPicker) },
+        )
     }
 }

@@ -14,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 class ProfileCipherTest {
 
     private val aead = softwareAead()
-    private val profile = UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210", "12, 4th Cross, Hubballi")
+    private val profile = UserProfile("Asha Rao", "asha@example.com", "9876543210", "12, 4th Cross, Hubballi", "IN")
 
     private fun encrypt(p: UserProfile = profile) = ProfileCipher.encrypt(aead, p, "me", "alias")
 
@@ -37,7 +37,8 @@ class ProfileCipherTest {
         val old = """{"n":"Asha Rao","e":"asha@example.com","p":"+91 98765 43210"}"""
         val ciphertext = aead.encrypt(old.toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))
         assertEquals(
-            UserProfile("Asha Rao", "asha@example.com", "+91 98765 43210", null),
+            // CL-380: the combined number is split into its country and national digits.
+            UserProfile("Asha Rao", "asha@example.com", "9876543210", null, "IN"),
             ProfileCipher.decrypt(aead, ciphertext, "me", 1, "alias"),
         )
         val nameOnly = aead.encrypt("""{"n":"ಆಶಾ"}""".toByteArray(Charsets.UTF_8), ProfileCipher.associatedData("me", 1, "alias"))

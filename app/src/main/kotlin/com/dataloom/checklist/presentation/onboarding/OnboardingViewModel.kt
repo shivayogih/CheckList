@@ -3,9 +3,11 @@ package com.dataloom.checklist.presentation.onboarding
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dataloom.checklist.domain.phone.PhoneCountries
 import com.dataloom.checklist.domain.usecase.DomainError
 import com.dataloom.checklist.domain.usecase.DomainResult
 import com.dataloom.checklist.domain.usecase.SaveProfileUseCase
+import com.dataloom.checklist.domain.validation.PhoneNumberInput
 import com.dataloom.checklist.onboarding.OnboardingStore
 import com.dataloom.checklist.presentation.common.UiText
 import com.dataloom.checklist.presentation.common.toUiText
@@ -40,7 +42,10 @@ data class OnboardingUiState(
     val tutorialPage: Int = 0,
     val name: String = "",
     val email: String = "",
+    /** National digits only; the country is picked separately (CL-380). */
     val phone: String = "",
+    val phoneCountry: String = PhoneCountries.DEFAULT_ISO,
+    val countryPickerOpen: Boolean = false,
     val address: String = "",
     val fieldErrors: ProfileFieldErrors = ProfileFieldErrors(),
     /** The "Add email and address" section; collapsed until the user opens it. */
@@ -77,6 +82,9 @@ sealed interface OnboardingAction {
     data class EmailChanged(val value: String) : OnboardingAction
     data class PhoneChanged(val value: String) : OnboardingAction
     data class AddressChanged(val value: String) : OnboardingAction
+    data object OpenCountryPicker : OnboardingAction
+    data object CloseCountryPicker : OnboardingAction
+    data class CountryChosen(val iso: String) : OnboardingAction
     data object ToggleMore : OnboardingAction
     data object SubmitProfile : OnboardingAction
 
@@ -139,8 +147,16 @@ class OnboardingViewModel @Inject constructor(
             is OnboardingAction.NameChanged -> edit { it.copy(name = ProfileTyping.name(action.value)).revalidated() }
             is OnboardingAction.EmailChanged ->
                 edit { it.copy(email = ProfileTyping.email(action.value)).revalidated() }
-            is OnboardingAction.PhoneChanged ->
-                edit { it.copy(phone = ProfileTyping.phone(action.value)).revalidated() }
+            is OnboardingAction.PhoneChanged -> edit {
+                val entry = ProfileTyping.phone(action.value, it.phoneCountry)
+                it.copy(phone = entry.digits, phoneCountry = entry.countryIso).revalidated()
+            }
+            OnboardingAction.OpenCountryPicker -> state.update { it.copy(countryPickerOpen = true) }
+            OnboardingAction.CloseCountryPicker -> state.update { it.copy(countryPickerOpen = false) }
+            is OnboardingAction.CountryChosen -> edit {
+                val entry = PhoneNumberInput.forCountry(it.phone, action.iso)
+                it.copy(phone = entry.digits, phoneCountry = entry.countryIso, countryPickerOpen = false).revalidated()
+            }
             is OnboardingAction.AddressChanged ->
                 edit { it.copy(address = ProfileTyping.address(action.value)).revalidated() }
             OnboardingAction.ToggleMore -> state.update { it.copy(moreExpanded = !it.moreExpanded) }
@@ -173,7 +189,7 @@ class OnboardingViewModel @Inject constructor(
 
     /** Shows the validator's verdict for what is typed now, next to each field (CL-280). */
     private fun OnboardingUiState.revalidated(): OnboardingUiState =
-        copy(fieldErrors = liveProfileErrors(name, email, phone, address))
+        copy(fieldErrors = liveProfileErrors(name, email, phone, address, phoneCountry))
 
     private fun edit(change: (OnboardingUiState) -> OnboardingUiState) {
         state.update { change(it).copy(saveError = null) }
@@ -192,12 +208,13 @@ class OnboardingViewModel @Inject constructor(
         }
         state.update { it.copy(isBusy = true, saveError = null) }
         viewModelScope.launch {
-            when (val result = saveProfile(current.name, current.email, current.phone, current.address)) {
+            val result = saveProfile(current.name, current.email, current.phone, current.address, current.phoneCountry)
+            when (result) {
                 is DomainResult.Success -> finish(alreadyBusy = true)
                 is DomainResult.Failure -> {
                     val error = result.error
                     if (error is DomainError.Invalid) {
-                        val errors = error.toProfileFieldErrors()
+                        val errors = error.toProfileFieldErrors(PhoneCountries.orDefault(current.phoneCountry))
                         state.update {
                             it.copy(
                                 isBusy = false,

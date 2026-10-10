@@ -43,8 +43,10 @@ import com.dataloom.checklist.presentation.common.scrollableForm
 import com.dataloom.checklist.presentation.components.AppTopBar
 import com.dataloom.checklist.presentation.components.BackButton
 import com.dataloom.checklist.presentation.components.ConfirmDialog
+import com.dataloom.checklist.presentation.components.CountryPickerDialog
 import com.dataloom.checklist.presentation.components.FormField
 import com.dataloom.checklist.presentation.components.OutlinedActionButton
+import com.dataloom.checklist.presentation.components.PhoneNumberField
 import com.dataloom.checklist.presentation.components.PrimaryButton
 
 /** Settings > Your profile: optional name and contact details, kept encrypted on this phone. */
@@ -113,13 +115,14 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
                 enabled = state.canEdit,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
             )
-            ProfileField(
-                value = state.phone,
-                onValueChange = { onAction(ProfileAction.PhoneChanged(it)) },
+            PhoneNumberField(
                 label = stringResource(R.string.profile_phone),
-                error = state.phoneError,
+                countryIso = state.phoneCountry,
+                digits = state.phone,
+                onDigitsChange = { onAction(ProfileAction.PhoneChanged(it)) },
+                onCountryClick = { onAction(ProfileAction.OpenCountryPicker) },
+                errorText = state.phoneError?.asString(),
                 enabled = state.canEdit,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone, imeAction = ImeAction.Next),
             )
             ProfileField(
                 value = state.address,
@@ -151,6 +154,13 @@ fun ProfileScreen(onBack: () -> Unit, viewModel: ProfileViewModel = hiltViewMode
         }
     }
 
+    if (state.countryPickerOpen) {
+        CountryPickerDialog(
+            selectedIso = state.phoneCountry,
+            onPick = { onAction(ProfileAction.CountryChosen(it)) },
+            onDismiss = { onAction(ProfileAction.CloseCountryPicker) },
+        )
+    }
     if (state.showClearConfirm) {
         ConfirmDialog(
             title = stringResource(R.string.profile_clear_title),

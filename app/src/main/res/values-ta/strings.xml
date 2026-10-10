@@ -151,6 +151,11 @@
     <string name="error_display_name_blank">உங்கள் பெயரை உள்ளிடவும்.</string>
     <string name="error_email_invalid">name@example.com போன்ற மின்னஞ்சல் முகவரியை உள்ளிடவும்.</string>
     <string name="error_phone_invalid">%1$s முதல் %2$s இலக்கங்கள் உள்ள ஃபோன் எண்ணை உள்ளிடவும்.</string>
+    <string name="error_phone_digits_exact">%1$s இலக்கங்கள் உள்ள ஃபோன் எண்ணை உள்ளிடவும்.</string>
+    <string name="profile_phone_country">நாடு: %1$s, %2$s</string>
+    <string name="profile_country_title">நாட்டைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="profile_country_search">நாடு அல்லது குறியீட்டைத் தேடவும்</string>
+    <string name="profile_country_none">எந்த நாடும் கிடைக்கவில்லை</string>
     <string name="error_secure_storage">பாதுகாப்பான சேமிப்பகம் இப்போது செயல்படவில்லை. எதுவும் சேமிக்கப்படவில்லை. பிறகு மீண்டும் முயலவும்.</string>
     <string name="profile_clear">சுயவிவரத்தை நீக்கு</string>
     <string name="profile_clear_message">உங்கள் பெயரும் தொடர்பு விவரங்களும் இந்த ஃபோனிலிருந்து அழிக்கப்படும்.</string>
