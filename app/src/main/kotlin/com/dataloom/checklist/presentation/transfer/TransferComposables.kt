@@ -100,7 +100,11 @@ fun TransferEffects(
 }
 
 /** Opens the Sharesheet; returns the message to show when no app can take the file. */
-private fun startShare(context: Context, effect: TransferEffect.Share, onPdfExported: (afterShare: Boolean) -> Unit): UiText? =
+private fun startShare(
+    context: Context,
+    effect: TransferEffect.Share,
+    onPdfExported: (afterShare: Boolean) -> Unit,
+): UiText? =
     try {
         context.startActivity(effect.intent)
         if (effect.isPdf) onPdfExported(true)
