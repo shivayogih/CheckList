@@ -1,11 +1,19 @@
 # CheckList
 
+
+https://github.com/user-attachments/assets/d17a04ee-d98a-4ff2-b16c-51713fa87061
+
+<img width="300" height="500" alt="phone-5-27-home-kannada" src="https://github.com/user-attachments/assets/214bfa5a-f9e5-4d94-a0d5-da4d1b27f586" />
+<img width="800" height="500" alt="feature-graphic-1024x500" src="https://github.com/user-attachments/assets/bd7f633d-001e-46aa-a61a-11446d5cf6cd" />
+
+
 A universal, offline-first checklist app for Android: shopping, travel, exams, job joining, hospital visits, weddings, or anything you invent. Simple for first-time and elderly users, built with production-grade engineering underneath.
 
 - **Offline-first**: everything works without internet; Room is the single source of truth.
 - **7 languages**: English, Kannada, Hindi, Tamil, Telugu, Marathi, Malayalam, switchable inside the app.
 - **Accessible**: large touch targets, large type, screen-reader labels, no hidden gestures.
 - **Optional AI**: an offline quick-add parser plus opt-in Gemini suggestions; the app never depends on AI.
+
 
 > Status: **Phase 1 (project setup)**. The design is in [docs/phase0-architecture.md](docs/phase0-architecture.md). A full README arrives in Phase 8.
 
