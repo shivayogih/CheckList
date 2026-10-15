@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">எந்தப் பட்டியலையும் PDF ஆகப் பகிரவும். எல்லாமே ஆஃப்லைனில் வேலை செய்யும்.</string>
     <string name="pdf_include_reminder">நினைவூட்டலைச் சேர்</string>
     <string name="pdf_include_reminder_summary">தலைப்பின் கீழ் நினைவூட்டலின் தேதியும் நேரமும் காட்டும்.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">பட்டியலை விவரிக்கவும்</string>
+    <string name="draft_prompt_hint">உதா: கோவா பயணம், தீபாவளி ஷாப்பிங், புதிய பிளாட்டுக்கான ஆவணங்கள்</string>
+    <string name="draft_prompt_submit">வரைவை உருவாக்கு</string>
+    <string name="draft_prompt_voice">தட்டச்சுக்குப் பதிலாகப் பேசவும்</string>
+    <string name="draft_prompt_voice_prompt">பட்டியல் எதற்காக என்று சொல்லுங்கள்</string>
+    <string name="draft_voice_unavailable">இந்த ஃபோனில் குரல் உள்ளீடு இல்லை. தயவுசெய்து தட்டச்சு செய்யவும்.</string>
+    <string name="draft_voice_failed">குரல் உள்ளீடு வேலை செய்யவில்லை. இந்த மொழிக்கு உங்கள் ஃபோனில் ஆஃப்லைன் பேச்சுத் தொகுப்பு தேவைப்படலாம். தயவுசெய்து தட்டச்சு செய்யவும்.</string>
+    <string name="draft_empty">பட்டியல் எதற்காக என்று தட்டச்சு செய்யவும் அல்லது சொல்லவும்.</string>
+    <string name="draft_title">வரைவைச் சரிபார்க்கவும்</string>
+    <string name="draft_working">வரைவு உருவாகிறது</string>
+    <string name="draft_note">இது ஒரு வரைவு. தேவையில்லாதவற்றின் குறியை நீக்கி, உங்கள் பொருட்களைச் சேர்த்து, பின் அங்கீகரி என்பதைத் தட்டவும். அதுவரை எதுவும் சேமிக்கப்படாது.</string>
+    <string name="draft_title_label">பட்டியலின் பெயர்</string>
+    <string name="draft_selected_count">சேர்க்க வேண்டிய பொருட்கள்: %1$s</string>
+    <string name="draft_add_item">%1$s இல் பொருளைச் சேர்க்கவும்</string>
+    <string name="draft_add_item_label">பொருளின் பெயர்</string>
+    <string name="draft_add_confirm">சேர்</string>
+    <string name="draft_item_duplicate">இந்தப் பொருள் ஏற்கனவே இந்த வகையில் உள்ளது.</string>
+    <string name="draft_remove_section">வரைவிலிருந்து %1$s ஐ நீக்கவும்</string>
+    <string name="draft_approve">அங்கீகரித்துச் சேமி</string>
+    <string name="draft_nothing_selected">குறைந்தது ஒரு பொருளைக் குறிக்கவும்.</string>
+    <string name="draft_discard_title">இந்த வரைவை நிராகரிக்கவா?</string>
+    <string name="draft_discard_message">இன்னும் எதுவும் சேமிக்கப்படவில்லை.</string>
+    <string name="draft_discard_confirm">நிராகரி</string>
+    <string name="draft_not_understood">மன்னிக்கவும், அதிலிருந்து பட்டியலை உருவாக்க முடியவில்லை.</string>
+    <string name="draft_help">உதவியாளர் ஆஃப்லைனில் வேலை செய்கிறது, பொதுவான திட்டங்களை அறியும்: பயணம், வெளிநாட்டுப் பயணம், தீபாவளி மற்றும் பிற பண்டிகைகள், திருமணம், பிறந்தநாள், சொத்து மற்றும் புதிய வேலைக்கான ஆவணங்கள், வீடு மாற்றம், தேர்வு, பள்ளி, மளிகை. மருந்துகள் அல்லது எழுதுபொருட்கள் போன்ற வகையின் பெயரையும் சொல்லலாம்.</string>
+    <string name="draft_create_manually">நானே உருவாக்குகிறேன்</string>
+    <string name="draft_try_again">வேறு சொற்களில் முயலவும்</string>
 </resources>

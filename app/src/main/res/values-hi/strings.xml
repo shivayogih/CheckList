@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">कोई भी सूची PDF के रूप में साझा करें। सब कुछ ऑफ़लाइन चलता है।</string>
     <string name="pdf_include_reminder">रिमाइंडर शामिल करें</string>
     <string name="pdf_include_reminder_summary">शीर्षक के नीचे रिमाइंडर की तारीख और समय दिखाता है।</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">सूची के बारे में लिखें</string>
+    <string name="draft_prompt_hint">जैसे: गोवा यात्रा, दिवाली की खरीदारी, नए फ्लैट के दस्तावेज़</string>
+    <string name="draft_prompt_submit">ड्राफ़्ट बनाएँ</string>
+    <string name="draft_prompt_voice">टाइप करने के बजाय बोलें</string>
+    <string name="draft_prompt_voice_prompt">बताइए सूची किसके लिए है</string>
+    <string name="draft_voice_unavailable">इस फ़ोन पर आवाज़ से लिखना उपलब्ध नहीं है। कृपया टाइप करें।</string>
+    <string name="draft_voice_failed">आवाज़ से लिखना काम नहीं किया। इस भाषा के लिए आपके फ़ोन को ऑफ़लाइन स्पीच पैक चाहिए हो सकता है। कृपया टाइप करें।</string>
+    <string name="draft_empty">सूची किसके लिए है, टाइप करें या बोलें।</string>
+    <string name="draft_title">ड्राफ़्ट देखें</string>
+    <string name="draft_working">ड्राफ़्ट बन रहा है</string>
+    <string name="draft_note">यह ड्राफ़्ट है। जो नहीं चाहिए उसका निशान हटाएँ, अपने आइटम जोड़ें, फिर स्वीकार करें दबाएँ। तब तक कुछ सेव नहीं होता।</string>
+    <string name="draft_title_label">सूची का नाम</string>
+    <string name="draft_selected_count">जोड़े जाने वाले आइटम: %1$s</string>
+    <string name="draft_add_item">%1$s में आइटम जोड़ें</string>
+    <string name="draft_add_item_label">आइटम का नाम</string>
+    <string name="draft_add_confirm">जोड़ें</string>
+    <string name="draft_item_duplicate">यह आइटम इस श्रेणी में पहले से है।</string>
+    <string name="draft_remove_section">ड्राफ़्ट से %1$s हटाएँ</string>
+    <string name="draft_approve">स्वीकार करें और सेव करें</string>
+    <string name="draft_nothing_selected">कम से कम एक आइटम चुनें।</string>
+    <string name="draft_discard_title">यह ड्राफ़्ट छोड़ दें?</string>
+    <string name="draft_discard_message">अभी तक कुछ सेव नहीं हुआ है।</string>
+    <string name="draft_discard_confirm">छोड़ें</string>
+    <string name="draft_not_understood">माफ़ करें, इससे सूची नहीं बन सकी।</string>
+    <string name="draft_help">सहायक ऑफ़लाइन काम करता है और आम योजनाएँ जानता है: यात्रा और विदेश यात्रा, दिवाली और दूसरे त्योहार, शादी, जन्मदिन, संपत्ति और नई नौकरी के दस्तावेज़, घर शिफ्टिंग, परीक्षा, स्कूल और किराना। आप दवाइयाँ या स्टेशनरी जैसी किसी श्रेणी का नाम भी ले सकते हैं।</string>
+    <string name="draft_create_manually">खुद बनाएँ</string>
+    <string name="draft_try_again">दूसरे शब्दों में कोशिश करें</string>
 </resources>

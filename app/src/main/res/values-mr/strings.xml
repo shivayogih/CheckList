@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">कोणतीही यादी PDF म्हणून शेअर करा. सर्व काही ऑफलाइन चालते.</string>
     <string name="pdf_include_reminder">स्मरणपत्र समाविष्ट करा</string>
     <string name="pdf_include_reminder_summary">शीर्षकाखाली स्मरणपत्राची तारीख आणि वेळ दाखवते.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">यादीबद्दल लिहा</string>
+    <string name="draft_prompt_hint">उदा: गोवा सहल, दिवाळी खरेदी, नवीन फ्लॅटची कागदपत्रे</string>
+    <string name="draft_prompt_submit">मसुदा तयार करा</string>
+    <string name="draft_prompt_voice">टाइप करण्याऐवजी बोला</string>
+    <string name="draft_prompt_voice_prompt">यादी कशासाठी आहे ते सांगा</string>
+    <string name="draft_voice_unavailable">या फोनवर आवाजाने लिहिण्याची सोय नाही. कृपया टाइप करा.</string>
+    <string name="draft_voice_failed">आवाजाने लिहिणे चालले नाही. या भाषेसाठी तुमच्या फोनला ऑफलाइन स्पीच पॅक लागू शकतो. कृपया टाइप करा.</string>
+    <string name="draft_empty">यादी कशासाठी आहे ते टाइप करा किंवा सांगा.</string>
+    <string name="draft_title">मसुदा तपासा</string>
+    <string name="draft_working">मसुदा तयार होत आहे</string>
+    <string name="draft_note">हा मसुदा आहे. नको असलेल्यांची खूण काढा, तुमच्या वस्तू जोडा, मग मंजूर करा दाबा. तोपर्यंत काहीही जतन होत नाही.</string>
+    <string name="draft_title_label">यादीचे नाव</string>
+    <string name="draft_selected_count">जोडायच्या वस्तू: %1$s</string>
+    <string name="draft_add_item">%1$s मध्ये वस्तू जोडा</string>
+    <string name="draft_add_item_label">वस्तूचे नाव</string>
+    <string name="draft_add_confirm">जोडा</string>
+    <string name="draft_item_duplicate">ही वस्तू आधीच या वर्गात आहे.</string>
+    <string name="draft_remove_section">मसुद्यातून %1$s काढा</string>
+    <string name="draft_approve">मंजूर करा आणि जतन करा</string>
+    <string name="draft_nothing_selected">किमान एक वस्तू निवडा.</string>
+    <string name="draft_discard_title">हा मसुदा टाकून द्यायचा?</string>
+    <string name="draft_discard_message">अजून काहीही जतन झालेले नाही.</string>
+    <string name="draft_discard_confirm">टाकून द्या</string>
+    <string name="draft_not_understood">क्षमस्व, त्यावरून यादी बनवता आली नाही.</string>
+    <string name="draft_help">सहाय्यक ऑफलाइन चालतो आणि नेहमीच्या योजना ओळखतो: प्रवास आणि परदेश प्रवास, दिवाळी व इतर सण, लग्न, वाढदिवस, मालमत्ता आणि नवीन नोकरीची कागदपत्रे, घर बदल, परीक्षा, शाळा आणि किराणा. औषधे किंवा स्टेशनरीसारख्या प्रकाराचे नावही सांगू शकता.</string>
+    <string name="draft_create_manually">स्वतः तयार करा</string>
+    <string name="draft_try_again">दुसऱ्या शब्दांत प्रयत्न करा</string>
 </resources>

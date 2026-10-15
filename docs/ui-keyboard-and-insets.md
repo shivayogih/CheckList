@@ -61,6 +61,8 @@ Set `ImeAction.Next` on every field but the last; the last uses `Done` (single l
 | Screen / dialog | Text fields | Before | After |
 |---|---|---|---|
 | Home | search | list bottom under the keyboard and not reachable; Search key did nothing | Scaffold lifts, list scrolls to its end, drag hides keyboard, Search closes keyboard |
+| Home (CL-400) | assistant prompt bar | - | bar sits above the list (not inside it) so recycling never drops focus; Go key submits |
+| Draft review (CL-400) | title, add item dialog | - | `keyboardAwareScreen`, Approve bar lifts with the keyboard |
 | Create checklist | title, description, new-category dialog | Create button and description under the keyboard; list could not scroll past it | Scaffold lifts (button above keyboard), fields reveal with counter and error, drag/tap dismisses |
 | Checklist detail | AI command field (when on), rename dialog | AI panel and last items under the keyboard | Scaffold lifts, panel revealed on focus, drag dismisses; rename uses the dialog rules |
 | Item editor | name, quantity, notes, new-unit dialog | bar lifted by its own `imePadding` but content behind it not resized (notes/counter hidden); Notes could be out of reach | Root lift replaces the bar-level padding, form scrolls, each field reveals with error/counter, Next/Next/default |

@@ -74,17 +74,42 @@ import com.dataloom.checklist.presentation.components.ConfirmDialog
 import com.dataloom.checklist.presentation.components.MenuAction
 import com.dataloom.checklist.presentation.components.OverflowMenu
 import com.dataloom.checklist.presentation.components.SearchField
+import com.dataloom.checklist.presentation.draft.DraftPromptBar
+import com.dataloom.checklist.presentation.draft.DraftPromptViewModel
 import kotlinx.coroutines.launch
+
+/** Back on Home would close the app at once; ask first (Home is the root of the back stack). */
+@Composable
+private fun ExitConfirmation() {
+    var confirmExit by rememberSaveable { mutableStateOf(false) }
+    BackHandler { confirmExit = true }
+    if (confirmExit) {
+        val activity = LocalActivity.current
+        ConfirmDialog(
+            title = stringResource(R.string.home_exit_title),
+            message = stringResource(R.string.home_exit_message),
+            confirmLabel = stringResource(R.string.action_exit),
+            onConfirm = {
+                confirmExit = false
+                activity?.finish()
+            },
+            onDismiss = { confirmExit = false },
+        )
+    }
+}
 
 @Composable
 fun HomeScreen(
     onOpenSettings: () -> Unit,
     onCreateChecklist: () -> Unit,
     onOpenChecklist: (ChecklistId) -> Unit,
+    onCreateDraft: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     greetingViewModel: HomeGreetingViewModel = hiltViewModel(),
+    draftViewModel: DraftPromptViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val draftState by draftViewModel.uiState.collectAsStateWithLifecycle()
     val greeting by greetingViewModel.greeting.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val resources = LocalResources.current
@@ -121,22 +146,7 @@ fun HomeScreen(
         }
     }
 
-    // Back on Home would close the app at once; ask first (Home is the root of the back stack).
-    var confirmExit by rememberSaveable { mutableStateOf(false) }
-    BackHandler { confirmExit = true }
-    if (confirmExit) {
-        val activity = LocalActivity.current
-        ConfirmDialog(
-            title = stringResource(R.string.home_exit_title),
-            message = stringResource(R.string.home_exit_message),
-            confirmLabel = stringResource(R.string.action_exit),
-            onConfirm = {
-                confirmExit = false
-                activity?.finish()
-            },
-            onDismiss = { confirmExit = false },
-        )
-    }
+    ExitConfirmation()
 
     HomeContent(
         state = state,
@@ -146,6 +156,16 @@ fun HomeScreen(
         onOpenSettings = onOpenSettings,
         onCreateChecklist = onCreateChecklist,
         onOpenChecklist = onOpenChecklist,
+        draftPrompt = {
+            DraftPromptBar(
+                state = draftState,
+                language = draftViewModel.language,
+                onTextChanged = draftViewModel::onTextChanged,
+                onVoiceResult = draftViewModel::onVoiceResult,
+                onVoiceProblem = draftViewModel::onVoiceProblem,
+                onSubmit = { draftViewModel.submit()?.let(onCreateDraft) },
+            )
+        }.takeIf { draftState.isAvailable },
     )
 }
 
@@ -159,6 +179,8 @@ private fun HomeContent(
     onOpenSettings: () -> Unit,
     onCreateChecklist: () -> Unit,
     onOpenChecklist: (ChecklistId) -> Unit,
+    /** The assistant bar (CL-400); null while the assistant is off in Settings. */
+    draftPrompt: (@Composable () -> Unit)? = null,
 ) {
     Scaffold(
         modifier = Modifier.keyboardAwareScreen(),
@@ -178,29 +200,33 @@ private fun HomeContent(
         bottomBar = { BannerAdSlot() },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        if (state.isFirstUse) {
-            FirstUse(onCreateChecklist, Modifier.padding(padding))
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .dismissKeyboardOnOutsideInteraction(),
-                // Room below the last card so the floating button never covers its menu.
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                // Stable keys: the greeting card appearing must not shift the search field's identity.
-                item(key = "search", contentType = "search") { HomeSearch(state.search, onAction) }
-                item(key = "filter-sort", contentType = "filter-sort") {
-                    FilterAndSort(state.filter, state.sort, onAction)
-                }
-                greeting?.let { item(key = "greeting", contentType = "greeting") { GreetingCard(it) } }
-                if (!state.isLoading && state.checklists.isEmpty()) {
-                    item(key = "empty", contentType = "empty") { EmptyResults(state) }
-                }
-                items(state.checklists, key = { it.id.value }, contentType = { "checklist" }) { row ->
-                    ChecklistCard(row, onAction, onOpen = { onOpenChecklist(row.id) })
+        // The assistant bar stays above the list, so it never scrolls away while the keyboard is open.
+        Column(Modifier.padding(padding)) {
+            draftPrompt?.invoke()
+            if (state.isFirstUse) {
+                FirstUse(onCreateChecklist, Modifier.weight(1f))
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize()
+                        .dismissKeyboardOnOutsideInteraction(),
+                    // Room below the last card so the floating button never covers its menu.
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    // Stable keys: the greeting card appearing must not shift the search field's identity.
+                    item(key = "search", contentType = "search") { HomeSearch(state.search, onAction) }
+                    item(key = "filter-sort", contentType = "filter-sort") {
+                        FilterAndSort(state.filter, state.sort, onAction)
+                    }
+                    greeting?.let { item(key = "greeting", contentType = "greeting") { GreetingCard(it) } }
+                    if (!state.isLoading && state.checklists.isEmpty()) {
+                        item(key = "empty", contentType = "empty") { EmptyResults(state) }
+                    }
+                    items(state.checklists, key = { it.id.value }, contentType = { "checklist" }) { row ->
+                        ChecklistCard(row, onAction, onOpen = { onOpenChecklist(row.id) })
+                    }
                 }
             }
         }

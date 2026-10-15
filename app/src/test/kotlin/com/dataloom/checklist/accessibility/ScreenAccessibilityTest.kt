@@ -31,6 +31,7 @@ import com.dataloom.checklist.navigation.AddItemsRoute
 import com.dataloom.checklist.navigation.CheckListNavHost
 import com.dataloom.checklist.navigation.ChecklistDetailRoute
 import com.dataloom.checklist.navigation.CreateChecklistRoute
+import com.dataloom.checklist.navigation.DraftReviewRoute
 import com.dataloom.checklist.navigation.ItemEditorRoute
 import com.dataloom.checklist.navigation.LanguageRoute
 import com.dataloom.checklist.navigation.ProfileRoute
@@ -114,6 +115,31 @@ class ScreenAccessibilityTest(private val fontScale: Float) {
         launchApp()
         composeRule.awaitText(TITLE)
         composeRule.assertAccessible("Home, $screen")
+    }
+
+    @Test
+    fun `draft review from a Home request`() {
+        launchApp()
+        navigate(DraftReviewRoute("Create checklist for my next Goa trip"))
+        composeRule.awaitText(string(R.string.draft_approve))
+        composeRule.assertAccessible("Draft review, $screen")
+    }
+
+    @Test
+    @Config(qualifiers = "ta")
+    fun `draft review in Tamil`() {
+        launchApp()
+        navigate(DraftReviewRoute("தீபாவளி ஷாப்பிங்"))
+        composeRule.awaitText(string(R.string.draft_approve))
+        composeRule.assertAccessible("Draft review in Tamil, $screen")
+    }
+
+    @Test
+    fun `draft request that is not understood`() {
+        launchApp()
+        navigate(DraftReviewRoute("asdf qwerty"))
+        composeRule.awaitText(string(R.string.draft_create_manually))
+        composeRule.assertAccessible("Draft not understood, $screen")
     }
 
     @Test

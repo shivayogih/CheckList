@@ -13,6 +13,7 @@ import com.dataloom.checklist.presentation.checklist.create.CreateChecklistScree
 import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailNavigation
 import com.dataloom.checklist.presentation.checklist.detail.ChecklistDetailScreen
 import com.dataloom.checklist.presentation.checklist.item.ItemEditorScreen
+import com.dataloom.checklist.presentation.draft.DraftReviewScreen
 import com.dataloom.checklist.presentation.home.HomeScreen
 import com.dataloom.checklist.presentation.masteritem.AddItemsScreen
 import com.dataloom.checklist.presentation.onboarding.OnboardingScreen
@@ -48,6 +49,10 @@ data object ProfileRoute
 
 @Serializable
 data object CreateChecklistRoute
+
+/** The assistant's draft for a request typed or spoken on Home (CL-400); nothing is saved before Approve. */
+@Serializable
+data class DraftReviewRoute(val prompt: String)
 
 @Serializable
 data class ChecklistDetailRoute(val checklistId: String)
@@ -112,6 +117,24 @@ fun CheckListNavHost(
                 onOpenSettings = { navController.navigate(SettingsRoute) },
                 onCreateChecklist = { navController.navigate(CreateChecklistRoute) },
                 onOpenChecklist = { id -> navController.navigate(ChecklistDetailRoute(id.value)) },
+                onCreateDraft = { prompt -> navController.navigate(DraftReviewRoute(prompt)) },
+            )
+        }
+        composable<DraftReviewRoute> { entry ->
+            DraftReviewScreen(
+                prompt = entry.toRoute<DraftReviewRoute>().prompt,
+                onBack = { navController.popBackStack() },
+                onSaved = { id ->
+                    // Back from the saved checklist goes to Home, not to the finished draft.
+                    navController.navigate(ChecklistDetailRoute(id.value)) {
+                        popUpTo<DraftReviewRoute> { inclusive = true }
+                    }
+                },
+                onCreateManually = {
+                    navController.navigate(CreateChecklistRoute) {
+                        popUpTo<DraftReviewRoute> { inclusive = true }
+                    }
+                },
             )
         }
         composable<SettingsRoute> {
