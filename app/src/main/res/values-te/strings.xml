@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">ఏ జాబితానైనా PDFగా షేర్ చేయండి. అన్నీ ఆఫ్‌లైన్‌లో పనిచేస్తాయి.</string>
     <string name="pdf_include_reminder">రిమైండర్‌ను చేర్చండి</string>
     <string name="pdf_include_reminder_summary">శీర్షిక కింద రిమైండర్ తేదీ, సమయం చూపిస్తుంది.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">జాబితా గురించి రాయండి</string>
+    <string name="draft_prompt_hint">ఉదా: గోవా ప్రయాణం, దీపావళి షాపింగ్, కొత్త ఫ్లాట్ పత్రాలు</string>
+    <string name="draft_prompt_submit">డ్రాఫ్ట్ తయారు చేయండి</string>
+    <string name="draft_prompt_voice">టైప్ చేయడానికి బదులు మాట్లాడండి</string>
+    <string name="draft_prompt_voice_prompt">జాబితా దేని కోసమో చెప్పండి</string>
+    <string name="draft_voice_unavailable">ఈ ఫోన్‌లో వాయిస్ ఇన్‌పుట్ అందుబాటులో లేదు. దయచేసి టైప్ చేయండి.</string>
+    <string name="draft_voice_failed">వాయిస్ ఇన్‌పుట్ పని చేయలేదు. ఈ భాష కోసం మీ ఫోన్‌కు ఆఫ్‌లైన్ స్పీచ్ ప్యాక్ అవసరం కావచ్చు. దయచేసి టైప్ చేయండి.</string>
+    <string name="draft_empty">జాబితా దేని కోసమో టైప్ చేయండి లేదా చెప్పండి.</string>
+    <string name="draft_title">డ్రాఫ్ట్ సమీక్షించండి</string>
+    <string name="draft_working">డ్రాఫ్ట్ తయారవుతోంది</string>
+    <string name="draft_note">ఇది డ్రాఫ్ట్. అవసరం లేనివాటి టిక్ తీసేయండి, మీ వస్తువులు జోడించండి, తర్వాత ఆమోదించండి నొక్కండి. అప్పటివరకు ఏదీ సేవ్ కాదు.</string>
+    <string name="draft_title_label">జాబితా పేరు</string>
+    <string name="draft_selected_count">జోడించాల్సిన వస్తువులు: %1$s</string>
+    <string name="draft_add_item">%1$s లో వస్తువు జోడించండి</string>
+    <string name="draft_add_item_label">వస్తువు పేరు</string>
+    <string name="draft_add_confirm">జోడించండి</string>
+    <string name="draft_item_duplicate">ఈ వస్తువు ఇప్పటికే ఈ వర్గంలో ఉంది.</string>
+    <string name="draft_remove_section">డ్రాఫ్ట్ నుండి %1$s తీసివేయండి</string>
+    <string name="draft_approve">ఆమోదించి సేవ్ చేయండి</string>
+    <string name="draft_nothing_selected">కనీసం ఒక వస్తువును టిక్ చేయండి.</string>
+    <string name="draft_discard_title">ఈ డ్రాఫ్ట్‌ను వదిలేయాలా?</string>
+    <string name="draft_discard_message">ఇంకా ఏదీ సేవ్ కాలేదు.</string>
+    <string name="draft_discard_confirm">వదిలేయండి</string>
+    <string name="draft_not_understood">క్షమించండి, దాని నుండి జాబితా తయారు చేయలేకపోయాం.</string>
+    <string name="draft_help">సహాయకుడు ఆఫ్‌లైన్‌లో పనిచేస్తుంది, సాధారణ ప్రణాళికలు తెలుసు: ప్రయాణం, విదేశ ప్రయాణం, దీపావళి మరియు ఇతర పండుగలు, పెళ్లి, పుట్టినరోజు, ఆస్తి మరియు కొత్త ఉద్యోగ పత్రాలు, ఇల్లు మార్పు, పరీక్షలు, పాఠశాల, కిరాణా. మందులు లేదా స్టేషనరీ వంటి వర్గం పేరు కూడా చెప్పవచ్చు.</string>
+    <string name="draft_create_manually">నేనే తయారు చేస్తాను</string>
+    <string name="draft_try_again">వేరే పదాలతో ప్రయత్నించండి</string>
 </resources>

@@ -4,7 +4,7 @@ CheckList uses AI in two separate places: optional features **inside the app**, 
 
 ## Rules
 
-1. **The app is complete without AI.** AI is off by default and switched on in Settings after a short privacy explanation. Offline or disabled, the app shows one friendly message and a button to do the task manually.
+1. **The app is complete without AI.** The offline assistant is on by default since CL-400 (it runs on the phone and sends nothing) and can be switched off in Settings. Offline or disabled, the app shows one friendly message and a button to do the task manually.
 2. **AI proposes, the app disposes.** Every AI result becomes a typed `ActionPlan`, validated and executed by the same use cases the UI uses (ADR-008).
 3. **AI never touches the database.** `:ai` depends on `:domain` only, so Room is not even on its classpath (ADR-001).
 4. **No credentials in the APK, no profile data in prompts.**
@@ -13,14 +13,23 @@ CheckList uses AI in two separate places: optional features **inside the app**, 
 
 ## In-app AI (Phase 10)
 
-**Status:** the offline part is implemented in `:ai` (CL-201 to CL-209) and has a UI (CL-240, see "In the app" below). The online service is CL-211, Undo is CL-212. AI is off until the user turns it on in Settings; while it is off every call answers `Unavailable(DISABLED)`.
+**Status:** the offline part is implemented in `:ai` (CL-201 to CL-209) and has a UI (CL-240, see "In the app" below). The online service is CL-211, Undo is CL-212. The offline assistant is on by default (CL-400); while the user has it switched off every call answers `Unavailable(DISABLED)`.
 
 ### In the app (CL-240)
 
-- **Settings → "AI assistant (offline)"**, off by default, with a one-line privacy note (it runs on the phone; nothing is sent). A second switch, **"Let AI add items without asking"**, is the `autoExecuteSimple` setting that `PlanGate.autoApprove` depends on; it is off by default, can only be turned on while the assistant is on, and turns off with it. Both live in a Preferences DataStore (`settings/AiPreferences.kt`, file `ai_settings`) that is bound as the AI layer's settings source, so the switch takes effect on the next call.
+- **Settings → "AI assistant (offline)"**, on by default since CL-400, with a one-line privacy note (it runs on the phone; nothing is sent). A second switch, **"Let AI add items without asking"**, is the `autoExecuteSimple` setting that `PlanGate.autoApprove` depends on; it is off by default, can only be turned on while the assistant is on, and turns off with it. Both live in a Preferences DataStore (`settings/AiPreferences.kt`, file `ai_settings`) that is bound as the AI layer's settings source, so the switch takes effect on the next call.
 - **Checklist detail → command field**, shown only while the assistant is on. The user types a command in any app language ("2 kg rice and 1 litre milk", "दो किलो चावल और एक लीटर दूध"); `AiCommandViewModel` builds the snapshot, calls `AiAssistant.interpret` and opens the **review sheet**: one checkbox row per step with the item, quantity, unit and target section, the parts that were not understood, and Confirm / Cancel. Only ticked steps go to `AiAssistant.confirm` (`PlanGate`) and `execute`; Cancel or closing the sheet drops the plan, so it can never run later. A one-step plan skips the sheet only when "add without asking" is on (`autoApprove`).
 - **Messages** (translated, under the field, announced by TalkBack): what ran ("Done: Rice, Milk."), what was already on the list, what did not run (a failed step and the steps after it); and, instead of a plan, "the assistant is off", "took too long" (timeout), "not understood" (also for a plan with no steps), "can't do that right now" (offline, quota, not supported), or "type a command". Each one points to adding items by hand.
 - A confirmed plan finishes in the application scope even if the screen closes, like the deferred item delete.
+
+### Home drafts (CL-400)
+
+Testers could not find the assistant in Settings, so Home now has a prompt bar ("Create checklist for my Goa trip", "Diwali shopping", "documents for my new property"). It is shown while the offline assistant is on.
+
+- **Typing or speaking.** The mic opens the phone's own speech screen (`RecognizerIntent`, offline preferred, the app language as `xx-IN`). The app needs no `RECORD_AUDIO` or `INTERNET` permission for it; only a `<queries>` entry. Without a speech recognizer the tap says so and typing still works.
+- **Draft, then approve.** `ChecklistDraftBuilder` (`:ai/draft`) builds a draft; the review screen lets the user rename it, untick items, remove a category or add items. Nothing is saved until **Approve**; `ChecklistDraftSaver` then creates the checklist with the domain use cases and deletes it again if any step fails.
+- **Templates.** `ai/src/main/resources/.../draft/templates.json` holds the occasions (trip, trip abroad, Diwali, other festivals, property documents, moving house, wedding, party, exam, school, new job, groceries) with keywords and titles in all 7 languages. Items are catalogue keys (checked by `DraftTemplatesTest`) plus a few custom items with all translations. A request matches up to 2 templates by keyword (2 points), hint (1 point) or a shared prefix of 3+ letters. With no template, category names in the request ("medicines", "stationery") give a draft from those categories.
+- **Limits.** It does not understand free-form requests outside those occasions, quantities, dates or people; the title is the request minus filler words, so it keeps the user's wording. It says so and offers "Create it myself".
 
 ### Implementations
 

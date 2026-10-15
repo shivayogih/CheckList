@@ -17,8 +17,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 /**
- * The user's AI choices from Settings (CL-240). Everything is off until the user turns it on.
- * Online AI (CL-211) is not offered yet, so [AiSettings.onlineEnabled] is always false.
+ * The user's AI choices from Settings (CL-240). The offline assistant is on by default (CL-400: testers
+ * did not find it behind Settings); "add without asking" stays off until the user turns it on. It runs
+ * on the phone only. Online AI is not offered, so [AiSettings.onlineEnabled] is always false.
  */
 interface AiPreferences {
     val settings: Flow<AiSettings>
@@ -33,7 +34,7 @@ interface AiPreferences {
 /**
  * [AiPreferences] in a Preferences DataStore. Also the [AiSettingsSource] the AI layer reads before every
  * call (bound in [com.dataloom.checklist.di.SettingsModule]), so switching the toggle off stops AI at once.
- * An unreadable file reads as the defaults: AI off.
+ * An unreadable file reads as the defaults: assistant on, add without asking off.
  */
 @Singleton
 class DataStoreAiPreferences @Inject constructor(
@@ -43,7 +44,7 @@ class DataStoreAiPreferences @Inject constructor(
     override val settings: Flow<AiSettings> = dataStore.data
         .catch { failure -> if (failure is IOException) emit(emptyPreferences()) else throw failure }
         .map { prefs ->
-            val enabled = prefs[ENABLED] ?: false
+            val enabled = prefs[ENABLED] ?: DEFAULT_ENABLED
             AiSettings(
                 enabled = enabled,
                 onlineEnabled = false,
@@ -70,6 +71,9 @@ class DataStoreAiPreferences @Inject constructor(
     companion object {
         /** File name under the app's datastore folder; holds only these flags, no personal data. */
         const val FILE_NAME = "ai_settings"
+
+        /** The offline assistant needs no network and sends nothing anywhere, so it starts on. */
+        const val DEFAULT_ENABLED = true
 
         private val ENABLED = booleanPreferencesKey("ai_enabled")
         private val AUTO_EXECUTE_SIMPLE = booleanPreferencesKey("ai_auto_execute_simple")

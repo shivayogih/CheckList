@@ -379,4 +379,33 @@
     <string name="home_welcome_tip_share">Share any list as a PDF. Everything works offline.</string>
     <string name="pdf_include_reminder">Include reminder</string>
     <string name="pdf_include_reminder_summary">Prints the reminder date and time under the title.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">Describe a checklist</string>
+    <string name="draft_prompt_hint">For example: Goa trip, Diwali shopping, documents for a new flat</string>
+    <string name="draft_prompt_submit">Make a draft</string>
+    <string name="draft_prompt_voice">Speak instead of typing</string>
+    <string name="draft_prompt_voice_prompt">Say what the checklist is for</string>
+    <string name="draft_voice_unavailable">Voice input is not available on this phone. Please type instead.</string>
+    <string name="draft_voice_failed">Voice input did not work. Your phone may need its offline speech pack for this language. Please type instead.</string>
+    <string name="draft_empty">Type or say what the checklist is for.</string>
+    <string name="draft_title">Review draft</string>
+    <string name="draft_working">Making a draft</string>
+    <string name="draft_note">This is a draft. Untick what you don\'t need, add your own items, then tap Approve. Nothing is saved until then.</string>
+    <string name="draft_title_label">Checklist name</string>
+    <string name="draft_selected_count">Items to add: %1$s</string>
+    <string name="draft_add_item">Add an item to %1$s</string>
+    <string name="draft_add_item_label">Item name</string>
+    <string name="draft_add_confirm">Add</string>
+    <string name="draft_item_duplicate">That item is already in this category.</string>
+    <string name="draft_remove_section">Remove %1$s from the draft</string>
+    <string name="draft_approve">Approve and save</string>
+    <string name="draft_nothing_selected">Tick at least one item.</string>
+    <string name="draft_discard_title">Discard this draft?</string>
+    <string name="draft_discard_message">Nothing has been saved yet.</string>
+    <string name="draft_discard_confirm">Discard</string>
+    <string name="draft_not_understood">Sorry, a checklist could not be made from that.</string>
+    <string name="draft_help">The assistant works offline and knows common plans: trips and trips abroad, Diwali and other festivals, weddings, birthdays, property and new-job documents, moving house, exams, school and groceries. You can also name a category, like medicines or stationery.</string>
+    <string name="draft_create_manually">Create it myself</string>
+    <string name="draft_try_again">Try other words</string>
 </resources>

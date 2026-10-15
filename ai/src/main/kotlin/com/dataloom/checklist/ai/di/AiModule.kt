@@ -1,5 +1,6 @@
 package com.dataloom.checklist.ai.di
 
+import com.dataloom.checklist.ai.draft.DraftTemplates
 import com.dataloom.checklist.ai.parser.LanguagePacks
 import com.dataloom.checklist.ai.parser.OfflineCommandParser
 import com.dataloom.checklist.ai.policy.AiSettingsSource
@@ -56,6 +57,11 @@ abstract class AiModule {
         @Provides
         @Singleton
         fun provideLanguagePacks(): LanguagePacks = LanguagePacks.bundled()
+
+        /** Scenario templates for Home drafts; parsed once, immutable. */
+        @Provides
+        @Singleton
+        fun provideDraftTemplates(): DraftTemplates = DraftTemplates.bundled()
 
         @Provides
         fun provideSettings(@AiSettingsStore settings: Optional<AiSettingsSource>): AiSettingsSource = settings.orElse(AiSettingsSource.DISABLED)

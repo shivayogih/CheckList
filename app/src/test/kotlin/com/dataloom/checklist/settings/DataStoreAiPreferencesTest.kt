@@ -13,7 +13,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -38,23 +37,27 @@ class DataStoreAiPreferencesTest {
     private fun newFile() = File(folder.root, "ai_settings.preferences_pb")
 
     @Test
-    fun `everything is off on a new install`() = runBlocking {
-        assertEquals(AiSettings(), store(newFile()).current())
+    fun `the offline assistant is on by default and add without asking is off`() = runBlocking {
+        assertEquals(
+            AiSettings(enabled = true, onlineEnabled = false, autoExecuteSimple = false),
+            store(newFile()).current(),
+        )
     }
 
     @Test
     fun `the toggle survives a restart`() = runBlocking {
         val file = newFile()
-        store(file).setEnabled(true)
+        store(file).setEnabled(false)
         // Closing the first store frees the file for the next one, as a process restart would.
         scopes.removeAt(0).coroutineContext.job.cancelAndJoin()
 
-        assertTrue(store(file).current().enabled)
+        assertFalse("Turned off stays off", store(file).current().enabled)
     }
 
     @Test
     fun `add without asking needs the assistant on and goes off with it`() = runBlocking {
         val preferences = store(newFile())
+        preferences.setEnabled(false)
 
         preferences.setAutoExecuteSimple(true)
         assertFalse("Ignored while the assistant is off", preferences.current().autoExecuteSimple)

@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">ഏത് ലിസ്റ്റും PDF ആയി പങ്കിടുക. എല്ലാം ഓഫ്‌ലൈനിൽ പ്രവർത്തിക്കും.</string>
     <string name="pdf_include_reminder">ഓർമ്മപ്പെടുത്തൽ ഉൾപ്പെടുത്തുക</string>
     <string name="pdf_include_reminder_summary">തലക്കെട്ടിന് താഴെ ഓർമ്മപ്പെടുത്തലിന്റെ തീയതിയും സമയവും കാണിക്കും.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">ലിസ്റ്റിനെക്കുറിച്ച് എഴുതുക</string>
+    <string name="draft_prompt_hint">ഉദാ: ഗോവ യാത്ര, ദീപാവലി ഷോപ്പിംഗ്, പുതിയ ഫ്ലാറ്റിനുള്ള രേഖകൾ</string>
+    <string name="draft_prompt_submit">കരട് ഉണ്ടാക്കുക</string>
+    <string name="draft_prompt_voice">ടൈപ്പ് ചെയ്യുന്നതിന് പകരം സംസാരിക്കുക</string>
+    <string name="draft_prompt_voice_prompt">ലിസ്റ്റ് എന്തിനാണെന്ന് പറയൂ</string>
+    <string name="draft_voice_unavailable">ഈ ഫോണിൽ ശബ്ദ ഇൻപുട്ട് ലഭ്യമല്ല. ദയവായി ടൈപ്പ് ചെയ്യുക.</string>
+    <string name="draft_voice_failed">ശബ്ദ ഇൻപുട്ട് പ്രവർത്തിച്ചില്ല. ഈ ഭാഷയ്ക്ക് നിങ്ങളുടെ ഫോണിന് ഓഫ്‌ലൈൻ സ്പീച്ച് പാക്ക് വേണ്ടിവന്നേക്കാം. ദയവായി ടൈപ്പ് ചെയ്യുക.</string>
+    <string name="draft_empty">ലിസ്റ്റ് എന്തിനാണെന്ന് ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ പറയുക.</string>
+    <string name="draft_title">കരട് പരിശോധിക്കുക</string>
+    <string name="draft_working">കരട് തയ്യാറാകുന്നു</string>
+    <string name="draft_note">ഇതൊരു കരടാണ്. വേണ്ടാത്തവയുടെ ടിക്ക് മാറ്റുക, നിങ്ങളുടെ ഇനങ്ങൾ ചേർക്കുക, തുടർന്ന് അംഗീകരിക്കുക അമർത്തുക. അതുവരെ ഒന്നും സേവ് ചെയ്യില്ല.</string>
+    <string name="draft_title_label">ലിസ്റ്റിന്റെ പേര്</string>
+    <string name="draft_selected_count">ചേർക്കാനുള്ള ഇനങ്ങൾ: %1$s</string>
+    <string name="draft_add_item">%1$s ൽ ഇനം ചേർക്കുക</string>
+    <string name="draft_add_item_label">ഇനത്തിന്റെ പേര്</string>
+    <string name="draft_add_confirm">ചേർക്കുക</string>
+    <string name="draft_item_duplicate">ഈ ഇനം ഇതിനകം ഈ വിഭാഗത്തിലുണ്ട്.</string>
+    <string name="draft_remove_section">കരടിൽ നിന്ന് %1$s നീക്കുക</string>
+    <string name="draft_approve">അംഗീകരിച്ച് സേവ് ചെയ്യുക</string>
+    <string name="draft_nothing_selected">കുറഞ്ഞത് ഒരു ഇനമെങ്കിലും ടിക്ക് ചെയ്യുക.</string>
+    <string name="draft_discard_title">ഈ കരട് ഉപേക്ഷിക്കണോ?</string>
+    <string name="draft_discard_message">ഇതുവരെ ഒന്നും സേവ് ചെയ്തിട്ടില്ല.</string>
+    <string name="draft_discard_confirm">ഉപേക്ഷിക്കുക</string>
+    <string name="draft_not_understood">ക്ഷമിക്കണം, അതിൽ നിന്ന് ലിസ്റ്റ് ഉണ്ടാക്കാനായില്ല.</string>
+    <string name="draft_help">സഹായി ഓഫ്‌ലൈനായി പ്രവർത്തിക്കുന്നു, സാധാരണ പദ്ധതികൾ അറിയാം: യാത്ര, വിദേശ യാത്ര, ദീപാവലിയും മറ്റ് ഉത്സവങ്ങളും, വിവാഹം, ജന്മദിനം, വസ്തുവും പുതിയ ജോലിയുമായി ബന്ധപ്പെട്ട രേഖകൾ, വീട് മാറ്റം, പരീക്ഷ, സ്കൂൾ, പലചരക്ക്. മരുന്നുകൾ, സ്റ്റേഷനറി പോലുള്ള വിഭാഗത്തിന്റെ പേരും പറയാം.</string>
+    <string name="draft_create_manually">ഞാൻ തന്നെ ഉണ്ടാക്കാം</string>
+    <string name="draft_try_again">മറ്റ് വാക്കുകളിൽ ശ്രമിക്കുക</string>
 </resources>
