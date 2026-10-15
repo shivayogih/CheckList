@@ -156,7 +156,7 @@ fun HomeScreen(
         onOpenSettings = onOpenSettings,
         onCreateChecklist = onCreateChecklist,
         onOpenChecklist = onOpenChecklist,
-        draftPrompt = {
+        draftPrompt = if (!draftState.isAvailable) null else @Composable {
             DraftPromptBar(
                 state = draftState,
                 language = draftViewModel.language,
@@ -165,7 +165,7 @@ fun HomeScreen(
                 onVoiceProblem = draftViewModel::onVoiceProblem,
                 onSubmit = { draftViewModel.submit()?.let(onCreateDraft) },
             )
-        }.takeIf { draftState.isAvailable },
+        },
     )
 }
 
