@@ -156,15 +156,17 @@ fun HomeScreen(
         onOpenSettings = onOpenSettings,
         onCreateChecklist = onCreateChecklist,
         onOpenChecklist = onOpenChecklist,
-        draftPrompt = if (!draftState.isAvailable) null else @Composable {
-            DraftPromptBar(
-                state = draftState,
-                language = draftViewModel.language,
-                onTextChanged = draftViewModel::onTextChanged,
-                onVoiceResult = draftViewModel::onVoiceResult,
-                onVoiceProblem = draftViewModel::onVoiceProblem,
-                onSubmit = { draftViewModel.submit()?.let(onCreateDraft) },
-            )
+        draftPrompt = {
+            if (draftState.isAvailable) {
+                DraftPromptBar(
+                    state = draftState,
+                    language = draftViewModel.language,
+                    onTextChanged = draftViewModel::onTextChanged,
+                    onVoiceResult = draftViewModel::onVoiceResult,
+                    onVoiceProblem = draftViewModel::onVoiceProblem,
+                    onSubmit = { draftViewModel.submit()?.let(onCreateDraft) },
+                )
+            }
         },
     )
 }
@@ -180,7 +182,7 @@ private fun HomeContent(
     onCreateChecklist: () -> Unit,
     onOpenChecklist: (ChecklistId) -> Unit,
     /** The assistant bar (CL-400); null while the assistant is off in Settings. */
-    draftPrompt: (@Composable () -> Unit)? = null,
+    draftPrompt: @Composable () -> Unit = {},
 ) {
     Scaffold(
         modifier = Modifier.keyboardAwareScreen(),
@@ -202,7 +204,7 @@ private fun HomeContent(
     ) { padding ->
         // The assistant bar stays above the list, so it never scrolls away while the keyboard is open.
         Column(Modifier.padding(padding)) {
-            draftPrompt?.invoke()
+            draftPrompt()
             if (state.isFirstUse) {
                 FirstUse(onCreateChecklist, Modifier.weight(1f))
             } else {
