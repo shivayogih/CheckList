@@ -376,4 +376,33 @@
     <string name="home_welcome_tip_share">ಯಾವುದೇ ಪಟ್ಟಿಯನ್ನು PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ. ಎಲ್ಲವೂ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
     <string name="pdf_include_reminder">ಜ್ಞಾಪನೆಯನ್ನು ಸೇರಿಸಿ</string>
     <string name="pdf_include_reminder_summary">ಶೀರ್ಷಿಕೆಯ ಕೆಳಗೆ ಜ್ಞಾಪನೆಯ ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ತೋರಿಸುತ್ತದೆ.</string>
+
+    <!-- Home assistant drafts (CL-400) -->
+    <string name="draft_prompt_label">ಪಟ್ಟಿ ಬಗ್ಗೆ ಬರೆಯಿರಿ</string>
+    <string name="draft_prompt_hint">ಉದಾ: ಗೋವಾ ಪ್ರವಾಸ, ದೀಪಾವಳಿ ಶಾಪಿಂಗ್, ಹೊಸ ಫ್ಲಾಟ್‌ಗೆ ದಾಖಲೆಗಳು</string>
+    <string name="draft_prompt_submit">ಕರಡು ತಯಾರಿಸಿ</string>
+    <string name="draft_prompt_voice">ಟೈಪ್ ಮಾಡುವ ಬದಲು ಮಾತನಾಡಿ</string>
+    <string name="draft_prompt_voice_prompt">ಪಟ್ಟಿ ಯಾವುದಕ್ಕಾಗಿ ಎಂದು ಹೇಳಿ</string>
+    <string name="draft_voice_unavailable">ಈ ಫೋನ್‌ನಲ್ಲಿ ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಟೈಪ್ ಮಾಡಿ.</string>
+    <string name="draft_voice_failed">ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಕೆಲಸ ಮಾಡಲಿಲ್ಲ. ಈ ಭಾಷೆಗೆ ನಿಮ್ಮ ಫೋನ್‌ಗೆ ಆಫ್‌ಲೈನ್ ಭಾಷಣ ಪ್ಯಾಕ್ ಬೇಕಾಗಬಹುದು. ದಯವಿಟ್ಟು ಟೈಪ್ ಮಾಡಿ.</string>
+    <string name="draft_empty">ಪಟ್ಟಿ ಯಾವುದಕ್ಕಾಗಿ ಎಂದು ಟೈಪ್ ಮಾಡಿ ಅಥವಾ ಹೇಳಿ.</string>
+    <string name="draft_title">ಕರಡು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="draft_working">ಕರಡು ತಯಾರಾಗುತ್ತಿದೆ</string>
+    <string name="draft_note">ಇದು ಕರಡು. ಬೇಡವಾದವನ್ನು ಗುರುತು ತೆಗೆಯಿರಿ, ನಿಮ್ಮ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಅನುಮೋದಿಸಿ ಒತ್ತಿ. ಅಲ್ಲಿಯವರೆಗೆ ಏನೂ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="draft_title_label">ಪಟ್ಟಿ ಹೆಸರು</string>
+    <string name="draft_selected_count">ಸೇರಿಸಬೇಕಾದ ವಸ್ತುಗಳು: %1$s</string>
+    <string name="draft_add_item">%1$s ಗೆ ವಸ್ತು ಸೇರಿಸಿ</string>
+    <string name="draft_add_item_label">ವಸ್ತುವಿನ ಹೆಸರು</string>
+    <string name="draft_add_confirm">ಸೇರಿಸಿ</string>
+    <string name="draft_item_duplicate">ಈ ವಸ್ತು ಈಗಾಗಲೇ ಈ ವರ್ಗದಲ್ಲಿದೆ.</string>
+    <string name="draft_remove_section">ಕರಡಿನಿಂದ %1$s ತೆಗೆದುಹಾಕಿ</string>
+    <string name="draft_approve">ಅನುಮೋದಿಸಿ ಮತ್ತು ಉಳಿಸಿ</string>
+    <string name="draft_nothing_selected">ಕನಿಷ್ಠ ಒಂದು ವಸ್ತುವನ್ನು ಗುರುತಿಸಿ.</string>
+    <string name="draft_discard_title">ಈ ಕರಡನ್ನು ಬಿಟ್ಟುಬಿಡಬೇಕೇ?</string>
+    <string name="draft_discard_message">ಇನ್ನೂ ಏನನ್ನೂ ಉಳಿಸಿಲ್ಲ.</string>
+    <string name="draft_discard_confirm">ಬಿಟ್ಟುಬಿಡಿ</string>
+    <string name="draft_not_understood">ಕ್ಷಮಿಸಿ, ಅದರಿಂದ ಪಟ್ಟಿ ಮಾಡಲು ಆಗಲಿಲ್ಲ.</string>
+    <string name="draft_help">ಸಹಾಯಕ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಮತ್ತು ಸಾಮಾನ್ಯ ಯೋಜನೆಗಳನ್ನು ತಿಳಿದಿದೆ: ಪ್ರವಾಸ ಮತ್ತು ವಿದೇಶ ಪ್ರವಾಸ, ದೀಪಾವಳಿ ಮತ್ತು ಇತರ ಹಬ್ಬಗಳು, ಮದುವೆ, ಹುಟ್ಟುಹಬ್ಬ, ಆಸ್ತಿ ಮತ್ತು ಹೊಸ ಉದ್ಯೋಗದ ದಾಖಲೆಗಳು, ಮನೆ ಸ್ಥಳಾಂತರ, ಪರೀಕ್ಷೆ, ಶಾಲೆ ಮತ್ತು ದಿನಸಿ. ಔಷಧಿ ಅಥವಾ ಸ್ಟೇಷನರಿಯಂತಹ ವರ್ಗದ ಹೆಸರನ್ನೂ ಹೇಳಬಹುದು.</string>
+    <string name="draft_create_manually">ನಾನೇ ರಚಿಸುತ್ತೇನೆ</string>
+    <string name="draft_try_again">ಬೇರೆ ಪದಗಳಲ್ಲಿ ಪ್ರಯತ್ನಿಸಿ</string>
 </resources>
